@@ -150,12 +150,109 @@ exports[`should render demo and match snapshot 1`] = `
           </div>
         </div>
       </div>
+      <div class="van-cell van-field">
+        <div class="van-cell__title van-field__label">
+          <label
+            id="van-field-label"
+            for="van-field-input"
+            data-allow-mismatch="attribute"
+          >
+            Account
+          </label>
+        </div>
+        <div class="van-cell__value van-field__value">
+          <div class="van-field__body">
+            <input
+              type="text"
+              inputmode="numeric"
+              id="van-field-input"
+              class="van-field__control"
+              placeholder="Account"
+              autocomplete="off"
+              aria-labelledby="van-field-label"
+              data-allow-mismatch="attribute"
+            >
+          </div>
+        </div>
+      </div>
+      <div class="van-cell van-field">
+        <div class="van-cell__title van-field__label">
+          <label
+            id="van-field-label"
+            for="van-field-input"
+            data-allow-mismatch="attribute"
+          >
+            ID Card
+          </label>
+        </div>
+        <div class="van-cell__value van-field__value">
+          <div class="van-field__body">
+            <input
+              type="text"
+              id="van-field-input"
+              class="van-field__control"
+              placeholder="Please enter the ID card"
+              autocomplete="off"
+              aria-labelledby="van-field-label"
+              data-allow-mismatch="attribute"
+            >
+          </div>
+        </div>
+      </div>
+      <div class="van-cell van-field">
+        <div class="van-cell__title van-field__label">
+          <label
+            id="van-field-label"
+            for="van-field-input"
+            data-allow-mismatch="attribute"
+          >
+            UKey
+          </label>
+        </div>
+        <div class="van-cell__value van-field__value">
+          <div class="van-field__body">
+            <input
+              type="text"
+              id="van-field-input"
+              class="van-field__control"
+              placeholder="Please enter the UKey"
+              autocomplete="off"
+              aria-labelledby="van-field-label"
+              data-allow-mismatch="attribute"
+            >
+          </div>
+        </div>
+      </div>
+      <div class="van-cell van-field van-field--label-top">
+        <div class="van-cell__title van-field__label van-field__label--top">
+          <label
+            id="van-field-label"
+            for="van-field-input"
+            data-allow-mismatch="attribute"
+          >
+            Text
+          </label>
+        </div>
+        <div class="van-cell__value van-field__value">
+          <div class="van-field__body">
+            <input
+              type="text"
+              id="van-field-input"
+              class="van-field__control"
+              placeholder="Text"
+              autocomplete="off"
+              aria-labelledby="van-field-label"
+              data-allow-mismatch="attribute"
+            >
+          </div>
+        </div>
+      </div>
     </form>
   </div>
 </div>
 <div>
   <div class="van-cell-group van-cell-group--inset">
-    <div class="van-cell van-field">
+    <div class="van-cell van-field van-field--readonly-ellipsis">
       <div class="van-cell__title van-field__label">
         <label
           id="van-field-label"
@@ -167,14 +264,16 @@ exports[`should render demo and match snapshot 1`] = `
       </div>
       <div class="van-cell__value van-field__value">
         <div class="van-field__body">
-          <input
-            type="text"
+          <div
             id="van-field-input"
-            class="van-field__control"
-            readonly
-            aria-labelledby="van-field-label"
-            data-allow-mismatch="attribute"
+            class="van-field__control van-field__control--custom van-field__readonly-ellipsis"
           >
+            <div class="van-text-ellipsis">
+              ...
+              <span class="van-text-ellipsis__action">
+              </span>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -198,6 +297,461 @@ exports[`should render demo and match snapshot 1`] = `
             aria-labelledby="van-field-label"
             data-allow-mismatch="attribute"
           >
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div>
+  <div class="van-cell-group van-cell-group--inset">
+    <div class="van-cell van-field van-field--readonly-ellipsis">
+      <div class="van-cell__title van-field__label">
+        <label
+          id="van-field-label"
+          for="van-field-input"
+          data-allow-mismatch="attribute"
+        >
+          Address
+        </label>
+      </div>
+      <div class="van-cell__value van-field__value">
+        <div class="van-field__body">
+          <div
+            id="van-field-input"
+            class="van-field__control van-field__control--custom van-field__readonly-ellipsis"
+          >
+            <div class="van-text-ellipsis">
+              ...
+              <span class="van-text-ellipsis__action">
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="van-cell van-field van-field--readonly-ellipsis">
+      <div class="van-cell__title van-field__label">
+        <label
+          id="van-field-label"
+          for="van-field-input"
+          data-allow-mismatch="attribute"
+        >
+          Tags
+        </label>
+      </div>
+      <div class="van-cell__value van-field__value">
+        <div class="van-field__body">
+          <div
+            id="van-field-input"
+            class="van-field__control van-field__control--custom van-field__readonly-ellipsis van-field__readonly-ellipsis--tags"
+          >
+            <div
+              class="van-field__readonly-tags-measure"
+              aria-hidden="true"
+            >
+              <div
+                class="van-field__readonly-tag"
+                data-measure-tag="true"
+              >
+                <transition-stub
+                  appear="false"
+                  persisted="false"
+                  css="true"
+                >
+                  <span
+                    style="color: rgb(51, 51, 51); background: rgb(238, 238, 238);"
+                    class="van-tag van-tag--medium van-tag--default"
+                  >
+                    <span class="van-field__readonly-tag-text">
+                      Design
+                    </span>
+                  </span>
+                </transition-stub>
+              </div>
+              <div
+                class="van-field__readonly-tag"
+                data-measure-tag="true"
+              >
+                <transition-stub
+                  appear="false"
+                  persisted="false"
+                  css="true"
+                >
+                  <span
+                    style="color: rgb(51, 51, 51); background: rgb(238, 238, 238);"
+                    class="van-tag van-tag--medium van-tag--default"
+                  >
+                    <span class="van-field__readonly-tag-text">
+                      Interaction
+                    </span>
+                  </span>
+                </transition-stub>
+              </div>
+              <div
+                class="van-field__readonly-tag"
+                data-measure-tag="true"
+              >
+                <transition-stub
+                  appear="false"
+                  persisted="false"
+                  css="true"
+                >
+                  <span
+                    style="color: rgb(51, 51, 51); background: rgb(238, 238, 238);"
+                    class="van-tag van-tag--medium van-tag--default"
+                  >
+                    <span class="van-field__readonly-tag-text">
+                      Frontend
+                    </span>
+                  </span>
+                </transition-stub>
+              </div>
+              <div
+                class="van-field__readonly-tag"
+                data-measure-tag="true"
+              >
+                <transition-stub
+                  appear="false"
+                  persisted="false"
+                  css="true"
+                >
+                  <span
+                    style="color: rgb(51, 51, 51); background: rgb(238, 238, 238);"
+                    class="van-tag van-tag--medium van-tag--default"
+                  >
+                    <span class="van-field__readonly-tag-text">
+                      QA
+                    </span>
+                  </span>
+                </transition-stub>
+              </div>
+              <div
+                class="van-field__readonly-tag"
+                data-measure-tag="true"
+              >
+                <transition-stub
+                  appear="false"
+                  persisted="false"
+                  css="true"
+                >
+                  <span
+                    style="color: rgb(51, 51, 51); background: rgb(238, 238, 238);"
+                    class="van-tag van-tag--medium van-tag--default"
+                  >
+                    <span class="van-field__readonly-tag-text">
+                      Product
+                    </span>
+                  </span>
+                </transition-stub>
+              </div>
+              <div
+                class="van-field__readonly-tag"
+                data-measure-tag="true"
+              >
+                <transition-stub
+                  appear="false"
+                  persisted="false"
+                  css="true"
+                >
+                  <span
+                    style="color: rgb(51, 51, 51); background: rgb(238, 238, 238);"
+                    class="van-tag van-tag--medium van-tag--default"
+                  >
+                    <span class="van-field__readonly-tag-text">
+                      Operations
+                    </span>
+                  </span>
+                </transition-stub>
+              </div>
+              <div class="van-field__readonly-tag van-field__readonly-tag--overflow">
+                <transition-stub
+                  appear="false"
+                  persisted="false"
+                  css="true"
+                >
+                  <span
+                    style="color: rgb(51, 51, 51); background: rgb(238, 238, 238);"
+                    class="van-tag van-tag--medium van-tag--default"
+                  >
+                    +6
+                  </span>
+                </transition-stub>
+              </div>
+            </div>
+            <div class="van-field__readonly-tags">
+              <div class="van-field__readonly-tag">
+                <transition-stub
+                  appear="false"
+                  persisted="false"
+                  css="true"
+                >
+                  <span
+                    style="color: rgb(51, 51, 51); background: rgb(238, 238, 238);"
+                    class="van-tag van-tag--medium van-tag--default"
+                  >
+                    <span class="van-field__readonly-tag-text">
+                      Design
+                    </span>
+                  </span>
+                </transition-stub>
+              </div>
+              <div class="van-field__readonly-tag">
+                <transition-stub
+                  appear="false"
+                  persisted="false"
+                  css="true"
+                >
+                  <span
+                    style="color: rgb(51, 51, 51); background: rgb(238, 238, 238);"
+                    class="van-tag van-tag--medium van-tag--default"
+                  >
+                    <span class="van-field__readonly-tag-text">
+                      Interaction
+                    </span>
+                  </span>
+                </transition-stub>
+              </div>
+              <div class="van-field__readonly-tag">
+                <transition-stub
+                  appear="false"
+                  persisted="false"
+                  css="true"
+                >
+                  <span
+                    style="color: rgb(51, 51, 51); background: rgb(238, 238, 238);"
+                    class="van-tag van-tag--medium van-tag--default"
+                  >
+                    <span class="van-field__readonly-tag-text">
+                      Frontend
+                    </span>
+                  </span>
+                </transition-stub>
+              </div>
+              <div class="van-field__readonly-tag">
+                <transition-stub
+                  appear="false"
+                  persisted="false"
+                  css="true"
+                >
+                  <span
+                    style="color: rgb(51, 51, 51); background: rgb(238, 238, 238);"
+                    class="van-tag van-tag--medium van-tag--default"
+                  >
+                    <span class="van-field__readonly-tag-text">
+                      QA
+                    </span>
+                  </span>
+                </transition-stub>
+              </div>
+              <div class="van-field__readonly-tag">
+                <transition-stub
+                  appear="false"
+                  persisted="false"
+                  css="true"
+                >
+                  <span
+                    style="color: rgb(51, 51, 51); background: rgb(238, 238, 238);"
+                    class="van-tag van-tag--medium van-tag--default"
+                  >
+                    <span class="van-field__readonly-tag-text">
+                      Product
+                    </span>
+                  </span>
+                </transition-stub>
+              </div>
+              <div class="van-field__readonly-tag">
+                <transition-stub
+                  appear="false"
+                  persisted="false"
+                  css="true"
+                >
+                  <span
+                    style="color: rgb(51, 51, 51); background: rgb(238, 238, 238);"
+                    class="van-tag van-tag--medium van-tag--default"
+                  >
+                    <span class="van-field__readonly-tag-text">
+                      Operations
+                    </span>
+                  </span>
+                </transition-stub>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div>
+  <div class="van-cell-group van-cell-group--inset">
+    <div class="van-cell van-field van-field--readonly-ellipsis">
+      <div class="van-cell__title van-field__label">
+        <label
+          id="van-field-label"
+          for="van-field-input"
+          data-allow-mismatch="attribute"
+        >
+          Address
+        </label>
+      </div>
+      <div class="van-cell__value van-field__value">
+        <div class="van-field__body">
+          <div
+            id="van-field-input"
+            class="van-field__control van-field__control--custom van-field__readonly-ellipsis"
+          >
+            <div class="van-text-ellipsis">
+              ...
+              <span class="van-text-ellipsis__action">
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="van-cell van-field van-field--readonly-ellipsis">
+      <div class="van-cell__title van-field__label">
+        <label
+          id="van-field-label"
+          for="van-field-input"
+          data-allow-mismatch="attribute"
+        >
+          Tags
+        </label>
+      </div>
+      <div class="van-cell__value van-field__value">
+        <div class="van-field__body">
+          <div
+            id="van-field-input"
+            class="van-field__control van-field__control--custom van-field__readonly-ellipsis van-field__readonly-ellipsis--tags"
+          >
+            <div
+              class="van-field__readonly-tags-measure"
+              aria-hidden="true"
+            >
+              <div
+                class="van-field__readonly-tag"
+                data-measure-tag="true"
+              >
+                <transition-stub
+                  appear="false"
+                  persisted="false"
+                  css="true"
+                >
+                  <span
+                    style="color: rgb(51, 51, 51); background: rgb(238, 238, 238);"
+                    class="van-tag van-tag--medium van-tag--default"
+                  >
+                    <span class="van-field__readonly-tag-text">
+                      Design
+                    </span>
+                  </span>
+                </transition-stub>
+              </div>
+              <div
+                class="van-field__readonly-tag"
+                data-measure-tag="true"
+              >
+                <transition-stub
+                  appear="false"
+                  persisted="false"
+                  css="true"
+                >
+                  <span
+                    style="color: rgb(51, 51, 51); background: rgb(238, 238, 238);"
+                    class="van-tag van-tag--medium van-tag--default"
+                  >
+                    <span class="van-field__readonly-tag-text">
+                      Interaction
+                    </span>
+                  </span>
+                </transition-stub>
+              </div>
+              <div
+                class="van-field__readonly-tag"
+                data-measure-tag="true"
+              >
+                <transition-stub
+                  appear="false"
+                  persisted="false"
+                  css="true"
+                >
+                  <span
+                    style="color: rgb(51, 51, 51); background: rgb(238, 238, 238);"
+                    class="van-tag van-tag--medium van-tag--default"
+                  >
+                    <span class="van-field__readonly-tag-text">
+                      Frontend
+                    </span>
+                  </span>
+                </transition-stub>
+              </div>
+              <div class="van-field__readonly-tag van-field__readonly-tag--overflow">
+                <transition-stub
+                  appear="false"
+                  persisted="false"
+                  css="true"
+                >
+                  <span
+                    style="color: rgb(51, 51, 51); background: rgb(238, 238, 238);"
+                    class="van-tag van-tag--medium van-tag--default"
+                  >
+                    +3
+                  </span>
+                </transition-stub>
+              </div>
+            </div>
+            <div class="van-field__readonly-tags">
+              <div class="van-field__readonly-tag">
+                <transition-stub
+                  appear="false"
+                  persisted="false"
+                  css="true"
+                >
+                  <span
+                    style="color: rgb(51, 51, 51); background: rgb(238, 238, 238);"
+                    class="van-tag van-tag--medium van-tag--default"
+                  >
+                    <span class="van-field__readonly-tag-text">
+                      Design
+                    </span>
+                  </span>
+                </transition-stub>
+              </div>
+              <div class="van-field__readonly-tag">
+                <transition-stub
+                  appear="false"
+                  persisted="false"
+                  css="true"
+                >
+                  <span
+                    style="color: rgb(51, 51, 51); background: rgb(238, 238, 238);"
+                    class="van-tag van-tag--medium van-tag--default"
+                  >
+                    <span class="van-field__readonly-tag-text">
+                      Interaction
+                    </span>
+                  </span>
+                </transition-stub>
+              </div>
+              <div class="van-field__readonly-tag">
+                <transition-stub
+                  appear="false"
+                  persisted="false"
+                  css="true"
+                >
+                  <span
+                    style="color: rgb(51, 51, 51); background: rgb(238, 238, 238);"
+                    class="van-tag van-tag--medium van-tag--default"
+                  >
+                    <span class="van-field__readonly-tag-text">
+                      Frontend
+                    </span>
+                  </span>
+                </transition-stub>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -229,6 +783,39 @@ exports[`should render demo and match snapshot 1`] = `
             aria-labelledby="van-field-label"
             data-allow-mismatch="attribute"
           >
+          <div class="van-field__right-icon">
+            <i class="van-badge__wrapper van-icon van-icon-warning-o">
+            </i>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="van-cell van-field">
+      <div class="van-field__left-icon">
+        <i class="van-badge__wrapper van-icon van-icon-smile-o">
+        </i>
+      </div>
+      <div class="van-cell__title van-field__label">
+        <label
+          id="van-field-label"
+          for="van-field-input"
+          data-allow-mismatch="attribute"
+        >
+          Text
+        </label>
+      </div>
+      <div class="van-cell__value van-field__value">
+        <div class="van-field__body">
+          <input
+            type="text"
+            id="van-field-input"
+            class="van-field__control"
+            placeholder="Show Icon"
+            aria-labelledby="van-field-label"
+            data-allow-mismatch="attribute"
+          >
+          <div class="van-field__right-icon-divider">
+          </div>
           <div class="van-field__right-icon">
             <i class="van-badge__wrapper van-icon van-icon-warning-o">
             </i>
@@ -414,6 +1001,32 @@ exports[`should render demo and match snapshot 1`] = `
           >
         </div>
         <div class="van-field__error-message">
+          Invalid phone
+        </div>
+      </div>
+    </div>
+    <div class="van-cell van-field">
+      <div class="van-cell__title van-field__label">
+        <label
+          id="van-field-label"
+          for="van-field-input"
+          data-allow-mismatch="attribute"
+        >
+          Phone
+        </label>
+      </div>
+      <div class="van-cell__value van-field__value">
+        <div class="van-field__body">
+          <input
+            type="text"
+            id="van-field-input"
+            class="van-field__control"
+            placeholder="Phone"
+            aria-labelledby="van-field-label"
+            data-allow-mismatch="attribute"
+          >
+        </div>
+        <div class="van-field__error-message van-field__error-message--info">
           Invalid phone
         </div>
       </div>
@@ -682,6 +1295,146 @@ exports[`should render demo and match snapshot 1`] = `
             data-allow-mismatch="attribute"
           >
         </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div>
+  <div class="van-cell-group van-cell-group--inset">
+    <div class="van-cell van-field">
+      <div class="van-cell__title van-field__label">
+        <label
+          id="van-field-label"
+          for="van-field-input"
+          data-allow-mismatch="attribute"
+        >
+          Label
+        </label>
+        <div class="van-cell__label">
+          Note below the label
+        </div>
+      </div>
+      <div class="van-cell__value van-field__value">
+        <div class="van-field__body">
+          <input
+            type="text"
+            id="van-field-input"
+            class="van-field__control"
+            placeholder="Text"
+            aria-labelledby="van-field-label"
+            data-allow-mismatch="attribute"
+          >
+        </div>
+      </div>
+    </div>
+    <div class="van-cell van-field">
+      <div class="van-cell__title van-field__label">
+        <label
+          id="van-field-label"
+          for="van-field-input"
+          data-allow-mismatch="attribute"
+        >
+          Label
+        </label>
+        <div class="van-cell__label">
+          <span>
+            Slot: custom label note
+          </span>
+        </div>
+      </div>
+      <div class="van-cell__value van-field__value">
+        <div class="van-field__body">
+          <input
+            type="text"
+            id="van-field-input"
+            class="van-field__control"
+            placeholder="Text"
+            aria-labelledby="van-field-label"
+            data-allow-mismatch="attribute"
+          >
+        </div>
+      </div>
+    </div>
+    <div class="van-cell van-field">
+      <div class="van-cell__title van-field__label">
+        <label
+          id="van-field-label"
+          for="van-field-input"
+          data-allow-mismatch="attribute"
+        >
+          Label
+        </label>
+      </div>
+      <div class="van-cell__value van-field__value">
+        <div class="van-field__body">
+          <input
+            type="text"
+            id="van-field-input"
+            class="van-field__control"
+            placeholder="Text"
+            aria-labelledby="van-field-label"
+            data-allow-mismatch="attribute"
+          >
+        </div>
+        <div class="van-field__input-comment">
+          Helper text
+        </div>
+      </div>
+    </div>
+    <div class="van-cell van-field">
+      <div class="van-cell__title van-field__label">
+        <label
+          id="van-field-label"
+          for="van-field-input"
+          data-allow-mismatch="attribute"
+        >
+          Label
+        </label>
+      </div>
+      <div class="van-cell__value van-field__value">
+        <div class="van-field__body">
+          <input
+            type="text"
+            id="van-field-input"
+            class="van-field__control"
+            placeholder="Text"
+            aria-labelledby="van-field-label"
+            data-allow-mismatch="attribute"
+          >
+        </div>
+        <div class="van-field__input-comment">
+          <span>
+            Slot: links or emphasized text
+          </span>
+        </div>
+      </div>
+    </div>
+    <div class="van-cell van-cell--has-bottom van-field">
+      <div class="van-cell__title van-field__label">
+        <label
+          id="van-field-label"
+          for="van-field-input"
+          data-allow-mismatch="attribute"
+        >
+          Label
+        </label>
+      </div>
+      <div class="van-cell__value van-field__value">
+        <div class="van-field__body">
+          <input
+            type="text"
+            id="van-field-input"
+            class="van-field__control"
+            placeholder="Text"
+            aria-labelledby="van-field-label"
+            data-allow-mismatch="attribute"
+          >
+        </div>
+      </div>
+      <div class="van-cell__bottom">
+        <span>
+          The bottom slot spans the full row below the label and input — useful for agreements, risk notes, etc.
+        </span>
       </div>
     </div>
   </div>

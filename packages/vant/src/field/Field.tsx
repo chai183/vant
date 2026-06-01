@@ -10,6 +10,7 @@ import {
   type PropType,
   type ExtractPropTypes,
   type HTMLAttributes,
+  type CSSProperties,
 } from 'vue';
 
 // Utils
@@ -24,6 +25,7 @@ import {
   resetScroll,
   formatNumber,
   preventDefault,
+  truthProp,
   makeStringProp,
   makeNumericProp,
   createNamespace,
@@ -41,7 +43,11 @@ import {
   resizeTextarea,
   getStringLength,
   runRuleValidator,
+  limitMoneyDigits,
+  getMoneyUnitLabel,
+  moneyStringToChineseUppercase,
 } from './utils';
+import { getBuiltinGroupedDisplayConfig } from './grouped-display';
 import { cellSharedProps } from '../cell/Cell';
 
 // Composables
@@ -56,6 +62,9 @@ import { useExpose } from '../composables/use-expose';
 // Components
 import { Icon } from '../icon';
 import { Cell } from '../cell';
+import { Popover } from '../popover';
+import TextEllipsis from '../text-ellipsis/TextEllipsis';
+import FieldReadonlyTags from './FieldReadonlyTags';
 
 // Types
 import type {
@@ -71,7 +80,9 @@ import type {
   FieldValidateTrigger,
   FieldFormSharedProps,
   FieldEnterKeyHint,
+  FieldGroupedDisplayConfig,
 } from './types';
+import type { PopoverProps } from '../popover';
 
 const [name, bem] = createNamespace('field');
 
@@ -81,6 +92,10 @@ export const fieldSharedProps = {
   name: String,
   leftIcon: String,
   rightIcon: String,
+  showRightIconDivider: {
+    type: Boolean,
+    default: false,
+  },
   autofocus: Boolean,
   clearable: Boolean,
   maxlength: numericProp,
@@ -88,13 +103,17 @@ export const fieldSharedProps = {
   min: Number,
   formatter: Function as PropType<(value: string) => string>,
   clearIcon: makeStringProp('clear'),
-  modelValue: makeNumericProp(''),
+  modelValue: {
+    type: [Number, String, Array] as PropType<string | number | unknown[]>,
+    default: '',
+  },
   inputAlign: String as PropType<FieldTextAlign>,
   placeholder: String,
   autocomplete: String,
   autocapitalize: String,
   autocorrect: String,
   errorMessage: String,
+  inputComment: String,
   enterkeyhint: String as PropType<FieldEnterKeyHint>,
   clearTrigger: makeStringProp<FieldClearTrigger>('focus'),
   formatTrigger: makeStringProp<FieldFormatTrigger>('onChange'),
@@ -115,6 +134,8 @@ export const fieldSharedProps = {
     default: null,
   },
   inputmode: String as PropType<HTMLAttributes['inputmode']>,
+  /** 是否为输入区域添加外边框样式，常用于 RangeInput 等嵌套场景 */
+  inputBorder: Boolean,
 };
 
 export const fieldProps = extend({}, cellSharedProps, fieldSharedProps, {
@@ -124,9 +145,28 @@ export const fieldProps = extend({}, cellSharedProps, fieldSharedProps, {
   autosize: [Boolean, Object] as PropType<boolean | FieldAutosizeConfig>,
   labelWidth: numericProp,
   labelClass: unknownProp,
+  inputClass: unknownProp,
+  inputStyle: null as unknown as PropType<string | CSSProperties>,
+  bodyClass: unknownProp,
+  bodyStyle: null as unknown as PropType<string | CSSProperties>,
+  labelTooltip: String,
+  labelTooltipPopoverProps: Object as PropType<Partial<PopoverProps>>,
+  labelComment: String,
+  readonlyEllipsis: truthProp,
+  readonlyEllipsisRows: makeNumericProp(1),
+  groupedDisplay: Object as PropType<FieldGroupedDisplayConfig | undefined>,
   labelAlign: String as PropType<FieldTextAlign>,
   showWordLimit: Boolean,
+  showMoneyUppercase: Boolean,
+  showMoneyUnit: Boolean,
+  moneyUppercaseLabel: String,
   errorMessageAlign: String as PropType<FieldTextAlign>,
+  errorMessageInfo: Boolean,
+  labelActionText: String,
+  showLabelAction: {
+    type: Boolean,
+    default: null,
+  },
   colon: {
     type: Boolean,
     default: null,
@@ -151,6 +191,7 @@ export default defineComponent({
     'clickLeftIcon',
     'clickRightIcon',
     'update:modelValue',
+    'clickLabelAction',
   ],
 
   setup(props, { emit, slots }) {
@@ -178,11 +219,17 @@ export default defineComponent({
       }
     };
 
+    const resolvedGroupedDisplay = computed(
+      () => props.groupedDisplay ?? getBuiltinGroupedDisplayConfig(props.type),
+    );
+
     const showClear = computed(() => {
       const readonly = getProp('readonly');
 
       if (props.clearable && !readonly) {
-        const hasValue = getModelValue() !== '';
+        const hasValue = Array.isArray(props.modelValue)
+          ? props.modelValue.length > 0
+          : getModelValue() !== '';
         const trigger =
           props.clearTrigger === 'always' ||
           (props.clearTrigger === 'focus' && state.focused);
@@ -320,21 +367,62 @@ export default defineComponent({
       return value;
     };
 
+    // 处理输入值：截断、数字/金额规范化、formatter、千分位展示，并同步 DOM 与 v-model（含光标修正）
     const updateValue = (
       value: string,
+      // formatter 等逻辑依赖触发时机（如 onChange / onBlur）
       trigger: FieldFormatTrigger = 'onChange',
     ) => {
-      const originalValue = value;
-      value = limitValueLength(value);
-      // When the value length exceeds maxlength,
-      // record the excess length for correcting the cursor position.
-      // https://github.com/youzan/vant/issues/11289
-      const limitDiffLen = originalValue.length - value.length;
+      const gd = resolvedGroupedDisplay.value;
+      // console.log('value', value);
+      // 聚焦时把「展示串上的选区」映射为 v-model 字符下标，便于插入分组符后还原光标
+      let groupedDisplayRawSel:
+        | { start: number; end: number }
+        | undefined;
+      if (gd && inputRef.value && state.focused) {
+        const { selectionStart, selectionEnd } = inputRef.value;
+        if (isDef(selectionStart) && isDef(selectionEnd)) {
+          groupedDisplayRawSel = {
+            start: value
+              .slice(0, selectionStart)
+              .replace(gd.stripDisplayRegex, '')
+              .length,
+            end: value
+              .slice(0, selectionEnd)
+              .replace(gd.stripDisplayRegex, '')
+              .length,
+          };
+        }
+      }
 
+      if (gd?.parseDisplayToModel) {
+        value = gd.parseDisplayToModel(value);
+      }
+
+      let typeCapDiffLen = 0;
+      if (gd?.normalizeModelValue) {
+        const out = gd.normalizeModelValue(value, {
+          maxlength: isDef(props.maxlength) ? +props.maxlength : undefined,
+        });
+        value = out.value;
+        typeCapDiffLen = out.capDiffLen ?? 0;
+      }
+
+      const originalValue = value;
+      value = gd?.skipLimitValueLength ? value : limitValueLength(value);
+      // 超过 maxlength 被截断时记录截掉的长度，用于修正光标位置
+      // https://github.com/youzan/vant/issues/11289
+      const limitDiffLen =
+        typeCapDiffLen > 0
+          ? typeCapDiffLen
+          : originalValue.length - value.length;
+
+      // 数字类：过滤非法字符；失焦时再按 min/max 钳位，避免输入过程中被强行改写
       // https://github.com/youzan/vant/issues/13058
-      if (props.type === 'number' || props.type === 'digit') {
-        const isNumber = props.type === 'number';
-        value = formatNumber(value, isNumber, isNumber);
+      if (props.type === 'number' || props.type === 'digit' || props.type === 'money') {
+        const allowDot = props.type !== 'digit';
+        const allowMinus = props.type === 'number';
+        value = formatNumber(value, allowDot, allowMinus);
 
         if (
           trigger === 'onBlur' &&
@@ -353,34 +441,50 @@ export default defineComponent({
         }
       }
 
+      // formatter 可能改变光标左侧长度，聚焦时记录差值用于 setSelectionRange
       let formatterDiffLen = 0;
       if (props.formatter && trigger === props.formatTrigger) {
         const { formatter, maxlength } = props;
         value = formatter(value);
-        // The length of the formatted value may exceed maxlength.
+        // 格式化后可能超过 maxlength，需再截断
         if (isDef(maxlength) && getStringLength(value) > +maxlength) {
           value = cutString(value, +maxlength);
         }
         if (inputRef.value && state.focused) {
           const { selectionEnd } = inputRef.value;
-          // The value before the cursor of the original value.
+          // 光标前的原始子串
           const bcoVal = cutString(originalValue, selectionEnd!);
-          // Record the length change of `bcoVal` after formatting,
-          // which is used to correct the cursor position.
+          // 对该子串格式化后的长度变化，用于修正光标
           formatterDiffLen = formatter(bcoVal).length - bcoVal.length;
         }
       }
 
-      if (inputRef.value && inputRef.value.value !== value) {
-        // When the input is focused, correct the cursor position.
+      if (props.type === 'money') {
+        value = limitMoneyDigits(value);
+      }
+
+      // v-model 存无分隔符值；展示由 groupedDisplay（内置或传入）决定
+      const displayValue = gd ? gd.formatDisplay(value) : value;
+
+      if (inputRef.value && inputRef.value.value !== displayValue) {
+        // 聚焦时改写 value 会丢选区，需按规则重算 selectionStart/End
         if (state.focused) {
           let { selectionStart, selectionEnd } = inputRef.value;
-          inputRef.value.value = value;
+          inputRef.value.value = displayValue;
 
           if (isDef(selectionStart) && isDef(selectionEnd)) {
-            const valueLen = value.length;
+            const rangeLen = gd ? displayValue.length : value.length;
 
-            if (limitDiffLen) {
+            if (
+              gd &&
+              displayValue !== value &&
+              groupedDisplayRawSel
+            ) {
+              const cs = Math.min(groupedDisplayRawSel.start, value.length);
+              const ce = Math.min(groupedDisplayRawSel.end, value.length);
+              selectionStart = gd.rawOffsetToDisplayIndex(displayValue, cs);
+              selectionEnd = gd.rawOffsetToDisplayIndex(displayValue, ce);
+            } else if (limitDiffLen) {
               selectionStart -= limitDiffLen;
               selectionEnd -= limitDiffLen;
             } else if (formatterDiffLen) {
@@ -389,15 +493,16 @@ export default defineComponent({
             }
 
             inputRef.value.setSelectionRange(
-              Math.min(selectionStart, valueLen),
-              Math.min(selectionEnd, valueLen),
+              Math.min(selectionStart, rangeLen),
+              Math.min(selectionEnd, rangeLen),
             );
           }
         } else {
-          inputRef.value.value = value;
+          inputRef.value.value = displayValue;
         }
       }
 
+      // 内部处理后的值与 v-model 不一致时再同步，避免多余触发
       if (value !== props.modelValue) {
         emit('update:modelValue', value);
       }
@@ -497,6 +602,88 @@ export default defineComponent({
 
     const getValidationStatus = () => state.status;
 
+    const isReadonlyArrayValue = () => Array.isArray(props.modelValue);
+
+    const showReadonlyDisplay = () =>
+      getProp('readonly') &&
+      !slots.input &&
+      (props.readonlyEllipsis || isReadonlyArrayValue());
+
+    const getReadonlyEllipsisRows = () => {
+      if (props.type === 'textarea' && props.rows !== undefined) {
+        return +props.rows;
+      }
+      return +(props.readonlyEllipsisRows ?? 1);
+    };
+
+    const renderReadonlyArrayInput = () => {
+      const items = (props.modelValue as unknown[]) ?? [];
+      const isPlaceholder = items.length === 0;
+
+      const controlClass = bem('control', [
+        getProp('inputAlign'),
+        {
+          error: showError.value,
+          custom: true,
+        },
+      ]);
+
+      const wrapperProps = {
+        id: getInputId(),
+        class: [
+          controlClass,
+          props.inputClass,
+          bem('readonly-ellipsis', {
+            placeholder: isPlaceholder,
+            tags: true,
+          }),
+        ],
+        style: props.inputStyle,
+        onClick: onClickInput,
+      };
+
+      return (
+        <div {...wrapperProps}>
+          <FieldReadonlyTags items={items} placeholder={props.placeholder} />
+        </div>
+      );
+    };
+
+    const renderReadonlyEllipsisInput = () => {
+      if (isReadonlyArrayValue()) {
+        return renderReadonlyArrayInput();
+      }
+
+      const value = getModelValue();
+      const displayContent = value || props.placeholder || '';
+      const isPlaceholder = !value;
+
+      const controlClass = bem('control', [
+        getProp('inputAlign'),
+        {
+          error: showError.value,
+          custom: true,
+        },
+      ]);
+
+      const wrapperProps = {
+        id: getInputId(),
+        class: [
+          controlClass,
+          props.inputClass,
+          bem('readonly-ellipsis', { placeholder: isPlaceholder }),
+        ],
+        style: props.inputStyle,
+        onClick: onClickInput,
+      };
+
+      return (
+        <div {...wrapperProps}>
+          <TextEllipsis rows={getReadonlyEllipsisRows()} content={displayContent} />
+        </div>
+      );
+    };
+
     const renderInput = () => {
       const controlClass = bem('control', [
         getProp('inputAlign'),
@@ -509,10 +696,18 @@ export default defineComponent({
 
       if (slots.input) {
         return (
-          <div class={controlClass} onClick={onClickInput}>
+          <div
+            class={[controlClass, props.inputClass]}
+            style={props.inputStyle}
+            onClick={onClickInput}
+          >
             {slots.input()}
           </div>
         );
+      }
+
+      if (showReadonlyDisplay()) {
+        return renderReadonlyEllipsisInput();
       }
 
       const inputAttrs = {
@@ -520,7 +715,8 @@ export default defineComponent({
         ref: inputRef,
         name: props.name,
         rows: props.rows !== undefined ? +props.rows : undefined,
-        class: controlClass,
+        class: [controlClass, props.inputClass],
+        style: props.inputStyle,
         disabled: getProp('disabled'),
         readonly: getProp('readonly'),
         autofocus: props.autofocus,
@@ -545,7 +741,7 @@ export default defineComponent({
       if (props.type === 'textarea') {
         return <textarea {...inputAttrs} inputmode={props.inputmode} />;
       }
-
+      
       return (
         <input {...mapInputType(props.type, props.inputmode)} {...inputAttrs} />
       );
@@ -571,8 +767,8 @@ export default defineComponent({
       const rightIconSlot = slots['right-icon'];
 
       if (props.rightIcon || rightIconSlot) {
-        return (
-          <div class={bem('right-icon')} onClick={onClickRightIcon}>
+        const icon = (
+          <div key="right-icon" class={bem('right-icon')} onClick={onClickRightIcon}>
             {rightIconSlot ? (
               rightIconSlot()
             ) : (
@@ -580,6 +776,15 @@ export default defineComponent({
             )}
           </div>
         );
+
+        if (props.showRightIconDivider) {
+          return [
+            <div key="right-icon-divider" class={bem('right-icon-divider')} />,
+            icon,
+          ];
+        }
+
+        return icon;
       }
     };
 
@@ -605,10 +810,69 @@ export default defineComponent({
         const slot = slots['error-message'];
         const errorMessageAlign = getProp('errorMessageAlign');
         return (
-          <div class={bem('error-message', errorMessageAlign)}>
+          <div
+            class={bem('error-message', [
+              errorMessageAlign,
+              { info: props.errorMessageInfo },
+            ])}
+          >
             {slot ? slot({ message }) : message}
           </div>
         );
+      }
+    };
+
+    const renderLabelTooltip = () => {
+      const tooltipSlot = slots['label-tooltip'];
+      if (!tooltipSlot && !props.labelTooltip) {
+        return;
+      }
+
+      const renderTooltipContent = () => {
+        if (tooltipSlot) {
+          return tooltipSlot();
+        }
+        if (props.labelTooltip) {
+          return (
+            <div class={bem('label-tooltip-content')}>{props.labelTooltip}</div>
+          );
+        }
+      };
+
+      return (
+        <span class={bem('label-tooltip')}>
+          <Popover
+            {...extend(
+              {
+                placement: 'top',
+                theme: 'dark',
+                iconPrefix: props.iconPrefix,
+              },
+              props.labelTooltipPopoverProps,
+            )}
+            v-slots={{
+              reference: () => (
+                <Icon
+                  size={14}
+                  name="info-o"
+                  classPrefix={props.iconPrefix}
+                  class={bem('label-tooltip-icon')}
+                />
+              ),
+              default: renderTooltipContent,
+            }}
+          />
+        </span>
+      );
+    };
+
+    const renderCellLabel = () => {
+      const commentSlot = slots['label-comment'];
+      if (commentSlot) {
+        return commentSlot();
+      }
+      if (props.labelComment) {
+        return props.labelComment;
       }
     };
 
@@ -616,12 +880,22 @@ export default defineComponent({
       const labelWidth = getProp('labelWidth');
       const labelAlign = getProp('labelAlign');
       const colon = getProp('colon') ? ':' : '';
+      const tooltip = renderLabelTooltip();
 
       if (slots.label) {
-        return [slots.label(), colon];
+        if (!tooltip) {
+          return [slots.label(), colon];
+        }
+        return (
+          <span class={bem('label-wrap')}>
+            {slots.label()}
+            {colon}
+            {tooltip}
+          </span>
+        );
       }
       if (props.label) {
-        return (
+        const labelEl = (
           <label
             id={`${id}-label`}
             for={slots.input ? undefined : getInputId()}
@@ -640,25 +914,190 @@ export default defineComponent({
             {props.label + colon}
           </label>
         );
+
+        if (!tooltip) {
+          return labelEl;
+        }
+
+        return (
+          <span class={bem('label-wrap')}>
+            {labelEl}
+            {tooltip}
+          </span>
+        );
       }
     };
 
-    const renderFieldBody = () => [
-      <div class={bem('body')}>
-        {renderInput()}
-        {showClear.value && (
-          <Icon
-            ref={clearIconRef}
-            name={props.clearIcon}
-            class={bem('clear')}
-          />
-        )}
-        {renderRightIcon()}
-        {slots.button && <div class={bem('button')}>{slots.button()}</div>}
-      </div>,
-      renderWordLimit(),
-      renderMessage(),
-    ];
+    const renderLabelAction = () => {
+      if (getProp('labelAlign') !== 'top') {
+        return;
+      }
+      if (props.showLabelAction === false) {
+        return;
+      }
+      const actionSlot = slots['label-action'];
+      if (actionSlot) {
+        return actionSlot();
+      }
+      if (props.labelActionText) {
+        return (
+          <button
+            type="button"
+            class={bem('label-action')}
+            onClick={(event: MouseEvent) => {
+              preventDefault(event);
+              emit('clickLabelAction', event);
+            }}
+          >
+            {props.labelActionText}
+          </button>
+        );
+      }
+    };
+
+    const renderTopLabelRow = () => {
+      const Label = renderLabel();
+      const action = renderLabelAction();
+      if (!action) {
+        return Label;
+      }
+      if (!Label) {
+        return (
+          <div class={bem('label-header', { 'end-only': true })}>{action}</div>
+        );
+      }
+      return (
+        <div class={bem('label-header')}>
+          <div class={bem('label-header-main')}>{Label}</div>
+          {action}
+        </div>
+      );
+    };
+
+    const renderMoneyUnit = () => {
+      if (!props.showMoneyUnit || props.type !== 'money') {
+        return;
+      }
+
+      const label = getMoneyUnitLabel(getModelValue());
+      if (!label) {
+        return;
+      }
+
+      return (
+        <div class={bem('money-unit')}>
+          <div class={bem('money-unit-box')}>
+            <span class={bem('money-unit-text')}>{label}</span>
+            <span class={bem('money-unit-caret')}>
+              <svg
+                viewBox="0 0 100 10"
+                fill="none"
+                preserveAspectRatio="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M0 1 H35 L50 9 L65 1 H100"
+                  stroke="currentColor"
+                  stroke-width="1"
+                  vector-effect="non-scaling-stroke"
+                />
+              </svg>
+            </span>
+          </div>
+        </div>
+      );
+    };
+
+    const renderMoneyUppercase = () => {
+      if (!props.showMoneyUppercase || props.type !== 'money') {
+        return;
+      }
+      const text = moneyStringToChineseUppercase(getModelValue());
+      const showLabel = Boolean(props.moneyUppercaseLabel);
+      if (!showLabel && !text) {
+        return;
+      }
+      return (
+        <div class={bem('money-uppercase')}>
+          {showLabel && (
+            <span class={bem('money-uppercase-label')}>
+              {props.moneyUppercaseLabel}
+            </span>
+          )}
+          <span class={bem('money-uppercase-text')}>{text}</span>
+        </div>
+      );
+    };
+
+    const renderInputBottom = () => {
+      const slot = slots['input-bottom'];
+      if (!slot) {
+        return;
+      }
+      return (
+        <div class={bem('input-bottom')}>
+          {slot()}
+        </div>
+      );
+    };
+
+    const renderInputComment = () => {
+      const commentSlot = slots['input-comment'];
+      if (commentSlot) {
+        return (
+          <div class={bem('input-comment')}>{commentSlot()}</div>
+        );
+      }
+      if (props.inputComment) {
+        return (
+          <div class={bem('input-comment')}>{props.inputComment}</div>
+        );
+      }
+    };
+
+    const renderMoneyUppercaseFooter = () => {
+      const money = renderMoneyUppercase();
+      if (!money) {
+        return;
+      }
+      return <div class={bem('input-bottom', 'fixed')}>{money}</div>;
+    };
+
+    const renderFieldBody = () => {
+      const inputNode = renderInput();
+      const wrappedInput =
+        props.type === 'money' ? (
+          <div class={bem('money-input-wrap')}>
+            {renderMoneyUnit()}
+            {inputNode}
+          </div>
+        ) : (
+          inputNode
+        );
+
+      return [
+        <div class={[bem('body'), props.bodyClass]} style={props.bodyStyle}>
+          {slots['input-left'] && (
+            <div class={bem('input-left')}>{slots['input-left']()}</div>
+          )}
+          {wrappedInput}
+          {showClear.value && (
+            <Icon
+              ref={clearIconRef}
+              name={props.clearIcon}
+              class={bem('clear')}
+            />
+          )}
+          {renderRightIcon()}
+          {slots.button && <div class={bem('button')}>{slots.button()}</div>}
+        </div>,
+        renderInputBottom(),
+        renderInputComment(),
+        renderWordLimit(),
+        renderMessage(),
+        renderMoneyUppercaseFooter(),
+      ];
+    };
 
     useExpose<FieldExpose>({
       blur,
@@ -701,10 +1140,11 @@ export default defineComponent({
       const LeftIcon = renderLeftIcon();
 
       const renderTitle = () => {
-        const Label = renderLabel();
         if (labelAlign === 'top') {
+          const Label = renderTopLabelRow();
           return [LeftIcon, Label].filter(Boolean);
         }
+        const Label = renderLabel();
         return Label || [];
       };
 
@@ -713,17 +1153,26 @@ export default defineComponent({
           v-slots={{
             icon: LeftIcon && labelAlign !== 'top' ? () => LeftIcon : null,
             title: renderTitle,
+            label:
+              slots['label-comment'] || props.labelComment
+                ? renderCellLabel
+                : null,
             value: renderFieldBody,
             extra: slots.extra,
+            bottom: slots.bottom ?? null,
           }}
           size={props.size}
           class={bem({
             error: showError.value,
             disabled,
+            'readonly-ellipsis': showReadonlyDisplay(),
+            'money-uppercase':
+              props.showMoneyUppercase && props.type === 'money',
+            'input-border': props.inputBorder,
             [`label-${labelAlign}`]: labelAlign,
           })}
           center={props.center}
-          border={props.border}
+          border={props.inputBorder ? false : props.border}
           isLink={props.isLink}
           clickable={props.clickable}
           titleStyle={labelStyle.value}

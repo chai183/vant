@@ -22,6 +22,15 @@ export default {
   vanCascader: {
     select: 'Select',
   },
+  vanAreaStepCascader: {
+    selectArea: 'Select Area',
+    selectProvince: 'Select Province',
+    selectCity: 'Select City',
+    selectDistrict: 'Select District',
+  },
+  vanFieldMoney: {
+    uppercase: 'Amount in words (CN)',
+  },
   vanPagination: {
     prev: 'Previous',
     next: 'Next',
@@ -58,5 +67,10 @@ export default {
   },
   vanAddressList: {
     add: 'Add new address',
+  },
+  vanRangeInput: {
+    lastWeek: 'Last week',
+    lastMonth: 'Last month',
+    lastThreeMonths: 'Last 3 months',
   },
 };

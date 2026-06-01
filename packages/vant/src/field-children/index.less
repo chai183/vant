@@ -1,0 +1,95 @@
+:root {
+  --van-field-children-item-gap: 0;
+  --van-field-children-item-border-color: var(--van-border-color);
+  --van-field-children-tree-gutter-width: 20px;
+  --van-field-children-tree-color: var(--van-border-color);
+  --van-field-children-tree-line-width: 1px;
+  --van-field-children-tree-elbow-y: 50%;
+  --van-field-children-tree-rail-length: 10px;
+  --van-field-children-tree-arm-length: 10px;
+  --van-field-children-delete-icon-color: var(--van-white);
+  --van-field-children-delete-icon-bg: var(--van-primary-color);
+  --van-field-children-delete-icon-size: 14px;
+}
+
+.van-field-children {
+  width: 100%;
+  min-width: 0;
+
+  &__body {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    width: 100%;
+    min-width: 0;
+  }
+
+  &__item {
+    display: flex;
+    flex-direction: row;
+    align-items: stretch;
+    min-width: 0;
+    border-bottom: 1px solid var(--van-field-children-item-border-color);
+
+    &:last-child {
+      border-bottom: none;
+    }
+  }
+
+  &__tree {
+    position: relative;
+    flex-shrink: 0;
+    width: var(--van-field-children-tree-gutter-width);
+    min-height: var(--van-field-children-tree-gutter-width);
+  }
+
+  &__tree-rail {
+    position: absolute;
+    left: 50%;
+    top: calc(
+      var(--van-field-children-tree-elbow-y) -
+        var(--van-field-children-tree-rail-length)
+    );
+    bottom: auto;
+    height: var(--van-field-children-tree-rail-length);
+    box-sizing: border-box;
+    width: 0;
+    margin-left: calc(-0.5 * var(--van-field-children-tree-line-width));
+    border-left: var(--van-field-children-tree-line-width) solid
+      var(--van-field-children-tree-color);
+  }
+
+  &__tree-arm {
+    position: absolute;
+    left: 50%;
+    right: auto;
+    width: var(--van-field-children-tree-arm-length);
+    top: var(--van-field-children-tree-elbow-y);
+    height: 0;
+    margin-left: calc(-0.5 * var(--van-field-children-tree-line-width));
+    margin-top: calc(-0.5 * var(--van-field-children-tree-line-width));
+    border-top: var(--van-field-children-tree-line-width) solid
+      var(--van-field-children-tree-color);
+  }
+
+  &__item-body {
+    flex: 1;
+    min-width: 0;
+    padding-top: var(--van-field-children-item-gap);
+    padding-bottom: var(--van-field-children-item-gap);
+  }
+
+  &__item .van-field__right-icon .van-icon {
+    box-sizing: border-box;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 1.6em;
+    height: 1.6em;
+    padding: 2px;
+    border-radius: 50%;
+    font-size: var(--van-field-children-delete-icon-size);
+    color: var(--van-field-children-delete-icon-color);
+    background: var(--van-field-children-delete-icon-bg);
+  }
+}

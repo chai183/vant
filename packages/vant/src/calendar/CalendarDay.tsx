@@ -41,13 +41,8 @@ export default defineComponent({
 
       if (color) {
         switch (item.type) {
-          case 'end':
           case 'start':
-          case 'start-end':
-          case 'multiple-middle':
-          case 'multiple-selected':
-            style.background = color;
-            break;
+          case 'end':
           case 'middle':
             style.color = color;
             break;
@@ -100,18 +95,22 @@ export default defineComponent({
     };
 
     const renderContent = () => {
-      const { item, color, rowHeight } = props;
+      const { item, color } = props;
       const { type } = item;
 
       const Nodes = [renderTopInfo(), renderText(), renderBottomInfo()];
 
-      if (type === 'selected') {
+      if (
+        type === 'selected' ||
+        type === 'multiple-selected' ||
+        type === 'start' ||
+        type === 'end' ||
+        type === 'start-end'
+      ) {
         return (
           <div
             class={bem('selected-day')}
             style={{
-              width: rowHeight,
-              height: rowHeight,
               background: color,
             }}
           >

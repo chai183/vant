@@ -114,12 +114,6 @@ const dayFormatter = (day: CalendarDayItem) => {
     }
   }
 
-  if (day.type === 'start') {
-    day.bottomInfo = t('in');
-  } else if (day.type === 'end') {
-    day.bottomInfo = t('out');
-  }
-
   return day;
 };
 

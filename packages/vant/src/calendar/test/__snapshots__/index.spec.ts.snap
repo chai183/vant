@@ -3,8 +3,20 @@
 exports[`formatter prop 1`] = `
 <div class="van-calendar">
   <div class="van-calendar__header">
-    <div class="van-calendar__header-title">
-      Calendar
+    <div class="van-calendar__toolbar">
+      <div class="van-calendar__toolbar-action">
+      </div>
+      <div class="van-calendar__toolbar-title van-ellipsis">
+        Calendar
+      </div>
+      <div class="van-calendar__toolbar-action van-calendar__toolbar-action--right">
+        <button
+          type="button"
+          class="van-calendar__confirm van-haptics-feedback"
+        >
+          Confirm
+        </button>
+      </div>
     </div>
     <div class="van-calendar__header-subtitle">
       2010/1
@@ -252,18 +264,6 @@ exports[`formatter prop 1`] = `
       </div>
     </div>
   </div>
-  <div class="van-calendar__footer van-safe-area-bottom">
-    <button
-      type="button"
-      class="van-button van-button--primary van-button--normal van-button--block van-button--round van-calendar__confirm"
-    >
-      <div class="van-button__content">
-        <span class="van-button__text">
-          Confirm
-        </span>
-      </div>
-    </button>
-  </div>
 </div>
 `;
 
@@ -305,8 +305,26 @@ exports[`popup wrapper 2`] = `
   >
     <div class="van-calendar">
       <div class="van-calendar__header">
-        <div class="van-calendar__header-title">
-          Calendar
+        <div class="van-calendar__toolbar">
+          <div class="van-calendar__toolbar-action">
+            <button
+              type="button"
+              class="van-calendar__cancel van-haptics-feedback"
+            >
+              Cancel
+            </button>
+          </div>
+          <div class="van-calendar__toolbar-title van-ellipsis">
+            Calendar
+          </div>
+          <div class="van-calendar__toolbar-action van-calendar__toolbar-action--right">
+            <button
+              type="button"
+              class="van-calendar__confirm van-haptics-feedback"
+            >
+              Confirm
+            </button>
+          </div>
         </div>
         <div class="van-calendar__header-subtitle">
           2010/1
@@ -553,25 +571,7 @@ exports[`popup wrapper 2`] = `
           </div>
         </div>
       </div>
-      <div class="van-calendar__footer van-safe-area-bottom">
-        <button
-          type="button"
-          class="van-button van-button--primary van-button--normal van-button--block van-button--round van-calendar__confirm"
-        >
-          <div class="van-button__content">
-            <span class="van-button__text">
-              Confirm
-            </span>
-          </div>
-        </button>
-      </div>
     </div>
-    <i
-      class="van-badge__wrapper van-icon van-icon-cross van-popup__close-icon van-popup__close-icon--top-right van-haptics-feedback"
-      role="button"
-      tabindex="0"
-    >
-    </i>
   </div>
 </transition-stub>
 `;
@@ -579,13 +579,9 @@ exports[`popup wrapper 2`] = `
 exports[`should render confirm-text slot correctly 1`] = `
 <button
   type="button"
-  class="van-button van-button--primary van-button--normal van-button--block van-button--round van-calendar__confirm"
+  class="van-calendar__confirm van-haptics-feedback"
 >
-  <div class="van-button__content">
-    <span class="van-button__text">
-      Custom confirm text false
-    </span>
-  </div>
+  Custom confirm text false
 </button>
 `;
 
@@ -604,8 +600,20 @@ exports[`should render subtitle slot with params 1`] = `
 exports[`should render title、footer、subtitle slot correctly 1`] = `
 <div class="van-calendar">
   <div class="van-calendar__header">
-    <div class="van-calendar__header-title">
-      Custom Title
+    <div class="van-calendar__toolbar">
+      <div class="van-calendar__toolbar-action">
+      </div>
+      <div class="van-calendar__toolbar-title van-ellipsis">
+        Custom Title
+      </div>
+      <div class="van-calendar__toolbar-action van-calendar__toolbar-action--right">
+        <button
+          type="button"
+          class="van-calendar__confirm van-haptics-feedback"
+        >
+          Confirm
+        </button>
+      </div>
     </div>
     <div class="van-calendar__header-subtitle">
       Custom Subtitle

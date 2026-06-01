@@ -1,0 +1,504 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`should render demo and match snapshot 1`] = `
+<div class="demo-range-input">
+  <div>
+    <!--[-->
+    <div class="van-cell-group van-cell-group--inset">
+      <!--[-->
+      <div class="van-range-input">
+        <div class="van-range-input__body van-range-input__body--vertical">
+          <div
+            class="van-range-input__v-sep van-range-input__v-sep--default"
+            role="separator"
+            aria-orientation="vertical"
+            aria-label="至"
+          >
+            <div class="van-range-input__v-sep van-range-input__v-sep--segment">
+            </div>
+            <span class="van-range-input__v-sep van-range-input__v-sep--label">
+              至
+            </span>
+            <div class="van-range-input__v-sep van-range-input__v-sep--segment">
+            </div>
+          </div>
+          <div class="van-range-input__cell">
+            <div class="van-cell van-cell--borderless van-field van-field--input-border">
+              <div class="van-cell__value van-field__value">
+                <!--[-->
+                <div
+                  class="van-field__body"
+                  style
+                >
+                  <input
+                    type="text"
+                    id="van-field-input"
+                    class="van-field__control"
+                    style
+                    placeholder="Please enter"
+                    data-allow-mismatch="attribute"
+                  >
+                  <div class="van-field__button">
+                    <!--[-->
+                    <span class="demo-range-input__unit">
+                      Longer unit text
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="van-range-input__cell">
+            <div class="van-cell van-cell--borderless van-field van-field--input-border">
+              <div class="van-cell__value van-field__value">
+                <!--[-->
+                <div
+                  class="van-field__body"
+                  style
+                >
+                  <input
+                    type="text"
+                    id="van-field-input"
+                    class="van-field__control"
+                    style
+                    placeholder="Please enter"
+                    data-allow-mismatch="attribute"
+                  >
+                  <div class="van-field__button">
+                    <!--[-->
+                    <span class="demo-range-input__unit">
+                      Longer unit text
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div>
+    <!--[-->
+    <div class="van-cell-group van-cell-group--inset">
+      <!--[-->
+      <div class="van-range-input">
+        <div class="van-range-input__body van-range-input__body--horizontal">
+          <div class="van-range-input__cell">
+            <div class="van-cell van-cell--borderless van-field van-field--input-border">
+              <div class="van-cell__value van-field__value">
+                <!--[-->
+                <div
+                  class="van-field__body"
+                  style
+                >
+                  <input
+                    type="text"
+                    id="van-field-input"
+                    class="van-field__control"
+                    style
+                    placeholder="Please enter"
+                    data-allow-mismatch="attribute"
+                  >
+                  <div class="van-field__button">
+                    <!--[-->
+                    <span class="demo-range-input__unit">
+                      Unit
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="van-range-input__h-sep van-range-input__h-sep--line">
+          </div>
+          <div class="van-range-input__cell">
+            <div class="van-cell van-cell--borderless van-field van-field--input-border">
+              <div class="van-cell__value van-field__value">
+                <!--[-->
+                <div
+                  class="van-field__body"
+                  style
+                >
+                  <input
+                    type="text"
+                    id="van-field-input"
+                    class="van-field__control"
+                    style
+                    placeholder="Please enter"
+                    data-allow-mismatch="attribute"
+                  >
+                  <div class="van-field__button">
+                    <!--[-->
+                    <span class="demo-range-input__unit">
+                      Unit
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div>
+    <!--[-->
+    <div class="van-cell-group van-cell-group--inset">
+      <!--[-->
+      <div class="van-range-input">
+        <div class="van-range-input__body van-range-input__body--vertical">
+          <div
+            class="van-range-input__v-sep van-range-input__v-sep--default"
+            role="separator"
+            aria-orientation="vertical"
+            aria-label="至"
+          >
+            <div class="van-range-input__v-sep van-range-input__v-sep--segment">
+            </div>
+            <span class="van-range-input__v-sep van-range-input__v-sep--label">
+              至
+            </span>
+            <div class="van-range-input__v-sep van-range-input__v-sep--segment">
+            </div>
+          </div>
+          <div class="van-range-input__cell">
+            <div class="van-cell van-cell--borderless van-field van-field--input-border">
+              <div class="van-cell__value van-field__value">
+                <!--[-->
+                <div
+                  class="van-field__body"
+                  style
+                >
+                  <input
+                    type="text"
+                    id="van-field-input"
+                    class="van-field__control"
+                    style
+                    placeholder="Start"
+                    data-allow-mismatch="attribute"
+                  >
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="van-range-input__cell">
+            <div class="van-cell van-cell--borderless van-field van-field--input-border">
+              <div class="van-cell__value van-field__value">
+                <!--[-->
+                <div
+                  class="van-field__body"
+                  style
+                >
+                  <input
+                    type="text"
+                    id="van-field-input"
+                    class="van-field__control"
+                    style
+                    placeholder="End"
+                    data-allow-mismatch="attribute"
+                  >
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div>
+    <!--[-->
+    <div class="van-cell-group van-cell-group--inset">
+      <!--[-->
+      <div class="van-range-input">
+        <div class="van-range-input__body van-range-input__body--horizontal">
+          <div class="van-range-input__cell">
+            <div class="van-cell van-cell--borderless van-field van-field--input-border">
+              <div class="van-cell__value van-field__value">
+                <!--[-->
+                <div
+                  class="van-field__body"
+                  style
+                >
+                  <input
+                    type="text"
+                    id="van-field-input"
+                    class="van-field__control"
+                    style
+                    placeholder="Start"
+                    data-allow-mismatch="attribute"
+                  >
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="van-range-input__h-sep van-range-input__h-sep--line">
+          </div>
+          <div class="van-range-input__cell">
+            <div class="van-cell van-cell--borderless van-field van-field--input-border">
+              <div class="van-cell__value van-field__value">
+                <!--[-->
+                <div
+                  class="van-field__body"
+                  style
+                >
+                  <input
+                    type="text"
+                    id="van-field-input"
+                    class="van-field__control"
+                    style
+                    placeholder="End"
+                    data-allow-mismatch="attribute"
+                  >
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div>
+    <!--[-->
+    <div class="van-cell-group van-cell-group--inset">
+      <!--[-->
+      <div class="van-range-input">
+        <div class="van-range-input__shortcuts">
+          <!--[-->
+          <button
+            type="button"
+            class="van-button van-button--default van-button--small van-range-input__shortcut"
+            style
+          >
+            <div class="van-button__content">
+              <span class="van-button__text">
+                <!--[-->
+                Last week
+              </span>
+            </div>
+          </button>
+          <button
+            type="button"
+            class="van-button van-button--default van-button--small van-range-input__shortcut"
+            style
+          >
+            <div class="van-button__content">
+              <span class="van-button__text">
+                <!--[-->
+                Last month
+              </span>
+            </div>
+          </button>
+          <button
+            type="button"
+            class="van-button van-button--default van-button--small van-range-input__shortcut"
+            style
+          >
+            <div class="van-button__content">
+              <span class="van-button__text">
+                <!--[-->
+                Last 3 months
+              </span>
+            </div>
+          </button>
+        </div>
+        <div class="van-range-input__body van-range-input__body--vertical">
+          <div
+            class="van-range-input__v-sep van-range-input__v-sep--default"
+            role="separator"
+            aria-orientation="vertical"
+            aria-label="至"
+          >
+            <div class="van-range-input__v-sep van-range-input__v-sep--segment">
+            </div>
+            <span class="van-range-input__v-sep van-range-input__v-sep--label">
+              至
+            </span>
+            <div class="van-range-input__v-sep van-range-input__v-sep--segment">
+            </div>
+          </div>
+          <div class="van-range-input__cell">
+            <!--[-->
+            <div
+              class="van-cell van-cell--clickable van-cell--borderless van-field van-field--readonly-ellipsis van-field--input-border"
+              role="button"
+              tabindex="0"
+            >
+              <div class="van-cell__value van-field__value">
+                <!--[-->
+                <div
+                  class="van-field__body"
+                  style
+                >
+                  <div
+                    id="van-field-input"
+                    class="van-field__control van-field__control--custom van-field__readonly-ellipsis van-field__readonly-ellipsis--placeholder"
+                    style
+                  >
+                    <div class="van-text-ellipsis">
+                      Select time
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <i
+                class="van-badge__wrapper van-icon van-icon-arrow van-cell__right-icon"
+                style
+              >
+                <!--[-->
+              </i>
+            </div>
+          </div>
+          <div class="van-range-input__cell">
+            <!--[-->
+            <div
+              class="van-cell van-cell--clickable van-cell--borderless van-field van-field--readonly-ellipsis van-field--input-border"
+              role="button"
+              tabindex="0"
+            >
+              <div class="van-cell__value van-field__value">
+                <!--[-->
+                <div
+                  class="van-field__body"
+                  style
+                >
+                  <div
+                    id="van-field-input"
+                    class="van-field__control van-field__control--custom van-field__readonly-ellipsis van-field__readonly-ellipsis--placeholder"
+                    style
+                  >
+                    <div class="van-text-ellipsis">
+                      Select time
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <i
+                class="van-badge__wrapper van-icon van-icon-arrow van-cell__right-icon"
+                style
+              >
+                <!--[-->
+              </i>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div>
+    <!--[-->
+    <div class="van-cell-group van-cell-group--inset">
+      <!--[-->
+      <div class="van-range-input">
+        <div class="van-range-input__shortcuts">
+          <!--[-->
+          <button
+            type="button"
+            class="van-button van-button--default van-button--small van-range-input__shortcut"
+            style
+          >
+            <div class="van-button__content">
+              <span class="van-button__text">
+                <!--[-->
+                Last week
+              </span>
+            </div>
+          </button>
+          <button
+            type="button"
+            class="van-button van-button--default van-button--small van-range-input__shortcut"
+            style
+          >
+            <div class="van-button__content">
+              <span class="van-button__text">
+                <!--[-->
+                Last month
+              </span>
+            </div>
+          </button>
+        </div>
+        <div class="van-range-input__body van-range-input__body--vertical">
+          <div
+            class="van-range-input__v-sep van-range-input__v-sep--default"
+            role="separator"
+            aria-orientation="vertical"
+            aria-label="至"
+          >
+            <div class="van-range-input__v-sep van-range-input__v-sep--segment">
+            </div>
+            <span class="van-range-input__v-sep van-range-input__v-sep--label">
+              至
+            </span>
+            <div class="van-range-input__v-sep van-range-input__v-sep--segment">
+            </div>
+          </div>
+          <div class="van-range-input__cell">
+            <!--[-->
+            <div
+              class="van-cell van-cell--clickable van-cell--borderless van-field van-field--readonly-ellipsis van-field--input-border"
+              role="button"
+              tabindex="0"
+            >
+              <div class="van-cell__value van-field__value">
+                <!--[-->
+                <div
+                  class="van-field__body"
+                  style
+                >
+                  <div
+                    id="van-field-input"
+                    class="van-field__control van-field__control--custom van-field__readonly-ellipsis van-field__readonly-ellipsis--placeholder"
+                    style
+                  >
+                    <div class="van-text-ellipsis">
+                      Select time
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <i
+                class="van-badge__wrapper van-icon van-icon-arrow van-cell__right-icon"
+                style
+              >
+                <!--[-->
+              </i>
+            </div>
+          </div>
+          <div class="van-range-input__cell">
+            <!--[-->
+            <div
+              class="van-cell van-cell--clickable van-cell--borderless van-field van-field--readonly-ellipsis van-field--input-border"
+              role="button"
+              tabindex="0"
+            >
+              <div class="van-cell__value van-field__value">
+                <!--[-->
+                <div
+                  class="van-field__body"
+                  style
+                >
+                  <div
+                    id="van-field-input"
+                    class="van-field__control van-field__control--custom van-field__readonly-ellipsis van-field__readonly-ellipsis--placeholder"
+                    style
+                  >
+                    <div class="van-text-ellipsis">
+                      Select time
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <i
+                class="van-badge__wrapper van-icon van-icon-arrow van-cell__right-icon"
+                style
+              >
+                <!--[-->
+              </i>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;

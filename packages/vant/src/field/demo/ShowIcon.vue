@@ -32,6 +32,14 @@ const icon2 = ref('123');
         :placeholder="t('showIcon')"
       />
       <van-field
+        v-model="icon1"
+        :show-right-icon-divider="true"
+        :label="t('text')"
+        left-icon="smile-o"
+        right-icon="warning-o"
+        :placeholder="t('showIcon')"
+      />
+      <van-field
         v-model="icon2"
         clearable
         :label="t('text')"

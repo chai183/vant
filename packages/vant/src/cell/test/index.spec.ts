@@ -19,6 +19,16 @@ test('should render title slot correctly', () => {
   expect(wrapper.html()).toMatchSnapshot();
 });
 
+test('should render array title correctly', () => {
+  const wrapper = mount(Cell, {
+    props: {
+      title: ['Main Title', 'Sub Title'],
+      value: 'Content',
+    },
+  });
+  expect(wrapper.html()).toMatchSnapshot();
+});
+
 test('should render label slot correctly', () => {
   const wrapper = mount(Cell, {
     props: {

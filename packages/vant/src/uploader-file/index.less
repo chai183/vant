@@ -1,0 +1,236 @@
+:root,
+:host {
+  --van-uploader-file-desc-color: var(--van-gray-6);
+  --van-uploader-file-desc-font-size: var(--van-font-size-sm);
+  --van-uploader-file-desc-line-height: var(--van-line-height-sm);
+  --van-uploader-file-upload-height: 40px;
+  --van-uploader-file-upload-radius: var(--van-radius-md);
+  --van-uploader-file-upload-border-color: var(--van-gray-4);
+  --van-uploader-file-upload-color: var(--van-text-color);
+  --van-uploader-file-upload-font-size: var(--van-font-size-md);
+  --van-uploader-file-upload-icon-size: 18px;
+  --van-uploader-file-item-padding: 16px 12px 16px 16px;
+  --van-uploader-file-item-background: #fafafa;
+  --van-uploader-file-item-border-color: var(--van-border-color);
+  --van-uploader-file-icon-width: 24px;
+  --van-uploader-file-icon-height: 32px;
+  --van-uploader-file-name-color: var(--van-text-color);
+  --van-uploader-file-name-font-size: var(--van-font-size-md);
+  --van-uploader-file-status-color: var(--van-gray-6);
+  --van-uploader-file-status-uploading-color: var(--van-orange);
+  --van-uploader-file-status-font-size: var(--van-font-size-sm);
+  --van-uploader-file-delete-color: var(--van-gray-9);
+  --van-uploader-file-delete-size: 18px;
+  --van-uploader-file-menu-color: var(--van-uploader-file-delete-color);
+  --van-uploader-file-menu-size: 20px;
+  --van-uploader-file-reupload-color: var(--van-orange);
+  --van-uploader-file-reupload-icon-size: 16px;
+  --van-uploader-file-reupload-font-size: var(--van-font-size-sm);
+}
+
+.van-uploader-file {
+  &__header {
+    margin-bottom: var(--van-padding-md-plus);
+  }
+
+  &__desc {
+    color: var(--van-uploader-file-desc-color);
+    font-size: var(--van-uploader-file-desc-font-size);
+    line-height: var(--van-uploader-file-desc-line-height);
+  }
+
+  &__uploader.van-uploader {
+    display: block;
+    width: 100%;
+
+    .van-uploader__wrapper {
+      display: block;
+    }
+
+    .van-uploader__input-wrapper {
+      display: block;
+      width: 100%;
+    }
+  }
+
+  &__uploader--max-count.van-uploader {
+    .van-uploader__input {
+      pointer-events: none;
+    }
+  }
+
+  &__upload {
+    height: var(--van-uploader-file-upload-height);
+  }
+
+  &__list {
+    margin-top: var(--van-padding-xs);
+  }
+
+  &__item {
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+    padding: var(--van-uploader-file-item-padding);
+    background-color: var(--van-uploader-file-item-background);
+    border-bottom: 1px solid var(--van-uploader-file-item-border-color);
+
+    &:last-child {
+      border-bottom: none;
+    }
+  }
+
+  &__file-icon {
+    display: flex;
+    flex-shrink: 0;
+    align-items: center;
+    justify-content: center;
+    width: var(--van-uploader-file-icon-width);
+    height: var(--van-uploader-file-icon-height);
+    margin-right: var(--van-padding-sm);
+    border-radius: var(--van-radius-sm);
+    color: var(--van-white);
+    font-size: var(--van-font-size-lg);
+    font-weight: var(--van-font-bold);
+  }
+
+  &__file-info {
+    flex: 1;
+    min-width: 0;
+    overflow: hidden;
+  }
+
+  &__file-name-wrap {
+    display: block;
+    width: 100%;
+    min-width: 0;
+
+    .van-popover__wrapper {
+      display: block;
+      width: 100%;
+    }
+  }
+
+  &__file-name {
+    display: block;
+    width: 100%;
+    max-width: 100%;
+    overflow: hidden;
+    color: var(--van-uploader-file-name-color);
+    font-size: var(--van-uploader-file-name-font-size);
+    line-height: var(--van-line-height-md);
+    white-space: nowrap;
+
+    &--clickable {
+      cursor: pointer;
+    }
+  }
+
+  &__file-name-tooltip {
+    max-width: 280px;
+    padding: var(--van-padding-xs) var(--van-padding-sm);
+    font-size: var(--van-font-size-sm);
+    line-height: var(--van-line-height-sm);
+    word-break: break-all;
+  }
+
+  &__file-status {
+    display: flex;
+    align-items: center;
+    margin-top: var(--van-padding-xxs);
+    color: var(--van-uploader-file-status-color);
+    font-size: var(--van-uploader-file-status-font-size);
+    line-height: var(--van-line-height-sm);
+    gap: var(--van-padding-xs);
+
+    .van-loading {
+      margin-right: var(--van-padding-base);
+    }
+
+    &--uploading {
+      color: var(--van-uploader-file-status-uploading-color);
+
+      .van-loading {
+        color: var(--van-uploader-file-status-uploading-color);
+      }
+    }
+
+    &--failed {
+      color: var(--van-danger-color);
+    }
+
+    &--done {
+      color: var(--van-uploader-file-status-color);
+    }
+  }
+
+  &__actions {
+    display: flex;
+    flex-shrink: 0;
+    align-items: center;
+    margin-left: var(--van-padding-xs);
+    gap: var(--van-padding-xs);
+  }
+
+  &__reupload {
+    display: inline-flex;
+    align-items: center;
+    color: var(--van-uploader-file-reupload-color);
+    font-size: var(--van-uploader-file-reupload-font-size);
+    line-height: var(--van-line-height-sm);
+    white-space: nowrap;
+    cursor: pointer;
+    gap: var(--van-padding-base);
+  }
+
+  &__reupload-icon {
+    color: inherit;
+    font-size: var(--van-uploader-file-reupload-icon-size);
+  }
+
+  &__menu {
+    color: var(--van-uploader-file-menu-color);
+    font-size: var(--van-uploader-file-menu-size);
+    cursor: pointer;
+  }
+
+  &__delete {
+    color: var(--van-uploader-file-delete-color);
+    font-size: var(--van-uploader-file-delete-size);
+    cursor: pointer;
+  }
+
+  &__rename-wrap {
+    margin: var(--van-padding-md) var(--van-padding-lg);
+    padding: var(--van-padding-xs) var(--van-padding-sm);
+    border: 1px solid var(--van-border-color);
+    border-radius: var(--van-radius-md);
+
+    .van-cell.van-field {
+      padding: 0;
+      background: transparent;
+
+      &::after {
+        display: none;
+      }
+    }
+
+    .van-field__value {
+      display: flex;
+      flex-wrap: nowrap;
+      align-items: center;
+    }
+
+    .van-field__body {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .van-field__word-limit {
+      flex-shrink: 0;
+      margin-top: 0;
+      margin-left: var(--van-padding-xs);
+      white-space: nowrap;
+    }
+  }
+}

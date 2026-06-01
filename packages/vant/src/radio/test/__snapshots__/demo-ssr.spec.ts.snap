@@ -7,11 +7,14 @@ exports[`should render demo and match snapshot 1`] = `
   <div
     class="van-radio-group demo-radio-group"
     role="radiogroup"
+    style
   >
+    <!--[-->
     <!--[-->
     <div
       role="radio"
       class="van-radio"
+      style
       tabindex="0"
       aria-checked="true"
     >
@@ -35,6 +38,7 @@ exports[`should render demo and match snapshot 1`] = `
     <div
       role="radio"
       class="van-radio"
+      style
       tabindex="0"
       aria-checked="false"
     >
@@ -62,11 +66,14 @@ exports[`should render demo and match snapshot 1`] = `
   <div
     class="van-radio-group van-radio-group--horizontal demo-radio-group"
     role="radiogroup"
+    style
   >
+    <!--[-->
     <!--[-->
     <div
       role="radio"
       class="van-radio van-radio--horizontal"
+      style
       tabindex="0"
       aria-checked="true"
     >
@@ -90,6 +97,7 @@ exports[`should render demo and match snapshot 1`] = `
     <div
       role="radio"
       class="van-radio van-radio--horizontal"
+      style
       tabindex="0"
       aria-checked="false"
     >
@@ -115,13 +123,168 @@ exports[`should render demo and match snapshot 1`] = `
 <div>
   <!--[-->
   <div
+    class="van-radio-group van-radio-group--horizontal van-radio-group--block demo-radio-group"
+    role="radiogroup"
+    style="--van-radio-group-columns:3;"
+  >
+    <!--[-->
+    <!--[-->
+    <div
+      role="radio"
+      class="van-radio van-radio--block van-radio--checked van-radio--horizontal"
+      style
+      tabindex="0"
+      aria-checked="true"
+    >
+      <!--[-->
+      <span class="van-radio__label van-radio__label--block">
+        <span class="van-radio__label-text">
+          <!--[-->
+          Radio 1
+        </span>
+      </span>
+    </div>
+    <div
+      role="radio"
+      class="van-radio van-radio--block van-radio--horizontal"
+      style
+      tabindex="0"
+      aria-checked="false"
+    >
+      <!--[-->
+      <span class="van-radio__label van-radio__label--block">
+        <span class="van-radio__label-text">
+          <!--[-->
+          Radio 2
+        </span>
+      </span>
+    </div>
+    <div
+      role="radio"
+      class="van-radio van-radio--block van-radio--horizontal"
+      style
+      tabindex="0"
+      aria-checked="false"
+    >
+      <!--[-->
+      <span class="van-radio__label van-radio__label--block">
+        <span class="van-radio__label-text">
+          <!--[-->
+          Radio 3
+        </span>
+      </span>
+    </div>
+    <div
+      role="radio"
+      class="van-radio van-radio--block van-radio--horizontal"
+      style
+      tabindex="0"
+      aria-checked="false"
+    >
+      <!--[-->
+      <span class="van-radio__label van-radio__label--block">
+        <span class="van-radio__label-text">
+          <!--[-->
+          Radio 4
+        </span>
+      </span>
+    </div>
+  </div>
+</div>
+<div>
+  <!--[-->
+  <div
     class="van-radio-group demo-radio-group"
     role="radiogroup"
+    style
   >
     <!--[-->
     <div
       role="radio"
+      class="van-radio"
+      style
+      tabindex="0"
+      aria-checked="true"
+    >
+      <!--[-->
+      <div
+        class="van-radio__icon van-radio__icon--round van-radio__icon--checked"
+        style
+      >
+        <i
+          class="van-badge__wrapper van-icon van-icon-success"
+          style
+        >
+          <!--[-->
+        </i>
+      </div>
+      <span class="van-radio__label">
+        <!--[-->
+        Option 1
+      </span>
+    </div>
+    <div
+      role="radio"
+      class="van-radio"
+      style
+      tabindex="0"
+      aria-checked="false"
+    >
+      <!--[-->
+      <div
+        class="van-radio__icon van-radio__icon--round"
+        style
+      >
+        <i
+          class="van-badge__wrapper van-icon van-icon-success"
+          style
+        >
+          <!--[-->
+        </i>
+      </div>
+      <span class="van-radio__label">
+        <!--[-->
+        Option 2
+      </span>
+    </div>
+    <div
+      role="radio"
       class="van-radio van-radio--disabled"
+      style
+      aria-checked="false"
+    >
+      <!--[-->
+      <div
+        class="van-radio__icon van-radio__icon--round van-radio__icon--disabled"
+        style
+      >
+        <i
+          class="van-badge__wrapper van-icon van-icon-success"
+          style
+        >
+          <!--[-->
+        </i>
+      </div>
+      <span class="van-radio__label van-radio__label--disabled">
+        <!--[-->
+        Option 3
+      </span>
+    </div>
+  </div>
+</div>
+<div>
+  <!--[-->
+  <div
+    class="van-radio-group demo-radio-group"
+    role="radiogroup"
+    style
+  >
+    <!--[-->
+    <!--[-->
+    <div
+      role="radio"
+      class="van-radio van-radio--disabled"
+      style
       aria-checked="false"
     >
       <!--[-->
@@ -144,6 +307,7 @@ exports[`should render demo and match snapshot 1`] = `
     <div
       role="radio"
       class="van-radio van-radio--disabled"
+      style
       aria-checked="true"
     >
       <!--[-->
@@ -170,11 +334,14 @@ exports[`should render demo and match snapshot 1`] = `
   <div
     class="van-radio-group demo-radio-group"
     role="radiogroup"
+    style
   >
+    <!--[-->
     <!--[-->
     <div
       role="radio"
       class="van-radio"
+      style
       tabindex="0"
       aria-checked="true"
     >
@@ -198,6 +365,7 @@ exports[`should render demo and match snapshot 1`] = `
     <div
       role="radio"
       class="van-radio"
+      style
       tabindex="0"
       aria-checked="false"
     >
@@ -225,9 +393,11 @@ exports[`should render demo and match snapshot 1`] = `
     style="margin-top:20px;"
   >
     <!--[-->
+    <!--[-->
     <div
       role="radio"
       class="van-radio"
+      style
       tabindex="0"
       aria-checked="true"
     >
@@ -250,6 +420,7 @@ exports[`should render demo and match snapshot 1`] = `
     <div
       role="radio"
       class="van-radio"
+      style
       tabindex="0"
       aria-checked="false"
     >
@@ -274,13 +445,72 @@ exports[`should render demo and match snapshot 1`] = `
 <div>
   <!--[-->
   <div
+    class="van-radio-group van-radio-group--horizontal van-radio-group--block demo-radio-block-group"
+    role="radiogroup"
+    style="--van-radio-group-columns:3;"
+  >
+    <!--[-->
+    <!--[-->
+    <div
+      role="radio"
+      class="van-radio van-radio--block van-radio--checked van-radio--horizontal"
+      style
+      tabindex="0"
+      aria-checked="true"
+    >
+      <!--[-->
+      <span class="van-radio__label van-radio__label--block">
+        <span class="van-radio__label-text">
+          <!--[-->
+          111
+        </span>
+      </span>
+    </div>
+    <div
+      role="radio"
+      class="van-radio van-radio--block van-radio--horizontal"
+      style
+      tabindex="0"
+      aria-checked="false"
+    >
+      <!--[-->
+      <span class="van-radio__label van-radio__label--block">
+        <span class="van-radio__label-text">
+          <!--[-->
+          222
+        </span>
+      </span>
+    </div>
+    <div
+      role="radio"
+      class="van-radio van-radio--block van-radio--horizontal"
+      style
+      tabindex="0"
+      aria-checked="false"
+    >
+      <!--[-->
+      <span class="van-radio__label van-radio__label--block">
+        <span class="van-radio__label-text">
+          <!--[-->
+          333
+        </span>
+      </span>
+    </div>
+  </div>
+</div>
+<div>
+  <!--[-->
+  <div
     class="van-radio-group demo-radio-group"
     role="radiogroup"
+    style
   >
+    <!--[-->
     <!--[-->
     <div
       role="radio"
       class="van-radio"
+      style
       tabindex="0"
       aria-checked="true"
     >
@@ -304,6 +534,7 @@ exports[`should render demo and match snapshot 1`] = `
     <div
       role="radio"
       class="van-radio"
+      style
       tabindex="0"
       aria-checked="false"
     >
@@ -331,11 +562,14 @@ exports[`should render demo and match snapshot 1`] = `
   <div
     class="van-radio-group demo-radio-group"
     role="radiogroup"
+    style
   >
+    <!--[-->
     <!--[-->
     <div
       role="radio"
       class="van-radio"
+      style
       tabindex="0"
       aria-checked="true"
     >
@@ -359,6 +593,7 @@ exports[`should render demo and match snapshot 1`] = `
     <div
       role="radio"
       class="van-radio"
+      style
       tabindex="0"
       aria-checked="false"
     >
@@ -386,11 +621,14 @@ exports[`should render demo and match snapshot 1`] = `
   <div
     class="van-radio-group demo-radio-group"
     role="radiogroup"
+    style
   >
+    <!--[-->
     <!--[-->
     <div
       role="radio"
       class="van-radio"
+      style
       tabindex="0"
       aria-checked="true"
     >
@@ -410,6 +648,7 @@ exports[`should render demo and match snapshot 1`] = `
     <div
       role="radio"
       class="van-radio"
+      style
       tabindex="0"
       aria-checked="false"
     >
@@ -433,11 +672,14 @@ exports[`should render demo and match snapshot 1`] = `
   <div
     class="van-radio-group demo-radio-group"
     role="radiogroup"
+    style
   >
+    <!--[-->
     <!--[-->
     <div
       role="radio"
       class="van-radio"
+      style
       tabindex="0"
       aria-checked="true"
     >
@@ -461,6 +703,7 @@ exports[`should render demo and match snapshot 1`] = `
     <div
       role="radio"
       class="van-radio"
+      style
       tabindex="0"
       aria-checked="false"
     >
@@ -488,11 +731,14 @@ exports[`should render demo and match snapshot 1`] = `
   <div
     class="van-radio-group demo-radio-group"
     role="radiogroup"
+    style
   >
+    <!--[-->
     <!--[-->
     <div
       role="radio"
       class="van-radio van-radio--label-disabled"
+      style
       tabindex="0"
       aria-checked="true"
     >
@@ -516,6 +762,7 @@ exports[`should render demo and match snapshot 1`] = `
     <div
       role="radio"
       class="van-radio van-radio--label-disabled"
+      style
       tabindex="0"
       aria-checked="false"
     >
@@ -543,7 +790,9 @@ exports[`should render demo and match snapshot 1`] = `
   <div
     class="van-radio-group"
     role="radiogroup"
+    style
   >
+    <!--[-->
     <!--[-->
     <div class="van-cell-group van-cell-group--inset">
       <!--[-->
@@ -564,6 +813,7 @@ exports[`should render demo and match snapshot 1`] = `
         <div
           role="radio"
           class="van-radio"
+          style
           tabindex="0"
           aria-checked="true"
         >
@@ -598,6 +848,7 @@ exports[`should render demo and match snapshot 1`] = `
         <div
           role="radio"
           class="van-radio"
+          style
           tabindex="0"
           aria-checked="false"
         >

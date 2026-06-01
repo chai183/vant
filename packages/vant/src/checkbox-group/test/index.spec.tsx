@@ -206,3 +206,216 @@ test('should render shape correctly when using shape prop', () => {
   expect(iconBoxs[0].classes()).toContain(shapeClass);
   expect(iconBoxs[1].classes()).toContain(shapeClass1);
 });
+
+test('should render checkboxes from options prop', async () => {
+  const wrapper = mount({
+    emits: ['change'],
+    setup(props, { emit }) {
+      return {
+        result: ref(['a']),
+        options: [
+          { label: 'Option A', value: 'a' },
+          { label: 'Option B', value: 'b' },
+          { label: 'Option C', value: 'c', disabled: true },
+        ],
+        emit,
+      };
+    },
+    render() {
+      return (
+        <CheckboxGroup
+          v-model={this.result}
+          options={this.options}
+          onChange={(value) => this.emit('change', value)}
+        />
+      );
+    },
+  });
+
+  const labels = wrapper.findAll('.van-checkbox__label');
+  expect(labels.map((item) => item.text())).toEqual([
+    'Option A',
+    'Option B',
+    'Option C',
+  ]);
+
+  await labels[1].trigger('click');
+  expect(wrapper.vm.result).toEqual(['a', 'b']);
+  expect(wrapper.emitted('change')![0]).toEqual([['a', 'b']]);
+
+  await labels[0].trigger('click');
+  expect(wrapper.vm.result).toEqual(['b']);
+  expect(wrapper.emitted('change')![1]).toEqual([['b']]);
+
+  await labels[2].trigger('click');
+  expect(wrapper.vm.result).toEqual(['b']);
+});
+
+test('should render list options with checkbox on the right when isList is true', async () => {
+  const wrapper = mount({
+    emits: ['change'],
+    setup(props, { emit }) {
+      return {
+        result: ref(['a']),
+        options: [
+          { label: 'Option A', value: 'a' },
+          { label: 'Option B', value: 'b' },
+          { label: 'Option C', value: 'c', disabled: true },
+        ],
+        emit,
+      };
+    },
+    render() {
+      return (
+        <CheckboxGroup
+          v-model={this.result}
+          isList
+          options={this.options}
+          onChange={(value) => this.emit('change', value)}
+        />
+      );
+    },
+  });
+
+  expect(wrapper.find('.van-checkbox-group--list').exists()).toBe(true);
+  expect(wrapper.findAll('.van-cell')).toHaveLength(3);
+  expect(wrapper.findAll('.van-checkbox__label')).toHaveLength(0);
+
+  const titles = wrapper.findAll('.van-cell__title');
+  expect(titles.map((item) => item.text())).toEqual([
+    'Option A',
+    'Option B',
+    'Option C',
+  ]);
+
+  await titles[1].trigger('click');
+  expect(wrapper.vm.result).toEqual(['a', 'b']);
+  expect(wrapper.emitted('change')![0]).toEqual([['a', 'b']]);
+
+  await titles[2].trigger('click');
+  expect(wrapper.vm.result).toEqual(['a', 'b']);
+
+  await titles[0].trigger('click');
+  expect(wrapper.vm.result).toEqual(['b']);
+  expect(wrapper.emitted('change')![1]).toEqual([['b']]);
+});
+
+test('should pass cellProps to Cell when isList is true', () => {
+  const wrapper = mount({
+    setup() {
+      return {
+        result: ref([]),
+        options: [
+          { label: 'Option A', value: 'a' },
+          {
+            label: 'Option B',
+            value: 'b',
+            cellProps: { label: 'Description', icon: 'shop-o' },
+          },
+        ],
+      };
+    },
+    render() {
+      return (
+        <CheckboxGroup v-model={this.result} isList options={this.options} />
+      );
+    },
+  });
+
+  const cells = wrapper.findAll('.van-cell');
+  expect(cells[1].find('.van-cell__label').text()).toBe('Description');
+  expect(cells[1].find('.van-icon').exists()).toBe(true);
+});
+
+test('should ignore direction, columns and shape when isList is true', () => {
+  const wrapper = mount({
+    setup() {
+      return {
+        result: ref([]),
+        options: [
+          { label: 'Option A', value: 'a' },
+          { label: 'Option B', value: 'b' },
+        ],
+      };
+    },
+    render() {
+      return (
+        <CheckboxGroup
+          v-model={this.result}
+          isList
+          shape="block"
+          direction="horizontal"
+          columns={3}
+          options={this.options}
+        />
+      );
+    },
+  });
+
+  expect(wrapper.classes()).toContain('van-checkbox-group--list');
+  expect(wrapper.classes()).not.toContain('van-checkbox-group--horizontal');
+  expect(wrapper.attributes('style')).toBeUndefined();
+  expect(wrapper.find('.van-checkbox--block').exists()).toBe(false);
+  expect(wrapper.findAll('.van-cell')).toHaveLength(2);
+});
+
+test('should render block shape correctly when using shape prop', () => {
+  const wrapper = mount({
+    setup() {
+      const groupValue = ref(['a']);
+
+      return {
+        groupValue,
+      };
+    },
+    render() {
+      return (
+        <CheckboxGroup modelValue={this.groupValue} shape="block">
+          <Checkbox name="a">Option A</Checkbox>
+          <Checkbox name="b">Option B</Checkbox>
+        </CheckboxGroup>
+      );
+    },
+  });
+
+  const blocks = wrapper.findAll('.van-checkbox--block');
+  expect(blocks).toHaveLength(2);
+  expect(blocks[0].classes()).toContain('van-checkbox--checked');
+  expect(wrapper.findAll('.van-checkbox__icon')).toHaveLength(0);
+});
+
+test('should set columns style when direction is horizontal and shape is block', () => {
+  const wrapper = mount({
+    render() {
+      return (
+        <CheckboxGroup direction="horizontal" shape="block" columns={2}>
+          <Checkbox name="a">Option A</Checkbox>
+          <Checkbox name="b">Option B</Checkbox>
+        </CheckboxGroup>
+      );
+    },
+  });
+
+  expect(wrapper.classes()).toContain('van-checkbox-group--horizontal');
+  expect(wrapper.classes()).toContain('van-checkbox-group--block');
+  expect(wrapper.attributes('style')).toContain(
+    '--van-checkbox-group-columns: 2',
+  );
+});
+
+test('should not set columns style when shape is not block', () => {
+  const wrapper = mount({
+    render() {
+      return (
+        <CheckboxGroup direction="horizontal" columns={2}>
+          <Checkbox name="a">Option A</Checkbox>
+          <Checkbox name="b">Option B</Checkbox>
+        </CheckboxGroup>
+      );
+    },
+  });
+
+  expect(wrapper.classes()).toContain('van-checkbox-group--horizontal');
+  expect(wrapper.classes()).not.toContain('van-checkbox-group--block');
+  expect(wrapper.attributes('style')).toBeUndefined();
+});

@@ -1,0 +1,371 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`should render demo and match snapshot 1`] = `
+<!--[-->
+<div>
+  <!--[-->
+  <div class="van-result van-safe-area-bottom">
+    <i
+      class="van-badge__wrapper van-icon van-icon-underway van-result__icon van-result__icon--waiting"
+      style="font-size:64px;"
+    >
+      <!--[-->
+    </i>
+    <div class="van-result__title van-result__title--waiting">
+      Waiting
+    </div>
+    <div class="van-result__content">
+      <!--[-->
+      <div class="result-demo__amount">
+        <div class="result-demo__amount-value">
+          15,000,000.00
+        </div>
+        <div class="result-demo__amount-caption">
+          Amount in words
+        </div>
+      </div>
+    </div>
+    <div class="van-result__description">
+      Remarks, feedback or progress tips (up to two lines)
+    </div>
+    <div class="van-result__actions van-result__actions--horizontal">
+      <!--[-->
+      <button
+        type="button"
+        class="van-button van-button--primary van-button--normal van-button--plain van-button--round van-result__action van-result__action--secondary"
+        style
+      >
+        <div class="van-button__content">
+          <span class="van-button__text">
+            <!--[-->
+            Secondary Action
+          </span>
+        </div>
+      </button>
+      <button
+        type="button"
+        class="van-button van-button--primary van-button--normal van-button--block van-button--round van-result__action van-result__action--main"
+        style
+      >
+        <div class="van-button__content">
+          <span class="van-button__text">
+            <!--[-->
+            Main Action
+          </span>
+        </div>
+      </button>
+    </div>
+    <div class="van-result__footer">
+      <!--[-->
+      <div class="result-demo__card">
+        <div class="result-demo__card-title">
+          Card Module 1
+        </div>
+        <div class="result-demo__card-content">
+          Card content goes here
+        </div>
+      </div>
+      <div class="result-demo__card">
+        <div class="result-demo__card-title">
+          Card Module 2
+        </div>
+        <div class="result-demo__card-content">
+          Card content goes here
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div>
+  <!--[-->
+  <div class="van-result van-safe-area-bottom">
+    <i
+      class="van-badge__wrapper van-icon van-icon-clear van-result__icon van-result__icon--fail"
+      style="font-size:64px;"
+    >
+      <!--[-->
+    </i>
+    <div class="van-result__title van-result__title--fail">
+      Failed
+    </div>
+    <div class="van-result__description">
+      Remarks, feedback or progress tips (up to two lines)
+    </div>
+    <div class="van-result__actions van-result__actions--vertical">
+      <!--[-->
+      <button
+        type="button"
+        class="van-button van-button--primary van-button--normal van-button--block van-button--round van-result__action van-result__action--main"
+        style
+      >
+        <div class="van-button__content">
+          <span class="van-button__text">
+            <!--[-->
+            Main Action
+          </span>
+        </div>
+      </button>
+      <button
+        type="button"
+        class="van-button van-button--primary van-button--normal van-button--plain van-button--round van-result__action van-result__action--secondary"
+        style
+      >
+        <div class="van-button__content">
+          <span class="van-button__text">
+            <!--[-->
+            Secondary Action
+          </span>
+        </div>
+      </button>
+    </div>
+  </div>
+</div>
+<div>
+  <!--[-->
+  <div class="van-result van-safe-area-bottom">
+    <i
+      class="van-badge__wrapper van-icon van-icon-warning van-result__icon van-result__icon--warning"
+      style="font-size:64px;"
+    >
+      <!--[-->
+    </i>
+    <div class="van-result__title van-result__title--warning">
+      Exception
+    </div>
+    <div class="van-result__description">
+      Remarks, feedback or progress tips (up to two lines)
+    </div>
+    <div class="van-result__actions van-result__actions--hybrid">
+      <button
+        type="button"
+        class="van-button van-button--primary van-button--normal van-button--block van-button--round van-result__action van-result__action--main"
+        style
+      >
+        <div class="van-button__content">
+          <span class="van-button__text">
+            <!--[-->
+            Main Action
+          </span>
+        </div>
+      </button>
+      <div class="van-result__secondary-row">
+        <!--[-->
+        <button
+          type="button"
+          class="van-button van-button--primary van-button--normal van-button--plain van-button--round van-result__action van-result__action--secondary"
+          style
+        >
+          <div class="van-button__content">
+            <span class="van-button__text">
+              <!--[-->
+              Secondary 1
+            </span>
+          </div>
+        </button>
+        <button
+          type="button"
+          class="van-button van-button--primary van-button--normal van-button--plain van-button--round van-result__action van-result__action--secondary"
+          style
+        >
+          <div class="van-button__content">
+            <span class="van-button__text">
+              <!--[-->
+              Secondary 2
+            </span>
+          </div>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+<div>
+  <!--[-->
+  <p class="result-demo__layout-note">
+    Use button-layout to control arrangement
+  </p>
+  <div class="van-result van-safe-area-bottom">
+    <i
+      class="van-badge__wrapper van-icon van-icon-checked van-result__icon van-result__icon--success"
+      style="font-size:64px;"
+    >
+      <!--[-->
+    </i>
+    <div class="van-result__title van-result__title--success">
+      horizontal
+    </div>
+    <div class="van-result__description">
+      Remarks, feedback or progress tips (up to two lines)
+    </div>
+    <div class="van-result__actions van-result__actions--horizontal">
+      <!--[-->
+      <button
+        type="button"
+        class="van-button van-button--primary van-button--normal van-button--plain van-button--round van-result__action van-result__action--secondary"
+        style
+      >
+        <div class="van-button__content">
+          <span class="van-button__text">
+            <!--[-->
+            Secondary Action
+          </span>
+        </div>
+      </button>
+      <button
+        type="button"
+        class="van-button van-button--primary van-button--normal van-button--block van-button--round van-result__action van-result__action--main"
+        style
+      >
+        <div class="van-button__content">
+          <span class="van-button__text">
+            <!--[-->
+            Main Action
+          </span>
+        </div>
+      </button>
+    </div>
+  </div>
+  <div class="van-result van-safe-area-bottom">
+    <i
+      class="van-badge__wrapper van-icon van-icon-checked van-result__icon van-result__icon--success"
+      style="font-size:64px;"
+    >
+      <!--[-->
+    </i>
+    <div class="van-result__title van-result__title--success">
+      vertical
+    </div>
+    <div class="van-result__description">
+      Remarks, feedback or progress tips (up to two lines)
+    </div>
+    <div class="van-result__actions van-result__actions--vertical">
+      <!--[-->
+      <button
+        type="button"
+        class="van-button van-button--primary van-button--normal van-button--block van-button--round van-result__action van-result__action--main"
+        style
+      >
+        <div class="van-button__content">
+          <span class="van-button__text">
+            <!--[-->
+            Main Action
+          </span>
+        </div>
+      </button>
+      <button
+        type="button"
+        class="van-button van-button--primary van-button--normal van-button--plain van-button--round van-result__action van-result__action--secondary"
+        style
+      >
+        <div class="van-button__content">
+          <span class="van-button__text">
+            <!--[-->
+            Secondary Action
+          </span>
+        </div>
+      </button>
+    </div>
+  </div>
+  <div class="van-result van-safe-area-bottom">
+    <i
+      class="van-badge__wrapper van-icon van-icon-checked van-result__icon van-result__icon--success"
+      style="font-size:64px;"
+    >
+      <!--[-->
+    </i>
+    <div class="van-result__title van-result__title--success">
+      hybrid
+    </div>
+    <div class="van-result__description">
+      Remarks, feedback or progress tips (up to two lines)
+    </div>
+    <div class="van-result__actions van-result__actions--hybrid">
+      <button
+        type="button"
+        class="van-button van-button--primary van-button--normal van-button--block van-button--round van-result__action van-result__action--main"
+        style
+      >
+        <div class="van-button__content">
+          <span class="van-button__text">
+            <!--[-->
+            Main Action
+          </span>
+        </div>
+      </button>
+      <div class="van-result__secondary-row">
+        <!--[-->
+        <button
+          type="button"
+          class="van-button van-button--primary van-button--normal van-button--plain van-button--round van-result__action van-result__action--secondary"
+          style
+        >
+          <div class="van-button__content">
+            <span class="van-button__text">
+              <!--[-->
+              Secondary 1
+            </span>
+          </div>
+        </button>
+        <button
+          type="button"
+          class="van-button van-button--primary van-button--normal van-button--plain van-button--round van-result__action van-result__action--secondary"
+          style
+        >
+          <div class="van-button__content">
+            <span class="van-button__text">
+              <!--[-->
+              Secondary 2
+            </span>
+          </div>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+<div>
+  <!--[-->
+  <div class="van-result van-safe-area-bottom">
+    <i
+      class="van-badge__wrapper van-icon van-icon-checked van-result__icon van-result__icon--success"
+      style="font-size:64px;"
+    >
+      <!--[-->
+    </i>
+    <div class="van-result__title van-result__title--success">
+      Succeeded
+    </div>
+    <div class="van-result__content">
+      <!--[-->
+      <div class="result-demo__amount">
+        <div class="result-demo__amount-value">
+          15,000,000.00
+        </div>
+        <div class="result-demo__amount-caption">
+          Amount in words
+        </div>
+      </div>
+    </div>
+    <div class="van-result__description">
+      Remarks, feedback or progress tips (up to two lines)
+    </div>
+    <div class="van-result__footer">
+      <!--[-->
+      <div class="result-demo__card">
+        <div class="result-demo__card-title">
+          Card Module 1
+        </div>
+        <div class="result-demo__card-content">
+          Card content goes here
+        </div>
+      </div>
+      <div class="result-demo__card">
+        <div class="result-demo__card-title">
+          Card Module 2
+        </div>
+        <div class="result-demo__card-content">
+          Card content goes here
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;

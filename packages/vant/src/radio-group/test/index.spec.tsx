@@ -114,6 +114,78 @@ test('should change checked color when using checked-color prop', () => {
   expect(icons[1].style.backgroundColor).toEqual('white');
 });
 
+test('should render radios from options prop', async () => {
+  const wrapper = mount({
+    emits: ['change'],
+    setup(props, { emit }) {
+      return {
+        result: ref('a'),
+        options: [
+          { label: 'Option A', value: 'a' },
+          { label: 'Option B', value: 'b' },
+          { label: 'Option C', value: 'c', disabled: true },
+        ],
+        emit,
+      };
+    },
+    render() {
+      return (
+        <RadioGroup
+          v-model={this.result}
+          options={this.options}
+          onChange={(value) => this.emit('change', value)}
+        />
+      );
+    },
+  });
+
+  const labels = wrapper.findAll('.van-radio__label');
+  expect(labels.map((item) => item.text())).toEqual([
+    'Option A',
+    'Option B',
+    'Option C',
+  ]);
+
+  await labels[1].trigger('click');
+  expect(wrapper.vm.result).toEqual('b');
+  expect(wrapper.emitted('change')![0]).toEqual(['b']);
+
+  await labels[2].trigger('click');
+  expect(wrapper.vm.result).toEqual('b');
+});
+
+test('should ignore direction, columns and shape when isList is true', () => {
+  const wrapper = mount({
+    setup() {
+      return {
+        result: ref('a'),
+        options: [
+          { label: 'Option A', value: 'a' },
+          { label: 'Option B', value: 'b' },
+        ],
+      };
+    },
+    render() {
+      return (
+        <RadioGroup
+          v-model={this.result}
+          isList
+          shape="block"
+          direction="horizontal"
+          columns={3}
+          options={this.options}
+        />
+      );
+    },
+  });
+
+  expect(wrapper.classes()).toContain('van-radio-group--list');
+  expect(wrapper.classes()).not.toContain('van-radio-group--horizontal');
+  expect(wrapper.attributes('style')).toBeUndefined();
+  expect(wrapper.find('.van-radio--block').exists()).toBe(false);
+  expect(wrapper.findAll('.van-cell')).toHaveLength(2);
+});
+
 test('should render shape correctly when using shape prop', () => {
   const wrapper = mount({
     render() {
@@ -132,4 +204,56 @@ test('should render shape correctly when using shape prop', () => {
   const iconBoxs = wrapper.findAll('.van-radio__icon');
   expect(iconBoxs[0].classes()).toContain(shapeClass);
   expect(iconBoxs[1].classes()).toContain(shapeClass1);
+});
+
+test('should render block shape correctly when using shape prop', () => {
+  const wrapper = mount({
+    render() {
+      return (
+        <RadioGroup shape="block" modelValue="1">
+          <Radio name="1">Option 1</Radio>
+          <Radio name="2">Option 2</Radio>
+        </RadioGroup>
+      );
+    },
+  });
+
+  const blocks = wrapper.findAll('.van-radio--block');
+  expect(blocks).toHaveLength(2);
+  expect(blocks[0].classes()).toContain('van-radio--checked');
+  expect(wrapper.findAll('.van-radio__icon')).toHaveLength(0);
+});
+
+test('should set columns style when direction is horizontal and shape is block', () => {
+  const wrapper = mount({
+    render() {
+      return (
+        <RadioGroup direction="horizontal" shape="block" columns={2}>
+          <Radio name="1">Option 1</Radio>
+          <Radio name="2">Option 2</Radio>
+        </RadioGroup>
+      );
+    },
+  });
+
+  expect(wrapper.classes()).toContain('van-radio-group--horizontal');
+  expect(wrapper.classes()).toContain('van-radio-group--block');
+  expect(wrapper.attributes('style')).toContain('--van-radio-group-columns: 2');
+});
+
+test('should not set columns style when shape is not block', () => {
+  const wrapper = mount({
+    render() {
+      return (
+        <RadioGroup direction="horizontal" columns={2}>
+          <Radio name="1">Option 1</Radio>
+          <Radio name="2">Option 2</Radio>
+        </RadioGroup>
+      );
+    },
+  });
+
+  expect(wrapper.classes()).toContain('van-radio-group--horizontal');
+  expect(wrapper.classes()).not.toContain('van-radio-group--block');
+  expect(wrapper.attributes('style')).toBeUndefined();
 });

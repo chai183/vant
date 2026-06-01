@@ -84,13 +84,13 @@ test('hide close icon when there is no title', async () => {
     },
   });
 
-  expect(wrapper.find('.van-popup__close-icon').exists()).toBeTruthy();
+  expect(wrapper.find('.van-calendar__cancel').exists()).toBeTruthy();
 
   await wrapper.setProps({
     showTitle: false,
     showSubtitle: false,
   });
-  expect(wrapper.find('.van-popup__close-icon').exists()).toBeFalsy();
+  expect(wrapper.find('.van-calendar__cancel').exists()).toBeFalsy();
 });
 
 test('allow-same-day prop', async () => {

@@ -7,8 +7,11 @@ export { cascaderProps } from './Cascader';
 export type { CascaderProps } from './Cascader';
 export type {
   CascaderOption,
+  CascaderTab,
   CascaderThemeVars,
   CascaderFieldNames,
+  CascaderTabLayout,
+  CascaderStepTitleSlotParams,
 } from './types';
 
 declare module 'vue' {

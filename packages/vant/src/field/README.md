@@ -42,7 +42,7 @@ export default {
 
 ### Custom Type
 
-Use `type` prop to custom different type fields.
+Use `type` prop to custom different type fields. For `money` type, see [FieldMoney](#/en-US/field-money).
 
 ```html
 <van-cell-group inset>
@@ -76,6 +76,48 @@ export default {
 <van-cell-group inset>
   <van-field label="Text" model-value="Input Readonly" readonly />
   <van-field label="Text" model-value="Input Disabled" disabled />
+</van-cell-group>
+```
+
+### Readonly Ellipsis
+
+In readonly mode, content is displayed via [TextEllipsis](#/en-US/text-ellipsis) by default. When `model-value` is an array, each item is shown in a single row using [Tag](#/en-US/tag); items that exceed the width are collapsed into a `+N` tag. Short content is shown in full. Set `:readonly-ellipsis="false"` to fall back to the native readonly input (array values still use Tag).
+
+Overflow:
+
+```html
+<van-cell-group inset>
+  <van-field
+    label="Address"
+    model-value="Room 1201, 12F, Zhangjiang Building, 88 Keyuan Road, Pudong, Shanghai"
+    readonly
+    placeholder="Select address"
+  />
+  <van-field
+    label="Tags"
+    :model-value="['Design', 'Interaction', 'Frontend', 'QA', 'Product', 'Operations']"
+    readonly
+    placeholder="Select tags"
+  />
+</van-cell-group>
+```
+
+No overflow:
+
+```html
+<van-cell-group inset>
+  <van-field
+    label="Address"
+    model-value="Pudong, Shanghai"
+    readonly
+    placeholder="Select address"
+  />
+  <van-field
+    label="Tags"
+    :model-value="['Design', 'Interaction', 'Frontend']"
+    readonly
+    placeholder="Select tags"
+  />
 </van-cell-group>
 ```
 
@@ -306,6 +348,48 @@ Use `label-align` prop to align the input value, can be set to `center`, `right`
 </van-cell-group>
 ```
 
+### Label Tooltip
+
+When a label is set, you can show an info icon on the right of the label. Tapping it opens a Popover for extra hints.
+
+- Use the `label-tooltip` prop for plain text.
+- Use the `label-tooltip` slot for custom content (the slot takes precedence over the prop).
+- Use `label-tooltip-popover-props` to pass [Popover](#/en-US/popover) props such as `placement` or `theme`. Built-in defaults are `placement="top"`, `theme="dark"`, and `icon-prefix` follows the Field's `icon-prefix`.
+
+```html
+<van-field label="Amount" label-tooltip="Maximum ¥50,000 per transfer" />
+<van-field label="Note" placeholder="Text">
+  <template #label-tooltip>
+    <div>Custom content</div>
+  </template>
+</van-field>
+```
+
+### Label Comment
+
+Use the `label-comment` prop or `label-comment` slot to show a note below the label. The content is passed through to Cell's `label` (the slot takes precedence over the prop).
+
+```html
+<van-field label="Text" label-comment="Note below the label" />
+<van-field label="Text" placeholder="Text">
+  <template #label-comment>
+    <span>Custom label note</span>
+  </template>
+</van-field>
+```
+
+### Input Bottom
+
+Use the `input-bottom` slot to render content below the input row and above the word limit and error message.
+
+```html
+<van-field v-model="text" label="Note" placeholder="Optional">
+  <template #input-bottom>
+    <span>Optional, max 200 characters</span>
+  </template>
+</van-field>
+```
+
 ## API
 
 ### Props
@@ -316,11 +400,11 @@ Use `label-align` prop to align the input value, can be set to `center`, `right`
 | label | Left side label | _string_ | - |
 | name | As the identifier when submitting the form | _string_ | - |
 | id | Input id, the for attribute of the label also will be set | _string_ | `van-field-n-input` |
-| type | Input type, support all [native types](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input#input_types) and `digit` type | _FieldType_ | `text` |
+| type | Input type, support all [native types](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input#input_types) and `digit`, `money` types | _FieldType_ | `text` |
 | size | Size, can be set to `large` `normal` | _string_ | - |
 | maxlength | Max length of value | _number \| string_ | - |
-| min `v4.9.5` | When the input type is `number` or `digit`, set the minimum allowable value | _number_ | - |
-| max `v4.9.5` | When the input type is `number` or `digit`, set the maximum allowable value | _number_ | - |
+| min `v4.9.5` | When the input type is `number`, `money` or `digit`, set the minimum allowable value | _number_ | - |
+| max `v4.9.5` | When the input type is `number`, `money` or `digit`, set the maximum allowable value | _number_ | - |
 | placeholder | Input placeholder | _string_ | - |
 | border | Whether to show inner border | _boolean_ | `true` |
 | disabled | Whether to disable field | _boolean_ | `false` |
@@ -342,8 +426,13 @@ Use `label-align` prop to align the input value, can be set to `center`, `right`
 | format-trigger | When to format value, can be set to `onBlur` | _FieldFormatTrigger_ | `onChange` |
 | arrow-direction | Can be set to `left` `up` `down` | _string_ | `right` |
 | label-class | Label className | _string \| Array \| object_ | - |
+| input-class `new` | Extra className on the native `input` / `textarea` (when using the `input` slot, applied to the wrapper) | _string \| Array \| object_ | - |
+| input-style `new` | Extra style on the native `input` / `textarea` (when using the `input` slot, applied to the wrapper) | _string \| object_ | - |
 | label-width | Label width | _number \| string_ | `6.2em` |
 | label-align | Label align, can be set to `center` `right` `top` | _FieldTextAlign_ | `left` |
+| label-tooltip `new` | Tooltip text next to the label (shown in Popover when the info icon is tapped); requires a label | _string_ | - |
+| label-tooltip-popover-props `new` | Props passed through to the label Popover, see [Popover](#/en-US/popover) | _Partial\<PopoverProps\>_ | - |
+| label-comment `new` | Note below the label, passed through to Cell's `label` | _string_ | - |
 | input-align | Input align, can be set to `center` `right` | _FieldTextAlign_ | `left` |
 | autosize | Textarea auto resize, can accept an object,<br>e.g. { maxHeight: 100, minHeight: 50 } | _boolean \| FieldAutosizeConfig_ | `false` |
 | left-icon | Left side icon name | _string_ | - |
@@ -421,6 +510,7 @@ fieldRef.value?.focus();
 | Name          | Description                 | SlotProps             |
 | ------------- | --------------------------- | --------------------- |
 | label         | Custom label                | -                     |
+| label-comment `new` | Custom note below the label, passed through to Cell's `label`; takes precedence over the `label-comment` prop | - |
 | input         | Custom input                | -                     |
 | left-icon     | Custom left icon            | -                     |
 | right-icon    | Custom right icon           | -                     |

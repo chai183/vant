@@ -12,7 +12,7 @@ import { Icon } from '../icon';
 
 import type { RadioShape } from '../radio';
 
-export type CheckerShape = 'square' | 'round';
+export type CheckerShape = 'square' | 'round' | 'block';
 export type CheckerDirection = 'horizontal' | 'vertical';
 export type CheckerLabelPosition = 'left' | 'right';
 export type CheckerParent = {
@@ -22,6 +22,7 @@ export type CheckerParent = {
     disabled?: boolean;
     iconSize?: Numeric;
     direction?: CheckerDirection;
+    isList?: boolean;
     modelValue?: unknown | unknown[];
     checkedColor?: string;
   };
@@ -81,7 +82,14 @@ export default defineComponent({
       return props.disabled;
     });
 
-    const direction = computed(() => getParentProp('direction'));
+    const isListMode = computed(() => !!getParentProp('isList'));
+
+    const direction = computed(() => {
+      if (isListMode.value) {
+        return;
+      }
+      return getParentProp('direction');
+    });
 
     const iconStyle = computed(() => {
       const checkedColor = props.checkedColor || getParentProp('checkedColor');
@@ -99,7 +107,31 @@ export default defineComponent({
     });
 
     const shape = computed(() => {
+      if (isListMode.value) {
+        return props.shape || 'round';
+      }
       return props.shape || getParentProp('shape') || 'round';
+    });
+
+    const isBlockShape = computed(() => shape.value === 'block');
+
+    const blockStyle = computed(() => {
+      if (!isBlockShape.value) {
+        return;
+      }
+
+      const checkedColor = props.checkedColor || getParentProp('checkedColor');
+
+      if (
+        checkedColor &&
+        (props.checked || props.indeterminate) &&
+        !disabled.value
+      ) {
+        return {
+          '--van-checkbox-checked-icon-color': checkedColor,
+          '--van-radio-checked-icon-color': checkedColor,
+        } as Record<string, string>;
+      }
     });
 
     const onClick = (event: MouseEvent) => {
@@ -114,6 +146,10 @@ export default defineComponent({
     };
 
     const renderIcon = () => {
+      if (isBlockShape.value) {
+        return;
+      }
+
       const { bem, checked, indeterminate } = props;
       const iconSize = props.iconSize || getParentProp('iconSize');
 
@@ -155,22 +191,32 @@ export default defineComponent({
       const { checked } = props;
 
       if (slots.default) {
+        const content = slots.default({
+          checked,
+          disabled: disabled.value,
+        });
+
         return (
           <span
             class={props.bem('label', [
               props.labelPosition,
-              { disabled: disabled.value },
+              { disabled: disabled.value, block: isBlockShape.value },
             ])}
           >
-            {slots.default({ checked, disabled: disabled.value })}
+            {isBlockShape.value ? (
+              <span class={props.bem('label-text')}>{content}</span>
+            ) : (
+              content
+            )}
           </span>
         );
       }
     };
 
     return () => {
-      const nodes: (JSX.Element | undefined)[] =
-        props.labelPosition === 'left'
+      const nodes: (JSX.Element | undefined)[] = isBlockShape.value
+        ? [renderLabel()]
+        : props.labelPosition === 'left'
           ? [renderLabel(), renderIcon()]
           : [renderIcon(), renderLabel()];
 
@@ -181,9 +227,14 @@ export default defineComponent({
             {
               disabled: disabled.value,
               'label-disabled': props.labelDisabled,
+              block: isBlockShape.value,
+              checked: isBlockShape.value && props.checked,
+              indeterminate:
+                isBlockShape.value && props.indeterminate === true,
             },
             direction.value,
           ])}
+          style={blockStyle.value}
           tabindex={disabled.value ? undefined : 0}
           aria-checked={props.checked}
           onClick={onClick}

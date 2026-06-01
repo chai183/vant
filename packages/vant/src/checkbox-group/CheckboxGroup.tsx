@@ -2,6 +2,7 @@ import {
   watch,
   defineComponent,
   type PropType,
+  type CSSProperties,
   type InjectionKey,
   type ExtractPropTypes,
 } from 'vue';
@@ -10,6 +11,7 @@ import {
 import {
   numericProp,
   makeArrayProp,
+  makeNumericProp,
   makeStringProp,
   createNamespace,
 } from '../utils';
@@ -17,11 +19,19 @@ import {
 // Composables
 import { useChildren, useCustomFieldValue } from '@vant/use';
 import { useExpose } from '../composables/use-expose';
+import { useRefs } from '../composables/use-refs';
+
+// Components
+import Checkbox from '../checkbox';
+import Cell from '../cell';
+import CellGroup from '../cell-group';
 
 // Types
+import type { CheckboxInstance } from '../checkbox/types';
 import type { CheckerShape, CheckerDirection } from '../checkbox/Checker';
 import type {
   CheckboxGroupExpose,
+  CheckboxGroupOption,
   CheckboxGroupProvide,
   CheckboxGroupToggleAllOptions,
 } from './types';
@@ -34,8 +44,11 @@ export const checkboxGroupProps = {
   disabled: Boolean,
   iconSize: numericProp,
   direction: String as PropType<CheckerDirection>,
+  columns: makeNumericProp(3),
   modelValue: makeArrayProp<unknown>(),
   checkedColor: String,
+  isList: Boolean,
+  options: makeArrayProp<CheckboxGroupOption>(),
 };
 
 export type CheckboxGroupProps = ExtractPropTypes<typeof checkboxGroupProps>;
@@ -52,6 +65,7 @@ export default defineComponent({
 
   setup(props, { emit, slots }) {
     const { children, linkChildren } = useChildren(CHECKBOX_GROUP_KEY);
+    const [checkboxRefs, setCheckboxRefs] = useRefs<CheckboxInstance>();
 
     const updateValue = (value: unknown[]) => emit('update:modelValue', value);
 
@@ -88,6 +102,75 @@ export default defineComponent({
       updateValue,
     });
 
-    return () => <div class={bem([props.direction])}>{slots.default?.()}</div>;
+    const renderOptions = () =>
+      props.options.map((option) => (
+        <Checkbox
+          key={String(option.value)}
+          name={option.value}
+          disabled={option.disabled}
+        >
+          {option.label}
+        </Checkbox>
+      ));
+
+    const toggleOption = (index: number, option: CheckboxGroupOption) => {
+      if (props.disabled || option.disabled) {
+        return;
+      }
+      checkboxRefs.value[index]?.toggle();
+    };
+
+    const renderListOptions = () => (
+      <CellGroup>
+        {props.options.map((option, index) => {
+          const { label, value, disabled, cellProps } = option;
+
+          return (
+            <Cell
+              key={String(value)}
+              title={label}
+              {...cellProps}
+              clickable={
+                cellProps?.clickable ?? (!props.disabled && !disabled)
+              }
+              onClick={() => toggleOption(index, option)}
+            >
+              {{
+                'right-icon': () => (
+                  <Checkbox
+                    shape="square"
+                    ref={setCheckboxRefs(index)}
+                    name={value}
+                    disabled={disabled}
+                    onClick={(event: MouseEvent) => event.stopPropagation()}
+                  />
+                ),
+              }}
+            </Cell>
+          );
+        })}
+      </CellGroup>
+    );
+
+    return () => (
+      <div
+        class={bem([
+          !props.isList && props.direction,
+          { list: props.isList, block: props.shape === 'block' },
+        ])}
+        style={
+          !props.isList &&
+          props.direction === 'horizontal' &&
+          props.shape === 'block'
+            ? ({
+                '--van-checkbox-group-columns': props.columns,
+              } as CSSProperties)
+            : undefined
+        }
+      >
+        {props.isList ? renderListOptions() : renderOptions()}
+        {slots.default?.()}
+      </div>
+    );
   },
 });

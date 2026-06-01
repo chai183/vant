@@ -28,6 +28,7 @@ const t = useTranslate({
     cascadeColumns: cascadeColumns['zh-CN'],
     disabledColumns: disabledColumns['zh-CN'],
     multipleColumns: '多列选择',
+    columnSeparator: '列间分隔符',
     customChildrenKey: '自定义 Columns 结构',
     customChildrenColumns: customKeyColumns['zh-CN'],
     emptyDescription: '暂无数据',
@@ -44,6 +45,7 @@ const t = useTranslate({
     cascadeColumns: cascadeColumns['en-US'],
     disabledColumns: disabledColumns['en-US'],
     multipleColumns: 'Multiple Columns',
+    columnSeparator: 'Column Separator',
     customChildrenKey: 'Custom Columns Fields',
     customChildrenColumns: customKeyColumns['en-US'],
     emptyDescription: 'No data',
@@ -58,6 +60,24 @@ const customFieldName = {
 };
 
 const selectedValues = ref(['Wenzhou']);
+
+const timeColumns = [
+  [
+    { text: '12', value: '12' },
+    { text: '13', value: '13' },
+    { text: '14', value: '14' },
+  ],
+  [
+    { text: '00', value: '00' },
+    { text: '30', value: '30' },
+    { text: '45', value: '45' },
+  ],
+  [
+    { text: '00', value: '00' },
+    { text: '15', value: '15' },
+    { text: '30', value: '30' },
+  ],
+];
 
 const onChange1 = ({ selectedValues }: PickerChangeEventParams) => {
   showToast(t('toastContent', selectedValues.join(',')));
@@ -97,6 +117,14 @@ const onCancel = () => showToast(t('cancel'));
       :columns="t('dateColumns')"
       @cancel="onCancel"
       @confirm="onConfirm"
+    />
+  </demo-block>
+
+  <demo-block card :title="t('columnSeparator')">
+    <van-picker
+      :title="t('title')"
+      :columns="timeColumns"
+      column-separator=":"
     />
   </demo-block>
 

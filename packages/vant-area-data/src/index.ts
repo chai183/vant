@@ -1,8 +1,15 @@
-export const areaList: {
+import { areaListEn } from './area-list-en';
+
+export type AreaList = {
   province_list: Record<string, string>;
   city_list: Record<string, string>;
   county_list: Record<string, string>;
-} = {
+  province_list_en?: Record<string, string>;
+  city_list_en?: Record<string, string>;
+  county_list_en?: Record<string, string>;
+};
+
+export const areaList: AreaList = {
   province_list: {
     110000: '北京市',
     120000: '天津市',
@@ -3891,52 +3898,64 @@ export const areaList: {
     820203: '路氹填海区',
     820204: '圣方济各堂区',
   },
+  ...areaListEn,
 };
 
-type CascaderOption = {
+export type CascaderAreaOption = {
   text: string;
   value: string;
-  children?: CascaderOption[];
+  pinyin: string;
+  children?: CascaderAreaOption[];
 };
 
 const makeOption = (
   text: string,
+  pinyin: string,
   value: string,
-  children?: CascaderOption[],
-): CascaderOption => ({
+  children?: CascaderAreaOption[],
+): CascaderAreaOption => ({
   text,
+  pinyin,
   value,
   children,
 });
 
-export function useCascaderAreaData() {
+export function useCascaderAreaData(): CascaderAreaOption[] {
   const {
     city_list: city,
     county_list: county,
     province_list: province,
+    city_list_en: cityEn = {},
+    county_list_en: countyEn = {},
+    province_list_en: provinceEn = {},
   } = areaList;
 
-  const provinceMap = new Map<string, CascaderOption>();
+  const provinceMap = new Map<string, CascaderAreaOption>();
   Object.keys(province).forEach((code) => {
-    provinceMap.set(code.slice(0, 2), makeOption(province[code], code, []));
+    provinceMap.set(
+      code.slice(0, 2),
+      makeOption(province[code], provinceEn[code] ?? '', code, []),
+    );
   });
 
-  const cityMap = new Map<string, CascaderOption>();
+  const cityMap = new Map<string, CascaderAreaOption>();
 
   Object.keys(city).forEach((code) => {
-    const option = makeOption(city[code], code, []);
+    const option = makeOption(city[code], cityEn[code] ?? '', code, []);
     cityMap.set(code.slice(0, 4), option);
 
-    const province = provinceMap.get(code.slice(0, 2));
-    if (province) {
-      province.children!.push(option);
+    const provinceOption = provinceMap.get(code.slice(0, 2));
+    if (provinceOption) {
+      provinceOption.children!.push(option);
     }
   });
 
   Object.keys(county).forEach((code) => {
-    const city = cityMap.get(code.slice(0, 4));
-    if (city) {
-      city.children!.push(makeOption(county[code], code));
+    const cityOption = cityMap.get(code.slice(0, 4));
+    if (cityOption) {
+      cityOption.children!.push(
+        makeOption(county[code], countyEn[code] ?? '', code),
+      );
     }
   });
 

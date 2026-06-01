@@ -45,7 +45,7 @@ export default defineComponent({
       if (status === 'uploading' || status === 'failed') {
         const MaskIcon =
           status === 'failed' ? (
-            <Icon name="close" class={bem('mask-icon')} />
+            <Icon name="warning" class={bem('mask-icon')} />
           ) : (
             <Loading class={bem('loading')} />
           );

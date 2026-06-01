@@ -1,0 +1,645 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`should render demo and match snapshot 1`] = `
+<div>
+  <div class="van-uploader-file">
+    <div class="van-uploader-file__header">
+      <div class="van-uploader-file__desc">
+        Supported formats: DOC, PPT, XLS, VSD, POT, etc.
+      </div>
+      <div class="van-uploader-file__desc">
+        Max file size 20MB. Batch upload supported.
+      </div>
+    </div>
+    <div class="van-uploader van-uploader-file__uploader">
+      <div class="van-uploader__wrapper">
+        <div class="van-uploader__input-wrapper">
+          <button
+            type="button"
+            class="van-button van-button--default van-button--normal van-uploader-file__upload"
+          >
+            <div class="van-button__content">
+              <i class="van-badge__wrapper van-icon van-icon-back-top van-button__icon">
+              </i>
+              <span class="van-button__text">
+                添加附件
+              </span>
+            </div>
+          </button>
+          <input
+            type="file"
+            class="van-uploader__input"
+            accept="*"
+            multiple
+          >
+        </div>
+      </div>
+    </div>
+    <transition-stub
+      name="van-fade"
+      appear="true"
+      persisted="false"
+      css="true"
+    >
+    </transition-stub>
+    <transition-stub
+      name="van-popup-slide-bottom"
+      appear="false"
+      persisted="false"
+      css="true"
+    >
+    </transition-stub>
+    <transition-stub
+      name="van-fade"
+      appear="true"
+      persisted="false"
+      css="true"
+    >
+    </transition-stub>
+    <transition-stub
+      name="van-dialog-bounce"
+      appear="false"
+      persisted="false"
+      css="true"
+    >
+    </transition-stub>
+  </div>
+</div>
+<div>
+  <div class="van-uploader-file">
+    <div class="van-uploader van-uploader-file__uploader">
+      <div class="van-uploader__wrapper">
+        <div class="van-uploader__input-wrapper">
+          <button
+            type="button"
+            class="van-button van-button--default van-button--normal van-uploader-file__upload"
+          >
+            <div class="van-button__content">
+              <i class="van-badge__wrapper van-icon van-icon-back-top van-button__icon">
+              </i>
+              <span class="van-button__text">
+                添加附件
+              </span>
+            </div>
+          </button>
+        </div>
+      </div>
+    </div>
+    <div class="van-uploader-file__list">
+      <div class="van-uploader-file__item">
+        <div
+          class="van-uploader-file__file-icon"
+          style="background-color: rgb(43, 87, 154);"
+        >
+          <span class="van-uploader-file__file-icon-label">
+            W
+          </span>
+        </div>
+        <div class="van-uploader-file__file-info">
+          <div class="van-uploader-file__file-name">
+            Project Plan.docx
+          </div>
+          <div class="van-uploader-file__file-status">
+            <span>
+              Waiting
+            </span>
+          </div>
+        </div>
+        <div class="van-uploader-file__actions">
+          <i
+            class="van-badge__wrapper van-icon van-icon-clear van-uploader-file__delete"
+            role="button"
+            tabindex="0"
+          >
+          </i>
+        </div>
+      </div>
+      <div class="van-uploader-file__item">
+        <div
+          class="van-uploader-file__file-icon"
+          style="background-color: rgb(33, 115, 70);"
+        >
+          <span class="van-uploader-file__file-icon-label">
+            X
+          </span>
+        </div>
+        <div class="van-uploader-file__file-info">
+          <div class="van-uploader-file__file-name">
+            Financial Report.xlsx
+          </div>
+          <div class="van-uploader-file__file-status van-uploader-file__file-status--uploading">
+            <span>
+              Uploading
+            </span>
+            <div
+              class="van-loading van-loading--circular"
+              aria-live="polite"
+              aria-busy="true"
+            >
+              <span
+                class="van-loading__spinner van-loading__spinner--circular"
+                style="width: 14px; height: 14px;"
+              >
+                <svg
+                  class="van-loading__circular"
+                  viewbox="25 25 50 50"
+                >
+                  <circle
+                    cx="50"
+                    cy="50"
+                    r="20"
+                    fill="none"
+                  >
+                  </circle>
+                </svg>
+              </span>
+            </div>
+          </div>
+        </div>
+        <div class="van-uploader-file__actions">
+          <i
+            class="van-badge__wrapper van-icon van-icon-clear van-uploader-file__delete"
+            role="button"
+            tabindex="0"
+          >
+          </i>
+        </div>
+      </div>
+      <div class="van-uploader-file__item">
+        <div
+          class="van-uploader-file__file-icon"
+          style="background-color: rgb(43, 87, 154);"
+        >
+          <span class="van-uploader-file__file-icon-label">
+            W
+          </span>
+        </div>
+        <div class="van-uploader-file__file-info">
+          <div class="van-uploader-file__file-name">
+            Meeting Minutes 2023.doc
+          </div>
+          <div class="van-uploader-file__file-status van-uploader-file__file-status--done">
+            <span>
+              1.5MB
+            </span>
+          </div>
+        </div>
+        <div class="van-uploader-file__actions">
+          <i
+            class="van-badge__wrapper van-icon van-icon-ellipsis van-uploader-file__menu"
+            role="button"
+            tabindex="0"
+          >
+          </i>
+        </div>
+      </div>
+      <div class="van-uploader-file__item">
+        <div
+          class="van-uploader-file__file-icon"
+          style="background-color: rgb(231, 76, 60);"
+        >
+          <span class="van-uploader-file__file-icon-label">
+            P
+          </span>
+        </div>
+        <div class="van-uploader-file__file-info">
+          <div class="van-uploader-file__file-name">
+            Contract Scan.pdf
+          </div>
+          <div class="van-uploader-file__file-status van-uploader-file__file-status--failed">
+            <span>
+              Failed
+            </span>
+          </div>
+        </div>
+        <div class="van-uploader-file__actions">
+          <span
+            role="button"
+            class="van-uploader-file__reupload"
+            tabindex="0"
+          >
+            <i class="van-badge__wrapper van-icon van-icon-replay van-uploader-file__reupload-icon">
+            </i>
+            重新上传
+          </span>
+          <i
+            class="van-badge__wrapper van-icon van-icon-clear van-uploader-file__delete"
+            role="button"
+            tabindex="0"
+          >
+          </i>
+        </div>
+      </div>
+    </div>
+    <transition-stub
+      name="van-fade"
+      appear="true"
+      persisted="false"
+      css="true"
+    >
+    </transition-stub>
+    <transition-stub
+      name="van-popup-slide-bottom"
+      appear="false"
+      persisted="false"
+      css="true"
+    >
+    </transition-stub>
+    <transition-stub
+      name="van-fade"
+      appear="true"
+      persisted="false"
+      css="true"
+    >
+    </transition-stub>
+    <transition-stub
+      name="van-dialog-bounce"
+      appear="false"
+      persisted="false"
+      css="true"
+    >
+    </transition-stub>
+  </div>
+</div>
+<div>
+  <div class="van-uploader-file">
+    <div class="van-uploader van-uploader-file__uploader">
+      <div class="van-uploader__wrapper">
+        <div class="van-uploader__input-wrapper">
+          <button
+            type="button"
+            class="van-button van-button--primary van-button--normal van-button--plain van-button--block"
+          >
+            <div class="van-button__content">
+              <i class="van-badge__wrapper van-icon van-icon-plus van-button__icon">
+              </i>
+              <span class="van-button__text">
+                Add Attachment
+              </span>
+            </div>
+          </button>
+          <input
+            type="file"
+            class="van-uploader__input"
+            accept="*"
+            multiple
+          >
+        </div>
+      </div>
+    </div>
+    <transition-stub
+      name="van-fade"
+      appear="true"
+      persisted="false"
+      css="true"
+    >
+    </transition-stub>
+    <transition-stub
+      name="van-popup-slide-bottom"
+      appear="false"
+      persisted="false"
+      css="true"
+    >
+    </transition-stub>
+    <transition-stub
+      name="van-fade"
+      appear="true"
+      persisted="false"
+      css="true"
+    >
+    </transition-stub>
+    <transition-stub
+      name="van-dialog-bounce"
+      appear="false"
+      persisted="false"
+      css="true"
+    >
+    </transition-stub>
+  </div>
+</div>
+<div>
+  <div class="van-uploader-file">
+    <div class="van-uploader van-uploader-file__uploader">
+      <div class="van-uploader__wrapper van-uploader__wrapper--disabled">
+        <div class="van-uploader__input-wrapper">
+          <button
+            type="button"
+            class="van-button van-button--default van-button--normal van-uploader-file__upload"
+          >
+            <div class="van-button__content">
+              <i class="van-badge__wrapper van-icon van-icon-back-top van-button__icon">
+              </i>
+              <span class="van-button__text">
+                添加附件
+              </span>
+            </div>
+          </button>
+          <input
+            type="file"
+            class="van-uploader__input"
+            accept="*"
+            multiple
+            disabled
+          >
+        </div>
+      </div>
+    </div>
+    <div class="van-uploader-file__list">
+      <div class="van-uploader-file__item">
+        <div
+          class="van-uploader-file__file-icon"
+          style="background-color: rgb(43, 87, 154);"
+        >
+          <span class="van-uploader-file__file-icon-label">
+            W
+          </span>
+        </div>
+        <div class="van-uploader-file__file-info">
+          <div class="van-uploader-file__file-name">
+            Meeting Minutes 2023.doc
+          </div>
+          <div class="van-uploader-file__file-status van-uploader-file__file-status--done">
+            <span>
+              1KB
+            </span>
+          </div>
+        </div>
+        <div class="van-uploader-file__actions">
+          <i
+            class="van-badge__wrapper van-icon van-icon-ellipsis van-uploader-file__menu"
+            role="button"
+            tabindex="0"
+          >
+          </i>
+        </div>
+      </div>
+    </div>
+    <transition-stub
+      name="van-fade"
+      appear="true"
+      persisted="false"
+      css="true"
+    >
+    </transition-stub>
+    <transition-stub
+      name="van-popup-slide-bottom"
+      appear="false"
+      persisted="false"
+      css="true"
+    >
+    </transition-stub>
+    <transition-stub
+      name="van-fade"
+      appear="true"
+      persisted="false"
+      css="true"
+    >
+    </transition-stub>
+    <transition-stub
+      name="van-dialog-bounce"
+      appear="false"
+      persisted="false"
+      css="true"
+    >
+    </transition-stub>
+  </div>
+</div>
+<div>
+  <div class="van-uploader-file">
+    <div class="van-uploader van-uploader-file__uploader">
+      <div class="van-uploader__wrapper">
+        <div class="van-uploader__input-wrapper">
+          <button
+            type="button"
+            class="van-button van-button--default van-button--normal van-uploader-file__upload"
+          >
+            <div class="van-button__content">
+              <i class="van-badge__wrapper van-icon van-icon-back-top van-button__icon">
+              </i>
+              <span class="van-button__text">
+                添加附件
+              </span>
+            </div>
+          </button>
+          <input
+            type="file"
+            class="van-uploader__input"
+            accept="*"
+          >
+        </div>
+      </div>
+    </div>
+    <transition-stub
+      name="van-fade"
+      appear="true"
+      persisted="false"
+      css="true"
+    >
+    </transition-stub>
+    <transition-stub
+      name="van-popup-slide-bottom"
+      appear="false"
+      persisted="false"
+      css="true"
+    >
+    </transition-stub>
+    <transition-stub
+      name="van-fade"
+      appear="true"
+      persisted="false"
+      css="true"
+    >
+    </transition-stub>
+    <transition-stub
+      name="van-dialog-bounce"
+      appear="false"
+      persisted="false"
+      css="true"
+    >
+    </transition-stub>
+  </div>
+</div>
+<div>
+  <div class="van-uploader-file">
+    <div class="van-uploader-file__header">
+      <div class="van-uploader-file__desc">
+        Only PDF, DOC, DOCX are supported
+      </div>
+    </div>
+    <div class="van-uploader van-uploader-file__uploader">
+      <div class="van-uploader__wrapper">
+        <div class="van-uploader__input-wrapper">
+          <button
+            type="button"
+            class="van-button van-button--default van-button--normal van-uploader-file__upload"
+          >
+            <div class="van-button__content">
+              <i class="van-badge__wrapper van-icon van-icon-back-top van-button__icon">
+              </i>
+              <span class="van-button__text">
+                添加附件
+              </span>
+            </div>
+          </button>
+          <input
+            type="file"
+            class="van-uploader__input"
+            accept=".pdf,.doc,.docx"
+            multiple
+          >
+        </div>
+      </div>
+    </div>
+    <transition-stub
+      name="van-fade"
+      appear="true"
+      persisted="false"
+      css="true"
+    >
+    </transition-stub>
+    <transition-stub
+      name="van-popup-slide-bottom"
+      appear="false"
+      persisted="false"
+      css="true"
+    >
+    </transition-stub>
+    <transition-stub
+      name="van-fade"
+      appear="true"
+      persisted="false"
+      css="true"
+    >
+    </transition-stub>
+    <transition-stub
+      name="van-dialog-bounce"
+      appear="false"
+      persisted="false"
+      css="true"
+    >
+    </transition-stub>
+  </div>
+</div>
+<div>
+  <div class="van-uploader-file">
+    <div class="van-uploader-file__header">
+      <div class="van-uploader-file__desc">
+        Max file size 500kb per file
+      </div>
+    </div>
+    <div class="van-uploader van-uploader-file__uploader">
+      <div class="van-uploader__wrapper">
+        <div class="van-uploader__input-wrapper">
+          <button
+            type="button"
+            class="van-button van-button--default van-button--normal van-uploader-file__upload"
+          >
+            <div class="van-button__content">
+              <i class="van-badge__wrapper van-icon van-icon-back-top van-button__icon">
+              </i>
+              <span class="van-button__text">
+                添加附件
+              </span>
+            </div>
+          </button>
+          <input
+            type="file"
+            class="van-uploader__input"
+            accept="*"
+            multiple
+          >
+        </div>
+      </div>
+    </div>
+    <transition-stub
+      name="van-fade"
+      appear="true"
+      persisted="false"
+      css="true"
+    >
+    </transition-stub>
+    <transition-stub
+      name="van-popup-slide-bottom"
+      appear="false"
+      persisted="false"
+      css="true"
+    >
+    </transition-stub>
+    <transition-stub
+      name="van-fade"
+      appear="true"
+      persisted="false"
+      css="true"
+    >
+    </transition-stub>
+    <transition-stub
+      name="van-dialog-bounce"
+      appear="false"
+      persisted="false"
+      css="true"
+    >
+    </transition-stub>
+  </div>
+</div>
+<div>
+  <div class="van-uploader-file">
+    <div class="van-uploader-file__header">
+      <div class="van-uploader-file__desc">
+        Max 2 files
+      </div>
+    </div>
+    <div class="van-uploader van-uploader-file__uploader">
+      <div class="van-uploader__wrapper">
+        <div class="van-uploader__input-wrapper">
+          <button
+            type="button"
+            class="van-button van-button--default van-button--normal van-uploader-file__upload"
+          >
+            <div class="van-button__content">
+              <i class="van-badge__wrapper van-icon van-icon-back-top van-button__icon">
+              </i>
+              <span class="van-button__text">
+                添加附件
+              </span>
+            </div>
+          </button>
+          <input
+            type="file"
+            class="van-uploader__input"
+            accept="*"
+            multiple
+          >
+        </div>
+      </div>
+    </div>
+    <transition-stub
+      name="van-fade"
+      appear="true"
+      persisted="false"
+      css="true"
+    >
+    </transition-stub>
+    <transition-stub
+      name="van-popup-slide-bottom"
+      appear="false"
+      persisted="false"
+      css="true"
+    >
+    </transition-stub>
+    <transition-stub
+      name="van-fade"
+      appear="true"
+      persisted="false"
+      css="true"
+    >
+    </transition-stub>
+    <transition-stub
+      name="van-dialog-bounce"
+      appear="false"
+      persisted="false"
+      css="true"
+    >
+    </transition-stub>
+  </div>
+</div>
+`;

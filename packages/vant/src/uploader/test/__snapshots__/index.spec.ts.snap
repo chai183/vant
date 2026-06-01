@@ -34,6 +34,9 @@ exports[`delete preview image 1`] = `
     >
       <i class="van-badge__wrapper van-icon van-icon-photograph van-uploader__upload-icon">
       </i>
+      <span class="van-uploader__upload-text">
+        添加图片
+      </span>
       <input
         type="file"
         class="van-uploader__input"
@@ -50,6 +53,9 @@ exports[`disable preview image 1`] = `
     <div class="van-uploader__upload">
       <i class="van-badge__wrapper van-icon van-icon-photograph van-uploader__upload-icon">
       </i>
+      <span class="van-uploader__upload-text">
+        添加图片
+      </span>
       <input
         type="file"
         class="van-uploader__input"
@@ -84,6 +90,9 @@ exports[`disable preview image 2`] = `
     <div class="van-uploader__upload">
       <i class="van-badge__wrapper van-icon van-icon-photograph van-uploader__upload-icon">
       </i>
+      <span class="van-uploader__upload-text">
+        添加图片
+      </span>
       <input
         type="file"
         class="van-uploader__input"
@@ -100,6 +109,9 @@ exports[`file message should be reactive 1`] = `
     <div class="van-uploader__upload">
       <i class="van-badge__wrapper van-icon van-icon-photograph van-uploader__upload-icon">
       </i>
+      <span class="van-uploader__upload-text">
+        添加图片
+      </span>
       <input
         type="file"
         class="van-uploader__input"
@@ -138,6 +150,9 @@ exports[`image-fit prop 1`] = `
     <div class="van-uploader__upload">
       <i class="van-badge__wrapper van-icon van-icon-photograph van-uploader__upload-icon">
       </i>
+      <span class="van-uploader__upload-text">
+        添加图片
+      </span>
       <input
         type="file"
         class="van-uploader__input"
@@ -212,6 +227,9 @@ exports[`render preview image 1`] = `
     <div class="van-uploader__upload">
       <i class="van-badge__wrapper van-icon van-icon-photograph van-uploader__upload-icon">
       </i>
+      <span class="van-uploader__upload-text">
+        添加图片
+      </span>
       <input
         type="file"
         class="van-uploader__input"
@@ -228,6 +246,9 @@ exports[`should not render upload input when using readonly prop 1`] = `
     <div class="van-uploader__upload van-uploader__upload--readonly">
       <i class="van-badge__wrapper van-icon van-icon-photograph van-uploader__upload-icon">
       </i>
+      <span class="van-uploader__upload-text">
+        添加图片
+      </span>
     </div>
   </div>
 </div>
@@ -256,6 +277,9 @@ exports[`upload-icon prop 1`] = `
     <div class="van-uploader__upload">
       <i class="van-badge__wrapper van-icon van-icon-add van-uploader__upload-icon">
       </i>
+      <span class="van-uploader__upload-text">
+        添加图片
+      </span>
       <input
         type="file"
         class="van-uploader__input"

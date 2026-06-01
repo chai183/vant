@@ -255,6 +255,11 @@ export default {
           background-color: rgba(25, 137, 250, 0.15);
           border-radius: 20px;
         }
+
+        .van-doc-new-tag {
+          padding: 2px 6px;
+          font-size: 11px;
+        }
       }
 
       &:last-child {
@@ -347,6 +352,21 @@ export default {
     padding: var(--van-doc-padding);
     overflow: hidden;
 
+    .van-doc-new-tag {
+      display: inline-flex;
+      align-items: center;
+      flex-shrink: 0;
+      margin: 0;
+      padding: 2px 6px;
+      color: #ee0a24;
+      font-weight: 600;
+      font-size: 11px;
+      line-height: 1.2;
+      white-space: nowrap;
+      background-color: rgba(238, 10, 36, 0.1);
+      border-radius: 20px;
+    }
+
     h1,
     h2 {
       font-weight: normal;
@@ -358,9 +378,34 @@ export default {
     }
 
     h1 {
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 8px;
       margin: 0 0 30px;
       font-size: 34px;
       cursor: default;
+
+      .van-doc-new-tag {
+        padding: 3px 8px;
+        font-size: 12px;
+      }
+
+      code {
+        display: inline-flex;
+        align-items: center;
+        flex-shrink: 0;
+        margin: 0;
+        padding: 3px 8px;
+        overflow: visible;
+        color: #ee0a24;
+        font-weight: 600;
+        font-size: 12px;
+        line-height: 1.2;
+        white-space: nowrap;
+        background-color: rgba(238, 10, 36, 0.1);
+        border-radius: 20px;
+      }
     }
 
     h2 {

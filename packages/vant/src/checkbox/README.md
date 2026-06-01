@@ -150,10 +150,19 @@ export default {
 
 ### Horizontal
 
+When `direction` is set to `horizontal`, you can use the `columns` prop to set the number of options per row. The default value is `3`.
+
 ```html
 <van-checkbox-group v-model="checked" direction="horizontal">
   <van-checkbox name="a">Checkbox a</van-checkbox>
   <van-checkbox name="b">Checkbox b</van-checkbox>
+</van-checkbox-group>
+
+<van-checkbox-group v-model="checked" direction="horizontal" :columns="2">
+  <van-checkbox name="a">Checkbox a</van-checkbox>
+  <van-checkbox name="b">Checkbox b</van-checkbox>
+  <van-checkbox name="c">Checkbox c</van-checkbox>
+  <van-checkbox name="d">Checkbox d</van-checkbox>
 </van-checkbox-group>
 ```
 
@@ -325,7 +334,7 @@ export default {
 | --- | --- | --- | --- |
 | v-model | Check status | _boolean_ | `false` |
 | name | Checkbox name, usually a unique string or number | _any_ | - |
-| shape | Can be set to `square` | _string_ | `round` |
+| shape | Can be set to `square` `block` | _string_ | `round` |
 | disabled | Disable checkbox | _boolean_ | `false` |
 | label-disabled | Whether to disable label click | _boolean_ | `false` |
 | label-position | Can be set to `left` | _string_ | `right` |
@@ -342,9 +351,12 @@ export default {
 | disabled | Whether to disable all checkboxes | _boolean_ | `false` |
 | max | Maximum amount of checked options | _number \| string_ | `0`(Unlimited) |
 | direction | Direction, can be set to `horizontal` | _string_ | `vertical` |
+| columns `new` | Number of options per row in horizontal layout | _number \| string_ | `3` |
+| is-list `new` | Whether to render options as a Cell list | _boolean_ | `false` |
+| options `new` | Render options from config, each item is `{ label, value, disabled? }` | _CheckboxGroupOption[]_ | `[]` |
 | icon-size | Icon size of all checkboxes | _number \| string_ | `20px` |
 | checked-color | Checked color of all checkboxes | _string_ | `#1989fa` |
-| shape `v4.6.3` | Can be set to `square` | _string_ | `round` |
+| shape `v4.6.3` | Can be set to `square` `block` | _string_ | `round` |
 
 ### Checkbox Events
 

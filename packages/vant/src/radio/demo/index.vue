@@ -3,7 +3,7 @@ import VanRadioGroup from '../../radio-group';
 import VanRadio from '..';
 import VanCellGroup from '../../cell-group';
 import VanCell from '../../cell';
-import { ref } from 'vue';
+import { computed, ref } from 'vue';
 import { cdnURL, useTranslate } from '../../../docs/site';
 
 const t = useTranslate({
@@ -13,12 +13,18 @@ const t = useTranslate({
     text2: '选中且禁用',
     withCell: '搭配单元格组件使用',
     horizontal: '水平排列',
+    horizontalColumns: '水平排列列数',
     leftLabel: '左侧文本',
     customIcon: '自定义图标',
     customColor: '自定义颜色',
     customShape: '自定义形状',
+    blockShape: '块状类型',
     customIconSize: '自定义大小',
     disableLabel: '禁用文本点击',
+    renderOptions: '配置项渲染',
+    option1: '选项 1',
+    option2: '选项 2',
+    option3: '选项 3',
   },
   'en-US': {
     radio: 'Radio',
@@ -26,12 +32,18 @@ const t = useTranslate({
     text2: 'Disabled and checked',
     withCell: 'Inside a Cell',
     horizontal: 'Horizontal',
+    horizontalColumns: 'Horizontal Columns',
     leftLabel: 'Left Label',
     customIcon: 'Custom Icon',
     customColor: 'Custom Color',
     customShape: 'Custom Shape',
+    blockShape: 'Block Shape',
     customIconSize: 'Custom Icon Size',
     disableLabel: 'Disable label click',
+    renderOptions: 'Render Options',
+    option1: 'Option 1',
+    option2: 'Option 2',
+    option3: 'Option 3',
   },
 });
 
@@ -43,11 +55,19 @@ const radio5 = ref('1');
 const radioLabel = ref('1');
 const radioSquare = ref('1');
 const radioDot = ref('1');
+const radioBlock = ref('1');
 const radioIconSize = ref('1');
 const radioHorizontal = ref('1');
 const radioLeftLabel = ref('1');
+const radioOptions = ref('1');
 const activeIcon = cdnURL('user-active.png');
 const inactiveIcon = cdnURL('user-inactive.png');
+
+const options = computed(() => [
+  { label: t('option1'), value: '1' },
+  { label: t('option2'), value: '2' },
+  { label: t('option3'), value: '3', disabled: true },
+]);
 </script>
 
 <template>
@@ -67,6 +87,29 @@ const inactiveIcon = cdnURL('user-inactive.png');
       <van-radio name="1">{{ t('radio') }} 1</van-radio>
       <van-radio name="2">{{ t('radio') }} 2</van-radio>
     </van-radio-group>
+  </demo-block>
+
+  <demo-block :title="t('horizontalColumns')">
+    <van-radio-group
+      v-model="radioHorizontal"
+      class="demo-radio-group"
+      direction="horizontal"
+      shape="block"
+      columns="3"
+    >
+      <van-radio name="1">{{ t('radio') }} 1</van-radio>
+      <van-radio name="2">{{ t('radio') }} 2</van-radio>
+      <van-radio name="3">{{ t('radio') }} 3</van-radio>
+      <van-radio name="4">{{ t('radio') }} 4</van-radio>
+    </van-radio-group>
+  </demo-block>
+
+  <demo-block :title="t('renderOptions')">
+    <van-radio-group
+      v-model="radioOptions"
+      class="demo-radio-group"
+      :options="options"
+    />
   </demo-block>
 
   <demo-block :title="t('disabled')">
@@ -93,6 +136,19 @@ const inactiveIcon = cdnURL('user-inactive.png');
     >
       <van-radio name="1">{{ t('radio') }} 1</van-radio>
       <van-radio name="2">{{ t('radio') }} 2</van-radio>
+    </van-radio-group>
+  </demo-block>
+
+  <demo-block :title="t('blockShape')">
+    <van-radio-group
+      v-model="radioBlock"
+      class="demo-radio-block-group"
+      shape="block"
+      direction="horizontal"
+    >
+      <van-radio name="1">111</van-radio>
+      <van-radio name="2">222</van-radio>
+      <van-radio name="3">333</van-radio>
     </van-radio-group>
   </demo-block>
 
@@ -175,6 +231,14 @@ const inactiveIcon = cdnURL('user-inactive.png');
 
   img {
     height: 20px;
+  }
+
+  &-block-group {
+    padding: 0 16px;
+
+    .van-radio {
+      margin-bottom: 0;
+    }
   }
 
   .van-doc-demo-block__title {

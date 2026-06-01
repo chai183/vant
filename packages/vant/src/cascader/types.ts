@@ -3,6 +3,7 @@ import type { Numeric } from '../utils';
 export type CascaderOption = {
   text?: string;
   value?: Numeric;
+  pinyin?: string;
   color?: string;
   disabled?: boolean;
   children?: CascaderOption[];
@@ -16,11 +17,20 @@ export type CascaderTab = {
   selected: CascaderOption | null;
 };
 
+export type CascaderStepTitleSlotParams = {
+  tabIndex: number;
+  selected: CascaderOption | null;
+  tab: CascaderTab;
+};
+
 export type CascaderFieldNames = {
   text?: string;
   value?: string;
   children?: string;
+  pinyin?: string;
 };
+
+export type CascaderTabLayout = 'tabs' | 'steps';
 
 export type CascaderThemeVars = {
   cascaderHeaderHeight?: string;
@@ -36,4 +46,12 @@ export type CascaderThemeVars = {
   cascaderOptionDisabledColor?: string;
   cascaderTabColor?: string;
   cascaderUnselectedTabColor?: string;
+  cascaderStepsPaddingVertical?: string;
+  cascaderStepsPaddingHorizontal?: string;
+  cascaderStepsBorderBottomWidth?: string;
+  cascaderStepsBorderBottomColor?: string;
+  cascaderStepIndicatorWidth?: string;
+  cascaderStepDotSize?: string;
+  cascaderStepLineWidth?: string;
+  cascaderStepArrowColor?: string;
 };

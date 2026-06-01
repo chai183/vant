@@ -15,6 +15,26 @@ exports[`should change icon class prefix when using icon-prefix prop 1`] = `
 </div>
 `;
 
+exports[`should render array title correctly 1`] = `
+<div class="van-cell">
+  <div class="van-cell__title">
+    <div class="van-cell__title-text">
+      <span>
+        Main Title
+      </span>
+      <span>
+        Sub Title
+      </span>
+    </div>
+  </div>
+  <div class="van-cell__value">
+    <span>
+      Content
+    </span>
+  </div>
+</div>
+`;
+
 exports[`should render extra slot correctly 1`] = `
 <div class="van-cell">
   Custom Extra
@@ -42,6 +62,7 @@ exports[`should render label slot correctly 1`] = `
 
 exports[`should render tag prop correctly 1`] = `
 "<a class="van-cell">
+  <!---->
   <!---->
   <!---->
   <!---->

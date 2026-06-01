@@ -43,10 +43,19 @@ export default {
 
 ### Horizontal
 
+When `direction` is set to `horizontal`, you can use the `columns` prop to set the number of options per row. The default value is `3`.
+
 ```html
 <van-radio-group v-model="checked" direction="horizontal">
   <van-radio name="1">Radio 1</van-radio>
   <van-radio name="2">Radio 2</van-radio>
+</van-radio-group>
+
+<van-radio-group v-model="checked" direction="horizontal" :columns="2">
+  <van-radio name="1">Radio 1</van-radio>
+  <van-radio name="2">Radio 2</van-radio>
+  <van-radio name="3">Radio 3</van-radio>
+  <van-radio name="4">Radio 4</van-radio>
 </van-radio-group>
 ```
 
@@ -195,7 +204,7 @@ import type {
 | Attribute | Description | Type | Default |
 | --- | --- | --- | --- |
 | name | Radio name, usually a unique string or number | _any_ | - |
-| shape | Can be set to `square` `dot` | _string_ | `round` |
+| shape | Can be set to `square` `dot` `block` | _string_ | `round` |
 | disabled | Whether to disable radio | _boolean_ | `false` |
 | label-disabled | Whether to disable label click | _boolean_ | `false` |
 | label-position | Can be set to `left` | _string_ | `right` |
@@ -209,9 +218,12 @@ import type {
 | v-model | Name of checked radio | _any_ | - |
 | disabled | Disable all radios | _boolean_ | `false` |
 | direction | Direction, can be set to `horizontal` | _string_ | `vertical` |
+| columns `new` | Number of options per row in horizontal layout | _number \| string_ | `3` |
+| is-list `new` | Whether to render options as a Cell list | _boolean_ | `false` |
+| options `new` | Render options from config, each item is `{ label, value, disabled? }` | _RadioGroupOption[]_ | `[]` |
 | icon-size | Icon size of all radios | _number \| string_ | `20px` |
 | checked-color | Checked color of all radios | _string_ | `#1989fa` |
-| shape `v4.6.3` | Can be set to `square` `dot` | _string_ | `round` |
+| shape `v4.6.3` | Can be set to `square` `dot` `block` | _string_ | `round` |
 
 ### Radio Events
 

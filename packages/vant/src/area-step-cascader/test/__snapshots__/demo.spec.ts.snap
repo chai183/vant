@@ -1,0 +1,37 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`should render demo and match snapshot 1`] = `
+<div>
+  <div
+    class="van-cell van-cell--clickable van-field van-field--readonly-ellipsis"
+    role="button"
+    tabindex="0"
+  >
+    <div class="van-cell__title van-field__label">
+      <label
+        id="van-field-label"
+        for="van-field-input"
+        data-allow-mismatch="attribute"
+      >
+        Area
+      </label>
+    </div>
+    <div class="van-cell__value van-field__value">
+      <div class="van-field__body">
+        <div
+          id="van-field-input"
+          class="van-field__control van-field__control--custom van-field__readonly-ellipsis van-field__readonly-ellipsis--placeholder"
+        >
+          <div class="van-text-ellipsis">
+            ...
+            <span class="van-text-ellipsis__action">
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <i class="van-badge__wrapper van-icon van-icon-arrow van-cell__right-icon">
+    </i>
+  </div>
+</div>
+`;

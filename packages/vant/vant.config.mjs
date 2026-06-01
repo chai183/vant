@@ -179,8 +179,24 @@ location.href = location.href.replace('youzan.github.io', 'vant-ui.github.io');
                 title: 'Field 输入框',
               },
               {
+                path: 'field-children',
+                title: 'FieldChildren 动态表单项',
+              },
+              {
+                path: 'field-select-popup',
+                title: 'FieldSelectPopup 底部选择',
+              },
+              {
+                path: 'field-money',
+                title: 'FieldMoney 金额输入',
+              },
+              {
                 path: 'form',
                 title: 'Form 表单',
+              },
+              {
+                path: 'pro-form',
+                title: 'ProForm 高级表单',
               },
               {
                 path: 'number-keyboard',
@@ -201,6 +217,10 @@ location.href = location.href.replace('youzan.github.io', 'vant-ui.github.io');
               {
                 path: 'radio',
                 title: 'Radio 单选框',
+              },
+              {
+                path: 'range-input',
+                title: 'RangeInput 范围录入',
               },
               {
                 path: 'rate',
@@ -233,6 +253,10 @@ location.href = location.href.replace('youzan.github.io', 'vant-ui.github.io');
               {
                 path: 'uploader',
                 title: 'Uploader 文件上传',
+              },
+              {
+                path: 'uploader-file',
+                title: 'UploaderFile 附件上传',
               },
             ],
           },
@@ -315,6 +339,10 @@ location.href = location.href.replace('youzan.github.io', 'vant-ui.github.io');
               {
                 path: 'empty',
                 title: 'Empty 空状态',
+              },
+              {
+                path: 'result',
+                title: 'Result 结果页',
               },
               {
                 path: 'highlight',
@@ -437,6 +465,10 @@ location.href = location.href.replace('youzan.github.io', 'vant-ui.github.io');
               {
                 path: 'area',
                 title: 'Area 省市区选择',
+              },
+              {
+                path: 'area-step-cascader',
+                title: 'AreaStepCascader 步骤条省市区',
               },
               {
                 path: 'card',
@@ -651,8 +683,24 @@ location.href = location.href.replace('youzan.github.io', 'vant-ui.github.io');
                 title: 'Field',
               },
               {
+                path: 'field-children',
+                title: 'FieldChildren',
+              },
+              {
+                path: 'field-select-popup',
+                title: 'FieldSelectPopup',
+              },
+              {
+                path: 'field-money',
+                title: 'FieldMoney',
+              },
+              {
                 path: 'form',
                 title: 'Form',
+              },
+              {
+                path: 'pro-form',
+                title: 'ProForm',
               },
               {
                 path: 'number-keyboard',
@@ -673,6 +721,10 @@ location.href = location.href.replace('youzan.github.io', 'vant-ui.github.io');
               {
                 path: 'radio',
                 title: 'Radio',
+              },
+              {
+                path: 'range-input',
+                title: 'RangeInput',
               },
               {
                 path: 'rate',
@@ -705,6 +757,10 @@ location.href = location.href.replace('youzan.github.io', 'vant-ui.github.io');
               {
                 path: 'uploader',
                 title: 'Uploader',
+              },
+              {
+                path: 'uploader-file',
+                title: 'UploaderFile',
               },
             ],
           },
@@ -787,6 +843,10 @@ location.href = location.href.replace('youzan.github.io', 'vant-ui.github.io');
               {
                 path: 'empty',
                 title: 'Empty',
+              },
+              {
+                path: 'result',
+                title: 'Result',
               },
               {
                 path: 'highlight',
@@ -909,6 +969,10 @@ location.href = location.href.replace('youzan.github.io', 'vant-ui.github.io');
               {
                 path: 'area',
                 title: 'Area',
+              },
+              {
+                path: 'area-step-cascader',
+                title: 'AreaStepCascader',
               },
               {
                 path: 'card',

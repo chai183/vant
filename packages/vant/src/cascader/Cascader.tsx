@@ -1,6 +1,7 @@
 import {
   ref,
   watch,
+  computed,
   nextTick,
   defineComponent,
   type PropType,
@@ -16,7 +17,6 @@ import {
   HAPTICS_FEEDBACK,
   type Numeric,
 } from '../utils';
-
 // Composables
 import { useRefs } from '../composables/use-refs';
 
@@ -27,7 +27,12 @@ import { Icon } from '../icon';
 
 // Types
 import type { TabsClickTabEventParams } from '../tabs/types';
-import type { CascaderTab, CascaderOption, CascaderFieldNames } from './types';
+import type {
+  CascaderTab,
+  CascaderOption,
+  CascaderFieldNames,
+  CascaderTabLayout,
+} from './types';
 
 const [name, bem, t] = createNamespace('cascader');
 
@@ -42,6 +47,7 @@ export const cascaderProps = {
   fieldNames: Object as PropType<CascaderFieldNames>,
   placeholder: String,
   activeColor: String,
+  tabLayout: makeStringProp<CascaderTabLayout>('tabs'),
 };
 
 export type CascaderProps = ExtractPropTypes<typeof cascaderProps>;
@@ -63,14 +69,48 @@ export default defineComponent({
       text: textKey,
       value: valueKey,
       children: childrenKey,
+      pinyin: pinyinKey,
     } = extend(
       {
         text: 'text',
         value: 'value',
         children: 'children',
+        pinyin: 'pinyin',
       },
       props.fieldNames,
     );
+
+    type ProcessedOption = {
+      option: CascaderOption;
+      index: string;
+    };
+
+    const processOptions = (options: CascaderOption[]): ProcessedOption[] => {
+      const hasPinyin = options.some((item) => item[pinyinKey]);
+      if (!hasPinyin) {
+        return options.map((option) => ({ option, index: '' }));
+      }
+
+      const sorted = [...options].sort((a, b) => {
+        const pinyinA = String(a[pinyinKey] || '').toUpperCase();
+        const pinyinB = String(b[pinyinKey] || '').toUpperCase();
+        if (!pinyinA && !pinyinB) return 0;
+        if (!pinyinA) return 1;
+        if (!pinyinB) return -1;
+        return pinyinA.localeCompare(pinyinB);
+      });
+
+      let lastIndex = '';
+      return sorted.map((option) => {
+        const pinyin = String(option[pinyinKey] || '');
+        const index = pinyin ? pinyin.charAt(0).toUpperCase() : '';
+        const showIndex = index && index !== lastIndex;
+        if (showIndex) {
+          lastIndex = index;
+        }
+        return { option, index: showIndex ? index : '' };
+      });
+    };
 
     const getSelectedOptionsByValue = (
       options: CascaderOption[],
@@ -192,10 +232,64 @@ export default defineComponent({
     const onClickTab = ({ name, title }: TabsClickTabEventParams) =>
       emit('clickTab', name, title);
 
+    const isStepsLayout = computed(() => props.tabLayout === 'steps');
+
+    const displayStepTabs = computed(() => {
+      const steps: Array<{
+        tab: CascaderTab;
+        tabIndex: number;
+        isPending: boolean;
+      }> = [];
+
+      tabs.value.forEach((tab, tabIndex) => {
+        if (tab.selected) {
+          steps.push({ tab, tabIndex, isPending: false });
+        }
+      });
+
+      const lastIndex = tabs.value.length - 1;
+      const lastTab = tabs.value[lastIndex];
+
+      if (lastTab && !lastTab.selected && steps.length > 0) {
+        steps.push({ tab: lastTab, tabIndex: lastIndex, isPending: true });
+      }
+
+      return steps;
+    });
+
+    const getTabTitle = (tab: CascaderTab, tabIndex: number) => {
+      const placeholder = props.placeholder || t('select');
+      return tab.selected ? tab.selected[textKey] : placeholder;
+    };
+
+    const getStepTitle = (tab: CascaderTab, tabIndex: number) => {
+      const placeholder = props.placeholder || t('select');
+
+      if (slots['step-title']) {
+        return slots['step-title']({
+          tabIndex,
+          selected: tab.selected,
+          tab,
+        });
+      }
+
+      return tab.selected ? tab.selected[textKey] : placeholder;
+    };
+
+    const onClickStep = (tabIndex: number) => {
+      const tab = tabs.value[tabIndex];
+      if (!tab?.selected || tabIndex === activeTab.value) {
+        return;
+      }
+
+      activeTab.value = tabIndex;
+      emit('clickTab', tabIndex, tab.selected[textKey]);
+    };
+
     const renderHeader = () =>
       props.showHeader ? (
         <div class={bem('header')}>
-          <h2 class={bem('title')}>
+          <h2 class={[bem('title'), 'van-ellipsis']}>
             {slots.title ? slots.title() : props.title}
           </h2>
           {props.closeable ? (
@@ -208,10 +302,17 @@ export default defineComponent({
         </div>
       ) : null;
 
+    const renderTitleExtra = () =>
+      slots['title-extra'] ? (
+        <div class={bem('title-extra')}>{slots['title-extra']()}</div>
+      ) : null;
+
     const renderOption = (
       option: CascaderOption,
       selectedOption: CascaderOption | null,
       tabIndex: number,
+      indexChar: string,
+      usePinyinIndex: boolean,
     ) => {
       const { disabled } = option;
       const selected = !!(
@@ -225,21 +326,46 @@ export default defineComponent({
         <span>{option[textKey]}</span>
       );
 
+      const SelectedIcon = selected ? (
+        <Icon name="success" class={bem('selected-icon')} />
+      ) : null;
+
       return (
         <li
           ref={selected ? setSelectedElementRefs(tabIndex) : undefined}
           role="menuitemradio"
-          class={[bem('option', { selected, disabled }), option.className]}
+          class={[
+            bem('option', {
+              selected,
+              disabled,
+              indexed: usePinyinIndex,
+            }),
+            option.className,
+          ]}
           style={{ color }}
           tabindex={disabled ? undefined : selected ? 0 : -1}
           aria-checked={selected}
           aria-disabled={disabled || undefined}
           onClick={() => onSelect(option, tabIndex)}
         >
-          {Text}
-          {selected ? (
-            <Icon name="success" class={bem('selected-icon')} />
-          ) : null}
+          {usePinyinIndex ? (
+            <>
+              {indexChar ? (
+                <span class={bem('option-index')}>{indexChar}</span>
+              ) : (
+                <span class={bem('option-index', 'placeholder')} />
+              )}
+              <div class={bem('option-content')}>
+                {Text}
+                {SelectedIcon}
+              </div>
+            </>
+          ) : (
+            <>
+              {Text}
+              {SelectedIcon}
+            </>
+          )}
         </li>
       );
     };
@@ -248,18 +374,72 @@ export default defineComponent({
       options: CascaderOption[],
       selectedOption: CascaderOption | null,
       tabIndex: number,
-    ) => (
-      <ul role="menu" class={bem('options')}>
-        {options.map((option) =>
-          renderOption(option, selectedOption, tabIndex),
-        )}
-      </ul>
-    );
+    ) => {
+      const processedOptions = processOptions(options);
+      const usePinyinIndex = processedOptions.some((item) => item.index);
+
+      return (
+        <ul role="menu" class={bem('options')}>
+          {processedOptions.map(({ option, index }) =>
+            renderOption(
+              option,
+              selectedOption,
+              tabIndex,
+              index,
+              usePinyinIndex,
+            ),
+          )}
+        </ul>
+      );
+    };
+
+    const renderSteps = () => {
+      if (!displayStepTabs.value.length) {
+        return null;
+      }
+
+      return (
+        <div class={bem('steps')}>
+          {displayStepTabs.value.map(({ tab, tabIndex, isPending }, index) => {
+            const isActive = tabIndex === activeTab.value;
+            const isSelected = !!tab.selected;
+            const title = getStepTitle(tab, tabIndex);
+
+            return (
+              <div
+                key={tabIndex}
+                class={bem('step', {
+                  active: isActive,
+                  selected: isSelected,
+                  pending: isPending,
+                  clickable: isSelected && !isActive,
+                })}
+                onClick={() => onClickStep(tabIndex)}
+              >
+                <div class={bem('step-indicator')}>
+                  <div class={bem('step-track')}>
+                    <span class={bem('step-dot')} />
+                    {index < displayStepTabs.value.length - 1 ? (
+                      <span class={bem('step-line')} />
+                    ) : null}
+                  </div>
+                </div>
+                <div class={bem('step-content')}>
+                  <span class={bem('step-title')}>{title}</span>
+                  {isSelected && !isActive ? (
+                    <Icon name="arrow" class={bem('step-arrow')} />
+                  ) : null}
+                </div>
+              </div>
+            );
+          })}
+        </div>
+      );
+    };
 
     const renderTab = (tab: CascaderTab, tabIndex: number) => {
       const { options, selected } = tab;
-      const placeholder = props.placeholder || t('select');
-      const title = selected ? selected[textKey] : placeholder;
+      const title = getTabTitle(tab, tabIndex);
 
       return (
         <Tab
@@ -276,17 +456,21 @@ export default defineComponent({
     };
 
     const renderTabs = () => (
-      <Tabs
-        v-model:active={activeTab.value}
-        shrink
-        animated
-        class={bem('tabs')}
-        color={props.activeColor}
-        swipeable={props.swipeable}
-        onClickTab={onClickTab}
-      >
-        {tabs.value.map(renderTab)}
-      </Tabs>
+      <>
+        {isStepsLayout.value ? renderSteps() : null}
+        <Tabs
+          v-model:active={activeTab.value}
+          shrink
+          animated
+          class={bem('tabs', { steps: isStepsLayout.value })}
+          color={props.activeColor}
+          swipeable={isStepsLayout.value ? false : props.swipeable}
+          showHeader={!isStepsLayout.value}
+          onClickTab={onClickTab}
+        >
+          {tabs.value.map(renderTab)}
+        </Tabs>
+      </>
     );
 
     const scrollIntoView = (el: HTMLElement) => {
@@ -318,8 +502,9 @@ export default defineComponent({
     );
 
     return () => (
-      <div class={bem()}>
+      <div class={bem({ steps: isStepsLayout.value })}>
         {renderHeader()}
+        {renderTitleExtra()}
         {renderTabs()}
       </div>
     );

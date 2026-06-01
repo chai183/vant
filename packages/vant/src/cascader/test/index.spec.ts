@@ -262,6 +262,94 @@ test('should render options-top、options-bottom slots correctly', async () => {
   expect(wrapper.find('.van-tab__panel').html()).toMatchSnapshot();
 });
 
+test('should sort options by pinyin and render index letter', async () => {
+  const options = [
+    { text: '云南省', value: '530000', pinyin: 'Yunnan' },
+    { text: '浙江省', value: '330000', pinyin: 'Zhejiang' },
+    { text: '安徽省', value: '340000', pinyin: 'Anhui' },
+    { text: '澳门', value: '820000', pinyin: 'Aomen' },
+  ];
+  const wrapper = mount(Cascader, {
+    props: {
+      options,
+    },
+  });
+
+  await later();
+  const optionEls = wrapper.findAll('.van-cascader__option');
+  const texts = optionEls.map((el) =>
+    el.find('.van-cascader__option-content span').text(),
+  );
+  expect(texts).toEqual(['安徽省', '澳门', '云南省', '浙江省']);
+
+  const indexEls = wrapper.findAll(
+    '.van-cascader__option-index:not(.van-cascader__option-index--placeholder)',
+  );
+  expect(indexEls.map((el) => el.text())).toEqual(['A', 'Y', 'Z']);
+});
+
+test('should render steps layout and hide tabs header', async () => {
+  const wrapper = mount(Cascader, {
+    props: {
+      options,
+      tabLayout: 'steps',
+    },
+  });
+
+  await later();
+  expect(wrapper.find('.van-cascader__steps').exists()).toBeFalsy();
+  expect(wrapper.find('.van-tabs__wrap').exists()).toBeFalsy();
+
+  await wrapper.find('.van-cascader__option').trigger('click');
+  await later();
+
+  expect(wrapper.find('.van-cascader__steps').exists()).toBeTruthy();
+  expect(wrapper.findAll('.van-cascader__step')).toHaveLength(2);
+  expect(wrapper.find('.van-cascader__step--pending').exists()).toBeTruthy();
+  expect(wrapper.find('.van-cascader__step--active').exists()).toBeTruthy();
+
+  await wrapper.find('.van-cascader__step--clickable').trigger('click');
+  await later();
+  expect(wrapper.find('.van-cascader__step--active').exists()).toBeTruthy();
+
+  await wrapper.find('.van-cascader__option').trigger('click');
+  await later();
+  expect(wrapper.emitted('clickTab')).toBeTruthy();
+});
+
+test('should show selected option text in steps layout when step is selected', async () => {
+  const wrapper = mount(Cascader, {
+    props: {
+      options,
+      tabLayout: 'steps',
+    },
+    slots: {
+      'step-title': ({
+        tabIndex,
+        selected,
+      }: {
+        tabIndex: number;
+        selected: (typeof options)[0] | null;
+      }) =>
+        selected ? `Custom ${selected.text}` : `Select level ${tabIndex}`,
+    },
+  });
+
+  await later();
+  await wrapper.find('.van-cascader__option').trigger('click');
+  await later();
+
+  const steps = wrapper.findAll('.van-cascader__step');
+  expect(steps).toHaveLength(2);
+  expect(steps[0].find('.van-cascader__step-title').text()).toBe(
+    `Custom ${options[0].text}`,
+  );
+  expect(steps[1].find('.van-cascader__step-title').text()).toBe(
+    'Select level 1',
+  );
+  expect(steps[1].classes()).toContain('van-cascader__step--pending');
+});
+
 test('should not render header when show-header prop is false', async () => {
   const wrapper = mount(Cascader, {
     props: {
@@ -272,4 +360,23 @@ test('should not render header when show-header prop is false', async () => {
 
   const header = wrapper.find('.van-cascader__header');
   expect(header.exists()).toBeFalsy();
+});
+
+test('should render title-extra slot below header', () => {
+  const wrapper = mount(Cascader, {
+    props: {
+      options,
+      title: 'Title',
+    },
+    slots: {
+      'title-extra': () => 'Extra',
+    },
+  });
+
+  const header = wrapper.find('.van-cascader__header');
+  const titleExtra = wrapper.find('.van-cascader__title-extra');
+
+  expect(titleExtra.text()).toBe('Extra');
+  expect(header.find('.van-cascader__title-extra').exists()).toBeFalsy();
+  expect(header.element.nextElementSibling).toBe(titleExtra.element);
 });

@@ -10,11 +10,12 @@
   --van-calendar-header-action-color: var(--van-text-color);
   --van-calendar-header-action-disabled-color: var(--van-text-color-3);
   --van-calendar-weekdays-height: 30px;
-  --van-calendar-weekdays-font-size: var(--van-font-size-sm);
+  --van-calendar-weekdays-font-size: 14px;
+  --van-calendar-weekdays-color: var(--van-primary-color);
   --van-calendar-month-title-font-size: var(--van-font-size-md);
   --van-calendar-month-mark-color: rgba(242, 243, 245, 0.8);
   --van-calendar-month-mark-font-size: 160px;
-  --van-calendar-day-height: 64px;
+  --van-calendar-day-height: 30px;
   --van-calendar-day-font-size: var(--van-font-size-lg);
   --van-calendar-day-margin-bottom: 4px;
   --van-calendar-day-disabled-color: var(--van-text-color-3);
@@ -22,13 +23,20 @@
   --van-calendar-range-edge-background: var(--van-primary-color);
   --van-calendar-range-middle-color: var(--van-primary-color);
   --van-calendar-range-middle-background-opacity: 0.1;
-  --van-calendar-selected-day-size: 54px;
+  --van-calendar-selected-day-size: 30px;
   --van-calendar-selected-day-color: var(--van-white);
   --van-calendar-selected-day-background: var(--van-primary-color);
   --van-calendar-info-font-size: var(--van-font-size-xs);
   --van-calendar-info-line-height: var(--van-line-height-xs);
-  --van-calendar-confirm-button-height: 36px;
-  --van-calendar-confirm-button-margin: 7px 0;
+  --van-calendar-toolbar-height: var(--van-picker-toolbar-height);
+  --van-calendar-action-padding: var(--van-picker-action-padding);
+  --van-calendar-action-font-size: var(--van-picker-action-font-size);
+  --van-calendar-confirm-action-color: var(--van-picker-confirm-action-color);
+  --van-calendar-cancel-action-color: var(--van-picker-cancel-action-color);
+  --van-calendar-toolbar-title-font-size: var(--van-picker-title-font-size);
+  --van-calendar-toolbar-title-line-height: var(--van-picker-title-line-height);
+  --van-calendar-padding-horizontal: 24px;
+  --van-calendar-month-gap: 24px;
 }
 
 .van-theme-dark {
@@ -53,9 +61,6 @@
       height: 100%;
     }
 
-    .van-popup__close-icon {
-      top: 11px;
-    }
   }
 
   &__header {
@@ -63,8 +68,61 @@
     box-shadow: var(--van-calendar-header-shadow);
   }
 
+  &__toolbar {
+    position: relative;
+    display: flex;
+    align-items: center;
+    height: var(--van-calendar-toolbar-height);
+  }
+
+  &__toolbar-action {
+    display: flex;
+    align-items: center;
+    height: 100%;
+    flex: 1;
+    z-index: 1;
+
+    &--right {
+      justify-content: flex-end;
+    }
+  }
+
+  &__cancel,
+  &__confirm {
+    height: 100%;
+    padding: var(--van-calendar-action-padding);
+    font-size: var(--van-calendar-action-font-size);
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+
+    &:disabled {
+      cursor: not-allowed;
+      opacity: var(--van-disabled-opacity);
+    }
+  }
+
+  &__confirm {
+    color: var(--van-calendar-confirm-action-color);
+  }
+
+  &__cancel {
+    color: var(--van-calendar-cancel-action-color);
+  }
+
+  &__toolbar-title {
+    position: absolute;
+    left: 50%;
+    max-width: 50%;
+    color: var(--van-text-color);
+    font-weight: var(--van-font-bold);
+    font-size: var(--van-calendar-toolbar-title-font-size);
+    line-height: var(--van-calendar-toolbar-title-line-height);
+    text-align: center;
+    transform: translateX(-50%);
+  }
+
   &__month-title,
-  &__header-title,
   &__header-subtitle {
     color: var(--van-text-color);
     height: var(--van-calendar-header-title-height);
@@ -73,17 +131,14 @@
     text-align: center;
   }
 
-  &__header-title {
-    font-size: var(--van-calendar-header-title-font-size);
-  }
-
   &__header-subtitle {
+    padding: 0 var(--van-calendar-padding-horizontal);
     font-size: var(--van-calendar-header-subtitle-font-size);
 
     &--with-switch {
       display: flex;
       align-items: center;
-      padding: 0 var(--van-padding-base);
+      padding: 0 var(--van-calendar-padding-horizontal);
     }
   }
 
@@ -107,15 +162,19 @@
   }
 
   &__month-title {
+    padding: 0 var(--van-calendar-padding-horizontal);
     font-size: var(--van-calendar-month-title-font-size);
   }
 
   &__weekdays {
     display: flex;
+    padding: 0 var(--van-calendar-padding-horizontal);
   }
 
   &__weekday {
     flex: 1;
+    color: var(--van-calendar-weekdays-color);
+    font-weight: var(--van-font-bold);
     font-size: var(--van-calendar-weekdays-font-size);
     line-height: var(--van-calendar-weekdays-height);
     text-align: center;
@@ -123,8 +182,13 @@
 
   &__body {
     flex: 1;
+    padding: 0 var(--van-calendar-padding-horizontal);
     overflow: auto;
     -webkit-overflow-scrolling: touch;
+  }
+
+  &__month {
+    margin-top: var(--van-calendar-month-gap);
   }
 
   &__days {
@@ -161,41 +225,44 @@
     margin-bottom: var(--van-calendar-day-margin-bottom);
     cursor: pointer;
 
-    &--end,
     &--start,
-    &--start-end,
-    &--multiple-middle,
-    &--multiple-selected {
-      color: var(--van-calendar-range-edge-color);
-      background: var(--van-calendar-range-edge-background);
-    }
-
-    &--start {
-      border-radius: var(--van-radius-md) 0 0 var(--van-radius-md);
-    }
-
-    &--end {
-      border-radius: 0 var(--van-radius-md) var(--van-radius-md) 0;
-    }
-
-    &--start-end,
-    &--multiple-selected {
-      border-radius: var(--van-radius-md);
-    }
-
+    &--end,
     &--middle {
       color: var(--van-calendar-range-middle-color);
 
       &::after {
         position: absolute;
-        top: 0;
-        right: 0;
-        bottom: 0;
-        left: 0;
+        top: 50%;
+        z-index: 0;
+        height: var(--van-calendar-selected-day-size);
         background-color: currentColor;
         opacity: var(--van-calendar-range-middle-background-opacity);
+        transform: translateY(-50%);
         content: '';
+        pointer-events: none;
       }
+
+      > * {
+        position: relative;
+        z-index: 1;
+      }
+    }
+
+    &--middle {
+      &::after {
+        right: 0;
+        left: 0;
+      }
+    }
+
+    &--start::after {
+      right: 0;
+      left: 50%;
+    }
+
+    &--end::after {
+      right: 50%;
+      left: 0;
     }
 
     &--disabled {
@@ -226,11 +293,16 @@
   }
 
   &__selected-day {
+    position: relative;
+    z-index: 1;
+    flex-shrink: 0;
     width: var(--van-calendar-selected-day-size);
     height: var(--van-calendar-selected-day-size);
+    min-width: var(--van-calendar-selected-day-size);
+    min-height: var(--van-calendar-selected-day-size);
     color: var(--van-calendar-selected-day-color);
     background: var(--van-calendar-selected-day-background);
-    border-radius: var(--van-radius-md);
+    border-radius: 50%;
   }
 
   &__footer {
@@ -239,8 +311,4 @@
     padding-right: var(--van-padding-md);
   }
 
-  &__confirm {
-    height: var(--van-calendar-confirm-button-height);
-    margin: var(--van-calendar-confirm-button-margin);
-  }
 }

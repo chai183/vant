@@ -1,6 +1,15 @@
 import type { ComponentPublicInstance } from 'vue';
+import type { Numeric } from '../utils';
+import type { CellProps } from '../cell';
 import type { CheckboxGroupProps } from './CheckboxGroup';
 import type { CheckerParent, CheckerDirection } from '../checkbox/Checker';
+
+export type CheckboxGroupOption = {
+  label: string;
+  value: Numeric;
+  disabled?: boolean;
+  cellProps?: Partial<CellProps>;
+};
 
 export type CheckboxGroupDirection = CheckerDirection;
 

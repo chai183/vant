@@ -49,8 +49,13 @@ const initMarkdownIt = () => {
 
 const md = initMarkdownIt();
 
+function wrapNewTags(html) {
+  return html.replace(/<code>new<\/code>/g, '<span class="van-doc-new-tag">new</span>');
+}
+
 const markdownToJs = (raw) => {
   let html = md.render(raw);
+  html = wrapNewTags(html);
   html = markdownCardWrapper(html);
 
   return `

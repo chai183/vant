@@ -265,7 +265,7 @@ export default {
 | --- | --- | --- | --- |
 | type | 选择类型：<br>`single` 表示选择单个日期，<br>`multiple` 表示选择多个日期，<br>`range` 表示选择日期区间 | _string_ | `single` |
 | switch-mode `v4.9.0` | 切换模式：<br>`none` 平铺展示所有月份，不展示切换按钮，<br>`month` 支持按月切换，展示上个月/下个月按钮，<br>`year-month` 支持按年切换，也支持按月切换，展示上一年/下一年，上个月/下个月按钮 | _string_ | `none` |
-| title | 日历标题 | _string_ | `日期选择` |
+| title | 日历标题 | _string_ | `请选择日期` |
 | color | 主题色，对底部按钮和选中日期生效 | _string_ | `#1989fa` |
 | min-date | 可选择的最小日期 | _Date_ | `switch-mode` 为 `none` 时为当前日期 |
 | max-date | 可选择的最大日期 | _Date_ | `switch-mode` 为 `none` 时为当前日期的六个月后 |
@@ -420,25 +420,33 @@ calendarRef.value?.reset();
 | --van-calendar-header-action-color | _var(--van-text-color)_ | - |
 | --van-calendar-header-action-disabled-color | _var(--van-text-color-3)_ | - |
 | --van-calendar-weekdays-height | _30px_ | - |
-| --van-calendar-weekdays-font-size | _var(--van-font-size-sm)_ | - |
+| --van-calendar-weekdays-font-size | _14px_ | - |
+| --van-calendar-weekdays-color | _var(--van-primary-color)_ | - |
 | --van-calendar-month-title-font-size | _var(--van-font-size-md)_ | - |
 | --van-calendar-month-mark-color | _fade(var(--van-gray-2), 80%)_ | - |
 | --van-calendar-month-mark-font-size | _160px_ | - |
-| --van-calendar-day-height | _64px_ | - |
+| --van-calendar-day-height | _30px_ | - |
 | --van-calendar-day-font-size | _var(--van-font-size-lg)_ | - |
 | --van-calendar-day-margin-bottom | _4px_ | - |
+| --van-calendar-padding-horizontal | _24px_ | - |
+| --van-calendar-month-gap | _24px_ | - |
 | --van-calendar-day-disabled-color | _var(--van-text-color-3)_ | - |
 | --van-calendar-range-edge-color | _var(--van-white)_ | - |
 | --van-calendar-range-edge-background | _var(--van-primary-color)_ | - |
 | --van-calendar-range-middle-color | _var(--van-primary-color)_ | - |
 | --van-calendar-range-middle-background-opacity | _0.1_ | - |
-| --van-calendar-selected-day-size | _54px_ | - |
+| --van-calendar-selected-day-size | _30px_ | - |
 | --van-calendar-selected-day-color | _var(--van-white)_ | - |
 | --van-calendar-selected-day-background | _var(--van-primary-color)_ | - |
 | --van-calendar-info-font-size | _var(--van-font-size-xs)_ | - |
 | --van-calendar-info-line-height | _var(--van-line-height-xs)_ | - |
-| --van-calendar-confirm-button-height | _36px_ | - |
-| --van-calendar-confirm-button-margin | _7px 0_ | - |
+| --van-calendar-toolbar-height | _44px_ | - |
+| --van-calendar-action-padding | _0 16px_ | - |
+| --van-calendar-action-font-size | _14px_ | - |
+| --van-calendar-confirm-action-color | _var(--van-primary-color)_ | - |
+| --van-calendar-cancel-action-color | _var(--van-text-color-2)_ | - |
+| --van-calendar-toolbar-title-font-size | _var(--van-font-size-lg)_ | - |
+| --van-calendar-toolbar-title-line-height | _var(--van-line-height-md)_ | - |
 
 ## 常见问题
 

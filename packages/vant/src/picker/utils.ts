@@ -99,6 +99,25 @@ export function getElementTranslateY(element: Element) {
   return Number(translateY);
 }
 
+export function getColumnSeparator(
+  columnSeparator: string | string[] | undefined,
+  index: number,
+) {
+  if (columnSeparator === undefined) {
+    return;
+  }
+
+  const separator = Array.isArray(columnSeparator)
+    ? columnSeparator[index]
+    : columnSeparator;
+
+  if (separator === undefined || separator === '') {
+    return;
+  }
+
+  return separator;
+}
+
 export function assignDefaultFields(
   fields: PickerFieldNames | undefined,
 ): Required<PickerFieldNames> {

@@ -173,6 +173,49 @@ export default {
 };
 ```
 
+### Column Separator
+
+Use `column-separator` to display characters between columns. Pass a string to use the same separator between all columns, or pass an array to configure each gap separately.
+
+```html
+<van-picker title="Title" :columns="columns" column-separator=":" />
+<van-picker title="Title" :columns="dateColumns" :column-separator="['/', '/']" />
+```
+
+```js
+export default {
+  setup() {
+    const columns = [
+      [
+        { text: '12', value: '12' },
+        { text: '13', value: '13' },
+      ],
+      [
+        { text: '00', value: '00' },
+        { text: '30', value: '30' },
+      ],
+    ];
+
+    const dateColumns = [
+      [
+        { text: '2024', value: '2024' },
+        { text: '2025', value: '2025' },
+      ],
+      [
+        { text: '01', value: '01' },
+        { text: '02', value: '02' },
+      ],
+      [
+        { text: '01', value: '01' },
+        { text: '02', value: '02' },
+      ],
+    ];
+
+    return { columns, dateColumns };
+  },
+};
+```
+
 ### Cascade
 
 ```html
@@ -371,6 +414,7 @@ export default {
 | option-height | Option height, supports `px` `vw` `vh` `rem` unit, default `px` | _number \| string_ | `44` |
 | visible-option-num | Count of visible columns | _number \| string_ | `6` |
 | swipe-duration | Duration of the momentum animation, unit `ms` | _number \| string_ | `1000` |
+| column-separator `new` | Separator between columns, string for all gaps or array per gap | _string \| string[]_ | - |
 
 ### Events
 
@@ -462,6 +506,7 @@ The component provides the following CSS variables, which can be used to customi
 | --van-picker-option-padding | _0 var(--van-padding-base)_ | - |
 | --van-picker-option-font-size | _var(--van-font-size-lg)_ | - |
 | --van-picker-option-text-color | _var(--van-text-color)_ | - |
+| --van-picker-option-selected-text-color | _var(--van-primary-color)_ | - |
 | --van-picker-option-disabled-opacity | _0.3_ | - |
 | --van-picker-mask-color | _linear-gradient_ | - |
 | --van-picker-loading-icon-color | _var(--van-primary-color)_ | - |

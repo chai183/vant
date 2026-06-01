@@ -1,0 +1,293 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`should render demo and match snapshot 1`] = `
+<!--[-->
+<div>
+  <!--[-->
+  <div class="van-cell-group van-cell-group--inset">
+    <!--[-->
+    <div
+      class="van-cell van-field van-field--label-top van-field-money"
+      style
+    >
+      <div
+        class="van-cell__title van-field__label van-field__label--top"
+        style
+      >
+        <!--[-->
+        <span class="van-field__label-wrap">
+          <label
+            id="van-field-label"
+            for="van-field-input"
+            data-allow-mismatch="attribute"
+            style
+          >
+            Transfer Amount
+          </label>
+          <span class="van-field__label-tooltip">
+            <!--[-->
+            <span class="van-popover__wrapper">
+              <!--[-->
+              <i
+                class="van-badge__wrapper van-icon van-icon-info-o van-field__label-tooltip-icon"
+                style="font-size:14px;"
+              >
+                <!--[-->
+              </i>
+            </span>
+          </span>
+        </span>
+      </div>
+      <div class="van-cell__value van-field__value">
+        <!--[-->
+        <div
+          class="van-field__body"
+          style
+        >
+          <div class="van-field__input-left">
+            <!--[-->
+            <span class="van-field-money__currency">
+              ¥
+            </span>
+          </div>
+          <div class="van-field__money-input-wrap">
+            <input
+              type="text"
+              inputmode="decimal"
+              id="van-field-input"
+              class="van-field__control"
+              style
+              placeholder="Please enter the transfer amount"
+              aria-labelledby="van-field-label"
+              data-allow-mismatch="attribute"
+            >
+          </div>
+        </div>
+        <div class="van-field__input-bottom">
+          <div class="van-field__money-uppercase">
+            <span class="van-field__money-uppercase-label">
+              Amount in words (CN)
+            </span>
+            <span class="van-field__money-uppercase-text">
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div>
+  <!--[-->
+  <div class="van-cell-group van-cell-group--inset">
+    <!--[-->
+    <div
+      class="van-cell van-field van-field--label-top van-field-money"
+      style
+    >
+      <div
+        class="van-cell__title van-field__label van-field__label--top"
+        style
+      >
+        <!--[-->
+        <label
+          id="van-field-label"
+          for="van-field-input"
+          data-allow-mismatch="attribute"
+          style
+        >
+          Transfer Amount
+        </label>
+      </div>
+      <div class="van-cell__value van-field__value">
+        <!--[-->
+        <div
+          class="van-field__body"
+          style
+        >
+          <div class="van-field__input-left">
+            <!--[-->
+            <span class="van-field-money__currency">
+              ¥
+            </span>
+          </div>
+          <div class="van-field__money-input-wrap">
+            <div class="van-field__money-unit">
+              <div class="van-field__money-unit-box">
+                <span class="van-field__money-unit-text">
+                  拾万
+                </span>
+                <span class="van-field__money-unit-caret">
+                  <svg
+                    viewbox="0 0 100 5"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M0 0.5 H42 L50 5 L58 0.5 H100"
+                      stroke="currentColor"
+                      stroke-width="1"
+                    >
+                    </path>
+                  </svg>
+                </span>
+              </div>
+            </div>
+            <input
+              type="text"
+              inputmode="decimal"
+              id="van-field-input"
+              class="van-field__control"
+              style
+              placeholder="Please enter the transfer amount"
+              aria-labelledby="van-field-label"
+              data-allow-mismatch="attribute"
+            >
+          </div>
+        </div>
+        <div class="van-field__error-message">
+          Amount exceeds available balance
+        </div>
+        <div class="van-field__input-bottom">
+          <div class="van-field__money-uppercase">
+            <span class="van-field__money-uppercase-label">
+              Amount in words (CN)
+            </span>
+            <span class="van-field__money-uppercase-text">
+              玖拾玖万玖仟玖佰玖拾玖元整
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div>
+  <!--[-->
+  <div class="van-cell-group van-cell-group--inset">
+    <!--[-->
+    <div
+      class="van-cell van-field van-field--label-top van-field-money"
+      style
+    >
+      <div
+        class="van-cell__title van-field__label van-field__label--top"
+        style
+      >
+        <!--[-->
+        <label
+          id="van-field-label"
+          for="van-field-input"
+          data-allow-mismatch="attribute"
+          style
+        >
+          Transfer Amount
+        </label>
+      </div>
+      <div class="van-cell__value van-field__value">
+        <!--[-->
+        <div
+          class="van-field__body"
+          style
+        >
+          <div class="van-field__input-left">
+            <!--[-->
+            <span class="van-field-money__currency">
+              ¥
+            </span>
+          </div>
+          <div class="van-field__money-input-wrap">
+            <input
+              type="text"
+              inputmode="decimal"
+              id="van-field-input"
+              class="van-field__control"
+              style
+              placeholder="Please enter the transfer amount"
+              aria-labelledby="van-field-label"
+              data-allow-mismatch="attribute"
+            >
+          </div>
+        </div>
+        <div class="van-field__input-comment">
+          Single transfer limit: 50000
+        </div>
+        <div class="van-field__input-bottom">
+          <div class="van-field__money-uppercase">
+            <span class="van-field__money-uppercase-label">
+              Amount in words (CN)
+            </span>
+            <span class="van-field__money-uppercase-text">
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div>
+  <!--[-->
+  <div class="van-cell-group van-cell-group--inset">
+    <!--[-->
+    <div
+      class="van-cell van-field van-field--label-top van-field-money"
+      style
+    >
+      <div
+        class="van-cell__title van-field__label van-field__label--top"
+        style
+      >
+        <!--[-->
+        <label
+          id="van-field-label"
+          for="van-field-input"
+          data-allow-mismatch="attribute"
+          style
+        >
+          Transfer Amount
+        </label>
+      </div>
+      <div class="van-cell__value van-field__value">
+        <!--[-->
+        <div
+          class="van-field__body"
+          style
+        >
+          <div class="van-field__input-left">
+            <!--[-->
+            <span class="van-field-money__currency">
+              ¥
+            </span>
+          </div>
+          <div class="van-field__money-input-wrap">
+            <input
+              type="text"
+              inputmode="decimal"
+              id="van-field-input"
+              class="van-field__control"
+              style
+              placeholder="Please enter the transfer amount"
+              aria-labelledby="van-field-label"
+              data-allow-mismatch="attribute"
+            >
+          </div>
+        </div>
+        <div class="van-field__input-comment">
+          <!--[-->
+          <span style="color:var(--van-text-color-2);">
+            Slot: fee, arrival time, etc.
+          </span>
+        </div>
+        <div class="van-field__input-bottom">
+          <div class="van-field__money-uppercase">
+            <span class="van-field__money-uppercase-label">
+              Amount in words (CN)
+            </span>
+            <span class="van-field__money-uppercase-text">
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;

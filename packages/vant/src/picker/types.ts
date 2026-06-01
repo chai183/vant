@@ -68,8 +68,11 @@ export type PickerThemeVars = {
   pickerOptionFontSize?: string;
   pickerOptionPadding?: string;
   pickerOptionTextColor?: string;
+  pickerOptionSelectedTextColor?: string;
   pickerOptionDisabledOpacity?: number | string;
   pickerLoadingIconColor?: string;
   pickerLoadingMaskColor?: string;
   pickerMaskColor?: string;
+  pickerColumnSeparatorColor?: string;
+  pickerColumnSeparatorFontSize?: string;
 };

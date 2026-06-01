@@ -187,6 +187,49 @@ export default {
 };
 ```
 
+### 列间分隔符
+
+通过 `column-separator` 可以在多列之间展示分隔字符。传入字符串时，各列之间使用相同分隔符；传入数组时，可分别为每一对相邻列配置分隔符。
+
+```html
+<van-picker title="标题" :columns="columns" column-separator=":" />
+<van-picker title="标题" :columns="dateColumns" :column-separator="['年', '月']" />
+```
+
+```js
+export default {
+  setup() {
+    const columns = [
+      [
+        { text: '12', value: '12' },
+        { text: '13', value: '13' },
+      ],
+      [
+        { text: '00', value: '00' },
+        { text: '30', value: '30' },
+      ],
+    ];
+
+    const dateColumns = [
+      [
+        { text: '2024', value: '2024' },
+        { text: '2025', value: '2025' },
+      ],
+      [
+        { text: '01', value: '01' },
+        { text: '02', value: '02' },
+      ],
+      [
+        { text: '01', value: '01' },
+        { text: '02', value: '02' },
+      ],
+    ];
+
+    return { columns, dateColumns };
+  },
+};
+```
+
 ### 级联选择
 
 使用 `columns` 的 `children` 字段可以实现选项级联的效果。如果级联层级较多，推荐使用 [Cascader 级联选项组件](#/zh-CN/cascader)。
@@ -391,6 +434,7 @@ export default {
 | option-height | 选项高度，支持 `px` `vw` `vh` `rem` 单位，默认 `px` | _number \| string_ | `44` |
 | visible-option-num | 可见的选项个数 | _number \| string_ | `6` |
 | swipe-duration | 快速滑动时惯性滚动的时长，单位 `ms` | _number \| string_ | `1000` |
+| column-separator `new` | 列间分隔符，字符串表示各列相同，数组按相邻列顺序配置 | _string \| string[]_ | - |
 
 ### Events
 
@@ -482,6 +526,7 @@ pickerRef.value?.confirm();
 | --van-picker-option-padding          | _0 var(--van-padding-base)_ | -    |
 | --van-picker-option-font-size        | _var(--van-font-size-lg)_   | -    |
 | --van-picker-option-text-color       | _var(--van-text-color)_     | -    |
+| --van-picker-option-selected-text-color | _var(--van-primary-color)_ | - |
 | --van-picker-option-disabled-opacity | _0.3_                       | -    |
 | --van-picker-mask-color              | _linear-gradient_           | -    |
 | --van-picker-loading-icon-color      | _var(--van-primary-color)_  | -    |

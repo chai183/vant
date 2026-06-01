@@ -43,12 +43,19 @@ export default {
 
 ### 水平排列
 
-将 `direction` 属性设置为 `horizontal` 后，单选框组会变成水平排列。
+将 `direction` 属性设置为 `horizontal` 后，单选框组会变成水平排列。可通过 `columns` 属性设置每行展示的选项数量，默认为 `3`。
 
 ```html
 <van-radio-group v-model="checked" direction="horizontal">
   <van-radio name="1">单选框 1</van-radio>
   <van-radio name="2">单选框 2</van-radio>
+</van-radio-group>
+
+<van-radio-group v-model="checked" direction="horizontal" :columns="2">
+  <van-radio name="1">单选框 1</van-radio>
+  <van-radio name="2">单选框 2</van-radio>
+  <van-radio name="3">单选框 3</van-radio>
+  <van-radio name="4">单选框 4</van-radio>
 </van-radio-group>
 ```
 
@@ -195,7 +202,7 @@ export default {
 | 参数 | 说明 | 类型 | 默认值 |
 | --- | --- | --- | --- |
 | name | 标识符，通常为一个唯一的字符串或数字 | _any_ | - |
-| shape | 形状，可选值为 `square` `dot` | _string_ | `round` |
+| shape | 形状，可选值为 `square` `dot` `block` | _string_ | `round` |
 | disabled | 是否为禁用状态 | _boolean_ | `false` |
 | label-disabled | 是否禁用文本内容点击 | _boolean_ | `false` |
 | label-position | 文本位置，可选值为 `left` | _string_ | `right` |
@@ -209,9 +216,12 @@ export default {
 | v-model | 当前选中项的标识符 | _any_ | - |
 | disabled | 是否禁用所有单选框 | _boolean_ | `false` |
 | direction | 排列方向，可选值为 `horizontal` | _string_ | `vertical` |
+| columns `new` | 水平排列时每行展示的选项数量 | _number \| string_ | `3` |
+| is-list `new` | 是否以 Cell 列表形式展示选项 | _boolean_ | `false` |
+| options `new` | 通过配置渲染选项，项为 `{ label, value, disabled? }` | _RadioGroupOption[]_ | `[]` |
 | icon-size | 所有单选框的图标大小，默认单位为 `px` | _number \| string_ | `20px` |
 | checked-color | 所有单选框的选中状态颜色 | _string_ | `#1989fa` |
-| shape `v4.6.3` | 形状，可选值为 `square` `dot` | _string_ | `round` |
+| shape `v4.6.3` | 形状，可选值为 `square` `dot` `block` | _string_ | `round` |
 
 ### Radio Events
 

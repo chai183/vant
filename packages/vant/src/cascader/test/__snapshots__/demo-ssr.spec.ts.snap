@@ -5,7 +5,7 @@ exports[`should render demo and match snapshot 1`] = `
 <div>
   <!--[-->
   <div
-    class="van-cell van-cell--clickable van-field"
+    class="van-cell van-cell--clickable van-field van-field--readonly-ellipsis"
     role="button"
     tabindex="0"
   >
@@ -25,16 +25,19 @@ exports[`should render demo and match snapshot 1`] = `
     </div>
     <div class="van-cell__value van-field__value">
       <!--[-->
-      <div class="van-field__body">
-        <input
-          type="text"
+      <div
+        class="van-field__body"
+        style
+      >
+        <div
           id="van-field-input"
-          class="van-field__control"
-          readonly
-          placeholder="Select Area"
-          aria-labelledby="van-field-label"
-          data-allow-mismatch="attribute"
+          class="van-field__control van-field__control--custom van-field__readonly-ellipsis van-field__readonly-ellipsis--placeholder"
+          style
         >
+          <div class="van-text-ellipsis">
+            Select Area
+          </div>
+        </div>
       </div>
     </div>
     <i
@@ -48,7 +51,7 @@ exports[`should render demo and match snapshot 1`] = `
 <div>
   <!--[-->
   <div
-    class="van-cell van-cell--clickable van-field"
+    class="van-cell van-cell--clickable van-field van-field--readonly-ellipsis"
     role="button"
     tabindex="0"
   >
@@ -68,16 +71,19 @@ exports[`should render demo and match snapshot 1`] = `
     </div>
     <div class="van-cell__value van-field__value">
       <!--[-->
-      <div class="van-field__body">
-        <input
-          type="text"
+      <div
+        class="van-field__body"
+        style
+      >
+        <div
           id="van-field-input"
-          class="van-field__control"
-          readonly
-          placeholder="Select Area"
-          aria-labelledby="van-field-label"
-          data-allow-mismatch="attribute"
+          class="van-field__control van-field__control--custom van-field__readonly-ellipsis van-field__readonly-ellipsis--placeholder"
+          style
         >
+          <div class="van-text-ellipsis">
+            Select Area
+          </div>
+        </div>
       </div>
     </div>
     <i
@@ -91,7 +97,7 @@ exports[`should render demo and match snapshot 1`] = `
 <div>
   <!--[-->
   <div
-    class="van-cell van-cell--clickable van-field"
+    class="van-cell van-cell--clickable van-field van-field--readonly-ellipsis"
     role="button"
     tabindex="0"
   >
@@ -111,16 +117,19 @@ exports[`should render demo and match snapshot 1`] = `
     </div>
     <div class="van-cell__value van-field__value">
       <!--[-->
-      <div class="van-field__body">
-        <input
-          type="text"
+      <div
+        class="van-field__body"
+        style
+      >
+        <div
           id="van-field-input"
-          class="van-field__control"
-          readonly
-          placeholder="Select Area"
-          aria-labelledby="van-field-label"
-          data-allow-mismatch="attribute"
+          class="van-field__control van-field__control--custom van-field__readonly-ellipsis van-field__readonly-ellipsis--placeholder"
+          style
         >
+          <div class="van-text-ellipsis">
+            Select Area
+          </div>
+        </div>
       </div>
     </div>
     <i
@@ -134,7 +143,7 @@ exports[`should render demo and match snapshot 1`] = `
 <div>
   <!--[-->
   <div
-    class="van-cell van-cell--clickable van-field"
+    class="van-cell van-cell--clickable van-field van-field--readonly-ellipsis"
     role="button"
     tabindex="0"
   >
@@ -154,16 +163,19 @@ exports[`should render demo and match snapshot 1`] = `
     </div>
     <div class="van-cell__value van-field__value">
       <!--[-->
-      <div class="van-field__body">
-        <input
-          type="text"
+      <div
+        class="van-field__body"
+        style
+      >
+        <div
           id="van-field-input"
-          class="van-field__control"
-          readonly
-          placeholder="Select Area"
-          aria-labelledby="van-field-label"
-          data-allow-mismatch="attribute"
+          class="van-field__control van-field__control--custom van-field__readonly-ellipsis van-field__readonly-ellipsis--placeholder"
+          style
         >
+          <div class="van-text-ellipsis">
+            Select Area
+          </div>
+        </div>
       </div>
     </div>
     <i
@@ -177,7 +189,7 @@ exports[`should render demo and match snapshot 1`] = `
 <div>
   <!--[-->
   <div
-    class="van-cell van-cell--clickable van-field"
+    class="van-cell van-cell--clickable van-field van-field--readonly-ellipsis"
     role="button"
     tabindex="0"
   >
@@ -197,16 +209,19 @@ exports[`should render demo and match snapshot 1`] = `
     </div>
     <div class="van-cell__value van-field__value">
       <!--[-->
-      <div class="van-field__body">
-        <input
-          type="text"
+      <div
+        class="van-field__body"
+        style
+      >
+        <div
           id="van-field-input"
-          class="van-field__control"
-          readonly
-          placeholder="Select Area"
-          aria-labelledby="van-field-label"
-          data-allow-mismatch="attribute"
+          class="van-field__control van-field__control--custom van-field__readonly-ellipsis van-field__readonly-ellipsis--placeholder"
+          style
         >
+          <div class="van-text-ellipsis">
+            Select Area
+          </div>
+        </div>
       </div>
     </div>
     <i

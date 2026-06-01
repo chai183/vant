@@ -17,6 +17,7 @@ import {
   getScrollTop,
   makeStringProp,
   makeNumericProp,
+  HAPTICS_FEEDBACK,
 } from '../utils';
 import {
   t,
@@ -41,7 +42,6 @@ import { useExpose } from '../composables/use-expose';
 
 // Components
 import { Popup, PopupPosition } from '../popup';
-import { Button } from '../button';
 import { showToast } from '../toast';
 import CalendarMonth from './CalendarMonth';
 import CalendarHeader from './CalendarHeader';
@@ -517,6 +517,8 @@ export default defineComponent({
 
     const updateShow = (value: boolean) => emit('update:show', value);
 
+    const onCancel = () => updateShow(false);
+
     const renderMonth = (date: Date, index: number) => {
       const showMonthTitle = index !== 0 || !props.showSubtitle;
       return (
@@ -550,54 +552,76 @@ export default defineComponent({
       );
     };
 
-    const renderFooterButton = () => {
-      if (slots.footer) {
-        return slots.footer();
+    const renderCancelButton = () => {
+      if (!props.poppable || !(props.showTitle || props.showSubtitle)) {
+        return;
       }
 
-      if (props.showConfirm) {
-        const slot = slots['confirm-text'];
-        const disabled = buttonDisabled.value;
-        const text = disabled ? props.confirmDisabledText : props.confirmText;
-        return (
-          <Button
-            round
-            block
-            type="primary"
-            color={props.color}
-            class={bem('confirm')}
-            disabled={disabled}
-            nativeType="button"
-            onClick={onConfirm}
-          >
-            {slot ? slot({ disabled }) : text || t('confirm')}
-          </Button>
-        );
-      }
+      return (
+        <button
+          type="button"
+          class={[bem('cancel'), HAPTICS_FEEDBACK]}
+          onClick={onCancel}
+        >
+          {t('cancel')}
+        </button>
+      );
     };
 
-    const renderFooter = () => (
-      <div
-        class={[
-          bem('footer'),
-          { 'van-safe-area-bottom': props.safeAreaInsetBottom },
-        ]}
-      >
-        {renderFooterButton()}
-      </div>
-    );
+    const renderConfirmButton = () => {
+      if (!props.showConfirm) {
+        return;
+      }
+
+      const slot = slots['confirm-text'];
+      const disabled = buttonDisabled.value;
+      const text = disabled ? props.confirmDisabledText : props.confirmText;
+
+      return (
+        <button
+          type="button"
+          class={[bem('confirm'), HAPTICS_FEEDBACK]}
+          style={props.color ? { color: props.color } : undefined}
+          disabled={disabled}
+          onClick={onConfirm}
+        >
+          {slot ? slot({ disabled }) : text || t('confirm')}
+        </button>
+      );
+    };
+
+    const renderFooter = () => {
+      if (!slots.footer) {
+        return;
+      }
+
+      return (
+        <div
+          class={[
+            bem('footer'),
+            { 'van-safe-area-bottom': props.safeAreaInsetBottom },
+          ]}
+        >
+          {slots.footer()}
+        </div>
+      );
+    };
 
     const renderCalendar = () => (
       <div class={bem()}>
         <CalendarHeader
-          v-slots={pick(slots, [
-            'title',
-            'subtitle',
-            'prev-month',
-            'prev-year',
-            'next-month',
-            'next-year',
-          ])}
+          v-slots={{
+            ...pick(slots, [
+              'title',
+              'subtitle',
+              'prev-month',
+              'prev-year',
+              'next-month',
+              'next-year',
+            ]),
+            cancel: renderCancelButton,
+            confirm: renderConfirmButton,
+          }}
           date={currentMonthRef.value?.date}
           maxDate={maxDate.value}
           minDate={minDate.value}
@@ -652,7 +676,7 @@ export default defineComponent({
             class={bem('popup')}
             round={props.round}
             position={props.position}
-            closeable={props.showTitle || props.showSubtitle}
+            closeable={false}
             teleport={props.teleport}
             closeOnPopstate={props.closeOnPopstate}
             safeAreaInsetTop={props.safeAreaInsetTop}

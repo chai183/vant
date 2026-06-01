@@ -23,11 +23,15 @@ exports[`should render demo and match snapshot 1`] = `
       </div>
       <div class="van-cell__value van-field__value">
         <!--[-->
-        <div class="van-field__body">
+        <div
+          class="van-field__body"
+          style
+        >
           <input
             type="text"
             id="van-field-input"
             class="van-field__control"
+            style
             placeholder="Text"
             aria-labelledby="van-field-label"
             data-allow-mismatch="attribute"
@@ -60,11 +64,15 @@ exports[`should render demo and match snapshot 1`] = `
         </div>
         <div class="van-cell__value van-field__value">
           <!--[-->
-          <div class="van-field__body">
+          <div
+            class="van-field__body"
+            style
+          >
             <input
               type="text"
               id="van-field-input"
               class="van-field__control"
+              style
               placeholder="Text"
               autocomplete="off"
               aria-labelledby="van-field-label"
@@ -90,11 +98,15 @@ exports[`should render demo and match snapshot 1`] = `
         </div>
         <div class="van-cell__value van-field__value">
           <!--[-->
-          <div class="van-field__body">
+          <div
+            class="van-field__body"
+            style
+          >
             <input
               type="tel"
               id="van-field-input"
               class="van-field__control"
+              style
               placeholder="Phone"
               aria-labelledby="van-field-label"
               data-allow-mismatch="attribute"
@@ -119,12 +131,16 @@ exports[`should render demo and match snapshot 1`] = `
         </div>
         <div class="van-cell__value van-field__value">
           <!--[-->
-          <div class="van-field__body">
+          <div
+            class="van-field__body"
+            style
+          >
             <input
               type="tel"
               inputmode="numeric"
               id="van-field-input"
               class="van-field__control"
+              style
               placeholder="Digit"
               aria-labelledby="van-field-label"
               data-allow-mismatch="attribute"
@@ -149,12 +165,16 @@ exports[`should render demo and match snapshot 1`] = `
         </div>
         <div class="van-cell__value van-field__value">
           <!--[-->
-          <div class="van-field__body">
+          <div
+            class="van-field__body"
+            style
+          >
             <input
               type="text"
               inputmode="decimal"
               id="van-field-input"
               class="van-field__control"
+              style
               placeholder="Number"
               aria-labelledby="van-field-label"
               data-allow-mismatch="attribute"
@@ -179,12 +199,153 @@ exports[`should render demo and match snapshot 1`] = `
         </div>
         <div class="van-cell__value van-field__value">
           <!--[-->
-          <div class="van-field__body">
+          <div
+            class="van-field__body"
+            style
+          >
             <input
               type="password"
               id="van-field-input"
               class="van-field__control"
+              style
               placeholder="Password"
+              autocomplete="off"
+              aria-labelledby="van-field-label"
+              data-allow-mismatch="attribute"
+            >
+          </div>
+        </div>
+      </div>
+      <div class="van-cell van-field">
+        <div
+          class="van-cell__title van-field__label"
+          style
+        >
+          <!--[-->
+          <label
+            id="van-field-label"
+            for="van-field-input"
+            data-allow-mismatch="attribute"
+            style
+          >
+            Account
+          </label>
+        </div>
+        <div class="van-cell__value van-field__value">
+          <!--[-->
+          <div
+            class="van-field__body"
+            style
+          >
+            <input
+              type="text"
+              inputmode="numeric"
+              id="van-field-input"
+              class="van-field__control"
+              style
+              placeholder="Account"
+              autocomplete="off"
+              aria-labelledby="van-field-label"
+              data-allow-mismatch="attribute"
+            >
+          </div>
+        </div>
+      </div>
+      <div class="van-cell van-field">
+        <div
+          class="van-cell__title van-field__label"
+          style
+        >
+          <!--[-->
+          <label
+            id="van-field-label"
+            for="van-field-input"
+            data-allow-mismatch="attribute"
+            style
+          >
+            ID Card
+          </label>
+        </div>
+        <div class="van-cell__value van-field__value">
+          <!--[-->
+          <div
+            class="van-field__body"
+            style
+          >
+            <input
+              type="text"
+              id="van-field-input"
+              class="van-field__control"
+              style
+              placeholder="Please enter the ID card"
+              autocomplete="off"
+              aria-labelledby="van-field-label"
+              data-allow-mismatch="attribute"
+            >
+          </div>
+        </div>
+      </div>
+      <div class="van-cell van-field">
+        <div
+          class="van-cell__title van-field__label"
+          style
+        >
+          <!--[-->
+          <label
+            id="van-field-label"
+            for="van-field-input"
+            data-allow-mismatch="attribute"
+            style
+          >
+            UKey
+          </label>
+        </div>
+        <div class="van-cell__value van-field__value">
+          <!--[-->
+          <div
+            class="van-field__body"
+            style
+          >
+            <input
+              type="text"
+              id="van-field-input"
+              class="van-field__control"
+              style
+              placeholder="Please enter the UKey"
+              autocomplete="off"
+              aria-labelledby="van-field-label"
+              data-allow-mismatch="attribute"
+            >
+          </div>
+        </div>
+      </div>
+      <div class="van-cell van-field van-field--label-top">
+        <div
+          class="van-cell__title van-field__label van-field__label--top"
+          style
+        >
+          <!--[-->
+          <label
+            id="van-field-label"
+            for="van-field-input"
+            data-allow-mismatch="attribute"
+            style
+          >
+            Text
+          </label>
+        </div>
+        <div class="van-cell__value van-field__value">
+          <!--[-->
+          <div
+            class="van-field__body"
+            style
+          >
+            <input
+              type="text"
+              id="van-field-input"
+              class="van-field__control"
+              style
+              placeholder="Text"
               autocomplete="off"
               aria-labelledby="van-field-label"
               data-allow-mismatch="attribute"
@@ -199,7 +360,7 @@ exports[`should render demo and match snapshot 1`] = `
   <!--[-->
   <div class="van-cell-group van-cell-group--inset">
     <!--[-->
-    <div class="van-cell van-field">
+    <div class="van-cell van-field van-field--readonly-ellipsis">
       <div
         class="van-cell__title van-field__label"
         style
@@ -216,15 +377,19 @@ exports[`should render demo and match snapshot 1`] = `
       </div>
       <div class="van-cell__value van-field__value">
         <!--[-->
-        <div class="van-field__body">
-          <input
-            type="text"
+        <div
+          class="van-field__body"
+          style
+        >
+          <div
             id="van-field-input"
-            class="van-field__control"
-            readonly
-            aria-labelledby="van-field-label"
-            data-allow-mismatch="attribute"
+            class="van-field__control van-field__control--custom van-field__readonly-ellipsis"
+            style
           >
+            <div class="van-text-ellipsis">
+              Input Readonly
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -245,15 +410,421 @@ exports[`should render demo and match snapshot 1`] = `
       </div>
       <div class="van-cell__value van-field__value">
         <!--[-->
-        <div class="van-field__body">
+        <div
+          class="van-field__body"
+          style
+        >
           <input
             type="text"
             id="van-field-input"
             class="van-field__control"
+            style
             disabled
             aria-labelledby="van-field-label"
             data-allow-mismatch="attribute"
           >
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!--[-->
+<div>
+  <!--[-->
+  <div class="van-cell-group van-cell-group--inset">
+    <!--[-->
+    <div class="van-cell van-field van-field--readonly-ellipsis">
+      <div
+        class="van-cell__title van-field__label"
+        style
+      >
+        <!--[-->
+        <label
+          id="van-field-label"
+          for="van-field-input"
+          data-allow-mismatch="attribute"
+          style
+        >
+          Address
+        </label>
+      </div>
+      <div class="van-cell__value van-field__value">
+        <!--[-->
+        <div
+          class="van-field__body"
+          style
+        >
+          <div
+            id="van-field-input"
+            class="van-field__control van-field__control--custom van-field__readonly-ellipsis"
+            style
+          >
+            <div class="van-text-ellipsis">
+              Room 1201, 12F, Zhangjiang Building, 88 Keyuan Road, Pudong, Shanghai
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="van-cell van-field van-field--readonly-ellipsis">
+      <div
+        class="van-cell__title van-field__label"
+        style
+      >
+        <!--[-->
+        <label
+          id="van-field-label"
+          for="van-field-input"
+          data-allow-mismatch="attribute"
+          style
+        >
+          Tags
+        </label>
+      </div>
+      <div class="van-cell__value van-field__value">
+        <!--[-->
+        <div
+          class="van-field__body"
+          style
+        >
+          <div
+            id="van-field-input"
+            class="van-field__control van-field__control--custom van-field__readonly-ellipsis van-field__readonly-ellipsis--tags"
+            style
+          >
+            <!--[-->
+            <div
+              class="van-field__readonly-tags-measure"
+              aria-hidden="true"
+            >
+              <!--[-->
+              <div
+                class="van-field__readonly-tag"
+                data-measure-tag="true"
+              >
+                <span
+                  style="color:#333333;background:#EEEEEE;"
+                  class="van-tag van-tag--medium van-tag--default"
+                >
+                  <!--[-->
+                  <span class="van-field__readonly-tag-text">
+                    Design
+                  </span>
+                </span>
+              </div>
+              <div
+                class="van-field__readonly-tag"
+                data-measure-tag="true"
+              >
+                <span
+                  style="color:#333333;background:#EEEEEE;"
+                  class="van-tag van-tag--medium van-tag--default"
+                >
+                  <!--[-->
+                  <span class="van-field__readonly-tag-text">
+                    Interaction
+                  </span>
+                </span>
+              </div>
+              <div
+                class="van-field__readonly-tag"
+                data-measure-tag="true"
+              >
+                <span
+                  style="color:#333333;background:#EEEEEE;"
+                  class="van-tag van-tag--medium van-tag--default"
+                >
+                  <!--[-->
+                  <span class="van-field__readonly-tag-text">
+                    Frontend
+                  </span>
+                </span>
+              </div>
+              <div
+                class="van-field__readonly-tag"
+                data-measure-tag="true"
+              >
+                <span
+                  style="color:#333333;background:#EEEEEE;"
+                  class="van-tag van-tag--medium van-tag--default"
+                >
+                  <!--[-->
+                  <span class="van-field__readonly-tag-text">
+                    QA
+                  </span>
+                </span>
+              </div>
+              <div
+                class="van-field__readonly-tag"
+                data-measure-tag="true"
+              >
+                <span
+                  style="color:#333333;background:#EEEEEE;"
+                  class="van-tag van-tag--medium van-tag--default"
+                >
+                  <!--[-->
+                  <span class="van-field__readonly-tag-text">
+                    Product
+                  </span>
+                </span>
+              </div>
+              <div
+                class="van-field__readonly-tag"
+                data-measure-tag="true"
+              >
+                <span
+                  style="color:#333333;background:#EEEEEE;"
+                  class="van-tag van-tag--medium van-tag--default"
+                >
+                  <!--[-->
+                  <span class="van-field__readonly-tag-text">
+                    Operations
+                  </span>
+                </span>
+              </div>
+              <div class="van-field__readonly-tag van-field__readonly-tag--overflow">
+                <span
+                  style="color:#333333;background:#EEEEEE;"
+                  class="van-tag van-tag--medium van-tag--default"
+                >
+                  <!--[-->
+                  +6
+                </span>
+              </div>
+            </div>
+            <div class="van-field__readonly-tags">
+              <!--[-->
+              <div class="van-field__readonly-tag">
+                <span
+                  style="color:#333333;background:#EEEEEE;"
+                  class="van-tag van-tag--medium van-tag--default"
+                >
+                  <!--[-->
+                  <span class="van-field__readonly-tag-text">
+                    Design
+                  </span>
+                </span>
+              </div>
+              <div class="van-field__readonly-tag">
+                <span
+                  style="color:#333333;background:#EEEEEE;"
+                  class="van-tag van-tag--medium van-tag--default"
+                >
+                  <!--[-->
+                  <span class="van-field__readonly-tag-text">
+                    Interaction
+                  </span>
+                </span>
+              </div>
+              <div class="van-field__readonly-tag">
+                <span
+                  style="color:#333333;background:#EEEEEE;"
+                  class="van-tag van-tag--medium van-tag--default"
+                >
+                  <!--[-->
+                  <span class="van-field__readonly-tag-text">
+                    Frontend
+                  </span>
+                </span>
+              </div>
+              <div class="van-field__readonly-tag">
+                <span
+                  style="color:#333333;background:#EEEEEE;"
+                  class="van-tag van-tag--medium van-tag--default"
+                >
+                  <!--[-->
+                  <span class="van-field__readonly-tag-text">
+                    QA
+                  </span>
+                </span>
+              </div>
+              <div class="van-field__readonly-tag">
+                <span
+                  style="color:#333333;background:#EEEEEE;"
+                  class="van-tag van-tag--medium van-tag--default"
+                >
+                  <!--[-->
+                  <span class="van-field__readonly-tag-text">
+                    Product
+                  </span>
+                </span>
+              </div>
+              <div class="van-field__readonly-tag">
+                <span
+                  style="color:#333333;background:#EEEEEE;"
+                  class="van-tag van-tag--medium van-tag--default"
+                >
+                  <!--[-->
+                  <span class="van-field__readonly-tag-text">
+                    Operations
+                  </span>
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div>
+  <!--[-->
+  <div class="van-cell-group van-cell-group--inset">
+    <!--[-->
+    <div class="van-cell van-field van-field--readonly-ellipsis">
+      <div
+        class="van-cell__title van-field__label"
+        style
+      >
+        <!--[-->
+        <label
+          id="van-field-label"
+          for="van-field-input"
+          data-allow-mismatch="attribute"
+          style
+        >
+          Address
+        </label>
+      </div>
+      <div class="van-cell__value van-field__value">
+        <!--[-->
+        <div
+          class="van-field__body"
+          style
+        >
+          <div
+            id="van-field-input"
+            class="van-field__control van-field__control--custom van-field__readonly-ellipsis"
+            style
+          >
+            <div class="van-text-ellipsis">
+              Pudong, Shanghai
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="van-cell van-field van-field--readonly-ellipsis">
+      <div
+        class="van-cell__title van-field__label"
+        style
+      >
+        <!--[-->
+        <label
+          id="van-field-label"
+          for="van-field-input"
+          data-allow-mismatch="attribute"
+          style
+        >
+          Tags
+        </label>
+      </div>
+      <div class="van-cell__value van-field__value">
+        <!--[-->
+        <div
+          class="van-field__body"
+          style
+        >
+          <div
+            id="van-field-input"
+            class="van-field__control van-field__control--custom van-field__readonly-ellipsis van-field__readonly-ellipsis--tags"
+            style
+          >
+            <!--[-->
+            <div
+              class="van-field__readonly-tags-measure"
+              aria-hidden="true"
+            >
+              <!--[-->
+              <div
+                class="van-field__readonly-tag"
+                data-measure-tag="true"
+              >
+                <span
+                  style="color:#333333;background:#EEEEEE;"
+                  class="van-tag van-tag--medium van-tag--default"
+                >
+                  <!--[-->
+                  <span class="van-field__readonly-tag-text">
+                    Design
+                  </span>
+                </span>
+              </div>
+              <div
+                class="van-field__readonly-tag"
+                data-measure-tag="true"
+              >
+                <span
+                  style="color:#333333;background:#EEEEEE;"
+                  class="van-tag van-tag--medium van-tag--default"
+                >
+                  <!--[-->
+                  <span class="van-field__readonly-tag-text">
+                    Interaction
+                  </span>
+                </span>
+              </div>
+              <div
+                class="van-field__readonly-tag"
+                data-measure-tag="true"
+              >
+                <span
+                  style="color:#333333;background:#EEEEEE;"
+                  class="van-tag van-tag--medium van-tag--default"
+                >
+                  <!--[-->
+                  <span class="van-field__readonly-tag-text">
+                    Frontend
+                  </span>
+                </span>
+              </div>
+              <div class="van-field__readonly-tag van-field__readonly-tag--overflow">
+                <span
+                  style="color:#333333;background:#EEEEEE;"
+                  class="van-tag van-tag--medium van-tag--default"
+                >
+                  <!--[-->
+                  +3
+                </span>
+              </div>
+            </div>
+            <div class="van-field__readonly-tags">
+              <!--[-->
+              <div class="van-field__readonly-tag">
+                <span
+                  style="color:#333333;background:#EEEEEE;"
+                  class="van-tag van-tag--medium van-tag--default"
+                >
+                  <!--[-->
+                  <span class="van-field__readonly-tag-text">
+                    Design
+                  </span>
+                </span>
+              </div>
+              <div class="van-field__readonly-tag">
+                <span
+                  style="color:#333333;background:#EEEEEE;"
+                  class="van-tag van-tag--medium van-tag--default"
+                >
+                  <!--[-->
+                  <span class="van-field__readonly-tag-text">
+                    Interaction
+                  </span>
+                </span>
+              </div>
+              <div class="van-field__readonly-tag">
+                <span
+                  style="color:#333333;background:#EEEEEE;"
+                  class="van-tag van-tag--medium van-tag--default"
+                >
+                  <!--[-->
+                  <span class="van-field__readonly-tag-text">
+                    Frontend
+                  </span>
+                </span>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -289,15 +860,72 @@ exports[`should render demo and match snapshot 1`] = `
       </div>
       <div class="van-cell__value van-field__value">
         <!--[-->
-        <div class="van-field__body">
+        <div
+          class="van-field__body"
+          style
+        >
           <input
             type="text"
             id="van-field-input"
             class="van-field__control"
+            style
             placeholder="Show Icon"
             aria-labelledby="van-field-label"
             data-allow-mismatch="attribute"
           >
+          <div class="van-field__right-icon">
+            <i
+              class="van-badge__wrapper van-icon van-icon-warning-o"
+              style
+            >
+              <!--[-->
+            </i>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="van-cell van-field">
+      <!--[-->
+      <div class="van-field__left-icon">
+        <i
+          class="van-badge__wrapper van-icon van-icon-smile-o"
+          style
+        >
+          <!--[-->
+        </i>
+      </div>
+      <div
+        class="van-cell__title van-field__label"
+        style
+      >
+        <!--[-->
+        <label
+          id="van-field-label"
+          for="van-field-input"
+          data-allow-mismatch="attribute"
+          style
+        >
+          Text
+        </label>
+      </div>
+      <div class="van-cell__value van-field__value">
+        <!--[-->
+        <div
+          class="van-field__body"
+          style
+        >
+          <input
+            type="text"
+            id="van-field-input"
+            class="van-field__control"
+            style
+            placeholder="Show Icon"
+            aria-labelledby="van-field-label"
+            data-allow-mismatch="attribute"
+          >
+          <!--[-->
+          <div class="van-field__right-icon-divider">
+          </div>
           <div class="van-field__right-icon">
             <i
               class="van-badge__wrapper van-icon van-icon-warning-o"
@@ -335,11 +963,15 @@ exports[`should render demo and match snapshot 1`] = `
       </div>
       <div class="van-cell__value van-field__value">
         <!--[-->
-        <div class="van-field__body">
+        <div
+          class="van-field__body"
+          style
+        >
           <input
             type="text"
             id="van-field-input"
             class="van-field__control"
+            style
             placeholder="Show Clear Icon"
             aria-labelledby="van-field-label"
             data-allow-mismatch="attribute"
@@ -371,11 +1003,15 @@ exports[`should render demo and match snapshot 1`] = `
       </div>
       <div class="van-cell__value van-field__value">
         <!--[-->
-        <div class="van-field__body">
+        <div
+          class="van-field__body"
+          style
+        >
           <input
             type="text"
             id="van-field-input"
             class="van-field__control"
+            style
             placeholder="Username"
             aria-labelledby="van-field-label"
             data-allow-mismatch="attribute"
@@ -400,11 +1036,15 @@ exports[`should render demo and match snapshot 1`] = `
       </div>
       <div class="van-cell__value van-field__value">
         <!--[-->
-        <div class="van-field__body">
+        <div
+          class="van-field__body"
+          style
+        >
           <input
             type="text"
             id="van-field-input"
             class="van-field__control"
+            style
             placeholder="Phone"
             aria-labelledby="van-field-label"
             data-allow-mismatch="attribute"
@@ -437,11 +1077,15 @@ exports[`should render demo and match snapshot 1`] = `
         </div>
         <div class="van-cell__value van-field__value">
           <!--[-->
-          <div class="van-field__body">
+          <div
+            class="van-field__body"
+            style
+          >
             <input
               type="text"
               id="van-field-input"
               class="van-field__control"
+              style
               placeholder="Username"
               aria-labelledby="van-field-label"
               data-allow-mismatch="attribute"
@@ -466,11 +1110,15 @@ exports[`should render demo and match snapshot 1`] = `
         </div>
         <div class="van-cell__value van-field__value">
           <!--[-->
-          <div class="van-field__body">
+          <div
+            class="van-field__body"
+            style
+          >
             <input
               type="text"
               id="van-field-input"
               class="van-field__control"
+              style
               placeholder="Phone"
               aria-labelledby="van-field-label"
               data-allow-mismatch="attribute"
@@ -502,11 +1150,15 @@ exports[`should render demo and match snapshot 1`] = `
       </div>
       <div class="van-cell__value van-field__value">
         <!--[-->
-        <div class="van-field__body">
+        <div
+          class="van-field__body"
+          style
+        >
           <input
             type="text"
             id="van-field-input"
             class="van-field__control van-field__control--error"
+            style
             placeholder="Username"
             aria-labelledby="van-field-label"
             data-allow-mismatch="attribute"
@@ -531,17 +1183,57 @@ exports[`should render demo and match snapshot 1`] = `
       </div>
       <div class="van-cell__value van-field__value">
         <!--[-->
-        <div class="van-field__body">
+        <div
+          class="van-field__body"
+          style
+        >
           <input
             type="text"
             id="van-field-input"
             class="van-field__control"
+            style
             placeholder="Phone"
             aria-labelledby="van-field-label"
             data-allow-mismatch="attribute"
           >
         </div>
         <div class="van-field__error-message">
+          Invalid phone
+        </div>
+      </div>
+    </div>
+    <div class="van-cell van-field">
+      <div
+        class="van-cell__title van-field__label"
+        style
+      >
+        <!--[-->
+        <label
+          id="van-field-label"
+          for="van-field-input"
+          data-allow-mismatch="attribute"
+          style
+        >
+          Phone
+        </label>
+      </div>
+      <div class="van-cell__value van-field__value">
+        <!--[-->
+        <div
+          class="van-field__body"
+          style
+        >
+          <input
+            type="text"
+            id="van-field-input"
+            class="van-field__control"
+            style
+            placeholder="Phone"
+            aria-labelledby="van-field-label"
+            data-allow-mismatch="attribute"
+          >
+        </div>
+        <div class="van-field__error-message van-field__error-message--info">
           Invalid phone
         </div>
       </div>
@@ -569,11 +1261,15 @@ exports[`should render demo and match snapshot 1`] = `
       </div>
       <div class="van-cell__value van-field__value">
         <!--[-->
-        <div class="van-field__body">
+        <div
+          class="van-field__body"
+          style
+        >
           <input
             type="text"
             id="van-field-input"
             class="van-field__control"
+            style
             placeholder="SMS"
             aria-labelledby="van-field-label"
             data-allow-mismatch="attribute"
@@ -619,11 +1315,15 @@ exports[`should render demo and match snapshot 1`] = `
       </div>
       <div class="van-cell__value van-field__value">
         <!--[-->
-        <div class="van-field__body">
+        <div
+          class="van-field__body"
+          style
+        >
           <input
             type="text"
             id="van-field-input"
             class="van-field__control"
+            style
             placeholder="Format On Change"
             aria-labelledby="van-field-label"
             data-allow-mismatch="attribute"
@@ -648,11 +1348,15 @@ exports[`should render demo and match snapshot 1`] = `
       </div>
       <div class="van-cell__value van-field__value">
         <!--[-->
-        <div class="van-field__body">
+        <div
+          class="van-field__body"
+          style
+        >
           <input
             type="text"
             id="van-field-input"
             class="van-field__control"
+            style
             placeholder="Format On Blur"
             aria-labelledby="van-field-label"
             data-allow-mismatch="attribute"
@@ -669,11 +1373,15 @@ exports[`should render demo and match snapshot 1`] = `
     <div class="van-cell van-field">
       <div class="van-cell__value van-field__value">
         <!--[-->
-        <div class="van-field__body">
+        <div
+          class="van-field__body"
+          style
+        >
           <textarea
             id="van-field-input"
             rows="1"
             class="van-field__control"
+            style
             placeholder="Message"
             data-allow-mismatch="attribute"
           >
@@ -704,11 +1412,15 @@ exports[`should render demo and match snapshot 1`] = `
       </div>
       <div class="van-cell__value van-field__value">
         <!--[-->
-        <div class="van-field__body">
+        <div
+          class="van-field__body"
+          style
+        >
           <textarea
             id="van-field-input"
             rows="2"
             class="van-field__control"
+            style
             placeholder="Message"
             aria-labelledby="van-field-label"
             data-allow-mismatch="attribute"
@@ -746,11 +1458,15 @@ exports[`should render demo and match snapshot 1`] = `
       </div>
       <div class="van-cell__value van-field__value">
         <!--[-->
-        <div class="van-field__body">
+        <div
+          class="van-field__body"
+          style
+        >
           <input
             type="text"
             id="van-field-input"
             class="van-field__control van-field__control--right"
+            style
             placeholder="Input Align Right"
             aria-labelledby="van-field-label"
             data-allow-mismatch="attribute"
@@ -781,11 +1497,15 @@ exports[`should render demo and match snapshot 1`] = `
       </div>
       <div class="van-cell__value van-field__value">
         <!--[-->
-        <div class="van-field__body">
+        <div
+          class="van-field__body"
+          style
+        >
           <input
             type="text"
             id="van-field-input"
             class="van-field__control"
+            style
             placeholder="Align Top"
             aria-labelledby="van-field-label"
             data-allow-mismatch="attribute"
@@ -810,11 +1530,15 @@ exports[`should render demo and match snapshot 1`] = `
       </div>
       <div class="van-cell__value van-field__value">
         <!--[-->
-        <div class="van-field__body">
+        <div
+          class="van-field__body"
+          style
+        >
           <input
             type="text"
             id="van-field-input"
             class="van-field__control"
+            style
             placeholder="Align Left"
             aria-labelledby="van-field-label"
             data-allow-mismatch="attribute"
@@ -839,11 +1563,15 @@ exports[`should render demo and match snapshot 1`] = `
       </div>
       <div class="van-cell__value van-field__value">
         <!--[-->
-        <div class="van-field__body">
+        <div
+          class="van-field__body"
+          style
+        >
           <input
             type="text"
             id="van-field-input"
             class="van-field__control"
+            style
             placeholder="Align Center"
             aria-labelledby="van-field-label"
             data-allow-mismatch="attribute"
@@ -868,16 +1596,216 @@ exports[`should render demo and match snapshot 1`] = `
       </div>
       <div class="van-cell__value van-field__value">
         <!--[-->
-        <div class="van-field__body">
+        <div
+          class="van-field__body"
+          style
+        >
           <input
             type="text"
             id="van-field-input"
             class="van-field__control"
+            style
             placeholder="Align Right"
             aria-labelledby="van-field-label"
             data-allow-mismatch="attribute"
           >
         </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div>
+  <!--[-->
+  <div class="van-cell-group van-cell-group--inset">
+    <!--[-->
+    <div class="van-cell van-field">
+      <div
+        class="van-cell__title van-field__label"
+        style
+      >
+        <!--[-->
+        <label
+          id="van-field-label"
+          for="van-field-input"
+          data-allow-mismatch="attribute"
+          style
+        >
+          Label
+        </label>
+        <div class="van-cell__label">
+          <!--[-->
+          Note below the label
+        </div>
+      </div>
+      <div class="van-cell__value van-field__value">
+        <!--[-->
+        <div
+          class="van-field__body"
+          style
+        >
+          <input
+            type="text"
+            id="van-field-input"
+            class="van-field__control"
+            style
+            placeholder="Text"
+            aria-labelledby="van-field-label"
+            data-allow-mismatch="attribute"
+          >
+        </div>
+      </div>
+    </div>
+    <div class="van-cell van-field">
+      <div
+        class="van-cell__title van-field__label"
+        style
+      >
+        <!--[-->
+        <label
+          id="van-field-label"
+          for="van-field-input"
+          data-allow-mismatch="attribute"
+          style
+        >
+          Label
+        </label>
+        <div class="van-cell__label">
+          <!--[-->
+          <span>
+            Slot: custom label note
+          </span>
+        </div>
+      </div>
+      <div class="van-cell__value van-field__value">
+        <!--[-->
+        <div
+          class="van-field__body"
+          style
+        >
+          <input
+            type="text"
+            id="van-field-input"
+            class="van-field__control"
+            style
+            placeholder="Text"
+            aria-labelledby="van-field-label"
+            data-allow-mismatch="attribute"
+          >
+        </div>
+      </div>
+    </div>
+    <div class="van-cell van-field">
+      <div
+        class="van-cell__title van-field__label"
+        style
+      >
+        <!--[-->
+        <label
+          id="van-field-label"
+          for="van-field-input"
+          data-allow-mismatch="attribute"
+          style
+        >
+          Label
+        </label>
+      </div>
+      <div class="van-cell__value van-field__value">
+        <!--[-->
+        <div
+          class="van-field__body"
+          style
+        >
+          <input
+            type="text"
+            id="van-field-input"
+            class="van-field__control"
+            style
+            placeholder="Text"
+            aria-labelledby="van-field-label"
+            data-allow-mismatch="attribute"
+          >
+        </div>
+        <div class="van-field__input-comment">
+          Helper text
+        </div>
+      </div>
+    </div>
+    <div class="van-cell van-field">
+      <div
+        class="van-cell__title van-field__label"
+        style
+      >
+        <!--[-->
+        <label
+          id="van-field-label"
+          for="van-field-input"
+          data-allow-mismatch="attribute"
+          style
+        >
+          Label
+        </label>
+      </div>
+      <div class="van-cell__value van-field__value">
+        <!--[-->
+        <div
+          class="van-field__body"
+          style
+        >
+          <input
+            type="text"
+            id="van-field-input"
+            class="van-field__control"
+            style
+            placeholder="Text"
+            aria-labelledby="van-field-label"
+            data-allow-mismatch="attribute"
+          >
+        </div>
+        <div class="van-field__input-comment">
+          <!--[-->
+          <span>
+            Slot: links or emphasized text
+          </span>
+        </div>
+      </div>
+    </div>
+    <div class="van-cell van-cell--has-bottom van-field">
+      <div
+        class="van-cell__title van-field__label"
+        style
+      >
+        <!--[-->
+        <label
+          id="van-field-label"
+          for="van-field-input"
+          data-allow-mismatch="attribute"
+          style
+        >
+          Label
+        </label>
+      </div>
+      <div class="van-cell__value van-field__value">
+        <!--[-->
+        <div
+          class="van-field__body"
+          style
+        >
+          <input
+            type="text"
+            id="van-field-input"
+            class="van-field__control"
+            style
+            placeholder="Text"
+            aria-labelledby="van-field-label"
+            data-allow-mismatch="attribute"
+          >
+        </div>
+      </div>
+      <div class="van-cell__bottom">
+        <!--[-->
+        <span style="color:var(--van-text-color-2);">
+          The bottom slot spans the full row below the label and input — useful for agreements, risk notes, etc.
+        </span>
       </div>
     </div>
   </div>

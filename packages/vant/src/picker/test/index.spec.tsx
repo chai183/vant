@@ -120,6 +120,51 @@ test('should emit change event when after clicking a option', async () => {
   ]);
 });
 
+test('should render column separator', () => {
+  const wrapper = mount(Picker, {
+    props: {
+      columns: [
+        [
+          { text: '12', value: '12' },
+          { text: '13', value: '13' },
+        ],
+        [
+          { text: '00', value: '00' },
+          { text: '30', value: '30' },
+        ],
+        [
+          { text: '00', value: '00' },
+          { text: '15', value: '15' },
+        ],
+      ],
+      columnSeparator: ':',
+    },
+  });
+
+  const separators = wrapper.findAll('.van-picker__separator');
+  expect(separators).toHaveLength(2);
+  expect(separators[0].text()).toBe(':');
+  expect(separators[1].text()).toBe(':');
+});
+
+test('should render different column separators from array', () => {
+  const wrapper = mount(Picker, {
+    props: {
+      columns: [
+        [{ text: '2024', value: '2024' }],
+        [{ text: '01', value: '01' }],
+        [{ text: '01', value: '01' }],
+      ],
+      columnSeparator: ['年', '月', '日'],
+    },
+  });
+
+  const separators = wrapper.findAll('.van-picker__separator');
+  expect(separators).toHaveLength(2);
+  expect(separators[0].text()).toBe('年');
+  expect(separators[1].text()).toBe('月');
+});
+
 test('should not emit change event if modelValue is not changed', async () => {
   const columns = [
     { text: 'A', value: 'A' },

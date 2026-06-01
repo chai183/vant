@@ -19,9 +19,6 @@ const t = useTranslate({
     groupTitle: '分组标题',
     insetGrouped: '卡片风格',
     verticalCenter: '垂直居中',
-    titleArray: '多行标题',
-    titleLine1: '主标题',
-    titleLine2: '副标题',
   },
   'en-US': {
     cell: 'Cell title',
@@ -36,9 +33,6 @@ const t = useTranslate({
     groupTitle: 'Group Title',
     insetGrouped: 'Inset Grouped',
     verticalCenter: 'Vertical center',
-    titleArray: 'Multi-line Title',
-    titleLine1: 'Main Title',
-    titleLine2: 'Sub Title',
   },
 });
 </script>
@@ -120,18 +114,6 @@ const t = useTranslate({
     <van-cell
       center
       :title="t('cell')"
-      :value="t('content')"
-      :label="t('desc')"
-    />
-  </demo-block>
-
-  <demo-block :title="t('titleArray')">
-    <van-cell
-      :title="[t('titleLine1'), t('titleLine2')]"
-      :value="t('content')"
-    />
-    <van-cell
-      :title="[t('titleLine1'), t('titleLine2')]"
       :value="t('content')"
       :label="t('desc')"
     />

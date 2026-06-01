@@ -7,4 +7,3 @@ export * from './constant';
 export * from './interceptor';
 export * from './with-install';
 export * from './closest';
-export * from './vnode';

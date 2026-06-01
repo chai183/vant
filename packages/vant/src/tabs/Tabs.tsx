@@ -52,6 +52,9 @@ import { useVisibilityChange } from '../composables/use-visibility-change';
 
 // Components
 import { Sticky } from '../sticky';
+import { Icon } from '../icon';
+import { DropdownMenu } from '../dropdown-menu';
+import { DropdownItem } from '../dropdown-item';
 import TabsContent from './TabsContent';
 
 // Types
@@ -75,6 +78,7 @@ export const tabsProps = {
   background: String,
   lazyRender: truthProp,
   showHeader: truthProp,
+  showNavMenu: Boolean,
   lineWidth: numericProp,
   lineHeight: numericProp,
   beforeChange: Function as PropType<Interceptor>,
@@ -365,6 +369,35 @@ export default defineComponent({
       }
     };
 
+    const renderNavMenu = () => {
+      if (!props.showNavMenu || !scrollable.value) {
+        return;
+      }
+
+      const menuItems = children.map((item, index) => ({
+        text: item.title as string,
+        value: index,
+      }));
+
+      return (
+        <div class={bem('nav-menu')}>
+          <DropdownMenu>
+            <DropdownItem
+              options={menuItems}
+              modelValue={state.currentIndex}
+              onUpdate:modelValue={(val: number) => {
+                setCurrentIndex(val);
+                scrollToCurrentContent();
+              }}
+              v-slots={{
+                title: () => <Icon name="wap-nav" />,
+              }}
+            />
+          </DropdownMenu>
+        </div>
+      );
+    };
+
     const renderHeader = () => {
       const { type, border, sticky } = props;
 
@@ -391,6 +424,7 @@ export default defineComponent({
             {renderLine()}
             {slots['nav-right']?.()}
           </div>
+          {renderNavMenu()}
         </div>,
         slots['nav-bottom']?.(),
       ];

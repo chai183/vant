@@ -287,14 +287,8 @@ exports[`should render demo and match snapshot 1`] = `
     style="height:500px;"
   >
     <div class="van-calendar__header">
-      <div class="van-calendar__toolbar">
-        <div class="van-calendar__toolbar-action">
-        </div>
-        <div class="van-calendar__toolbar-title van-ellipsis">
-          Calendar
-        </div>
-        <div class="van-calendar__toolbar-action van-calendar__toolbar-action--right">
-        </div>
+      <div class="van-calendar__header-title">
+        Calendar
       </div>
       <div class="van-calendar__header-subtitle">
       </div>
@@ -877,6 +871,8 @@ exports[`should render demo and match snapshot 1`] = `
           </div>
         </div>
       </div>
+    </div>
+    <div class="van-calendar__footer van-safe-area-bottom">
     </div>
   </div>
 </div>

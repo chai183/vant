@@ -706,30 +706,6 @@ test('should emit clickReUpload event when props reupload true', async () => {
   expect(wrapper.emitted('update:modelValue')?.[0][0]).toHaveLength(1);
 });
 
-test('should only pick the first file when multiple is false', async () => {
-  const file1 = new File([new ArrayBuffer(100)], '1.jpg', { type: 'image/jpeg' });
-  const file2 = new File([new ArrayBuffer(100)], '2.jpg', { type: 'image/jpeg' });
-  const onUpdate = vi.fn();
-
-  const wrapper = mount(Uploader, {
-    props: {
-      multiple: false,
-      modelValue: [],
-      'onUpdate:modelValue': onUpdate,
-    },
-  });
-
-  const input = wrapper.find<HTMLInputElement>('.van-uploader__input');
-  Object.defineProperty(input.element, 'files', {
-    get: vi.fn().mockReturnValue([file1, file2]),
-  });
-
-  await trigger(input, 'change');
-  expect(onUpdate).toHaveBeenCalledTimes(1);
-  expect(onUpdate.mock.calls[0][0]).toHaveLength(1);
-  expect(onUpdate.mock.calls[0][0][0].file).toBe(file1);
-});
-
 test('expose reuploadFile method', async () => {
   const onUpdate = vi.fn();
   const wrapper = mount(Uploader, {

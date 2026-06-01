@@ -45,7 +45,7 @@ test('should emit "update:modelValue" event after clicking slider', () => {
     },
   });
 
-  trigger(wrapper, 'click', 100, 0);
+  trigger(wrapper.find('.van-slider__track'), 'click', 100, 0);
   expect(wrapper.emitted('update:modelValue')!.pop()).toEqual([100]);
 });
 
@@ -98,7 +98,7 @@ test('should not allow to click slider when disabled', async () => {
     },
   });
 
-  trigger(wrapper, 'click', 100, 0);
+  trigger(wrapper.find('.van-slider__track'), 'click', 100, 0);
   expect(wrapper.emitted('update:modelValue')).toBeFalsy();
 });
 
@@ -123,7 +123,7 @@ test('should not allow to click slider when readonly', async () => {
     },
   });
 
-  trigger(wrapper, 'click', 100, 0);
+  trigger(wrapper.find('.van-slider__track'), 'click', 100, 0);
   expect(wrapper.emitted('update:modelValue')).toBeFalsy();
 });
 
@@ -163,7 +163,9 @@ test('should change slider bar height when using bar-height prop', () => {
     },
   });
 
-  expect(wrapper.style.height).toEqual('10px');
+  expect(wrapper.find('.van-slider__track').element.style.height).toEqual(
+    '10px',
+  );
 });
 
 test('should change button size when using button-size prop', () => {
@@ -187,7 +189,7 @@ test('should emit "update:modelValue" event after clicking vertical slider', () 
     },
   });
 
-  trigger(wrapper, 'click', 0, 100);
+  trigger(wrapper.find('.van-slider__track'), 'click', 0, 100);
   expect(wrapper.emitted('update:modelValue')!.pop()).toEqual([100]);
 });
 
@@ -202,19 +204,19 @@ test('should not emit change event when value not changed', async () => {
 
   const button = wrapper.find('.van-slider__button');
   trigger(button, 'touchstart');
-  trigger(wrapper, 'click', 100, 0);
+  trigger(wrapper.find('.van-slider__track'), 'click', 100, 0);
   expect(wrapper.emitted('change')).toHaveLength(1);
 
   await wrapper.setProps({ modelValue: 100 });
   trigger(button, 'touchstart');
-  trigger(wrapper, 'click', 100, 0);
+  trigger(wrapper.find('.van-slider__track'), 'click', 100, 0);
   expect(wrapper.emitted('change')).toHaveLength(1);
 
-  trigger(wrapper, 'click', 50, 0);
+  trigger(wrapper.find('.van-slider__track'), 'click', 50, 0);
   expect(wrapper.emitted('change')).toHaveLength(2);
 
   await wrapper.setProps({ modelValue: 50 });
-  trigger(wrapper, 'click', 100, 0);
+  trigger(wrapper.find('.van-slider__track'), 'click', 100, 0);
   expect(wrapper.emitted('change')).toHaveLength(3);
 
   restoreMock();
@@ -358,7 +360,7 @@ test('should update modelValue correctly after clicking the reversed slider', ()
     },
   });
 
-  trigger(wrapper, 'click', 100, 0);
+  trigger(wrapper.find('.van-slider__track'), 'click', 100, 0);
   expect(wrapper.emitted('update:modelValue')!.pop()).toEqual([0]);
 });
 
@@ -371,6 +373,101 @@ test('should update modelValue correctly after clicking the reversed vertical sl
     },
   });
 
-  trigger(wrapper, 'click', 0, 100);
+  trigger(wrapper.find('.van-slider__track'), 'click', 0, 100);
   expect(wrapper.emitted('update:modelValue')!.pop()).toEqual([0]);
+});
+
+test('should render node-range slider with marks', () => {
+  const wrapper = mount(Slider, {
+    props: {
+      type: 'node-range',
+      min: 200,
+      max: 1000,
+      step: 200,
+      modelValue: [400, 800],
+    },
+  });
+
+  expect(wrapper.findAll('.van-slider__mark')).toHaveLength(5);
+  // 滑块所在节点不渲染圆点
+  expect(wrapper.findAll('.van-slider__mark-dot')).toHaveLength(3);
+  expect(wrapper.html()).toMatchSnapshot();
+});
+
+test('should snap to marks when type is node-range', () => {
+  const restoreMock = mockRect();
+
+  const wrapper = mount(Slider, {
+    props: {
+      type: 'node-range',
+      min: 200,
+      max: 1000,
+      step: 200,
+      modelValue: [400, 800],
+    },
+  });
+
+  trigger(wrapper.find('.van-slider__track'), 'click', 60, 0);
+  expect(wrapper.emitted('update:modelValue')!.pop()).toEqual([[400, 600]]);
+
+  restoreMock();
+});
+
+test('should render value text when show-value is enabled', async () => {
+  const wrapper = mount(Slider, {
+    props: {
+      showValue: true,
+      modelValue: 0,
+      min: 0,
+      max: 100,
+    },
+  });
+
+  expect(wrapper.find('.van-slider__value').text()).toBe('未选择');
+  expect(wrapper.find('.van-slider__value').classes()).not.toContain(
+    'van-slider__value--active',
+  );
+
+  const button = wrapper.find('.van-slider__button');
+  triggerDrag(button, 50, 0);
+  await later();
+
+  expect(wrapper.find('.van-slider__value--active').exists()).toBe(true);
+  expect(wrapper.find('.van-slider__value').text()).toContain('¥');
+});
+
+test('should enable range mode when type is range', () => {
+  const wrapper = mount(Slider, {
+    props: {
+      type: 'range',
+      modelValue: [20, 80],
+    },
+  });
+
+  expect(wrapper.findAll('.van-slider__button')).toHaveLength(2);
+});
+
+test('should render range inputs when show-inputs is enabled', async () => {
+  const wrapper = mount(Slider, {
+    props: {
+      type: 'range',
+      showInputs: true,
+      modelValue: [3000, 5000],
+      min: 0,
+      max: 100000,
+    },
+  });
+
+  const inputs = wrapper.findAll('.van-slider__input');
+  expect(inputs).toHaveLength(2);
+  expect(inputs[0].element.value).toContain('3,000');
+  expect(inputs[1].element.value).toContain('5,000');
+
+  await inputs[0].setValue('10000');
+  await inputs[0].trigger('blur');
+  expect(wrapper.emitted('update:modelValue')!.pop()).toEqual([[10000, 10000]]);
+
+  await wrapper.setProps({ modelValue: [2000, 8000] });
+  expect(inputs[0].element.value).toContain('2,000');
+  expect(inputs[1].element.value).toContain('8,000');
 });

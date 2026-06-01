@@ -233,28 +233,6 @@ export default {
 };
 ```
 
-### 步骤条导航
-
-将 `tab-layout` 设置为 `steps` 时，会隐藏横向标签页头部；在用户完成某一级选择后，才展示左侧带连接线的垂直步骤条。已选中的步骤展示对应选项文案，并可点击返回修改；若仍有下一级待选，会在步骤条末尾展示「请选择」提示步骤并高亮。未选择任何选项时，不展示步骤条。
-
-```html
-<van-cascader
-  v-model="cascaderValue"
-  title="请选择所在地区"
-  :options="options"
-  tab-layout="steps"
-  @finish="onFinish"
->
-  <template #step-title="{ tabIndex, selected }">
-    {{
-      selected
-        ? `已选${['省', '市', '区'][tabIndex]}：${selected.text}`
-        : `请选择${['省', '市', '区'][tabIndex]}`
-    }}
-  </template>
-</van-cascader>
-```
-
 ### 自定义字段名
 
 通过 `field-names` 属性可以自定义 `options` 里的字段名称。
@@ -358,7 +336,6 @@ export default {
 | placeholder | 未选中时的提示文案 | _string_ | `请选择` |
 | active-color | 选中状态的高亮颜色 | _string_ | `#1989fa` |
 | swipeable | 是否开启手势左右滑动切换 | _boolean_ | `true` |
-| tab-layout `new` | 标签页布局，可选值为 `tabs` `steps` | _string_ | `tabs` |
 | closeable | 是否显示关闭图标 | _boolean_ | `true` |
 | show-header | 是否展示标题栏 | _boolean_ | `true` |
 | close-icon | 关闭图标名称或图片链接，等同于 Icon 组件的 [name 属性](#/zh-CN/icon#props) | _string_ | `cross` |
@@ -391,8 +368,6 @@ export default {
 | 名称 | 说明 | 参数 |
 | --- | --- | --- |
 | title | 自定义顶部标题 | - |
-| title-extra `new` | 自定义标题栏下方内容 | - |
-| step-title `new` | 自定义步骤条每个步骤的展示文案 | _CascaderStepTitleSlotParams_ |
 | option | 自定义选项文字 | _{ option: CascaderOption, selected: boolean }_ |
 | options-top | 自定义选项上方的内容 | _{ tabIndex: number }_ |
 | options-bottom | 自定义选项下方的内容 | _{ tabIndex: number }_ |
@@ -402,13 +377,7 @@ export default {
 组件导出以下类型定义：
 
 ```ts
-import type {
-  CascaderProps,
-  CascaderOption,
-  CascaderFieldNames,
-  CascaderTabLayout,
-  CascaderStepTitleSlotParams,
-} from 'vant';
+import type { CascaderProps, CascaderOption, CascaderFieldNames } from 'vant';
 ```
 
 ## 主题定制
@@ -432,11 +401,3 @@ import type {
 | --van-cascader-option-disabled-color | _var(--van-text-color-3)_ | -    |
 | --van-cascader-tab-color             | _var(--van-text-color)_   | -    |
 | --van-cascader-unselected-tab-color  | _var(--van-text-color-2)_ | -    |
-| --van-cascader-steps-padding-vertical      | _24px_     | -    |
-| --van-cascader-steps-padding-horizontal    | _12px_     | -    |
-| --van-cascader-steps-border-bottom-width   | _8px_      | -    |
-| --van-cascader-steps-border-bottom-color   | _#f5f5f5_  | -    |
-| --van-cascader-step-indicator-width  | _16px_                    | -    |
-| --van-cascader-step-dot-size         | _8px_                     | -    |
-| --van-cascader-step-line-width       | _1px_                     | -    |
-| --van-cascader-step-arrow-color      | _var(--van-gray-5)_       | -    |

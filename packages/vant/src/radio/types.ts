@@ -9,10 +9,4 @@ export type RadioThemeVars = {
   radioDisabledIconColor?: string;
   radioDisabledLabelColor?: string;
   radioDisabledBackground?: string;
-  radioBlockPadding?: string;
-  radioBlockRadius?: string;
-  radioBlockBorderColor?: string;
-  radioBlockBackground?: string;
-  radioBlockColor?: string;
-  radioBlockCheckedBackground?: string;
 };

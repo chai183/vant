@@ -16,12 +16,23 @@ const t = useTranslate({
     buttonLeft: '左侧弹出',
     buttonRight: '右侧弹出',
     teleport: '指定挂载节点',
-    roundCorner: '圆角弹窗',
-    roundCornerBottom: '圆角弹窗（底部）',
-    roundCornerCenter: '圆角弹窗（居中）',
+    title: '标题',
+    titleBasic: '基础标题',
+    titleSlot: '自定义标题',
+    titleBottom: '底部弹出（带标题）',
+    titleDrawerRight: '右侧抽屉（带标题）',
+    titleDrawerLeft: '左侧抽屉（带标题）',
+    titleWithActions: '取消与确定',
+    titleActionsDrawer: '抽屉（取消与确定）',
+    titleActionsPriority: '确定优先于关闭',
+    popupTitle: '标题',
+    customTitle: '自定义标题',
     closeIcon: '关闭图标',
     customCloseIcon: '自定义图标',
     customIconPosition: '图标位置',
+    roundCorner: '圆角弹窗',
+    roundCornerBottom: '圆角弹窗（底部）',
+    roundCornerCenter: '圆角弹窗（居中）',
     listenEvents: '事件监听',
     clickEvents: '监听点击事件',
     displayEvents: '监听显示事件',
@@ -34,23 +45,45 @@ const t = useTranslate({
     buttonLeft: 'From Left',
     buttonRight: 'From Right',
     teleport: 'Get Container',
-    roundCorner: 'Round Corner',
-    roundCornerBottom: 'Round Corner (bottom)',
-    roundCornerCenter: 'Round Corner (center)',
+    title: 'Title',
+    titleBasic: 'Basic Title',
+    titleSlot: 'Custom Title',
+    titleBottom: 'From Bottom (with title)',
+    titleDrawerRight: 'Right Drawer (with title)',
+    titleDrawerLeft: 'Left Drawer (with title)',
+    titleWithActions: 'Cancel and Confirm',
+    titleActionsDrawer: 'Drawer (cancel and confirm)',
+    titleActionsPriority: 'Confirm over Close Icon',
+    popupTitle: 'Title',
+    customTitle: 'Custom Title',
     closeIcon: 'Close Icon',
     customCloseIcon: 'Custom Icon',
     customIconPosition: 'Icon Position',
+    roundCorner: 'Round Corner',
+    roundCornerBottom: 'Round Corner (bottom)',
+    roundCornerCenter: 'Round Corner (center)',
     listenEvents: 'Listen To Events',
     clickEvents: 'Listen To Click Events',
     displayEvents: 'Listen To Display Events',
   },
 });
 
+const drawerPopupStyle = { width: '80%', height: '100%' };
+const bottomTitlePopupStyle = { height: '40%' };
+
 const showBasic = ref(false);
 const showTop = ref(false);
 const showBottom = ref(false);
 const showLeft = ref(false);
 const showRight = ref(false);
+const showTitleBasic = ref(false);
+const showTitleSlot = ref(false);
+const showTitleBottom = ref(false);
+const showTitleDrawerRight = ref(false);
+const showTitleDrawerLeft = ref(false);
+const showTitleWithActions = ref(false);
+const showTitleActionsDrawer = ref(false);
+const showTitleActionsPriority = ref(false);
 const showCloseIcon = ref(false);
 const showRoundCornerBottom = ref(false);
 const showRoundCornerCenter = ref(false);
@@ -113,6 +146,130 @@ const showDisplayEvents = ref(false);
       position="right"
       :style="{ width: '30%', height: '100%' }"
     />
+  </demo-block>
+
+  <demo-block card :title="t('title')">
+    <van-cell :title="t('titleBasic')" is-link @click="showTitleBasic = true" />
+    <van-cell :title="t('titleSlot')" is-link @click="showTitleSlot = true" />
+    <van-cell
+      :title="t('titleBottom')"
+      is-link
+      @click="showTitleBottom = true"
+    />
+    <van-cell
+      :title="t('titleDrawerRight')"
+      is-link
+      @click="showTitleDrawerRight = true"
+    />
+    <van-cell
+      :title="t('titleDrawerLeft')"
+      is-link
+      @click="showTitleDrawerLeft = true"
+    />
+    <van-cell
+      :title="t('titleWithActions')"
+      is-link
+      @click="showTitleWithActions = true"
+    />
+    <van-cell
+      :title="t('titleActionsDrawer')"
+      is-link
+      @click="showTitleActionsDrawer = true"
+    />
+    <van-cell
+      :title="t('titleActionsPriority')"
+      is-link
+      @click="showTitleActionsPriority = true"
+    />
+
+    <van-popup
+      v-model:show="showTitleBasic"
+      :title="t('popupTitle')"
+      position="bottom"
+      :style="bottomTitlePopupStyle"
+    >
+      <div class="demo-popup-body">{{ t('content') }}</div>
+    </van-popup>
+
+    <van-popup
+      v-model:show="showTitleSlot"
+      closeable
+      position="right"
+      :style="drawerPopupStyle"
+    >
+      <template #title>
+        <span class="demo-popup-custom-title">{{ t('customTitle') }}</span>
+      </template>
+      <div class="demo-popup-body">{{ t('content') }}</div>
+    </van-popup>
+
+    <van-popup
+      v-model:show="showTitleBottom"
+      :title="t('popupTitle')"
+      closeable
+      position="bottom"
+      :style="bottomTitlePopupStyle"
+    >
+      <div class="demo-popup-body">{{ t('content') }}</div>
+    </van-popup>
+
+    <van-popup
+      v-model:show="showTitleDrawerRight"
+      :title="t('popupTitle')"
+      closeable
+      position="right"
+      :style="drawerPopupStyle"
+    >
+      <div class="demo-popup-body">{{ t('content') }}</div>
+    </van-popup>
+
+    <van-popup
+      v-model:show="showTitleDrawerLeft"
+      :title="t('popupTitle')"
+      closeable
+      position="left"
+      :style="drawerPopupStyle"
+    >
+      <div class="demo-popup-body">{{ t('content') }}</div>
+    </van-popup>
+
+    <van-popup
+      v-model:show="showTitleWithActions"
+      :title="t('popupTitle')"
+      position="bottom"
+      :cancel-button-text="t('cancel')"
+      :confirm-button-text="t('confirm')"
+      :style="bottomTitlePopupStyle"
+      @cancel="showToast(t('cancel'))"
+      @confirm="showToast(t('confirm'))"
+    >
+      <div class="demo-popup-body">{{ t('content') }}</div>
+    </van-popup>
+
+    <van-popup
+      v-model:show="showTitleActionsDrawer"
+      :title="t('popupTitle')"
+      position="right"
+      :cancel-button-text="t('cancel')"
+      :confirm-button-text="t('confirm')"
+      :style="drawerPopupStyle"
+      @cancel="showToast(t('cancel'))"
+      @confirm="showToast(t('confirm'))"
+    >
+      <div class="demo-popup-body">{{ t('content') }}</div>
+    </van-popup>
+
+    <van-popup
+      v-model:show="showTitleActionsPriority"
+      :title="t('popupTitle')"
+      closeable
+      position="right"
+      :confirm-button-text="t('confirm')"
+      :style="drawerPopupStyle"
+      @confirm="showToast(t('confirm'))"
+    >
+      <div class="demo-popup-body">{{ t('content') }}</div>
+    </van-popup>
   </demo-block>
 
   <demo-block card :title="t('closeIcon')">
@@ -224,6 +381,17 @@ const showDisplayEvents = ref(false);
 
   .van-button {
     margin-left: var(--van-padding-md);
+  }
+
+  &-body {
+    padding: var(--van-padding-md);
+    color: var(--van-text-color-2);
+    font-size: var(--van-font-size-md);
+    line-height: var(--van-line-height-md);
+  }
+
+  &-custom-title {
+    color: var(--van-primary-color);
   }
 }
 </style>

@@ -14,7 +14,6 @@ import {
   numericProp,
   makeStringProp,
   createNamespace,
-  type Numeric,
 } from '../utils';
 
 // Composables
@@ -33,7 +32,7 @@ export const cellSharedProps = {
   tag: makeStringProp<keyof HTMLElementTagNameMap>('div'),
   icon: String,
   size: String as PropType<CellSize>,
-  title: [Number, String, Array] as PropType<Numeric | Numeric[]>,
+  title: numericProp,
   value: numericProp,
   label: numericProp,
   center: Boolean,
@@ -79,47 +78,13 @@ export default defineComponent({
       }
     };
 
-    const hasTitleProp = () => {
-      if (!isDef(props.title)) {
-        return false;
-      }
-      if (Array.isArray(props.title)) {
-        return props.title.length > 0;
-      }
-      return true;
-    };
-
-    const renderTitleContent = () => {
-      const titleSlot = slots.title?.();
-
-      // Allow Field to dynamically set empty label
-      // https://github.com/youzan/vant/issues/11368
-      if (Array.isArray(titleSlot) && titleSlot.length === 0) {
-        return;
-      }
-
-      if (titleSlot) {
-        return titleSlot;
-      }
-
-      if (Array.isArray(props.title)) {
-        return (
-          <div class={bem('title-text')}>
-            {props.title.map((text, index) => (
-              <span key={index}>{text}</span>
-            ))}
-          </div>
-        );
-      }
-
-      return <span>{props.title}</span>;
-    };
-
     const renderTitle = () => {
-      if (slots.title || hasTitleProp()) {
-        const titleContent = renderTitleContent();
+      if (slots.title || isDef(props.title)) {
+        const titleSlot = slots.title?.();
 
-        if (!titleContent) {
+        // Allow Field to dynamically set empty label
+        // https://github.com/youzan/vant/issues/11368
+        if (Array.isArray(titleSlot) && titleSlot.length === 0) {
           return;
         }
 
@@ -128,7 +93,7 @@ export default defineComponent({
             class={[bem('title'), props.titleClass]}
             style={props.titleStyle}
           >
-            {titleContent}
+            {titleSlot || <span>{props.title}</span>}
             {renderLabel()}
           </div>
         );
@@ -188,7 +153,6 @@ export default defineComponent({
         required: !!required,
         clickable,
         borderless: !border,
-        'has-bottom': !!slots.bottom,
       };
       if (size) {
         classes[size] = !!size;
@@ -206,9 +170,6 @@ export default defineComponent({
           {renderValue()}
           {renderRightIcon()}
           {slots.extra?.()}
-          {slots.bottom && (
-            <div class={bem('bottom')}>{slots.bottom()}</div>
-          )}
         </tag>
       );
     };

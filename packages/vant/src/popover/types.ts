@@ -1,3 +1,5 @@
+import type { Numeric } from '../utils';
+
 export type PopoverTheme = 'light' | 'dark';
 export type PopoverActionsDirection = 'horizontal' | 'vertical';
 export type PopoverTrigger = 'manual' | 'click';
@@ -17,6 +19,7 @@ export type PopoverPlacement =
 
 export type PopoverAction = {
   text: string;
+  value?: Numeric;
   icon?: string;
   color?: string;
   disabled?: boolean;
@@ -32,6 +35,9 @@ export type PopoverThemeVars = {
   popoverActionFontSize?: string;
   popoverActionLineHeight?: number | string;
   popoverActionIconSize?: string;
+  popoverTextPadding?: string;
+  popoverTextFontSize?: string;
+  popoverTextLineHeight?: number | string;
   popoverLightTextColor?: string;
   popoverLightBackground?: string;
   popoverLightActionDisabledTextColor?: string;

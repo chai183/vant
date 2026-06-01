@@ -23,4 +23,11 @@ export type PopupThemeVars = {
   popupCloseIconColor?: string;
   popupCloseIconMargin?: string;
   popupCloseIconZIndex?: number | string;
+  popupTitleFontSize?: string;
+  popupTitleColor?: string;
+  popupTitleLineHeight?: string;
+  popupTitlePaddingTop?: string;
+  popupActionFontSize?: string;
+  popupCancelColor?: string;
+  popupConfirmColor?: string;
 };

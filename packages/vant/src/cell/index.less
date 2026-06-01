@@ -37,10 +37,6 @@
   line-height: var(--van-cell-line-height);
   background: var(--van-cell-background);
 
-  &--has-bottom {
-    flex-wrap: wrap;
-  }
-
   &::after {
     .hairline-bottom(var(--van-cell-border-color), var(--van-padding-md), var(--van-padding-md));
   }
@@ -62,11 +58,6 @@
     flex: 1;
   }
 
-  &__title-text {
-    display: flex;
-    flex-direction: column;
-  }
-
   &__value {
     position: relative;
     overflow: hidden;
@@ -75,12 +66,6 @@
     text-align: right;
     vertical-align: middle;
     word-wrap: break-word;
-  }
-
-  &__bottom {
-    flex-basis: 100%;
-    width: 100%;
-    box-sizing: border-box;
   }
 
   &__left-icon,

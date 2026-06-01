@@ -7,9 +7,6 @@ exports[`should render demo and match snapshot 1`] = `
       <div class="van-uploader__upload">
         <i class="van-badge__wrapper van-icon van-icon-photograph van-uploader__upload-icon">
         </i>
-        <span class="van-uploader__upload-text">
-          添加图片
-        </span>
         <input
           type="file"
           class="van-uploader__input"
@@ -69,9 +66,6 @@ exports[`should render demo and match snapshot 1`] = `
       <div class="van-uploader__upload">
         <i class="van-badge__wrapper van-icon van-icon-photograph van-uploader__upload-icon">
         </i>
-        <span class="van-uploader__upload-text">
-          添加图片
-        </span>
         <input
           type="file"
           class="van-uploader__input"
@@ -136,7 +130,7 @@ exports[`should render demo and match snapshot 1`] = `
           </div>
         </div>
         <div class="van-uploader__mask">
-          <i class="van-badge__wrapper van-icon van-icon-warning van-uploader__mask-icon">
+          <i class="van-badge__wrapper van-icon van-icon-close van-uploader__mask-icon">
           </i>
           <div class="van-uploader__mask-message">
             Failed
@@ -155,9 +149,6 @@ exports[`should render demo and match snapshot 1`] = `
       <div class="van-uploader__upload">
         <i class="van-badge__wrapper van-icon van-icon-photograph van-uploader__upload-icon">
         </i>
-        <span class="van-uploader__upload-text">
-          添加图片
-        </span>
         <input
           type="file"
           class="van-uploader__input"
@@ -195,9 +186,6 @@ exports[`should render demo and match snapshot 1`] = `
       <div class="van-uploader__upload">
         <i class="van-badge__wrapper van-icon van-icon-photograph van-uploader__upload-icon">
         </i>
-        <span class="van-uploader__upload-text">
-          添加图片
-        </span>
         <input
           type="file"
           class="van-uploader__input"
@@ -236,9 +224,6 @@ exports[`should render demo and match snapshot 1`] = `
       <div class="van-uploader__upload">
         <i class="van-badge__wrapper van-icon van-icon-photograph van-uploader__upload-icon">
         </i>
-        <span class="van-uploader__upload-text">
-          添加图片
-        </span>
         <input
           type="file"
           class="van-uploader__input"
@@ -307,9 +292,6 @@ exports[`should render demo and match snapshot 1`] = `
       <div class="van-uploader__upload">
         <i class="van-badge__wrapper van-icon van-icon-photograph van-uploader__upload-icon">
         </i>
-        <span class="van-uploader__upload-text">
-          添加图片
-        </span>
         <input
           type="file"
           class="van-uploader__input"
@@ -353,9 +335,6 @@ exports[`should render demo and match snapshot 1`] = `
       >
         <i class="van-badge__wrapper van-icon van-icon-photograph van-uploader__upload-icon">
         </i>
-        <span class="van-uploader__upload-text">
-          添加图片
-        </span>
         <input
           type="file"
           class="van-uploader__input"
@@ -371,9 +350,6 @@ exports[`should render demo and match snapshot 1`] = `
       <div class="van-uploader__upload">
         <i class="van-badge__wrapper van-icon van-icon-photograph van-uploader__upload-icon">
         </i>
-        <span class="van-uploader__upload-text">
-          添加图片
-        </span>
         <input
           type="file"
           class="van-uploader__input"
@@ -389,9 +365,6 @@ exports[`should render demo and match snapshot 1`] = `
       <div class="van-uploader__upload">
         <i class="van-badge__wrapper van-icon van-icon-photograph van-uploader__upload-icon">
         </i>
-        <span class="van-uploader__upload-text">
-          添加图片
-        </span>
         <input
           type="file"
           class="van-uploader__input"
@@ -443,9 +416,6 @@ exports[`should render demo and match snapshot 1`] = `
       <div class="van-uploader__upload">
         <i class="van-badge__wrapper van-icon van-icon-photograph van-uploader__upload-icon">
         </i>
-        <span class="van-uploader__upload-text">
-          添加图片
-        </span>
         <input
           type="file"
           class="van-uploader__input"
@@ -484,9 +454,6 @@ exports[`should render demo and match snapshot 1`] = `
       <div class="van-uploader__upload">
         <i class="van-badge__wrapper van-icon van-icon-photograph van-uploader__upload-icon">
         </i>
-        <span class="van-uploader__upload-text">
-          添加图片
-        </span>
         <input
           type="file"
           class="van-uploader__input"

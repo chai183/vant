@@ -194,6 +194,75 @@ export default {
 };
 ```
 
+### 宫格视图
+
+通过 `grid` 属性可以开启宫格视图，选项以图标在上、文字在下的形式展示。通过 `grid-options` 可以配置宫格参数：
+
+| 参数       | 说明               | 类型      | 默认值 |
+| ---------- | ------------------ | --------- | ------ |
+| scrollable | 是否开启横向滚动   | _boolean_ | `true` |
+| columns    | 每排展示的选项数量 | _number_  | `3`    |
+
+默认开启横向滚动，每排展示 3 个选项，超出部分可左右滑动查看。设置 `grid-options` 为 `{ scrollable: false, columns: 4 }` 时，将以每排 4 个的宫格布局展示，不会出现横向滚动。
+
+#### 横向滚动
+
+```html
+<van-action-sheet
+  v-model:show="show"
+  grid
+  :actions="actions"
+  cancel-text="取消"
+  close-on-click-action
+  @select="onSelect"
+/>
+```
+
+在 `actions` 中通过 `image` 字段传入图片链接，或通过 `icon` 传入图标名称。`image` 优先级高于 `icon`。
+
+```js
+import { ref } from 'vue';
+
+export default {
+  setup() {
+    const show = ref(false);
+    const actions = [
+      {
+        name: '选项一',
+        image: 'https://fastly.jsdelivr.net/npm/@vant/assets/icon-demo.png',
+      },
+      { name: '选项二', icon: 'photo-o' },
+      { name: '选项三', icon: 'photo-o' },
+      { name: '选项一', icon: 'photo-o' },
+      { name: '选项二', icon: 'photo-o' },
+      { name: '选项三', icon: 'photo-o' },
+      { name: '选项一', icon: 'photo-o' },
+      { name: '选项二', icon: 'photo-o' },
+      { name: '选项三', icon: 'photo-o' },
+    ];
+    const onSelect = (item) => {
+      show.value = false;
+    };
+
+    return { show, actions, onSelect };
+  },
+};
+```
+
+#### 宫格布局
+
+```html
+<van-action-sheet
+  v-model:show="show"
+  grid
+  :actions="actions"
+  :grid-options="{ scrollable: false, columns: 4 }"
+  cancel-text="取消"
+  close-on-click-action
+  @select="onSelect"
+/>
+```
+
 ### 自定义面板
 
 通过插槽可以自定义面板的展示内容，同时可以使用`title`属性展示标题栏
@@ -233,6 +302,8 @@ export default {
 | lazy-render | 是否在显示弹层时才渲染节点 | _boolean_ | `true` |
 | close-on-popstate | 是否在页面回退时自动关闭 | _boolean_ | `true` |
 | close-on-click-action | 是否在点击选项后关闭 | _boolean_ | `false` |
+| grid | 是否开启宫格视图 | _boolean_ | `false` |
+| grid-options | 宫格视图配置项，见下方表格 | _ActionSheetGridOptions_ | - |
 | close-on-click-overlay | 是否在点击遮罩层后关闭 | _boolean_ | `true` |
 | safe-area-inset-bottom | 是否开启[底部安全区适配](#/zh-CN/advanced-usage#di-bu-an-quan-qu-gua-pei) | _boolean_ | `true` |
 | teleport | 指定挂载的节点，等同于 Teleport 组件的 [to 属性](https://cn.vuejs.org/api/built-in-components.html#teleport) | _string \| Element_ | - |
@@ -242,16 +313,26 @@ export default {
 
 `actions` 属性是一个由对象构成的数组，数组中的每个对象配置一列，对象可以包含以下值：
 
-| 键名          | 说明                     | 类型                        |
-| ------------- | ------------------------ | --------------------------- |
-| name          | 标题                     | _string_                    |
-| subname       | 二级标题                 | _string_                    |
-| color         | 选项文字颜色             | _string_                    |
-| icon `v4.8.6` | 选项图标名称或图片链接   | _string_                    |
-| className     | 为对应列添加额外的 class | _string \| Array \| object_ |
-| loading       | 是否为加载状态           | _boolean_                   |
-| disabled      | 是否为禁用状态           | _boolean_                   |
-| callback      | 点击时触发的回调函数     | _action: ActionSheetAction_ |
+| 键名 | 说明 | 类型 |
+| --- | --- | --- |
+| name | 标题 | _string_ |
+| subname | 二级标题 | _string_ |
+| color | 选项文字颜色 | _string_ |
+| icon `v4.8.6` | 选项图标名称或图片链接 | _string_ |
+| image | 选项图片链接，宫格视图下优先于 `icon` 展示 | _string_ |
+| className | 为对应列添加额外的 class | _string \| Array \| object_ |
+| loading | 是否为加载状态 | _boolean_ |
+| disabled | 是否为禁用状态 | _boolean_ |
+| callback | 点击时触发的回调函数 | _action: ActionSheetAction_ |
+
+### GridOptions 数据结构
+
+`grid-options` 属性配置如下：
+
+| 键名       | 说明               | 类型      | 默认值 |
+| ---------- | ------------------ | --------- | ------ |
+| scrollable | 是否开启横向滚动   | _boolean_ | `true` |
+| columns    | 每排展示的选项数量 | _number_  | `3`    |
 
 ### Events
 
@@ -279,7 +360,11 @@ export default {
 组件导出以下类型定义：
 
 ```ts
-import type { ActionSheetProps, ActionSheetAction } from 'vant';
+import type {
+  ActionSheetProps,
+  ActionSheetAction,
+  ActionSheetGridOptions,
+} from 'vant';
 ```
 
 ## 主题定制
@@ -313,3 +398,12 @@ import type { ActionSheetProps, ActionSheetAction } from 'vant';
 | --van-action-sheet-cancel-padding-top | _var(--van-padding-xs)_ | - |
 | --van-action-sheet-cancel-padding-color | _var(--van-background)_ | - |
 | --van-action-sheet-loading-icon-size | _22px_ | - |
+| --van-action-sheet-grid-icon-size | _28px_ | - |
+| --van-action-sheet-grid-image-size | _28px_ | - |
+| --van-action-sheet-grid-padding-top | _16px_ | 图标距离顶部 |
+| --van-action-sheet-grid-padding-bottom | _16px_ | 最后一行文字距离底部 |
+| --van-action-sheet-grid-row-gap | _32px_ | 行与行之间距离 |
+| --van-action-sheet-grid-icon-gap | _6px_ | 图标与文字之间距离 |
+| --van-action-sheet-grid-item-padding-x | _var(--van-padding-xs)_ | - |
+| --van-action-sheet-grid-item-name-font-size | _var(--van-font-size-sm)_ | - |
+| --van-action-sheet-grid-item-name-line-height | _var(--van-line-height-sm)_ | - |

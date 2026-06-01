@@ -18,10 +18,12 @@ app.use(Slider);
 
 ## 代码演示
 
-### 基础用法
+### 单项滑动
+
+使用 `type="single"` 开启单项滑动，仅有一个滑块。
 
 ```html
-<van-slider v-model="value" @change="onChange" />
+<van-slider v-model="value" type="single" @change="onChange" />
 ```
 
 ```js
@@ -40,12 +42,12 @@ export default {
 };
 ```
 
-### 双滑块
+### 区间滑动
 
-添加 `range` 属性就可以开启双滑块模式，确保 `value` 的值是一个数组。
+使用 `type="range"` 开启区间滑动，两头均可拖动，`v-model` 需为数组。
 
 ```html
-<van-slider v-model="value" range @change="onChange" />
+<van-slider v-model="value" type="range" @change="onChange" />
 ```
 
 ```js
@@ -54,8 +56,7 @@ import { showToast } from 'vant';
 
 export default {
   setup() {
-    // 双滑块模式时，值必须是数组
-    const value = ref([10, 50]);
+    const value = ref([20, 80]);
     const onChange = (value) => showToast('当前值：' + value);
     return {
       value,
@@ -63,6 +64,62 @@ export default {
     };
   },
 };
+```
+
+### 节点区间选择
+
+使用 `type="node-range"` 开启节点区间选择，配合 `min`、`max`、`step`（或 `marks`）将滑块吸附到节点，并展示刻度标签。
+
+```html
+<van-slider
+  v-model="value"
+  type="node-range"
+  :min="200"
+  :max="1000"
+  :step="200"
+/>
+```
+
+```js
+import { ref } from 'vue';
+
+export default {
+  setup() {
+    const value = ref([400, 800]);
+    return { value };
+  },
+};
+```
+
+### 选择金额区间
+
+使用 `type="range"` 搭配 `show-inputs`，在滑块下方展示最低/最高金额输入框，并与滑块双向联动。默认按金额格式展示，可通过 `formatter` / `parser` 自定义。
+
+```html
+<van-slider
+  v-model="amountRange"
+  type="range"
+  show-inputs
+  :min="0"
+  :max="100000000000"
+  min-placeholder="¥ 最低金额"
+  max-placeholder="¥ 最高金额"
+/>
+```
+
+### 选择金额
+
+使用 `type="single"` 搭配 `show-value`，未选择时展示「未选择」，选择后在滑块下方展示格式化的金额。
+
+```html
+<van-slider
+  v-model="amount"
+  type="single"
+  show-value
+  :min="0"
+  :max="100000000000"
+  unselected-text="未选择"
+/>
 ```
 
 ### 指定选择范围
@@ -156,11 +213,20 @@ export default {
 | max | 最大值 | _number \| string_ | `100` |
 | min | 最小值 | _number \| string_ | `0` |
 | step | 步长 | _number \| string_ | `1` |
-| bar-height | 进度条高度，默认单位为 `px` | _number \| string_ | `2px` |
-| button-size | 滑块按钮大小，默认单位为 `px` | _number \| string_ | `24px` |
-| active-color | 进度条激活态颜色 | _string_ | `#1989fa` |
-| inactive-color | 进度条非激活态颜色 | _string_ | `#e5e5e5` |
-| range | 是否开启双滑块模式 | _boolean_ | `false` |
+| type | 滑块类型，可选值为 `single` `range` `node-range` | _string_ | `single` |
+| marks | 节点值列表，用于 `node-range`，未传时根据 `min` `max` `step` 自动生成 | _number[]_ | - |
+| bar-height | 轨道高度，默认单位为 `px` | _number \| string_ | `4px` |
+| button-size | 滑块按钮大小，默认单位为 `px` | _number \| string_ | `30x16` |
+| active-color | 进度条激活态颜色 | _string_ | `#ff6b00` |
+| inactive-color | 进度条非激活态颜色 | _string_ | `#f5f5f5` |
+| show-value | 是否在滑块下方展示数值（单项模式） | _boolean_ | `false` |
+| show-inputs | 是否在滑块下方展示区间输入框（区间模式） | _boolean_ | `false` |
+| unselected-text | 未选择时的展示文案，需配合 `show-value` | _string_ | `未选择` |
+| min-placeholder | 最低金额输入框占位符，需配合 `show-inputs` | _string_ | `¥ 最低金额` |
+| max-placeholder | 最高金额输入框占位符，需配合 `show-inputs` | _string_ | `¥ 最高金额` |
+| formatter | 自定义数值格式化函数 | _(value: number) => string_ | - |
+| parser | 自定义输入解析函数 | _(text: string) => number \| null_ | - |
+| range | 是否开启双滑块模式，推荐使用 `type="range"` | _boolean_ | `false` |
 | reverse | 是否将进度条反转 | _boolean_ | `false` |
 | disabled | 是否禁用滑块 | _boolean_ | `false` |
 | readonly | 是否为只读状态，只读状态下无法修改滑块的值 | _boolean_ | `false` |
@@ -182,13 +248,15 @@ export default {
 | button | 自定义滑块按钮 | _{ value: number, dragging: boolean }_ |
 | left-button | 自定义左侧滑块按钮（双滑块模式下） | _{ value: number, dragging: boolean, dragIndex?: number }_ |
 | right-button | 自定义右侧滑块按钮（双滑块模式下） | _{ value: number, dragging: boolean, dragIndex?: number }_ |
+| value | 自定义滑块下方展示内容，需配合 `show-value` | _{ value: number, selected: boolean }_ |
+| range-input | 自定义区间输入框，需配合 `show-inputs` | _{ modelValue: [number, number], min: string, max: string }_ |
 
 ### 类型定义
 
 组件导出以下类型定义：
 
 ```ts
-import type { SliderProps } from 'vant';
+import type { SliderProps, SliderType } from 'vant';
 ```
 
 ## 主题定制
@@ -199,12 +267,25 @@ import type { SliderProps } from 'vant';
 
 | 名称                             | 默认值                         | 描述 |
 | -------------------------------- | ------------------------------ | ---- |
-| --van-slider-active-background   | _var(--van-primary-color)_     | -    |
-| --van-slider-inactive-background | _var(--van-gray-3)_            | -    |
+| --van-slider-active-background   | _#ff6b00_                      | 已滑动轨道颜色 |
+| --van-slider-inactive-background | _#f5f5f5_                      | 未滑动轨道颜色 |
 | --van-slider-disabled-opacity    | _var(--van-disabled-opacity)_  | -    |
-| --van-slider-bar-height          | _2px_                          | -    |
-| --van-slider-button-width        | _24px_                         | -    |
-| --van-slider-button-height       | _24px_                         | -    |
-| --van-slider-button-radius       | _50%_                          | -    |
-| --van-slider-button-background   | _var(--van-white)_             | -    |
-| --van-slider-button-shadow       | _0 1px 2px rgba(0, 0, 0, 0.5)_ | -    |
+| --van-slider-bar-height          | _4px_                          | 轨道高度 |
+| --van-slider-active-bar-height   | _4px_                          | 激活进度条高度 |
+| --van-slider-button-width        | _30px_                         | 滑块宽度 |
+| --van-slider-button-height       | _16px_                         | 滑块高度 |
+| --van-slider-button-radius       | _高度的一半_                   | 椭圆形滑块圆角 |
+| --van-slider-button-background   | _var(--van-white)_             | 滑块背景色 |
+| --van-slider-button-border-color | _#dddddd_                      | 滑块边框色 |
+| --van-slider-button-grip-color   | _#999999_                      | 握把线条颜色 |
+| --van-slider-button-grip-gap     | _4px_                          | 握把线条间距 |
+| --van-slider-mark-label-color      | _var(--van-gray-6)_            | 节点标签颜色 |
+| --van-slider-mark-label-active-color | _#ff6b00_                    | 节点标签激活颜色 |
+| --van-slider-mark-dot-color        | _#dddddd_                      | 节点圆点颜色 |
+| --van-slider-mark-dot-active-color | _#ff6b00_                      | 节点圆点激活颜色 |
+| --van-slider-mark-dot-active-border-color | _var(--van-white)_        | 节点圆点激活边框颜色 |
+| --van-slider-value-margin-top      | _22px_                         | 数值展示距滑块距离 |
+| --van-slider-value-color           | _#cccccc_                      | 未选择数值颜色 |
+| --van-slider-value-font-size       | _12px_                         | 数值字号 |
+| --van-slider-value-line-height     | _17px_                         | 数值行高 |
+| --van-slider-value-active-color    | _#ff6b00_                      | 已选择数值颜色 |

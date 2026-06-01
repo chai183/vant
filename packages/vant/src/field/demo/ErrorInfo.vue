@@ -40,13 +40,6 @@ const username = ref('');
         :placeholder="t('phonePlaceholder')"
         :error-message="t('phoneError')"
       />
-      <van-field
-        v-model="phone"
-        :label="t('phone')"
-        :placeholder="t('phonePlaceholder')"
-        :error-message="t('phoneError')"
-        error-message-info
-      />
     </van-cell-group>
   </demo-block>
 </template>

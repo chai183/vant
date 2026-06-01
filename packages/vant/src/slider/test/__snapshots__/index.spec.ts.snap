@@ -1,54 +1,165 @@
 // Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
 exports[`should render left-button、right-button slot correctly 1`] = `
-<div class="van-slider">
-  <div
-    class="van-slider__bar"
-    style="width: 50%; left: 30%;"
-  >
+<div class="van-slider__container">
+  <div class="van-slider">
+    <div class="van-slider__track">
+      <div
+        class="van-slider__bar"
+        style="width: 50%; left: 30%;"
+      >
+        <div
+          role="slider"
+          class="van-slider__button-wrapper van-slider__button-wrapper--left"
+          tabindex="0"
+          aria-valuemin="0"
+          aria-valuenow="30"
+          aria-valuemax="100"
+          aria-orientation="horizontal"
+        >
+          left-30
+        </div>
+        <div
+          role="slider"
+          class="van-slider__button-wrapper van-slider__button-wrapper--right"
+          tabindex="0"
+          aria-valuemin="0"
+          aria-valuenow="80"
+          aria-valuemax="100"
+          aria-orientation="horizontal"
+        >
+          right-80
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`should render node-range slider with marks 1`] = `
+<div class="van-slider__container van-slider__container--with-marks">
+  <div class="van-slider__marks">
     <div
-      role="slider"
-      class="van-slider__button-wrapper van-slider__button-wrapper--left"
-      tabindex="0"
-      aria-valuemin="0"
-      aria-valuenow="30"
-      aria-valuemax="100"
-      aria-orientation="horizontal"
+      class="van-slider__mark"
+      style="left: 0%;"
     >
-      left-30
+      <span class="van-slider__mark-label">
+        200
+      </span>
     </div>
     <div
-      role="slider"
-      class="van-slider__button-wrapper van-slider__button-wrapper--right"
-      tabindex="0"
-      aria-valuemin="0"
-      aria-valuenow="80"
-      aria-valuemax="100"
-      aria-orientation="horizontal"
+      class="van-slider__mark"
+      style="left: 25%;"
     >
-      right-80
+      <span class="van-slider__mark-label van-slider__mark-label--active">
+        400
+      </span>
+    </div>
+    <div
+      class="van-slider__mark"
+      style="left: 50%;"
+    >
+      <span class="van-slider__mark-label">
+        600
+      </span>
+    </div>
+    <div
+      class="van-slider__mark"
+      style="left: 75%;"
+    >
+      <span class="van-slider__mark-label van-slider__mark-label--active">
+        800
+      </span>
+    </div>
+    <div
+      class="van-slider__mark"
+      style="left: 100%;"
+    >
+      <span class="van-slider__mark-label">
+        1000
+      </span>
+    </div>
+  </div>
+  <div class="van-slider">
+    <div class="van-slider__track">
+      <div class="van-slider__track-dots">
+        <span
+          class="van-slider__mark-dot"
+          style="left: 0%;"
+        >
+        </span>
+        <span
+          class="van-slider__mark-dot van-slider__mark-dot--active"
+          style="left: 50%;"
+        >
+        </span>
+        <span
+          class="van-slider__mark-dot"
+          style="left: 100%;"
+        >
+        </span>
+      </div>
+      <div
+        class="van-slider__bar"
+        style="width: 50%; left: 25%;"
+      >
+        <div
+          role="slider"
+          class="van-slider__button-wrapper van-slider__button-wrapper--left"
+          tabindex="0"
+          aria-valuemin="200"
+          aria-valuenow="400"
+          aria-valuemax="1000"
+          aria-orientation="horizontal"
+        >
+          <div class="van-slider__button">
+            <span class="van-slider__button-grip">
+            </span>
+          </div>
+        </div>
+        <div
+          role="slider"
+          class="van-slider__button-wrapper van-slider__button-wrapper--right"
+          tabindex="0"
+          aria-valuemin="200"
+          aria-valuenow="800"
+          aria-valuemax="1000"
+          aria-orientation="horizontal"
+        >
+          <div class="van-slider__button">
+            <span class="van-slider__button-grip">
+            </span>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </div>
 `;
 
 exports[`should render readonly Slider correctly 1`] = `
-<div class="van-slider">
-  <div
-    class="van-slider__bar"
-    style="width: 50%; left: 0%;"
-  >
-    <div
-      role="slider"
-      class="van-slider__button-wrapper van-slider__button-wrapper--right"
-      tabindex="0"
-      aria-valuemin="0"
-      aria-valuenow="50"
-      aria-valuemax="100"
-      aria-readonly="true"
-      aria-orientation="horizontal"
-    >
-      <div class="van-slider__button">
+<div class="van-slider__container">
+  <div class="van-slider">
+    <div class="van-slider__track">
+      <div
+        class="van-slider__bar"
+        style="width: 50%; left: 0%;"
+      >
+        <div
+          role="slider"
+          class="van-slider__button-wrapper van-slider__button-wrapper--right"
+          tabindex="0"
+          aria-valuemin="0"
+          aria-valuenow="50"
+          aria-valuemax="100"
+          aria-readonly="true"
+          aria-orientation="horizontal"
+        >
+          <div class="van-slider__button">
+            <span class="van-slider__button-grip">
+            </span>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -56,33 +167,41 @@ exports[`should render readonly Slider correctly 1`] = `
 `;
 
 exports[`should render reversed range slider correctly 1`] = `
-<div class="van-slider">
-  <div
-    class="van-slider__bar"
-    style="width: 15%; right: 25%;"
-  >
-    <div
-      role="slider"
-      class="van-slider__button-wrapper van-slider__button-wrapper--left"
-      tabindex="0"
-      aria-valuemin="0"
-      aria-valuenow="25"
-      aria-valuemax="100"
-      aria-orientation="horizontal"
-    >
-      <div class="van-slider__button">
-      </div>
-    </div>
-    <div
-      role="slider"
-      class="van-slider__button-wrapper van-slider__button-wrapper--right"
-      tabindex="0"
-      aria-valuemin="0"
-      aria-valuenow="40"
-      aria-valuemax="100"
-      aria-orientation="horizontal"
-    >
-      <div class="van-slider__button">
+<div class="van-slider__container">
+  <div class="van-slider">
+    <div class="van-slider__track">
+      <div
+        class="van-slider__bar"
+        style="width: 15%; right: 25%;"
+      >
+        <div
+          role="slider"
+          class="van-slider__button-wrapper van-slider__button-wrapper--left"
+          tabindex="0"
+          aria-valuemin="0"
+          aria-valuenow="25"
+          aria-valuemax="100"
+          aria-orientation="horizontal"
+        >
+          <div class="van-slider__button">
+            <span class="van-slider__button-grip">
+            </span>
+          </div>
+        </div>
+        <div
+          role="slider"
+          class="van-slider__button-wrapper van-slider__button-wrapper--right"
+          tabindex="0"
+          aria-valuemin="0"
+          aria-valuenow="40"
+          aria-valuemax="100"
+          aria-orientation="horizontal"
+        >
+          <div class="van-slider__button">
+            <span class="van-slider__button-grip">
+            </span>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -90,21 +209,27 @@ exports[`should render reversed range slider correctly 1`] = `
 `;
 
 exports[`should render reversed slider correctly 1`] = `
-<div class="van-slider">
-  <div
-    class="van-slider__bar"
-    style="width: 25%; right: 0%;"
-  >
-    <div
-      role="slider"
-      class="van-slider__button-wrapper van-slider__button-wrapper--left"
-      tabindex="0"
-      aria-valuemin="0"
-      aria-valuenow="25"
-      aria-valuemax="100"
-      aria-orientation="horizontal"
-    >
-      <div class="van-slider__button">
+<div class="van-slider__container">
+  <div class="van-slider">
+    <div class="van-slider__track">
+      <div
+        class="van-slider__bar"
+        style="width: 25%; right: 0%;"
+      >
+        <div
+          role="slider"
+          class="van-slider__button-wrapper van-slider__button-wrapper--left"
+          tabindex="0"
+          aria-valuemin="0"
+          aria-valuenow="25"
+          aria-valuemax="100"
+          aria-orientation="horizontal"
+        >
+          <div class="van-slider__button">
+            <span class="van-slider__button-grip">
+            </span>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -112,21 +237,27 @@ exports[`should render reversed slider correctly 1`] = `
 `;
 
 exports[`should render reversed vertical slider correctly 1`] = `
-<div class="van-slider van-slider--vertical">
-  <div
-    class="van-slider__bar"
-    style="height: 25%; bottom: 0%;"
-  >
-    <div
-      role="slider"
-      class="van-slider__button-wrapper van-slider__button-wrapper--left"
-      tabindex="0"
-      aria-valuemin="0"
-      aria-valuenow="25"
-      aria-valuemax="100"
-      aria-orientation="vertical"
-    >
-      <div class="van-slider__button">
+<div class="van-slider__container van-slider__container--vertical">
+  <div class="van-slider van-slider--vertical">
+    <div class="van-slider__track">
+      <div
+        class="van-slider__bar"
+        style="height: 25%; bottom: 0%;"
+      >
+        <div
+          role="slider"
+          class="van-slider__button-wrapper van-slider__button-wrapper--left"
+          tabindex="0"
+          aria-valuemin="0"
+          aria-valuenow="25"
+          aria-valuemax="100"
+          aria-orientation="vertical"
+        >
+          <div class="van-slider__button">
+            <span class="van-slider__button-grip">
+            </span>
+          </div>
+        </div>
       </div>
     </div>
   </div>

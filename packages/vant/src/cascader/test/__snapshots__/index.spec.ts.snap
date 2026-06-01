@@ -48,7 +48,7 @@ exports[`should render options-top、options-bottom slots correctly 1`] = `
 </div>
 `;
 
-exports[`should render title slot correctly 1`] = `"<h2 class="van-cascader__title van-ellipsis">Custom Title</h2>"`;
+exports[`should render title slot correctly 1`] = `"<h2 class="van-cascader__title">Custom Title</h2>"`;
 
 exports[`should select correct option when value changed 1`] = `
 <li
@@ -68,7 +68,7 @@ exports[`should select correct option when value changed 1`] = `
 exports[`should update tabs when previous tab is clicked 1`] = `
 <div class="van-cascader">
   <div class="van-cascader__header">
-    <h2 class="van-cascader__title van-ellipsis">
+    <h2 class="van-cascader__title">
     </h2>
     <i class="van-badge__wrapper van-icon van-icon-cross van-cascader__close-icon van-haptics-feedback">
     </i>

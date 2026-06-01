@@ -64,7 +64,7 @@ export const uploaderProps = {
   imageFit: makeStringProp<ImageFit>('cover'),
   resultType: makeStringProp<UploaderResultType>('dataUrl'),
   uploadIcon: makeStringProp('photograph'),
-  uploadText: makeStringProp('添加图片'),
+  uploadText: String,
   deletable: truthProp,
   reupload: Boolean,
   afterRead: Function as PropType<UploaderAfterRead>,
@@ -156,10 +156,6 @@ export default defineComponent({
       const { maxCount, modelValue, resultType } = props;
 
       if (Array.isArray(files)) {
-        if (!props.multiple) {
-          files = files.slice(0, 1);
-        }
-
         const remainCount = +maxCount - modelValue.length;
 
         if (files.length > remainCount) {
@@ -211,14 +207,8 @@ export default defineComponent({
         return;
       }
 
-      let file: File | File[];
-      if (files.length === 1) {
-        file = files[0];
-      } else if (props.multiple) {
-        file = [].slice.call(files) as File[];
-      } else {
-        file = files[0];
-      }
+      const file =
+        files.length === 1 ? files[0] : ([].slice.call(files) as File[]);
 
       if (props.beforeRead) {
         const response = props.beforeRead(file, getDetail());

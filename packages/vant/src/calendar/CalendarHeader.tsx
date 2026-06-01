@@ -66,36 +66,12 @@ export default defineComponent({
         compareMonth(getNextYear(props.date), props.maxDate) > 0,
     );
 
-    const renderToolbarTitle = () => {
-      if (!props.showTitle) {
-        return;
+    const renderTitle = () => {
+      if (props.showTitle) {
+        const text = props.title || t('title');
+        const title = slots.title ? slots.title() : text;
+        return <div class={bem('header-title')}>{title}</div>;
       }
-
-      const text = props.title || t('title');
-      const title = slots.title ? slots.title() : text;
-
-      return (
-        <div class={[bem('toolbar-title'), 'van-ellipsis']}>{title}</div>
-      );
-    };
-
-    const renderToolbar = () => {
-      const hasToolbar =
-        slots.cancel || slots.confirm || props.showTitle;
-
-      if (!hasToolbar) {
-        return;
-      }
-
-      return (
-        <div class={bem('toolbar')}>
-          <div class={bem('toolbar-action')}>{slots.cancel?.()}</div>
-          {renderToolbarTitle()}
-          <div class={[bem('toolbar-action'), bem('toolbar-action', 'right')]}>
-            {slots.confirm?.()}
-          </div>
-        </div>
-      );
     };
 
     const onClickSubtitle = (event: MouseEvent) => emit('clickSubtitle', event);
@@ -200,7 +176,7 @@ export default defineComponent({
 
     return () => (
       <div class={bem('header')}>
-        {renderToolbar()}
+        {renderTitle()}
         {renderSubtitle()}
         {renderWeekDays()}
       </div>

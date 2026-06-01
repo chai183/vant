@@ -26,7 +26,7 @@ app.use(CellGroup);
 ```html
 <!-- 可以使用 CellGroup 作为容器 -->
 <van-cell-group inset>
-  <van-field v-model="value" label="文本" placeholder="请输入文本" />
+  <van-field v-model="value" label="文本" placeholder="请输入用户名" />
 </van-cell-group>
 ```
 
@@ -43,80 +43,20 @@ export default {
 
 ### 自定义类型
 
-根据 `type` 属性定义不同类型的输入框，默认值为 `text`。`money` 类型及转账场景用法见 [FieldMoney 金额输入](#/zh-CN/field-money)。
+根据 `type` 属性定义不同类型的输入框，默认值为 `text`。
 
 ```html
 <van-cell-group inset>
-  <van-form>
-    <!-- 输入任意文本 -->
-    <van-field
-      v-model="text"
-      label="文本"
-      placeholder="请输入文本"
-      autocomplete="off"
-    />
-    <!-- 输入手机号，调起手机号键盘 -->
-    <van-field
-      v-model="phone"
-      type="tel"
-      label="手机号"
-      placeholder="请输入手机号"
-    />
-    <!-- 允许输入正整数，调起纯数字键盘 -->
-    <van-field
-      v-model="digit"
-      type="digit"
-      label="整数"
-      placeholder="请输入整数"
-    />
-    <!-- 允许输入数字，调起带符号的纯数字键盘 -->
-    <van-field
-      v-model="number"
-      type="number"
-      label="数字"
-      placeholder="请输入数字（支持小数）"
-    />
-    <!-- 输入密码 -->
-    <van-field
-      v-model="password"
-      type="password"
-      label="密码"
-      placeholder="请输入密码"
-      autocomplete="off"
-    />
-    <!-- 账号 -->
-    <van-field
-      v-model="account"
-      type="account"
-      label="账号"
-      placeholder="请输入账号"
-      autocomplete="off"
-    />
-    <!-- 身份证 -->
-    <van-field
-      v-model="idcard"
-      type="idcard"
-      label="身份证"
-      placeholder="请输入身份证"
-      autocomplete="off"
-    />
-    <!-- UKey -->
-    <van-field
-      v-model="ukey"
-      type="ukey"
-      label="UKey"
-      placeholder="请输入UKey"
-      autocomplete="off"
-    />
-    <van-field
-      v-model="text"
-      label-align="top"
-      autosize
-      label="文本"
-      placeholder="请输入文本"
-      autocomplete="off"
-    />
-  </van-form>
+  <!-- 输入任意文本 -->
+  <van-field v-model="text" label="文本" />
+  <!-- 输入手机号，调起手机号键盘 -->
+  <van-field v-model="tel" type="tel" label="手机号" />
+  <!-- 允许输入正整数，调起纯数字键盘 -->
+  <van-field v-model="digit" type="digit" label="整数" />
+  <!-- 允许输入数字，调起带符号的纯数字键盘 -->
+  <van-field v-model="number" type="number" label="数字" />
+  <!-- 输入密码 -->
+  <van-field v-model="password" type="password" label="密码" />
 </van-cell-group>
 ```
 
@@ -125,25 +65,13 @@ import { ref } from 'vue';
 
 export default {
   setup() {
+    const tel = ref('');
     const text = ref('');
-    const phone = ref('');
     const digit = ref('');
     const number = ref('');
     const password = ref('');
-    const account = ref('');
-    const idcard = ref('');
-    const ukey = ref('');
 
-    return {
-      text,
-      phone,
-      digit,
-      number,
-      password,
-      account,
-      idcard,
-      ukey,
-    };
+    return { tel, text, digit, number, password };
   },
 };
 ```
@@ -159,64 +87,14 @@ export default {
 </van-cell-group>
 ```
 
-### 只读省略
-
-只读状态下默认通过 [TextEllipsis](#/zh-CN/text-ellipsis) 展示内容。`model-value` 为数组时，会以 [Tag](#/zh-CN/tag) 单行展示各项，超出宽度的部分合并为 `+N` 标签；内容未超出时可完整展示。设置 `:readonly-ellipsis="false"` 可恢复为原生只读输入框（数组值仍会使用 Tag 展示）。
-
-超出省略：
-
-```html
-<van-cell-group inset>
-  <van-field
-    label="收货地址"
-    model-value="上海市浦东新区张江高科技园区科苑路88号张江大厦12层1201室"
-    readonly
-    placeholder="请选择收货地址"
-  />
-  <van-field
-    label="已选标签"
-    :model-value="['设计设计设计设计设计设设计设计设计设计设计设', '交互', '前端']"
-    readonly
-    placeholder="请选择标签"
-  />
-</van-cell-group>
-```
-
-未超出：
-
-```html
-<van-cell-group inset>
-  <van-field
-    label="收货地址"
-    model-value="上海市浦东新区"
-    readonly
-    placeholder="请选择收货地址"
-  />
-  <van-field
-    label="已选标签"
-    :model-value="['设计', '交互', '前端']"
-    readonly
-    placeholder="请选择标签"
-  />
-</van-cell-group>
-```
-
 ### 显示图标
 
-通过 `left-icon` 和 `right-icon` 配置输入框两侧的图标，通过设置 `clearable` 在输入过程中展示清除图标。设置 `show-right-icon-divider` 可在右侧图标左侧展示竖向分隔线。
+通过 `left-icon` 和 `right-icon` 配置输入框两侧的图标，通过设置 `clearable` 在输入过程中展示清除图标。
 
 ```html
 <van-cell-group inset>
   <van-field
     v-model="value1"
-    label="文本"
-    left-icon="smile-o"
-    right-icon="warning-o"
-    placeholder="显示图标"
-  />
-  <van-field
-    v-model="value1"
-    show-right-icon-divider
     label="文本"
     left-icon="smile-o"
     right-icon="warning-o"
@@ -268,18 +146,6 @@ export default {
 </van-cell-group>
 ```
 
-```js
-import { ref } from 'vue';
-
-export default {
-  setup() {
-    const username = ref('');
-    const phone = ref('123');
-    return { username, phone };
-  },
-};
-```
-
 请注意 `required` 属性只用于控制样式展示，在进行表单校验时，需要使用 `rule.required` 选项来控制校验逻辑。
 
 ### 自动展示星号
@@ -287,27 +153,25 @@ export default {
 你可以在 Form 组件上设置 `required="auto"`，此时 Form 里的所有 Field 会自动根据 `rule.required` 来判断是否需要展示星号。
 
 ```html
-<van-cell-group inset>
-  <van-form required="auto">
-    <van-field
-      v-model="username"
-      :rules="[{ required: true }]"
-      label="用户名"
-      placeholder="请输入用户名"
-    />
-    <van-field
-      v-model="phone"
-      :rules="[{ required: false }]"
-      label="手机号"
-      placeholder="请输入手机号"
-    />
-  </van-form>
-</van-cell-group>
+<van-form required="auto">
+  <van-field
+    v-model="username"
+    :rules="[{ required: true }]"
+    label="用户名"
+    placeholder="请输入用户名"
+  />
+  <van-field
+    v-model="phone"
+    :rules="[{ required: false }]"
+    label="手机号"
+    placeholder="请输入手机号"
+  />
+</van-form>
 ```
 
 ### 错误提示
 
-设置 `required` 属性表示这是一个必填项，可以配合 `error` 或 `error-message` 属性显示对应的错误提示。设置 `error-message-info` 时，`error-message` 会以信息样式（浅色背景块）展示。
+设置 `required` 属性表示这是一个必填项，可以配合 `error` 或 `error-message` 属性显示对应的错误提示。
 
 ```html
 <van-cell-group inset>
@@ -323,26 +187,7 @@ export default {
     placeholder="请输入手机号"
     error-message="手机号格式错误"
   />
-  <van-field
-    v-model="phone"
-    label="手机号"
-    placeholder="请输入手机号"
-    error-message="手机号格式错误"
-    error-message-info
-  />
 </van-cell-group>
-```
-
-```js
-import { ref } from 'vue';
-
-export default {
-  setup() {
-    const username = ref('');
-    const phone = ref('123');
-    return { username, phone };
-  },
-};
 ```
 
 ### 插入按钮
@@ -414,8 +259,8 @@ export default {
 <van-cell-group inset>
   <van-field
     v-model="message"
-    autosize
     rows="1"
+    autosize
     label="留言"
     type="textarea"
     placeholder="请输入留言"
@@ -431,13 +276,13 @@ export default {
 <van-cell-group inset>
   <van-field
     v-model="message"
-    autosize
-    show-word-limit
     rows="2"
+    autosize
+    label="留言"
     type="textarea"
     maxlength="50"
-    label="留言"
     placeholder="请输入留言"
+    show-word-limit
   />
 </van-cell-group>
 ```
@@ -470,99 +315,24 @@ export default {
     label-align="top"
   />
   <van-field
-    v-model="value"
+    v-model="value2"
     label="文本"
     placeholder="左对齐"
     label-align="left"
   />
   <van-field
-    v-model="value"
+    v-model="value3"
     label="文本"
     placeholder="居中对齐"
     label-align="center"
   />
   <van-field
-    v-model="value"
+    v-model="value4"
     label="文本"
     placeholder="右对齐"
     label-align="right"
   />
 </van-cell-group>
-```
-
-```js
-import { ref } from 'vue';
-
-export default {
-  setup() {
-    const value = ref('');
-    return { value };
-  },
-};
-```
-
-### 标签备注
-
-通过 `label-comment` 属性或 `label-comment` 插槽可在标签下方展示备注，内容会透传至 Cell 的 `label` 区域（插槽优先级高于属性）。
-
-```html
-<van-field label="文本" label-comment="标签下方的备注说明" />
-<van-field label="文本" placeholder="请输入文本">
-  <template #label-comment>
-    <span>插槽：标签备注可自定义样式</span>
-  </template>
-</van-field>
-```
-
-### 说明与底部
-
-通过 `input-comment` 属性或 `input-comment` 插槽可在输入区域下方展示辅助说明。使用 `bottom` 插槽可在整行底部展示内容，适合协议勾选、风险提示等。
-
-```html
-<van-cell-group inset>
-  <van-field
-    v-model="value4"
-    label="文本"
-    placeholder="请输入文本"
-    label-comment="标签下方的备注说明"
-  />
-  <van-field v-model="value5" label="文本" placeholder="请输入文本">
-    <template #label-comment>
-      <span>插槽：标签备注可自定义样式</span>
-    </template>
-  </van-field>
-  <van-field
-    v-model="value1"
-    label="文本"
-    placeholder="请输入文本"
-    input-comment="这是一段辅助说明"
-  />
-  <van-field v-model="value2" label="文本" placeholder="请输入文本">
-    <template #input-comment>
-      <span>插槽：可放链接或强调样式</span>
-    </template>
-  </van-field>
-  <van-field v-model="value3" label="文本" placeholder="请输入文本">
-    <template #bottom>
-      <span style="color: var(--van-text-color-2)">
-        bottom 插槽：整行展示在标签与输入框下方，适合协议勾选、风险提示等
-      </span>
-    </template>
-  </van-field>
-</van-cell-group>
-```
-
-```js
-import { ref } from 'vue';
-
-export default {
-  setup() {
-    const value1 = ref('');
-    const value2 = ref('');
-    const value3 = ref('');
-    return { value1, value2, value3 };
-  },
-};
 ```
 
 ## API
@@ -575,17 +345,15 @@ export default {
 | label | 输入框左侧文本 | _string_ | - |
 | name | 名称，作为提交表单时的标识符 | _string_ | - |
 | id | 输入框 id，同时会设置 label 的 for 属性 | _string_ | `van-field-n-input` |
-| type | 输入框类型, 支持原生 input 标签的所有 [type 属性](https://developer.mozilla.org/zh-CN/docs/Web/HTML/Element/input#%3Cinput%3E_types)，额外支持了 `digit`、`money`、`account`、`idcard`、`ukey` 类型 | _FieldType_ | `text` |
+| type | 输入框类型, 支持原生 input 标签的所有 [type 属性](https://developer.mozilla.org/zh-CN/docs/Web/HTML/Element/input#%3Cinput%3E_types)，额外支持了 `digit` 类型 | _FieldType_ | `text` |
 | size | 大小，可选值为 `large` `normal` | _string_ | - |
 | maxlength | 输入的最大字符数 | _number \| string_ | - |
-| min `v4.9.5` | 输入框类型为 `number`、`money` 或 `digit` 类型时设置可允许的最小值 | _number_ | - |
-| max `v4.9.5` | 输入框类型为 `number`、`money` 或 `digit` 类型时设置可允许的最大值 | _number_ | - |
+| min `v4.9.5` | 输入框类型为 `number` 或 `digit` 类型时设置可允许的最小值 | _number_ | - |
+| max `v4.9.5` | 输入框类型为 `number` 或 `digit` 类型时设置可允许的最大值 | _number_ | - |
 | placeholder | 输入框占位提示文字 | _string_ | - |
 | border | 是否显示内边框 | _boolean_ | `true` |
 | disabled | 是否禁用输入框 | _boolean_ | `false` |
 | readonly | 是否为只读状态，只读状态下无法输入内容 | _boolean_ | `false` |
-| readonly-ellipsis `new` | 只读时是否用 TextEllipsis 展示 | _boolean_ | `true` |
-| readonly-ellipsis-rows `new` | 只读省略展示的最大行数 | _number \| string_ | `1` |
 | colon | 是否在 label 后面添加冒号 | _boolean_ | `false` |
 | required | 是否显示表单必填星号 | _boolean \| 'auto'_ | `null` |
 | center | 是否使内容垂直居中 | _boolean_ | `false` |
@@ -596,32 +364,19 @@ export default {
 | is-link | 是否展示右侧箭头并开启点击反馈 | _boolean_ | `false` |
 | autofocus | 是否自动聚焦，iOS 系统不支持该属性 | _boolean_ | `false` |
 | show-word-limit | 是否显示字数统计，需要设置 `maxlength` 属性 | _boolean_ | `false` |
-| show-money-uppercase `new` | `type` 为 `money` 时是否在底部展示金额大写；转账等场景推荐使用 [FieldMoney](#/zh-CN/field-money) | _boolean_ | `false` |
-| show-money-unit `new` | `type` 为 `money` 时是否在输入框上方展示金额单位（仟、万、亿等） | _boolean_ | `false` |
-| money-uppercase-label `new` | 金额大写区域前的标签文案 | _string_ | - |
 | error | 是否将输入内容标红 | _boolean_ | `false` |
 | error-message | 底部错误提示文案，为空时不展示 | _string_ | - |
 | error-message-align | 错误提示文案对齐方式，可选值为 `center` `right` | _FieldTextAlign_ | `left` |
-| error-message-info `new` | 是否将 `error-message` 以信息样式展示 | _boolean_ | `false` |
 | formatter | 输入内容格式化函数 | _(val: string) => string_ | - |
 | format-trigger | 格式化函数触发的时机，可选值为 `onBlur` | _FieldFormatTrigger_ | `onChange` |
 | arrow-direction | 箭头方向，可选值为 `left` `up` `down` | _string_ | `right` |
 | label-class | 左侧文本额外类名 | _string \| Array \| object_ | - |
-| input-class `new` | 输入框额外类名（含 `input` / `textarea`；使用 `input` 插槽时作用于包裹层） | _string \| Array \| object_ | - |
-| input-style `new` | 输入框额外样式 | _string \| object_ | - |
-| body-class `new` | 输入主体区域额外类名 | _string \| Array \| object_ | - |
-| body-style `new` | 输入主体区域额外样式 | _string \| object_ | - |
 | label-width | 左侧文本宽度，默认单位为 `px` | _number \| string_ | `6.2em` |
 | label-align | 左侧文本对齐方式，可选值为 `center` `right` `top` | _FieldTextAlign_ | `left` |
-| label-tooltip `new` | 标签旁说明文案，点击后以 Popover 展示；需设置 `label` | _string_ | - |
-| label-tooltip-popover-props `new` | 透传给标签 Popover 的属性，详见 [Popover](#/zh-CN/popover) | _Partial\<PopoverProps\>_ | - |
-| label-comment `new` | 标签下方的备注文案，透传至 Cell 的 `label` | _string_ | - |
-| input-comment `new` | 输入区域下方的辅助说明文案 | _string_ | - |
 | input-align | 输入框对齐方式，可选值为 `center` `right` | _FieldTextAlign_ | `left` |
 | autosize | 是否自适应内容高度，只对 textarea 有效，<br>可传入对象,如 { maxHeight: 100, minHeight: 50 }，<br>单位为`px` | _boolean \| FieldAutosizeConfig_ | `false` |
 | left-icon | 左侧图标名称或图片链接，等同于 Icon 组件的 [name 属性](#/zh-CN/icon#props) | _string_ | - |
 | right-icon | 右侧图标名称或图片链接，等同于 Icon 组件的 [name 属性](#/zh-CN/icon#props) | _string_ | - |
-| show-right-icon-divider `new` | 是否在右侧图标左侧展示竖向分隔线 | _boolean_ | `false` |
 | icon-prefix | 图标类名前缀，等同于 Icon 组件的 [class-prefix 属性](#/zh-CN/icon#props) | _string_ | `van-icon` |
 | rules | 表单校验规则，详见 [Form 组件](#/zh-CN/form#rule-shu-ju-jie-gou) | _FieldRule[]_ | - |
 | autocomplete | HTML 原生属性，用于控制自动完成功能，详见 [MDN - autocomplete](https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/autocomplete) | _string_ | - |
@@ -695,17 +450,11 @@ fieldRef.value?.focus();
 | 名称 | 说明 | 参数 |
 | --- | --- | --- |
 | label | 自定义输入框左侧文本 | - |
-| label-tooltip `new` | 自定义标签旁 Popover 说明内容，优先级高于 `label-tooltip` 属性 | - |
-| label-comment `new` | 自定义标签下方备注，优先级高于 `label-comment` 属性，透传至 Cell 的 `label` | - |
 | input | 自定义输入框，使用此插槽后，与输入框相关的属性和事件将失效 | - |
-| input-left | 输入框左侧内容（如货币符号） | - |
 | left-icon | 自定义输入框头部图标 | - |
 | right-icon | 自定义输入框尾部图标 | - |
 | button | 自定义输入框尾部按钮 | - |
-| input-comment `new` | 自定义输入区域下方辅助说明 | - |
-| input-bottom `new` | 自定义输入区域下方、字数统计与错误提示上方的内容 | - |
 | error-message | 自定义底部错误提示文案 | _{ message: string }_ |
-| bottom `new` | 整行底部内容（位于标签与输入区域之下） | - |
 | extra | 自定义输入框最右侧的额外内容 | - |
 
 ## 主题定制
@@ -727,14 +476,8 @@ fieldRef.value?.focus();
 | --van-field-clear-icon-size           | _18px_                    | -    |
 | --van-field-clear-icon-color          | _var(--van-gray-5)_       | -    |
 | --van-field-right-icon-color          | _var(--van-gray-6)_       | -    |
-| --van-field-right-icon-divider-height | _14px_                    | -    |
-| --van-field-right-icon-divider-color  | _var(--van-border-color)_ | -    |
 | --van-field-error-message-color       | _var(--van-danger-color)_ | -    |
 | --van-field-error-message-font-size   | _12px_                    | -    |
-| --van-field-error-message-info-background | _#fff2f0_             | -    |
-| --van-field-error-message-info-padding    | _6px 20px_            | -    |
-| --van-field-error-message-info-margin-top | _var(--van-padding-xs)_ | -    |
-| --van-field-error-message-info-radius     | _var(--van-radius-md)_ | -    |
 | --van-field-text-area-min-height      | _60px_                    | -    |
 | --van-field-word-limit-color          | _var(--van-gray-7)_       | -    |
 | --van-field-word-limit-font-size      | _var(--van-font-size-sm)_ | -    |
@@ -746,7 +489,7 @@ fieldRef.value?.focus();
 
 ### 设置 type 为 number 后，为什么 input 标签的类型仍为 text?
 
-HTML 原生的 `type="number"` 属性在 iOS 和 Android 系统上都存在一定问题，比如 maxlength 属性不生效、无法获取到完整的输入内容等。因此设置 type 为 `number` 或 `money` 时，Field 不会使用原生的 `type="number"` 属性，而是用现代浏览器支持的 [inputmode 属性](https://developer.mozilla.org/zh-CN/docs/Web/HTML/Global_attributes/inputmode)来控制输入键盘的类型。
+HTML 原生的 `type="number"` 属性在 iOS 和 Android 系统上都存在一定问题，比如 maxlength 属性不生效、无法获取到完整的输入内容等。因此设置 type 为 `number` 时，Field 不会使用原生的 `type="number"` 属性，而是用现代浏览器支持的 [inputmode 属性](https://developer.mozilla.org/zh-CN/docs/Web/HTML/Global_attributes/inputmode)来控制输入键盘的类型。
 
 ### 为什么 v-model 绑定的值被更新为 string 类型？
 

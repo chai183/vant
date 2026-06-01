@@ -5,7 +5,6 @@ export const RadioGroup = withInstall(_RadioGroup);
 export default RadioGroup;
 export { radioGroupProps } from './RadioGroup';
 export type { RadioGroupProps, RadioGroupDirection } from './RadioGroup';
-export type { RadioGroupOption } from './types';
 
 declare module 'vue' {
   export interface GlobalComponents {

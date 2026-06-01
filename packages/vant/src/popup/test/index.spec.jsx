@@ -170,6 +170,99 @@ test('should have "van-popup--round" class when setting the round prop', () => {
   expect(wrapper.find('.van-popup--round').exists()).toBeTruthy();
 });
 
+test('should render title when using title prop', () => {
+  wrapper = mount(Popup, {
+    props: {
+      show: true,
+      title: 'Title',
+    },
+  });
+
+  expect(wrapper.find('.van-popup__title').text()).toEqual('Title');
+});
+
+test('should render title slot correctly', () => {
+  wrapper = mount(Popup, {
+    props: {
+      show: true,
+    },
+    slots: {
+      title: () => 'Custom Title',
+    },
+  });
+
+  expect(wrapper.find('.van-popup__title').text()).toEqual('Custom Title');
+});
+
+test('should add has-close class when title and closeable are set', () => {
+  wrapper = mount(Popup, {
+    props: {
+      show: true,
+      title: 'Title',
+      closeable: true,
+    },
+  });
+
+  expect(wrapper.find('.van-popup__header--has-close').exists()).toBeTruthy();
+});
+
+test('should render cancel and confirm buttons in header', () => {
+  wrapper = mount(Popup, {
+    props: {
+      show: true,
+      title: 'Title',
+      confirmButtonText: 'Confirm',
+    },
+  });
+
+  expect(wrapper.find('.van-popup__cancel').exists()).toBeTruthy();
+  expect(wrapper.find('.van-popup__confirm').exists()).toBeTruthy();
+});
+
+test('should not render close icon when using confirm-button-text prop', () => {
+  wrapper = mount(Popup, {
+    props: {
+      show: true,
+      closeable: true,
+      confirmButtonText: 'Confirm',
+    },
+  });
+
+  expect(wrapper.find('.van-popup__close-icon').exists()).toBeFalsy();
+});
+
+test('should emit confirm event when confirm button is clicked', () => {
+  wrapper = mount(Popup, {
+    props: {
+      show: true,
+      confirmButtonText: 'Confirm',
+      'onUpdate:show': (show) => {
+        wrapper.setProps({ show });
+      },
+    },
+  });
+
+  wrapper.find('.van-popup__confirm').trigger('click');
+  expect(wrapper.emitted('confirm')).toHaveLength(1);
+  expect(wrapper.emitted('update:show')[0][0]).toEqual(false);
+});
+
+test('should emit cancel event when cancel button is clicked', () => {
+  wrapper = mount(Popup, {
+    props: {
+      show: true,
+      cancelButtonText: 'Cancel',
+      'onUpdate:show': (show) => {
+        wrapper.setProps({ show });
+      },
+    },
+  });
+
+  wrapper.find('.van-popup__cancel').trigger('click');
+  expect(wrapper.emitted('cancel')).toHaveLength(1);
+  expect(wrapper.emitted('update:show')[0][0]).toEqual(false);
+});
+
 test('should render close icon when using closeable prop', () => {
   wrapper = mount(Popup, {
     props: {

@@ -1,3 +1,8 @@
+export type ActionSheetGridOptions = {
+  scrollable?: boolean;
+  columns?: number;
+};
+
 export type ActionSheetThemeVars = {
   actionSheetMaxHeight?: string;
   actionSheetHeaderHeight?: string;
@@ -20,4 +25,13 @@ export type ActionSheetThemeVars = {
   actionSheetCancelPaddingTop?: string;
   actionSheetCancelPaddingColor?: string;
   actionSheetLoadingIconSize?: string;
+  actionSheetGridIconSize?: string;
+  actionSheetGridImageSize?: string;
+  actionSheetGridPaddingTop?: string;
+  actionSheetGridPaddingBottom?: string;
+  actionSheetGridRowGap?: string;
+  actionSheetGridIconGap?: string;
+  actionSheetGridItemPaddingX?: string;
+  actionSheetGridItemNameFontSize?: string;
+  actionSheetGridItemNameLineHeight?: number | string;
 };

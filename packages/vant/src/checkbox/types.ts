@@ -28,10 +28,4 @@ export type CheckboxThemeVars = {
   checkboxDisabledIconColor?: string;
   checkboxDisabledLabelColor?: string;
   checkboxDisabledBackground?: string;
-  checkboxBlockPadding?: string;
-  checkboxBlockRadius?: string;
-  checkboxBlockBorderColor?: string;
-  checkboxBlockBackground?: string;
-  checkboxBlockColor?: string;
-  checkboxBlockCheckedBackground?: string;
 };

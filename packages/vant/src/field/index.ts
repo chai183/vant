@@ -4,7 +4,6 @@ import _Field, { FieldProps } from './Field';
 export const Field = withInstall(_Field);
 export default Field;
 export { fieldProps } from './Field';
-export { moneyStringToChineseUppercase } from './utils';
 export type { FieldProps };
 export type {
   FieldType,
@@ -22,8 +21,6 @@ export type {
   FieldValidateTrigger,
   FieldValidationStatus,
   FieldEnterKeyHint,
-  FieldGroupedDisplayConfig,
-  FieldGroupedDisplayNormalizeContext,
 } from './types';
 
 declare module 'vue' {

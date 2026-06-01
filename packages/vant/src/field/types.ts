@@ -3,9 +3,6 @@ import type { ComputedRef, ComponentPublicInstance } from 'vue';
 import type { FieldProps } from './Field';
 
 export type FieldType =
-  | 'account'
-  | 'idcard'
-  | 'ukey'
   | 'tel'
   | 'url'
   | 'date'
@@ -18,7 +15,6 @@ export type FieldType =
   | 'email'
   | 'image'
   | 'month'
-  | 'money'
   | 'radio'
   | 'range'
   | 'reset'
@@ -69,41 +65,6 @@ export type FieldRuleValidator = (
 ) => boolean | string | Promise<boolean | string>;
 
 export type FieldRuleFormatter = (value: any, rule: FieldRule) => string;
-
-/**
- * 当输入框展示与 v-model 字符不一致（千分位、空格等）时，用于同步展示与还原光标。
- * 可通过 Field 的 `groupedDisplay` 传入；不传时按 `type` 使用内置预设（money / tel / account / idcard / ukey）。
- */
-export type FieldGroupedDisplayNormalizeContext = {
-  maxlength: number | undefined;
-};
-
-export type FieldGroupedDisplayConfig = {
-  /** 将展示串 `slice(0, caret)` 后去掉展示用分隔符，得到 v-model 内光标前的字符数 */
-  stripDisplayRegex: RegExp;
-  /** v-model（无展示分隔符）→ 输入框展示 */
-  formatDisplay: (modelValue: string) => string;
-  /** v-model 字符下标 → 展示串中的下标，用于 `setSelectionRange` */
-  rawOffsetToDisplayIndex: (display: string, rawOffset: number) => number;
-  /**
-   * 为 true 时在 `updateValue` 中跳过组件 `maxlength` 的 `limitValueLength`
-   *（由 `normalizeModelValue` 内自行截断，如 tel / account / idcard / ukey）
-   */
-  skipLimitValueLength?: boolean;
-  /**
-   * 将输入框展示串转为 v-model（在 `normalizeModelValue` 之前执行）。
-   * 与 `type="text"` 等搭配自定义展示时，可在此去掉分隔符。
-   */
-  parseDisplayToModel?: (display: string) => string;
-  /**
-   * 在 `parseDisplayToModel` 之后、`maxlength` 组件截断之前，将串规范为最终 v-model。
-   * 返回 `capDiffLen` 表示本步内因位数上限等截断的长度差，用于光标修正；未返回则视为 0。
-   */
-  normalizeModelValue?: (
-    value: string,
-    ctx: FieldGroupedDisplayNormalizeContext,
-  ) => { value: string; capDiffLen?: number };
-};
 
 export type FieldRule = {
   pattern?: RegExp;
@@ -168,11 +129,4 @@ export type FieldThemeVars = {
   fieldWordLimitLineHeight?: number | string;
   fieldDisabledTextColor?: string;
   fieldRequiredMarkColor?: string;
-  fieldLabelActionColor?: string;
-  fieldLabelActionFontSize?: string;
-  fieldInputBorderColor?: string;
-  fieldInputBorderRadius?: string;
-  fieldInputBorderPaddingY?: string;
-  fieldInputBorderPaddingX?: string;
-  fieldInputBorderBackground?: string;
 };

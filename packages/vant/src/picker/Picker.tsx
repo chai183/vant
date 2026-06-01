@@ -31,7 +31,6 @@ import {
   assignDefaultFields,
   formatCascadeColumns,
   getFirstEnabledOption,
-  getColumnSeparator,
 } from './utils';
 
 // Composables
@@ -66,7 +65,6 @@ export const pickerSharedProps = extend(
     showToolbar: truthProp,
     swipeDuration: makeNumericProp(1000),
     visibleOptionNum: makeNumericProp(6),
-    columnSeparator: [String, Array] as PropType<string | string[]>,
   },
   pickerToolbarProps,
 );
@@ -200,59 +198,30 @@ export default defineComponent({
 
     const cancel = () => emit('cancel', getEventParams());
 
-    const renderSeparator = (columnIndex: number) => {
-      const separator = getColumnSeparator(
-        props.columnSeparator,
-        columnIndex,
-      );
-
-      if (!separator) {
-        return null;
-      }
-
-      return (
-        <div class={bem('separator')} key={`separator-${columnIndex}`}>
-          {separator}
-        </div>
-      );
-    };
-
-    const renderColumnItems = () => {
-      const items: ReturnType<typeof renderSeparator>[] = [];
-
-      currentColumns.value.forEach((options, columnIndex) => {
-        if (columnIndex > 0) {
-          items.push(renderSeparator(columnIndex - 1));
-        }
-
-        items.push(
-          <Column
-            key={columnIndex}
-            v-slots={{ option: slots.option }}
-            value={selectedValues.value[columnIndex]}
-            fields={fields.value}
-            options={options}
-            readonly={props.readonly}
-            allowHtml={props.allowHtml}
-            optionHeight={optionHeight.value}
-            swipeDuration={props.swipeDuration}
-            visibleOptionNum={props.visibleOptionNum}
-            onChange={(value: Numeric) => onChange(value, columnIndex)}
-            onClickOption={(option: PickerOption) =>
-              onClickOption(option, columnIndex)
-            }
-            onScrollInto={(option: PickerOption) => {
-              emit('scrollInto', {
-                currentOption: option,
-                columnIndex,
-              });
-            }}
-          />,
-        );
-      });
-
-      return items;
-    };
+    const renderColumnItems = () =>
+      currentColumns.value.map((options, columnIndex) => (
+        <Column
+          v-slots={{ option: slots.option }}
+          value={selectedValues.value[columnIndex]}
+          fields={fields.value}
+          options={options}
+          readonly={props.readonly}
+          allowHtml={props.allowHtml}
+          optionHeight={optionHeight.value}
+          swipeDuration={props.swipeDuration}
+          visibleOptionNum={props.visibleOptionNum}
+          onChange={(value: Numeric) => onChange(value, columnIndex)}
+          onClickOption={(option: PickerOption) =>
+            onClickOption(option, columnIndex)
+          }
+          onScrollInto={(option: PickerOption) => {
+            emit('scrollInto', {
+              currentOption: option,
+              columnIndex,
+            });
+          }}
+        />
+      ));
 
     const renderMask = (wrapHeight: number) => {
       if (hasOptions.value) {

@@ -527,7 +527,7 @@ test('popup wrapper', async () => {
 
   expect(wrapper.html()).toMatchSnapshot();
 
-  await wrapper.find('.van-calendar__cancel').trigger('click');
+  await wrapper.find('.van-popup__close-icon').trigger('click');
   expect(wrapper.find('.van-calendar__popup').style.display).toEqual('none');
 });
 
@@ -596,12 +596,15 @@ test('color prop when type is range', async () => {
 
   await later(50);
 
+  expect(wrapper.find('.van-calendar__day--start').style.background).toEqual(
+    'blue',
+  );
   expect(wrapper.find('.van-calendar__day--middle').style.color).toEqual(
     'blue',
   );
-  wrapper.findAll('.van-calendar__selected-day').forEach((day) => {
-    expect(day.style.background).toEqual('blue');
-  });
+  expect(wrapper.find('.van-calendar__day--end').style.background).toEqual(
+    'blue',
+  );
 });
 
 test('close event', async () => {

@@ -16,7 +16,14 @@ import {
   makeRequiredProp,
 } from '../utils';
 import { getMonthEndDay } from '../date-picker/utils';
-import { bem, compareDay, formatMonthTitle } from './utils';
+import {
+  t,
+  bem,
+  compareDay,
+  getPrevDay,
+  getNextDay,
+  formatMonthTitle,
+} from './utils';
 
 // Composables
 import { useRect, useToggle } from '@vant/use';
@@ -85,6 +92,33 @@ export default defineComponent({
 
     const getTitle = () => title.value;
 
+    const getMultipleDayType = (day: Date) => {
+      const isSelected = (date: Date) =>
+        (props.currentDate as Date[]).some(
+          (item) => compareDay(item, date) === 0,
+        );
+
+      if (isSelected(day)) {
+        const prevDay = getPrevDay(day);
+        const nextDay = getNextDay(day);
+        const prevSelected = isSelected(prevDay);
+        const nextSelected = isSelected(nextDay);
+
+        if (prevSelected && nextSelected) {
+          return 'multiple-middle';
+        }
+        if (prevSelected) {
+          return 'end';
+        }
+        if (nextSelected) {
+          return 'start';
+        }
+        return 'multiple-selected';
+      }
+
+      return '';
+    };
+
     const getRangeDayType = (day: Date) => {
       const [startDay, endDay] = props.currentDate as Date[];
 
@@ -95,7 +129,7 @@ export default defineComponent({
       const compareToStart = compareDay(day, startDay);
 
       if (!endDay) {
-        return compareToStart === 0 ? 'selected' : '';
+        return compareToStart === 0 ? 'start' : '';
       }
 
       const compareToEnd = compareDay(day, endDay);
@@ -132,11 +166,7 @@ export default defineComponent({
 
       if (Array.isArray(currentDate)) {
         if (type === 'multiple') {
-          return (currentDate as Date[]).some(
-            (item) => compareDay(item, day) === 0,
-          )
-            ? 'selected'
-            : '';
+          return getMultipleDayType(day);
         }
         if (type === 'range') {
           return getRangeDayType(day);
@@ -146,6 +176,17 @@ export default defineComponent({
       }
 
       return '';
+    };
+
+    const getBottomInfo = (dayType: CalendarDayType) => {
+      if (props.type === 'range') {
+        if (dayType === 'start' || dayType === 'end') {
+          return t(dayType);
+        }
+        if (dayType === 'start-end') {
+          return `${t('start')}/${t('end')}`;
+        }
+      }
     };
 
     const renderTitle = () => {
@@ -187,6 +228,7 @@ export default defineComponent({
           date,
           type,
           text: day,
+          bottomInfo: getBottomInfo(type),
         };
 
         if (props.formatter) {

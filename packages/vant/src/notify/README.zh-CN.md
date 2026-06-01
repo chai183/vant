@@ -86,6 +86,43 @@ showNotify({
 });
 ```
 
+### 带强按钮
+
+通过 `button-text` 设置右侧实心按钮文案，**最多展示 4 个字**，超出部分会被截断。
+
+```js
+import { showNotify } from 'vant';
+
+showNotify({
+  message: '这是一条带强按钮的消息通知',
+  buttonText: '立即购买', // 超过 4 个字时仅展示前 4 个字，如「立即购买优惠」→「立即购买」
+});
+```
+
+> 注意：通过 `#button` 插槽自定义按钮时不受此限制，需自行控制文案长度。
+
+### 文案展示
+
+通过 `scrollable` 控制文案超出后的展示方式：
+
+- 默认（`scrollable: false`）：最多展示 **两行**，超出以省略号显示
+- 开启滚动（`scrollable: true`）：可视区域为 **一行**，文案超出一行后自动向上滚动播放
+
+```js
+import { showNotify } from 'vant';
+
+// 默认：最多两行，超出省略
+showNotify({
+  message: '这是一条较长的通知内容，最多展示两行，超出部分会显示省略号',
+});
+
+// 开启滚动：超出一行自动滚动
+showNotify({
+  message: '这是一条较长的通知内容，超出一行后会自动向上滚动播放',
+  scrollable: true,
+});
+```
+
 ### 使用 Notify 组件
 
 如果需要在 Notify 内嵌入组件或其他自定义内容，可以直接使用 Notify 组件，并使用默认插槽进行定制。使用前需要通过 `app.use` 等方式注册组件。
@@ -129,7 +166,9 @@ Vant 中导出了以下 Notify 相关的辅助函数：
 | 方法名 | 说明 | 参数 | 返回值 |
 | --- | --- | --- | --- |
 | showNotify | 在页面顶部展示 Notify | `NotifyOptions \| string` | notify 实例 |
+| showPersistentNotify | 展示常驻 Notify（等价于 `persistent: true`） | `NotifyOptions \| string` | notify 实例 |
 | closeNotify | 关闭当前展示的 Notify | - | `void` |
+| getNotifyAutoCloseDuration | 根据 `persistent` / `duration` 计算自动关闭时长 | `NotifyOptions` | _number_ |
 | setNotifyDefaultOptions | 修改默认配置，影响所有的 `showNotify` 调用 | `NotifyOptions` | `void` |
 | resetNotifyDefaultOptions | 重置默认配置，影响所有的 `showNotify` 调用 | - | `void` |
 
@@ -139,19 +178,31 @@ Vant 中导出了以下 Notify 相关的辅助函数：
 
 | 参数 | 说明 | 类型 | 默认值 |
 | --- | --- | --- | --- |
-| type | 类型，可选值为 `primary` `success` `warning` | _NotifyType_ | `danger` |
+| type | 类型，可选值为 `primary` `success` `warning` `danger` | _NotifyType_ | `warning` |
 | message | 展示文案，支持通过`\n`换行 | _string_ | - |
-| duration | 展示时长(ms)，值为 0 时，notify 不会消失 | _number \| string_ | `3000` |
+| duration | 自动关闭前的展示时长(ms)；`0` 表示不自动关闭 | _number_ | `3000` |
+| persistent | 是否常驻展示（为 `true` 时不会自动消失，优先级高于 `duration`） | _boolean_ | `false` |
 | zIndex | 将组件的 z-index 层级设置为一个固定值 | _number \| string_ | `2000+` |
 | position | 弹出位置，可选值为 `bottom` | _NotifyPosition_ | `top` |
-| color | 字体颜色 | _string_ | `white` |
-| background | 背景颜色 | _string_ | - |
+| color | 字体颜色（覆盖类型默认色） | _string_ | - |
+| background | 背景颜色（覆盖类型默认浅色背景） | _string_ | - |
+| left-icon | 左侧图标名称 | _string_ | 按类型自动展示 |
+| action-text | 右侧文字按钮文案 | _string_ | - |
+| button-text | 右侧实心按钮文案，最多展示 **4 个字**，超出部分会被截断 | _string_ | - |
+| closeable | 是否展示关闭按钮 | _boolean_ | `false` |
+| wrapable | 是否开启多行展示 | _boolean_ | `false` |
+| scrollable | 是否开启上下滚动；为 `true` 时超出一行自动滚动，为 `false` 时最多两行超出省略 | _boolean_ | `false` |
+| plain | 是否为纯文字样式（无背景、无默认图标） | _boolean_ | `false` |
+| speed | 每行滚动动画速率 (px/s) | _number \| string_ | `60` |
+| scroll-delay | 每行停留时长 (ms)，停留后再滚动到下一行 | _number_ | `1500` |
 | className | 自定义类名 | _string \| Array \| object_ | - |
 | lockScroll | 是否锁定背景滚动 | _boolean_ | `false` |
 | teleport | 指定挂载的节点，等同于 Teleport 组件的 [to 属性](https://cn.vuejs.org/api/built-in-components.html#teleport) | _string \| Element_ | - |
 | onClick | 点击时的回调函数 | _(event: MouseEvent): void_ | - |
 | onOpened | 完全展示后的回调函数 | _() => void_ | - |
 | onClose | 关闭时的回调函数 | _() => void_ | - |
+| onClickAction | 点击右侧文字按钮时触发 | _(event: MouseEvent): void_ | - |
+| onClickButton | 点击右侧实心按钮时触发 | _(event: MouseEvent): void_ | - |
 
 ### Props
 
@@ -160,11 +211,22 @@ Vant 中导出了以下 Notify 相关的辅助函数：
 | 参数 | 说明 | 类型 | 默认值 |
 | --- | --- | --- | --- |
 | v-model:show | 是否显示通知 | _boolean_ | `false` |
-| type | 类型，可选值为 `primary` `success` `warning` | _NotifyType_ | `danger` |
+| type | 类型，可选值为 `primary` `success` `warning` `danger` | _NotifyType_ | `warning` |
 | message | 展示文案，支持通过`\n`换行 | _string_ | - |
+| left-icon | 左侧图标名称 | _string_ | - |
+| action-text | 右侧文字按钮文案 | _string_ | - |
+| button-text | 右侧实心按钮文案，最多展示 **4 个字**，超出部分会被截断 | _string_ | - |
+| closeable | 是否展示关闭按钮 | _boolean_ | `false` |
+| wrapable | 是否开启多行展示 | _boolean_ | `false` |
+| scrollable | 是否开启上下滚动；为 `true` 时超出一行自动滚动，为 `false` 时最多两行超出省略 | _boolean_ | `false` |
+| plain | 是否为纯文字样式 | _boolean_ | `false` |
+| speed | 每行滚动动画速率 (px/s) | _number \| string_ | `60` |
+| scroll-delay | 每行停留时长 (ms) | _number_ | `1500` |
+| duration | 自动关闭前的展示时长(ms) | _number_ | `3000` |
+| persistent | 是否常驻展示 | _boolean_ | `false` |
 | z-index | 将组件的 z-index 层级设置为一个固定值 | _number \| string_ | `2000+` |
 | position | 弹出位置，可选值为 `bottom` | _NotifyPosition_ | `top` |
-| color | 字体颜色 | _string_ | `white` |
+| color | 字体颜色 | _string_ | - |
 | background | 背景颜色 | _string_ | - |
 | class-name | 自定义类名 | _string \| Array \| object_ | - |
 | lock-scroll | 是否锁定背景滚动 | _boolean_ | `false` |
@@ -184,9 +246,12 @@ Vant 中导出了以下 Notify 相关的辅助函数：
 
 通过组件调用 `Notify` 时，支持以下插槽：
 
-| 名称    | 说明       |
-| ------- | ---------- |
-| default | 自定义内容 |
+| 名称      | 说明               |
+| --------- | ------------------ |
+| default   | 自定义内容         |
+| left-icon | 自定义左侧图标     |
+| action    | 自定义右侧文字按钮 |
+| button    | 自定义右侧实心按钮 |
 
 ### 类型定义
 
@@ -209,14 +274,23 @@ import type {
 
 | 名称 | 默认值 | 描述 |
 | --- | --- | --- |
-| --van-notify-text-color | _var(--van-white)_ | - |
-| --van-notify-padding | _var(--van-padding-xs) var(--van-padding-md)_ | - |
+| --van-notify-padding | _14px 12px_ | 内边距 |
+| --van-notify-width | _351px_ | 通知栏宽度 |
+| --van-notify-top-offset | _10px_ | 距离顶部偏移 |
+| --van-notify-shadow | _0 0 6px 0 rgba(0, 0, 0, 0.1)_ | 阴影 |
 | --van-notify-font-size | _var(--van-font-size-md)_ | - |
 | --van-notify-line-height | _var(--van-line-height-md)_ | - |
-| --van-notify-primary-background | _var(--van-primary-color)_ | - |
-| --van-notify-success-background | _var(--van-success-color)_ | - |
-| --van-notify-danger-background | _var(--van-danger-color)_ | - |
-| --van-notify-warning-background | _var(--van-warning-color)_ | - |
+| --van-notify-height | _auto_ | 通知栏高度 |
+| --van-notify-radius | _8px_ | 圆角 |
+| --van-notify-background | _var(--van-white)_ | 背景色 |
+| --van-notify-primary-color | _var(--van-primary-color)_ | 主要通知文字色 |
+| --van-notify-success-color | _#2bcd79_ | 成功通知文字色 |
+| --van-notify-danger-color | _#ff3333_ | 危险/错误通知文字色 |
+| --van-notify-warning-color | _var(--van-orange-dark)_ | 警告通知文字色 |
+| --van-notify-plain-color | _var(--van-orange-dark)_ | 纯文字通知颜色 |
+| --van-notify-max-lines | _2_ | 非滚动模式最大行数 |
+| --van-notify-scroll-lines | _1_ | 滚动模式可视行数 |
+| --van-notify-scroll-height | _calc(line-height × scroll-lines)_ | 滚动区域可视高度 |
 
 ## 常见问题
 

@@ -77,6 +77,157 @@ The default position is `center`, it can be set to `top`, `bottom`, `left`, `rig
 />
 ```
 
+### Title
+
+Use the `title` prop or `title` slot to set the popup title. The title is displayed at the top center with a default font size of `16px` and color `#333333`.
+
+The header layout is: **Cancel** (left) · **Title** (center) · **Confirm** (right). Configure action buttons with `cancel-button-text` and `confirm-button-text`:
+
+- Cancel defaults to `#999999`, font size `16px`
+- Confirm uses the theme color, font size `16px`, and appears where the close icon would be
+- The close icon is hidden when `confirm-button-text` is set
+- When both `closeable` and `confirm-button-text` are set, the confirm button takes priority
+- When only `confirm-button-text` is set, a default "Cancel" button is shown if `cancel-button-text` is not provided
+
+Use `position="right"` or `position="left"` with `width` and `height: 100%` for a drawer-style popup that sticks to the screen edge.
+
+#### Basic Title
+
+```html
+<van-popup
+  v-model:show="show"
+  title="Title"
+  position="bottom"
+  :style="{ height: '40%' }"
+>
+  Content
+</van-popup>
+```
+
+#### Custom Title
+
+```html
+<van-popup
+  v-model:show="show"
+  closeable
+  position="right"
+  :style="{ width: '80%', height: '100%' }"
+>
+  <template #title>
+    <span style="color: #1989fa">Custom Title</span>
+  </template>
+  Content
+</van-popup>
+```
+
+#### From Bottom (with title)
+
+```html
+<van-popup
+  v-model:show="show"
+  title="Title"
+  closeable
+  position="bottom"
+  :style="{ height: '40%' }"
+>
+  Content
+</van-popup>
+```
+
+#### Right Drawer (with title)
+
+```html
+<van-popup
+  v-model:show="show"
+  title="Title"
+  closeable
+  position="right"
+  :style="{ width: '80%', height: '100%' }"
+>
+  Content
+</van-popup>
+```
+
+#### Left Drawer (with title)
+
+```html
+<van-popup
+  v-model:show="show"
+  title="Title"
+  closeable
+  position="left"
+  :style="{ width: '80%', height: '100%' }"
+>
+  Content
+</van-popup>
+```
+
+#### Cancel and Confirm
+
+```html
+<van-popup
+  v-model:show="show"
+  title="Title"
+  position="bottom"
+  :style="{ height: '40%' }"
+  cancel-button-text="Cancel"
+  confirm-button-text="Confirm"
+  @cancel="onCancel"
+  @confirm="onConfirm"
+>
+  Content
+</van-popup>
+```
+
+#### Drawer (cancel and confirm)
+
+```html
+<van-popup
+  v-model:show="show"
+  title="Title"
+  position="right"
+  :style="{ width: '80%', height: '100%' }"
+  cancel-button-text="Cancel"
+  confirm-button-text="Confirm"
+  @cancel="onCancel"
+  @confirm="onConfirm"
+>
+  Content
+</van-popup>
+```
+
+```js
+import { ref } from 'vue';
+import { showToast } from 'vant';
+
+export default {
+  setup() {
+    const show = ref(false);
+    const onCancel = () => showToast('Cancel');
+    const onConfirm = () => showToast('Confirm');
+    return { show, onCancel, onConfirm };
+  },
+};
+```
+
+#### Confirm over Close Icon
+
+When both `closeable` and `confirm-button-text` are set, the confirm button is shown instead of the close icon.
+
+```html
+<van-popup
+  v-model:show="show"
+  title="Title"
+  closeable
+  position="right"
+  :style="{ width: '80%', height: '100%' }"
+  confirm-button-text="Confirm"
+  @confirm="onConfirm"
+>
+  Content
+</van-popup>
+```
+
 ### Close Icon
 
 ```html
@@ -128,6 +279,8 @@ Popup supports following events:
 - `click`: Emitted when Popup is clicked.
 - `click-overlay`: Emitted when overlay is clicked.
 - `click-close-icon`: Emitted when close icon is clicked.
+- `cancel`: Emitted when the cancel button is clicked. The popup closes by default.
+- `confirm`: Emitted when the confirm button is clicked. The popup closes by default.
 
 ```html
 <van-cell title="Listen Click Events" is-link @click="show = true" />
@@ -227,6 +380,11 @@ Use `teleport` prop to specify mount location.
 | duration | Transition duration, unit second | _number \| string_ | `0.3` |
 | z-index | Set the z-index to a fixed value | _number \| string_ | `2000+` |
 | round | Whether to show round corner | _boolean_ | `false` |
+| title | Title, displayed at top center | _string_ | - |
+| cancel-button-text | Cancel button text, displayed to the left of the title | _string_ | - |
+| cancel-button-color | Cancel button text color | _string_ | - |
+| confirm-button-text | Confirm button text, displayed to the right of the title (close icon position) | _string_ | - |
+| confirm-button-color | Confirm button text color | _string_ | - |
 | destroy-on-close `v4.9.10` | Whether to destroy content when closed | _boolean_ | `false` |
 | lock-scroll | Whether to lock background scroll | _boolean_ | `true` |
 | lazy-render | Whether to lazy render util appeared | _boolean_ | `true` |
@@ -250,6 +408,8 @@ Use `teleport` prop to specify mount location.
 | click | Emitted when Popup is clicked | _event: MouseEvent_ |
 | click-overlay | Emitted when overlay is clicked | _event: MouseEvent_ |
 | click-close-icon | Emitted when close icon is clicked | _event: MouseEvent_ |
+| cancel | Emitted when cancel button is clicked | _event: MouseEvent_ |
+| confirm | Emitted when confirm button is clicked | _event: MouseEvent_ |
 | open | Emitted immediately when Popup is opened | - |
 | close | Emitted immediately when Popup is closed | - |
 | opened | Emitted when Popup is opened and the animation ends | - |
@@ -260,6 +420,7 @@ Use `teleport` prop to specify mount location.
 | Name            | Description              |
 | --------------- | ------------------------ |
 | default         | Content of Popup         |
+| title           | Custom title             |
 | overlay-content | Content of Popup overlay |
 
 ### Types
@@ -290,3 +451,10 @@ The component provides the following CSS variables, which can be used to customi
 | --van-popup-close-icon-color | _var(--van-gray-5)_ | - |
 | --van-popup-close-icon-margin | _16px_ | - |
 | --van-popup-close-icon-z-index | _1_ | - |
+| --van-popup-title-font-size | _16px_ | - |
+| --van-popup-title-color | _#333333_ | - |
+| --van-popup-title-line-height | _22px_ | - |
+| --van-popup-title-padding-top | _var(--van-popup-close-icon-margin)_ | - |
+| --van-popup-action-font-size | _16px_ | - |
+| --van-popup-cancel-color | _#999999_ | - |
+| --van-popup-confirm-color | _var(--van-primary-color)_ | - |

@@ -4,7 +4,7 @@ import VanCheckboxGroup from '../../checkbox-group';
 import VanButton from '../../button';
 import VanCellGroup from '../../cell-group';
 import VanCell from '../../cell';
-import { ref, reactive, computed } from 'vue';
+import { ref, reactive } from 'vue';
 import { cdnURL, useTranslate } from '../../../docs/site';
 import { useRefs } from '../../composables/use-refs';
 import type { CheckboxInstance } from '../types';
@@ -17,7 +17,6 @@ const t = useTranslate({
     customIconSize: '自定义大小',
     customColor: '自定义颜色',
     customShape: '自定义形状',
-    blockShape: '块状类型',
     leftLabel: '左侧文本',
     title3: '复选框组',
     title4: '限制最大可选数',
@@ -26,15 +25,8 @@ const t = useTranslate({
     checkAll: '全选',
     inverse: '反选',
     horizontal: '水平排列',
-    horizontalColumns: '水平排列列数',
     disableLabel: '禁用文本点击',
     indeterminate: '不确定状态',
-    renderOptions: '配置项渲染',
-    listOptions: '列表展示',
-    option1: '选项 1',
-    option2: '选项 2',
-    option3: '选项 3',
-    optionDesc: '描述信息',
   },
   'en-US': {
     checkbox: 'Checkbox',
@@ -42,7 +34,6 @@ const t = useTranslate({
     customIconSize: 'Custom Icon Size',
     customColor: 'Custom Color',
     customShape: 'Custom Shape',
-    blockShape: 'Block Shape',
     leftLabel: 'Left Label',
     title3: 'Checkbox Group',
     title4: 'Maximum amount of checked options',
@@ -51,15 +42,8 @@ const t = useTranslate({
     checkAll: 'Check All',
     inverse: 'Inverse',
     horizontal: 'Horizontal',
-    horizontalColumns: 'Horizontal Columns',
     disableLabel: 'Disable label click',
     indeterminate: 'indeterminate',
-    renderOptions: 'Render Options',
-    listOptions: 'List Layout',
-    option1: 'Option 1',
-    option2: 'Option 2',
-    option3: 'Option 3',
-    optionDesc: 'Description',
   },
 });
 
@@ -75,38 +59,14 @@ const state = reactive({
   list: ['a', 'b'],
   result: ['a', 'b'],
   checkboxShape: ['a', 'b'],
-  checkboxBlock: ['a'],
   result2: [],
   result3: [],
   result4: ['a', 'b', 'd'],
   checkAllResult: [],
   horizontalResult: [],
-  checkboxOptions: ['1'],
-  listOptionsResult: ['1'],
 });
 
 const list = ['a', 'b', 'c', 'd'];
-
-const options = computed(() => [
-  { label: t('option1'), value: '1' },
-  { label: t('option2'), value: '2' },
-  { label: t('option3'), value: '3', disabled: true },
-]);
-
-const listOptions = computed(() => [
-  { label: t('option1'), value: '1' },
-  {
-    label: t('option2'),
-    value: '2',
-    cellProps: { label: t('optionDesc') },
-  },
-  {
-    label: t('option3'),
-    value: '3',
-    disabled: true,
-    cellProps: { icon: 'shop-o' },
-  },
-]);
 
 const activeIcon = cdnURL('user-active.png');
 const inactiveIcon = cdnURL('user-inactive.png');
@@ -159,19 +119,6 @@ const checkedResultChange = (value: string[]) => {
     </van-checkbox-group>
   </demo-block>
 
-  <demo-block :title="t('blockShape')">
-    <van-checkbox-group
-      v-model="state.checkboxBlock"
-      class="demo-checkbox-block-group"
-      shape="block"
-      direction="horizontal"
-    >
-      <van-checkbox name="a">111</van-checkbox>
-      <van-checkbox name="b">222</van-checkbox>
-      <van-checkbox name="c">333</van-checkbox>
-    </van-checkbox-group>
-  </demo-block>
-
   <demo-block :title="t('customColor')">
     <van-checkbox v-model="state.checkbox2" checked-color="#ee0a24">
       {{ t('customColor') }}
@@ -217,32 +164,6 @@ const checkedResultChange = (value: string[]) => {
       <van-checkbox name="a">{{ t('checkbox') }} a</van-checkbox>
       <van-checkbox name="b">{{ t('checkbox') }} b</van-checkbox>
     </van-checkbox-group>
-  </demo-block>
-
-  <demo-block :title="t('horizontalColumns')">
-    <van-checkbox-group
-      v-model="state.horizontalResult"
-      direction="horizontal"
-      shape="block"
-      :columns="3"
-    >
-      <van-checkbox name="a" disabled>{{ t('checkbox') }} a</van-checkbox>
-      <van-checkbox name="b">{{ t('checkbox') }} b</van-checkbox>
-      <van-checkbox name="c">{{ t('checkbox') }} c</van-checkbox>
-      <van-checkbox name="d">{{ t('checkbox') }} d</van-checkbox>
-    </van-checkbox-group>
-  </demo-block>
-
-  <demo-block :title="t('renderOptions')">
-    <van-checkbox-group v-model="state.checkboxOptions" :options="options" />
-  </demo-block>
-
-  <demo-block :title="t('listOptions')">
-    <van-checkbox-group
-      v-model="state.listOptionsResult"
-      is-list
-      :options="listOptions"
-    />
   </demo-block>
 
   <demo-block :title="t('title4')">
@@ -326,14 +247,6 @@ const checkedResultChange = (value: string[]) => {
 
     .van-button {
       margin-left: var(--van-padding-md);
-    }
-  }
-
-  &-block-group {
-    padding: 0 16px;
-
-    .van-checkbox {
-      margin: 0;
     }
   }
 

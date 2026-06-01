@@ -285,6 +285,33 @@ export default {
 };
 ```
 
+### 一句话提示
+
+通过 `message` 传入一句话文案，适合轻量提示场景；可配合 `width`、`height`、`color`、`background`、`content-style` 调整样式，或使用插槽进一步自定义。
+
+```html
+<van-popover v-model:show="show" message="这是一句提示文案" placement="top">
+  <template #reference>
+    <van-button type="primary">展示提示</van-button>
+  </template>
+</van-popover>
+
+<van-popover
+  v-model:show="show"
+  message="自定义颜色"
+  width="180"
+  color="#fff"
+  background="#ee0a24"
+>
+  <template #message="{ message }">
+    <span style="font-weight: 600">{{ message }}</span>
+  </template>
+  <template #reference>
+    <van-button type="primary">自定义样式</van-button>
+  </template>
+</van-popover>
+```
+
 ## API
 
 ### Props
@@ -292,6 +319,13 @@ export default {
 | 参数 | 说明 | 类型 | 默认值 |
 | --- | --- | --- | --- |
 | v-model:show | 是否展示气泡弹出层 | _boolean_ | `false` |
+| message | 一句话文案，传入后以文本模式展示（优先级低于 `default` / `content` 插槽） | _string \| number_ | - |
+| width | 内容区域宽度 | _number \| string_ | - |
+| height | 内容区域高度 | _number \| string_ | - |
+| color | 内容文字颜色 | _string_ | - |
+| background | 内容背景颜色，同时同步箭头颜色 | _string_ | - |
+| content-class | 内容区域自定义类名 | _string \| Array \| object_ | - |
+| content-style | 内容区域自定义样式 | _object_ | - |
 | actions | 选项列表 | _PopoverAction[]_ | `[]` |
 | actions-direction `v4.4.1` | 选项列表的排列方向，可选值为 `horizontal` | _PopoverActionsDirection_ | `vertical` |
 | placement | 弹出位置 | _PopoverPlacement_ | `bottom` |
@@ -316,6 +350,7 @@ export default {
 | 键名 | 说明 | 类型 |
 | --- | --- | --- |
 | text | 选项文字 | _string_ |
+| value | 选项对应的值，点击时通过 `select` 事件的 `action` 参数返回 | _string \| number_ |
 | icon | 文字左侧的图标，支持传入图标名称或图片链接，等同于 Icon 组件的 [name 属性](#/zh-CN/icon#props) | _string_ |
 | color | 选项文字颜色 | _string_ |
 | disabled | 是否为禁用状态 | _boolean_ |
@@ -338,6 +373,8 @@ export default {
 | --- | --- | --- |
 | default | 自定义菜单内容 | - |
 | reference | 触发 Popover 显示的元素内容 | - |
+| content | 自定义内容区域（`message` 模式下可拿到 `message`） | _{ message: string \| number }_ |
+| message | 自定义一句话文案 | _{ message: string \| number }_ |
 | action | 自定义选项内容 | _{ action: PopoverAction, index: number }_ |
 
 ### 类型定义

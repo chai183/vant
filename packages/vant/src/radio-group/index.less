@@ -1,24 +1,6 @@
 .van-radio-group {
-  &--list {
-    .van-cell {
-      .van-radio {
-        margin: 0;
-      }
-    }
-  }
-
-  &--horizontal&--block {
-    display: grid;
-    grid-template-columns: repeat(
-      var(--van-radio-group-columns),
-      minmax(0, 1fr)
-    );
-    gap: var(--van-padding-xs);
-    --van-radio-group-columns: 3;
-
-    > .van-radio.van-radio--horizontal {
-      min-width: 0;
-      margin-right: 0;
-    }
+  &--horizontal {
+    display: flex;
+    flex-wrap: wrap;
   }
 }

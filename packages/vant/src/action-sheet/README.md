@@ -186,6 +186,56 @@ export default {
 };
 ```
 
+### Grid View
+
+Use the `grid` prop to enable grid view. Options are displayed with an icon on top and text below. Configure grid behavior with `grid-options`:
+
+| Key        | Description                         | Type      | Default |
+| ---------- | ----------------------------------- | --------- | ------- |
+| scrollable | Whether to enable horizontal scroll | _boolean_ | `true`  |
+| columns    | Number of options per row           | _number_  | `3`     |
+
+By default, horizontal scroll is enabled with 3 options per row. Set `grid-options` to `{ scrollable: false, columns: 4 }` for a static 4-column grid without horizontal scroll.
+
+#### Horizontal Scroll
+
+```html
+<van-action-sheet
+  v-model:show="show"
+  grid
+  :actions="actions"
+  cancel-text="Cancel"
+  close-on-click-action
+  @select="onSelect"
+/>
+```
+
+Use the `image` field in `actions` to pass an image URL, or use `icon` for icon names. `image` takes priority over `icon`.
+
+```js
+const actions = [
+  {
+    name: 'Option 1',
+    image: 'https://fastly.jsdelivr.net/npm/@vant/assets/icon-demo.png',
+  },
+  { name: 'Option 2', icon: 'photo-o' },
+];
+```
+
+#### Grid Layout
+
+```html
+<van-action-sheet
+  v-model:show="show"
+  grid
+  :actions="actions"
+  :grid-options="{ scrollable: false, columns: 4 }"
+  cancel-text="Cancel"
+  close-on-click-action
+  @select="onSelect"
+/>
+```
+
 ### Custom Panel
 
 ```html
@@ -223,6 +273,8 @@ export default {
 | lazy-render | Whether to lazy render util appeared | _boolean_ | `true` |
 | close-on-popstate | Whether to close when popstate | _boolean_ | `true` |
 | close-on-click-action | Whether to close when an action is clicked | _boolean_ | `false` |
+| grid | Whether to enable grid view | _boolean_ | `false` |
+| grid-options | Grid view options, see table below | _ActionSheetGridOptions_ | - |
 | close-on-click-overlay | Whether to close when overlay is clicked | _boolean_ | `true` |
 | safe-area-inset-bottom | Whether to enable bottom safe area adaptation | _boolean_ | `true` |
 | teleport | Specifies a target element where ActionSheet will be mounted | _string \| Element_ | - |
@@ -236,10 +288,18 @@ export default {
 | subname | Subtitle | _string_ |
 | color | Text color | _string_ |
 | icon `v4.8.6` | Icon name or URL | _string_ |
+| image | Image URL, takes priority over `icon` in grid view | _string_ |
 | className | className for the option | _string \| Array \| object_ |
 | loading | Whether to be loading status | _boolean_ |
 | disabled | Whether to be disabled | _boolean_ |
 | callback | Callback function after clicked | _action: ActionSheetAction_ |
+
+### Data Structure of GridOptions
+
+| Key        | Description                         | Type      | Default |
+| ---------- | ----------------------------------- | --------- | ------- |
+| scrollable | Whether to enable horizontal scroll | _boolean_ | `true`  |
+| columns    | Number of options per row           | _number_  | `3`     |
 
 ### Events
 
@@ -267,7 +327,11 @@ export default {
 The component exports the following type definitions:
 
 ```ts
-import type { ActionSheetProps, ActionSheetAction } from 'vant';
+import type {
+  ActionSheetProps,
+  ActionSheetAction,
+  ActionSheetGridOptions,
+} from 'vant';
 ```
 
 ## Theming
@@ -301,3 +365,12 @@ The component provides the following CSS variables, which can be used to customi
 | --van-action-sheet-cancel-padding-top | _var(--van-padding-xs)_ | - |
 | --van-action-sheet-cancel-padding-color | _var(--van-background)_ | - |
 | --van-action-sheet-loading-icon-size | _22px_ | - |
+| --van-action-sheet-grid-icon-size | _28px_ | - |
+| --van-action-sheet-grid-image-size | _28px_ | - |
+| --van-action-sheet-grid-padding-top | _16px_ | Distance from top to icon |
+| --van-action-sheet-grid-padding-bottom | _16px_ | Distance from last row text to bottom |
+| --van-action-sheet-grid-row-gap | _32px_ | Distance between rows |
+| --van-action-sheet-grid-icon-gap | _6px_ | Distance between icon and text |
+| --van-action-sheet-grid-item-padding-x | _var(--van-padding-xs)_ | - |
+| --van-action-sheet-grid-item-name-font-size | _var(--van-font-size-sm)_ | - |
+| --van-action-sheet-grid-item-name-line-height | _var(--van-line-height-sm)_ | - |

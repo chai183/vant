@@ -2,7 +2,7 @@ import type { ComponentPublicInstance, ComputedRef } from 'vue';
 import type { Numeric } from '../utils';
 import type { TabsProps } from './Tabs';
 
-export type TabsType = 'line' | 'card';
+export type TabsType = 'line' | 'card' | 'rounded';
 
 export type TabsClickTabEventParams = {
   name: Numeric;
@@ -38,6 +38,7 @@ export type TabsThemeVars = {
   tabsDefaultColor?: string;
   tabsLineHeight?: number | string;
   tabsCardHeight?: string;
+  tabsRoundedInactiveBackground?: string;
   tabsNavBackground?: string;
   tabsBottomBarWidth?: string;
   tabsBottomBarHeight?: string;

@@ -17,6 +17,7 @@ import { Instance, createPopper, offsetModifier } from '@vant/popperjs';
 import {
   pick,
   extend,
+  addUnit,
   inBrowser,
   truthProp,
   numericProp,
@@ -61,6 +62,13 @@ const popupProps = [
 export const popoverProps = {
   show: Boolean,
   theme: makeStringProp<PopoverTheme>('light'),
+  message: numericProp,
+  width: numericProp,
+  height: numericProp,
+  color: String,
+  background: String,
+  contentClass: unknownProp,
+  contentStyle: Object as PropType<CSSProperties>,
   overlay: Boolean,
   actions: makeArrayProp<PopoverAction>(),
   actionsDirection: makeStringProp<PopoverActionsDirection>('vertical'),
@@ -184,6 +192,65 @@ export default defineComponent({
       }
     };
 
+    const hasMessage = () => props.message != null && props.message !== '';
+
+    const isTextMode = () => !slots.default && !slots.content && hasMessage();
+
+    const getContentStyle = (): CSSProperties => {
+      const style: CSSProperties = extend({}, props.contentStyle);
+
+      if (props.width != null) {
+        style.width = addUnit(props.width);
+      }
+      if (props.height != null) {
+        style.height = addUnit(props.height);
+      }
+      if (props.color) {
+        style.color = props.color;
+      }
+      if (props.background) {
+        style.background = props.background;
+      }
+
+      return style;
+    };
+
+    const getPopoverStyle = (): CSSProperties | undefined => {
+      if (!props.background) {
+        return undefined;
+      }
+
+      return {
+        '--van-popover-content-background': props.background,
+      } as CSSProperties;
+    };
+
+    const renderMessage = () => {
+      const scope = { message: props.message };
+
+      if (slots.message) {
+        return slots.message(scope);
+      }
+
+      return <div class={bem('message')}>{props.message}</div>;
+    };
+
+    const renderBody = () => {
+      if (slots.default) {
+        return slots.default();
+      }
+
+      if (slots.content) {
+        return slots.content({ message: props.message });
+      }
+
+      if (isTextMode()) {
+        return renderMessage();
+      }
+
+      return props.actions.map(renderAction);
+    };
+
     const renderActionContent = (action: PopoverAction, index: number) => {
       if (slots.action) {
         return slots.action({ action, index });
@@ -252,29 +319,54 @@ export default defineComponent({
       eventName: 'touchstart',
     });
 
-    return () => (
-      <>
-        <span ref={wrapperRef} class={bem('wrapper')} onClick={onClickWrapper}>
-          {slots.reference?.()}
-        </span>
-        <Popup
-          ref={popoverRef}
-          show={show.value}
-          class={bem([props.theme])}
-          position={''}
-          transition="van-popover-zoom"
-          lockScroll={false}
-          onUpdate:show={updateShow}
-          {...attrs}
-          {...useScopeId()}
-          {...pick(props, popupProps)}
-        >
-          {props.showArrow && <div class={bem('arrow')} />}
-          <div role="menu" class={bem('content', props.actionsDirection)}>
-            {slots.default ? slots.default() : props.actions.map(renderAction)}
-          </div>
-        </Popup>
-      </>
-    );
+    return () => {
+      const textMode = isTextMode();
+
+      return (
+        <>
+          <span
+            ref={wrapperRef}
+            class={bem('wrapper')}
+            onClick={onClickWrapper}
+          >
+            {slots.reference?.()}
+          </span>
+          <Popup
+            ref={popoverRef}
+            show={show.value}
+            class={bem([
+              props.theme,
+              {
+                'custom-color': !!props.background,
+                text: textMode,
+              },
+            ])}
+            style={getPopoverStyle()}
+            position={''}
+            transition="van-popover-zoom"
+            lockScroll={false}
+            onUpdate:show={updateShow}
+            {...attrs}
+            {...useScopeId()}
+            {...pick(props, popupProps)}
+          >
+            {props.showArrow && <div class={bem('arrow')} />}
+            <div
+              role={textMode ? 'tooltip' : 'menu'}
+              class={[
+                bem('content', {
+                  text: textMode,
+                  [props.actionsDirection]: !textMode,
+                }),
+                props.contentClass,
+              ]}
+              style={getContentStyle()}
+            >
+              {renderBody()}
+            </div>
+          </Popup>
+        </>
+      );
+    };
   },
 });

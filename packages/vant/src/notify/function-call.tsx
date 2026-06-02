@@ -1,7 +1,10 @@
 import { extend, isObject, inBrowser, type ComponentInstance } from '../utils';
 import { mountComponent, usePopupState } from '../utils/mount-component';
 import VanNotify from './Notify';
+import { getNotifyAutoCloseDuration } from './duration';
 import type { NotifyMessage, NotifyOptions } from './types';
+
+export { getNotifyAutoCloseDuration } from './duration';
 
 let timer: ReturnType<typeof setTimeout>;
 let instance: ComponentInstance;
@@ -19,17 +22,29 @@ function initInstance() {
 }
 
 const getDefaultOptions = (): NotifyOptions => ({
-  type: 'danger',
+  type: 'warning',
   color: undefined,
   message: '',
   onClose: undefined,
   onClick: undefined,
   onOpened: undefined,
+  onClickAction: undefined,
+  onClickButton: undefined,
   duration: 3000,
+  persistent: false,
   position: undefined,
   className: '',
   lockScroll: false,
   background: undefined,
+  leftIcon: undefined,
+  actionText: undefined,
+  buttonText: undefined,
+  closeable: false,
+  wrapable: false,
+  scrollable: false,
+  plain: false,
+  speed: 60,
+  scrollDelay: 1500,
 });
 
 let currentOptions = getDefaultOptions();
@@ -46,7 +61,7 @@ export const closeNotify = () => {
 /**
  * Display Notify at the top of the page
  */
-export function showNotify(options: NotifyMessage | NotifyOptions) {
+export function showNotify(options: NotifyMessage | NotifyOptions = {}) {
   if (!inBrowser) {
     return;
   }
@@ -55,16 +70,29 @@ export function showNotify(options: NotifyMessage | NotifyOptions) {
     initInstance();
   }
 
-  options = extend({}, currentOptions, parseOptions(options));
+  const parsed = extend({}, currentOptions, parseOptions(options));
+  const autoCloseDuration = getNotifyAutoCloseDuration(parsed);
 
-  instance.open(options);
+  instance.open(parsed);
   clearTimeout(timer);
 
-  if (options.duration! > 0) {
-    timer = setTimeout(closeNotify, options.duration);
+  if (autoCloseDuration > 0) {
+    timer = setTimeout(() => {
+      closeNotify();
+      parsed.onClose?.();
+    }, autoCloseDuration);
   }
 
   return instance;
+}
+
+/**
+ * 展示常驻 Notify，不会自动消失，需手动调用 closeNotify 或配置 closeable
+ */
+export function showPersistentNotify(
+  options: NotifyMessage | NotifyOptions = {},
+) {
+  return showNotify(extend(parseOptions(options), { persistent: true }));
 }
 
 /**

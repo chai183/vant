@@ -71,6 +71,14 @@ const beforeChange = (name: number) => {
 
 <template>
   <demo-block :title="t('basicUsage')">
+    <van-tabs v-model:active="active1" type="rounded">
+      <van-tab :title="t('tab') + index" v-for="index in tabs" :key="index">
+        {{ t('content') }} {{ index }}
+      </van-tab>
+    </van-tabs>
+  </demo-block>
+
+  <demo-block :title="t('basicUsage')">
     <van-tabs v-model:active="active1">
       <van-tab :title="t('tab') + index" v-for="index in tabs" :key="index">
         {{ t('content') }} {{ index }}

@@ -78,10 +78,10 @@ export type ConfigProviderThemeVars = BaseThemeVars &
   import('../action-sheet').ActionSheetThemeVars &
   import('../address-edit').AddressEditThemeVars &
   import('../address-list').AddressListThemeVars &
-  import('../area-step-cascader').AreaStepCascaderThemeVars &
   import('../back-top').BackTopThemeVars &
   import('../badge').BadgeThemeVars &
   import('../barrage').BarrageThemeVars &
+  import('../bottom-action-bar').BottomActionBarThemeVars &
   import('../button').ButtonThemeVars &
   import('../calendar').CalendarThemeVars &
   import('../card').CardThemeVars &
@@ -103,14 +103,8 @@ export type ConfigProviderThemeVars = BaseThemeVars &
   import('../dropdown-item').DropdownItemThemeVars &
   import('../dropdown-menu').DropdownMenuThemeVars &
   import('../empty').EmptyThemeVars &
-  import('../result').ResultThemeVars &
   import('../highlight').HighlightThemeVars &
   import('../field').FieldThemeVars &
-  import('../field-children').FieldChildrenThemeVars &
-  import('../field-money').FieldMoneyThemeVars &
-  import('../field-select-popup').FieldSelectPopupThemeVars &
-  import('../pro-form').ProFormThemeVars &
-  import('../uploader-file').UploaderFileThemeVars &
   import('../floating-bubble').FloatingBubbleThemeVars &
   import('../floating-panel').FloatingPanelThemeVars &
   import('../grid-item').GridItemThemeVars &
@@ -124,6 +118,7 @@ export type ConfigProviderThemeVars = BaseThemeVars &
   import('../notice-bar').NoticeBarThemeVars &
   import('../notify').NotifyThemeVars &
   import('../number-keyboard').NumberKeyboardThemeVars &
+  import('../order-select-bar').OrderSelectBarThemeVars &
   import('../overlay').OverlayThemeVars &
   import('../pagination').PaginationThemeVars &
   import('../password-input').PasswordInputThemeVars &
@@ -134,7 +129,6 @@ export type ConfigProviderThemeVars = BaseThemeVars &
   import('../progress').ProgressThemeVars &
   import('../pull-refresh').PullRefreshThemeVars &
   import('../radio').RadioThemeVars &
-  import('../range-input').RangeInputThemeVars &
   import('../rate').RateThemeVars &
   import('../rolling-text').RollingTextThemeVars &
   import('../search').SearchThemeVars &

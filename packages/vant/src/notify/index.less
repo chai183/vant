@@ -1,43 +1,191 @@
 :root,
 :host {
-  --van-notify-text-color: var(--van-white);
-  --van-notify-padding: var(--van-padding-xs) var(--van-padding-md);
+  --van-notify-padding: 14px 12px;
+  --van-notify-width: 351px;
+  --van-notify-top-offset: 10px;
+  --van-notify-shadow: 0 0 6px 0 rgba(0, 0, 0, 0.1);
   --van-notify-font-size: var(--van-font-size-md);
   --van-notify-line-height: var(--van-line-height-md);
-  --van-notify-primary-background: var(--van-primary-color);
-  --van-notify-success-background: var(--van-success-color);
-  --van-notify-danger-background: var(--van-danger-color);
-  --van-notify-warning-background: var(--van-warning-color);
+  --van-notify-height: auto;
+  --van-notify-radius: 8px;
+  --van-notify-background: var(--van-white);
+  --van-notify-icon-size: 16px;
+  --van-notify-icon-gap: var(--van-padding-xs);
+  --van-notify-primary-color: var(--van-primary-color);
+  --van-notify-success-color: #2bcd79;
+  --van-notify-danger-color: #ff3333;
+  --van-notify-warning-color: var(--van-orange-dark);
+  --van-notify-action-color: var(--van-orange-dark);
+  --van-notify-plain-color: var(--van-orange-dark);
+  --van-notify-max-lines: 2;
+  --van-notify-scroll-lines: 1;
+  --van-notify-scroll-height: calc(
+    var(--van-notify-line-height) * var(--van-notify-scroll-lines)
+  );
 }
 
 .van-notify {
   display: flex;
   align-items: center;
-  justify-content: center;
   box-sizing: border-box;
+  width: var(--van-notify-width);
+  max-width: calc(100vw - 24px);
+  height: var(--van-notify-height);
   padding: var(--van-notify-padding);
-  color: var(--van-notify-text-color);
   font-size: var(--van-notify-font-size);
   line-height: var(--van-notify-line-height);
+  text-align: left;
+  background: var(--van-notify-background);
+  border-radius: var(--van-notify-radius);
+  box-shadow: var(--van-notify-shadow);
 
-  // allow newline character
-  white-space: pre-wrap;
-  text-align: center;
-  word-wrap: break-word;
+  &.van-popup--top {
+    top: var(--van-notify-top-offset);
+    left: 0;
+    right: 0;
+    width: var(--van-notify-width);
+    max-width: calc(100vw - 24px);
+    margin-right: auto;
+    margin-left: auto;
+
+    &.van-popup--round {
+      border-radius: var(--van-notify-radius);
+    }
+  }
+
+  &.van-popup--bottom {
+    left: 0;
+    right: 0;
+    width: var(--van-notify-width);
+    max-width: calc(100vw - 24px);
+    margin-right: auto;
+    margin-left: auto;
+
+    &.van-popup--round {
+      border-radius: var(--van-notify-radius);
+    }
+  }
 
   &--primary {
-    background: var(--van-notify-primary-background);
+    color: var(--van-notify-primary-color);
   }
 
   &--success {
-    background: var(--van-notify-success-background);
+    color: var(--van-notify-success-color);
   }
 
   &--danger {
-    background: var(--van-notify-danger-background);
+    color: var(--van-notify-danger-color);
   }
 
   &--warning {
-    background: var(--van-notify-warning-background);
+    color: var(--van-notify-warning-color);
+  }
+
+  &--plain {
+    color: var(--van-notify-plain-color);
+  }
+
+  &--scrollable {
+    align-items: center;
+    height: auto;
+
+    .van-notify__wrap {
+      flex: 1;
+      min-width: 0;
+      height: var(--van-notify-scroll-height);
+      overflow: hidden;
+    }
+
+    .van-notify__content {
+      display: block;
+      width: 100%;
+      line-height: var(--van-notify-line-height);
+      white-space: pre-wrap;
+      word-break: break-word;
+    }
+  }
+
+  &--wrapable {
+    height: auto;
+  }
+
+  &__body {
+    display: flex;
+    flex: 1;
+    align-items: center;
+    min-width: 0;
+  }
+
+  &__left-icon {
+    flex-shrink: 0;
+    align-self: center;
+    margin-right: var(--van-notify-icon-gap);
+    font-size: var(--van-notify-icon-size);
+    line-height: 1;
+  }
+
+  &__message {
+    flex: 1;
+    align-self: center;
+    min-width: 0;
+    word-wrap: break-word;
+  }
+
+  &__wrap {
+    position: relative;
+    flex: 1;
+    min-width: 0;
+    overflow: hidden;
+  }
+
+  &__content {
+    transition-timing-function: linear;
+  }
+
+  &__action {
+    flex-shrink: 0;
+    align-self: center;
+    margin-left: var(--van-padding-sm);
+    padding: 0;
+    color: inherit;
+    font-size: var(--van-notify-font-size);
+    line-height: var(--van-notify-line-height);
+    white-space: nowrap;
+    cursor: pointer;
+    background: transparent;
+    border: none;
+    outline: none;
+    appearance: none;
+
+    &:active {
+      opacity: var(--van-active-opacity);
+    }
+  }
+
+  &__button {
+    flex-shrink: 0;
+    align-self: center;
+    margin-left: var(--van-padding-sm);
+    overflow: hidden;
+
+    .van-button__text {
+      overflow: hidden;
+      text-overflow: clip;
+      white-space: nowrap;
+    }
+  }
+
+  &__close {
+    flex-shrink: 0;
+    align-self: center;
+    margin-left: var(--van-padding-xs);
+    font-size: var(--van-notify-icon-size);
+    line-height: 1;
+    cursor: pointer;
+
+    &:active {
+      opacity: var(--van-active-opacity);
+    }
   }
 }

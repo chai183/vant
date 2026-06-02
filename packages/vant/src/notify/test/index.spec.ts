@@ -11,7 +11,7 @@ test('should not throw error if calling clear method before render notify', () =
 });
 
 test('should render Notify correctly', async () => {
-  showNotify('test');
+  showNotify({ message: 'test', type: 'danger' });
   await later();
   expect(document.querySelector('.van-notify')).toMatchSnapshot();
 });
@@ -64,6 +64,20 @@ test('should call onClick option when clicked', async () => {
   const notify = document.querySelector('.van-notify') as HTMLElement;
   notify.click();
   expect(onClick).toHaveBeenCalledTimes(1);
+});
+
+test('should not auto close when persistent is true', async () => {
+  const onClose = vi.fn();
+  showNotify({
+    message: 'persistent',
+    persistent: true,
+    onClose,
+  });
+
+  await later(100);
+  expect(document.querySelector('.van-notify')).toBeTruthy();
+  expect(onClose).not.toHaveBeenCalled();
+  closeNotify();
 });
 
 test('should align to bottom when position option is bottom', async () => {

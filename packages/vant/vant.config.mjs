@@ -494,6 +494,14 @@ location.href = location.href.replace('youzan.github.io', 'vant-ui.github.io');
                 path: 'submit-bar',
                 title: 'SubmitBar 提交订单栏',
               },
+              {
+                path: 'order-select-bar',
+                title: 'OrderSelectBar 订单选择栏',
+              },
+              {
+                path: 'bottom-action-bar',
+                title: 'BottomActionBar 底部操作栏',
+              },
             ],
           },
           {
@@ -997,6 +1005,14 @@ location.href = location.href.replace('youzan.github.io', 'vant-ui.github.io');
               {
                 path: 'submit-bar',
                 title: 'SubmitBar',
+              },
+              {
+                path: 'order-select-bar',
+                title: 'OrderSelectBar',
+              },
+              {
+                path: 'bottom-action-bar',
+                title: 'BottomActionBar',
               },
             ],
           },

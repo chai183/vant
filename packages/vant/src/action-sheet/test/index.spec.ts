@@ -262,6 +262,91 @@ test('should allow to control safe-area with safe-area-inset-bottom prop', async
   );
 });
 
+test('should render grid view when using grid prop', () => {
+  const wrapper = mount(ActionSheet, {
+    props: {
+      show: true,
+      grid: true,
+      actions: [
+        { name: 'Option 1', icon: 'photo-o' },
+        { name: 'Option 2', icon: 'photo-o' },
+      ],
+    },
+  });
+
+  expect(wrapper.find('.van-action-sheet__grid').exists()).toBeTruthy();
+  expect(
+    wrapper.find('.van-action-sheet__grid--scrollable').exists(),
+  ).toBeTruthy();
+  expect(wrapper.findAll('.van-action-sheet__grid-item')).toHaveLength(2);
+});
+
+test('should render static grid when scrollable is false', () => {
+  const wrapper = mount(ActionSheet, {
+    props: {
+      show: true,
+      grid: true,
+      gridOptions: { scrollable: false, columns: 4 },
+      actions: [{ name: 'Option' }],
+    },
+  });
+
+  expect(
+    wrapper.find('.van-action-sheet__grid--scrollable').exists(),
+  ).toBeFalsy();
+  const grid = wrapper.find('.van-action-sheet__grid').element as HTMLElement;
+  expect(
+    grid.style.getPropertyValue('--van-action-sheet-grid-columns'),
+  ).toEqual('4');
+});
+
+test('should render grid image when using image prop', () => {
+  const wrapper = mount(ActionSheet, {
+    props: {
+      show: true,
+      grid: true,
+      actions: [{ name: 'Option', image: 'https://example.com/a.png' }],
+    },
+  });
+
+  const image = wrapper.find('.van-action-sheet__grid-item-image');
+  expect(image.exists()).toBeTruthy();
+  expect(image.attributes('src')).toEqual('https://example.com/a.png');
+});
+
+test('should prefer image over icon in grid view', () => {
+  const wrapper = mount(ActionSheet, {
+    props: {
+      show: true,
+      grid: true,
+      actions: [
+        { name: 'Option', image: 'https://example.com/a.png', icon: 'photo-o' },
+      ],
+    },
+  });
+
+  expect(
+    wrapper.find('.van-action-sheet__grid-item-image').exists(),
+  ).toBeTruthy();
+  expect(
+    wrapper.find('.van-action-sheet__grid-item-icon').exists(),
+  ).toBeFalsy();
+});
+
+test('should emit select event when clicking grid item', async () => {
+  const wrapper = mount(ActionSheet, {
+    props: {
+      show: true,
+      grid: true,
+      actions: [{ name: 'Option' }],
+    },
+  });
+
+  wrapper.find('.van-action-sheet__grid-item').trigger('click');
+  await nextTick();
+  expect(wrapper.emitted('select')).toHaveLength(1);
+});
+
 test('should render action slot correctly', () => {
   const wrapper = mount(ActionSheet, {
     props: {

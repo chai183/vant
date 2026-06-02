@@ -40,6 +40,11 @@ const t = useTranslate({
     customContent: '自定义内容',
     disableAction: '禁用选项',
     choosePlacement: '选择弹出位置',
+    textMode: '一句话提示',
+    textMessage: '这是一句提示文案',
+    customSize: '自定义宽高',
+    customStyle: '自定义样式',
+    customColorText: '自定义颜色',
   },
   'en-US': {
     actions: [{ text: 'Option 1' }, { text: 'Option 2' }, { text: 'Option 3' }],
@@ -67,6 +72,11 @@ const t = useTranslate({
     customContent: 'Custom Content',
     disableAction: 'Disable Action',
     choosePlacement: 'Placement',
+    textMode: 'Text message',
+    textMessage: 'This is a short tip message',
+    customSize: 'Custom size',
+    customStyle: 'Custom style',
+    customColorText: 'Custom colors',
   },
 });
 
@@ -94,6 +104,9 @@ const show = ref({
   lightTheme: false,
   customContent: false,
   disableAction: false,
+  textMode: false,
+  customSize: false,
+  customStyle: false,
 });
 const showPicker = ref(false);
 const currentPlacement = ref<PopoverPlacement>('top');
@@ -235,6 +248,50 @@ const onSelect = (action: { text: string }) => showToast(action.text);
         <van-button type="primary">
           {{ t('disableAction') }}
         </van-button>
+      </template>
+    </van-popover>
+  </demo-block>
+
+  <demo-block :title="t('textMode')">
+    <van-popover
+      v-model:show="show.textMode"
+      width="100"
+      background="#000000"
+      :message="t('textMessage')"
+      placement="top"
+      text-mode
+      theme="dark"
+    >
+      <template #reference>
+        <van-button type="primary">{{ t('textMode') }}</van-button>
+      </template>
+    </van-popover>
+
+    <van-popover
+      v-model:show="show.customSize"
+      :message="t('textMessage')"
+      width="200"
+      height="80"
+      placement="top"
+    >
+      <template #reference>
+        <van-button type="primary">{{ t('customSize') }}</van-button>
+      </template>
+    </van-popover>
+
+    <van-popover
+      v-model:show="show.customStyle"
+      :message="t('customColorText')"
+      width="180"
+      color="#fff"
+      background="#ee0a24"
+      placement="top"
+    >
+      <template #message="{ message }">
+        <div style="font-weight: 600">{{ message }}</div>
+      </template>
+      <template #reference>
+        <van-button type="primary">{{ t('customStyle') }}</van-button>
       </template>
     </van-popover>
   </demo-block>

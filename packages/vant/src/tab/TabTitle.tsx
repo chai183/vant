@@ -31,6 +31,7 @@ export const TabTitle = defineComponent({
         props;
 
       const isCard = type === 'card';
+      const isRounded = type === 'rounded';
 
       // card theme color
       if (color && isCard) {
@@ -43,6 +44,11 @@ export const TabTitle = defineComponent({
             style.color = color;
           }
         }
+      }
+
+      // rounded: active tab uses theme color background; inactive uses gray from CSS
+      if (color && isRounded && !disabled && isActive) {
+        style.backgroundColor = color;
       }
 
       const titleColor = isActive ? activeColor : inactiveColor;

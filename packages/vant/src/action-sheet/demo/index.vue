@@ -20,6 +20,9 @@ const t = useTranslate({
     coloredOption: '着色选项',
     disabledOption: '禁用选项',
     showDescription: '展示描述信息',
+    grid: '宫格视图',
+    gridScroll: '横向滚动',
+    gridStatic: '宫格布局',
   },
   'en-US': {
     option1: 'Option 1',
@@ -35,14 +38,20 @@ const t = useTranslate({
     coloredOption: 'Colored Option',
     disabledOption: 'Disabled Option',
     showDescription: 'Show Description',
+    grid: 'Grid View',
+    gridScroll: 'Horizontal Scroll',
+    gridStatic: 'Grid Layout',
   },
 });
+
 const showBasic = ref(false);
 const showIcon = ref(false);
 const showCancel = ref(false);
 const showTitle = ref(false);
 const showStatus = ref(false);
 const showDescription = ref(false);
+const showGridScroll = ref(false);
+const showGridStatic = ref(false);
 
 const simpleActions = computed<ActionSheetAction[]>(() => [
   { name: t('option1') },
@@ -68,8 +77,36 @@ const actionsWithDescription = computed<ActionSheetAction[]>(() => [
   { name: t('option3'), subname: t('subname') },
 ]);
 
+const gridImage = 'https://fastly.jsdelivr.net/npm/@vant/assets/icon-demo.png';
+
+const gridScrollActions = computed<ActionSheetAction[]>(() => [
+  { name: t('option1'), image: gridImage },
+  { name: t('option2'), icon: 'photo-o' },
+  { name: t('option3'), icon: 'photo-o' },
+  { name: t('option1'), icon: 'photo-o' },
+  { name: t('option2'), icon: 'photo-o' },
+  { name: t('option3'), icon: 'photo-o' },
+  { name: t('option1'), icon: 'photo-o' },
+  { name: t('option2'), icon: 'photo-o' },
+  { name: t('option3'), icon: 'photo-o' },
+]);
+
+const gridStaticActions = computed<ActionSheetAction[]>(() => [
+  { name: t('option1'), image: gridImage },
+  { name: t('option2'), icon: 'photo-o' },
+  { name: t('option3'), icon: 'photo-o' },
+  { name: t('option1'), icon: 'photo-o' },
+  { name: t('option2'), icon: 'photo-o' },
+  { name: t('option3'), icon: 'photo-o' },
+  { name: t('option1'), icon: 'photo-o' },
+  { name: t('option2'), icon: 'photo-o' },
+  { name: t('option3'), icon: 'photo-o' },
+]);
+
 const onSelect = (item: ActionSheetAction) => {
   showBasic.value = false;
+  showGridScroll.value = false;
+  showGridStatic.value = false;
   showToast(item.name);
 };
 
@@ -95,6 +132,11 @@ const onCancel = () => showToast(t('cancel'));
 
   <demo-block card :title="t('optionStatus')">
     <van-cell is-link :title="t('optionStatus')" @click="showStatus = true" />
+  </demo-block>
+
+  <demo-block card :title="t('grid')">
+    <van-cell is-link :title="t('gridScroll')" @click="showGridScroll = true" />
+    <van-cell is-link :title="t('gridStatic')" @click="showGridStatic = true" />
   </demo-block>
 
   <demo-block card :title="t('customPanel')">
@@ -134,6 +176,27 @@ const onCancel = () => showToast(t('cancel'));
     close-on-click-action
     :actions="statusActions"
     :cancel-text="t('cancel')"
+  />
+
+  <van-action-sheet
+    v-model:show="showGridScroll"
+    grid
+    :actions="gridScrollActions"
+    close-on-click-action
+    :cancel-text="t('cancel')"
+    @select="onSelect"
+    @cancel="onCancel"
+  />
+
+  <van-action-sheet
+    v-model:show="showGridStatic"
+    grid
+    :actions="gridStaticActions"
+    :grid-options="{ scrollable: false, columns: 4 }"
+    close-on-click-action
+    :cancel-text="t('cancel')"
+    @select="onSelect"
+    @cancel="onCancel"
   />
 
   <van-action-sheet v-model:show="showTitle" :title="t('title')">

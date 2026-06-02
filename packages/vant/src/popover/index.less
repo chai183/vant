@@ -15,6 +15,10 @@
   --van-popover-dark-text-color: var(--van-white);
   --van-popover-dark-background: #4a4a4a;
   --van-popover-dark-action-disabled-text-color: var(--van-text-color-2);
+  --van-popover-text-padding: var(--van-padding-sm);
+  --van-popover-text-font-size: var(--van-font-size-md);
+  --van-popover-text-line-height: var(--van-line-height-md);
+  --van-popover-content-background: transparent;
 }
 
 .van-popover {
@@ -42,6 +46,15 @@
     overflow: hidden;
     border-radius: var(--van-popover-radius);
 
+    &--text {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-sizing: border-box;
+      min-width: 0;
+      padding: var(--van-popover-text-padding);
+    }
+
     &--horizontal {
       display: flex;
       width: max-content;
@@ -61,6 +74,24 @@
           font-size: var(--van-popover-horizontal-action-icon-size);
         }
       }
+    }
+  }
+
+  &__message {
+    width: 100%;
+    font-size: var(--van-popover-text-font-size);
+    line-height: var(--van-popover-text-line-height);
+    word-break: break-word;
+    text-align: center;
+  }
+
+  &--custom-color {
+    .van-popover__content {
+      background: var(--van-popover-content-background);
+    }
+
+    .van-popover__arrow {
+      color: var(--van-popover-content-background);
     }
   }
 

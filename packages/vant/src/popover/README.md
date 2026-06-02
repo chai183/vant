@@ -301,12 +301,13 @@ export default {
 
 ### Data Structure of PopoverAction
 
-| Key       | Description             | Type                        |
-| --------- | ----------------------- | --------------------------- |
-| text      | Action Text             | _string_                    |
-| icon      | Icon                    | _string_                    |
-| color     | Action Color            | _string_                    |
-| disabled  | Whether to be disabled  | _boolean_                   |
+| Key | Description | Type |
+| --- | --- | --- |
+| text | Action Text | _string_ |
+| value | Option value, returned in `select` event via `action` | _string \| number_ |
+| icon | Icon | _string_ |
+| color | Action Color | _string_ |
+| disabled | Whether to be disabled | _boolean_ |
 | className | className of the option | _string \| Array \| object_ |
 
 ### Events

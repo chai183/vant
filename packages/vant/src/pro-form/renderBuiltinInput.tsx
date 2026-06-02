@@ -1,4 +1,5 @@
 import type { JSX } from 'vue/jsx-runtime';
+import { omit } from '../utils';
 import { Switch } from '../switch';
 import { Checkbox } from '../checkbox';
 import { CheckboxGroup } from '../checkbox-group';
@@ -22,6 +23,29 @@ function defaultOptions(column: ProFormColumn): ProFormOption[] {
   ];
 }
 
+function renderRadioGroupInput(
+  column: ProFormColumn,
+  props: Record<string, unknown>,
+  value: unknown,
+  setValue: (value: unknown) => void,
+) {
+  const options =
+    column.options ??
+    (props.options as ProFormOption[] | undefined) ??
+    defaultOptions(column);
+  const radioProps = omit(props, ['options']);
+
+  return (
+    <RadioGroup
+      {...(radioProps.isList ? {} : { direction: 'horizontal' })}
+      {...radioProps}
+      modelValue={value}
+      options={options}
+      onUpdate:modelValue={setValue}
+    />
+  );
+}
+
 export function renderBuiltinInput(
   ctx: ProFormRenderContext,
 ): JSX.Element | null {
@@ -31,8 +55,6 @@ export function renderBuiltinInput(
     column.componentProps ?? {},
     { disabled, readonly },
   );
-  const locked = disabled || readonly;
-
   switch (column.component) {
     case 'switch':
       return (
@@ -52,52 +74,25 @@ export function renderBuiltinInput(
         />
       );
     case 'checkboxGroup': {
-      const options = column.options ?? defaultOptions(column);
-
-      if (props.isList) {
-        return (
-          <CheckboxGroup
-            {...props}
-            modelValue={value as unknown[]}
-            options={options}
-            onUpdate:modelValue={setValue}
-          />
-        );
-      }
+      const options =
+        column.options ??
+        (props.options as ProFormOption[] | undefined) ??
+        defaultOptions(column);
+      const groupProps = omit(props, ['options']);
 
       return (
         <CheckboxGroup
-          direction="horizontal"
-          {...props}
+          {...(groupProps.isList ? {} : { direction: 'horizontal' })}
+          {...groupProps}
           modelValue={value as unknown[]}
-          onUpdate:modelValue={setValue}
-        >
-          {options.map((opt) => (
-            <Checkbox
-              key={String(opt.value)}
-              name={opt.value}
-              shape="square"
-              disabled={locked || opt.disabled}
-            >
-              {opt.label}
-            </Checkbox>
-          ))}
-        </CheckboxGroup>
-      );
-    }
-    case 'radio': {
-      const options = column.options ?? defaultOptions(column);
-
-      return (
-        <RadioGroup
-          {...(props.isList ? {} : { direction: 'horizontal' })}
-          {...props}
-          modelValue={value}
           options={options}
           onUpdate:modelValue={setValue}
         />
       );
     }
+    case 'radio':
+    case 'radioGroup':
+      return renderRadioGroupInput(column, props, value, setValue);
     case 'stepper':
       return (
         <Stepper

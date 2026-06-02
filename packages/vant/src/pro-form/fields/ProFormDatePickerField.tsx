@@ -45,7 +45,9 @@ export default defineComponent({
             is-link
             placeholder={placeholder}
             onClickInput={open}
-          />
+          >
+            {{ ...props.fieldSlots }}
+          </Field>
           <Popup
             {...defaultPopupProps}
             show={show.value}

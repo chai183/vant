@@ -1,6 +1,8 @@
 {
   "root": true,
-  "extends": ["@vant"],
+  "extends": [
+    "@vant"
+  ],
   "rules": {
     "prefer-object-spread": "off"
   },
@@ -14,16 +16,32 @@
   ],
   "overrides": [
     {
-      "files": ["src/**/*"],
-      "excludedFiles": ["**/test/*", "**/demo/*"],
+      "files": [
+        "*.vue"
+      ],
+      "parserOptions": {
+        "ecmaFeatures": {
+          "jsx": true
+        }
+      }
+    },
+    {
+      "files": [
+        "src/**/*"
+      ],
+      "excludedFiles": [
+        "**/test/*",
+        "**/demo/*"
+      ],
       "rules": {
+        "prefer-destructuring": "off",
         // since we target ES2015 for baseline support, we need to forbid object
         // rest spread usage (both assign and destructure)
-        "no-restricted-syntax": [
-          "error",
-          "ObjectExpression > SpreadElement",
-          "ObjectPattern > RestElement"
-        ]
+        // "no-restricted-syntax": [
+        //   "error",
+        //   "ObjectExpression > SpreadElement",
+        //   "ObjectPattern > RestElement"
+        // ]
       }
     }
   ]

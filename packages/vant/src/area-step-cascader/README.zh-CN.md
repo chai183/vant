@@ -26,6 +26,79 @@ pnpm add @vant/area-data
 
 ## 代码演示
 
+### 国内/国外切换
+
+在 [Popup 弹出层](#/zh-CN/popup) 内使用 [Tab 标签页](#/zh-CN/tab) 切换国内与国外地区，将 `van-area-step-cascader` 放在 `van-tab` 内，并将 `show-header` 设为 `false` 隐藏级联选择器顶部标题栏。
+
+```html
+<van-popup
+  v-model:show="show"
+  title="请选择地区"
+  closeable
+  round
+  teleport="body"
+  position="bottom"
+>
+  <van-tabs>
+    <van-tab title="国内">
+      <van-area-step-cascader
+        v-model="domesticValue"
+        :show-header="false"
+        @finish="onFinish"
+      />
+    </van-tab>
+    <van-tab title="国外">
+      <van-area-step-cascader
+        v-model="foreignValue"
+        :options="foreignOptions"
+        :show-header="false"
+        @finish="onFinish"
+      />
+    </van-tab>
+  </van-tabs>
+</van-popup>
+```
+
+```js
+import { ref } from 'vue';
+
+export default {
+  setup() {
+    const show = ref(false);
+    const domesticValue = ref('');
+    const foreignValue = ref('');
+    const result = ref('');
+    const foreignOptions = [
+      {
+        text: '美国',
+        value: 'US',
+        children: [
+          {
+            text: '加利福尼亚',
+            value: 'US-CA',
+            children: [{ text: '洛杉矶', value: 'US-CA-LA' }],
+          },
+        ],
+      },
+    ];
+
+    const onFinish = ({ selectedOptions }) => {
+      result.value = selectedOptions.map((item) => item.text).join('/');
+      show.value = false;
+    };
+
+    return {
+      show,
+      domesticValue,
+      foreignValue,
+      result,
+      foreignOptions,
+      onFinish,
+    };
+  },
+};
+```
+
 ### 步骤条省市区
 
 配合 [Popup 弹出层](#/zh-CN/popup) 与 [Field 输入框](#/zh-CN/field) 使用，无需传入 `options` 即可选择中国省市区。
@@ -81,6 +154,7 @@ export default {
 | v-model | 选中项的值 | _number \| string_ | - |
 | title | 顶部标题，不传时使用内置文案 | _string_ | `请选择地区` |
 | options | 级联选项；不传时使用 `@vant/area-data` 省市区数据 | _CascaderOption[]_ | - |
+| show-header `new` | 是否展示顶部标题栏 | _boolean_ | `true` |
 
 ### Events
 

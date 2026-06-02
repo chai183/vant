@@ -44,6 +44,11 @@ import type { PopupPosition, PopupCloseIconPosition } from './types';
 export const popupProps = extend({}, popupSharedProps, {
   round: Boolean,
   position: makeStringProp<PopupPosition>('center'),
+  title: String,
+  cancelButtonText: String,
+  cancelButtonColor: String,
+  confirmButtonText: String,
+  confirmButtonColor: String,
   closeIcon: makeStringProp('cross'),
   closeable: Boolean,
   transition: String,
@@ -57,7 +62,7 @@ export const popupProps = extend({}, popupSharedProps, {
 
 export type PopupProps = ExtractPropTypes<typeof popupProps>;
 
-const [name, bem] = createNamespace('popup');
+const [name, bem, t] = createNamespace('popup');
 
 export default defineComponent({
   name,
@@ -75,6 +80,8 @@ export default defineComponent({
     'update:show',
     'clickOverlay',
     'clickCloseIcon',
+    'cancel',
+    'confirm',
   ],
 
   setup(props, { emit, attrs, slots }) {
@@ -164,8 +171,75 @@ export default defineComponent({
       close();
     };
 
+    const hasConfirmButton = () => isDef(props.confirmButtonText);
+
+    const hasCancelButton = () =>
+      isDef(props.cancelButtonText) || hasConfirmButton();
+
+    const showCloseIcon = () => props.closeable && !hasConfirmButton();
+
+    const onCancel = (event: MouseEvent) => {
+      emit('cancel', event);
+      close();
+    };
+
+    const onConfirm = (event: MouseEvent) => {
+      emit('confirm', event);
+      close();
+    };
+
+    const renderHeader = () => {
+      const title = slots.title ? slots.title() : props.title;
+      const showCancel = hasCancelButton();
+      const showConfirm = hasConfirmButton();
+
+      if (!title && !showCancel && !showConfirm) {
+        return;
+      }
+
+      if (title && !showCancel && !showConfirm) {
+        return (
+          <div
+            class={bem('header', {
+              'has-close': showCloseIcon(),
+            })}
+          >
+            <div class={bem('title')}>{title}</div>
+          </div>
+        );
+      }
+
+      return (
+        <div class={bem('header')}>
+          {showCancel ? (
+            <div
+              role="button"
+              tabindex={0}
+              class={[bem('cancel'), HAPTICS_FEEDBACK]}
+              style={{ color: props.cancelButtonColor }}
+              onClick={onCancel}
+            >
+              {props.cancelButtonText || t('cancel')}
+            </div>
+          ) : null}
+          {title ? <div class={bem('title')}>{title}</div> : null}
+          {showConfirm ? (
+            <div
+              role="button"
+              tabindex={0}
+              class={[bem('confirm'), HAPTICS_FEEDBACK]}
+              style={{ color: props.confirmButtonColor }}
+              onClick={onConfirm}
+            >
+              {props.confirmButtonText || t('confirm')}
+            </div>
+          ) : null}
+        </div>
+      );
+    };
+
     const renderCloseIcon = () => {
-      if (props.closeable) {
+      if (showCloseIcon()) {
         return (
           <Icon
             role="button"
@@ -228,6 +302,7 @@ export default defineComponent({
           {...attrs}
           {...useScopeId()}
         >
+          {renderHeader()}
           {slots.default?.()}
           {renderCloseIcon()}
         </div>

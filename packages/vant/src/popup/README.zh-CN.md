@@ -77,6 +77,157 @@ export default {
 />
 ```
 
+### 标题
+
+通过 `title` 属性或 `title` 插槽设置弹出层标题。标题显示在弹出层顶部居中，默认样式为字号 `16px`、颜色 `#333333`。
+
+标题栏布局为：**取消**（左侧）· **标题**（居中）· **确定**（右侧）。可通过 `cancel-button-text`、`confirm-button-text` 配置操作按钮：
+
+- 取消按钮默认颜色为 `#999999`，字号 `16px`
+- 确定按钮使用主题色，字号 `16px`，位于关闭图标的位置
+- 传入 `confirm-button-text` 后不显示关闭图标
+- 同时设置 `closeable` 与 `confirm-button-text` 时，优先展示确定按钮
+- 传入 `confirm-button-text` 时，若未设置 `cancel-button-text`，将自动展示默认文案「取消」
+
+配合 `position="right"` 或 `position="left"`，并设置 `width` 与 `height: 100%`，可实现贴边抽屉式弹出（弹层紧贴屏幕边缘）。
+
+#### 基础标题
+
+```html
+<van-popup
+  v-model:show="show"
+  title="标题"
+  position="bottom"
+  :style="{ height: '40%' }"
+>
+  内容
+</van-popup>
+```
+
+#### 自定义标题
+
+```html
+<van-popup
+  v-model:show="show"
+  closeable
+  position="right"
+  :style="{ width: '80%', height: '100%' }"
+>
+  <template #title>
+    <span style="color: #1989fa">自定义标题</span>
+  </template>
+  内容
+</van-popup>
+```
+
+#### 底部弹出（带标题）
+
+```html
+<van-popup
+  v-model:show="show"
+  title="标题"
+  closeable
+  position="bottom"
+  :style="{ height: '40%' }"
+>
+  内容
+</van-popup>
+```
+
+#### 右侧抽屉（带标题）
+
+```html
+<van-popup
+  v-model:show="show"
+  title="标题"
+  closeable
+  position="right"
+  :style="{ width: '80%', height: '100%' }"
+>
+  内容
+</van-popup>
+```
+
+#### 左侧抽屉（带标题）
+
+```html
+<van-popup
+  v-model:show="show"
+  title="标题"
+  closeable
+  position="left"
+  :style="{ width: '80%', height: '100%' }"
+>
+  内容
+</van-popup>
+```
+
+#### 取消与确定
+
+```html
+<van-popup
+  v-model:show="show"
+  title="标题"
+  position="bottom"
+  :style="{ height: '40%' }"
+  cancel-button-text="取消"
+  confirm-button-text="确定"
+  @cancel="onCancel"
+  @confirm="onConfirm"
+>
+  内容
+</van-popup>
+```
+
+#### 抽屉（取消与确定）
+
+```html
+<van-popup
+  v-model:show="show"
+  title="标题"
+  position="right"
+  :style="{ width: '80%', height: '100%' }"
+  cancel-button-text="取消"
+  confirm-button-text="确定"
+  @cancel="onCancel"
+  @confirm="onConfirm"
+>
+  内容
+</van-popup>
+```
+
+```js
+import { ref } from 'vue';
+import { showToast } from 'vant';
+
+export default {
+  setup() {
+    const show = ref(false);
+    const onCancel = () => showToast('取消');
+    const onConfirm = () => showToast('确定');
+    return { show, onCancel, onConfirm };
+  },
+};
+```
+
+#### 确定优先于关闭
+
+同时设置 `closeable` 和 `confirm-button-text` 时，展示确定按钮，不展示关闭图标。
+
+```html
+<van-popup
+  v-model:show="show"
+  title="标题"
+  closeable
+  position="right"
+  :style="{ width: '80%', height: '100%' }"
+  confirm-button-text="确定"
+  @confirm="onConfirm"
+>
+  内容
+</van-popup>
+```
+
 ### 关闭图标
 
 设置 `closeable` 属性后，会在弹出层的右上角显示关闭图标，并且可以通过 `close-icon` 属性自定义图标，使用 `close-icon-position` 属性可以自定义图标位置。
@@ -130,6 +281,8 @@ Popup 支持以下点击事件：
 - `click`: 点击弹出层时触发。
 - `click-overlay`: 点击遮罩层时触发。
 - `click-close-icon`: 点击关闭图标时触发。
+- `cancel`: 点击取消按钮时触发，点击后默认关闭弹出层。
+- `confirm`: 点击确定按钮时触发，点击后默认关闭弹出层。
 
 ```html
 <van-cell title="监听点击事件" is-link @click="show = true" />
@@ -229,6 +382,11 @@ export default {
 | duration | 动画时长，单位秒，设置为 0 可以禁用动画 | _number \| string_ | `0.3` |
 | z-index | 将弹窗的 z-index 层级设置为一个固定值 | _number \| string_ | `2000+` |
 | round | 是否显示圆角 | _boolean_ | `false` |
+| title | 标题，显示在弹出层顶部居中 | _string_ | - |
+| cancel-button-text | 取消按钮文字，显示在标题左侧 | _string_ | - |
+| cancel-button-color | 取消按钮文字颜色 | _string_ | - |
+| confirm-button-text | 确定按钮文字，显示在标题右侧（关闭图标位置），传入后不展示关闭图标 | _string_ | - |
+| confirm-button-color | 确定按钮文字颜色 | _string_ | - |
 | destroy-on-close `v4.9.10` | 是否在关闭时销毁内容 | _boolean_ | `false` |
 | lock-scroll | 是否锁定背景滚动 | _boolean_ | `true` |
 | lazy-render | 是否在显示弹层时才渲染节点 | _boolean_ | `true` |
@@ -252,6 +410,8 @@ export default {
 | click            | 点击弹出层时触发           | _event: MouseEvent_ |
 | click-overlay    | 点击遮罩层时触发           | _event: MouseEvent_ |
 | click-close-icon | 点击关闭图标时触发         | _event: MouseEvent_ |
+| cancel           | 点击取消按钮时触发         | _event: MouseEvent_ |
+| confirm          | 点击确定按钮时触发         | _event: MouseEvent_ |
 | open             | 打开弹出层时立即触发       | -                   |
 | close            | 关闭弹出层时立即触发       | -                   |
 | opened           | 打开弹出层且动画结束后触发 | -                   |
@@ -262,6 +422,7 @@ export default {
 | 名称            | 说明         |
 | --------------- | ------------ |
 | default         | 弹窗内容     |
+| title           | 自定义标题   |
 | overlay-content | 遮罩层的内容 |
 
 ### 类型定义
@@ -292,3 +453,10 @@ import type {
 | --van-popup-close-icon-color   | _var(--van-gray-5)_                  | -    |
 | --van-popup-close-icon-margin  | _16px_                               | -    |
 | --van-popup-close-icon-z-index | _1_                                  | -    |
+| --van-popup-title-font-size    | _16px_                               | -    |
+| --van-popup-title-color        | _#333333_                            | -    |
+| --van-popup-title-line-height  | _22px_                               | -    |
+| --van-popup-title-padding-top  | _var(--van-popup-close-icon-margin)_ | -    |
+| --van-popup-action-font-size   | _16px_                               | -    |
+| --van-popup-cancel-color       | _#999999_                            | -    |
+| --van-popup-confirm-color      | _var(--van-primary-color)_           | -    |

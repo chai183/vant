@@ -3,6 +3,7 @@ import { computed, defineComponent, type ExtractPropTypes } from 'vue';
 // Utils
 import {
   numericProp,
+  truthProp,
   makeArrayProp,
   makeStringProp,
   createNamespace,
@@ -24,6 +25,7 @@ export const areaStepCascaderProps = {
   modelValue: numericProp,
   title: makeStringProp(''),
   options: makeArrayProp<CascaderOption>(),
+  showHeader: truthProp,
 };
 
 export type AreaStepCascaderProps = ExtractPropTypes<
@@ -67,6 +69,7 @@ export default defineComponent({
         modelValue={props.modelValue}
         title={cascaderTitle.value}
         options={cascaderOptions.value}
+        showHeader={props.showHeader}
         tabLayout="steps"
         onUpdate:modelValue={onUpdateModelValue}
         onClose={() => emit('close')}

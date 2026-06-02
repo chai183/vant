@@ -1,6 +1,11 @@
 .van-checkbox-group {
   &--list {
+    width: 100%;
+    min-width: 0;
+
     .van-cell {
+      --van-cell-horizontal-padding: 0;
+
       .van-checkbox {
         margin: 0;
       }
@@ -8,6 +13,8 @@
   }
 
   &--horizontal&--block {
+    width: 100%;
+    min-width: 0;
     display: grid;
     grid-template-columns: repeat(
       var(--van-checkbox-group-columns),
@@ -17,6 +24,7 @@
     --van-checkbox-group-columns: 3;
 
     > .van-checkbox.van-checkbox--horizontal {
+      width: 100%;
       min-width: 0;
       margin-right: 0;
     }

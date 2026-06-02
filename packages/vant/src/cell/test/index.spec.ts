@@ -50,6 +50,39 @@ test('should render icon slot correctly', () => {
   expect(wrapper.html()).toMatchSnapshot();
 });
 
+test('should render left avatar when using avatar prop', () => {
+  const wrapper = mount(Cell, {
+    props: {
+      title: 'Title',
+      avatar: {
+        type: 'text',
+        text: 'A',
+        size: 'small',
+      },
+    },
+  });
+
+  expect(wrapper.find('.van-cell__left-avatar').exists()).toBeTruthy();
+  expect(wrapper.find('.van-avatar__text').text()).toBe('A');
+});
+
+test('should prefer avatar over icon when both are set', () => {
+  const wrapper = mount(Cell, {
+    props: {
+      title: 'Title',
+      icon: 'location-o',
+      avatar: {
+        type: 'text',
+        text: 'A',
+        size: 'small',
+      },
+    },
+  });
+
+  expect(wrapper.find('.van-cell__left-avatar').exists()).toBeTruthy();
+  expect(wrapper.find('.van-cell__left-icon').exists()).toBeFalsy();
+});
+
 test('should render extra slot correctly', () => {
   const wrapper = mount(Cell, {
     slots: {

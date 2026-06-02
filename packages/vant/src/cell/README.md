@@ -59,6 +59,20 @@ app.use(CellGroup);
 </van-cell-group>
 ```
 
+### Left Avatar
+
+Use the `avatar` prop to show an [Avatar](#/en-US/avatar) on the left. The object is passed through to Avatar. When both `avatar` and `icon` are set, the avatar takes precedence.
+
+```html
+<van-cell
+  title="Cell title"
+  value="Content"
+  :avatar="{ type: 'text', text: 'A', size: 'small' }"
+/>
+```
+
+You can also use the `#avatar` slot for fully custom left avatar content.
+
 ### Link
 
 ```html
@@ -145,6 +159,7 @@ app.use(CellGroup);
 | label | Description below the title | _number \| string_ | - |
 | size | Size, can be set to `large` `normal` | _string_ | - |
 | icon | Left Icon | _string_ | - |
+| avatar `new` | Left avatar, passes through [Avatar](#/en-US/avatar#props) props; takes precedence over `icon` when both are set | _Partial\<AvatarProps\>_ | - |
 | icon-prefix | Icon className prefix | _string_ | `van-icon` |
 | tag | Custom element tag | _string_ | `div` |
 | url | Link URL | _string_ | - |
@@ -182,6 +197,7 @@ app.use(CellGroup);
 | value      | Custom value                      |
 | label      | Custom label                      |
 | icon       | Custom left icon                  |
+| avatar `new` | Custom left avatar              |
 | right-icon | Custom right icon                 |
 | extra      | Custom extra content on the right |
 

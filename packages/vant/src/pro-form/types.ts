@@ -1,12 +1,13 @@
 import type { Component, VNode } from 'vue';
 import type { FieldProps } from '../field/Field';
-import type { FieldRule } from '../field/types';
+import type { ProFormFieldSlotName } from './resolveFieldSlots';
 
 export type ProFormBuiltinComponent =
   | 'switch'
   | 'checkbox'
   | 'checkboxGroup'
   | 'radio'
+  | 'radioGroup'
   | 'stepper'
   | 'rate'
   | 'slider'
@@ -40,19 +41,28 @@ export type ProFormColumn = {
    * `field` 为原生 Field 输入（type、rules 等通过 fieldProps 配置）
    * 使用 `render` 时可省略
    */
-  component?: ProFormBuiltinComponent | (string & {});
+  component?: ProFormBuiltinComponent | (string & Record<string, never>);
   /** 初始值；未传时按 component 使用内置默认值 */
   defaultValue?: unknown;
   /** 透传给 Field（rules、placeholder、type 等） */
   fieldProps?: Partial<FieldProps>;
   /** 透传给具体控件（Switch、Stepper 等） */
   componentProps?: Record<string, unknown>;
-  /** radio / checkboxGroup / radioPicker / checkboxPicker 的选项；存 value，展示 label */
+  /** radioGroup / checkboxGroup / radioPicker / checkboxPicker 的选项；存 value，展示 label */
   options?: ProFormOption[];
   /** 为 true 时不渲染 */
   hidden?: boolean | ((model: Record<string, unknown>) => boolean);
   /** 自定义插槽名，等价于 `#field-${slot}` / `#input-${slot}` 中的 slot 名 */
   slot?: string;
+  /** 透传 Field 插槽，如 label-comment、input-comment 等 */
+  fieldSlots?: Partial<
+    Record<
+      ProFormFieldSlotName,
+      | string
+      | Component
+      | ((ctx: ProFormRenderContext) => VNode | VNode[] | null)
+    >
+  >;
   /**
    * 自定义渲染表单项内容，优先级高于 component / components 注册
    * - 传 Vue 组件：自动绑定 modelValue，componentProps 透传为 props

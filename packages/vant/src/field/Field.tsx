@@ -84,7 +84,7 @@ import type {
 } from './types';
 import type { PopoverProps } from '../popover';
 
-const [name, bem] = createNamespace('field');
+const [name, bem, t] = createNamespace('field');
 
 // provide to Search component to inherit
 export const fieldSharedProps = {
@@ -171,6 +171,11 @@ export const fieldProps = extend({}, cellSharedProps, fieldSharedProps, {
     type: Boolean,
     default: null,
   },
+  labelCollapsible: Boolean,
+  labelExpanded: {
+    type: Boolean,
+    default: true,
+  },
 });
 
 export type FieldProps = ExtractPropTypes<typeof fieldProps>;
@@ -191,6 +196,7 @@ export default defineComponent({
     'clickLeftIcon',
     'clickRightIcon',
     'update:modelValue',
+    'update:labelExpanded',
     'clickLabelAction',
   ],
 
@@ -205,8 +211,30 @@ export default defineComponent({
     const inputRef = ref<HTMLInputElement>();
     const clearIconRef = ref<ComponentInstance>();
     const customValue = ref<() => unknown>();
+    const labelExpanded = ref(props.labelExpanded);
 
     const { parent: form } = useParent(FORM_KEY);
+
+    watch(
+      () => props.labelExpanded,
+      (value) => {
+        labelExpanded.value = value;
+      },
+    );
+
+    const isLabelCollapsible = () =>
+      props.labelCollapsible && getProp('labelAlign') === 'top';
+
+    const toggleLabelExpanded = (event?: MouseEvent) => {
+      if (!isLabelCollapsible()) {
+        return;
+      }
+      if (event) {
+        preventDefault(event);
+      }
+      labelExpanded.value = !labelExpanded.value;
+      emit('update:labelExpanded', labelExpanded.value);
+    };
 
     const getModelValue = () => String(props.modelValue ?? '');
 
@@ -881,6 +909,7 @@ export default defineComponent({
       const labelAlign = getProp('labelAlign');
       const colon = getProp('colon') ? ':' : '';
       const tooltip = renderLabelTooltip();
+      const collapsible = isLabelCollapsible();
 
       if (slots.label) {
         if (!tooltip) {
@@ -900,11 +929,15 @@ export default defineComponent({
             id={`${id}-label`}
             for={slots.input ? undefined : getInputId()}
             data-allow-mismatch="attribute"
-            onClick={(event: MouseEvent) => {
-              // https://github.com/youzan/vant/issues/11831
-              preventDefault(event);
-              focus();
-            }}
+            onClick={
+              collapsible
+                ? undefined
+                : (event: MouseEvent) => {
+                    // https://github.com/youzan/vant/issues/11831
+                    preventDefault(event);
+                    focus();
+                  }
+            }
             style={
               labelAlign === 'top' && labelWidth
                 ? { width: addUnit(labelWidth) }
@@ -945,6 +978,7 @@ export default defineComponent({
             type="button"
             class={bem('label-action')}
             onClick={(event: MouseEvent) => {
+              event.stopPropagation();
               preventDefault(event);
               emit('clickLabelAction', event);
             }}
@@ -953,6 +987,26 @@ export default defineComponent({
           </button>
         );
       }
+    };
+
+    const renderLabelCollapseControl = () => {
+      const text = labelExpanded.value
+        ? t('labelCollapse') || '收起'
+        : t('labelExpand') || '展开';
+
+      return (
+        <span class={bem('label-collapse')}>
+          <span class={bem('label-collapse-text')}>{text}</span>
+          <Icon
+            name="arrow-down"
+            size={12}
+            class={bem('label-collapse-icon', {
+              expanded: labelExpanded.value,
+            })}
+            classPrefix={props.iconPrefix}
+          />
+        </span>
+      );
     };
 
     const renderTopLabelRow = () => {
@@ -1064,6 +1118,10 @@ export default defineComponent({
     };
 
     const renderFieldBody = () => {
+      if (isLabelCollapsible() && !labelExpanded.value) {
+        return null;
+      }
+
       const inputNode = renderInput();
       const wrappedInput =
         props.type === 'money' ? (
@@ -1142,7 +1200,41 @@ export default defineComponent({
       const renderTitle = () => {
         if (labelAlign === 'top') {
           const Label = renderTopLabelRow();
-          return [LeftIcon, Label].filter(Boolean);
+          const labelRow = [LeftIcon, Label].filter(Boolean);
+          const comment = renderCellLabel();
+          const collapsible = isLabelCollapsible();
+
+          if (!labelRow.length && !comment) {
+            return;
+          }
+
+          return (
+            <>
+              {labelRow.length > 0 && (
+                <div
+                  class={bem('label-top-row', {
+                    collapsible,
+                    expanded: collapsible ? labelExpanded.value : undefined,
+                  })}
+                  role={collapsible ? 'button' : undefined}
+                  aria-expanded={
+                    collapsible ? labelExpanded.value : undefined
+                  }
+                  onClick={collapsible ? toggleLabelExpanded : undefined}
+                >
+                  {collapsible ? (
+                    <>
+                      <div class={bem('label-top-row-main')}>{labelRow}</div>
+                      {renderLabelCollapseControl()}
+                    </>
+                  ) : (
+                    labelRow
+                  )}
+                </div>
+              )}
+              {comment && <div class="van-cell__label">{comment}</div>}
+            </>
+          );
         }
         const Label = renderLabel();
         return Label || [];
@@ -1154,7 +1246,8 @@ export default defineComponent({
             icon: LeftIcon && labelAlign !== 'top' ? () => LeftIcon : null,
             title: renderTitle,
             label:
-              slots['label-comment'] || props.labelComment
+              labelAlign !== 'top' &&
+              (slots['label-comment'] || props.labelComment)
                 ? renderCellLabel
                 : null,
             value: renderFieldBody,
@@ -1169,6 +1262,8 @@ export default defineComponent({
             'money-uppercase':
               props.showMoneyUppercase && props.type === 'money',
             'input-border': props.inputBorder,
+            'label-collapsed':
+              isLabelCollapsible() && !labelExpanded.value,
             [`label-${labelAlign}`]: labelAlign,
           })}
           center={props.center}

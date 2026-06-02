@@ -58,6 +58,20 @@ app.use(CellGroup);
 <van-cell title="单元格" icon="location-o" />
 ```
 
+### 展示头像
+
+通过 `avatar` 属性在标题左侧展示 [Avatar 头像](#/zh-CN/avatar)，传入对象会透传给 Avatar 组件。与 `icon` 同时设置时优先展示头像。
+
+```html
+<van-cell
+  title="单元格"
+  value="内容"
+  :avatar="{ type: 'text', text: '张', size: 'small' }"
+/>
+```
+
+也可使用 `#avatar` 插槽完全自定义左侧头像内容。
+
 ### 展示箭头
 
 设置 `is-link` 属性后会在单元格右侧显示箭头，并且可以通过 `arrow-direction` 属性控制箭头方向。
@@ -150,6 +164,7 @@ app.use(CellGroup);
 | label | 标题下方的描述信息 | _number \| string_ | - |
 | size | 单元格大小，可选值为 `large` `normal` | _string_ | - |
 | icon | 左侧图标名称或图片链接，等同于 Icon 组件的 [name 属性](#/zh-CN/icon#props) | _string_ | - |
+| avatar `new` | 左侧头像，透传 [Avatar 组件](#/zh-CN/avatar#props) 的 props；与 `icon` 同时设置时优先展示头像 | _Partial\<AvatarProps\>_ | - |
 | icon-prefix | 图标类名前缀，等同于 Icon 组件的 [class-prefix 属性](#/zh-CN/icon#props) | _string_ | `van-icon` |
 | tag | 根节点对应的 HTML 标签名 | _string_ | `div` |
 | url | 点击后跳转的链接地址 | _string_ | - |
@@ -187,6 +202,7 @@ app.use(CellGroup);
 | value      | 自定义右侧内容               |
 | label      | 自定义标题下方的描述信息     |
 | icon       | 自定义左侧图标               |
+| avatar `new` | 自定义左侧头像             |
 | right-icon | 自定义右侧图标               |
 | extra      | 自定义单元格最右侧的额外内容 |
 

@@ -23,7 +23,9 @@ export default defineComponent({
           onUpdate:modelValue={(value: string | number) =>
             emit('update:modelValue', value)
           }
-        />
+        >
+          {{ ...props.fieldSlots }}
+        </FieldMoney>
       );
     };
   },

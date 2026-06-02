@@ -13,6 +13,7 @@ import ShowWordLimit from './ShowWordLimit.vue';
 import InputAlign from './InputAlign.vue';
 import LabelAlign from './LabelAlign.vue';
 import Comment from './Comment.vue';
+import LabelCollapsible from './LabelCollapsible.vue';
 </script>
 
 <template>
@@ -30,4 +31,5 @@ import Comment from './Comment.vue';
   <input-align />
   <label-align />
   <Comment />
+  <label-collapsible />
 </template>

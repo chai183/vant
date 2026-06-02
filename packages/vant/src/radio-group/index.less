@@ -1,6 +1,11 @@
 .van-radio-group {
   &--list {
+    width: 100%;
+    min-width: 0;
+
     .van-cell {
+      --van-cell-horizontal-padding: 0;
+
       .van-radio {
         margin: 0;
       }
@@ -8,6 +13,8 @@
   }
 
   &--horizontal&--block {
+    width: 100%;
+    min-width: 0;
     display: grid;
     grid-template-columns: repeat(
       var(--van-radio-group-columns),
@@ -17,6 +24,7 @@
     --van-radio-group-columns: 3;
 
     > .van-radio.van-radio--horizontal {
+      width: 100%;
       min-width: 0;
       margin-right: 0;
     }

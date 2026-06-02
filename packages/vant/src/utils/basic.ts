@@ -76,6 +76,17 @@ export function pick<T, U extends keyof T>(
   );
 }
 
+export function omit<T extends object, U extends keyof T>(
+  obj: T,
+  keys: ReadonlyArray<U>,
+) {
+  const ret = { ...obj };
+  keys.forEach((key) => {
+    delete ret[key];
+  });
+  return ret as Omit<T, U>;
+}
+
 export const isSameValue = (newValue: unknown, oldValue: unknown) =>
   JSON.stringify(newValue) === JSON.stringify(oldValue);
 

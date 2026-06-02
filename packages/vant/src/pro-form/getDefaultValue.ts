@@ -5,6 +5,7 @@ const BUILTIN_DEFAULTS: Record<ProFormBuiltinComponent, unknown> = {
   checkbox: false,
   checkboxGroup: [],
   radio: '',
+  radioGroup: '',
   stepper: 1,
   rate: 0,
   slider: 0,

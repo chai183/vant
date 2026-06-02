@@ -22,6 +22,8 @@ import { useRoute, routeProps } from '../composables/use-route';
 
 // Components
 import { Icon } from '../icon';
+import Avatar from '../avatar/Avatar';
+import type { AvatarProps } from '../avatar/Avatar';
 
 const [name, bem] = createNamespace('cell');
 
@@ -32,6 +34,7 @@ export type CellArrowDirection = 'up' | 'down' | 'left' | 'right';
 export const cellSharedProps = {
   tag: makeStringProp<keyof HTMLElementTagNameMap>('div'),
   icon: String,
+  avatar: Object as PropType<Partial<AvatarProps>>,
   size: String as PropType<CellSize>,
   title: [Number, String, Array] as PropType<Numeric | Numeric[]>,
   value: numericProp,
@@ -149,6 +152,20 @@ export default defineComponent({
       }
     };
 
+    const renderLeftAvatar = () => {
+      if (slots.avatar) {
+        return <div class={bem('left-avatar')}>{slots.avatar()}</div>;
+      }
+
+      if (props.avatar) {
+        return (
+          <div class={bem('left-avatar')}>
+            <Avatar {...props.avatar} />
+          </div>
+        );
+      }
+    };
+
     const renderLeftIcon = () => {
       if (slots.icon) {
         return slots.icon();
@@ -164,6 +181,8 @@ export default defineComponent({
         );
       }
     };
+
+    const renderLeft = () => renderLeftAvatar() || renderLeftIcon();
 
     const renderRightIcon = () => {
       if (slots['right-icon']) {
@@ -201,7 +220,7 @@ export default defineComponent({
           tabindex={clickable ? 0 : undefined}
           onClick={route}
         >
-          {renderLeftIcon()}
+          {renderLeft()}
           {renderTitle()}
           {renderValue()}
           {renderRightIcon()}

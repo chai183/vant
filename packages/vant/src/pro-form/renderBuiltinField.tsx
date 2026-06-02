@@ -12,6 +12,7 @@ import ProFormFieldChildrenField from './fields/ProFormFieldChildrenField';
 import ProFormUploaderFileField from './fields/ProFormUploaderFileField';
 import type { ProFormColumn } from './types';
 import type { FieldProps } from '../field/Field';
+import type { ProFormFieldSlots } from './resolveFieldSlots';
 import {
   mergeBuiltinFieldComponentProps,
   resolveFormDisabled,
@@ -23,6 +24,7 @@ export type BuiltinFieldRenderContext = {
   value: unknown;
   setValue: (value: unknown) => void;
   fieldProps: Partial<FieldProps>;
+  fieldSlots?: ProFormFieldSlots;
   formDisabled?: boolean;
   formReadonly?: boolean;
 };
@@ -30,7 +32,7 @@ export type BuiltinFieldRenderContext = {
 export function renderBuiltinField(
   ctx: BuiltinFieldRenderContext,
 ): JSX.Element | null {
-  const { column, value, setValue, fieldProps, formDisabled, formReadonly } =
+  const { column, value, setValue, fieldProps, fieldSlots, formDisabled, formReadonly } =
     ctx;
   const disabled = resolveFormDisabled(
     formDisabled,
@@ -50,6 +52,7 @@ export function renderBuiltinField(
   const bind = {
     fieldProps,
     componentProps,
+    fieldSlots,
     modelValue: value as string | number,
     'onUpdate:modelValue': setValue,
   };
@@ -60,19 +63,18 @@ export function renderBuiltinField(
     case 'radioPicker':
       return (
         <ProFormRadioField
-          fieldProps={fieldProps}
+          {...bind}
           componentProps={{
             ...componentProps,
             options: column.options ?? componentProps.options,
           }}
-          modelValue={value as string | number}
-          onUpdate:modelValue={setValue}
         />
       );
     case 'checkboxPicker':
       return (
         <ProFormCheckboxField
           fieldProps={fieldProps}
+          fieldSlots={fieldSlots}
           componentProps={{
             ...componentProps,
             options: column.options ?? componentProps.options,
@@ -95,6 +97,7 @@ export function renderBuiltinField(
       return (
         <ProFormFieldChildrenField
           fieldProps={fieldProps}
+          fieldSlots={fieldSlots}
           componentProps={componentProps}
           modelValue={Array.isArray(value) ? value : ['']}
           onUpdate:modelValue={setValue}
@@ -104,6 +107,7 @@ export function renderBuiltinField(
       return (
         <ProFormRangeInputField
           fieldProps={fieldProps}
+          fieldSlots={fieldSlots}
           componentProps={componentProps}
           modelValue={Array.isArray(value) ? (value as string[]) : ['', '']}
           onUpdate:modelValue={setValue}
@@ -113,6 +117,7 @@ export function renderBuiltinField(
       return (
         <ProFormUploaderFileField
           fieldProps={fieldProps}
+          fieldSlots={fieldSlots}
           componentProps={componentProps}
           modelValue={Array.isArray(value) ? value : []}
           onUpdate:modelValue={setValue}

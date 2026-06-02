@@ -69,17 +69,19 @@ exports[`should render label slot correctly 1`] = `
 exports[`should render left icon inside label when label-align is top 1`] = `
 <div class="van-cell van-field van-field--label-top">
   <div class="van-cell__title van-field__label van-field__label--top">
-    <div class="van-field__left-icon">
-      <i class="van-badge__wrapper van-icon van-icon-success">
-      </i>
+    <div class="van-field__label-top-row">
+      <div class="van-field__left-icon">
+        <i class="van-badge__wrapper van-icon van-icon-success">
+        </i>
+      </div>
+      <label
+        id="van-field-label"
+        for="van-field-input"
+        data-allow-mismatch="attribute"
+      >
+        Label
+      </label>
     </div>
-    <label
-      id="van-field-label"
-      for="van-field-input"
-      data-allow-mismatch="attribute"
-    >
-      Label
-    </label>
   </div>
   <div class="van-cell__value van-field__value">
     <div class="van-field__body">

@@ -1,14 +1,69 @@
 :root,
 :host {
+  --van-area-step-cascader-height: 70vh;
   --van-area-step-cascader-level-font-size: var(--van-font-size-md);
   --van-area-step-cascader-level-font-weight: var(--van-font-bold);
   --van-area-step-cascader-level-padding: 16px 0 10px 12px;
 }
 
 .van-area-step-cascader {
+  display: flex;
+  flex-direction: column;
+  height: var(--van-area-step-cascader-height);
+  overflow: hidden;
+
   &__level {
+    flex-shrink: 0;
     font-size: var(--van-area-step-cascader-level-font-size);
     font-weight: var(--van-area-step-cascader-level-font-weight);
     padding: var(--van-area-step-cascader-level-padding);
+  }
+
+  .van-cascader__header,
+  .van-cascader__title-extra,
+  .van-cascader__steps {
+    flex-shrink: 0;
+  }
+
+  .van-cascader__tabs {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    height: 0;
+    overflow: hidden;
+  }
+
+  .van-tabs__content {
+    flex: 1;
+    height: 0;
+    overflow: hidden;
+
+    &--animated {
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+    }
+  }
+
+  .van-swipe {
+    height: 100%;
+  }
+
+  .van-tab__panel-wrapper:not(.van-tab__panel-wrapper--inactive) {
+    height: 100%;
+  }
+
+  .van-tab__panel {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    overflow: hidden;
+  }
+
+  .van-cascader__options {
+    flex: 1;
+    height: 0;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
   }
 }

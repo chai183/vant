@@ -121,7 +121,7 @@ export default defineComponent({
     };
 
     const renderListOptions = () => (
-      <CellGroup>
+      <CellGroup border={false}>
         {props.options.map((option, index) => {
           const { label, value, disabled, cellProps } = option;
 
@@ -130,6 +130,7 @@ export default defineComponent({
               key={String(value)}
               title={label}
               {...cellProps}
+              border={false}
               clickable={
                 cellProps?.clickable ?? (!props.disabled && !disabled)
               }

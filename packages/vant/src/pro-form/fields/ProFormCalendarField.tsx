@@ -1,4 +1,5 @@
 import { ref, defineComponent, type PropType } from 'vue';
+import { omit } from '../../utils';
 import { Field } from '../../field';
 import Calendar from '../../calendar';
 import { builtinFieldProps, useFormFieldDisabled } from './shared';
@@ -38,7 +39,7 @@ export default defineComponent({
     };
 
     return () => {
-      const { formatDate: _format, ...calendarProps } = props.componentProps;
+      const calendarProps = omit(props.componentProps, ['formatDate']);
       const { placeholder, ...restFieldProps } = props.fieldProps;
 
       return (
@@ -50,7 +51,9 @@ export default defineComponent({
             is-link
             placeholder={placeholder}
             onClickInput={open}
-          />
+          >
+            {{ ...props.fieldSlots }}
+          </Field>
           <Calendar
             round
             teleport="body"

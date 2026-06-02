@@ -1,10 +1,12 @@
 import { ref, defineComponent } from 'vue';
+import { omit } from '../../utils';
 import { Field } from '../../field';
 import { Popup } from '../../popup';
 import { RadioGroup } from '../../radio-group';
 import {
   builtinFieldProps,
   defaultPopupProps,
+  resolveFieldPopupProps,
   useFormFieldState,
   getFormFieldOptions,
   resolveOptionLabel,
@@ -38,33 +40,44 @@ export default defineComponent({
     };
 
     return () => {
-      const { options: _options, ...radioProps } = props.componentProps;
-      const { placeholder, ...restFieldProps } = props.fieldProps;
+      const { placeholder, label, ...restFieldProps } = props.fieldProps;
       const options = getFormFieldOptions(props.componentProps);
+      const { popupHeaderProps, restComponentProps } = resolveFieldPopupProps(
+        props.componentProps,
+        {
+          fallbackTitle:
+            label !== undefined && label !== null ? String(label) : undefined,
+          closeable: true,
+        },
+      );
+      const radioProps = omit(restComponentProps, ['options']);
       const locked = isDisabled() || isReadonly();
       const displayValue = props.modelValue
         ? resolveOptionLabel(options, props.modelValue)
         : '';
-      const isList = !!radioProps.isList;
 
       return (
         <>
           <Field
             {...restFieldProps}
+            label={label}
             modelValue={displayValue}
             readonly
             is-link
             placeholder={placeholder}
             onClickInput={open}
-          />
+          >
+            {{ ...props.fieldSlots }}
+          </Field>
           <Popup
             {...defaultPopupProps}
+            {...popupHeaderProps}
             show={show.value}
             onUpdate:show={(v: boolean) => {
               show.value = v;
             }}
           >
-            <div style={{ padding: isList ? 0 : '16px 12px' }}>
+            <div style={{ padding: '16px 12px' }}>
               <RadioGroup
                 {...radioProps}
                 disabled={locked}

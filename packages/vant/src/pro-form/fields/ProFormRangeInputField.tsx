@@ -1,9 +1,10 @@
 import { defineComponent, type PropType } from 'vue';
-import { useCustomFieldValue } from '@vant/use';
 import { createNamespace, getModelValuePair } from '../../utils';
 import { Field } from '../../field';
 import RangeInput from '../../range-input';
 import type { FieldProps } from '../../field/Field';
+import type { ProFormFieldSlots } from '../resolveFieldSlots';
+import { FieldInputBridge } from './FieldInputBridge';
 
 const [, bem] = createNamespace('range-input');
 
@@ -20,24 +21,11 @@ const proFormRangeInputFieldProps = {
     type: Object as PropType<Record<string, unknown>>,
     default: () => ({}),
   },
+  fieldSlots: {
+    type: Object as PropType<ProFormFieldSlots>,
+    default: () => ({}),
+  },
 };
-
-/** 须在 Field #input 内挂载，以便 useCustomFieldValue 注入父级 Field */
-const FieldInputBridge = defineComponent({
-  name: 'FieldInputBridge',
-
-  props: {
-    modelValue: {
-      type: Array as PropType<string[]>,
-      required: true,
-    },
-  },
-
-  setup(props, { slots }) {
-    useCustomFieldValue(() => props.modelValue);
-    return () => slots.default?.();
-  },
-});
 
 export default defineComponent({
   name: 'ProFormRangeInputField',
@@ -69,6 +57,7 @@ export default defineComponent({
                 />
               </FieldInputBridge>
             ),
+            ...props.fieldSlots,
           }}
         </Field>
       );

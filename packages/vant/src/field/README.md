@@ -123,6 +123,8 @@ No overflow:
 
 ### Show Icon
 
+Use `left-icon` and `right-icon` for icons on both sides.
+
 ```html
 <van-cell-group inset>
   <van-field

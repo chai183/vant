@@ -1,0 +1,93 @@
+:root,
+:host {
+  --van-avatar-large-size: 60px;
+  --van-avatar-medium-size: 44px;
+  --van-avatar-small-size: 32px;
+  --van-avatar-mini-size: 20px;
+  --van-avatar-background: var(--van-gray-3);
+  --van-avatar-text-color: var(--van-white);
+  --van-avatar-text-font-size: 18px;
+  --van-avatar-text-font-weight: var(--van-font-bold);
+  --van-avatar-text-background: #ff8125;
+}
+
+.van-avatar {
+  position: relative;
+  display: inline-flex;
+  box-sizing: border-box;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  border-radius: var(--van-radius-max);
+  background: var(--van-avatar-background);
+  vertical-align: middle;
+
+  &--large {
+    width: var(--van-avatar-large-size);
+    height: var(--van-avatar-large-size);
+  }
+
+  &--medium {
+    width: var(--van-avatar-medium-size);
+    height: var(--van-avatar-medium-size);
+  }
+
+  &--small {
+    width: var(--van-avatar-small-size);
+    height: var(--van-avatar-small-size);
+  }
+
+  &--mini {
+    width: var(--van-avatar-mini-size);
+    height: var(--van-avatar-mini-size);
+  }
+
+  &__img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  &__text {
+    max-width: 3em;
+    font-size: var(--van-avatar-text-font-size);
+    font-weight: var(--van-avatar-text-font-weight);
+    color: var(--van-avatar-text-color);
+    line-height: 1;
+    text-align: center;
+    user-select: none;
+  }
+}
+
+.van-avatar--text {
+  background: var(--van-avatar-text-background);
+}
+
+/* 头像 + 徽标：相对默认角标略向圆内收一点，无额外装饰 */
+.van-badge__wrapper:has(> .van-avatar) {
+  > .van-badge--fixed.van-badge--top-right {
+    top: 3px;
+    right: 3px;
+    transform: translate(42%, -42%);
+  }
+
+  > .van-badge--fixed.van-badge--top-left {
+    top: 3px;
+    left: 3px;
+    transform: translate(-42%, -42%);
+  }
+
+  > .van-badge--fixed.van-badge--bottom-right {
+    bottom: 3px;
+    right: 3px;
+    transform: translate(42%, 42%);
+  }
+
+  > .van-badge--fixed.van-badge--bottom-left {
+    bottom: 3px;
+    left: 3px;
+    transform: translate(-42%, 42%);
+  }
+}

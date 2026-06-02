@@ -712,6 +712,74 @@ test('should render label comment in cell label', () => {
   expect(wrapper.find('.van-cell__label').text()).toEqual('Label note');
 });
 
+test('should render label comment below label when labelAlign is top', () => {
+  const wrapper = mount(Field, {
+    props: {
+      label: 'Label',
+      labelAlign: 'top',
+      labelComment: 'Label note',
+    },
+  });
+
+  const title = wrapper.find('.van-cell__title');
+  const labelTopRow = title.find('.van-field__label-top-row');
+  const labelComment = title.find('.van-cell__label');
+
+  expect(labelTopRow.exists()).toBe(true);
+  expect(labelTopRow.text()).toContain('Label');
+  expect(labelComment.text()).toEqual('Label note');
+  expect(
+    labelTopRow.element.compareDocumentPosition(labelComment.element) &
+      Node.DOCUMENT_POSITION_FOLLOWING,
+  ).toBeTruthy();
+});
+
+test('should toggle field body when label is collapsible', async () => {
+  const wrapper = mount(Field, {
+    props: {
+      label: 'Label',
+      labelAlign: 'top',
+      labelCollapsible: true,
+      labelComment: 'Label note',
+      modelValue: '',
+      placeholder: 'Text',
+    },
+  });
+
+  expect(wrapper.find('.van-field__body').exists()).toBe(true);
+  expect(wrapper.find('.van-cell__label').exists()).toBe(true);
+  expect(wrapper.find('.van-field__label-collapse-text').text()).toEqual(
+    'Collapse',
+  );
+
+  await wrapper.find('.van-field__label-top-row').trigger('click');
+  expect(wrapper.find('.van-field__body').exists()).toBe(false);
+  expect(wrapper.find('.van-cell__label').exists()).toBe(true);
+  expect(wrapper.find('.van-field__label-collapse-text').text()).toEqual(
+    'Expand',
+  );
+  expect(wrapper.emitted('update:labelExpanded')).toEqual([[false]]);
+
+  await wrapper.find('.van-field__label-top-row').trigger('click');
+  expect(wrapper.find('.van-field__body').exists()).toBe(true);
+  expect(wrapper.find('.van-field__label-collapse-text').text()).toEqual(
+    'Collapse',
+  );
+  expect(wrapper.emitted('update:labelExpanded')).toEqual([[false], [true]]);
+});
+
+test('should not render label collapse control when labelCollapsible without labelAlign top', () => {
+  const wrapper = mount(Field, {
+    props: {
+      label: 'Label',
+      labelCollapsible: true,
+      modelValue: '',
+    },
+  });
+
+  expect(wrapper.find('.van-field__label-collapse').exists()).toBe(false);
+});
+
 test('should render label-comment slot in cell label', () => {
   const wrapper = mount(Field, {
     props: {

@@ -62,6 +62,33 @@ test('should render columns and emit submit with values', async () => {
   expect(values.switch).toBe(false);
 });
 
+test('should render radioGroup from componentProps.options without duplicate radios', async () => {
+  const wrapper = mount(ProForm, {
+    props: {
+      columns: [
+        {
+          name: 'gender',
+          label: 'Gender',
+          component: 'radioGroup',
+          defaultValue: '1',
+          componentProps: {
+            shape: 'block',
+            direction: 'horizontal',
+            options: [
+              { label: 'A', value: '1' },
+              { label: 'B', value: '2' },
+            ],
+          },
+        },
+      ],
+      showSubmit: false,
+    },
+  });
+
+  await nextTick();
+  expect(wrapper.findAll('.van-radio').length).toBe(2);
+});
+
 test('should render uploaderFile', async () => {
   const onSubmit = vi.fn();
   const fileList = [

@@ -1,0 +1,11 @@
+// Rstest Snapshot v1
+
+exports[`should match snapshot for default type 1`] = `
+<div class="van-avatar van-avatar--small">
+  <img
+    class="van-avatar__img"
+    src="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2064%2064%22%3E%3Ccircle%20cx%3D%2232%22%20cy%3D%2232%22%20r%3D%2232%22%20fill%3D%22%23dcdee0%22%2F%3E%3Ccircle%20cx%3D%2232%22%20cy%3D%2226%22%20r%3D%2212%22%20fill%3D%22%23fff%22%2F%3E%3Cellipse%20cx%3D%2232%22%20cy%3D%2252%22%20rx%3D%2218%22%20ry%3D%2214%22%20fill%3D%22%23fff%22%2F%3E%3C%2Fsvg%3E"
+    alt
+  >
+</div>
+`;

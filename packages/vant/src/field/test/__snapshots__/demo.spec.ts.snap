@@ -133,6 +133,32 @@ exports[`should render demo and match snapshot 1`] = `
             for="van-field-input"
             data-allow-mismatch="attribute"
           >
+            Money
+          </label>
+        </div>
+        <div class="van-cell__value van-field__value">
+          <div class="van-field__body">
+            <div class="van-field__money-input-wrap">
+              <input
+                type="text"
+                inputmode="decimal"
+                id="van-field-input"
+                class="van-field__control"
+                placeholder="Please enter amount"
+                aria-labelledby="van-field-label"
+                data-allow-mismatch="attribute"
+              >
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="van-cell van-field">
+        <div class="van-cell__title van-field__label">
+          <label
+            id="van-field-label"
+            for="van-field-input"
+            data-allow-mismatch="attribute"
+          >
             Password
           </label>
         </div>
@@ -225,13 +251,15 @@ exports[`should render demo and match snapshot 1`] = `
       </div>
       <div class="van-cell van-field van-field--label-top">
         <div class="van-cell__title van-field__label van-field__label--top">
-          <label
-            id="van-field-label"
-            for="van-field-input"
-            data-allow-mismatch="attribute"
-          >
-            Text
-          </label>
+          <div class="van-field__label-top-row">
+            <label
+              id="van-field-label"
+              for="van-field-input"
+              data-allow-mismatch="attribute"
+            >
+              Text
+            </label>
+          </div>
         </div>
         <div class="van-cell__value van-field__value">
           <div class="van-field__body">
@@ -1207,13 +1235,15 @@ exports[`should render demo and match snapshot 1`] = `
   <div class="van-cell-group van-cell-group--inset">
     <div class="van-cell van-field van-field--label-top">
       <div class="van-cell__title van-field__label van-field__label--top">
-        <label
-          id="van-field-label"
-          for="van-field-input"
-          data-allow-mismatch="attribute"
-        >
-          Label
-        </label>
+        <div class="van-field__label-top-row">
+          <label
+            id="van-field-label"
+            for="van-field-input"
+            data-allow-mismatch="attribute"
+          >
+            Label
+          </label>
+        </div>
       </div>
       <div class="van-cell__value van-field__value">
         <div class="van-field__body">
@@ -1435,6 +1465,105 @@ exports[`should render demo and match snapshot 1`] = `
         <span>
           The bottom slot spans the full row below the label and input — useful for agreements, risk notes, etc.
         </span>
+      </div>
+    </div>
+  </div>
+</div>
+<div>
+  <div class="van-cell-group van-cell-group--inset">
+    <div class="van-cell van-field van-field--label-top">
+      <div class="van-cell__title van-field__label van-field__label--top">
+        <div
+          class="van-field__label-top-row van-field__label-top-row--collapsible van-field__label-top-row--expanded"
+          role="button"
+          aria-expanded="true"
+        >
+          <div class="van-field__label-top-row-main">
+            <label
+              id="van-field-label"
+              for="van-field-input"
+              data-allow-mismatch="attribute"
+            >
+              Title
+            </label>
+          </div>
+          <span class="van-field__label-collapse">
+            <span class="van-field__label-collapse-text">
+              Collapse
+            </span>
+            <i
+              class="van-badge__wrapper van-icon van-icon-arrow-down van-field__label-collapse-icon van-field__label-collapse-icon--expanded"
+              style="font-size: 12px;"
+            >
+            </i>
+          </span>
+        </div>
+      </div>
+      <div class="van-cell__value van-field__value">
+        <div class="van-field__body">
+          <input
+            type="text"
+            id="van-field-input"
+            class="van-field__control"
+            placeholder="Text"
+            aria-labelledby="van-field-label"
+            data-allow-mismatch="attribute"
+          >
+        </div>
+      </div>
+    </div>
+    <div class="van-cell van-field van-field--label-top">
+      <div class="van-cell__title van-field__label van-field__label--top">
+        <div
+          class="van-field__label-top-row van-field__label-top-row--collapsible van-field__label-top-row--expanded"
+          role="button"
+          aria-expanded="true"
+        >
+          <div class="van-field__label-top-row-main">
+            <div class="van-field__label-header">
+              <div class="van-field__label-header-main">
+                <label
+                  id="van-field-label"
+                  for="van-field-input"
+                  data-allow-mismatch="attribute"
+                >
+                  With label-action
+                </label>
+              </div>
+              <button
+                type="button"
+                class="van-field__label-action"
+              >
+                Add
+              </button>
+            </div>
+          </div>
+          <span class="van-field__label-collapse">
+            <span class="van-field__label-collapse-text">
+              Collapse
+            </span>
+            <i
+              class="van-badge__wrapper van-icon van-icon-arrow-down van-field__label-collapse-icon van-field__label-collapse-icon--expanded"
+              style="font-size: 12px;"
+            >
+            </i>
+          </span>
+        </div>
+        <div class="van-cell__label">
+          Label note remains when collapsed
+        </div>
+      </div>
+      <div class="van-cell__value van-field__value">
+        <div class="van-field__body">
+          <input
+            type="text"
+            id="van-field-input"
+            class="van-field__control"
+            placeholder="Text"
+            aria-labelledby="van-field-label"
+            data-allow-mismatch="attribute"
+          >
+        </div>
       </div>
     </div>
   </div>

@@ -31,6 +31,10 @@ export default {
   vanFieldMoney: {
     uppercase: 'Amount in words (CN)',
   },
+  vanField: {
+    labelExpand: 'Expand',
+    labelCollapse: 'Collapse',
+  },
   vanPagination: {
     prev: 'Previous',
     next: 'Next',

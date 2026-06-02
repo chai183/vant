@@ -31,6 +31,10 @@ export default {
   vanFieldMoney: {
     uppercase: '金额大写',
   },
+  vanField: {
+    labelExpand: '展开',
+    labelCollapse: '收起',
+  },
   vanPagination: {
     prev: '上一页',
     next: '下一页',

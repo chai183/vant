@@ -29,6 +29,11 @@ import { renderBuiltinField } from './renderBuiltinField';
 import { getDefaultValueByComponent } from './getDefaultValue';
 import { mergeRenderBindProps } from './mergeRenderBindProps';
 import {
+  mergeFieldSlots,
+  resolveColumnFieldSlots,
+  resolveFieldSlots,
+} from './resolveFieldSlots';
+import {
   resolveFormDisabled,
   resolveFormReadonly,
 } from './resolveFormState';
@@ -46,6 +51,7 @@ const BUILTIN_INPUT_COMPONENTS = new Set([
   'checkbox',
   'checkboxGroup',
   'radio',
+  'radioGroup',
   'stepper',
   'rate',
   'slider',
@@ -80,7 +86,10 @@ export const proFormProps = extend({}, formProps, {
     type: Object as PropType<ProFormComponentMap>,
     default: () => ({}),
   },
-  inset: truthProp,
+  inset: {
+    type: Boolean,
+    default: false,
+  },
   showSubmit: truthProp,
   submitText: makeStringProp('提交'),
 });
@@ -250,6 +259,15 @@ export default defineComponent({
       return null;
     };
 
+    const getColumnFieldSlots = (column: ProFormColumn) => {
+      const ctx = createRenderContext(column);
+      const slotName = column.slot ?? column.name;
+      return mergeFieldSlots(
+        resolveColumnFieldSlots(column, ctx),
+        resolveFieldSlots(slots, slotName),
+      );
+    };
+
     const renderColumnWithField = (
       column: ProFormColumn,
       input: () => VNode | VNode[] | null,
@@ -266,6 +284,7 @@ export default defineComponent({
         (typeof value === 'string' ||
           typeof value === 'number' ||
           Array.isArray(value));
+      const fieldSlots = getColumnFieldSlots(column);
 
       return (
         <Field
@@ -280,6 +299,7 @@ export default defineComponent({
         >
           {{
             input,
+            ...fieldSlots,
           }}
         </Field>
       );
@@ -322,12 +342,14 @@ export default defineComponent({
           value: model.value[column.name],
           setValue: (value) => setFieldValue(column.name, value),
           fieldProps,
+          fieldSlots: getColumnFieldSlots(column),
           formDisabled: props.disabled,
           formReadonly: props.readonly,
         });
       }
 
       if (!column.component || column.component === 'field') {
+        const fieldSlots = getColumnFieldSlots(column);
         return (
           <Field
             {...fieldProps}
@@ -335,7 +357,11 @@ export default defineComponent({
             onUpdate:modelValue={(value: unknown) =>
               setFieldValue(column.name, value)
             }
-          />
+          >
+            {{
+              ...fieldSlots,
+            }}
+          </Field>
         );
       }
 

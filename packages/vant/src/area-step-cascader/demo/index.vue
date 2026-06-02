@@ -4,6 +4,7 @@ import { useTranslate } from '../../../docs/site';
 import VanField from '../../field';
 import VanPopup from '../../popup';
 import VanAreaStepCascader from '..';
+import RegionTab from './RegionTab.vue';
 import type { Numeric } from '../../utils';
 import type { CascaderOption } from '../../cascader';
 
@@ -12,13 +13,11 @@ const t = useTranslate({
     area: '地区',
     selectArea: '请选择地区',
     stepLayout: '步骤条省市区',
-    titleExtraDemo: '标题下方的自定义内容',
   },
   'en-US': {
     area: 'Area',
     selectArea: 'Select Area',
     stepLayout: 'Step Area Picker',
-    titleExtraDemo: 'Custom content below title',
   },
 });
 
@@ -63,4 +62,6 @@ const onFinish = ({
       />
     </van-popup>
   </demo-block>
+
+  <region-tab />
 </template>

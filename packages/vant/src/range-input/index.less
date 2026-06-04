@@ -1,5 +1,5 @@
 :root {
-  --van-range-input-gap: var(--van-padding-sm);
+  --van-range-input-gap: 24px;
   --van-range-input-separator-color: var(--van-text-color-2);
   --van-range-input-separator-font-size: var(--van-font-size-md);
   --van-range-input-horizontal-line-width: 12px;
@@ -17,6 +17,8 @@
 }
 
 .van-range-input {
+  --van-padding-xs: 14px;
+
   width: 100%;
   min-width: 0;
 
@@ -45,7 +47,7 @@
     align-items: center;
     align-self: stretch;
     min-height: var(--van-range-input-vertical-line-min-height);
-    gap: var(--van-padding-xs);
+    gap: 8px;
   }
 
   &__body--vertical &__v-sep--segment {

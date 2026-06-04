@@ -1,9 +1,5 @@
-import { h, type Component, type Slots, type VNode } from 'vue';
-import type {
-  ProFormColumn,
-  ProFormColumnFieldSlot,
-  ProFormRenderContext,
-} from './types';
+import { h, type Component, type Slots, type VNodeChild } from 'vue';
+import type { ProFormColumn, ProFormRenderContext } from './types';
 
 export const PRO_FORM_FIELD_SLOT_NAMES = [
   'label',
@@ -22,23 +18,30 @@ export const PRO_FORM_FIELD_SLOT_NAMES = [
 
 export type ProFormFieldSlotName = (typeof PRO_FORM_FIELD_SLOT_NAMES)[number];
 
-export type ProFormFieldSlots = Partial<
-  Record<
-    ProFormFieldSlotName,
-    (props?: Record<string, unknown>) => VNode | VNode[] | null
-  >
+type ProFormColumnFieldSlot = NonNullable<
+  NonNullable<ProFormColumn['fieldSlots']>[ProFormFieldSlotName]
 >;
+
+type ProFormFieldSlot = (props?: Record<string, unknown>) => VNodeChild;
+
+export type ProFormFieldSlots = Partial<
+  Record<ProFormFieldSlotName, ProFormFieldSlot>
+>;
+
+type ProFormColumnFieldSlotRender = (
+  ctx: ProFormRenderContext,
+) => VNodeChild;
 
 function normalizeColumnFieldSlot(
   slot: ProFormColumnFieldSlot,
   ctx: ProFormRenderContext,
-): (() => VNode | VNode[] | null) | undefined {
+): ProFormFieldSlot | undefined {
   if (typeof slot === 'string') {
     return () => slot;
   }
 
   if (typeof slot === 'function') {
-    return () => slot(ctx) as VNode | VNode[] | null;
+    return () => (slot as ProFormColumnFieldSlotRender)(ctx);
   }
 
   return () => h(slot as Component, ctx.bindProps());

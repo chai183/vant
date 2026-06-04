@@ -133,6 +133,38 @@ exports[`should render demo and match snapshot 1`] = `
   </div>
 </div>
 <div>
+  <div class="van-cell">
+    <div class="van-cell__title">
+      <span>
+        <span class="van-highlight">
+          <span class="van-highlight__tag van-cell__highlight custom-highlight">
+            Ce
+          </span>
+          <span>
+            ll title
+          </span>
+        </span>
+      </span>
+      <div class="van-cell__label">
+        <span class="van-highlight">
+          <span class="van-highlight__tag van-cell__highlight custom-highlight">
+            Description
+          </span>
+        </span>
+      </div>
+    </div>
+    <div class="van-cell__value">
+      <span>
+        <span class="van-highlight">
+          <span class="van-highlight__tag van-cell__highlight custom-highlight">
+            Content
+          </span>
+        </span>
+      </span>
+    </div>
+  </div>
+</div>
+<div>
   <div
     class="van-cell van-cell--clickable"
     role="button"

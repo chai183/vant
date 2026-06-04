@@ -12,6 +12,7 @@ import {
   truthProp,
   unknownProp,
   numericProp,
+  makeArrayProp,
   makeStringProp,
   createNamespace,
   type Numeric,
@@ -23,13 +24,19 @@ import { useRoute, routeProps } from '../composables/use-route';
 // Components
 import { Icon } from '../icon';
 import Avatar from '../avatar/Avatar';
+import Highlight from '../highlight';
 import type { AvatarProps } from '../avatar/Avatar';
+import type { HighlightProps } from '../highlight';
 
 const [name, bem] = createNamespace('cell');
 
 export type CellSize = 'normal' | 'large';
 
 export type CellArrowDirection = 'up' | 'down' | 'left' | 'right';
+
+export type CellHighlightProps = Partial<
+  Omit<HighlightProps, 'keywords' | 'sourceString'>
+>;
 
 export const cellSharedProps = {
   tag: makeStringProp<keyof HTMLElementTagNameMap>('div'),
@@ -58,7 +65,15 @@ export const cellSharedProps = {
   },
 };
 
-export const cellProps = extend({}, cellSharedProps, routeProps);
+export const cellProps = extend(
+  {},
+  cellSharedProps,
+  {
+    highlight: makeArrayProp<string>(),
+    highlightProps: Object as PropType<CellHighlightProps>,
+  },
+  routeProps,
+);
 
 export type CellProps = ExtractPropTypes<typeof cellProps>;
 
@@ -70,13 +85,44 @@ export default defineComponent({
   setup(props, { slots }) {
     const route = useRoute();
 
+    const hasHighlight = () =>
+      props.highlight.some(
+        (keyword) => keyword != null && String(keyword).length > 0,
+      );
+
+    const renderText = (text: Numeric | undefined) => {
+      if (!isDef(text)) {
+        return;
+      }
+
+      if (hasHighlight()) {
+        const { highlightProps } = props;
+        const cellHighlightClass = bem('highlight') as string;
+        const highlightClass = highlightProps?.highlightClass
+          ? `${cellHighlightClass} ${highlightProps.highlightClass}`
+          : cellHighlightClass;
+
+        return (
+          <Highlight
+            {...(highlightProps ?? {})}
+            tag={highlightProps?.tag ?? 'span'}
+            sourceString={String(text)}
+            keywords={props.highlight}
+            highlightClass={highlightClass}
+          />
+        );
+      }
+
+      return text;
+    };
+
     const renderLabel = () => {
       const showLabel = slots.label || isDef(props.label);
 
       if (showLabel) {
         return (
           <div class={[bem('label'), props.labelClass]}>
-            {slots.label ? slots.label() : props.label}
+            {slots.label ? slots.label() : renderText(props.label)}
           </div>
         );
       }
@@ -109,13 +155,13 @@ export default defineComponent({
         return (
           <div class={bem('title-text')}>
             {props.title.map((text, index) => (
-              <span key={index}>{text}</span>
+              <span key={index}>{renderText(text)}</span>
             ))}
           </div>
         );
       }
 
-      return <span>{props.title}</span>;
+      return <span>{renderText(props.title)}</span>;
     };
 
     const renderTitle = () => {
@@ -146,7 +192,7 @@ export default defineComponent({
       if (hasValue) {
         return (
           <div class={[bem('value'), props.valueClass]}>
-            {slot ? slot() : <span>{props.value}</span>}
+            {slot ? slot() : <span>{renderText(props.value)}</span>}
           </div>
         );
       }

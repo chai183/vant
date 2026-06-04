@@ -81,7 +81,7 @@ exports[`should render demo and match snapshot 1`] = `
 <div>
   <!--[-->
   <div
-    class="van-checkbox-group"
+    class="van-checkbox-group demo-checkbox-group"
     style
   >
     <!--[-->
@@ -325,7 +325,7 @@ exports[`should render demo and match snapshot 1`] = `
 <div>
   <!--[-->
   <div
-    class="van-checkbox-group"
+    class="van-checkbox-group demo-checkbox-group"
     style
   >
     <!--[-->
@@ -383,7 +383,7 @@ exports[`should render demo and match snapshot 1`] = `
 <div>
   <!--[-->
   <div
-    class="van-checkbox-group van-checkbox-group--horizontal"
+    class="van-checkbox-group van-checkbox-group--horizontal demo-checkbox-group"
     style
   >
     <!--[-->
@@ -441,7 +441,7 @@ exports[`should render demo and match snapshot 1`] = `
 <div>
   <!--[-->
   <div
-    class="van-checkbox-group van-checkbox-group--horizontal van-checkbox-group--block"
+    class="van-checkbox-group van-checkbox-group--horizontal van-checkbox-group--block demo-checkbox-block-group"
     style="--van-checkbox-group-columns:3;"
   >
     <!--[-->
@@ -510,7 +510,7 @@ exports[`should render demo and match snapshot 1`] = `
 <div>
   <!--[-->
   <div
-    class="van-checkbox-group"
+    class="van-checkbox-group demo-checkbox-group"
     style
   >
     <!--[-->
@@ -593,11 +593,11 @@ exports[`should render demo and match snapshot 1`] = `
     class="van-checkbox-group van-checkbox-group--list"
     style
   >
-    <div class="van-cell-group van-hairline--top-bottom">
+    <div class="van-cell-group">
       <!--[-->
       <!--[-->
       <div
-        class="van-cell van-cell--clickable"
+        class="van-cell van-cell--clickable van-cell--borderless"
         role="button"
         tabindex="0"
       >
@@ -619,7 +619,7 @@ exports[`should render demo and match snapshot 1`] = `
         >
           <!--[-->
           <div
-            class="van-checkbox__icon van-checkbox__icon--round van-checkbox__icon--checked"
+            class="van-checkbox__icon van-checkbox__icon--square van-checkbox__icon--checked"
             style
           >
             <i
@@ -632,7 +632,7 @@ exports[`should render demo and match snapshot 1`] = `
         </div>
       </div>
       <div
-        class="van-cell van-cell--clickable"
+        class="van-cell van-cell--clickable van-cell--borderless"
         role="button"
         tabindex="0"
       >
@@ -657,7 +657,7 @@ exports[`should render demo and match snapshot 1`] = `
         >
           <!--[-->
           <div
-            class="van-checkbox__icon van-checkbox__icon--round"
+            class="van-checkbox__icon van-checkbox__icon--square"
             style
           >
             <i
@@ -669,7 +669,7 @@ exports[`should render demo and match snapshot 1`] = `
           </div>
         </div>
       </div>
-      <div class="van-cell">
+      <div class="van-cell van-cell--borderless">
         <i
           class="van-badge__wrapper van-icon van-icon-shop-o van-cell__left-icon"
           style
@@ -693,7 +693,7 @@ exports[`should render demo and match snapshot 1`] = `
         >
           <!--[-->
           <div
-            class="van-checkbox__icon van-checkbox__icon--round van-checkbox__icon--disabled"
+            class="van-checkbox__icon van-checkbox__icon--square van-checkbox__icon--disabled"
             style
           >
             <i
@@ -711,7 +711,7 @@ exports[`should render demo and match snapshot 1`] = `
 <div>
   <!--[-->
   <div
-    class="van-checkbox-group"
+    class="van-checkbox-group demo-checkbox-group"
     style
   >
     <!--[-->
@@ -793,7 +793,7 @@ exports[`should render demo and match snapshot 1`] = `
 <div>
   <!--[-->
   <div
-    class="van-checkbox-group"
+    class="van-checkbox-group demo-checkbox-group"
     style
   >
     <!--[-->

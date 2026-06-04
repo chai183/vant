@@ -13,6 +13,7 @@ export type CellThemeVars = {
   cellLabelLineHeight?: number | string;
   cellLabelMarginTop?: string;
   cellValueColor?: string;
+  cellHighlightColor?: string;
   cellIconSize?: string;
   cellRightIconColor?: string;
   cellLargeVerticalPadding?: string;

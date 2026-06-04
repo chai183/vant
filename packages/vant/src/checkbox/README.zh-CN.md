@@ -68,6 +68,33 @@ export default {
 };
 ```
 
+### 块状类型
+
+将 `shape` 设置为 `block` 并配合 `direction="horizontal"` 使用块状样式。
+
+```html
+<van-checkbox-group
+  v-model="checked"
+  shape="block"
+  direction="horizontal"
+>
+  <van-checkbox name="a">复选框 a</van-checkbox>
+  <van-checkbox name="b">复选框 b</van-checkbox>
+  <van-checkbox name="c">复选框 c</van-checkbox>
+</van-checkbox-group>
+```
+
+```js
+import { ref } from 'vue';
+
+export default {
+  setup() {
+    const checked = ref(['a']);
+    return { checked };
+  },
+};
+```
+
 ### 自定义颜色
 
 通过 `checked-color` 属性设置选中状态的图标颜色。
@@ -160,19 +187,12 @@ export default {
 
 ### 水平排列
 
-将 `direction` 属性设置为 `horizontal` 后，复选框组会变成水平排列。可通过 `columns` 属性设置每行展示的选项数量，默认为 `3`。
+将 `direction` 属性设置为 `horizontal` 后，复选框组会变成水平排列。
 
 ```html
 <van-checkbox-group v-model="checked" direction="horizontal">
   <van-checkbox name="a">复选框 a</van-checkbox>
   <van-checkbox name="b">复选框 b</van-checkbox>
-</van-checkbox-group>
-
-<van-checkbox-group v-model="checked" direction="horizontal" :columns="2">
-  <van-checkbox name="a">复选框 a</van-checkbox>
-  <van-checkbox name="b">复选框 b</van-checkbox>
-  <van-checkbox name="c">复选框 c</van-checkbox>
-  <van-checkbox name="d">复选框 d</van-checkbox>
 </van-checkbox-group>
 ```
 
@@ -183,6 +203,81 @@ export default {
   setup() {
     const checked = ref([]);
     return { checked };
+  },
+};
+```
+
+### 水平排列列数
+
+在水平排列且 `shape` 为 `block` 时，通过 `columns` 属性设置每行展示的选项数量，默认为 `2`。
+
+```html
+<van-checkbox-group
+  v-model="checked"
+  direction="horizontal"
+  shape="block"
+  :columns="2"
+>
+  <van-checkbox name="a">复选框 a</van-checkbox>
+  <van-checkbox name="b">复选框 b</van-checkbox>
+  <van-checkbox name="c">复选框 c</van-checkbox>
+  <van-checkbox name="d">复选框 d</van-checkbox>
+</van-checkbox-group>
+```
+
+### 配置项渲染
+
+通过 `options` 属性传入配置项渲染复选框组。
+
+```html
+<van-checkbox-group v-model="checked" :options="options" />
+```
+
+```js
+import { ref } from 'vue';
+
+export default {
+  setup() {
+    const checked = ref(['1']);
+    const options = [
+      { label: '选项 1', value: '1' },
+      { label: '选项 2', value: '2' },
+      { label: '选项 3', value: '3', disabled: true },
+    ];
+    return { checked, options };
+  },
+};
+```
+
+### 列表展示
+
+设置 `is-list` 并以 Cell 列表形式展示选项，可通过 `options` 中的 `cellProps` 自定义单元格属性。
+
+```html
+<van-checkbox-group v-model="checked" is-list :options="options" />
+```
+
+```js
+import { ref } from 'vue';
+
+export default {
+  setup() {
+    const checked = ref(['1']);
+    const options = [
+      { label: '选项 1', value: '1' },
+      {
+        label: '选项 2',
+        value: '2',
+        cellProps: { label: '描述信息' },
+      },
+      {
+        label: '选项 3',
+        value: '3',
+        disabled: true,
+        cellProps: { icon: 'shop-o' },
+      },
+    ];
+    return { checked, options };
   },
 };
 ```
@@ -370,7 +465,7 @@ export default {
 | direction | 排列方向，可选值为 `horizontal` | _string_ | `vertical` |
 | columns `new` | 水平排列时每行展示的选项数量 | _number \| string_ | `3` |
 | is-list `new` | 是否以 Cell 列表形式展示选项 | _boolean_ | `false` |
-| options `new` | 通过配置渲染选项，项为 `{ label, value, disabled? }` | _CheckboxGroupOption[]_ | `[]` |
+| options `new` | 通过配置渲染选项，项为 `{ label, value, disabled?, cellProps? }`，`cellProps` 为 [Cell 组件](#/zh-CN/cell) 的属性 | _CheckboxGroupOption[]_ | `[]` |
 | icon-size | 所有复选框的图标大小，默认单位为 `px` | _number \| string_ | `20px` |
 | checked-color | 所有复选框的选中状态颜色 | _string_ | `#1989fa` |
 | shape `v4.6.3` | 形状，可选值为 `square` `block` | _string_ | `round` |

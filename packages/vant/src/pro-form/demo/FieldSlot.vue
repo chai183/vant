@@ -1,6 +1,8 @@
 <script setup lang="tsx">
 import { computed, ref } from 'vue';
 import { useTranslate } from '../../../docs/site';
+import VanButton from '../../button';
+import VanField from '../../field';
 import VanProForm from '..';
 import type { UploaderFileUpload } from '../../uploader-file';
 import type { ProFormColumn } from '../types';
@@ -8,6 +10,7 @@ import type { ProFormColumn } from '../types';
 const t = useTranslate({
   'zh-CN': {
     fieldSlot: 'Field 插槽透传',
+    customFieldSlot: '完全自定义表单项',
     uploader: '上传图片',
     uploaderComment: '支持 jpg、png 格式，单张不超过 2MB',
     uploaderFile: '上传文件',
@@ -16,11 +19,16 @@ const t = useTranslate({
     uploaderFileUpload: '添加附件',
     remark: '备注',
     remarkInputComment: '请输入与业务相关的补充说明',
+    contact: '联系人',
+    contactPlaceholder: '请输入联系人',
+    contactDefault: '张三',
+    quickFill: '填入',
     placeholder: '请输入用户名',
     rangeInputPlaceholder: '请输入',
   },
   'en-US': {
     fieldSlot: 'Field Slots',
+    customFieldSlot: 'Custom Field Slot',
     uploader: 'Uploader',
     uploaderComment: 'JPG/PNG, max 2MB per image',
     uploaderFile: 'File Upload',
@@ -29,6 +37,10 @@ const t = useTranslate({
     uploaderFileUpload: 'Add Attachment',
     remark: 'Remark',
     remarkInputComment: 'Enter supplementary notes for your business',
+    contact: 'Contact',
+    contactPlaceholder: 'Enter contact',
+    contactDefault: 'Alex',
+    quickFill: 'Fill',
     placeholder: 'Enter username',
     rangeInputPlaceholder: 'Please enter',
   },
@@ -111,6 +123,18 @@ const fieldSlotColumns = computed<ProFormColumn[]>(() => [
     },
   },
 ]);
+
+const customFieldModel = ref({
+  contactName: '',
+});
+
+const customFieldColumns = computed<ProFormColumn[]>(() => [
+  {
+    name: 'contactName',
+    label: t('contact'),
+    slot: 'contact',
+  },
+]);
 </script>
 
 <template>
@@ -120,6 +144,34 @@ const fieldSlotColumns = computed<ProFormColumn[]>(() => [
       :columns="fieldSlotColumns"
       :show-submit="false"
     />
+  </demo-block>
+
+  <demo-block :title="t('customFieldSlot')">
+    <van-pro-form
+      v-model="customFieldModel"
+      :columns="customFieldColumns"
+      :show-submit="false"
+    >
+      <template #field-contact="{ column, value, setValue }">
+        <van-field
+          :name="column.name"
+          :label="column.label"
+          :model-value="value"
+          :placeholder="t('contactPlaceholder')"
+          @update:model-value="setValue"
+        >
+          <template #button>
+            <van-button
+              size="small"
+              type="primary"
+              @click="setValue(t('contactDefault'))"
+            >
+              {{ t('quickFill') }}
+            </van-button>
+          </template>
+        </van-field>
+      </template>
+    </van-pro-form>
   </demo-block>
 </template>
 

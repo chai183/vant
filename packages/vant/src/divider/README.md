@@ -30,6 +30,14 @@ app.use(Divider);
 <van-divider>Text</van-divider>
 ```
 
+### Borderless
+
+When `borderless` is set, the divider line is hidden and only the slot content is shown.
+
+```html
+<van-divider borderless>Text</van-divider>
+```
+
 ### Content Position
 
 ```html
@@ -72,6 +80,7 @@ Text
 | Attribute | Description | Type | Default |
 | --- | --- | --- | --- |
 | dashed | Whether to use dashed border | _boolean_ | `false` |
+| borderless `new` | Whether to hide the divider line and only show slot content | _boolean_ | `false` |
 | hairline | Whether to use hairline | _boolean_ | `true` |
 | content-position | Content position, can be set to `left` `right` | _string_ | `center` |
 | vertical `v4.4.0` | Whether to use vertical | _boolean_ | `false` |

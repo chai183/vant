@@ -48,6 +48,15 @@
     border-style: dashed;
   }
 
+  &--borderless {
+    justify-content: center;
+
+    &::before,
+    &::after {
+      display: none;
+    }
+  }
+
   &--content-center,
   &--content-left,
   &--content-right {

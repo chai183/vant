@@ -412,6 +412,42 @@ const columns = computed(() => [
 ]);
 ```
 
+### Custom field slot
+
+Use `#field-{name}` to fully customize a form item. If `column.slot` is configured, the slot name uses `slot`, while the value is still written to the form item matching `name`.
+
+```html
+<van-pro-form v-model="model" :columns="columns" :show-submit="false">
+  <template #field-contact="{ column, value, setValue }">
+    <van-field
+      :name="column.name"
+      :label="column.label"
+      :model-value="value"
+      placeholder="Enter contact"
+      @update:model-value="setValue"
+    >
+      <template #button>
+        <van-button size="small" type="primary" @click="setValue('Alex')">
+          Fill
+        </van-button>
+      </template>
+    </van-field>
+  </template>
+</van-pro-form>
+```
+
+```js
+const model = ref({ contactName: '' });
+
+const columns = computed(() => [
+  {
+    name: 'contactName',
+    label: 'Contact',
+    slot: 'contact',
+  },
+]);
+```
+
 ## API
 
 Inherits [Form](/#/en-US/form) props, events, and methods.

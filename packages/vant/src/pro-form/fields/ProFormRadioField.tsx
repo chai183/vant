@@ -40,7 +40,7 @@ export default defineComponent({
     };
 
     return () => {
-      const { placeholder, label, ...restFieldProps } = props.fieldProps;
+      const label = props.fieldProps.label;
       const options = getFormFieldOptions(props.componentProps);
       const { popupHeaderProps, restComponentProps } = resolveFieldPopupProps(
         props.componentProps,
@@ -59,12 +59,10 @@ export default defineComponent({
       return (
         <>
           <Field
-            {...restFieldProps}
-            label={label}
+            {...props.fieldProps}
             modelValue={displayValue}
             readonly
             is-link
-            placeholder={placeholder}
             onClickInput={open}
           >
             {{ ...props.fieldSlots }}
@@ -77,7 +75,12 @@ export default defineComponent({
               show.value = v;
             }}
           >
-            <div style={{ padding: '16px 12px' }}>
+            <div
+              class={[
+                'van-pro-form-field-popup-body',
+                radioProps.isList && 'van-pro-form-field-popup-body--list',
+              ]}
+            >
               <RadioGroup
                 {...radioProps}
                 disabled={locked}

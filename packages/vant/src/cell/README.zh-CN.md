@@ -72,6 +72,26 @@ app.use(CellGroup);
 
 也可使用 `#avatar` 插槽完全自定义左侧头像内容。
 
+### 高亮文本
+
+通过 `highlight` 属性可以设置需要高亮展示的文本。
+
+```html
+<van-cell
+  title="单元格"
+  value="内容"
+  label="描述信息"
+  :highlight="['单元格', '内容', '描述信息']"
+  :highlight-props="{ highlightClass: 'custom-highlight' }"
+/>
+```
+
+<style>
+  .custom-highlight {
+    color: var(--van-danger-color);
+  }
+</style>
+
 ### 展示箭头
 
 设置 `is-link` 属性后会在单元格右侧显示箭头，并且可以通过 `arrow-direction` 属性控制箭头方向。
@@ -145,6 +165,19 @@ app.use(CellGroup);
 <van-cell center title="单元格" value="内容" label="描述信息" />
 ```
 
+### 多行标题
+
+将 `title` 设置为数组时，会按行展示多行标题。
+
+```html
+<van-cell :title="['主标题', '副标题']" value="内容" />
+<van-cell
+  :title="['主标题', '副标题']"
+  value="内容"
+  label="描述信息"
+/>
+```
+
 ## API
 
 ### CellGroup Props
@@ -159,9 +192,11 @@ app.use(CellGroup);
 
 | 参数 | 说明 | 类型 | 默认值 |
 | --- | --- | --- | --- |
-| title | 左侧标题 | _number \| string_ | - |
+| title | 左侧标题，传入数组时按行展示多行标题 | _number \| string \| (number \| string)[]_ | - |
 | value | 右侧内容 | _number \| string_ | - |
 | label | 标题下方的描述信息 | _number \| string_ | - |
+| highlight `new` | 需要高亮展示的关键词，匹配 `title`、`value`、`label` 文本 | _string[]_ | `[]` |
+| highlight-props `new` | 透传给 [Highlight 组件](#/zh-CN/highlight#props) 的参数，`keywords` 和 `sourceString` 由 Cell 内部控制 | _CellHighlightProps_ | - |
 | size | 单元格大小，可选值为 `large` `normal` | _string_ | - |
 | icon | 左侧图标名称或图片链接，等同于 Icon 组件的 [name 属性](#/zh-CN/icon#props) | _string_ | - |
 | avatar `new` | 左侧头像，透传 [Avatar 组件](#/zh-CN/avatar#props) 的 props；与 `icon` 同时设置时优先展示头像 | _Partial\<AvatarProps\>_ | - |
@@ -214,6 +249,7 @@ app.use(CellGroup);
 import type {
   CellSize,
   CellProps,
+  CellHighlightProps,
   CellGroupProps,
   CellArrowDirection,
 } from 'vant';
@@ -242,6 +278,7 @@ import type {
 | --van-cell-label-margin-top | _var(--van-padding-base)_ | - |
 | --van-cell-value-color | _var(--van-text-color-2)_ | - |
 | --van-cell-value-font-size | _inherit_ | - |
+| --van-cell-highlight-color | _var(--van-primary-color)_ | 高亮文本颜色 |
 | --van-cell-icon-size | _16px_ | - |
 | --van-cell-right-icon-color | _var(--van-gray-6)_ | - |
 | --van-cell-large-vertical-padding | _var(--van-padding-sm)_ | - |

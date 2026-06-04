@@ -145,7 +145,7 @@ export default {
 | --van-field-children-header-padding | _var(--van-padding-md) var(--van-padding-md) var(--van-padding-xs)_ | Header padding |
 | --van-field-children-item-gap | _0_ | Vertical padding of row body around the divider |
 | --van-field-children-item-border-color | _var(--van-border-color)_ | Bottom border color of each row |
-| --van-field-children-tree-gutter-width | _20px_ | Tree guide gutter width |
+| --van-field-children-tree-gutter-width | _10px_ | Tree guide gutter width |
 | --van-field-children-tree-color | _var(--van-border-color)_ | Tree guide line color |
 | --van-field-children-tree-line-width | _1px_ | Tree guide line width |
 | --van-field-children-tree-elbow-y | _50%_ | Vertical position of the elbow |

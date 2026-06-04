@@ -44,16 +44,14 @@ export default defineComponent({
 
     return () => {
       const { areaList, ...areaProps } = props.componentProps;
-      const { placeholder, ...restFieldProps } = props.fieldProps;
 
       return (
         <>
           <Field
-            {...restFieldProps}
+            {...props.fieldProps}
             modelValue={props.modelValue}
             readonly
             is-link
-            placeholder={placeholder}
             onClickInput={open}
           >
             {{ ...props.fieldSlots }}

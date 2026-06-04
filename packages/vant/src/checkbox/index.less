@@ -41,7 +41,9 @@
 
   &--block {
     align-items: stretch;
-    overflow: visible;
+    overflow: hidden;
+    width: 100%;
+    min-width: 0;
 
     &.van-checkbox--horizontal {
       min-width: 0;
@@ -50,6 +52,8 @@
 
     .van-checkbox__label {
       flex: 1;
+      min-width: 0;
+      overflow: hidden;
       display: flex;
       align-items: center;
       justify-content: center;

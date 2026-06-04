@@ -142,6 +142,73 @@ exports[`should render demo and match snapshot 1`] = `
 </div>
 <div>
   <!--[-->
+  <div class="van-cell">
+    <div class="van-cell__left-avatar">
+      <div
+        class="van-avatar van-avatar--small van-avatar--text"
+        style="width:32px;height:32px;"
+      >
+        <span class="van-avatar__text">
+          张
+        </span>
+      </div>
+    </div>
+    <div
+      class="van-cell__title"
+      style
+    >
+      <span>
+        Cell title
+      </span>
+    </div>
+    <div class="van-cell__value">
+      <span>
+        Content
+      </span>
+    </div>
+  </div>
+</div>
+<div>
+  <!--[-->
+  <div class="van-cell">
+    <div
+      class="van-cell__title"
+      style
+    >
+      <span>
+        <span class="van-highlight">
+          <!--[-->
+          <span class="van-highlight__tag van-cell__highlight custom-highlight">
+            Ce
+          </span>
+          <span class>
+            ll title
+          </span>
+        </span>
+      </span>
+      <div class="van-cell__label">
+        <span class="van-highlight">
+          <!--[-->
+          <span class="van-highlight__tag van-cell__highlight custom-highlight">
+            Description
+          </span>
+        </span>
+      </div>
+    </div>
+    <div class="van-cell__value">
+      <span>
+        <span class="van-highlight">
+          <!--[-->
+          <span class="van-highlight__tag van-cell__highlight custom-highlight">
+            Content
+          </span>
+        </span>
+      </span>
+    </div>
+  </div>
+</div>
+<div>
+  <!--[-->
   <div
     class="van-cell van-cell--clickable"
     role="button"

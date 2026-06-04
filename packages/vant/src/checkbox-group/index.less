@@ -1,19 +1,26 @@
 .van-checkbox-group {
+  box-sizing: border-box;
+  max-width: 100%;
+  min-width: 0;
+
   &--list {
     width: 100%;
     min-width: 0;
+  }
 
-    .van-cell {
-      --van-cell-horizontal-padding: 0;
+  &--block:not(&--horizontal):not(&--list) {
+    width: 100%;
 
-      .van-checkbox {
-        margin: 0;
-      }
+    > .van-checkbox.van-checkbox--block {
+      width: 100%;
+      min-width: 0;
     }
   }
 
   &--horizontal&--block {
+    box-sizing: border-box;
     width: 100%;
+    max-width: 100%;
     min-width: 0;
     display: grid;
     grid-template-columns: repeat(

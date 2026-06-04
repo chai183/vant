@@ -22,9 +22,11 @@ const t = useTranslate({
     customIconSize: '自定义大小',
     disableLabel: '禁用文本点击',
     renderOptions: '配置项渲染',
+    listOptions: '列表展示',
     option1: '选项 1',
     option2: '选项 2',
     option3: '选项 3',
+    optionDesc: '描述信息',
   },
   'en-US': {
     radio: 'Radio',
@@ -41,9 +43,11 @@ const t = useTranslate({
     customIconSize: 'Custom Icon Size',
     disableLabel: 'Disable label click',
     renderOptions: 'Render Options',
+    listOptions: 'List Layout',
     option1: 'Option 1',
     option2: 'Option 2',
     option3: 'Option 3',
+    optionDesc: 'Description',
   },
 });
 
@@ -60,6 +64,7 @@ const radioIconSize = ref('1');
 const radioHorizontal = ref('1');
 const radioLeftLabel = ref('1');
 const radioOptions = ref('1');
+const radioListOptions = ref('1');
 const activeIcon = cdnURL('user-active.png');
 const inactiveIcon = cdnURL('user-inactive.png');
 
@@ -67,6 +72,21 @@ const options = computed(() => [
   { label: t('option1'), value: '1' },
   { label: t('option2'), value: '2' },
   { label: t('option3'), value: '3', disabled: true },
+]);
+
+const listOptions = computed(() => [
+  { label: t('option1'), value: '1' },
+  {
+    label: t('option2'),
+    value: '2',
+    cellProps: { label: t('optionDesc') },
+  },
+  {
+    label: t('option3'),
+    value: '3',
+    disabled: true,
+    cellProps: { icon: 'shop-o' },
+  },
 ]);
 </script>
 
@@ -92,10 +112,10 @@ const options = computed(() => [
   <demo-block :title="t('horizontalColumns')">
     <van-radio-group
       v-model="radioHorizontal"
-      class="demo-radio-group"
+      class="demo-radio-block-group"
       direction="horizontal"
       shape="block"
-      columns="3"
+      columns="2"
     >
       <van-radio name="1">{{ t('radio') }} 1</van-radio>
       <van-radio name="2">{{ t('radio') }} 2</van-radio>
@@ -109,6 +129,14 @@ const options = computed(() => [
       v-model="radioOptions"
       class="demo-radio-group"
       :options="options"
+    />
+  </demo-block>
+
+  <demo-block :title="t('listOptions')">
+    <van-radio-group
+      v-model="radioListOptions"
+      is-list
+      :options="listOptions"
     />
   </demo-block>
 
@@ -221,9 +249,15 @@ const options = computed(() => [
 
 <style lang="less">
 .demo-radio {
-  &-group {
+  &-group,
+  &-block-group {
+    box-sizing: border-box;
+    width: 100%;
+    max-width: 100%;
     padding: 0 16px;
+  }
 
+  &-group {
     .van-radio {
       margin-bottom: 8px;
     }
@@ -234,8 +268,6 @@ const options = computed(() => [
   }
 
   &-block-group {
-    padding: 0 16px;
-
     .van-radio {
       margin-bottom: 0;
     }

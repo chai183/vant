@@ -153,7 +153,11 @@ const checkedResultChange = (value: string[]) => {
   </demo-block>
 
   <demo-block :title="t('customShape')">
-    <van-checkbox-group v-model="state.checkboxShape" shape="square">
+    <van-checkbox-group
+      v-model="state.checkboxShape"
+      class="demo-checkbox-group"
+      shape="square"
+    >
       <van-checkbox name="a">{{ t('customShape') }} a</van-checkbox>
       <van-checkbox name="b">{{ t('customShape') }} b</van-checkbox>
     </van-checkbox-group>
@@ -206,14 +210,18 @@ const checkedResultChange = (value: string[]) => {
   </demo-block>
 
   <demo-block :title="t('title3')">
-    <van-checkbox-group v-model="state.result">
+    <van-checkbox-group v-model="state.result" class="demo-checkbox-group">
       <van-checkbox name="a">{{ t('checkbox') }} a</van-checkbox>
       <van-checkbox name="b">{{ t('checkbox') }} b</van-checkbox>
     </van-checkbox-group>
   </demo-block>
 
   <demo-block :title="t('horizontal')">
-    <van-checkbox-group v-model="state.horizontalResult" direction="horizontal">
+    <van-checkbox-group
+      v-model="state.horizontalResult"
+      class="demo-checkbox-group"
+      direction="horizontal"
+    >
       <van-checkbox name="a">{{ t('checkbox') }} a</van-checkbox>
       <van-checkbox name="b">{{ t('checkbox') }} b</van-checkbox>
     </van-checkbox-group>
@@ -222,9 +230,10 @@ const checkedResultChange = (value: string[]) => {
   <demo-block :title="t('horizontalColumns')">
     <van-checkbox-group
       v-model="state.horizontalResult"
+      class="demo-checkbox-block-group"
       direction="horizontal"
       shape="block"
-      :columns="3"
+      :columns="2"
     >
       <van-checkbox name="a" disabled>{{ t('checkbox') }} a</van-checkbox>
       <van-checkbox name="b">{{ t('checkbox') }} b</van-checkbox>
@@ -234,7 +243,11 @@ const checkedResultChange = (value: string[]) => {
   </demo-block>
 
   <demo-block :title="t('renderOptions')">
-    <van-checkbox-group v-model="state.checkboxOptions" :options="options" />
+    <van-checkbox-group
+      v-model="state.checkboxOptions"
+      class="demo-checkbox-group"
+      :options="options"
+    />
   </demo-block>
 
   <demo-block :title="t('listOptions')">
@@ -246,7 +259,7 @@ const checkedResultChange = (value: string[]) => {
   </demo-block>
 
   <demo-block :title="t('title4')">
-    <van-checkbox-group v-model="state.result2" :max="2">
+    <van-checkbox-group v-model="state.result2" class="demo-checkbox-group" :max="2">
       <van-checkbox name="a">{{ t('checkbox') }} a</van-checkbox>
       <van-checkbox name="b">{{ t('checkbox') }} b</van-checkbox>
       <van-checkbox name="c">{{ t('checkbox') }} c</van-checkbox>
@@ -254,7 +267,7 @@ const checkedResultChange = (value: string[]) => {
   </demo-block>
 
   <demo-block :title="t('toggleAll')">
-    <van-checkbox-group v-model="state.checkAllResult" ref="group">
+    <van-checkbox-group v-model="state.checkAllResult" ref="group" class="demo-checkbox-group">
       <van-checkbox name="a">{{ t('checkbox') }} a</van-checkbox>
       <van-checkbox name="b">{{ t('checkbox') }} b</van-checkbox>
       <van-checkbox name="c">{{ t('checkbox') }} c</van-checkbox>
@@ -329,11 +342,21 @@ const checkedResultChange = (value: string[]) => {
     }
   }
 
+  &-group,
   &-block-group {
+    box-sizing: border-box;
+    width: 100%;
+    max-width: 100%;
     padding: 0 16px;
 
     .van-checkbox {
-      margin: 0;
+      margin: 0 0 8px 0;
+    }
+  }
+
+  &-block-group {
+    .van-checkbox {
+      margin-bottom: 0;
     }
   }
 

@@ -48,8 +48,8 @@ export default {
 
 ```html
 <van-checkbox-group v-model="checked" shape="square">
-  <van-checkbox name="a">复选框 a</van-checkbox>
-  <van-checkbox name="b">复选框 b</van-checkbox>
+  <van-checkbox name="a">Checkbox a</van-checkbox>
+  <van-checkbox name="b">Checkbox b</van-checkbox>
 </van-checkbox-group>
 ```
 
@@ -59,6 +59,33 @@ import { ref } from 'vue';
 export default {
   setup() {
     const checked = ref(['a', 'b']);
+    return { checked };
+  },
+};
+```
+
+### Block Shape
+
+Set `shape` to `block` with `direction="horizontal"` for block-style checkboxes.
+
+```html
+<van-checkbox-group
+  v-model="checked"
+  shape="block"
+  direction="horizontal"
+>
+  <van-checkbox name="a">Checkbox a</van-checkbox>
+  <van-checkbox name="b">Checkbox b</van-checkbox>
+  <van-checkbox name="c">Checkbox c</van-checkbox>
+</van-checkbox-group>
+```
+
+```js
+import { ref } from 'vue';
+
+export default {
+  setup() {
+    const checked = ref(['a']);
     return { checked };
   },
 };
@@ -150,19 +177,12 @@ export default {
 
 ### Horizontal
 
-When `direction` is set to `horizontal`, you can use the `columns` prop to set the number of options per row. The default value is `3`.
+When `direction` is set to `horizontal`, checkboxes are laid out horizontally.
 
 ```html
 <van-checkbox-group v-model="checked" direction="horizontal">
   <van-checkbox name="a">Checkbox a</van-checkbox>
   <van-checkbox name="b">Checkbox b</van-checkbox>
-</van-checkbox-group>
-
-<van-checkbox-group v-model="checked" direction="horizontal" :columns="2">
-  <van-checkbox name="a">Checkbox a</van-checkbox>
-  <van-checkbox name="b">Checkbox b</van-checkbox>
-  <van-checkbox name="c">Checkbox c</van-checkbox>
-  <van-checkbox name="d">Checkbox d</van-checkbox>
 </van-checkbox-group>
 ```
 
@@ -173,6 +193,81 @@ export default {
   setup() {
     const checked = ref([]);
     return { checked };
+  },
+};
+```
+
+### Horizontal Columns
+
+When `direction` is `horizontal` and `shape` is `block`, use the `columns` prop to set the number of options per row. The default value is `3`.
+
+```html
+<van-checkbox-group
+  v-model="checked"
+  direction="horizontal"
+  shape="block"
+  :columns="3"
+>
+  <van-checkbox name="a">Checkbox a</van-checkbox>
+  <van-checkbox name="b">Checkbox b</van-checkbox>
+  <van-checkbox name="c">Checkbox c</van-checkbox>
+  <van-checkbox name="d">Checkbox d</van-checkbox>
+</van-checkbox-group>
+```
+
+### Render Options
+
+Render checkbox group from the `options` prop.
+
+```html
+<van-checkbox-group v-model="checked" :options="options" />
+```
+
+```js
+import { ref } from 'vue';
+
+export default {
+  setup() {
+    const checked = ref(['1']);
+    const options = [
+      { label: 'Option 1', value: '1' },
+      { label: 'Option 2', value: '2' },
+      { label: 'Option 3', value: '3', disabled: true },
+    ];
+    return { checked, options };
+  },
+};
+```
+
+### List Layout
+
+Set `is-list` to render options as a Cell list. Use `cellProps` in each option to customize Cell props.
+
+```html
+<van-checkbox-group v-model="checked" is-list :options="options" />
+```
+
+```js
+import { ref } from 'vue';
+
+export default {
+  setup() {
+    const checked = ref(['1']);
+    const options = [
+      { label: 'Option 1', value: '1' },
+      {
+        label: 'Option 2',
+        value: '2',
+        cellProps: { label: 'Description' },
+      },
+      {
+        label: 'Option 3',
+        value: '3',
+        disabled: true,
+        cellProps: { icon: 'shop-o' },
+      },
+    ];
+    return { checked, options };
   },
 };
 ```
@@ -353,7 +448,7 @@ export default {
 | direction | Direction, can be set to `horizontal` | _string_ | `vertical` |
 | columns `new` | Number of options per row in horizontal layout | _number \| string_ | `3` |
 | is-list `new` | Whether to render options as a Cell list | _boolean_ | `false` |
-| options `new` | Render options from config, each item is `{ label, value, disabled? }` | _CheckboxGroupOption[]_ | `[]` |
+| options `new` | Render options from config, each item is `{ label, value, disabled?, cellProps? }`, `cellProps` are [Cell](#/en-US/cell) props | _CheckboxGroupOption[]_ | `[]` |
 | icon-size | Icon size of all checkboxes | _number \| string_ | `20px` |
 | checked-color | Checked color of all checkboxes | _string_ | `#1989fa` |
 | shape `v4.6.3` | Can be set to `square` `block` | _string_ | `round` |

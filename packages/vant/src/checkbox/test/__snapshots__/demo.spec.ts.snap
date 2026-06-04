@@ -46,7 +46,7 @@ exports[`should render demo and match snapshot 1`] = `
   </div>
 </div>
 <div>
-  <div class="van-checkbox-group">
+  <div class="van-checkbox-group demo-checkbox-group">
     <div
       role="checkbox"
       class="van-checkbox"
@@ -206,7 +206,7 @@ exports[`should render demo and match snapshot 1`] = `
   </div>
 </div>
 <div>
-  <div class="van-checkbox-group">
+  <div class="van-checkbox-group demo-checkbox-group">
     <div
       role="checkbox"
       class="van-checkbox"
@@ -238,7 +238,7 @@ exports[`should render demo and match snapshot 1`] = `
   </div>
 </div>
 <div>
-  <div class="van-checkbox-group van-checkbox-group--horizontal">
+  <div class="van-checkbox-group van-checkbox-group--horizontal demo-checkbox-group">
     <div
       role="checkbox"
       class="van-checkbox van-checkbox--horizontal"
@@ -271,7 +271,7 @@ exports[`should render demo and match snapshot 1`] = `
 </div>
 <div>
   <div
-    class="van-checkbox-group van-checkbox-group--horizontal van-checkbox-group--block"
+    class="van-checkbox-group van-checkbox-group--horizontal van-checkbox-group--block demo-checkbox-block-group"
     style="--van-checkbox-group-columns: 3;"
   >
     <div
@@ -324,7 +324,7 @@ exports[`should render demo and match snapshot 1`] = `
   </div>
 </div>
 <div>
-  <div class="van-checkbox-group">
+  <div class="van-checkbox-group demo-checkbox-group">
     <div
       role="checkbox"
       class="van-checkbox"
@@ -370,9 +370,9 @@ exports[`should render demo and match snapshot 1`] = `
 </div>
 <div>
   <div class="van-checkbox-group van-checkbox-group--list">
-    <div class="van-cell-group van-hairline--top-bottom">
+    <div class="van-cell-group">
       <div
-        class="van-cell van-cell--clickable"
+        class="van-cell van-cell--clickable van-cell--borderless"
         role="button"
         tabindex="0"
       >
@@ -387,14 +387,14 @@ exports[`should render demo and match snapshot 1`] = `
           tabindex="0"
           aria-checked="true"
         >
-          <div class="van-checkbox__icon van-checkbox__icon--round van-checkbox__icon--checked">
+          <div class="van-checkbox__icon van-checkbox__icon--square van-checkbox__icon--checked">
             <i class="van-badge__wrapper van-icon van-icon-success">
             </i>
           </div>
         </div>
       </div>
       <div
-        class="van-cell van-cell--clickable"
+        class="van-cell van-cell--clickable van-cell--borderless"
         role="button"
         tabindex="0"
       >
@@ -412,13 +412,13 @@ exports[`should render demo and match snapshot 1`] = `
           tabindex="0"
           aria-checked="false"
         >
-          <div class="van-checkbox__icon van-checkbox__icon--round">
+          <div class="van-checkbox__icon van-checkbox__icon--square">
             <i class="van-badge__wrapper van-icon van-icon-success">
             </i>
           </div>
         </div>
       </div>
-      <div class="van-cell">
+      <div class="van-cell van-cell--borderless">
         <i class="van-badge__wrapper van-icon van-icon-shop-o van-cell__left-icon">
         </i>
         <div class="van-cell__title">
@@ -431,7 +431,7 @@ exports[`should render demo and match snapshot 1`] = `
           class="van-checkbox van-checkbox--disabled"
           aria-checked="false"
         >
-          <div class="van-checkbox__icon van-checkbox__icon--round van-checkbox__icon--disabled">
+          <div class="van-checkbox__icon van-checkbox__icon--square van-checkbox__icon--disabled">
             <i class="van-badge__wrapper van-icon van-icon-success">
             </i>
           </div>
@@ -441,7 +441,7 @@ exports[`should render demo and match snapshot 1`] = `
   </div>
 </div>
 <div>
-  <div class="van-checkbox-group">
+  <div class="van-checkbox-group demo-checkbox-group">
     <div
       role="checkbox"
       class="van-checkbox"
@@ -487,7 +487,7 @@ exports[`should render demo and match snapshot 1`] = `
   </div>
 </div>
 <div>
-  <div class="van-checkbox-group">
+  <div class="van-checkbox-group demo-checkbox-group">
     <div
       role="checkbox"
       class="van-checkbox"

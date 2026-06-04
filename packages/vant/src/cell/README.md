@@ -73,6 +73,20 @@ Use the `avatar` prop to show an [Avatar](#/en-US/avatar) on the left. The objec
 
 You can also use the `#avatar` slot for fully custom left avatar content.
 
+### Highlight Text
+
+Use the `highlight` prop to set the text that needs to be highlighted.
+
+```html
+<van-cell
+  title="Cell title"
+  value="Content"
+  label="Description"
+  :highlight="['Cell title', 'Content', 'Description']"
+  :highlight-props="{ highlightClass: 'custom-highlight' }"
+/>
+```
+
 ### Link
 
 ```html
@@ -157,6 +171,8 @@ You can also use the `#avatar` slot for fully custom left avatar content.
 | title | Title | _number \| string_ | - |
 | value | Right text | _number \| string_ | - |
 | label | Description below the title | _number \| string_ | - |
+| highlight `new` | Keywords to highlight in `title`, `value`, and `label` text | _string[]_ | `[]` |
+| highlight-props `new` | Props passed to [Highlight component](#/en-US/highlight#props), `keywords` and `sourceString` are controlled internally by Cell | _CellHighlightProps_ | - |
 | size | Size, can be set to `large` `normal` | _string_ | - |
 | icon | Left Icon | _string_ | - |
 | avatar `new` | Left avatar, passes through [Avatar](#/en-US/avatar#props) props; takes precedence over `icon` when both are set | _Partial\<AvatarProps\>_ | - |
@@ -209,6 +225,7 @@ The component exports the following type definitions:
 import type {
   CellSize,
   CellProps,
+  CellHighlightProps,
   CellGroupProps,
   CellArrowDirection,
 } from 'vant';
@@ -237,6 +254,7 @@ The component provides the following CSS variables, which can be used to customi
 | --van-cell-label-margin-top | _var(--van-padding-base)_ | - |
 | --van-cell-value-color | _var(--van-text-color-2)_ | - |
 | --van-cell-value-font-size | _inherit_ | - |
+| --van-cell-highlight-color | _var(--van-primary-color)_ | Highlight text color |
 | --van-cell-icon-size | _16px_ | - |
 | --van-cell-right-icon-color | _var(--van-gray-6)_ | - |
 | --van-cell-large-vertical-padding | _var(--van-padding-sm)_ | - |

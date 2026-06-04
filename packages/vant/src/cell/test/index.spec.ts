@@ -29,6 +29,64 @@ test('should render array title correctly', () => {
   expect(wrapper.html()).toMatchSnapshot();
 });
 
+test('should highlight title, value and label when using highlight prop', () => {
+  const wrapper = mount(Cell, {
+    props: {
+      title: 'Keyword title',
+      value: 'Keyword value',
+      label: 'Keyword label',
+      highlight: ['Keyword'],
+    },
+  });
+
+  const tags = wrapper.findAll('.van-cell__highlight');
+
+  expect(tags).toHaveLength(3);
+  expect(tags.map((tag) => tag.text())).toEqual([
+    'Keyword',
+    'Keyword',
+    'Keyword',
+  ]);
+  expect(wrapper.text()).toContain('Keyword title');
+  expect(wrapper.text()).toContain('Keyword value');
+  expect(wrapper.text()).toContain('Keyword label');
+});
+
+test('should highlight array title when using highlight prop', () => {
+  const wrapper = mount(Cell, {
+    props: {
+      title: ['Main Title', 'Sub Title'],
+      highlight: ['Title'],
+    },
+  });
+
+  const tags = wrapper.findAll('.van-cell__title-text .van-cell__highlight');
+
+  expect(tags).toHaveLength(2);
+  expect(tags.map((tag) => tag.text())).toEqual(['Title', 'Title']);
+});
+
+test('should pass highlightProps to Highlight component', () => {
+  const wrapper = mount(Cell, {
+    props: {
+      title: 'Keyword keyword',
+      highlight: ['keyword'],
+      highlightProps: {
+        caseSensitive: true,
+        highlightClass: 'custom-highlight',
+        unhighlightClass: 'custom-unhighlight',
+      },
+    },
+  });
+
+  const tags = wrapper.findAll('.van-cell__highlight');
+
+  expect(tags).toHaveLength(1);
+  expect(tags[0].classes()).toContain('custom-highlight');
+  expect(tags[0].text()).toBe('keyword');
+  expect(wrapper.find('.custom-unhighlight').text()).toBe('Keyword');
+});
+
 test('should render label slot correctly', () => {
   const wrapper = mount(Cell, {
     props: {

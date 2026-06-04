@@ -1,7 +1,7 @@
 :root {
   --van-field-children-item-gap: 0;
   --van-field-children-item-border-color: var(--van-border-color);
-  --van-field-children-tree-gutter-width: 20px;
+  --van-field-children-tree-gutter-width: 10px;
   --van-field-children-tree-color: var(--van-border-color);
   --van-field-children-tree-line-width: 1px;
   --van-field-children-tree-elbow-y: 50%;
@@ -9,7 +9,7 @@
   --van-field-children-tree-arm-length: 10px;
   --van-field-children-delete-icon-color: var(--van-white);
   --van-field-children-delete-icon-bg: var(--van-primary-color);
-  --van-field-children-delete-icon-size: 14px;
+  --van-field-children-delete-icon-size: 10px;
 }
 
 .van-field-children {
@@ -45,7 +45,7 @@
 
   &__tree-rail {
     position: absolute;
-    left: 50%;
+    left: 0;
     top: calc(
       var(--van-field-children-tree-elbow-y) -
         var(--van-field-children-tree-rail-length)
@@ -54,19 +54,17 @@
     height: var(--van-field-children-tree-rail-length);
     box-sizing: border-box;
     width: 0;
-    margin-left: calc(-0.5 * var(--van-field-children-tree-line-width));
     border-left: var(--van-field-children-tree-line-width) solid
       var(--van-field-children-tree-color);
   }
 
   &__tree-arm {
     position: absolute;
-    left: 50%;
+    left: 0;
     right: auto;
     width: var(--van-field-children-tree-arm-length);
     top: var(--van-field-children-tree-elbow-y);
     height: 0;
-    margin-left: calc(-0.5 * var(--van-field-children-tree-line-width));
     margin-top: calc(-0.5 * var(--van-field-children-tree-line-width));
     border-top: var(--van-field-children-tree-line-width) solid
       var(--van-field-children-tree-color);
@@ -84,8 +82,8 @@
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    width: 1.6em;
-    height: 1.6em;
+    width: 16px;
+    height: 16px;
     padding: 2px;
     border-radius: 50%;
     font-size: var(--van-field-children-delete-icon-size);

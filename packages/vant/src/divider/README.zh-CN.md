@@ -34,6 +34,14 @@ app.use(Divider);
 <van-divider>文本</van-divider>
 ```
 
+### 无边框
+
+设置 `borderless` 属性后不展示分割线，仅展示插槽内容。
+
+```html
+<van-divider borderless>文本</van-divider>
+```
+
 ### 内容位置
 
 通过 `content-position` 指定内容所在位置。
@@ -45,10 +53,10 @@ app.use(Divider);
 
 ### 虚线
 
-添加 `dashed` 属性使分割线渲染为虚线。
+添加 `dashed` 属性使分割线渲染为虚线，可配合 `hairline` 调整线条粗细。
 
 ```html
-<van-divider dashed>文本</van-divider>
+<van-divider dashed :hairline="false">文本</van-divider>
 ```
 
 ### 自定义样式
@@ -82,6 +90,7 @@ app.use(Divider);
 | 参数              | 说明                              | 类型      | 默认值   |
 | ----------------- | --------------------------------- | --------- | -------- |
 | dashed            | 是否使用虚线                      | _boolean_ | `false`  |
+| borderless `new`  | 是否不展示分割线，仅展示插槽内容  | _boolean_ | `false`  |
 | hairline          | 是否使用 0.5px 线                 | _boolean_ | `true`   |
 | content-position  | 内容位置，可选值为 `left` `right` | _string_  | `center` |
 | vertical `v4.4.0` | 是否使用垂直                      | _boolean_ | `false`  |

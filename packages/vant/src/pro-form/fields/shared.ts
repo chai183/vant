@@ -4,19 +4,11 @@ import type { FieldProps } from '../../field/Field';
 import type { ProFormFieldSlots } from '../resolveFieldSlots';
 import type { ProFormOption } from '../types';
 
-export function defaultFormOptions(label = ''): ProFormOption[] {
-  return [
-    { label: `${label} 1`, value: '1' },
-    { label: `${label} 2`, value: '2' },
-  ];
-}
-
 export function getFormFieldOptions(
   componentProps: Record<string, unknown>,
-  fallbackLabel = '',
 ): ProFormOption[] {
   const options = componentProps.options as ProFormOption[] | undefined;
-  return options?.length ? options : defaultFormOptions(fallbackLabel);
+  return options ?? [];
 }
 
 export function resolveOptionLabel(

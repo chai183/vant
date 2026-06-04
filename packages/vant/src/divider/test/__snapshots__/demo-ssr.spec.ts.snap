@@ -24,6 +24,16 @@ exports[`should render demo and match snapshot 1`] = `
   <!--[-->
   <div
     role="separator"
+    class="van-divider van-divider--hairline van-divider--borderless"
+  >
+    <!--[-->
+    Text
+  </div>
+</div>
+<div>
+  <!--[-->
+  <div
+    role="separator"
     class="van-divider van-divider--hairline van-divider--content-left"
   >
     <!--[-->

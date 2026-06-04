@@ -62,6 +62,46 @@ test('should render columns and emit submit with values', async () => {
   expect(values.switch).toBe(false);
 });
 
+test('should render custom field slot and emit update', async () => {
+  const onUpdateModelValue = vi.fn();
+  const wrapper = mount(ProForm, {
+    props: {
+      modelValue: { contactName: 'Tom' },
+      columns: [
+        {
+          name: 'contactName',
+          label: 'Contact',
+          slot: 'contact',
+        },
+      ],
+      showSubmit: false,
+      'onUpdate:modelValue': onUpdateModelValue,
+    },
+    slots: {
+      'field-contact': ({
+        column,
+        value,
+        setValue,
+      }: Pick<ProFormRenderContext, 'column' | 'value' | 'setValue'>) =>
+        h(
+          'button',
+          {
+            type: 'button',
+            class: 'field-contact',
+            onClick: () => setValue('Alex'),
+          },
+          `${column.label}: ${value}`,
+        ),
+    },
+  });
+
+  await nextTick();
+  expect(wrapper.find('.field-contact').text()).toBe('Contact: Tom');
+
+  await wrapper.find('.field-contact').trigger('click');
+  expect(onUpdateModelValue).toHaveBeenCalledWith({ contactName: 'Alex' });
+});
+
 test('should render radioGroup from componentProps.options without duplicate radios', async () => {
   const wrapper = mount(ProForm, {
     props: {
@@ -87,6 +127,40 @@ test('should render radioGroup from componentProps.options without duplicate rad
 
   await nextTick();
   expect(wrapper.findAll('.van-radio').length).toBe(2);
+});
+
+test('should not generate default options for builtin option components', async () => {
+  const wrapper = mount(ProForm, {
+    props: {
+      columns: [
+        {
+          name: 'radio',
+          label: 'Radio',
+          component: 'radioGroup',
+        },
+        {
+          name: 'checkbox',
+          label: 'Checkbox',
+          component: 'checkboxGroup',
+        },
+        {
+          name: 'radioPicker',
+          label: 'Radio Picker',
+          component: 'radioPicker',
+        },
+        {
+          name: 'checkboxPicker',
+          label: 'Checkbox Picker',
+          component: 'checkboxPicker',
+        },
+      ],
+      showSubmit: false,
+    },
+  });
+
+  await nextTick();
+  expect(wrapper.findAll('.van-radio')).toHaveLength(0);
+  expect(wrapper.findAll('.van-checkbox')).toHaveLength(0);
 });
 
 test('should render uploaderFile', async () => {

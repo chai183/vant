@@ -40,16 +40,14 @@ export default defineComponent({
 
     return () => {
       const calendarProps = omit(props.componentProps, ['formatDate']);
-      const { placeholder, ...restFieldProps } = props.fieldProps;
 
       return (
         <>
           <Field
-            {...restFieldProps}
+            {...props.fieldProps}
             modelValue={props.modelValue}
             readonly
             is-link
-            placeholder={placeholder}
             onClickInput={open}
           >
             {{ ...props.fieldSlots }}

@@ -431,6 +431,42 @@ const columns = computed(() => [
 ]);
 ```
 
+### 完全自定义表单项
+
+通过 `#field-{name}` 可以完全自定义表单项；当配置 `column.slot` 时，插槽名使用 `slot`，字段值仍写入 `name` 对应的表单项。
+
+```html
+<van-pro-form v-model="model" :columns="columns" :show-submit="false">
+  <template #field-contact="{ column, value, setValue }">
+    <van-field
+      :name="column.name"
+      :label="column.label"
+      :model-value="value"
+      placeholder="请输入联系人"
+      @update:model-value="setValue"
+    >
+      <template #button>
+        <van-button size="small" type="primary" @click="setValue('张三')">
+          填入
+        </van-button>
+      </template>
+    </van-field>
+  </template>
+</van-pro-form>
+```
+
+```js
+const model = ref({ contactName: '' });
+
+const columns = computed(() => [
+  {
+    name: 'contactName',
+    label: '联系人',
+    slot: 'contact',
+  },
+]);
+```
+
 ## API
 
 ### ProForm Props
@@ -458,6 +494,7 @@ const columns = computed(() => [
 | fieldSlots | 透传 Field 插槽，如 `label-comment` 等 | _object_ |
 | componentProps | 透传控件 | _object_ |
 | hidden | 是否隐藏 | _boolean \| (model) => boolean_ |
+| slot | 自定义插槽名，等价于 `#field-{slot}` / `#input-{slot}` 中的 `slot` 名 | _string_ |
 | render | 行内自定义渲染，优先级高于 component | _(ctx) => VNode_ \| _Component_ |
 
 #### 内置 component 与默认初始值

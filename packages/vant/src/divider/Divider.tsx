@@ -9,6 +9,7 @@ export const dividerProps = {
   dashed: Boolean,
   hairline: truthProp,
   vertical: Boolean,
+  borderless: Boolean,
   contentPosition: makeStringProp<DividerContentPosition>('center'),
 };
 
@@ -27,8 +28,9 @@ export default defineComponent({
           dashed: props.dashed,
           hairline: props.hairline,
           vertical: props.vertical,
+          borderless: props.borderless,
           [`content-${props.contentPosition}`]:
-            !!slots.default && !props.vertical,
+            !!slots.default && !props.vertical && !props.borderless,
         })}
       >
         {!props.vertical && slots.default?.()}

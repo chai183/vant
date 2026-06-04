@@ -147,7 +147,7 @@ export default {
 | --van-field-children-header-padding | _var(--van-padding-md) var(--van-padding-md) var(--van-padding-xs)_ | 头部内边距 |
 | --van-field-children-item-gap | _0_ | 分割线与子项内容之间的上下间距（为 `item-body` 的上下 padding） |
 | --van-field-children-item-border-color | _var(--van-border-color)_ | 子项底部分隔线颜色 |
-| --van-field-children-tree-gutter-width | _20px_ | 树形引导线左侧占位宽度 |
+| --van-field-children-tree-gutter-width | _10px_ | 树形引导线左侧占位宽度 |
 | --van-field-children-tree-color | _var(--van-border-color)_ | 树形引导线颜色 |
 | --van-field-children-tree-line-width | _1px_ | 树形引导线粗细 |
 | --van-field-children-tree-elbow-y | _50%_ | 拐角纵向位置（竖线与横线交汇） |

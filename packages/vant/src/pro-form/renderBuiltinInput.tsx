@@ -15,14 +15,6 @@ import type {
   ProFormRenderContext,
 } from './types';
 
-function defaultOptions(column: ProFormColumn): ProFormOption[] {
-  const base = column.label ?? '';
-  return [
-    { label: `${base} 1`, value: '1' },
-    { label: `${base} 2`, value: '2' },
-  ];
-}
-
 function renderRadioGroupInput(
   column: ProFormColumn,
   props: Record<string, unknown>,
@@ -30,9 +22,7 @@ function renderRadioGroupInput(
   setValue: (value: unknown) => void,
 ) {
   const options =
-    column.options ??
-    (props.options as ProFormOption[] | undefined) ??
-    defaultOptions(column);
+    column.options ?? (props.options as ProFormOption[] | undefined);
   const radioProps = omit(props, ['options']);
 
   return (
@@ -75,9 +65,7 @@ export function renderBuiltinInput(
       );
     case 'checkboxGroup': {
       const options =
-        column.options ??
-        (props.options as ProFormOption[] | undefined) ??
-        defaultOptions(column);
+        column.options ?? (props.options as ProFormOption[] | undefined);
       const groupProps = omit(props, ['options']);
 
       return (

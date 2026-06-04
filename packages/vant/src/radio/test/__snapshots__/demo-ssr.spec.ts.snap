@@ -123,7 +123,7 @@ exports[`should render demo and match snapshot 1`] = `
 <div>
   <!--[-->
   <div
-    class="van-radio-group van-radio-group--horizontal van-radio-group--block demo-radio-group"
+    class="van-radio-group van-radio-group--horizontal van-radio-group--block demo-radio-block-group"
     role="radiogroup"
     style="--van-radio-group-columns:3;"
   >
@@ -269,6 +269,128 @@ exports[`should render demo and match snapshot 1`] = `
         <!--[-->
         Option 3
       </span>
+    </div>
+  </div>
+</div>
+<div>
+  <!--[-->
+  <div
+    class="van-radio-group van-radio-group--list"
+    role="radiogroup"
+    style
+  >
+    <div class="van-cell-group">
+      <!--[-->
+      <!--[-->
+      <div
+        class="van-cell van-cell--clickable van-cell--borderless"
+        role="button"
+        tabindex="0"
+      >
+        <div
+          class="van-cell__title"
+          style
+        >
+          <span>
+            Option 1
+          </span>
+        </div>
+        <!--[-->
+        <div
+          role="radio"
+          class="van-radio"
+          style
+          tabindex="0"
+          aria-checked="true"
+        >
+          <!--[-->
+          <div
+            class="van-radio__icon van-radio__icon--round van-radio__icon--checked"
+            style
+          >
+            <i
+              class="van-badge__wrapper van-icon van-icon-success"
+              style
+            >
+              <!--[-->
+            </i>
+          </div>
+        </div>
+      </div>
+      <div
+        class="van-cell van-cell--clickable van-cell--borderless"
+        role="button"
+        tabindex="0"
+      >
+        <div
+          class="van-cell__title"
+          style
+        >
+          <span>
+            Option 2
+          </span>
+          <div class="van-cell__label">
+            Description
+          </div>
+        </div>
+        <!--[-->
+        <div
+          role="radio"
+          class="van-radio"
+          style
+          tabindex="0"
+          aria-checked="false"
+        >
+          <!--[-->
+          <div
+            class="van-radio__icon van-radio__icon--round"
+            style
+          >
+            <i
+              class="van-badge__wrapper van-icon van-icon-success"
+              style
+            >
+              <!--[-->
+            </i>
+          </div>
+        </div>
+      </div>
+      <div class="van-cell van-cell--borderless">
+        <i
+          class="van-badge__wrapper van-icon van-icon-shop-o van-cell__left-icon"
+          style
+        >
+          <!--[-->
+        </i>
+        <div
+          class="van-cell__title"
+          style
+        >
+          <span>
+            Option 3
+          </span>
+        </div>
+        <!--[-->
+        <div
+          role="radio"
+          class="van-radio van-radio--disabled"
+          style
+          aria-checked="false"
+        >
+          <!--[-->
+          <div
+            class="van-radio__icon van-radio__icon--round van-radio__icon--disabled"
+            style
+          >
+            <i
+              class="van-badge__wrapper van-icon van-icon-success"
+              style
+            >
+              <!--[-->
+            </i>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </div>

@@ -4,6 +4,7 @@
 :host {
   --van-cell-font-size: var(--van-font-size-md);
   --van-cell-line-height: 24px;
+  --van-cell-title-line-height: 20px;
   --van-cell-vertical-padding: 10px;
   --van-cell-horizontal-padding: var(--van-padding-md);
   --van-cell-text-color: var(--van-text-color);
@@ -14,9 +15,10 @@
   --van-cell-label-color: var(--van-text-color-2);
   --van-cell-label-font-size: var(--van-font-size-sm);
   --van-cell-label-line-height: var(--van-line-height-sm);
-  --van-cell-label-margin-top: var(--van-padding-base);
+  --van-cell-label-margin-top: var(--van-padding-xxs);
   --van-cell-value-color: var(--van-text-color-2);
   --van-cell-value-font-size: inherit;
+  --van-cell-highlight-color: var(--van-primary-color);
   --van-cell-icon-size: 16px;
   --van-cell-right-icon-color: var(--van-gray-6);
   --van-cell-large-vertical-padding: var(--van-padding-sm);
@@ -57,14 +59,23 @@
     line-height: var(--van-cell-label-line-height);
   }
 
-  &__title,
+  &__title {
+    flex: 1;
+    line-height: var(--van-cell-title-line-height);
+  }
+
   &__value {
     flex: 1;
+    min-width: 0;
   }
 
   &__title-text {
     display: flex;
     flex-direction: column;
+  }
+
+  &__highlight {
+    color: var(--van-cell-highlight-color);
   }
 
   &__value {

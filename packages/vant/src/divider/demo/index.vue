@@ -10,6 +10,7 @@ const t = useTranslate({
     contentPosition: '内容位置',
     customStyle: '自定义样式',
     vertical: '垂直',
+    borderless: '无边框',
   },
   'en-US': {
     text: 'Text',
@@ -18,6 +19,7 @@ const t = useTranslate({
     contentPosition: 'Content Position',
     customStyle: 'Custom Style',
     vertical: 'Vertical',
+    borderless: 'Borderless',
   },
 });
 </script>
@@ -29,6 +31,12 @@ const t = useTranslate({
 
   <demo-block :title="t('withText')">
     <van-divider>
+      {{ t('text') }}
+    </van-divider>
+  </demo-block>
+
+  <demo-block :title="t('borderless')">
+    <van-divider borderless>
       {{ t('text') }}
     </van-divider>
   </demo-block>

@@ -164,6 +164,39 @@ Set `label-position` prop to `'left'` to adjust the label position to the left o
 </van-radio-group>
 ```
 
+### List Layout
+
+Set `is-list` to render options as a Cell list. Use `cellProps` in each option to customize Cell props.
+
+```html
+<van-radio-group v-model="checked" is-list :options="options" />
+```
+
+```js
+import { ref } from 'vue';
+
+export default {
+  setup() {
+    const checked = ref('1');
+    const options = [
+      { label: 'Option 1', value: '1' },
+      {
+        label: 'Option 2',
+        value: '2',
+        cellProps: { label: 'Description' },
+      },
+      {
+        label: 'Option 3',
+        value: '3',
+        disabled: true,
+        cellProps: { icon: 'shop-o' },
+      },
+    ];
+    return { checked, options };
+  },
+};
+```
+
 ### Inside a Cell
 
 ```html
@@ -220,7 +253,7 @@ import type {
 | direction | Direction, can be set to `horizontal` | _string_ | `vertical` |
 | columns `new` | Number of options per row in horizontal layout | _number \| string_ | `3` |
 | is-list `new` | Whether to render options as a Cell list | _boolean_ | `false` |
-| options `new` | Render options from config, each item is `{ label, value, disabled? }` | _RadioGroupOption[]_ | `[]` |
+| options `new` | Render options from config, each item is `{ label, value, disabled?, cellProps? }`, `cellProps` are [Cell](#/en-US/cell) props | _RadioGroupOption[]_ | `[]` |
 | icon-size | Icon size of all radios | _number \| string_ | `20px` |
 | checked-color | Checked color of all radios | _string_ | `#1989fa` |
 | shape `v4.6.3` | Can be set to `square` `dot` `block` | _string_ | `round` |

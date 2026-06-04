@@ -16,6 +16,7 @@ const t = useTranslate({
     showIcon: '展示图标',
     showAvatar: '展示头像',
     showArrow: '展示箭头',
+    highlightText: '高亮文本',
     largeSize: '单元格大小',
     groupTitle: '分组标题',
     insetGrouped: '卡片风格',
@@ -34,6 +35,7 @@ const t = useTranslate({
     showIcon: 'Left Icon',
     showAvatar: 'Left Avatar',
     showArrow: 'Link',
+    highlightText: 'Highlight Text',
     largeSize: 'Size',
     groupTitle: 'Group Title',
     insetGrouped: 'Inset Grouped',
@@ -79,6 +81,16 @@ const t = useTranslate({
       :title="t('cell')"
       :value="t('content')"
       :avatar="{ type: 'text', text: '张', size: 'small' }"
+    />
+  </demo-block>
+
+  <demo-block :title="t('highlightText')">
+    <van-cell
+      :title="t('cell')"
+      :value="t('content')"
+      :label="t('desc')"
+      :highlight="[t('cell').slice(0, 2), t('content'), t('desc')]"
+      :highlight-props="{ highlightClass: 'custom-highlight' }"
     />
   </demo-block>
 
@@ -158,6 +170,10 @@ const t = useTranslate({
   .search-icon {
     font-size: 16px;
     line-height: inherit;
+  }
+
+  .custom-highlight {
+    color: var(--van-danger-color);
   }
 }
 </style>

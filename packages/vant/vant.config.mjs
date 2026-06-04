@@ -183,10 +183,6 @@ location.href = location.href.replace('youzan.github.io', 'vant-ui.github.io');
                 title: 'FieldChildren 动态表单项',
               },
               {
-                path: 'field-select-popup',
-                title: 'FieldSelectPopup 底部选择',
-              },
-              {
                 path: 'field-money',
                 title: 'FieldMoney 金额输入',
               },
@@ -693,10 +689,6 @@ location.href = location.href.replace('youzan.github.io', 'vant-ui.github.io');
               {
                 path: 'field-children',
                 title: 'FieldChildren',
-              },
-              {
-                path: 'field-select-popup',
-                title: 'FieldSelectPopup',
               },
               {
                 path: 'field-money',

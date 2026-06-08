@@ -5,6 +5,7 @@ import {
   reactive,
   nextTick,
   onActivated,
+  onBeforeUnmount,
   defineComponent,
   type PropType,
   type InjectionKey,
@@ -55,10 +56,12 @@ import { Sticky } from '../sticky';
 import { Icon } from '../icon';
 import { DropdownMenu } from '../dropdown-menu';
 import { DropdownItem } from '../dropdown-item';
+import { RadioGroup } from '../radio-group';
 import TabsContent from './TabsContent';
 
 // Types
-import type { TabsProvide, TabsType } from './types';
+import type { TabsProvide, TabsType, NavOverflow } from './types';
+import type { DropdownMenuInstance } from '../dropdown-menu/types';
 
 const [name, bem] = createNamespace('tabs');
 
@@ -78,7 +81,8 @@ export const tabsProps = {
   background: String,
   lazyRender: truthProp,
   showHeader: truthProp,
-  showNavMenu: Boolean,
+  showNavMenu: truthProp,
+  navOverflow: makeStringProp<NavOverflow>('menu'),
   lineWidth: numericProp,
   lineHeight: numericProp,
   beforeChange: Function as PropType<Interceptor>,
@@ -109,6 +113,7 @@ export default defineComponent({
     const navRef = ref<HTMLElement>();
     const wrapRef = ref<HTMLElement>();
     const contentRef = ref<ComponentInstance>();
+    const dropdownMenuRef = ref<DropdownMenuInstance>();
 
     const id = useId();
     const scroller = useScrollParent(root);
@@ -122,18 +127,87 @@ export default defineComponent({
       currentIndex: -1,
     });
 
+    const isNavOverflow = ref(false);
+    const navScrollAtEnd = ref(false);
+
+    const updateNavScrollState = () => {
+      const nav = navRef.value;
+
+      if (!nav || !scrollable.value) {
+        navScrollAtEnd.value = false;
+        return;
+      }
+
+      const maxScrollLeft = nav.scrollWidth - nav.clientWidth;
+      navScrollAtEnd.value =
+        maxScrollLeft > 1 && nav.scrollLeft >= maxScrollLeft - 1;
+    };
+
+    const updateNavOverflow = () => {
+      const wrap = wrapRef.value;
+      const nav = navRef.value;
+      const titles = titleRefs.value;
+
+      if (!wrap || !nav || !titles?.length) {
+        isNavOverflow.value = false;
+        return;
+      }
+
+      const navStyles = window.getComputedStyle(nav);
+      const paddingLeft = parseFloat(navStyles.paddingLeft) || 0;
+      const paddingRight = parseFloat(navStyles.paddingRight) || 0;
+      const gap = parseFloat(navStyles.columnGap || navStyles.gap) || 0;
+      const gaps = gap * Math.max(titles.length - 1, 0);
+
+      let tabsWidth = 0;
+      titles.forEach((tab) => {
+        const el = tab?.$el as HTMLElement | undefined;
+        if (el) {
+          tabsWidth += el.scrollWidth;
+        }
+      });
+
+      const menuEl = wrap.querySelector(
+        `.${bem('nav-menu')} .van-dropdown-menu__item`,
+      ) as HTMLElement | null;
+      const availableWidth = wrap.clientWidth - (menuEl?.offsetWidth ?? 0);
+      const contentWidth = tabsWidth + paddingLeft + paddingRight + gaps;
+
+      isNavOverflow.value =
+        contentWidth > availableWidth + 1 ||
+        nav.scrollWidth > nav.clientWidth + 1;
+    };
+
     // whether the nav is scrollable
     const scrollable = computed(
       () =>
         children.length > +props.swipeThreshold ||
         !props.ellipsis ||
-        props.shrink,
+        props.shrink ||
+        isNavOverflow.value,
     );
 
-    const navStyle = computed(() => ({
-      borderColor: props.color,
-      background: props.background,
-    }));
+    const showNavMenuVisible = computed(
+      () =>
+        props.navOverflow === 'menu' && props.showNavMenu && scrollable.value,
+    );
+
+    const showNavShadowVisible = computed(
+      () => props.navOverflow === 'shadow' && scrollable.value,
+    );
+
+    const navStyle = computed(() => {
+      const style: Record<string, string | undefined> = {
+        borderColor: props.color,
+        background: props.background,
+      };
+
+      if (props.color) {
+        style['--van-tabs-nav-menu-icon-active-color'] = props.color;
+      }
+
+      return style;
+    });
 
     const getTabName = (tab: ComponentInstance, index: number): Numeric =>
       tab.name ?? index;
@@ -369,32 +443,60 @@ export default defineComponent({
       }
     };
 
-    const renderNavMenu = () => {
-      if (!props.showNavMenu || !scrollable.value) {
+    const renderNavShadow = () => {
+      if (!showNavShadowVisible.value) {
         return;
       }
 
-      const menuItems = children.map((item, index) => ({
-        text: item.title as string,
+      return (
+        <div
+          class={bem('scroll-shadow', navScrollAtEnd.value ? 'left' : 'right')}
+        />
+      );
+    };
+
+    const onNavScroll = () => {
+      updateNavScrollState();
+    };
+
+    const renderNavMenu = () => {
+      if (!showNavMenuVisible.value) {
+        return;
+      }
+
+      const menuOptions = children.map((item, index) => ({
+        label: item.title as string,
         value: index,
+        disabled: item.disabled,
       }));
 
+      const onMenuOptionChange = (value: number) => {
+        setCurrentIndex(value);
+        scrollToCurrentContent();
+        dropdownMenuRef.value?.close();
+      };
+
       return (
-        <div class={bem('nav-menu')}>
-          <DropdownMenu>
-            <DropdownItem
-              options={menuItems}
-              modelValue={state.currentIndex}
-              onUpdate:modelValue={(val: number) => {
-                setCurrentIndex(val);
-                scrollToCurrentContent();
-              }}
-              v-slots={{
-                title: () => <Icon name="wap-nav" />,
-              }}
-            />
-          </DropdownMenu>
-        </div>
+        <DropdownMenu
+          ref={dropdownMenuRef}
+          class={bem('nav-menu')}
+          activeColor={props.color ?? 'var(--van-primary-color)'}
+        >
+          <DropdownItem
+            v-slots={{
+              title: () => <Icon name="wap-nav" />,
+              default: () => (
+                <RadioGroup
+                  isList
+                  options={menuOptions}
+                  modelValue={state.currentIndex}
+                  checkedColor={props.color}
+                  onUpdate:modelValue={onMenuOptionChange}
+                />
+              ),
+            }}
+          />
+        </DropdownMenu>
       );
     };
 
@@ -405,7 +507,10 @@ export default defineComponent({
         <div
           ref={sticky ? undefined : wrapRef}
           class={[
-            bem('wrap'),
+            bem('wrap', {
+              'show-menu': showNavMenuVisible.value,
+              'show-shadow': showNavShadowVisible.value,
+            }),
             { [BORDER_TOP_BOTTOM]: type === 'line' && border },
           ]}
         >
@@ -414,10 +519,18 @@ export default defineComponent({
             role="tablist"
             class={bem('nav', [
               type,
-              { shrink: props.shrink, complete: scrollable.value },
+              {
+                shrink: props.shrink,
+                complete: scrollable.value,
+                fill:
+                  type === 'rounded' &&
+                  children.length === +props.swipeThreshold &&
+                  !scrollable.value,
+              },
             ])}
             style={navStyle.value}
             aria-orientation="horizontal"
+            onScroll={onNavScroll}
           >
             {slots['nav-left']?.()}
             {children.map((item) => item.renderTitle(onClickTab))}
@@ -425,6 +538,7 @@ export default defineComponent({
             {slots['nav-right']?.()}
           </div>
           {renderNavMenu()}
+          {renderNavShadow()}
         </div>,
         slots['nav-bottom']?.(),
       ];
@@ -439,6 +553,8 @@ export default defineComponent({
       setLine();
 
       nextTick(() => {
+        updateNavOverflow();
+        updateNavScrollState();
         scrollIntoView(true);
         contentRef.value?.swipeRef.value?.resize();
       });
@@ -466,10 +582,47 @@ export default defineComponent({
           setCurrentIndexByName(props.active);
           setLine();
           nextTick(() => {
+            updateNavOverflow();
+            updateNavScrollState();
             scrollIntoView(true);
           });
         }
       },
+    );
+
+    watch(scrollable, () => {
+      nextTick(() => {
+        updateNavOverflow();
+        updateNavScrollState();
+      });
+    });
+
+    let navResizeObserver: ResizeObserver | undefined;
+
+    const setupNavResizeObserver = () => {
+      if (typeof ResizeObserver === 'undefined' || navResizeObserver) {
+        return;
+      }
+
+      navResizeObserver = new ResizeObserver(() => {
+        updateNavOverflow();
+        updateNavScrollState();
+      });
+    };
+
+    watch(
+      wrapRef,
+      (el, prev) => {
+        setupNavResizeObserver();
+        if (prev) {
+          navResizeObserver?.unobserve(prev);
+        }
+        if (el) {
+          navResizeObserver?.observe(el);
+          updateNavOverflow();
+        }
+      },
+      { flush: 'post' },
     );
 
     const init = () => {
@@ -479,9 +632,15 @@ export default defineComponent({
         if (wrapRef.value) {
           tabHeight = useRect(wrapRef.value).height;
         }
+        updateNavOverflow();
+        updateNavScrollState();
         scrollIntoView(true);
       });
     };
+
+    onBeforeUnmount(() => {
+      navResizeObserver?.disconnect();
+    });
 
     const onRendered = (name: Numeric, title?: string) =>
       emit('rendered', name, title);
@@ -490,6 +649,13 @@ export default defineComponent({
       resize,
       scrollTo,
     });
+
+    watch(
+      () => children.map((item) => item.title),
+      () => {
+        nextTick(updateNavOverflow);
+      },
+    );
 
     onActivated(setLine);
     onPopupReopen(setLine);

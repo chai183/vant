@@ -1,5 +1,6 @@
 import {
   ref,
+  watch,
   computed,
   defineComponent,
   type PropType,
@@ -19,7 +20,11 @@ import {
   stopPropagation,
   createNamespace,
   makeNumericProp,
+  makeStringProp,
 } from '../utils';
+
+// Types
+import type { SliderType } from './types';
 
 // Composables
 import { useRect, useCustomFieldValue, useEventListener } from '@vant/use';
@@ -35,6 +40,8 @@ export const sliderProps = {
   min: makeNumericProp(0),
   max: makeNumericProp(100),
   step: makeNumericProp(1),
+  type: makeStringProp<SliderType>('single'),
+  marks: Array as PropType<number[]>,
   range: Boolean,
   reverse: Boolean,
   disabled: Boolean,
@@ -44,6 +51,13 @@ export const sliderProps = {
   buttonSize: numericProp,
   activeColor: String,
   inactiveColor: String,
+  showValue: Boolean,
+  showInputs: Boolean,
+  unselectedText: makeStringProp('未选择'),
+  minPlaceholder: makeStringProp('¥ 最低金额'),
+  maxPlaceholder: makeStringProp('¥ 最高金额'),
+  formatter: Function as PropType<(value: number) => string>,
+  parser: Function as PropType<(text: string) => number | null>,
   modelValue: {
     type: [Number, Array] as PropType<SliderValue>,
     default: 0,
@@ -67,11 +81,100 @@ export default defineComponent({
     const root = ref<HTMLElement>();
     const slider = [ref<HTMLElement>(), ref<HTMLElement>()] as const;
     const dragStatus = ref<'start' | 'dragging' | ''>();
+    const valueSelected = ref(false);
     const touch = useTouch();
+
+    const minInput = ref('');
+    const maxInput = ref('');
+
+    const formatDisplayValue = (value: number) => {
+      if (props.formatter) {
+        return props.formatter(value);
+      }
+
+      return `¥ ${value.toLocaleString('en-US', {
+        minimumFractionDigits: 2,
+        maximumFractionDigits: 2,
+      })}`;
+    };
+
+    const parseDisplayValue = (text: string) => {
+      if (props.parser) {
+        return props.parser(text);
+      }
+
+      const num = Number(text.replace(/[^\d.]/g, ''));
+      return Number.isFinite(num) ? num : null;
+    };
+
+    const getRangeValue = (): NumberRange => {
+      const value = props.modelValue;
+      if (Array.isArray(value)) {
+        return value as NumberRange;
+      }
+      return [Number(props.min), Number(props.max)];
+    };
+
+    const syncInputsFromModel = () => {
+      if (!props.showInputs || !isRangeMode.value) {
+        return;
+      }
+
+      const [min, max] = getRangeValue();
+      minInput.value = formatDisplayValue(min);
+      maxInput.value = formatDisplayValue(max);
+    };
+
+    const markValueSelected = () => {
+      if (props.showValue && !isRangeMode.value) {
+        valueSelected.value = true;
+      }
+    };
 
     const scope = computed(() => Number(props.max) - Number(props.min));
 
-    const wrapperStyle = computed(() => {
+    const isRangeMode = computed(() => {
+      if (props.type === 'range' || props.type === 'node-range') {
+        return true;
+      }
+      if (props.type === 'single') {
+        return props.range;
+      }
+      return props.range;
+    });
+
+    watch(
+      () => props.modelValue,
+      () => {
+        syncInputsFromModel();
+      },
+      { immediate: true, deep: true },
+    );
+
+    const isNodeRange = computed(() => props.type === 'node-range');
+
+    const markList = computed(() => {
+      if (!isNodeRange.value) {
+        return [];
+      }
+
+      if (props.marks?.length) {
+        return props.marks.map((mark) => Number(mark));
+      }
+
+      const min = Number(props.min);
+      const max = Number(props.max);
+      const step = Number(props.step);
+      const list: number[] = [];
+
+      for (let value = min; value <= max; value += step) {
+        list.push(value);
+      }
+
+      return list;
+    });
+
+    const trackStyle = computed(() => {
       const crossAxis = props.vertical ? 'width' : 'height';
       return {
         background: props.inactiveColor,
@@ -80,7 +183,7 @@ export default defineComponent({
     });
 
     const isRange = (val: unknown): val is NumberRange =>
-      props.range && Array.isArray(val);
+      isRangeMode.value && Array.isArray(val);
 
     // 计算选中条的长度百分比
     const calcMainAxis = () => {
@@ -123,12 +226,28 @@ export default defineComponent({
       return style;
     });
 
+    const formatToMark = (value: number) => {
+      const marks = markList.value;
+      if (!marks.length) {
+        return value;
+      }
+
+      return marks.reduce((prev, curr) =>
+        Math.abs(curr - value) < Math.abs(prev - value) ? curr : prev,
+      );
+    };
+
     const format = (value: number) => {
       const min = +props.min;
       const max = +props.max;
       const step = +props.step;
 
       value = clamp(value, min, max);
+
+      if (isNodeRange.value) {
+        return formatToMark(value);
+      }
+
       const diff = Math.round((value - min) / step) * step;
       return addNumber(min, diff);
     };
@@ -143,10 +262,8 @@ export default defineComponent({
     };
 
     const handleRangeValue = (value: NumberRange) => {
-      // 设置默认值
       const left = value[0] ?? Number(props.min);
       const right = value[1] ?? Number(props.max);
-      // 处理两个滑块重叠之后的情况
       return left > right ? [right, left] : [left, right];
     };
 
@@ -162,6 +279,7 @@ export default defineComponent({
       }
 
       if (end && !isSameValue(value, startValue)) {
+        markValueSelected();
         emit('change', value);
       }
     };
@@ -213,6 +331,7 @@ export default defineComponent({
         return;
       }
 
+      markValueSelected();
       touch.start(event);
       current = props.modelValue;
       updateStartValue();
@@ -292,8 +411,194 @@ export default defineComponent({
         return slots.button({ value, dragging });
       }
 
+      const buttonStyle = getSizeStyle(props.buttonSize) || {};
+
+      if (buttonStyle.height) {
+        buttonStyle.borderRadius = `calc(${buttonStyle.height} / 2)`;
+      } else if (buttonStyle.width) {
+        buttonStyle.borderRadius = `calc(${buttonStyle.width} / 2)`;
+      }
+
       return (
-        <div class={bem('button')} style={getSizeStyle(props.buttonSize)} />
+        <div
+          class={bem('button')}
+          style={Object.keys(buttonStyle).length ? buttonStyle : undefined}
+        >
+          <span class={bem('button-grip')} />
+        </div>
+      );
+    };
+
+    const getMarkPositionStyle = (mark: number): CSSProperties => {
+      const percent = ((mark - Number(props.min)) * 100) / scope.value;
+      const position =
+        props.reverse && props.vertical ? `${100 - percent}%` : `${percent}%`;
+      return props.vertical ? { top: position } : { left: position };
+    };
+
+    const getMarkState = () => {
+      const { modelValue } = props;
+      const rangeValue = isRange(modelValue) ? modelValue : null;
+
+      return markList.value.map((mark) => ({
+        mark,
+        positionStyle: getMarkPositionStyle(mark),
+        isEndpoint:
+          !!rangeValue && (mark === rangeValue[0] || mark === rangeValue[1]),
+        isActive:
+          !!rangeValue && mark >= rangeValue[0] && mark <= rangeValue[1],
+      }));
+    };
+
+    const renderMarkLabels = () => {
+      if (!isNodeRange.value || !markList.value.length) {
+        return;
+      }
+
+      return (
+        <div class={bem('marks')}>
+          {getMarkState().map(({ mark, positionStyle, isEndpoint }) => (
+            <div key={mark} class={bem('mark')} style={positionStyle}>
+              <span
+                class={bem('mark-label', {
+                  active: isEndpoint,
+                })}
+              >
+                {mark}
+              </span>
+            </div>
+          ))}
+        </div>
+      );
+    };
+
+    const renderMarkDots = () => {
+      if (!isNodeRange.value || !markList.value.length) {
+        return;
+      }
+
+      return (
+        <div class={bem('track-dots')}>
+          {getMarkState().map(
+            ({ mark, positionStyle, isActive, isEndpoint }) => {
+              // 滑块所在节点不展示圆点，避免与滑块重叠
+              if (isEndpoint) {
+                return null;
+              }
+
+              return (
+                <span
+                  key={mark}
+                  class={bem('mark-dot', {
+                    active: isActive,
+                  })}
+                  style={positionStyle}
+                />
+              );
+            },
+          )}
+        </div>
+      );
+    };
+
+    const syncModelFromInput = (index: 0 | 1, text: string) => {
+      const parsed = parseDisplayValue(text);
+      if (parsed === null) {
+        syncInputsFromModel();
+        return;
+      }
+
+      let min = getRangeValue()[0];
+      let max = getRangeValue()[1];
+
+      if (index === 0) {
+        min = clamp(Number(parsed), Number(props.min), Number(props.max));
+      } else {
+        max = clamp(Number(parsed), Number(props.min), Number(props.max));
+      }
+
+      if (min > max) {
+        if (index === 0) {
+          max = min;
+        } else {
+          min = max;
+        }
+      }
+
+      updateValue([min, max], true);
+    };
+
+    const renderInputs = () => {
+      if (!props.showInputs || !isRangeMode.value || props.vertical) {
+        return null;
+      }
+
+      if (slots['range-input']) {
+        return slots['range-input']({
+          modelValue: getRangeValue(),
+          min: minInput.value,
+          max: maxInput.value,
+        });
+      }
+
+      const inputProps = {
+        type: 'text',
+        inputMode: 'decimal' as const,
+        disabled: props.disabled || undefined,
+        readOnly: props.readonly || undefined,
+      };
+
+      return (
+        <div class={bem('inputs')}>
+          <label class={bem('field')}>
+            <input
+              {...inputProps}
+              class={bem('input')}
+              value={minInput.value}
+              placeholder={props.minPlaceholder}
+              onInput={(event) => {
+                minInput.value = (event.target as HTMLInputElement).value;
+              }}
+              onBlur={() => syncModelFromInput(0, minInput.value)}
+            />
+          </label>
+          <span class={bem('divider')} />
+          <label class={bem('field')}>
+            <input
+              {...inputProps}
+              class={bem('input')}
+              value={maxInput.value}
+              placeholder={props.maxPlaceholder}
+              onInput={(event) => {
+                maxInput.value = (event.target as HTMLInputElement).value;
+              }}
+              onBlur={() => syncModelFromInput(1, maxInput.value)}
+            />
+          </label>
+        </div>
+      );
+    };
+
+    const renderValue = () => {
+      if (!props.showValue || isRangeMode.value || props.vertical) {
+        return null;
+      }
+
+      const value = props.modelValue as number;
+
+      if (slots.value) {
+        return slots.value({
+          value,
+          selected: valueSelected.value,
+        });
+      }
+
+      const text = valueSelected.value
+        ? formatDisplayValue(value)
+        : props.unselectedText;
+
+      return (
+        <p class={bem('value', { active: valueSelected.value })}>{text}</p>
       );
     };
 
@@ -317,7 +622,6 @@ export default defineComponent({
           aria-orientation={props.vertical ? 'vertical' : 'horizontal'}
           onTouchstartPassive={(event) => {
             if (typeof index === 'number') {
-              // save index of current button
               buttonIndex = index;
             }
             onTouchStart(event);
@@ -336,7 +640,6 @@ export default defineComponent({
     useCustomFieldValue(() => props.modelValue);
 
     slider.forEach((item) => {
-      // useEventListener will set passive to `false` to eliminate the warning of Chrome
       useEventListener('touchmove', onTouchMove, {
         target: item,
       });
@@ -344,17 +647,38 @@ export default defineComponent({
 
     return () => (
       <div
-        ref={root}
-        style={wrapperStyle.value}
-        class={bem({
+        class={bem('container', {
           vertical: props.vertical,
-          disabled: props.disabled,
+          'with-marks':
+            isNodeRange.value && markList.value.length && !props.vertical,
+          'with-marks-vertical':
+            isNodeRange.value && markList.value.length && props.vertical,
         })}
-        onClick={onClick}
       >
-        <div class={bem('bar')} style={barStyle.value}>
-          {props.range ? [renderButton(0), renderButton(1)] : renderButton()}
+        {!props.vertical && renderMarkLabels()}
+        <div
+          class={bem({
+            vertical: props.vertical,
+            disabled: props.disabled,
+          })}
+        >
+          {props.vertical && renderMarkLabels()}
+          <div
+            ref={root}
+            style={trackStyle.value}
+            class={bem('track')}
+            onClick={onClick}
+          >
+            {renderMarkDots()}
+            <div class={bem('bar')} style={barStyle.value}>
+              {isRangeMode.value
+                ? [renderButton(0), renderButton(1)]
+                : renderButton()}
+            </div>
+          </div>
         </div>
+        {renderValue()}
+        {renderInputs()}
       </div>
     );
   },

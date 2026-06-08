@@ -32,6 +32,8 @@ export const TabTitle = defineComponent({
 
       const isCard = type === 'card';
       const isRounded = type === 'rounded';
+      const isUnderline = type === 'underline';
+      const isDivider = type === 'divider';
 
       // card theme color
       if (color && isCard) {
@@ -46,9 +48,17 @@ export const TabTitle = defineComponent({
         }
       }
 
-      // rounded: active tab uses theme color background; inactive uses gray from CSS
+      // rounded: active tab uses theme color background; inactive uses #f5f5f5 from CSS
       if (color && isRounded && !disabled && isActive) {
         style.backgroundColor = color;
+      }
+
+      if (color && isUnderline && !disabled && isActive) {
+        style.color = color;
+      }
+
+      if (color && isDivider && !disabled && isActive) {
+        style.color = color;
       }
 
       const titleColor = isActive ? activeColor : inactiveColor;
@@ -59,9 +69,25 @@ export const TabTitle = defineComponent({
       return style;
     });
 
+    const shouldEllipsis = computed(() => {
+      if (props.type === 'rounded' || props.type === 'divider') {
+        return false;
+      }
+
+      return !props.scrollable;
+    });
+
+    const shouldGrow = computed(
+      () =>
+        props.scrollable &&
+        !props.shrink &&
+        props.type !== 'rounded' &&
+        props.type !== 'divider',
+    );
+
     const renderText = () => {
       const Text = (
-        <span class={bem('text', { ellipsis: !props.scrollable })}>
+        <span class={bem('text', { ellipsis: shouldEllipsis.value })}>
           {slots.title ? slots.title() : props.title}
         </span>
       );
@@ -89,7 +115,7 @@ export const TabTitle = defineComponent({
           bem([
             props.type,
             {
-              grow: props.scrollable && !props.shrink,
+              grow: shouldGrow.value,
               shrink: props.shrink,
               active: props.isActive,
               disabled: props.disabled,

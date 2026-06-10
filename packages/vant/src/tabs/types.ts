@@ -68,6 +68,7 @@ export type TabsThemeVars = {
   tabsNavMenuBackground?: string;
   tabsNavMenuPanelPaddingHorizontal?: string;
   tabsNavMenuPadding?: string;
+  tabsNavMenuZIndex?: number | string;
   tabsScrollShadowWidth?: string;
   tabsScrollShadowColor?: string;
 };

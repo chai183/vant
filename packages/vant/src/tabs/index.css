@@ -36,6 +36,7 @@
   --van-tabs-nav-menu-background: var(--van-white);
   --van-tabs-nav-menu-padding: 0 12px;
   --van-tabs-nav-menu-panel-padding-horizontal: 12px;
+  --van-tabs-nav-menu-z-index: 100;
   --van-tabs-scroll-shadow-width: 12px;
   --van-tabs-scroll-shadow-color: rgba(0, 0, 0, 0.08);
 }
@@ -176,6 +177,9 @@
 .van-tabs__wrap--show-shadow {
   position: relative;
 }
+.van-tabs__wrap--nav-menu-opened {
+  z-index: var(--van-tabs-nav-menu-z-index);
+}
 .van-tabs__wrap--page-top {
   position: fixed;
 }
@@ -291,7 +295,6 @@
   right: 0;
   bottom: 0;
   left: 0;
-  z-index: 1;
   pointer-events: none;
 }
 .van-tabs__nav-menu.van-dropdown-menu {
@@ -345,6 +348,7 @@
 }
 .van-tabs__nav-menu .van-dropdown-item {
   pointer-events: auto;
+  z-index: var(--van-tabs-nav-menu-z-index);
 }
 .van-tabs__nav-menu .van-dropdown-item__content {
   padding: 0 var(--van-tabs-nav-menu-panel-padding-horizontal);

@@ -36,6 +36,7 @@
   --van-tabs-nav-menu-background: var(--van-white);
   --van-tabs-nav-menu-padding: 0 12px;
   --van-tabs-nav-menu-panel-padding-horizontal: 12px;
+  --van-tabs-nav-menu-z-index: 100;
   --van-tabs-scroll-shadow-width: 12px;
   --van-tabs-scroll-shadow-color: rgba(0, 0, 0, 0.08);
 }
@@ -207,6 +208,10 @@
       position: relative;
     }
 
+    &--nav-menu-opened {
+      z-index: var(--van-tabs-nav-menu-z-index);
+    }
+
     &--page-top {
       position: fixed;
     }
@@ -315,8 +320,7 @@
       box-sizing: border-box;
       width: 100%;
       justify-content: flex-start;
-      height: auto;
-      padding: var(--van-tabs-divider-nav-padding-vertical) 0;
+      height: 48px;
       background: var(--van-tabs-divider-nav-background);
 
       > .van-tab--divider {
@@ -362,7 +366,6 @@
     right: 0;
     bottom: 0;
     left: 0;
-    z-index: 1;
     pointer-events: none;
 
     &.van-dropdown-menu {
@@ -425,6 +428,7 @@
 
     .van-dropdown-item {
       pointer-events: auto;
+      z-index: var(--van-tabs-nav-menu-z-index);
     }
 
     .van-dropdown-item__content {

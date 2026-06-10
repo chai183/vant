@@ -65,6 +65,9 @@ import type { DropdownMenuInstance } from '../dropdown-menu/types';
 
 const [name, bem] = createNamespace('tabs');
 
+// 菜单面板 z-index，需高于 sticky 标签栏（默认 99），避免多实例/级联场景层级错乱
+const NAV_MENU_Z_INDEX = 100;
+
 export const tabsProps = {
   type: makeStringProp<TabsType>('line'),
   color: String,
@@ -114,6 +117,8 @@ export default defineComponent({
     const wrapRef = ref<HTMLElement>();
     const contentRef = ref<ComponentInstance>();
     const dropdownMenuRef = ref<DropdownMenuInstance>();
+    // 右侧菜单面板是否已展开，用于提升当前 Tabs 层级
+    const navMenuOpened = ref(false);
 
     const id = useId();
     const scroller = useScrollParent(root);
@@ -127,9 +132,12 @@ export default defineComponent({
       currentIndex: -1,
     });
 
+    // 标签栏内容是否溢出容器宽度
     const isNavOverflow = ref(false);
+    // 滚动阴影模式下，nav 是否已滚动到最右侧
     const navScrollAtEnd = ref(false);
 
+    // 更新滚动阴影指示器的左右位置
     const updateNavScrollState = () => {
       const nav = navRef.value;
 
@@ -143,6 +151,7 @@ export default defineComponent({
         maxScrollLeft > 1 && nav.scrollLeft >= maxScrollLeft - 1;
     };
 
+    // 检测标签栏内容是否超出可视区域，用于判断是否可滚动
     const updateNavOverflow = () => {
       const wrap = wrapRef.value;
       const nav = navRef.value;
@@ -187,11 +196,13 @@ export default defineComponent({
         isNavOverflow.value,
     );
 
+    // 是否展示右侧菜单图标（nav-overflow="menu" 时生效）
     const showNavMenuVisible = computed(
       () =>
         props.navOverflow === 'menu' && props.showNavMenu && scrollable.value,
     );
 
+    // 是否展示滚动阴影指示器（nav-overflow="shadow" 时生效）
     const showNavShadowVisible = computed(
       () => props.navOverflow === 'shadow' && scrollable.value,
     );
@@ -443,6 +454,7 @@ export default defineComponent({
       }
     };
 
+    // 渲染滚动阴影指示器（12px 方块 + 阴影）
     const renderNavShadow = () => {
       if (!showNavShadowVisible.value) {
         return;
@@ -455,10 +467,12 @@ export default defineComponent({
       );
     };
 
+    // 监听 nav 横向滚动，同步阴影指示器位置
     const onNavScroll = () => {
       updateNavScrollState();
     };
 
+    // 渲染右侧菜单图标及 RadioGroup 列表面板
     const renderNavMenu = () => {
       if (!showNavMenuVisible.value) {
         return;
@@ -480,9 +494,17 @@ export default defineComponent({
         <DropdownMenu
           ref={dropdownMenuRef}
           class={bem('nav-menu')}
+          zIndex={NAV_MENU_Z_INDEX}
           activeColor={props.color ?? 'var(--van-primary-color)'}
         >
           <DropdownItem
+            teleport="body"
+            onOpened={() => {
+              navMenuOpened.value = true;
+            }}
+            onClosed={() => {
+              navMenuOpened.value = false;
+            }}
             v-slots={{
               title: () => <Icon name="wap-nav" />,
               default: () => (
@@ -510,6 +532,7 @@ export default defineComponent({
             bem('wrap', {
               'show-menu': showNavMenuVisible.value,
               'show-shadow': showNavShadowVisible.value,
+              'nav-menu-opened': navMenuOpened.value,
             }),
             { [BORDER_TOP_BOTTOM]: type === 'line' && border },
           ]}
@@ -599,6 +622,7 @@ export default defineComponent({
 
     let navResizeObserver: ResizeObserver | undefined;
 
+    // 监听标签栏容器尺寸变化，重新计算溢出与滚动状态
     const setupNavResizeObserver = () => {
       if (typeof ResizeObserver === 'undefined' || navResizeObserver) {
         return;

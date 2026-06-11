@@ -204,6 +204,48 @@ test('should render uploaderFile', async () => {
   ).toEqual(fileList);
 });
 
+test('should render rangeInput with column start/end', async () => {
+  const onSubmit = vi.fn();
+  const wrapper = mount(ProForm, {
+    props: {
+      columns: [
+        {
+          name: 'range',
+          label: 'Range',
+          component: 'rangeInput',
+          defaultValue: ['10', '20'],
+          componentProps: {
+            layout: 'horizontal',
+            start: {
+              component: 'field',
+              fieldProps: { inputBorder: true, placeholder: 'Min' },
+            },
+            end: {
+              component: 'field',
+              fieldProps: { inputBorder: true, placeholder: 'Max' },
+            },
+          },
+        },
+      ],
+      showSubmit: true,
+      onSubmit,
+    },
+  });
+
+  await nextTick();
+  expect(wrapper.find('.van-range-input').exists()).toBe(true);
+  expect(wrapper.findAll('.van-range-input .van-field')).toHaveLength(2);
+
+  await wrapper.find('form').trigger('submit');
+  await nextTick();
+
+  expect(onSubmit).toHaveBeenCalled();
+  expect((onSubmit.mock.calls[0][0] as Record<string, unknown>).range).toEqual([
+    '10',
+    '20',
+  ]);
+});
+
 test('should render rangeInput', async () => {
   const onSubmit = vi.fn();
   const wrapper = mount(ProForm, {
@@ -239,6 +281,52 @@ test('should render rangeInput', async () => {
     '10',
     '20',
   ]);
+});
+
+test('should render fieldChildren with column row', async () => {
+  const onSubmit = vi.fn();
+  const wrapper = mount(ProForm, {
+    props: {
+      columns: [
+        {
+          name: 'options',
+          label: 'Options',
+          component: 'fieldChildren',
+          defaultValue: ['a', 'b'],
+          componentProps: {
+            addText: 'Add',
+            row: {
+              component: 'field',
+              fieldProps: {
+                label: 'Option',
+                placeholder: 'Enter',
+                border: false,
+              },
+            },
+          },
+        },
+      ],
+      showSubmit: true,
+      onSubmit,
+    },
+  });
+
+  await nextTick();
+  expect(wrapper.find('.van-pro-form-field-children').exists()).toBe(true);
+  expect(wrapper.find('.van-field-children').exists()).toBe(true);
+  expect(wrapper.findAll('.van-field-children__item')).toHaveLength(2);
+
+  await wrapper.find('.van-field__label-action').trigger('click');
+  await nextTick();
+  expect(wrapper.findAll('.van-field-children__item')).toHaveLength(3);
+
+  await wrapper.find('form').trigger('submit');
+  await nextTick();
+
+  expect(onSubmit).toHaveBeenCalled();
+  expect((onSubmit.mock.calls[0][0] as Record<string, unknown>).options).toEqual(
+    ['a', 'b', ''],
+  );
 });
 
 test('should render fieldChildren', async () => {

@@ -267,6 +267,8 @@ const columns = computed(() => [
 
 ### Dynamic list (`fieldChildren`)
 
+`row` accepts a column config or a render function.
+
 ```js
 {
   name: 'options',
@@ -278,12 +280,31 @@ const columns = computed(() => [
     minItems: 1,
     maxItems: 5,
     defaultRowValue: 'New option',
-    row: () => <Field label="Option" placeholder="Please enter" border={false} />,
+    row: {
+      component: 'field',
+      fieldProps: {
+        label: 'Option',
+        placeholder: 'Please enter',
+        border: false,
+      },
+    },
   },
 }
 ```
 
+Render function form is also supported:
+
+```js
+import { Field } from 'vant';
+
+componentProps: {
+  row: () => <Field label="Option" placeholder="Please enter" border={false} />,
+}
+```
+
 ### Range input
+
+`start` / `end` accept a column config or a render function.
 
 ```js
 const columns = computed(() => [
@@ -301,8 +322,14 @@ const columns = computed(() => [
     },
     componentProps: {
       layout: 'vertical',
-      start: () => <Field inputBorder placeholder="Please enter" />,
-      end: () => <Field inputBorder placeholder="Please enter" />,
+      start: {
+        component: 'field',
+        fieldProps: { inputBorder: true, placeholder: 'Please enter' },
+      },
+      end: {
+        component: 'field',
+        fieldProps: { inputBorder: true, placeholder: 'Please enter' },
+      },
     },
   },
   {
@@ -315,11 +342,44 @@ const columns = computed(() => [
     },
     componentProps: {
       layout: 'horizontal',
-      start: () => <Field inputBorder placeholder="Please enter" />,
-      end: () => <Field inputBorder placeholder="Please enter" />,
+      start: {
+        component: 'field',
+        fieldProps: { inputBorder: true, placeholder: 'Please enter' },
+      },
+      end: {
+        component: 'field',
+        fieldProps: { inputBorder: true, placeholder: 'Please enter' },
+      },
+    },
+  },
+  {
+    name: 'rangeDatePicker',
+    label: 'Datetime Picker',
+    component: 'rangeInput',
+    defaultValue: ['', ''],
+    componentProps: {
+      layout: 'vertical',
+      showDateShortcuts: true,
+      start: {
+        component: 'datePicker',
+        fieldProps: { inputBorder: true, placeholder: 'Select time' },
+      },
+      end: {
+        component: 'datePicker',
+        fieldProps: { inputBorder: true, placeholder: 'Select time' },
+      },
     },
   },
 ]);
+```
+
+Render functions are also supported:
+
+```js
+componentProps: {
+  start: () => <Field inputBorder placeholder="Please enter" />,
+  end: () => <Field inputBorder placeholder="Please enter" />,
+}
 ```
 
 ### Delivery slot

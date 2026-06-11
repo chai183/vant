@@ -276,11 +276,9 @@ const columns = computed(() => [
 
 ### 动态子项
 
-`fieldChildren` 用于可增删的行列表，`componentProps.row` 为每行渲染函数，`column.label` 作为列表标题。
+`fieldChildren` 用于可增删的行列表，`componentProps.row` 支持传入表单项 `column` 配置或渲染函数；`column.label` 作为列表标题。
 
 ```js
-import { Field } from 'vant';
-
 {
   name: 'options',
   label: '可添加子选项列表',
@@ -291,16 +289,33 @@ import { Field } from 'vant';
     minItems: 1,
     maxItems: 5,
     defaultRowValue: '新选项',
-    row: () => (
-      <Field label="选项名称" placeholder="请输入" border={false} />
-    ),
+    row: {
+      component: 'field',
+      fieldProps: {
+        label: '选项名称',
+        placeholder: '请输入',
+        border: false,
+      },
+    },
   },
+}
+```
+
+也支持渲染函数形式：
+
+```js
+import { Field } from 'vant';
+
+componentProps: {
+  row: () => (
+    <Field label="选项名称" placeholder="请输入" border={false} />
+  ),
 }
 ```
 
 ### 范围录入
 
-`rangeInput` 通过 `componentProps.start` / `end` 自定义起止输入，`layout` 支持 `vertical`（上下）与 `horizontal`（左右），默认值为 `['', '']`。
+`rangeInput` 通过 `componentProps.start` / `end` 自定义起止输入，支持传入表单项 `column` 配置或渲染函数；`layout` 支持 `vertical`（上下）与 `horizontal`（左右），默认值为 `['', '']`。
 
 ```js
 const columns = computed(() => [
@@ -318,8 +333,14 @@ const columns = computed(() => [
     },
     componentProps: {
       layout: 'vertical',
-      start: () => <Field inputBorder placeholder="请输入" />,
-      end: () => <Field inputBorder placeholder="请输入" />,
+      start: {
+        component: 'field',
+        fieldProps: { inputBorder: true, placeholder: '请输入' },
+      },
+      end: {
+        component: 'field',
+        fieldProps: { inputBorder: true, placeholder: '请输入' },
+      },
     },
   },
   {
@@ -332,11 +353,44 @@ const columns = computed(() => [
     },
     componentProps: {
       layout: 'horizontal',
-      start: () => <Field inputBorder placeholder="请输入" />,
-      end: () => <Field inputBorder placeholder="请输入" />,
+      start: {
+        component: 'field',
+        fieldProps: { inputBorder: true, placeholder: '请输入' },
+      },
+      end: {
+        component: 'field',
+        fieldProps: { inputBorder: true, placeholder: '请输入' },
+      },
+    },
+  },
+  {
+    name: 'rangeDatePicker',
+    label: '时间选择',
+    component: 'rangeInput',
+    defaultValue: ['', ''],
+    componentProps: {
+      layout: 'vertical',
+      showDateShortcuts: true,
+      start: {
+        component: 'datePicker',
+        fieldProps: { inputBorder: true, placeholder: '请选择时间' },
+      },
+      end: {
+        component: 'datePicker',
+        fieldProps: { inputBorder: true, placeholder: '请选择时间' },
+      },
     },
   },
 ]);
+```
+
+也支持渲染函数形式：
+
+```js
+componentProps: {
+  start: () => <Field inputBorder placeholder="请输入" />,
+  end: () => <Field inputBorder placeholder="请输入" />,
+}
 ```
 
 ### 配送时段
@@ -529,9 +583,9 @@ const columns = computed(() => [
 
 `fieldMoney` 的 `currency`、`showMoneyUppercase` 等通过 `componentProps` 配置，`label`、`rules`、`labelTooltip` 等通过 `fieldProps` 配置。
 
-`fieldChildren` 的 `addText`、`minItems`、`maxItems`、`defaultRowValue` 等通过 `componentProps` 配置；行模板通过 `componentProps.row` 渲染函数传入。`column.label` 作为列表标题。
+`fieldChildren` 的 `addText`、`minItems`、`maxItems`、`defaultRowValue` 等通过 `componentProps` 配置；行模板通过 `componentProps.row` 传入表单项 `column` 配置或渲染函数。`column.label` 作为列表标题。
 
-`rangeInput` 的 `layout`（`vertical` \| `horizontal`）通过 `componentProps` 配置；起止输入通过 `componentProps.start` / `end` 渲染函数传入。
+`rangeInput` 的 `layout`（`vertical` \| `horizontal`）通过 `componentProps` 配置；起止输入通过 `componentProps.start` / `end` 传入表单项 `column` 配置或渲染函数。
 
 `uploaderFile` 的 `upload`、`accept`、`maxSize`、`maxCount`、`uploadText` 等通过 `componentProps` 配置；`upload` 需返回 Promise。说明文案可通过 `fieldSlots['label-comment']` 透传。与 `uploader`（图片上传）不同，适用于文档等附件场景。
 

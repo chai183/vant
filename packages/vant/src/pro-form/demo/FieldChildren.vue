@@ -2,7 +2,6 @@
 import { computed, ref } from 'vue';
 import { useTranslate } from '../../../docs/site';
 import VanProForm from '..';
-import Field from '../../field';
 import type { ProFormColumn } from '../types';
 
 const t = useTranslate({
@@ -24,14 +23,6 @@ const t = useTranslate({
   },
 });
 
-const renderFieldChildrenRow = () => (
-  <Field
-    label={t('fieldChildrenOption')}
-    placeholder={t('fieldChildrenPlaceholder')}
-    border={false}
-  />
-);
-
 const model = ref({});
 
 const columns = computed<ProFormColumn[]>(() => [
@@ -45,7 +36,14 @@ const columns = computed<ProFormColumn[]>(() => [
       minItems: 1,
       maxItems: 5,
       defaultRowValue: t('fieldChildrenDefaultRow'),
-      row: renderFieldChildrenRow,
+      row: {
+        component: 'field',
+        fieldProps: {
+          label: t('fieldChildrenOption'),
+          placeholder: t('fieldChildrenPlaceholder'),
+          border: false,
+        },
+      },
     },
   },
 ]);

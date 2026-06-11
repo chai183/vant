@@ -7,6 +7,9 @@ export { proFormProps } from './ProForm';
 export type { ProFormProps } from './ProForm';
 export type {
   ProFormColumn,
+  ProFormNestedColumnItem,
+  ProFormRangeInputItem,
+  ProFormFieldChildrenRowItem,
   ProFormOption,
   ProFormComponentMap,
   ProFormRenderContext,

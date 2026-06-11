@@ -27,12 +27,12 @@ With `layout="vertical"`, a vertical separator (default label `至`) sits on the
 ```html
 <van-cell-group inset>
   <van-range-input v-model="range" layout="vertical">
-    <van-field :border="false" placeholder="Please enter">
+    <van-field input-border placeholder="Please enter">
       <template #button>
         <span>Longer unit text</span>
       </template>
     </van-field>
-    <van-field :border="false" placeholder="Please enter">
+    <van-field input-border placeholder="Please enter">
       <template #button>
         <span>Longer unit text</span>
       </template>
@@ -59,12 +59,12 @@ With `layout="horizontal"`, the two inputs sit in a row with a short line betwee
 ```html
 <van-cell-group inset>
   <van-range-input v-model="range" layout="horizontal">
-    <van-field :border="false" placeholder="Please enter">
+    <van-field input-border placeholder="Please enter">
       <template #button>
         <span>Unit</span>
       </template>
     </van-field>
-    <van-field :border="false" placeholder="Please enter">
+    <van-field input-border placeholder="Please enter">
       <template #button>
         <span>Unit</span>
       </template>
@@ -81,10 +81,10 @@ Use the `start` and `end` slots when you want separate template configuration fo
 <van-cell-group inset>
   <van-range-input v-model="range" layout="vertical">
     <template #start>
-      <van-field :border="false" placeholder="Start" />
+      <van-field input-border placeholder="Start" />
     </template>
     <template #end>
-      <van-field :border="false" placeholder="End" />
+      <van-field input-border placeholder="End" />
     </template>
   </van-range-input>
 </van-cell-group>
@@ -122,8 +122,9 @@ export default {
   setup() {
     const range = ref(['', '']);
     const renderStart = () =>
-      h(Field, { border: false, placeholder: 'Start' });
-    const renderEnd = () => h(Field, { border: false, placeholder: 'End' });
+      h(Field, { inputBorder: true, placeholder: 'Start' });
+    const renderEnd = () =>
+      h(Field, { inputBorder: true, placeholder: 'End' });
 
     return { range, renderStart, renderEnd };
   },
@@ -136,14 +137,44 @@ TSX:
 <RangeInput
   v-model={range}
   layout="horizontal"
-  start={() => <Field border={false} placeholder="Start" />}
-  end={() => <Field border={false} placeholder="End" />}
+  start={() => <Field inputBorder placeholder="Start" />}
+  end={() => <Field inputBorder placeholder="End" />}
 />
 ```
 
 ### Date shortcuts
 
-Set `show-date-shortcuts` to show built-in buttons (last week / last month / last 3 months). Clicking a button writes the date range into `v-model`. Works well with `type="date"` fields.
+Set `show-date-shortcuts` to show built-in buttons (last week / last month / last 3 months). Clicking a button writes the date range into `v-model`. Works well with readonly [Field](#/en-US/field) and a [DatePicker](#/en-US/date-picker) popup.
+
+```html
+<van-cell-group inset>
+  <van-range-input
+    v-model="range"
+    layout="vertical"
+    show-date-shortcuts
+  >
+    <template #start>
+      <van-field input-border is-link readonly placeholder="Select time" />
+    </template>
+    <template #end>
+      <van-field input-border is-link readonly placeholder="Select time" />
+    </template>
+  </van-range-input>
+</van-cell-group>
+```
+
+```js
+import { ref } from 'vue';
+
+export default {
+  setup() {
+    const range = ref(['', '']);
+    return { range };
+  },
+};
+```
+
+### Partial date shortcuts
 
 Pass an array to show only selected built-in options: `lastWeek`, `lastMonth`, `lastThreeMonths`.
 
@@ -155,29 +186,10 @@ Pass an array to show only selected built-in options: `lastWeek`, `lastMonth`, `
     :show-date-shortcuts="['lastWeek', 'lastMonth']"
   >
     <template #start>
-      <van-field :border="false" type="date" placeholder="Start" />
+      <van-field input-border is-link readonly placeholder="Select time" />
     </template>
     <template #end>
-      <van-field :border="false" type="date" placeholder="End" />
-    </template>
-  </van-range-input>
-</van-cell-group>
-```
-
-Show all built-in options:
-
-```html
-<van-cell-group inset>
-  <van-range-input
-    v-model="range"
-    layout="vertical"
-    show-date-shortcuts
-  >
-    <template #start>
-      <van-field :border="false" type="date" placeholder="Please enter" />
-    </template>
-    <template #end>
-      <van-field :border="false" type="date" placeholder="Please enter" />
+      <van-field input-border is-link readonly placeholder="Select time" />
     </template>
   </van-range-input>
 </van-cell-group>
@@ -237,7 +249,7 @@ The component provides the following CSS variables. See the [ConfigProvider comp
 
 | Name | Default Value | Description |
 | --- | --- | --- |
-| --van-range-input-gap | _var(--van-padding-sm)_ | Vertical stack gap |
+| --van-range-input-gap | _24px_ | Vertical stack gap |
 | --van-range-input-separator-color | _var(--van-text-color-2)_ | Separator color |
 | --van-range-input-separator-font-size | _var(--van-font-size-md)_ | Separator font size |
 | --van-range-input-horizontal-line-width | _12px_ | Horizontal divider width |

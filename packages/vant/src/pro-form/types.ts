@@ -31,6 +31,17 @@ export type ProFormOption = {
   disabled?: boolean;
 };
 
+/** 嵌套表单项：渲染函数或 column 配置（name 可省略） */
+export type ProFormNestedColumnItem =
+  | (() => VNode | VNode[] | null)
+  | (Partial<Omit<ProFormColumn, 'name'>> & { name?: string });
+
+/** rangeInput 起止项：渲染函数或表单项 column 配置（name 可省略） */
+export type ProFormRangeInputItem = ProFormNestedColumnItem;
+
+/** fieldChildren 行模板：渲染函数或表单项 column 配置（name 可省略） */
+export type ProFormFieldChildrenRowItem = ProFormNestedColumnItem;
+
 export type ProFormColumn = {
   /** 表单项 name，与 Form 提交字段一致 */
   name: string;

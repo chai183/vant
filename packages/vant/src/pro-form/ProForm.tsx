@@ -3,7 +3,6 @@ import {
   watch,
   computed,
   defineComponent,
-  h,
   type PropType,
   type ExtractPropTypes,
   type VNode,
@@ -27,16 +26,17 @@ import type { FormExpose, FormInstance } from '../form/types';
 import { renderBuiltinInput } from './renderBuiltinInput';
 import { renderBuiltinField } from './renderBuiltinField';
 import { getDefaultValueByComponent } from './getDefaultValue';
-import { mergeRenderBindProps } from './mergeRenderBindProps';
 import {
   mergeFieldSlots,
   resolveColumnFieldSlots,
   resolveFieldSlots,
 } from './resolveFieldSlots';
 import {
-  resolveFormDisabled,
-  resolveFormReadonly,
-} from './resolveFormState';
+  buildRenderContext,
+  isBuiltinFieldComponent,
+  isBuiltinInputComponent,
+  renderCustomNode,
+} from './renderColumnShared';
 import type {
   ProFormColumn,
   ProFormComponentMap,
@@ -45,37 +45,6 @@ import type {
 } from './types';
 
 const [name, bem] = createNamespace('pro-form');
-
-/**
- * 内置控件分两类渲染路径：
- * - input：作为 Field 的 input 插槽内容（Switch、Checkbox 等）
- * - field：自带 Field 封装的复合控件（Picker、DatePicker 等）
- */
-const BUILTIN_INPUT_COMPONENTS = new Set([
-  'switch',
-  'checkbox',
-  'checkboxGroup',
-  'radio',
-  'radioGroup',
-  'stepper',
-  'rate',
-  'slider',
-  'uploader',
-]);
-
-const BUILTIN_FIELD_COMPONENTS = new Set([
-  'picker',
-  'radioPicker',
-  'checkboxPicker',
-  'datePicker',
-  'area',
-  'areaStepCascader',
-  'calendar',
-  'fieldMoney',
-  'fieldChildren',
-  'rangeInput',
-  'uploaderFile',
-]);
 
 export const proFormProps = extend({}, formProps, {
   columns: {
@@ -124,14 +93,6 @@ function isColumnHidden(
     return hidden(model);
   }
   return !!hidden;
-}
-
-function isBuiltinInputComponent(component: string) {
-  return BUILTIN_INPUT_COMPONENTS.has(component);
-}
-
-function isBuiltinFieldComponent(component: string) {
-  return BUILTIN_FIELD_COMPONENTS.has(component);
 }
 
 export default defineComponent({
@@ -201,63 +162,14 @@ export default defineComponent({
       return undefined;
     };
 
-    /**
-     * 为自定义 render / 插槽 / components 注册提供统一上下文：
-     * value、setValue、disabled/readonly 合并结果，以及 bindProps 快捷绑定
-     */
-    const createRenderContext = (column: ProFormColumn): ProFormRenderContext => {
-      const value = model.value[column.name];
-      const setValue = (next: unknown) => setFieldValue(column.name, next);
-      const disabled = resolveFormDisabled(
-        props.disabled,
-        column.fieldProps,
-        column.componentProps,
-      );
-      const readonly = resolveFormReadonly(
-        props.readonly,
-        column.fieldProps,
-        column.componentProps,
-      );
-
-      return {
-        column,
+    const createRenderContext = (column: ProFormColumn): ProFormRenderContext =>
+      buildRenderContext(column, {
         model: model.value,
-        value,
-        disabled,
-        readonly,
-        setValue,
-        bindProps: (extra) => ({
-          ...column.componentProps,
-          ...extra,
-          column,
-          model: model.value,
-          modelValue: value,
-          disabled: resolveFormDisabled(
-            props.disabled,
-            column.fieldProps,
-            { ...column.componentProps, ...extra },
-          ),
-          readonly: resolveFormReadonly(
-            props.readonly,
-            column.fieldProps,
-            { ...column.componentProps, ...extra },
-          ),
-          'onUpdate:modelValue': setValue,
-        }),
-      };
-    };
-
-    /** 渲染自定义组件：函数形式自动 merge bindProps，组件形式直接 h() 并绑定 */
-    const renderCustomNode = (
-      render: ProFormComponentRender | Component,
-      ctx: ProFormRenderContext,
-    ): VNode | VNode[] | null => {
-      if (typeof render === 'function') {
-        const node = (render as ProFormComponentRender)(ctx);
-        return mergeRenderBindProps(node, ctx) as VNode | VNode[] | null;
-      }
-      return h(render as Component, ctx.bindProps());
-    };
+        value: model.value[column.name],
+        setValue: (next) => setFieldValue(column.name, next),
+        formDisabled: props.disabled,
+        formReadonly: props.readonly,
+      });
 
     /**
      * 渲染 Field 的 input 插槽内容，优先级：

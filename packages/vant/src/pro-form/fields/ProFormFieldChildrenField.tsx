@@ -1,10 +1,12 @@
-import { ref, defineComponent, type PropType } from 'vue';
-import { createNamespace } from '../../utils';
+import { ref, defineComponent, inject, type PropType } from 'vue';
+import { createNamespace, FORM_KEY } from '../../utils';
 import { Field } from '../../field';
 import FieldChildren from '../../field-children';
 import type { FieldProps } from '../../field/Field';
 import type { FieldChildrenInstance } from '../../field-children/types';
 import type { ProFormFieldSlots } from '../resolveFieldSlots';
+import { createNestedItemRender } from '../renderColumnShared';
+import type { ProFormFieldChildrenRowItem } from '../types';
 import { useFormFieldState } from './shared';
 
 const [, bem] = createNamespace('pro-form-field-children');
@@ -36,12 +38,27 @@ export default defineComponent({
   emits: ['update:modelValue'],
 
   setup(props, { emit }) {
+    const form = inject(FORM_KEY, null);
     const fieldChildrenRef = ref<FieldChildrenInstance>();
     const { isLocked } = useFormFieldState(() => props.fieldProps);
 
+    const resolveRow = (item: unknown) => {
+      if (item == null) {
+        return undefined;
+      }
+      return createNestedItemRender(item as ProFormFieldChildrenRowItem, {
+        formDisabled: form?.props.disabled,
+        formReadonly: form?.props.readonly,
+      });
+    };
+
     return () => {
-      const { addText = '添加', showAdd = true, ...fieldChildrenProps } =
-        props.componentProps;
+      const {
+        addText = '添加',
+        showAdd = true,
+        row,
+        ...fieldChildrenProps
+      } = props.componentProps;
       const { labelAlign = 'top', ...restFieldProps } = props.fieldProps;
       const modelValue = Array.isArray(props.modelValue)
         ? props.modelValue
@@ -72,6 +89,7 @@ export default defineComponent({
               <FieldChildren
                 ref={fieldChildrenRef}
                 {...fieldChildrenProps}
+                row={resolveRow(row)}
                 modelValue={modelValue}
                 onUpdate:modelValue={(value: unknown[]) =>
                   emit('update:modelValue', value)

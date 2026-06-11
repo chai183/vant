@@ -27,12 +27,12 @@ app.use(Field);
 ```html
 <van-cell-group inset>
   <van-range-input v-model="range" layout="vertical">
-    <van-field :border="false" placeholder="请输入">
+    <van-field input-border placeholder="请输入">
       <template #button>
         <span>文字较长单位</span>
       </template>
     </van-field>
-    <van-field :border="false" placeholder="请输入">
+    <van-field input-border placeholder="请输入">
       <template #button>
         <span>文字较长单位</span>
       </template>
@@ -59,12 +59,12 @@ export default {
 ```html
 <van-cell-group inset>
   <van-range-input v-model="range" layout="horizontal">
-    <van-field :border="false" placeholder="请输入">
+    <van-field input-border placeholder="请输入">
       <template #button>
         <span>单位</span>
       </template>
     </van-field>
-    <van-field :border="false" placeholder="请输入">
+    <van-field input-border placeholder="请输入">
       <template #button>
         <span>单位</span>
       </template>
@@ -81,10 +81,10 @@ export default {
 <van-cell-group inset>
   <van-range-input v-model="range" layout="vertical">
     <template #start>
-      <van-field :border="false" placeholder="请输入起始" />
+      <van-field input-border placeholder="请输入起始" />
     </template>
     <template #end>
-      <van-field :border="false" placeholder="请输入结束" />
+      <van-field input-border placeholder="请输入结束" />
     </template>
   </van-range-input>
 </van-cell-group>
@@ -122,9 +122,9 @@ export default {
   setup() {
     const range = ref(['', '']);
     const renderStart = () =>
-      h(Field, { border: false, placeholder: '请输入起始' });
+      h(Field, { inputBorder: true, placeholder: '请输入起始' });
     const renderEnd = () =>
-      h(Field, { border: false, placeholder: '请输入结束' });
+      h(Field, { inputBorder: true, placeholder: '请输入结束' });
 
     return { range, renderStart, renderEnd };
   },
@@ -137,14 +137,44 @@ TSX 写法：
 <RangeInput
   v-model={range}
   layout="horizontal"
-  start={() => <Field border={false} placeholder="请输入起始" />}
-  end={() => <Field border={false} placeholder="请输入结束" />}
+  start={() => <Field inputBorder placeholder="请输入起始" />}
+  end={() => <Field inputBorder placeholder="请输入结束" />}
 />
 ```
 
 ### 日期快捷选择
 
-开启 `show-date-shortcuts` 后，展示「近一周 / 近一月 / 近三月」按钮，点击后将对应日期区间写入 `v-model`。可与 `type="date"` 的 `Field` 搭配使用。
+开启 `show-date-shortcuts` 后，展示「近一周 / 近一月 / 近三月」按钮，点击后将对应日期区间写入 `v-model`。可与只读 [Field](#/zh-CN/field) 搭配 [DatePicker](#/zh-CN/date-picker) 弹层录入日期。
+
+```html
+<van-cell-group inset>
+  <van-range-input
+    v-model="range"
+    layout="vertical"
+    show-date-shortcuts
+  >
+    <template #start>
+      <van-field input-border is-link readonly placeholder="点击选择时间" />
+    </template>
+    <template #end>
+      <van-field input-border is-link readonly placeholder="点击选择时间" />
+    </template>
+  </van-range-input>
+</van-cell-group>
+```
+
+```js
+import { ref } from 'vue';
+
+export default {
+  setup() {
+    const range = ref(['', '']);
+    return { range };
+  },
+};
+```
+
+### 部分日期快捷选择
 
 传入数组时可只展示部分内置选项，可选值：`lastWeek`、`lastMonth`、`lastThreeMonths`。
 
@@ -156,29 +186,10 @@ TSX 写法：
     :show-date-shortcuts="['lastWeek', 'lastMonth']"
   >
     <template #start>
-      <van-field :border="false" type="date" placeholder="请输入" />
+      <van-field input-border is-link readonly placeholder="点击选择时间" />
     </template>
     <template #end>
-      <van-field :border="false" type="date" placeholder="请输入" />
-    </template>
-  </van-range-input>
-</van-cell-group>
-```
-
-展示全部内置选项：
-
-```html
-<van-cell-group inset>
-  <van-range-input
-    v-model="range"
-    layout="vertical"
-    show-date-shortcuts
-  >
-    <template #start>
-      <van-field :border="false" type="date" placeholder="请输入" />
-    </template>
-    <template #end>
-      <van-field :border="false" type="date" placeholder="请输入" />
+      <van-field input-border is-link readonly placeholder="点击选择时间" />
     </template>
   </van-range-input>
 </van-cell-group>
@@ -238,7 +249,7 @@ type RangeInputShortcut = {
 
 | 名称 | 默认值 | 描述 |
 | --- | --- | --- |
-| --van-range-input-gap | _var(--van-padding-sm)_ | 上下堆叠间距 |
+| --van-range-input-gap | _24px_ | 上下堆叠间距 |
 | --van-range-input-separator-color | _var(--van-text-color-2)_ | 分隔符颜色 |
 | --van-range-input-separator-font-size | _var(--van-font-size-md)_ | 分隔符字号 |
 | --van-range-input-horizontal-line-width | _12px_ | 横向布局中间线段宽度 |

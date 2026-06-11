@@ -138,6 +138,37 @@ exports[`should render demo and match snapshot 1`] = `
         </div>
         <div class="van-cell__value van-field__value">
           <div class="van-field__body">
+            <div class="van-field__input-left">
+              <span class="van-field__money-currency">
+                ¥
+              </span>
+            </div>
+            <div class="van-field__money-input-wrap">
+              <input
+                type="text"
+                inputmode="decimal"
+                id="van-field-input"
+                class="van-field__control"
+                placeholder="Please enter amount"
+                aria-labelledby="van-field-label"
+                data-allow-mismatch="attribute"
+              >
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="van-cell van-field">
+        <div class="van-cell__title van-field__label">
+          <label
+            id="van-field-label"
+            for="van-field-input"
+            data-allow-mismatch="attribute"
+          >
+            Money (No Currency)
+          </label>
+        </div>
+        <div class="van-cell__value van-field__value">
+          <div class="van-field__body">
             <div class="van-field__money-input-wrap">
               <input
                 type="text"
@@ -608,6 +639,31 @@ exports[`should render demo and match snapshot 1`] = `
         </div>
       </div>
     </div>
+    <div class="van-cell van-field van-field--readonly-ellipsis">
+      <div class="van-cell__title van-field__label">
+        <label
+          id="van-field-label"
+          for="van-field-input"
+          data-allow-mismatch="attribute"
+        >
+          Separator
+        </label>
+      </div>
+      <div class="van-cell__value van-field__value">
+        <div class="van-field__body">
+          <div
+            id="van-field-input"
+            class="van-field__control van-field__control--custom van-field__readonly-ellipsis"
+          >
+            <div class="van-text-ellipsis">
+              ...
+              <span class="van-text-ellipsis__action">
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </div>
 <div>
@@ -787,38 +843,10 @@ exports[`should render demo and match snapshot 1`] = `
 </div>
 <div>
   <div class="van-cell-group van-cell-group--inset">
-    <div class="van-cell van-field">
-      <div class="van-field__left-icon">
-        <i class="van-badge__wrapper van-icon van-icon-smile-o">
-        </i>
-      </div>
-      <div class="van-cell__title van-field__label">
-        <label
-          id="van-field-label"
-          for="van-field-input"
-          data-allow-mismatch="attribute"
-        >
-          Text
-        </label>
-      </div>
-      <div class="van-cell__value van-field__value">
-        <div class="van-field__body">
-          <input
-            type="text"
-            id="van-field-input"
-            class="van-field__control"
-            placeholder="Show Icon"
-            aria-labelledby="van-field-label"
-            data-allow-mismatch="attribute"
-          >
-          <div class="van-field__right-icon">
-            <i class="van-badge__wrapper van-icon van-icon-warning-o">
-            </i>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="van-cell van-field">
+    <div
+      class="van-cell van-field"
+      style="--van-field-right-icon-color: var(--van-primary-color);"
+    >
       <div class="van-field__left-icon">
         <i class="van-badge__wrapper van-icon van-icon-smile-o">
         </i>
@@ -851,7 +879,47 @@ exports[`should render demo and match snapshot 1`] = `
         </div>
       </div>
     </div>
-    <div class="van-cell van-field">
+    <div
+      class="van-cell van-field"
+      style="--van-field-right-icon-color: var(--van-primary-color);"
+    >
+      <div class="van-field__left-icon">
+        <i class="van-badge__wrapper van-icon van-icon-smile-o">
+        </i>
+      </div>
+      <div class="van-cell__title van-field__label">
+        <label
+          id="van-field-label"
+          for="van-field-input"
+          data-allow-mismatch="attribute"
+        >
+          Text
+        </label>
+      </div>
+      <div class="van-cell__value van-field__value">
+        <div class="van-field__body">
+          <input
+            type="text"
+            id="van-field-input"
+            class="van-field__control"
+            placeholder="Show Icon"
+            aria-labelledby="van-field-label"
+            data-allow-mismatch="attribute"
+          >
+          <div class="van-field__right-icon-divider">
+          </div>
+          <div class="van-field__right-icon">
+            <a>
+              Action Button
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      class="van-cell van-field"
+      style="--van-field-right-icon-color: var(--van-primary-color);"
+    >
       <div class="van-field__left-icon">
         <i class="van-badge__wrapper van-icon van-icon-music-o">
         </i>
@@ -875,6 +943,55 @@ exports[`should render demo and match snapshot 1`] = `
             aria-labelledby="van-field-label"
             data-allow-mismatch="attribute"
           >
+          <div class="van-field__right-icon-divider">
+          </div>
+          <div class="van-field__right-icon">
+            <div style="display: flex; align-items: center; gap: 8px;">
+              <a>
+                Button
+              </a>
+              <i class="van-badge__wrapper van-icon van-icon-scan">
+              </i>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="van-cell van-field">
+      <div class="van-field__left-icon">
+        <i class="van-badge__wrapper van-icon van-icon-smile-o">
+        </i>
+      </div>
+      <div class="van-cell__title van-field__label">
+        <label
+          id="van-field-label"
+          for="van-field-input"
+          data-allow-mismatch="attribute"
+        >
+          Text
+        </label>
+      </div>
+      <div class="van-cell__value van-field__value">
+        <div class="van-field__body">
+          <input
+            type="text"
+            id="van-field-input"
+            class="van-field__control"
+            placeholder="Popover Menu"
+            aria-labelledby="van-field-label"
+            data-allow-mismatch="attribute"
+          >
+          <div class="van-field__right-icon-divider">
+          </div>
+          <div class="van-field__right-icon">
+            <span class="van-popover__wrapper">
+              <span class="van-popover__reference-text">
+                Option 1
+                <i class="van-badge__wrapper van-icon van-icon-arrow-down van-popover__reference-icon">
+                </i>
+              </span>
+            </span>
+          </div>
         </div>
       </div>
     </div>
@@ -1198,7 +1315,38 @@ exports[`should render demo and match snapshot 1`] = `
           <span class="van-field__word-num">
             0
           </span>
-          /50
+          /5
+        </div>
+      </div>
+    </div>
+    <div class="van-cell van-field">
+      <div class="van-cell__title van-field__label">
+        <label
+          id="van-field-label"
+          for="van-field-input"
+          data-allow-mismatch="attribute"
+        >
+          Disable Maxlength Toast
+        </label>
+      </div>
+      <div class="van-cell__value van-field__value">
+        <div class="van-field__body">
+          <textarea
+            id="van-field-input"
+            rows="2"
+            class="van-field__control"
+            placeholder="Message"
+            aria-labelledby="van-field-label"
+            data-allow-mismatch="attribute"
+            style="height: auto;"
+          >
+          </textarea>
+        </div>
+        <div class="van-field__word-limit">
+          <span class="van-field__word-num">
+            0
+          </span>
+          /5
         </div>
       </div>
     </div>
@@ -1340,7 +1488,7 @@ exports[`should render demo and match snapshot 1`] = `
         >
           Label
         </label>
-        <div class="van-cell__label">
+        <div class="van-field__label-comment">
           Note below the label
         </div>
       </div>
@@ -1366,7 +1514,7 @@ exports[`should render demo and match snapshot 1`] = `
         >
           Label
         </label>
-        <div class="van-cell__label">
+        <div class="van-field__label-comment">
           <span>
             Slot: custom label note
           </span>
@@ -1433,13 +1581,27 @@ exports[`should render demo and match snapshot 1`] = `
           >
         </div>
         <div class="van-field__input-comment">
-          <span>
-            Slot: links or emphasized text
+          <span class="van-highlight">
+            <span>
+              Slot:
+            </span>
+            <span class="van-highlight__tag">
+              links
+            </span>
+            <span>
+              or
+            </span>
+            <span class="van-highlight__tag">
+              emphasized
+            </span>
+            <span>
+              text
+            </span>
           </span>
         </div>
       </div>
     </div>
-    <div class="van-cell van-cell--has-bottom van-field">
+    <div class="van-cell van-cell--hasBottom van-field">
       <div class="van-cell__title van-field__label">
         <label
           id="van-field-label"
@@ -1462,9 +1624,28 @@ exports[`should render demo and match snapshot 1`] = `
         </div>
       </div>
       <div class="van-cell__bottom">
-        <span>
-          The bottom slot spans the full row below the label and input — useful for agreements, risk notes, etc.
-        </span>
+        <div
+          class="van-gray-block"
+          style="margin-top: 4px;"
+        >
+          <span class="van-highlight">
+            <span>
+              The bottom slot spans the full row below the label and input — useful for
+            </span>
+            <span class="van-highlight__tag">
+              agreements
+            </span>
+            <span>
+              ,
+            </span>
+            <span class="van-highlight__tag">
+              risk notes
+            </span>
+            <span>
+              , etc.
+            </span>
+          </span>
+        </div>
       </div>
     </div>
   </div>
@@ -1549,7 +1730,7 @@ exports[`should render demo and match snapshot 1`] = `
             </i>
           </span>
         </div>
-        <div class="van-cell__label">
+        <div class="van-field__label-comment">
           Label note remains when collapsed
         </div>
       </div>

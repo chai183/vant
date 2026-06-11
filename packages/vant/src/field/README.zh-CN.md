@@ -161,7 +161,7 @@ export default {
 
 ### 只读省略
 
-只读状态下默认通过 [TextEllipsis](#/zh-CN/text-ellipsis) 展示内容。`model-value` 为数组时，会以 [Tag](#/zh-CN/tag) 单行展示各项，超出宽度的部分合并为 `+N` 标签；内容未超出时可完整展示。设置 `:readonly-ellipsis="false"` 可恢复为原生只读输入框（数组值仍会使用 Tag 展示）。
+只读状态下默认通过 [TextEllipsis](#/zh-CN/text-ellipsis) 展示内容。`model-value` 为数组时，会以 [Tag](#/zh-CN/tag) 单行展示各项，超出宽度的部分合并为 `+N` 标签；内容未超出时可完整展示。设置 `value-separator` 可将数组项用指定符号拼接后以 TextEllipsis 展示。设置 `:readonly-ellipsis="false"` 可恢复为原生只读输入框（数组值仍会使用 Tag 展示，设置 `value-separator` 时除外）。
 
 超出省略：
 
@@ -176,6 +176,13 @@ export default {
   <van-field
     label="已选标签"
     :model-value="['设计设计设计设计设计设设计设计设计设计设计设', '交互', '前端']"
+    readonly
+    placeholder="请选择标签"
+  />
+  <van-field
+    label="分隔符展示"
+    :model-value="['设计', '交互', '前端']"
+    value-separator=";"
     readonly
     placeholder="请选择标签"
   />
@@ -203,17 +210,10 @@ export default {
 
 ### 显示图标
 
-通过 `left-icon` 和 `right-icon` 配置输入框两侧的图标，通过设置 `clearable` 在输入过程中展示清除图标。设置 `show-right-icon-divider` 可在右侧图标左侧展示竖向分隔线。
+通过 `left-icon` 和 `right-icon` 配置输入框两侧的图标，通过设置 `clearable` 在输入过程中展示清除图标。设置 `show-right-icon-divider` 可在右侧图标左侧展示竖向分隔线，可通过 `--van-field-right-icon-color` 自定义右侧图标颜色。使用 `right-icon` 插槽可自定义右侧内容，例如操作按钮或 [Popover](#/zh-CN/popover) 气泡菜单。
 
 ```html
 <van-cell-group inset>
-  <van-field
-    v-model="value1"
-    label="文本"
-    left-icon="smile-o"
-    right-icon="warning-o"
-    placeholder="显示图标"
-  />
   <van-field
     v-model="value1"
     show-right-icon-divider
@@ -221,27 +221,81 @@ export default {
     left-icon="smile-o"
     right-icon="warning-o"
     placeholder="显示图标"
+    :style="{ '--van-field-right-icon-color': 'var(--van-primary-color)' }"
   />
   <van-field
+    v-model="value1"
+    show-right-icon-divider
+    label="文本"
+    left-icon="smile-o"
+    placeholder="显示图标"
+    :style="{ '--van-field-right-icon-color': 'var(--van-primary-color)' }"
+  >
+    <template #right-icon>
+      <a>操作按钮</a>
+    </template>
+  </van-field>
+  <van-field
     v-model="value2"
+    show-right-icon-divider
     clearable
     label="文本"
     left-icon="music-o"
     placeholder="显示清除图标"
-  />
+    :style="{ '--van-field-right-icon-color': 'var(--van-primary-color)' }"
+  >
+    <template #right-icon>
+      <div style="display: flex; align-items: center; gap: 8px">
+        <a>按钮</a>
+        <van-icon name="scan" />
+      </div>
+    </template>
+  </van-field>
+  <van-field
+    v-model="value3"
+    show-right-icon-divider
+    label="文本"
+    left-icon="smile-o"
+    placeholder="气泡菜单"
+  >
+    <template #right-icon>
+      <van-popover
+        v-model:show="showPopover"
+        :actions="actions"
+        reference-text
+        placement="bottom-end"
+        @select="onSelect"
+        @click.stop
+      />
+    </template>
+  </van-field>
 </van-cell-group>
 ```
 
 ```js
 import { ref } from 'vue';
+import { showToast } from 'vant';
 
 export default {
   setup() {
     const value1 = ref('');
     const value2 = ref('123');
+    const value3 = ref('');
+    const showPopover = ref(false);
+    const actions = [
+      { text: '选项一' },
+      { text: '选项二' },
+      { text: '选项三' },
+    ];
+    const onSelect = (action) => showToast(action.text);
+
     return {
       value1,
       value2,
+      value3,
+      showPopover,
+      actions,
+      onSelect,
     };
   },
 };
@@ -425,7 +479,7 @@ export default {
 
 ### 显示字数统计
 
-设置 `maxlength` 和 `show-word-limit` 属性后会在底部显示字数统计。
+设置 `maxlength` 和 `show-word-limit` 属性后会在底部显示字数统计。输入超过 `maxlength` 时会默认弹出 Toast 提示「达到字数上限」，可通过 `show-maxlength-toast` 关闭。
 
 ```html
 <van-cell-group inset>
@@ -435,8 +489,19 @@ export default {
     show-word-limit
     rows="2"
     type="textarea"
-    maxlength="50"
+    maxlength="5"
     label="留言"
+    placeholder="请输入留言"
+  />
+  <van-field
+    v-model="messageWithoutToast"
+    autosize
+    show-word-limit
+    rows="2"
+    type="textarea"
+    maxlength="5"
+    :show-maxlength-toast="false"
+    label="关闭上限提示"
     placeholder="请输入留言"
   />
 </van-cell-group>
@@ -503,7 +568,7 @@ export default {
 
 ### 标签备注
 
-通过 `label-comment` 属性或 `label-comment` 插槽可在标签下方展示备注，内容会透传至 Cell 的 `label` 区域（插槽优先级高于属性）。
+通过 `label-comment` 属性或 `label-comment` 插槽可在标签下方展示备注（插槽优先级高于属性）。
 
 ```html
 <van-field label="文本" label-comment="标签下方的备注说明" />
@@ -565,6 +630,45 @@ export default {
 };
 ```
 
+### Label 收起展开
+
+设置 `label-collapsible` 且 `label-align="top"` 时，标签旁会展示收起/展开控件，可通过 `v-model:label-expanded` 双向绑定展开状态。可与 `label-action-text` 或 `label-action` 插槽组合，在标签行右侧展示操作按钮。
+
+```html
+<van-cell-group inset>
+  <van-field
+    v-model="value1"
+    v-model:label-expanded="expanded"
+    label="标题"
+    placeholder="请输入内容"
+    label-align="top"
+    label-collapsible
+  />
+  <van-field
+    v-model="value2"
+    label="与 label-action 组合"
+    placeholder="请输入内容"
+    label-comment="收起后仍保留标签备注"
+    label-action-text="添加"
+    label-align="top"
+    label-collapsible
+  />
+</van-cell-group>
+```
+
+```js
+import { ref } from 'vue';
+
+export default {
+  setup() {
+    const value1 = ref('示例内容');
+    const value2 = ref('');
+    const expanded = ref(true);
+    return { value1, value2, expanded };
+  },
+};
+```
+
 ## API
 
 ### Props
@@ -586,6 +690,7 @@ export default {
 | readonly | 是否为只读状态，只读状态下无法输入内容 | _boolean_ | `false` |
 | readonly-ellipsis `new` | 只读时是否用 TextEllipsis 展示 | _boolean_ | `true` |
 | readonly-ellipsis-rows `new` | 只读省略展示的最大行数 | _number \| string_ | `1` |
+| value-separator `new` | `model-value` 为数组时，各项之间的拼接符号；设置后以 TextEllipsis 展示拼接结果，不再使用 Tag | _string_ | - |
 | colon | 是否在 label 后面添加冒号 | _boolean_ | `false` |
 | required | 是否显示表单必填星号 | _boolean \| 'auto'_ | `null` |
 | center | 是否使内容垂直居中 | _boolean_ | `false` |
@@ -596,8 +701,11 @@ export default {
 | is-link | 是否展示右侧箭头并开启点击反馈 | _boolean_ | `false` |
 | autofocus | 是否自动聚焦，iOS 系统不支持该属性 | _boolean_ | `false` |
 | show-word-limit | 是否显示字数统计，需要设置 `maxlength` 属性 | _boolean_ | `false` |
+| show-maxlength-toast `new` | 输入超过 `maxlength` 时是否以 Toast 提示「达到字数上限」 | _boolean_ | `true` |
 | show-money-uppercase `new` | `type` 为 `money` 时是否在底部展示金额大写；转账等场景推荐使用 [FieldMoney](#/zh-CN/field-money) | _boolean_ | `false` |
 | show-money-unit `new` | `type` 为 `money` 时是否在输入框上方展示金额单位（仟、万、亿等） | _boolean_ | `false` |
+| show-money-currency `new` | `type` 为 `money` 时是否在输入框左侧展示货币符号 | _boolean_ | `true` |
+| money-currency `new` | 输入框左侧展示的货币符号，需开启 `show-money-currency` | _string_ | `¥` |
 | money-uppercase-label `new` | 金额大写区域前的标签文案 | _string_ | - |
 | error | 是否将输入内容标红 | _boolean_ | `false` |
 | error-message | 底部错误提示文案，为空时不展示 | _string_ | - |
@@ -615,7 +723,11 @@ export default {
 | label-align | 左侧文本对齐方式，可选值为 `center` `right` `top` | _FieldTextAlign_ | `left` |
 | label-tooltip `new` | 标签旁说明文案，点击后以 Popover 展示；需设置 `label` | _string_ | - |
 | label-tooltip-popover-props `new` | 透传给标签 Popover 的属性，详见 [Popover](#/zh-CN/popover) | _Partial\<PopoverProps\>_ | - |
-| label-comment `new` | 标签下方的备注文案，透传至 Cell 的 `label` | _string_ | - |
+| label-comment `new` | 标签下方的备注文案 | _string_ | - |
+| label-collapsible `new` | 是否允许收起标签，需配合 `label-align="top"` 使用 | _boolean_ | `false` |
+| label-expanded `new` | 标签是否展开，支持 `v-model:label-expanded` 双向绑定 | _boolean_ | `true` |
+| label-action-text `new` | 标签行右侧操作按钮文案，需 `label-align="top"` | _string_ | - |
+| show-label-action `new` | 是否展示标签行右侧操作区域 | _boolean_ | - |
 | input-comment `new` | 输入区域下方的辅助说明文案 | _string_ | - |
 | input-align | 输入框对齐方式，可选值为 `center` `right` | _FieldTextAlign_ | `left` |
 | autosize | 是否自适应内容高度，只对 textarea 有效，<br>可传入对象,如 { maxHeight: 100, minHeight: 50 }，<br>单位为`px` | _boolean \| FieldAutosizeConfig_ | `false` |
@@ -644,6 +756,8 @@ export default {
 | click-input | 点击输入区域时触发 | _event: MouseEvent_ |
 | click-left-icon | 点击左侧图标时触发 | _event: MouseEvent_ |
 | click-right-icon | 点击右侧图标时触发 | _event: MouseEvent_ |
+| update:label-expanded | 标签展开状态变化时触发 | _value: boolean_ |
+| click-label-action | 点击标签行右侧操作按钮时触发 | _event: MouseEvent_ |
 | start-validate | 开始表单校验时触发 | - |
 | end-validate | 结束表单校验时触发 | _{ status: string, message: string }_ |
 
@@ -696,7 +810,8 @@ fieldRef.value?.focus();
 | --- | --- | --- |
 | label | 自定义输入框左侧文本 | - |
 | label-tooltip `new` | 自定义标签旁 Popover 说明内容，优先级高于 `label-tooltip` 属性 | - |
-| label-comment `new` | 自定义标签下方备注，优先级高于 `label-comment` 属性，透传至 Cell 的 `label` | - |
+| label-comment `new` | 自定义标签下方备注，优先级高于 `label-comment` 属性 | - |
+| label-action `new` | 自定义标签行右侧操作内容，优先级高于 `label-action-text` 属性 | - |
 | input | 自定义输入框，使用此插槽后，与输入框相关的属性和事件将失效 | - |
 | input-left | 输入框左侧内容（如货币符号） | - |
 | left-icon | 自定义输入框头部图标 | - |
@@ -731,9 +846,10 @@ fieldRef.value?.focus();
 | --van-field-right-icon-divider-color  | _var(--van-border-color)_ | -    |
 | --van-field-error-message-color       | _var(--van-danger-color)_ | -    |
 | --van-field-error-message-font-size   | _12px_                    | -    |
+| --van-field-extra-margin-top          | _2px_                     | 输入区下方辅助内容的上边距 |
 | --van-field-error-message-info-background | _#fff2f0_             | -    |
 | --van-field-error-message-info-padding    | _6px 20px_            | -    |
-| --van-field-error-message-info-margin-top | _var(--van-padding-xs)_ | -    |
+| --van-field-error-message-info-margin-top | _var(--van-field-extra-margin-top)_ | -    |
 | --van-field-error-message-info-radius     | _var(--van-radius-md)_ | -    |
 | --van-field-text-area-min-height      | _60px_                    | -    |
 | --van-field-word-limit-color          | _var(--van-gray-7)_       | -    |
@@ -741,6 +857,14 @@ fieldRef.value?.focus();
 | --van-field-word-limit-line-height    | _16px_                    | -    |
 | --van-field-disabled-text-color       | _var(--van-text-color-3)_ | -    |
 | --van-field-required-mark-color       | _var(--van-red)_          | -    |
+| --van-field-label-action-color        | _var(--van-primary-color)_ | -    |
+| --van-field-label-action-font-size    | _var(--van-font-size-md)_ | -    |
+| --van-field-label-collapse-color      | _var(--van-text-color-2)_ | -    |
+| --van-field-label-collapse-font-size  | _var(--van-font-size-sm)_ | -    |
+| --van-field-money-currency-font-size | _inherit_ | 货币符号字号 |
+| --van-field-money-currency-font-weight | _var(--van-font-bold)_ | 货币符号字重 |
+| --van-field-money-currency-color | _var(--van-field-placeholder-text-color)_ | 未输入时货币符号颜色 |
+| --van-field-money-currency-filled-color | _var(--van-field-input-text-color)_ | 已输入时货币符号颜色 |
 
 ## 常见问题
 

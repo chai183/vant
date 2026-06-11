@@ -29,7 +29,7 @@ exports[`should render demo and match snapshot 1`] = `
 </div>
 <div>
   <div
-    class="van-cell van-cell--clickable van-field"
+    class="van-cell van-cell--clickable van-field van-field--readonly-ellipsis"
     role="button"
     tabindex="0"
   >
@@ -44,15 +44,16 @@ exports[`should render demo and match snapshot 1`] = `
     </div>
     <div class="van-cell__value van-field__value">
       <div class="van-field__body">
-        <input
-          type="text"
+        <div
           id="van-field-input"
-          name="picker"
-          class="van-field__control"
-          readonly
-          aria-labelledby="van-field-label"
-          data-allow-mismatch="attribute"
+          class="van-field__control van-field__control--custom van-field__readonly-ellipsis van-field__readonly-ellipsis--placeholder"
         >
+          <div class="van-text-ellipsis">
+            ...
+            <span class="van-text-ellipsis__action">
+            </span>
+          </div>
+        </div>
       </div>
     </div>
     <i class="van-badge__wrapper van-icon van-icon-arrow van-cell__right-icon">
@@ -106,6 +107,65 @@ exports[`should render demo and match snapshot 1`] = `
       <div class="van-button__content">
         <span class="van-button__text">
           Disable Action
+        </span>
+      </div>
+    </button>
+  </span>
+</div>
+<div>
+  <span class="van-popover__wrapper">
+    <button
+      type="button"
+      class="van-button van-button--primary van-button--normal"
+    >
+      <div class="van-button__content">
+        <span class="van-button__text">
+          Text message
+        </span>
+      </div>
+    </button>
+  </span>
+  <span class="van-popover__wrapper">
+    <button
+      type="button"
+      class="van-button van-button--primary van-button--normal"
+    >
+      <div class="van-button__content">
+        <span class="van-button__text">
+          Custom size
+        </span>
+      </div>
+    </button>
+  </span>
+  <span class="van-popover__wrapper">
+    <button
+      type="button"
+      class="van-button van-button--primary van-button--normal"
+    >
+      <div class="van-button__content">
+        <span class="van-button__text">
+          Custom style
+        </span>
+      </div>
+    </button>
+  </span>
+</div>
+<div>
+  <span class="van-popover__wrapper">
+    <span class="van-popover__reference-text">
+      Option 1
+      <i class="van-badge__wrapper van-icon van-icon-arrow-down van-popover__reference-icon">
+      </i>
+    </span>
+  </span>
+  <span class="van-popover__wrapper">
+    <button
+      type="button"
+      class="van-button van-button--primary van-button--normal"
+    >
+      <div class="van-button__content">
+        <span class="van-button__text">
+          Option 1
         </span>
       </div>
     </button>

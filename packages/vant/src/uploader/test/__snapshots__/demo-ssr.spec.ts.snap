@@ -8,7 +8,7 @@ exports[`should render demo and match snapshot 1`] = `
     <div class="van-uploader__wrapper">
       <!--[-->
       <div
-        class="van-uploader__upload"
+        class="van-uploader__upload van-hairline--surround"
         style
       >
         <i
@@ -103,7 +103,7 @@ exports[`should render demo and match snapshot 1`] = `
         </div>
       </div>
       <div
-        class="van-uploader__upload"
+        class="van-uploader__upload van-hairline--surround"
         style
       >
         <i
@@ -225,7 +225,7 @@ exports[`should render demo and match snapshot 1`] = `
         </div>
       </div>
       <div
-        class="van-uploader__upload"
+        class="van-uploader__upload van-hairline--surround"
         style
       >
         <i
@@ -286,7 +286,7 @@ exports[`should render demo and match snapshot 1`] = `
         </div>
       </div>
       <div
-        class="van-uploader__upload"
+        class="van-uploader__upload van-hairline--surround"
         style
       >
         <i
@@ -348,7 +348,7 @@ exports[`should render demo and match snapshot 1`] = `
         </div>
       </div>
       <div
-        class="van-uploader__upload"
+        class="van-uploader__upload van-hairline--surround"
         style
       >
         <i
@@ -450,7 +450,7 @@ exports[`should render demo and match snapshot 1`] = `
         </div>
       </div>
       <div
-        class="van-uploader__upload"
+        class="van-uploader__upload van-hairline--surround"
         style
       >
         <i
@@ -511,7 +511,7 @@ exports[`should render demo and match snapshot 1`] = `
         </div>
       </div>
       <div
-        class="van-uploader__upload"
+        class="van-uploader__upload van-hairline--surround"
         style="width:60px;height:60px;"
       >
         <i
@@ -538,7 +538,7 @@ exports[`should render demo and match snapshot 1`] = `
     <div class="van-uploader__wrapper">
       <!--[-->
       <div
-        class="van-uploader__upload"
+        class="van-uploader__upload van-hairline--surround"
         style
       >
         <i
@@ -565,7 +565,7 @@ exports[`should render demo and match snapshot 1`] = `
     <div class="van-uploader__wrapper van-uploader__wrapper--disabled">
       <!--[-->
       <div
-        class="van-uploader__upload"
+        class="van-uploader__upload van-hairline--surround"
         style
       >
         <i
@@ -648,7 +648,7 @@ exports[`should render demo and match snapshot 1`] = `
         </div>
       </div>
       <div
-        class="van-uploader__upload"
+        class="van-uploader__upload van-hairline--surround"
         style
       >
         <i
@@ -710,7 +710,7 @@ exports[`should render demo and match snapshot 1`] = `
         </div>
       </div>
       <div
-        class="van-uploader__upload"
+        class="van-uploader__upload van-hairline--surround"
         style
       >
         <i

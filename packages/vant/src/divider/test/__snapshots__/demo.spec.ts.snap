@@ -4,14 +4,14 @@ exports[`should render demo and match snapshot 1`] = `
 <div>
   <div
     role="separator"
-    class="van-divider van-divider--hairline"
+    class="van-divider"
   >
   </div>
 </div>
 <div>
   <div
     role="separator"
-    class="van-divider van-divider--hairline van-divider--content-center"
+    class="van-divider van-divider--content-center"
   >
     Text
   </div>
@@ -19,7 +19,7 @@ exports[`should render demo and match snapshot 1`] = `
 <div>
   <div
     role="separator"
-    class="van-divider van-divider--hairline van-divider--borderless"
+    class="van-divider van-divider--borderless"
   >
     Text
   </div>
@@ -27,13 +27,13 @@ exports[`should render demo and match snapshot 1`] = `
 <div>
   <div
     role="separator"
-    class="van-divider van-divider--hairline van-divider--content-left"
+    class="van-divider van-divider--content-left"
   >
     Text
   </div>
   <div
     role="separator"
-    class="van-divider van-divider--hairline van-divider--content-right"
+    class="van-divider van-divider--content-right"
   >
     Text
   </div>
@@ -49,7 +49,7 @@ exports[`should render demo and match snapshot 1`] = `
 <div>
   <div
     role="separator"
-    class="van-divider van-divider--hairline van-divider--content-center"
+    class="van-divider van-divider--content-center"
     style="border-color: #1989fa; color: rgb(25, 137, 250); padding: 0px 16px;"
   >
     Text
@@ -59,13 +59,13 @@ exports[`should render demo and match snapshot 1`] = `
   <div class="content">
     <div
       role="separator"
-      class="van-divider van-divider--hairline van-divider--vertical"
+      class="van-divider van-divider--vertical"
     >
     </div>
     Text
     <div
       role="separator"
-      class="van-divider van-divider--dashed van-divider--hairline van-divider--vertical"
+      class="van-divider van-divider--dashed van-divider--vertical"
     >
     </div>
     Text
@@ -77,7 +77,7 @@ exports[`should render demo and match snapshot 1`] = `
     Text
     <div
       role="separator"
-      class="van-divider van-divider--hairline van-divider--vertical"
+      class="van-divider van-divider--vertical"
       style="border-color: #1989fa;"
     >
     </div>

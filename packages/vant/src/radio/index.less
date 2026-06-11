@@ -2,11 +2,13 @@
 
 :root,
 :host {
-  --van-radio-size: 20px;
+  --van-radio-size: 16px;
   --van-radio-dot-size: 8px;
   --van-radio-border-color: var(--van-gray-5);
   --van-radio-duration: var(--van-duration-fast);
-  --van-radio-label-margin: var(--van-padding-xs);
+  --van-radio-label-font-size: 14px;
+  --van-radio-label-line-height: 20px;
+  --van-radio-label-margin: 2px;
   --van-radio-label-color: var(--van-text-color);
   --van-radio-checked-icon-color: var(--van-primary-color);
   --van-radio-disabled-icon-color: var(--van-gray-5);
@@ -178,7 +180,8 @@
   &__label {
     margin-left: var(--van-radio-label-margin);
     color: var(--van-radio-label-color);
-    line-height: var(--van-radio-size);
+    font-size: var(--van-radio-label-font-size);
+    line-height: var(--van-radio-label-line-height);
 
     &--left {
       margin: 0 var(--van-radio-label-margin) 0 0;

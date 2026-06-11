@@ -5,5 +5,6 @@ export type RadioGroupOption = {
   label: string;
   value: Numeric;
   disabled?: boolean;
+  icon?: string;
   cellProps?: Partial<CellProps>;
 };

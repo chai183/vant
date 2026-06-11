@@ -46,6 +46,11 @@ import type {
 
 const [name, bem] = createNamespace('pro-form');
 
+/**
+ * 内置控件分两类渲染路径：
+ * - input：作为 Field 的 input 插槽内容（Switch、Checkbox 等）
+ * - field：自带 Field 封装的复合控件（Picker、DatePicker 等）
+ */
 const BUILTIN_INPUT_COMPONENTS = new Set([
   'switch',
   'checkbox',
@@ -96,6 +101,7 @@ export const proFormProps = extend({}, formProps, {
 
 export type ProFormProps = ExtractPropTypes<typeof proFormProps>;
 
+/** 根据 columns 配置生成初始 model，未指定 defaultValue 时按 component 类型取内置默认值 */
 function buildDefaultModel(columns: ProFormColumn[]) {
   return columns.reduce<Record<string, unknown>>((model, column) => {
     if (!column.name) {
@@ -108,6 +114,7 @@ function buildDefaultModel(columns: ProFormColumn[]) {
   }, {});
 }
 
+/** hidden 支持布尔值或函数，函数形式可基于当前 model 做联动显隐 */
 function isColumnHidden(
   column: ProFormColumn,
   model: Record<string, unknown>,
@@ -136,8 +143,10 @@ export default defineComponent({
 
   setup(props, { emit, slots }) {
     const formRef = ref<FormInstance>();
+    // 非受控模式下的内部 model；受控时与 props.modelValue 合并使用
     const innerModel = ref<Record<string, unknown>>({});
 
+    /** columns 变化时合并默认值与当前值，保证新增字段有初始值且已有值不丢失 */
     const syncInnerFromColumns = () => {
       const defaults = buildDefaultModel(props.columns);
       const current = props.modelValue ?? innerModel.value;
@@ -160,19 +169,26 @@ export default defineComponent({
       { deep: true },
     );
 
+    // 受控优先：传入 modelValue 时以外部为准，否则使用 innerModel
     const model = computed(() => props.modelValue ?? innerModel.value);
 
+    /** 统一字段更新入口，同步 innerModel 并向外 emit update:modelValue */
     const setFieldValue = (name: string, value: unknown) => {
       const next = { ...model.value, [name]: value };
       innerModel.value = next;
       emit('update:modelValue', next);
     };
 
+    /**
+     * Form 提交时 getValues 可能返回展示用 label 而非 option value，
+     * 以 ProForm 维护的 model 为准覆盖同名字段
+     */
     const mergeFormValues = (values: Record<string, unknown> = {}) => ({
       ...values,
       ...model.value,
     });
 
+    /** 从 props.components 中按 column.component 查找全局注册的自定义渲染器 */
     const resolveCustomRender = (
       column: ProFormColumn,
     ): ProFormComponentRender | Component | undefined => {
@@ -185,6 +201,10 @@ export default defineComponent({
       return undefined;
     };
 
+    /**
+     * 为自定义 render / 插槽 / components 注册提供统一上下文：
+     * value、setValue、disabled/readonly 合并结果，以及 bindProps 快捷绑定
+     */
     const createRenderContext = (column: ProFormColumn): ProFormRenderContext => {
       const value = model.value[column.name];
       const setValue = (next: unknown) => setFieldValue(column.name, next);
@@ -227,6 +247,7 @@ export default defineComponent({
       };
     };
 
+    /** 渲染自定义组件：函数形式自动 merge bindProps，组件形式直接 h() 并绑定 */
     const renderCustomNode = (
       render: ProFormComponentRender | Component,
       ctx: ProFormRenderContext,
@@ -238,6 +259,10 @@ export default defineComponent({
       return h(render as Component, ctx.bindProps());
     };
 
+    /**
+     * 渲染 Field 的 input 插槽内容，优先级：
+     * input-${slot} 插槽 > components 注册 > 内置 input 控件
+     */
     const renderFieldInput = (column: ProFormColumn) => {
       const ctx = createRenderContext(column);
 
@@ -268,6 +293,10 @@ export default defineComponent({
       );
     };
 
+    /**
+     * 用 Field 包裹自定义 input 内容。
+     * bindModelValue：部分 render 返回的控件需要 Field 层也绑定 v-model（如文本类）
+     */
     const renderColumnWithField = (
       column: ProFormColumn,
       input: () => VNode | VNode[] | null,
@@ -279,6 +308,7 @@ export default defineComponent({
         ...column.fieldProps,
       };
       const value = model.value[column.name];
+      // 仅对 string / number / array 类型在 Field 层绑定 modelValue
       const bindModel =
         options?.bindModelValue &&
         (typeof value === 'string' ||
@@ -305,6 +335,11 @@ export default defineComponent({
       );
     };
 
+    /**
+     * 单列渲染分发，优先级：
+     * hidden 跳过 > field-${slot} 整项插槽 > column.render >
+     * 内置 field 控件 > 原生 field 输入 > Field + input 插槽（内置 input / 自定义）
+     */
     const renderColumn = (column: ProFormColumn) => {
       if (isColumnHidden(column, model.value)) {
         return null;
@@ -396,6 +431,7 @@ export default defineComponent({
     });
 
     return () => {
+      // 剥离 ProForm 专有 props，其余透传给底层 Form（rules、validateTrigger 等）
       const formBind = extend({}, props) as Record<string, unknown>;
       delete formBind.columns;
       delete formBind.modelValue;

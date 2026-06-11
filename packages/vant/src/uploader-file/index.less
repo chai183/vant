@@ -8,20 +8,21 @@
   --van-uploader-file-upload-border-color: var(--van-gray-4);
   --van-uploader-file-upload-color: var(--van-text-color);
   --van-uploader-file-upload-font-size: var(--van-font-size-md);
-  --van-uploader-file-upload-icon-size: 18px;
+  --van-uploader-file-upload-icon-size: 16px;
   --van-uploader-file-item-padding: 16px 12px 16px 16px;
   --van-uploader-file-item-background: #fafafa;
   --van-uploader-file-item-border-color: var(--van-border-color);
-  --van-uploader-file-icon-width: 24px;
+  --van-uploader-file-icon-width: 32px;
   --van-uploader-file-icon-height: 32px;
+  --van-uploader-file-icon-margin-right: 8px;
   --van-uploader-file-name-color: var(--van-text-color);
   --van-uploader-file-name-font-size: var(--van-font-size-md);
   --van-uploader-file-status-color: var(--van-gray-6);
   --van-uploader-file-status-uploading-color: var(--van-orange);
   --van-uploader-file-status-font-size: var(--van-font-size-sm);
-  --van-uploader-file-delete-color: var(--van-gray-9);
+  --van-uploader-file-delete-color: #dddddd;
   --van-uploader-file-delete-size: 18px;
-  --van-uploader-file-menu-color: var(--van-uploader-file-delete-color);
+  --van-uploader-file-menu-color: #dddddd;
   --van-uploader-file-menu-size: 20px;
   --van-uploader-file-reupload-color: var(--van-orange);
   --van-uploader-file-reupload-icon-size: 16px;
@@ -29,6 +30,8 @@
 }
 
 .van-uploader-file {
+  width: 100%;
+
   &__header {
     margin-bottom: var(--van-padding-md-plus);
   }
@@ -63,6 +66,13 @@
     height: var(--van-uploader-file-upload-height);
   }
 
+  &__upload-icon {
+    display: block;
+    width: var(--van-uploader-file-upload-icon-size);
+    height: var(--van-uploader-file-upload-icon-size);
+    object-fit: contain;
+  }
+
   &__list {
     margin-top: var(--van-padding-xs);
   }
@@ -73,10 +83,13 @@
     overflow: hidden;
     padding: var(--van-uploader-file-item-padding);
     background-color: var(--van-uploader-file-item-background);
-    border-bottom: 1px solid var(--van-uploader-file-item-border-color);
 
-    &:last-child {
-      border-bottom: none;
+    &::after {
+      border-color: var(--van-uploader-file-item-border-color);
+    }
+
+    &:last-child::after {
+      display: none;
     }
   }
 
@@ -87,11 +100,14 @@
     justify-content: center;
     width: var(--van-uploader-file-icon-width);
     height: var(--van-uploader-file-icon-height);
-    margin-right: var(--van-padding-sm);
-    border-radius: var(--van-radius-sm);
-    color: var(--van-white);
-    font-size: var(--van-font-size-lg);
-    font-weight: var(--van-font-bold);
+    margin-right: var(--van-uploader-file-icon-margin-right);
+  }
+
+  &__file-icon-img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
   }
 
   &__file-info {
@@ -118,6 +134,7 @@
     overflow: hidden;
     color: var(--van-uploader-file-name-color);
     font-size: var(--van-uploader-file-name-font-size);
+    font-weight: 500;
     line-height: var(--van-line-height-md);
     white-space: nowrap;
 
@@ -128,7 +145,7 @@
 
   &__file-name-tooltip {
     max-width: 280px;
-    padding: var(--van-padding-xs) var(--van-padding-sm);
+    padding: 10px;
     font-size: var(--van-font-size-sm);
     line-height: var(--van-line-height-sm);
     word-break: break-all;
@@ -169,7 +186,7 @@
     flex-shrink: 0;
     align-items: center;
     margin-left: var(--van-padding-xs);
-    gap: var(--van-padding-xs);
+    gap: var(--van-padding-md);
   }
 
   &__reupload {

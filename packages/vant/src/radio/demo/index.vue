@@ -23,6 +23,9 @@ const t = useTranslate({
     disableLabel: '禁用文本点击',
     renderOptions: '配置项渲染',
     listOptions: '列表展示',
+    listSearch: '列表搜索',
+    searchPlaceholder: '搜索选项',
+    optionIcon: '选项图标',
     option1: '选项 1',
     option2: '选项 2',
     option3: '选项 3',
@@ -44,6 +47,9 @@ const t = useTranslate({
     disableLabel: 'Disable label click',
     renderOptions: 'Render Options',
     listOptions: 'List Layout',
+    listSearch: 'List Search',
+    searchPlaceholder: 'Search options',
+    optionIcon: 'Option Icon',
     option1: 'Option 1',
     option2: 'Option 2',
     option3: 'Option 3',
@@ -65,6 +71,8 @@ const radioHorizontal = ref('1');
 const radioLeftLabel = ref('1');
 const radioOptions = ref('1');
 const radioListOptions = ref('1');
+const radioListSearch = ref('1');
+const radioOptionIcon = ref('1');
 const activeIcon = cdnURL('user-active.png');
 const inactiveIcon = cdnURL('user-inactive.png');
 
@@ -72,6 +80,22 @@ const options = computed(() => [
   { label: t('option1'), value: '1' },
   { label: t('option2'), value: '2' },
   { label: t('option3'), value: '3', disabled: true },
+]);
+
+const optionsWithIcon = computed(() => [
+  { label: t('option1'), value: '1' },
+  { label: t('option2'), value: '2', icon: 'shop-o' },
+  { label: t('option3'), value: '3', disabled: true, icon: 'shop-o' },
+]);
+
+const listSearchOptions = computed(() => [
+  { label: `${t('option1')} Apple`, value: '1' },
+  { label: `${t('option2')} Banana`, value: '2' },
+  {
+    label: `${t('option3')} Cherry`,
+    value: '3',
+    cellProps: { label: t('optionDesc') },
+  },
 ]);
 
 const listOptions = computed(() => [
@@ -85,7 +109,7 @@ const listOptions = computed(() => [
     label: t('option3'),
     value: '3',
     disabled: true,
-    cellProps: { icon: 'shop-o' },
+    icon: 'shop-o',
   },
 ]);
 </script>
@@ -132,11 +156,30 @@ const listOptions = computed(() => [
     />
   </demo-block>
 
+  <demo-block :title="t('optionIcon')">
+    <van-radio-group
+      v-model="radioOptionIcon"
+      class="demo-radio-group"
+      shape="block"
+      direction="horizontal"
+      :options="optionsWithIcon"
+    />
+  </demo-block>
+
   <demo-block :title="t('listOptions')">
     <van-radio-group
       v-model="radioListOptions"
       is-list
       :options="listOptions"
+    />
+  </demo-block>
+
+  <demo-block :title="t('listSearch')">
+    <van-radio-group
+      v-model="radioListSearch"
+      is-list
+      show-search
+      :options="listSearchOptions"
     />
   </demo-block>
 
@@ -255,11 +298,13 @@ const listOptions = computed(() => [
     width: 100%;
     max-width: 100%;
     padding: 0 16px;
-  }
 
-  &-group {
     .van-radio {
-      margin-bottom: 8px;
+      margin: 0 0 8px 0;
+    }
+
+    &.van-radio-group--horizontal .van-radio {
+      margin: 0;
     }
   }
 

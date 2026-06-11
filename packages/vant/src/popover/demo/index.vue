@@ -45,6 +45,9 @@ const t = useTranslate({
     customSize: '自定义宽高',
     customStyle: '自定义样式',
     customColorText: '自定义颜色',
+    referenceText: '选项引用',
+    referenceTextBuiltin: '内置引用',
+    referenceTextSlot: '插槽引用',
   },
   'en-US': {
     actions: [{ text: 'Option 1' }, { text: 'Option 2' }, { text: 'Option 3' }],
@@ -77,6 +80,9 @@ const t = useTranslate({
     customSize: 'Custom size',
     customStyle: 'Custom style',
     customColorText: 'Custom colors',
+    referenceText: 'Reference Text',
+    referenceTextBuiltin: 'Built-in Reference',
+    referenceTextSlot: 'Slot Reference',
   },
 });
 
@@ -107,6 +113,8 @@ const show = ref({
   textMode: false,
   customSize: false,
   customStyle: false,
+  referenceText: false,
+  referenceTextSlot: false,
 });
 const showPicker = ref(false);
 const currentPlacement = ref<PopoverPlacement>('top');
@@ -292,6 +300,27 @@ const onSelect = (action: { text: string }) => showToast(action.text);
       </template>
       <template #reference>
         <van-button type="primary">{{ t('customStyle') }}</van-button>
+      </template>
+    </van-popover>
+  </demo-block>
+
+  <demo-block :title="t('referenceText')">
+    <van-popover
+      v-model:show="show.referenceText"
+      :actions="t('actions')"
+      reference-text
+      placement="bottom-start"
+      @select="onSelect"
+    />
+
+    <van-popover
+      v-model:show="show.referenceTextSlot"
+      :actions="t('actions')"
+      placement="bottom-start"
+      @select="onSelect"
+    >
+      <template #reference="{ text }">
+        <van-button type="primary">{{ text }}</van-button>
       </template>
     </van-popover>
   </demo-block>

@@ -8,12 +8,37 @@
     min-width: 0;
   }
 
+  &__empty {
+    --van-empty-padding:48px 0;
+    background-color: #fff;
+    --van-empty-description-margin-top: 0;
+
+    .van-empty__image {
+      display: none;
+    }
+  }
+
   &--block:not(&--horizontal):not(&--list) {
     width: 100%;
 
     > .van-checkbox.van-checkbox--block {
       width: 100%;
       min-width: 0;
+    }
+  }
+
+  &__option-icon {
+    margin-right: var(--van-padding-base);
+    vertical-align: -0.15em;
+  }
+
+  &--horizontal:not(&--block):not(&--list) {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--van-padding-lg);
+
+    > .van-checkbox.van-checkbox--horizontal {
+      margin-right: 0;
     }
   }
 

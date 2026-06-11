@@ -6,9 +6,11 @@ import {
   type ExtractPropTypes,
   type VNode,
 } from 'vue';
+import { useCustomFieldValue } from '@vant/use';
 
 // Utils
 import {
+  BORDER_BOTTOM,
   isDef,
   filterEmpty,
   makeStringProp,
@@ -60,6 +62,8 @@ export default defineComponent({
   emits: ['update:modelValue'],
 
   setup(props, { emit, slots }) {
+    useCustomFieldValue(() => props.modelValue);
+
     /** 取行克隆模板：优先 row 属性，其次 default 插槽 */
     const getTemplate = (): VNode | undefined => {
       if (props.row) {
@@ -152,7 +156,7 @@ export default defineComponent({
       }
 
       return list.map((_, index) => (
-        <div key={index} class={bem('item')}>
+        <div key={index} class={[bem('item'), BORDER_BOTTOM]}>
           <div class={bem('tree')}>
             <div class={bem('tree-rail')} />
             <div class={bem('tree-arm')} />

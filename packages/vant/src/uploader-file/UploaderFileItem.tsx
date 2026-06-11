@@ -11,6 +11,7 @@ import {
 
 // Utils
 import {
+  BORDER_BOTTOM,
   callInterceptor,
   makeRequiredProp,
   windowWidth,
@@ -20,7 +21,7 @@ import {
 import {
   bem,
   getFileName,
-  getFileTypeStyle,
+  getFileTypeIcon,
   getStatusMessage,
   calcMiddleEllipsis,
   createTextWidthMeasurer,
@@ -225,7 +226,7 @@ export default defineComponent({
     return () => {
       const { item, deletable } = props;
       const fileName = getFileName(item);
-      const typeStyle = getFileTypeStyle(item);
+      const fileTypeIcon = getFileTypeIcon(item);
       const status = getStatusMessage(item);
       const isUploading = item.status === 'uploading';
       const isFailed = item.status === 'failed';
@@ -234,13 +235,14 @@ export default defineComponent({
       const showActions = isDone || isFailed || deletable;
 
       return (
-        <div class={bem('item')}>
-          {/* 左侧类型色块与扩展名标签 */}
-          <div
-            class={bem('file-icon')}
-            style={{ backgroundColor: typeStyle.color }}
-          >
-            <span class={bem('file-icon-label')}>{typeStyle.label}</span>
+        <div class={[bem('item'), BORDER_BOTTOM]}>
+          {/* 左侧文件类型 SVG 图标 */}
+          <div class={bem('file-icon')}>
+            <img
+              class={bem('file-icon-img')}
+              src={fileTypeIcon}
+              alt=""
+            />
           </div>
           {/* 中间：文件名 + 状态行 */}
           <div ref={fileInfoRef} class={bem('file-info')}>

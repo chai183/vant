@@ -251,6 +251,29 @@ test('should render checkboxes from options prop', async () => {
   expect(wrapper.vm.result).toEqual(['b']);
 });
 
+test('should render icon from options prop', () => {
+  const wrapper = mount({
+    setup() {
+      return {
+        result: ref([]),
+        options: [
+          { label: 'Option A', value: 'a' },
+          { label: 'Option B', value: 'b', icon: 'shop-o' },
+        ],
+      };
+    },
+    render() {
+      return (
+        <CheckboxGroup v-model={this.result} options={this.options} />
+      );
+    },
+  });
+
+  const icons = wrapper.findAll('.van-checkbox-group__option-icon');
+  expect(icons).toHaveLength(1);
+  expect(icons[0].classes()).toContain('van-icon-shop-o');
+});
+
 test('should render list options with checkbox on the right when isList is true', async () => {
   const wrapper = mount({
     emits: ['change'],
@@ -327,6 +350,28 @@ test('should pass cellProps to Cell when isList is true', () => {
   expect(cells[1].find('.van-icon').exists()).toBe(true);
 });
 
+test('should render icon from options prop when isList is true', () => {
+  const wrapper = mount({
+    setup() {
+      return {
+        result: ref([]),
+        options: [
+          { label: 'Option A', value: 'a' },
+          { label: 'Option B', value: 'b', icon: 'shop-o' },
+        ],
+      };
+    },
+    render() {
+      return (
+        <CheckboxGroup v-model={this.result} isList options={this.options} />
+      );
+    },
+  });
+
+  const cells = wrapper.findAll('.van-cell');
+  expect(cells[1].find('.van-icon-shop-o').exists()).toBe(true);
+});
+
 test('should ignore direction, columns and shape when isList is true', () => {
   const wrapper = mount({
     setup() {
@@ -357,6 +402,110 @@ test('should ignore direction, columns and shape when isList is true', () => {
   expect(wrapper.attributes('style')).toBeUndefined();
   expect(wrapper.find('.van-checkbox--block').exists()).toBe(false);
   expect(wrapper.findAll('.van-cell')).toHaveLength(2);
+});
+
+test('should render search and filter list options when showSearch is true', async () => {
+  const wrapper = mount({
+    setup() {
+      return {
+        result: ref([]),
+        options: [
+          { label: 'Apple', value: 'a' },
+          { label: 'Banana', value: 'b' },
+          {
+            label: 'Cherry',
+            value: 'c',
+            cellProps: { label: 'Red fruit' },
+          },
+        ],
+      };
+    },
+    render() {
+      return (
+        <CheckboxGroup
+          v-model={this.result}
+          isList
+          showSearch
+          searchPlaceholder="Search fruit"
+          options={this.options}
+        />
+      );
+    },
+  });
+
+  expect(wrapper.find('.van-search').exists()).toBe(true);
+  expect(wrapper.find('.van-cell-group').findAll('.van-cell')).toHaveLength(3);
+
+  const input = wrapper.find('.van-search input');
+  await input.setValue('app');
+  expect(wrapper.find('.van-cell-group').findAll('.van-cell')).toHaveLength(1);
+  expect(wrapper.find('.van-cell__title .van-cell__highlight').text()).toBe(
+    'App',
+  );
+
+  await input.setValue('red');
+  expect(wrapper.find('.van-cell-group').findAll('.van-cell')).toHaveLength(1);
+  expect(wrapper.find('.van-cell__label .van-cell__highlight').text()).toBe(
+    'Red',
+  );
+
+  await input.setValue('xyz');
+  expect(wrapper.find('.van-empty').exists()).toBe(true);
+  expect(wrapper.find('.van-cell-group').exists()).toBe(false);
+  expect(['未找到搜索项', 'No search results']).toContain(
+    wrapper.find('.van-empty__description').text(),
+  );
+});
+
+test('should render search-empty slot when no search results', async () => {
+  const wrapper = mount({
+    setup() {
+      return {
+        result: ref([]),
+        options: [{ label: 'Apple', value: 'a' }],
+      };
+    },
+    render() {
+      return (
+        <CheckboxGroup
+          v-model={this.result}
+          isList
+          showSearch
+          options={this.options}
+        >
+          {{
+            'search-empty': () => <div class="custom-empty">No data</div>,
+          }}
+        </CheckboxGroup>
+      );
+    },
+  });
+
+  await wrapper.find('.van-search input').setValue('xyz');
+  expect(wrapper.find('.custom-empty').exists()).toBe(true);
+  expect(wrapper.find('.van-empty').exists()).toBe(false);
+});
+
+test('should not render search when showSearch is false', () => {
+  const wrapper = mount({
+    setup() {
+      return {
+        result: ref([]),
+        options: [{ label: 'Option A', value: 'a' }],
+      };
+    },
+    render() {
+      return (
+        <CheckboxGroup
+          v-model={this.result}
+          isList
+          options={this.options}
+        />
+      );
+    },
+  });
+
+  expect(wrapper.find('.van-search').exists()).toBe(false);
 });
 
 test('should render block shape correctly when using shape prop', () => {

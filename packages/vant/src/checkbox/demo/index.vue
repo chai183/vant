@@ -31,6 +31,9 @@ const t = useTranslate({
     indeterminate: '不确定状态',
     renderOptions: '配置项渲染',
     listOptions: '列表展示',
+    listSearch: '列表搜索',
+    searchPlaceholder: '搜索选项',
+    optionIcon: '选项图标',
     option1: '选项 1',
     option2: '选项 2',
     option3: '选项 3',
@@ -56,6 +59,9 @@ const t = useTranslate({
     indeterminate: 'indeterminate',
     renderOptions: 'Render Options',
     listOptions: 'List Layout',
+    listSearch: 'List Search',
+    searchPlaceholder: 'Search options',
+    optionIcon: 'Option Icon',
     option1: 'Option 1',
     option2: 'Option 2',
     option3: 'Option 3',
@@ -83,6 +89,8 @@ const state = reactive({
   horizontalResult: [],
   checkboxOptions: ['1'],
   listOptionsResult: ['1'],
+  listSearchResult: [],
+  optionIconResult: ['1'],
 });
 
 const list = ['a', 'b', 'c', 'd'];
@@ -91,6 +99,22 @@ const options = computed(() => [
   { label: t('option1'), value: '1' },
   { label: t('option2'), value: '2' },
   { label: t('option3'), value: '3', disabled: true },
+]);
+
+const optionsWithIcon = computed(() => [
+  { label: t('option1'), value: '1' },
+  { label: t('option2'), value: '2', icon: 'shop-o' },
+  { label: t('option3'), value: '3', disabled: true, icon: 'shop-o' },
+]);
+
+const listSearchOptions = computed(() => [
+  { label: `${t('option1')} Apple`, value: '1' },
+  { label: `${t('option2')} Banana`, value: '2' },
+  {
+    label: `${t('option3')} Cherry`,
+    value: '3',
+    cellProps: { label: t('optionDesc') },
+  },
 ]);
 
 const listOptions = computed(() => [
@@ -104,7 +128,7 @@ const listOptions = computed(() => [
     label: t('option3'),
     value: '3',
     disabled: true,
-    cellProps: { icon: 'shop-o' },
+    icon: 'shop-o',
   },
 ]);
 
@@ -250,11 +274,30 @@ const checkedResultChange = (value: string[]) => {
     />
   </demo-block>
 
+  <demo-block :title="t('optionIcon')">
+    <van-checkbox-group
+      v-model="state.optionIconResult"
+      class="demo-checkbox-group"
+      shape="block"
+      direction="horizontal"
+      :options="optionsWithIcon"
+    />
+  </demo-block>
+
   <demo-block :title="t('listOptions')">
     <van-checkbox-group
       v-model="state.listOptionsResult"
       is-list
       :options="listOptions"
+    />
+  </demo-block>
+
+  <demo-block :title="t('listSearch')">
+    <van-checkbox-group
+      v-model="state.listSearchResult"
+      is-list
+      show-search
+      :options="listSearchOptions"
     />
   </demo-block>
 
@@ -351,6 +394,10 @@ const checkedResultChange = (value: string[]) => {
 
     .van-checkbox {
       margin: 0 0 8px 0;
+    }
+
+    &.van-checkbox-group--horizontal .van-checkbox {
+      margin: 0;
     }
   }
 

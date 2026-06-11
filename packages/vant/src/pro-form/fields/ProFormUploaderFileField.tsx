@@ -4,7 +4,6 @@ import { Field } from '../../field';
 import UploaderFile from '../../uploader-file';
 import type { FieldProps } from '../../field/Field';
 import { builtinFieldProps } from './shared';
-import { FieldInputBridge } from './FieldInputBridge';
 import type { UploaderFileListItem } from '../../uploader/types';
 
 const [, bem] = createNamespace('pro-form-uploader-file');
@@ -43,17 +42,15 @@ export default defineComponent({
         >
           {{
             input: () => (
-              <FieldInputBridge modelValue={modelValue}>
-                <UploaderFile
-                  {...props.componentProps}
-                  modelValue={modelValue}
-                  onUpdate:modelValue={(value: UploaderFileListItem[]) =>
-                    emit('update:modelValue', value)
-                  }
-                >
-                  {slots}
-                </UploaderFile>
-              </FieldInputBridge>
+              <UploaderFile
+                {...props.componentProps}
+                modelValue={modelValue}
+                onUpdate:modelValue={(value: UploaderFileListItem[]) =>
+                  emit('update:modelValue', value)
+                }
+              >
+                {slots}
+              </UploaderFile>
             ),
             ...props.fieldSlots,
           }}

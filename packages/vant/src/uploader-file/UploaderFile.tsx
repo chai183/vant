@@ -38,6 +38,7 @@ import { showToast } from '../toast';
 import { isImageFile } from '../uploader/utils';
 
 // 对外暴露 chooseFile 等方法
+import { useCustomFieldValue } from '@vant/use';
 import { useExpose } from '../composables/use-expose';
 
 // 预览、下载、重命名等默认实现
@@ -46,6 +47,7 @@ import {
   previewFileWithImagePreview,
   renameFileName,
 } from './fileActions';
+import uploadIcon from './assets/upload.svg';
 
 // 类型定义
 import type {
@@ -64,8 +66,6 @@ const uploaderFileOwnProps = {
   description: [String, Array] as PropType<string | string[]>,
   /** 上传按钮文案 */
   uploadText: makeStringProp('添加附件'),
-  /** 上传按钮图标名 */
-  uploadIcon: makeStringProp('back-top'),
   /** v-model 绑定的文件列表 */
   modelValue: makeArrayProp<UploaderFileListItem>(),
   /** 自定义上传逻辑，传入后组件自动管理 uploading / done / failed 状态 */
@@ -143,6 +143,8 @@ export default defineComponent({
   ],
 
   setup(props, { emit, slots }) {
+    useCustomFieldValue(() => props.modelValue);
+
     // ---------- Refs 与内部状态 ----------
     /** 底层 Uploader 实例，用于选文件、关闭预览等 */
     const uploaderRef = ref<UploaderExpose>();
@@ -513,10 +515,17 @@ export default defineComponent({
         <Button
           class={bem('upload')}
           type="default"
-          icon={props.uploadIcon}
-        >
-          {props.uploadText}
-        </Button>
+          v-slots={{
+            icon: () => (
+              <img
+                class={bem('upload-icon')}
+                src={uploadIcon}
+                alt=""
+              />
+            ),
+            default: () => props.uploadText,
+          }}
+        />
       );
     };
 

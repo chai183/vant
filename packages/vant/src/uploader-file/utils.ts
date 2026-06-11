@@ -1,5 +1,7 @@
 import { createNamespace } from '../utils';
+import { isImageFile } from '../uploader/utils';
 import type { UploaderFileListItem } from '../uploader/types';
+import { FILE_TYPE_ICONS, type FileTypeIcon } from './presets';
 
 const [, bem] = createNamespace('uploader-file');
 
@@ -117,32 +119,62 @@ export function isFileNameEllipsised(
   return !!fullName && displayName !== fullName;
 }
 
-export type FileTypeStyle = {
-  label: string;
-  color: string;
+const EXTENSION_ICON_MAP: Record<string, FileTypeIcon> = {
+  doc: 'word',
+  docx: 'word',
+  docm: 'word',
+  wps: 'word',
+  xls: 'excel',
+  xlsx: 'excel',
+  xlsm: 'excel',
+  csv: 'excel',
+  mp4: 'mp4',
+  avi: 'mp4',
+  mov: 'mp4',
+  mkv: 'mp4',
+  webm: 'mp4',
+  wmv: 'mp4',
+  flv: 'mp4',
+  m4v: 'mp4',
+  '3gp': 'mp4',
+  jpg: 'picture',
+  jpeg: 'picture',
+  png: 'picture',
+  gif: 'picture',
+  bmp: 'picture',
+  webp: 'picture',
+  svg: 'picture',
+  jfif: 'picture',
+  avif: 'picture',
+  dpg: 'picture',
+  heic: 'picture',
+  txt: 'txt',
+  md: 'txt',
+  log: 'txt',
+  rtf: 'txt',
+  zip: 'zip',
+  rar: 'zip',
+  '7z': 'zip',
+  tar: 'zip',
+  gz: 'zip',
+  bz2: 'zip',
+  xz: 'zip',
 };
 
-const FILE_TYPE_STYLES: Record<string, FileTypeStyle> = {
-  doc: { label: 'W', color: '#2b579a' },
-  docx: { label: 'W', color: '#2b579a' },
-  xls: { label: 'X', color: '#217346' },
-  xlsx: { label: 'X', color: '#217346' },
-  ppt: { label: 'P', color: '#d24726' },
-  pptx: { label: 'P', color: '#d24726' },
-  pdf: { label: 'P', color: '#e74c3c' },
-  vsd: { label: 'V', color: '#3955a3' },
-  pot: { label: 'P', color: '#d24726' },
-};
-
-const DEFAULT_FILE_TYPE_STYLE: FileTypeStyle = {
-  label: 'F',
-  color: '#969799',
-};
-
-/** 根据扩展名返回列表项左侧图标的字母与背景色 */
-export function getFileTypeStyle(item: UploaderFileListItem): FileTypeStyle {
+function isPictureFile(item: UploaderFileListItem): boolean {
   const ext = getFileExtension(getFileName(item));
-  return FILE_TYPE_STYLES[ext] || DEFAULT_FILE_TYPE_STYLE;
+  return isImageFile(item) || EXTENSION_ICON_MAP[ext] === 'picture';
+}
+
+/** 根据扩展名返回列表项左侧 SVG 图标地址，未匹配到已知类型时使用 unknown */
+export function getFileTypeIcon(item: UploaderFileListItem): string {
+  if (item.status === 'failed' && isPictureFile(item)) {
+    return FILE_TYPE_ICONS['picture-wrong'];
+  }
+
+  const ext = getFileExtension(getFileName(item));
+  const iconKey = EXTENSION_ICON_MAP[ext] || 'unknown';
+  return FILE_TYPE_ICONS[iconKey];
 }
 
 export const UPLOADER_FILE_STATUS_TEXTS = {

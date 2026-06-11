@@ -14,6 +14,7 @@ const t = useTranslate({
     stepper: '步进器',
     username: '用户名',
     placeholder: '请输入用户名',
+    switchComment:'开关备注',
   },
   'en-US': {
     basicUsage: 'Basic Components',
@@ -24,6 +25,7 @@ const t = useTranslate({
     stepper: 'Stepper',
     username: 'Username',
     placeholder: 'Enter username',
+    switchComment: 'Switch Comment',
   },
 });
 
@@ -47,6 +49,7 @@ const columns = computed<ProFormColumn[]>(() => [
     component: 'switch',
     fieldProps: {
       inputAlign: 'right',
+      labelComment: t('switchComment'),
     },
   },
   {
@@ -91,13 +94,7 @@ const onFailed = (errorInfo: {
 
 <template>
   <demo-block :title="t('basicUsage')">
-    <van-pro-form
-      v-model="model"
-      ref="formRef"
-      :columns="columns"
-      :submit-text="t('submit')"
-      @submit="onSubmit"
-      @failed="onFailed"
-    />
+    <van-pro-form v-model="model" ref="formRef" :columns="columns" :submit-text="t('submit')" @submit="onSubmit"
+      @failed="onFailed" />
   </demo-block>
 </template>

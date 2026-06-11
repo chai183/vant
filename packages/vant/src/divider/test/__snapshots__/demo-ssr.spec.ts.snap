@@ -6,7 +6,7 @@ exports[`should render demo and match snapshot 1`] = `
   <!--[-->
   <div
     role="separator"
-    class="van-divider van-divider--hairline"
+    class="van-divider"
   >
   </div>
 </div>
@@ -14,7 +14,7 @@ exports[`should render demo and match snapshot 1`] = `
   <!--[-->
   <div
     role="separator"
-    class="van-divider van-divider--hairline van-divider--content-center"
+    class="van-divider van-divider--content-center"
   >
     <!--[-->
     Text
@@ -24,7 +24,7 @@ exports[`should render demo and match snapshot 1`] = `
   <!--[-->
   <div
     role="separator"
-    class="van-divider van-divider--hairline van-divider--borderless"
+    class="van-divider van-divider--borderless"
   >
     <!--[-->
     Text
@@ -34,14 +34,14 @@ exports[`should render demo and match snapshot 1`] = `
   <!--[-->
   <div
     role="separator"
-    class="van-divider van-divider--hairline van-divider--content-left"
+    class="van-divider van-divider--content-left"
   >
     <!--[-->
     Text
   </div>
   <div
     role="separator"
-    class="van-divider van-divider--hairline van-divider--content-right"
+    class="van-divider van-divider--content-right"
   >
     <!--[-->
     Text
@@ -61,7 +61,7 @@ exports[`should render demo and match snapshot 1`] = `
   <!--[-->
   <div
     role="separator"
-    class="van-divider van-divider--hairline van-divider--content-center"
+    class="van-divider van-divider--content-center"
     style="border-color:#1989fa;color:#1989fa;padding:0 16px;"
   >
     <!--[-->
@@ -73,13 +73,13 @@ exports[`should render demo and match snapshot 1`] = `
   <div class="content">
     <div
       role="separator"
-      class="van-divider van-divider--hairline van-divider--vertical"
+      class="van-divider van-divider--vertical"
     >
     </div>
     Text
     <div
       role="separator"
-      class="van-divider van-divider--dashed van-divider--hairline van-divider--vertical"
+      class="van-divider van-divider--dashed van-divider--vertical"
     >
     </div>
     Text
@@ -91,7 +91,7 @@ exports[`should render demo and match snapshot 1`] = `
     Text
     <div
       role="separator"
-      class="van-divider van-divider--hairline van-divider--vertical"
+      class="van-divider van-divider--vertical"
       style="border-color:#1989fa;"
     >
     </div>

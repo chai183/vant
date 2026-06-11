@@ -54,14 +54,6 @@ export default defineComponent({
       () => props.moneyUppercaseLabel ?? t('uppercase'),
     );
 
-    const hasValue = computed(() => {
-      const { modelValue } = props;
-      if (modelValue === undefined || modelValue === null || modelValue === '') {
-        return false;
-      }
-      return String(modelValue).trim() !== '';
-    });
-
     return () => {
       const fieldAttrs = extend({}, passAttrs) as Record<string, unknown>;
       const rootClass = fieldAttrs.class;
@@ -85,23 +77,12 @@ export default defineComponent({
           showMoneyUppercase={props.showMoneyUppercase}
           showMoneyUnit={props.showMoneyUnit}
           moneyUppercaseLabel={resolvedMoneyUppercaseLabel.value}
+          moneyCurrency={props.currency}
           onUpdate:modelValue={(value: string | number) =>
             emit('update:modelValue', value)
           }
-        >
-          {{
-            ...slots,
-            'input-left':
-              slots['input-left'] ??
-              (() => (
-                <span
-                  class={bem('currency', { filled: hasValue.value })}
-                >
-                  {props.currency}
-                </span>
-              )),
-          }}
-        </Field>
+          v-slots={slots}
+        />
       );
     };
   },

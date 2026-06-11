@@ -1,0 +1,328 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`should render demo and match snapshot 1`] = `
+<div class="demo-field-children">
+  <div>
+    <!--[-->
+    <div class="van-cell-group van-cell-group--inset">
+      <!--[-->
+      <div class="demo-field-children__header">
+        <span class="demo-field-children__title">
+          List title
+        </span>
+        <button
+          type="button"
+          class="demo-field-children__add"
+        >
+          Add
+        </button>
+      </div>
+      <div class="van-field-children">
+        <div class="van-field-children__body">
+          <!--[-->
+          <div class="van-field-children__item van-hairline--bottom">
+            <div class="van-field-children__tree">
+              <div class="van-field-children__tree-rail">
+              </div>
+              <div class="van-field-children__tree-arm">
+              </div>
+            </div>
+            <div class="van-field-children__item-body">
+              <div class="van-cell van-cell--borderless van-field">
+                <div
+                  class="van-cell__title van-field__label"
+                  style
+                >
+                  <!--[-->
+                  <label
+                    id="van-field-label"
+                    for="van-field-input"
+                    data-allow-mismatch="attribute"
+                    style
+                  >
+                    Option
+                  </label>
+                </div>
+                <div class="van-cell__value van-field__value">
+                  <!--[-->
+                  <div
+                    class="van-field__body"
+                    style
+                  >
+                    <input
+                      type="text"
+                      id="van-field-input"
+                      class="van-field__control"
+                      style
+                      placeholder="Please enter"
+                      aria-labelledby="van-field-label"
+                      data-allow-mismatch="attribute"
+                    >
+                    <div class="van-field__right-icon">
+                      <i
+                        class="van-badge__wrapper van-icon van-icon-minus"
+                        style
+                      >
+                        <!--[-->
+                      </i>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="van-field-children__item van-hairline--bottom">
+            <div class="van-field-children__tree">
+              <div class="van-field-children__tree-rail">
+              </div>
+              <div class="van-field-children__tree-arm">
+              </div>
+            </div>
+            <div class="van-field-children__item-body">
+              <div class="van-cell van-cell--borderless van-field">
+                <div
+                  class="van-cell__title van-field__label"
+                  style
+                >
+                  <!--[-->
+                  <label
+                    id="van-field-label"
+                    for="van-field-input"
+                    data-allow-mismatch="attribute"
+                    style
+                  >
+                    Option
+                  </label>
+                </div>
+                <div class="van-cell__value van-field__value">
+                  <!--[-->
+                  <div
+                    class="van-field__body"
+                    style
+                  >
+                    <input
+                      type="text"
+                      id="van-field-input"
+                      class="van-field__control"
+                      style
+                      placeholder="Please enter"
+                      aria-labelledby="van-field-label"
+                      data-allow-mismatch="attribute"
+                    >
+                    <div class="van-field__right-icon">
+                      <i
+                        class="van-badge__wrapper van-icon van-icon-minus"
+                        style
+                      >
+                        <!--[-->
+                      </i>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div>
+    <!--[-->
+    <div class="van-cell-group van-cell-group--inset">
+      <!--[-->
+      <div class="demo-field-children__header">
+        <span class="demo-field-children__title">
+          List title
+        </span>
+        <button
+          type="button"
+          class="demo-field-children__add"
+          disabled
+        >
+          Add
+        </button>
+      </div>
+      <div class="van-field-children">
+        <div class="van-field-children__body">
+          <!--[-->
+          <div class="van-field-children__item van-hairline--bottom">
+            <div class="van-field-children__tree">
+              <div class="van-field-children__tree-rail">
+              </div>
+              <div class="van-field-children__tree-arm">
+              </div>
+            </div>
+            <div class="van-field-children__item-body">
+              <div class="van-cell van-cell--borderless van-field">
+                <div
+                  class="van-cell__title van-field__label"
+                  style
+                >
+                  <!--[-->
+                  <label
+                    id="van-field-label"
+                    for="van-field-input"
+                    data-allow-mismatch="attribute"
+                    style
+                  >
+                    Option
+                  </label>
+                </div>
+                <div class="van-cell__value van-field__value">
+                  <!--[-->
+                  <div
+                    class="van-field__body"
+                    style
+                  >
+                    <input
+                      type="text"
+                      id="van-field-input"
+                      class="van-field__control"
+                      style
+                      placeholder="Please enter"
+                      aria-labelledby="van-field-label"
+                      data-allow-mismatch="attribute"
+                    >
+                    <div class="van-field__right-icon">
+                      <i
+                        class="van-badge__wrapper van-icon van-icon-minus"
+                        style
+                      >
+                        <!--[-->
+                      </i>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="van-field-children__item van-hairline--bottom">
+            <div class="van-field-children__tree">
+              <div class="van-field-children__tree-rail">
+              </div>
+              <div class="van-field-children__tree-arm">
+              </div>
+            </div>
+            <div class="van-field-children__item-body">
+              <div class="van-cell van-cell--borderless van-field">
+                <div
+                  class="van-cell__title van-field__label"
+                  style
+                >
+                  <!--[-->
+                  <label
+                    id="van-field-label"
+                    for="van-field-input"
+                    data-allow-mismatch="attribute"
+                    style
+                  >
+                    Option
+                  </label>
+                </div>
+                <div class="van-cell__value van-field__value">
+                  <!--[-->
+                  <div
+                    class="van-field__body"
+                    style
+                  >
+                    <input
+                      type="text"
+                      id="van-field-input"
+                      class="van-field__control"
+                      style
+                      placeholder="Please enter"
+                      aria-labelledby="van-field-label"
+                      data-allow-mismatch="attribute"
+                    >
+                    <div class="van-field__right-icon">
+                      <i
+                        class="van-badge__wrapper van-icon van-icon-minus"
+                        style
+                      >
+                        <!--[-->
+                      </i>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div>
+    <!--[-->
+    <div class="van-cell-group van-cell-group--inset">
+      <!--[-->
+      <div class="demo-field-children__header">
+        <span class="demo-field-children__title">
+          List title
+        </span>
+        <button
+          type="button"
+          class="demo-field-children__add"
+        >
+          Add
+        </button>
+      </div>
+      <div class="van-field-children">
+        <div class="van-field-children__body">
+          <!--[-->
+          <div class="van-field-children__item van-hairline--bottom">
+            <div class="van-field-children__tree">
+              <div class="van-field-children__tree-rail">
+              </div>
+              <div class="van-field-children__tree-arm">
+              </div>
+            </div>
+            <div class="van-field-children__item-body">
+              <div class="van-cell van-cell--borderless van-field">
+                <div
+                  class="van-cell__title van-field__label"
+                  style
+                >
+                  <!--[-->
+                  <label
+                    id="van-field-label"
+                    for="van-field-input"
+                    data-allow-mismatch="attribute"
+                    style
+                  >
+                    New option
+                  </label>
+                </div>
+                <div class="van-cell__value van-field__value">
+                  <!--[-->
+                  <div
+                    class="van-field__body"
+                    style
+                  >
+                    <input
+                      type="text"
+                      id="van-field-input"
+                      class="van-field__control"
+                      style
+                      placeholder="Please enter"
+                      aria-labelledby="van-field-label"
+                      data-allow-mismatch="attribute"
+                    >
+                    <div class="van-field__right-icon">
+                      <i
+                        class="van-badge__wrapper van-icon van-icon-minus"
+                        style
+                      >
+                        <!--[-->
+                      </i>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;

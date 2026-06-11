@@ -4,6 +4,7 @@ import {
   type ExtractPropTypes,
   type VNode,
 } from 'vue';
+import { useCustomFieldValue } from '@vant/use';
 
 // Utils
 import {
@@ -55,6 +56,8 @@ export default defineComponent({
   emits: ['update:modelValue'],
 
   setup(props, { emit, slots }) {
+    useCustomFieldValue(() => props.modelValue);
+
     const normalizeSlotNodes = (raw: VNode | VNode[]) => {
       const list = Array.isArray(raw) ? raw : [raw];
       return filterEmpty(list as VNode[]);

@@ -29,10 +29,13 @@
     flex-direction: row;
     align-items: stretch;
     min-width: 0;
-    border-bottom: 1px solid var(--van-field-children-item-border-color);
 
-    &:last-child {
-      border-bottom: none;
+    &::after {
+      border-color: var(--van-field-children-item-border-color);
+    }
+
+    &:last-child::after {
+      display: none;
     }
   }
 

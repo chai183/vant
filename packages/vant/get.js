@@ -25,7 +25,9 @@ function getUnstagedFiles(gitRoot) {
     .split('\n')
     .filter(Boolean);
 
-  return [...new Set([...modified, ...untracked])];
+  return [...new Set([...modified, ...untracked])].filter(
+    (file) => !/(^|\/)test\//.test(file),
+  );
 }
 
 function packFiles(files, gitRoot, outputDir) {

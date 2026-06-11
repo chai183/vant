@@ -6,12 +6,11 @@
   --van-uploader-text-color: var(--van-text-color-2);
   --van-uploader-text-font-size: var(--van-font-size-sm);
   --van-uploader-upload-background: transparent;
-  --van-uploader-upload-border-color: #cccccc;
   --van-uploader-upload-active-color: var(--van-active-color);
   --van-uploader-delete-color: var(--van-white);
   --van-uploader-delete-size: 20px;
   --van-uploader-delete-icon-size: 12px;
-  --van-uploader-delete-background: rgba(0, 0, 0, 0.7);
+  --van-uploader-delete-background: rgba(0, 0, 0, 0.6);
   --van-uploader-file-background: var(--van-background);
   --van-uploader-file-icon-size: 20px;
   --van-uploader-file-icon-color: var(--van-gray-7);
@@ -20,7 +19,7 @@
   --van-uploader-file-name-font-size: var(--van-font-size-sm);
   --van-uploader-file-name-text-color: var(--van-gray-7);
   --van-uploader-mask-text-color: var(--van-white);
-  --van-uploader-mask-background: rgba(50, 50, 51, 0.4);
+  --van-uploader-mask-background: rgba(0, 0, 0, 0.4);
   --van-uploader-mask-icon-size: 22px;
   --van-uploader-mask-message-font-size: var(--van-font-size-sm);
   --van-uploader-mask-message-line-height: var(--van-line-height-xs);
@@ -73,8 +72,11 @@
     height: var(--van-uploader-size);
     margin: 0 var(--van-padding-xs) var(--van-padding-xs) 0;
     background: var(--van-uploader-upload-background);
-    border: 1px solid var(--van-uploader-upload-border-color);
     border-radius: var(--van-uploader-border-radius);
+
+    &::after {
+      border-radius: calc(var(--van-uploader-border-radius) * 2);
+    }
 
     &:active {
       background-color: var(--van-uploader-upload-active-color);

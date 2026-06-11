@@ -3,31 +3,33 @@
 exports[`should render demo and match snapshot 1`] = `
 <div>
   <div class="van-cell-group van-cell-group--inset">
-    <div class="van-cell van-field van-field--label-top van-field-money">
+    <div class="van-cell van-field van-field--money-uppercase van-field--label-top van-field-money">
       <div class="van-cell__title van-field__label van-field__label--top">
-        <span class="van-field__label-wrap">
-          <label
-            id="van-field-label"
-            for="van-field-input"
-            data-allow-mismatch="attribute"
-          >
-            Transfer Amount
-          </label>
-          <span class="van-field__label-tooltip">
-            <span class="van-popover__wrapper">
-              <i
-                class="van-badge__wrapper van-icon van-icon-info-o van-field__label-tooltip-icon"
-                style="font-size: 14px;"
-              >
-              </i>
+        <div class="van-field__label-top-row">
+          <span class="van-field__label-wrap">
+            <label
+              id="van-field-label"
+              for="van-field-input"
+              data-allow-mismatch="attribute"
+            >
+              Transfer Amount
+            </label>
+            <span class="van-field__label-tooltip">
+              <span class="van-popover__wrapper">
+                <i
+                  class="van-badge__wrapper van-icon van-icon-info-o van-field__label-tooltip-icon"
+                  style="font-size: 14px;"
+                >
+                </i>
+              </span>
             </span>
           </span>
-        </span>
+        </div>
       </div>
       <div class="van-cell__value van-field__value">
         <div class="van-field__body">
           <div class="van-field__input-left">
-            <span class="van-field-money__currency">
+            <span class="van-field__money-currency">
               ¥
             </span>
           </div>
@@ -43,7 +45,7 @@ exports[`should render demo and match snapshot 1`] = `
             >
           </div>
         </div>
-        <div class="van-field__input-bottom">
+        <div class="van-field__input-bottom van-field__input-bottom--fixed">
           <div class="van-field__money-uppercase">
             <span class="van-field__money-uppercase-label">
               Amount in words (CN)
@@ -58,20 +60,22 @@ exports[`should render demo and match snapshot 1`] = `
 </div>
 <div>
   <div class="van-cell-group van-cell-group--inset">
-    <div class="van-cell van-field van-field--label-top van-field-money">
+    <div class="van-cell van-field van-field--money-uppercase van-field--label-top van-field-money">
       <div class="van-cell__title van-field__label van-field__label--top">
-        <label
-          id="van-field-label"
-          for="van-field-input"
-          data-allow-mismatch="attribute"
-        >
-          Transfer Amount
-        </label>
+        <div class="van-field__label-top-row">
+          <label
+            id="van-field-label"
+            for="van-field-input"
+            data-allow-mismatch="attribute"
+          >
+            Transfer Amount
+          </label>
+        </div>
       </div>
       <div class="van-cell__value van-field__value">
         <div class="van-field__body">
           <div class="van-field__input-left">
-            <span class="van-field-money__currency">
+            <span class="van-field__money-currency van-field__money-currency--filled">
               ¥
             </span>
           </div>
@@ -83,14 +87,16 @@ exports[`should render demo and match snapshot 1`] = `
                 </span>
                 <span class="van-field__money-unit-caret">
                   <svg
-                    viewbox="0 0 100 5"
+                    viewbox="0 0 100 10"
                     fill="none"
+                    preserveaspectratio="none"
                     xmlns="http://www.w3.org/2000/svg"
                   >
                     <path
-                      d="M0 0.5 H42 L50 5 L58 0.5 H100"
+                      d="M0 1 H35 L50 9 L65 1 H100"
                       stroke="currentColor"
                       stroke-width="1"
+                      vector-effect="non-scaling-stroke"
                     >
                     </path>
                   </svg>
@@ -111,7 +117,7 @@ exports[`should render demo and match snapshot 1`] = `
         <div class="van-field__error-message">
           Amount exceeds available balance
         </div>
-        <div class="van-field__input-bottom">
+        <div class="van-field__input-bottom van-field__input-bottom--fixed">
           <div class="van-field__money-uppercase">
             <span class="van-field__money-uppercase-label">
               Amount in words (CN)
@@ -127,20 +133,22 @@ exports[`should render demo and match snapshot 1`] = `
 </div>
 <div>
   <div class="van-cell-group van-cell-group--inset">
-    <div class="van-cell van-field van-field--label-top van-field-money">
+    <div class="van-cell van-field van-field--money-uppercase van-field--label-top van-field-money">
       <div class="van-cell__title van-field__label van-field__label--top">
-        <label
-          id="van-field-label"
-          for="van-field-input"
-          data-allow-mismatch="attribute"
-        >
-          Transfer Amount
-        </label>
+        <div class="van-field__label-top-row">
+          <label
+            id="van-field-label"
+            for="van-field-input"
+            data-allow-mismatch="attribute"
+          >
+            Transfer Amount
+          </label>
+        </div>
       </div>
       <div class="van-cell__value van-field__value">
         <div class="van-field__body">
           <div class="van-field__input-left">
-            <span class="van-field-money__currency">
+            <span class="van-field__money-currency">
               ¥
             </span>
           </div>
@@ -159,7 +167,7 @@ exports[`should render demo and match snapshot 1`] = `
         <div class="van-field__input-comment">
           Single transfer limit: 50000
         </div>
-        <div class="van-field__input-bottom">
+        <div class="van-field__input-bottom van-field__input-bottom--fixed">
           <div class="van-field__money-uppercase">
             <span class="van-field__money-uppercase-label">
               Amount in words (CN)
@@ -174,20 +182,22 @@ exports[`should render demo and match snapshot 1`] = `
 </div>
 <div>
   <div class="van-cell-group van-cell-group--inset">
-    <div class="van-cell van-field van-field--label-top van-field-money">
+    <div class="van-cell van-field van-field--money-uppercase van-field--label-top van-field-money">
       <div class="van-cell__title van-field__label van-field__label--top">
-        <label
-          id="van-field-label"
-          for="van-field-input"
-          data-allow-mismatch="attribute"
-        >
-          Transfer Amount
-        </label>
+        <div class="van-field__label-top-row">
+          <label
+            id="van-field-label"
+            for="van-field-input"
+            data-allow-mismatch="attribute"
+          >
+            Transfer Amount
+          </label>
+        </div>
       </div>
       <div class="van-cell__value van-field__value">
         <div class="van-field__body">
           <div class="van-field__input-left">
-            <span class="van-field-money__currency">
+            <span class="van-field__money-currency">
               ¥
             </span>
           </div>
@@ -208,7 +218,7 @@ exports[`should render demo and match snapshot 1`] = `
             Slot: fee, arrival time, etc.
           </span>
         </div>
-        <div class="van-field__input-bottom">
+        <div class="van-field__input-bottom van-field__input-bottom--fixed">
           <div class="van-field__money-uppercase">
             <span class="van-field__money-uppercase-label">
               Amount in words (CN)

@@ -249,9 +249,33 @@ export default {
 };
 ```
 
+### 选项图标
+
+通过 `options` 中的 `icon` 字段为选项设置图标。列表模式下，`icon` 会作为 Cell 左侧图标展示；普通模式下，图标会展示在选项文本前。
+
+```html
+<van-checkbox-group v-model="checked" :options="options" />
+```
+
+```js
+import { ref } from 'vue';
+
+export default {
+  setup() {
+    const checked = ref(['1']);
+    const options = [
+      { label: '选项 1', value: '1' },
+      { label: '选项 2', value: '2', icon: 'shop-o' },
+      { label: '选项 3', value: '3', disabled: true, icon: 'shop-o' },
+    ];
+    return { checked, options };
+  },
+};
+```
+
 ### 列表展示
 
-设置 `is-list` 并以 Cell 列表形式展示选项，可通过 `options` 中的 `cellProps` 自定义单元格属性。
+设置 `is-list` 并以 Cell 列表形式展示选项，可通过 `options` 中的 `icon` 或 `cellProps` 自定义单元格属性。
 
 ```html
 <van-checkbox-group v-model="checked" is-list :options="options" />
@@ -274,7 +298,41 @@ export default {
         label: '选项 3',
         value: '3',
         disabled: true,
-        cellProps: { icon: 'shop-o' },
+        icon: 'shop-o',
+      },
+    ];
+    return { checked, options };
+  },
+};
+```
+
+### 列表搜索
+
+在 `is-list` 模式下，设置 `show-search` 可在顶部展示搜索框，输入的关键词会透传给 [Cell 组件](#/zh-CN/cell) 的 `highlight` 属性高亮匹配文本，并过滤不匹配的选项；未找到匹配项时展示 [Empty 组件](#/zh-CN/empty) 空状态，默认描述为「未找到搜索项」，可通过 `search-empty` 插槽自定义。
+
+```html
+<van-checkbox-group
+  v-model="checked"
+  is-list
+  show-search
+  search-placeholder="搜索选项"
+  :options="options"
+/>
+```
+
+```js
+import { ref } from 'vue';
+
+export default {
+  setup() {
+    const checked = ref([]);
+    const options = [
+      { label: '选项 1 Apple', value: '1' },
+      { label: '选项 2 Banana', value: '2' },
+      {
+        label: '选项 3 Cherry',
+        value: '3',
+        cellProps: { label: '描述信息' },
       },
     ];
     return { checked, options };
@@ -450,7 +508,7 @@ export default {
 | disabled | 是否禁用复选框 | _boolean_ | `false` |
 | label-disabled | 是否禁用复选框文本点击 | _boolean_ | `false` |
 | label-position | 文本位置，可选值为 `left` | _string_ | `right` |
-| icon-size | 图标大小，默认单位为 `px` | _number \| string_ | `20px` |
+| icon-size | 图标大小，默认单位为 `px` | _number \| string_ | `16px` |
 | checked-color | 选中状态颜色 | _string_ | `#1989fa` |
 | bind-group | 是否与复选框组绑定 | _boolean_ | `true` |
 | indeterminate | 是否为不确定状态 | _boolean_ | `false` |
@@ -465,8 +523,10 @@ export default {
 | direction | 排列方向，可选值为 `horizontal` | _string_ | `vertical` |
 | columns `new` | 水平排列时每行展示的选项数量 | _number \| string_ | `3` |
 | is-list `new` | 是否以 Cell 列表形式展示选项 | _boolean_ | `false` |
-| options `new` | 通过配置渲染选项，项为 `{ label, value, disabled?, cellProps? }`，`cellProps` 为 [Cell 组件](#/zh-CN/cell) 的属性 | _CheckboxGroupOption[]_ | `[]` |
-| icon-size | 所有复选框的图标大小，默认单位为 `px` | _number \| string_ | `20px` |
+| show-search `new` | 是否在列表顶部展示搜索框，需配合 `is-list` 使用 | _boolean_ | `false` |
+| search-placeholder `new` | 搜索框占位提示文字 | _string_ | `请输入筛选关键词` |
+| options `new` | 通过配置渲染选项，项为 `{ label, value, disabled?, icon?, cellProps? }`，`icon` 为图标名称，`cellProps` 为 [Cell 组件](#/zh-CN/cell) 的属性 | _CheckboxGroupOption[]_ | `[]` |
+| icon-size | 所有复选框的图标大小，默认单位为 `px` | _number \| string_ | `16px` |
 | checked-color | 所有复选框的选中状态颜色 | _string_ | `#1989fa` |
 | shape `v4.6.3` | 形状，可选值为 `square` `block` | _string_ | `round` |
 
@@ -489,6 +549,13 @@ export default {
 | ------- | ---------- | ----------------------------------------- |
 | default | 自定义文本 | _{ checked: boolean, disabled: boolean }_ |
 | icon    | 自定义图标 | _{ checked: boolean, disabled: boolean }_ |
+
+### CheckboxGroup Slots
+
+| 名称 | 说明 |
+| --- | --- |
+| default | 自定义选项内容 |
+| search-empty `new` | 列表搜索无匹配结果时的自定义内容，需配合 `is-list` 和 `show-search` 使用 |
 
 ### CheckboxGroup 方法
 
@@ -570,10 +637,12 @@ checkboxGroupRef.value?.toggleAll();
 
 | 名称                                | 默认值                     | 描述 |
 | ----------------------------------- | -------------------------- | ---- |
-| --van-checkbox-size                 | _20px_                     | -    |
+| --van-checkbox-size                 | _16px_                     | 图标大小 |
+| --van-checkbox-label-font-size      | _14px_                     | 文本字号 |
+| --van-checkbox-label-line-height    | _20px_                     | 文本行高 |
 | --van-checkbox-border-color         | _var(--van-gray-5)_        | -    |
 | --van-checkbox-duration             | _var(--van-duration-fast)_ | -    |
-| --van-checkbox-label-margin         | _var(--van-padding-xs)_    | -    |
+| --van-checkbox-label-margin         | _2px_                      | 文本与图标间距 |
 | --van-checkbox-label-color          | _var(--van-text-color)_    | -    |
 | --van-checkbox-checked-icon-color   | _var(--van-primary-color)_ | -    |
 | --van-checkbox-disabled-icon-color  | _var(--van-gray-5)_        | -    |

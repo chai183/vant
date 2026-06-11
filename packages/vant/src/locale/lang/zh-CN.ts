@@ -34,6 +34,7 @@ export default {
   vanField: {
     labelExpand: '展开',
     labelCollapse: '收起',
+    maxlengthTip: '达到字数上限',
   },
   vanPagination: {
     prev: '上一页',
@@ -76,5 +77,13 @@ export default {
     lastWeek: '近一周',
     lastMonth: '近一月',
     lastThreeMonths: '近三月',
+  },
+  vanCheckboxGroup: {
+    searchPlaceholder: '请输入筛选关键词',
+    searchEmpty: '未找到搜索项',
+  },
+  vanRadioGroup: {
+    searchPlaceholder: '请输入筛选关键词',
+    searchEmpty: '未找到搜索项',
   },
 };

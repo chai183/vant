@@ -29,7 +29,7 @@ exports[`delete preview image 1`] = `
       </div>
     </div>
     <div
-      class="van-uploader__upload"
+      class="van-uploader__upload van-hairline--surround"
       style="width: 30px; height: 30px;"
     >
       <i class="van-badge__wrapper van-icon van-icon-photograph van-uploader__upload-icon">
@@ -50,7 +50,7 @@ exports[`delete preview image 1`] = `
 exports[`disable preview image 1`] = `
 <div class="van-uploader">
   <div class="van-uploader__wrapper">
-    <div class="van-uploader__upload">
+    <div class="van-uploader__upload van-hairline--surround">
       <i class="van-badge__wrapper van-icon van-icon-photograph van-uploader__upload-icon">
       </i>
       <span class="van-uploader__upload-text">
@@ -87,7 +87,7 @@ exports[`disable preview image 2`] = `
         </i>
       </div>
     </div>
-    <div class="van-uploader__upload">
+    <div class="van-uploader__upload van-hairline--surround">
       <i class="van-badge__wrapper van-icon van-icon-photograph van-uploader__upload-icon">
       </i>
       <span class="van-uploader__upload-text">
@@ -106,7 +106,7 @@ exports[`disable preview image 2`] = `
 exports[`file message should be reactive 1`] = `
 <div class="van-uploader">
   <div class="van-uploader__wrapper">
-    <div class="van-uploader__upload">
+    <div class="van-uploader__upload van-hairline--surround">
       <i class="van-badge__wrapper van-icon van-icon-photograph van-uploader__upload-icon">
       </i>
       <span class="van-uploader__upload-text">
@@ -147,7 +147,7 @@ exports[`image-fit prop 1`] = `
         </i>
       </div>
     </div>
-    <div class="van-uploader__upload">
+    <div class="van-uploader__upload van-hairline--surround">
       <i class="van-badge__wrapper van-icon van-icon-photograph van-uploader__upload-icon">
       </i>
       <span class="van-uploader__upload-text">
@@ -224,7 +224,7 @@ exports[`render preview image 1`] = `
         </i>
       </div>
     </div>
-    <div class="van-uploader__upload">
+    <div class="van-uploader__upload van-hairline--surround">
       <i class="van-badge__wrapper van-icon van-icon-photograph van-uploader__upload-icon">
       </i>
       <span class="van-uploader__upload-text">
@@ -243,7 +243,7 @@ exports[`render preview image 1`] = `
 exports[`should not render upload input when using readonly prop 1`] = `
 <div class="van-uploader">
   <div class="van-uploader__wrapper">
-    <div class="van-uploader__upload van-uploader__upload--readonly">
+    <div class="van-uploader__upload van-uploader__upload--readonly van-hairline--surround">
       <i class="van-badge__wrapper van-icon van-icon-photograph van-uploader__upload-icon">
       </i>
       <span class="van-uploader__upload-text">
@@ -274,7 +274,7 @@ exports[`should render preview-delete slot correctly 1`] = `
 exports[`upload-icon prop 1`] = `
 <div class="van-uploader">
   <div class="van-uploader__wrapper">
-    <div class="van-uploader__upload">
+    <div class="van-uploader__upload van-hairline--surround">
       <i class="van-badge__wrapper van-icon van-icon-add van-uploader__upload-icon">
       </i>
       <span class="van-uploader__upload-text">

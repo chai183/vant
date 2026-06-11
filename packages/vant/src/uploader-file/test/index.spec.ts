@@ -143,7 +143,7 @@ test('should render description and file list', () => {
   expect(wrapper.find('.van-uploader-file__upload .van-button__text').text()).toBe(
     '添加附件',
   );
-  expect(wrapper.find('.van-icon-weapp-nav').exists()).toBe(true);
+  expect(wrapper.find('.van-uploader-file__file-icon-img').exists()).toBe(true);
 });
 
 test('should upload file with promise and update status', async () => {

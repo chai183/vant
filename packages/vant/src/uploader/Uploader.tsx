@@ -20,6 +20,7 @@ import {
   makeArrayProp,
   makeStringProp,
   makeNumericProp,
+  BORDER_SURROUND,
   type Numeric,
   type ComponentInstance,
 } from '../utils';
@@ -378,7 +379,7 @@ export default defineComponent({
       return (
         <div
           v-show={props.showUpload && lessThanMax}
-          class={bem('upload', { readonly: props.readonly })}
+          class={[bem('upload', { readonly: props.readonly }), BORDER_SURROUND]}
           style={getSizeStyle(props.previewSize)}
           onClick={onClickUpload}
         >

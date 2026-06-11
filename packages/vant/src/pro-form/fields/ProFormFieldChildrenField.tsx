@@ -5,7 +5,6 @@ import FieldChildren from '../../field-children';
 import type { FieldProps } from '../../field/Field';
 import type { FieldChildrenInstance } from '../../field-children/types';
 import type { ProFormFieldSlots } from '../resolveFieldSlots';
-import { FieldInputBridge } from './FieldInputBridge';
 import { useFormFieldState } from './shared';
 
 const [, bem] = createNamespace('pro-form-field-children');
@@ -70,16 +69,14 @@ export default defineComponent({
                 </button>
               )),
             input: () => (
-              <FieldInputBridge modelValue={modelValue}>
-                <FieldChildren
-                  ref={fieldChildrenRef}
-                  {...fieldChildrenProps}
-                  modelValue={modelValue}
-                  onUpdate:modelValue={(value: unknown[]) =>
-                    emit('update:modelValue', value)
-                  }
-                />
-              </FieldInputBridge>
+              <FieldChildren
+                ref={fieldChildrenRef}
+                {...fieldChildrenProps}
+                modelValue={modelValue}
+                onUpdate:modelValue={(value: unknown[]) =>
+                  emit('update:modelValue', value)
+                }
+              />
             ),
             ...props.fieldSlots,
           }}

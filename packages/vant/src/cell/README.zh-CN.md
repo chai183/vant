@@ -209,7 +209,7 @@ app.use(CellGroup);
 | clickable | 是否开启点击反馈 | _boolean_ | `null` |
 | is-link | 是否展示右侧箭头并开启点击反馈 | _boolean_ | `false` |
 | required | 是否显示表单必填星号 | _boolean_ | `false` |
-| center | 是否使内容垂直居中 | _boolean_ | `false` |
+| center | 是否使内容垂直居中 | _boolean_ | `true` |
 | arrow-direction | 箭头方向，可选值为 `left` `up` `down` | _string_ | `right` |
 | title-style | 左侧标题额外样式 | _string \| Array \| object_ | - |
 | title-class | 左侧标题额外类名 | _string \| Array \| object_ | - |

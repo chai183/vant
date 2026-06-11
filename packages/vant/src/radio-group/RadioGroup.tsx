@@ -1,4 +1,6 @@
 import {
+  ref,
+  computed,
   watch,
   defineComponent,
   type PropType,
@@ -14,15 +16,23 @@ import {
   createNamespace,
 } from '../utils';
 import { useChildren, useCustomFieldValue } from '@vant/use';
+import {
+  filterListOptions,
+  getListSearchHighlight,
+  isListSearchEmpty,
+} from '../composables/filter-list-options';
 
 import Radio from '../radio';
 import Cell from '../cell';
 import CellGroup from '../cell-group';
+import Search from '../search';
+import Empty from '../empty';
+import { Icon } from '../icon';
 import type { RadioShape } from '../radio';
 import type { CheckerDirection } from '../checkbox/Checker';
 import type { RadioGroupOption } from './types';
 
-const [name, bem] = createNamespace('radio-group');
+const [name, bem, t] = createNamespace('radio-group');
 
 export type RadioGroupDirection = CheckerDirection;
 
@@ -35,6 +45,8 @@ export const radioGroupProps = {
   modelValue: unknownProp,
   checkedColor: String,
   isList: Boolean,
+  showSearch: Boolean,
+  searchPlaceholder: String,
   options: makeArrayProp<RadioGroupOption>(),
 };
 
@@ -56,6 +68,25 @@ export default defineComponent({
 
   setup(props, { emit, slots }) {
     const { linkChildren } = useChildren(RADIO_KEY);
+    const searchKeyword = ref('');
+
+    const listOptions = computed(() => {
+      if (!props.isList || !props.showSearch) {
+        return props.options;
+      }
+      return filterListOptions(props.options, searchKeyword.value);
+    });
+
+    const listHighlight = computed(() =>
+      props.showSearch ? getListSearchHighlight(searchKeyword.value) : [],
+    );
+
+    const showListEmpty = computed(
+      () =>
+        props.isList &&
+        props.showSearch &&
+        isListSearchEmpty(searchKeyword.value, listOptions.value.length),
+    );
 
     const updateValue = (value: unknown) => emit('update:modelValue', value);
 
@@ -71,6 +102,18 @@ export default defineComponent({
 
     useCustomFieldValue(() => props.modelValue);
 
+    const renderOptionLabel = (option: RadioGroupOption) => {
+      if (option.icon) {
+        return (
+          <>
+            <Icon name={option.icon} class={bem('option-icon')} />
+            {option.label}
+          </>
+        );
+      }
+      return option.label;
+    };
+
     const renderOptions = () =>
       props.options.map((option) => (
         <Radio
@@ -78,7 +121,7 @@ export default defineComponent({
           name={option.value}
           disabled={option.disabled}
         >
-          {option.label}
+          {renderOptionLabel(option)}
         </Radio>
       ));
 
@@ -89,16 +132,56 @@ export default defineComponent({
       updateValue(option.value);
     };
 
-    const renderListOptions = () => (
+    const renderSearch = () => {
+      if (!props.isList || !props.showSearch) {
+        return;
+      }
+
+      return (
+        <Search
+          class={bem('search')}
+          modelValue={searchKeyword.value}
+          placeholder={props.searchPlaceholder ?? t('searchPlaceholder')}
+          onUpdate:modelValue={(value: string) => {
+            searchKeyword.value = value;
+          }}
+        />
+      );
+    };
+
+    const renderListEmpty = () => {
+      if (slots['search-empty']) {
+        return slots['search-empty']();
+      }
+
+      return (
+        <Empty class={bem('empty')} description={t('searchEmpty')}>
+          {{ image: () => null }}
+        </Empty>
+      );
+    };
+
+    const renderListOptions = () => {
+      if (showListEmpty.value) {
+        return renderListEmpty();
+      }
+
+      return (
       <CellGroup border={false}>
-        {props.options.map((option) => {
-          const { label, value, disabled, cellProps } = option;
+        {listOptions.value.map((option) => {
+          const { label, value, disabled, icon, cellProps } = option;
+          const highlight =
+            listHighlight.value.length > 0
+              ? listHighlight.value
+              : cellProps?.highlight;
 
           return (
             <Cell
               key={String(value)}
               title={label}
               {...cellProps}
+              highlight={highlight}
+              icon={cellProps?.icon ?? icon}
               border={false}
               clickable={
                 cellProps?.clickable ?? (!props.disabled && !disabled)
@@ -118,7 +201,8 @@ export default defineComponent({
           );
         })}
       </CellGroup>
-    );
+      );
+    };
 
     return () => (
       <div
@@ -137,6 +221,7 @@ export default defineComponent({
             : undefined
         }
       >
+        {renderSearch()}
         {props.isList ? renderListOptions() : renderOptions()}
         {slots.default?.()}
       </div>

@@ -470,7 +470,7 @@ uploaderRef.value?.chooseFile();
 | --van-uploader-upload-active-color | _var(--van-active-color)_ | - |
 | --van-uploader-delete-color | _var(--van-white)_ | - |
 | --van-uploader-delete-icon-size | _14px_ | - |
-| --van-uploader-delete-background | _rgba(0, 0, 0, 0.7)_ | - |
+| --van-uploader-delete-background | _rgba(0, 0, 0, 0.6)_ | - |
 | --van-uploader-file-background | _var(--van-background)_ | - |
 | --van-uploader-file-icon-size | _20px_ | - |
 | --van-uploader-file-icon-color | _var(--van-gray-7)_ | - |
@@ -479,7 +479,7 @@ uploaderRef.value?.chooseFile();
 | --van-uploader-file-name-font-size | _var(--van-font-size-sm)_ | - |
 | --van-uploader-file-name-text-color | _var(--van-gray-7)_ | - |
 | --van-uploader-mask-text-color | _var(--van-white)_ | - |
-| --van-uploader-mask-background | _fade(var(--van-gray-8), 88%)_ | - |
+| --van-uploader-mask-background | _rgba(0, 0, 0, 0.4)_ | - |
 | --van-uploader-mask-icon-size | _22px_ | - |
 | --van-uploader-mask-message-font-size | _var(--van-font-size-sm)_ | - |
 | --van-uploader-mask-message-line-height | _var(--van-line-height-xs)_ | - |

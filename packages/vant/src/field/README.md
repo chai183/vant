@@ -81,7 +81,7 @@ export default {
 
 ### Readonly Ellipsis
 
-In readonly mode, content is displayed via [TextEllipsis](#/en-US/text-ellipsis) by default. When `model-value` is an array, each item is shown in a single row using [Tag](#/en-US/tag); items that exceed the width are collapsed into a `+N` tag. Short content is shown in full. Set `:readonly-ellipsis="false"` to fall back to the native readonly input (array values still use Tag).
+In readonly mode, content is displayed via [TextEllipsis](#/en-US/text-ellipsis) by default. When `model-value` is an array, each item is shown in a single row using [Tag](#/en-US/tag); items that exceed the width are collapsed into a `+N` tag. Short content is shown in full. Set `value-separator` to join array items with a custom delimiter and display via TextEllipsis. Set `:readonly-ellipsis="false"` to fall back to the native readonly input (array values still use Tag, except when `value-separator` is set).
 
 Overflow:
 
@@ -96,6 +96,13 @@ Overflow:
   <van-field
     label="Tags"
     :model-value="['Design', 'Interaction', 'Frontend', 'QA', 'Product', 'Operations']"
+    readonly
+    placeholder="Select tags"
+  />
+  <van-field
+    label="Separator"
+    :model-value="['Design', 'Interaction', 'Frontend']"
+    value-separator=";"
     readonly
     placeholder="Select tags"
   />
@@ -287,17 +294,30 @@ Textarea Field can be auto resize when has `autosize` prop.
 
 ### Show Word Limit
 
+After setting `maxlength` and `show-word-limit`, the word count is displayed at the bottom. When the input exceeds `maxlength`, a Toast with "Maximum length reached" is shown by default. Set `:show-maxlength-toast="false"` to disable the Toast.
+
 ```html
 <van-cell-group inset>
   <van-field
     v-model="message"
-    rows="2"
     autosize
-    label="Message"
-    type="textarea"
-    maxlength="50"
-    placeholder="Message"
     show-word-limit
+    rows="2"
+    type="textarea"
+    maxlength="5"
+    label="Message"
+    placeholder="Message"
+  />
+  <van-field
+    v-model="messageWithoutToast"
+    autosize
+    show-word-limit
+    rows="2"
+    type="textarea"
+    maxlength="5"
+    :show-maxlength-toast="false"
+    label="Disable Maxlength Toast"
+    placeholder="Message"
   />
 </van-cell-group>
 ```
@@ -411,6 +431,7 @@ Use the `input-bottom` slot to render content below the input row and above the 
 | border | Whether to show inner border | _boolean_ | `true` |
 | disabled | Whether to disable field | _boolean_ | `false` |
 | readonly | Whether to be readonly | _boolean_ | `false` |
+| value-separator `new` | Delimiter to join array `model-value` items; uses TextEllipsis instead of Tag when set | _string_ | - |
 | colon | Whether to display colon after label | _boolean_ | `false` |
 | required | Whether to show required mark | _boolean \| 'auto'_ | `null` |
 | center | Whether to center content vertically | _boolean_ | `true` |
@@ -421,6 +442,7 @@ Use the `input-bottom` slot to render content below the input row and above the 
 | is-link | Whether to show link icon | _boolean_ | `false` |
 | autofocus | Whether to auto focus, unsupported in iOS | _boolean_ | `false` |
 | show-word-limit | Whether to show word limit, need to set the `maxlength` prop | _boolean_ | `false` |
+| show-maxlength-toast `new` | Whether to show a Toast when input exceeds `maxlength` | _boolean_ | `true` |
 | error | Whether to mark the input content in red | _boolean_ | `false` |
 | error-message | Error message | _string_ | - |
 | error-message-align | Error message align, can be set to `center` `right` | _FieldTextAlign_ | `left` |

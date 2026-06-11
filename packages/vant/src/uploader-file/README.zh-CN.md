@@ -23,17 +23,21 @@ app.use(UploaderFile);
 绑定 `v-model` 与 `upload` 即可。选择文件后组件会自动依次：等待上传 → 上传中 → 成功/失败。
 
 ```html
-<van-uploader-file
-  v-model="fileList"
-  :description="[
-    '所上传格式支持 DOC/PPT/XLS/VSD/POT 等',
-    '所上传文件大小控制在 20M 以内，支持批量上传',
-  ]"
-  :upload="upload"
-  accept="*"
-  :max-size="20 * 1024 * 1024"
-  multiple
-/>
+<van-field label="附件上传" label-align="top">
+  <template #label-comment>
+    <div>所上传格式支持 DOC/PPT/XLS/VSD/POT 等</div>
+    <div>所上传文件大小控制在 20M 以内，支持批量上传</div>
+  </template>
+  <template #input>
+    <van-uploader-file
+      v-model="fileList"
+      :upload="upload"
+      accept="*"
+      :max-size="20 * 1024 * 1024"
+      multiple
+    />
+  </template>
+</van-field>
 ```
 
 ```js
@@ -79,7 +83,11 @@ const upload = (item) =>
 通过 `readonly` 可展示只读列表；列表项的 `status` 为空表示等待上传，`uploading` 表示上传中，`done` 表示上传成功，`failed` 表示上传失败。
 
 ```html
-<van-uploader-file v-model="fileList" readonly />
+<van-field label="上传状态" label-align="top">
+  <template #input>
+    <van-uploader-file v-model="fileList" readonly />
+  </template>
+</van-field>
 ```
 
 ```js
@@ -120,9 +128,13 @@ export default {
 通过默认插槽自定义「添加附件」按钮样式。
 
 ```html
-<van-uploader-file v-model="fileList" :upload="upload" accept="*">
-  <van-button icon="plus" type="primary" plain block>添加附件</van-button>
-</van-uploader-file>
+<van-field label="自定义上传区域" label-align="top">
+  <template #input>
+    <van-uploader-file v-model="fileList" :upload="upload" accept="*">
+      <van-button icon="plus" type="primary" plain block>添加附件</van-button>
+    </van-uploader-file>
+  </template>
+</van-field>
 ```
 
 ### 禁用状态
@@ -130,7 +142,11 @@ export default {
 设置 `disabled` 属性后，不可选择新文件，列表项也不可操作。
 
 ```html
-<van-uploader-file v-model="fileList" :upload="upload" disabled />
+<van-field label="禁用文件上传" label-align="top">
+  <template #input>
+    <van-uploader-file v-model="fileList" :upload="upload" disabled />
+  </template>
+</van-field>
 ```
 
 ### 是否开启多选
@@ -138,12 +154,16 @@ export default {
 通过 `multiple` 属性控制是否支持多选，默认为 `true`。设置为 `false` 时每次只能选择一个文件。
 
 ```html
-<van-uploader-file
-  v-model="fileList"
-  :upload="upload"
-  accept="*"
-  :multiple="false"
-/>
+<van-field label="是否开启多选" label-align="top">
+  <template #input>
+    <van-uploader-file
+      v-model="fileList"
+      :upload="upload"
+      accept="*"
+      :multiple="false"
+    />
+  </template>
+</van-field>
 ```
 
 ### 允许上传的文件类型
@@ -151,29 +171,43 @@ export default {
 通过 `accept` 属性限制可选择的文件类型，用法与原生 `input[type=file]` 的 `accept` 一致。
 
 ```html
-<van-uploader-file
-  v-model="fileList"
-  :description="'仅支持 PDF、DOC、DOCX 格式'"
-  :upload="upload"
-  accept=".pdf,.doc,.docx"
-  multiple
-/>
+<van-field
+  label="允许上传的文件类型"
+  label-comment="仅支持 PDF、DOC、DOCX 格式"
+  label-align="top"
+>
+  <template #input>
+    <van-uploader-file
+      v-model="fileList"
+      :upload="upload"
+      accept=".pdf,.doc,.docx"
+      multiple
+    />
+  </template>
+</van-field>
 ```
 
 ### 文件大小限制
 
-通过 `max-size` 属性可以限制上传文件的大小（单位 `byte`），超过大小的文件会被自动过滤，可通过 `oversize` 事件获取这些文件信息。建议配合 `description` 向用户展示具体限制。
+通过 `max-size` 属性可以限制上传文件的大小（单位 `byte`），超过大小的文件会被自动过滤，可通过 `oversize` 事件获取这些文件信息。建议配合 [Field](/zh-CN/field) 的 `label-comment` 向用户展示具体限制。
 
 ```html
-<van-uploader-file
-  v-model="fileList"
-  :description="'单个文件大小不能超过 500kb'"
-  :upload="upload"
-  accept="*"
-  multiple
-  :max-size="500 * 1024"
-  @oversize="onOversize"
-/>
+<van-field
+  label="文件大小限制"
+  label-comment="单个文件大小不能超过 500kb"
+  label-align="top"
+>
+  <template #input>
+    <van-uploader-file
+      v-model="fileList"
+      :upload="upload"
+      accept="*"
+      multiple
+      :max-size="500 * 1024"
+      @oversize="onOversize"
+    />
+  </template>
+</van-field>
 ```
 
 ```js
@@ -195,17 +229,24 @@ export default {
 
 ### 文件数量限制
 
-通过 `max-count` 属性可以限制上传文件的数量，超出限制时上传按钮仍可见，点击上传按钮会提示「最多上传 x 个文件」。建议配合 `description` 向用户展示具体限制。
+通过 `max-count` 属性可以限制上传文件的数量，超出限制时上传按钮仍可见，点击上传按钮会提示「最多上传 x 个文件」。建议配合 [Field](/zh-CN/field) 的 `label-comment` 向用户展示具体限制。
 
 ```html
-<van-uploader-file
-  v-model="fileList"
-  :description="'最多上传 2 个文件'"
-  :upload="upload"
-  accept="*"
-  multiple
-  :max-count="2"
-/>
+<van-field
+  label="文件数量限制"
+  label-comment="最多上传 2 个文件"
+  label-align="top"
+>
+  <template #input>
+    <van-uploader-file
+      v-model="fileList"
+      :upload="upload"
+      accept="*"
+      multiple
+      :max-count="2"
+    />
+  </template>
+</van-field>
 ```
 
 ## API
@@ -226,7 +267,6 @@ export default {
 | rename-maxlength | 重命名输入框最大字数，不传则不限制；传入后展示字数统计 | _number \| string_ | - |
 | description | 说明文案，支持字符串或字符串数组（多行） | _string \| string[]_ | - |
 | upload-text | 上传按钮文案 | _string_ | `添加附件` |
-| upload-icon | 上传按钮图标，同 [Icon](/zh-CN/icon#props) 的 `name` | _string_ | `back-top` |
 
 #### 继承自 Uploader
 
@@ -344,19 +384,15 @@ import type {
 | --van-uploader-file-upload-border-color | _var(--van-gray-4)_ | 上传按钮边框色 |
 | --van-uploader-file-upload-color | _var(--van-text-color)_ | 上传按钮文字颜色 |
 | --van-uploader-file-upload-font-size | _var(--van-font-size-md)_ | 上传按钮字号 |
-| --van-uploader-file-upload-icon-size | _18px_ | 上传按钮图标大小 |
+| --van-uploader-file-upload-icon-size | _16px_ | 上传按钮图标大小 |
 | --van-uploader-file-list-margin-top | _var(--van-padding-xs)_ | 文件列表上边距 |
 | --van-uploader-file-item-padding | _20px 12px 20px 16px_ | 列表项内边距 |
 | --van-uploader-file-item-background | _#fafafa_ | 列表项背景色 |
 | --van-uploader-file-item-border-width | _1px_ | 列表项分割线宽度 |
 | --van-uploader-file-item-border-color | _var(--van-border-color)_ | 列表项分割线颜色 |
-| --van-uploader-file-icon-width | _24px_ | 文件类型图标宽度 |
-| --van-uploader-file-icon-height | _32px_ | 文件类型图标高度 |
-| --van-uploader-file-icon-margin-right | _var(--van-padding-sm)_ | 文件类型图标右边距 |
-| --van-uploader-file-icon-radius | _var(--van-radius-sm)_ | 文件类型图标圆角 |
-| --van-uploader-file-icon-color | _var(--van-white)_ | 文件类型图标文字颜色 |
-| --van-uploader-file-icon-font-size | _var(--van-font-size-lg)_ | 文件类型图标字号 |
-| --van-uploader-file-icon-font-weight | _var(--van-font-bold)_ | 文件类型图标字重 |
+| --van-uploader-file-icon-width | _32px_ | 文件类型 SVG 图标宽度 |
+| --van-uploader-file-icon-height | _32px_ | 文件类型 SVG 图标高度 |
+| --van-uploader-file-icon-margin-right | _8px_ | 文件类型 SVG 图标右边距 |
 | --van-uploader-file-name-color | _var(--van-text-color)_ | 文件名颜色 |
 | --van-uploader-file-name-font-size | _var(--van-font-size-md)_ | 文件名字号 |
 | --van-uploader-file-name-line-height | _var(--van-line-height-md)_ | 文件名行高 |

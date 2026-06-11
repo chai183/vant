@@ -13,6 +13,8 @@ const t = useTranslate({
     readonlyShortValue: '上海市浦东新区',
     readonlyTagsLabel: '已选标签',
     readonlyTagsValue: ['设计设计设计设计设计设设计设计设计设计设计设', '交互', '前端'],
+    readonlyTagsSeparatorLabel: '分隔符展示',
+    readonlyTagsSeparatorValue: ['设计', '交互', '前端'],
     readonlyShortTagsValue: ['设计', '交互', '前端'],
     placeholder: '请选择收货地址',
     tagsPlaceholder: '请选择标签',
@@ -33,6 +35,8 @@ const t = useTranslate({
       'Product',
       'Operations',
     ],
+    readonlyTagsSeparatorLabel: 'Separator',
+    readonlyTagsSeparatorValue: ['Design', 'Interaction', 'Frontend'],
     readonlyShortTagsValue: ['Design', 'Interaction', 'Frontend'],
     placeholder: 'Select address',
     tagsPlaceholder: 'Select tags',
@@ -53,6 +57,13 @@ const t = useTranslate({
         readonly
         :model-value="t('readonlyTagsValue')"
         :label="t('readonlyTagsLabel')"
+        :placeholder="t('tagsPlaceholder')"
+      />
+      <van-field
+        readonly
+        :model-value="t('readonlyTagsSeparatorValue')"
+        :label="t('readonlyTagsSeparatorLabel')"
+        value-separator=";"
         :placeholder="t('tagsPlaceholder')"
       />
     </van-cell-group>

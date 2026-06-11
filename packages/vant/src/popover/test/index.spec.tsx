@@ -242,3 +242,67 @@ test('should add "van-popover__content--horizontal" class when actions-direction
     'van-popover__content--horizontal',
   );
 });
+
+test('should render built-in reference text when referenceText is true', () => {
+  const wrapper = mount(Popover, {
+    props: {
+      actions: baseActions,
+      referenceText: true,
+    },
+  });
+
+  expect(wrapper.find('.van-popover__reference-text').text()).toEqual(
+    'Option 1',
+  );
+});
+
+test('should update selected index and reference text when action is clicked', async () => {
+  const wrapper = mount(Popover, {
+    props: {
+      show: true,
+      teleport: null,
+      actions: baseActions,
+      referenceText: true,
+    },
+  });
+
+  await wrapper.findAll('.van-popover__action')[1].trigger('click');
+  expect(wrapper.emitted('update:selectedIndex')![0]).toEqual([1]);
+  expect(wrapper.find('.van-popover__reference-text').text()).toEqual(
+    'Option 2',
+  );
+});
+
+test('should rotate reference icon when popover is shown', async () => {
+  const wrapper = mount(Popover, {
+    props: {
+      show: false,
+      actions: baseActions,
+      referenceText: true,
+    },
+  });
+
+  expect(
+    wrapper.find('.van-popover__reference-icon').classes(),
+  ).not.toContain('van-popover__reference-icon--expanded');
+
+  await wrapper.setProps({ show: true });
+  expect(wrapper.find('.van-popover__reference-icon').classes()).toContain(
+    'van-popover__reference-icon--expanded',
+  );
+});
+test('should pass reference scope to reference slot', () => {
+  const wrapper = mount(Popover, {
+    props: {
+      actions: baseActions,
+      selectedIndex: 1,
+    },
+    slots: {
+      reference: (scope: { text: string; index: number }) => (
+        <div class="custom-reference">{scope.text}</div>
+      ),
+    },
+  });
+
+  expect(wrapper.find('.custom-reference').text()).toEqual('Option 2');
+});

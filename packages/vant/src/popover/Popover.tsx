@@ -71,6 +71,8 @@ export const popoverProps = {
   contentStyle: Object as PropType<CSSProperties>,
   overlay: Boolean,
   actions: makeArrayProp<PopoverAction>(),
+  selectedIndex: numericProp,
+  referenceText: Boolean,
   actionsDirection: makeStringProp<PopoverActionsDirection>('vertical'),
   trigger: makeStringProp<PopoverTrigger>('click'),
   duration: numericProp,
@@ -99,7 +101,7 @@ export default defineComponent({
 
   props: popoverProps,
 
-  emits: ['select', 'touchstart', 'update:show'],
+  emits: ['select', 'touchstart', 'update:show', 'update:selectedIndex'],
 
   setup(props, { emit, slots, attrs }) {
     let popper: Instance | null;
@@ -107,11 +109,42 @@ export default defineComponent({
     const popupRef = ref<HTMLElement>();
     const wrapperRef = ref<HTMLElement>();
     const popoverRef = ref<ComponentInstance>();
+    const innerSelectedIndex = ref(0);
 
     const show = useSyncPropRef(
       () => props.show,
       (value) => emit('update:show', value),
     );
+
+    const getSelectedIndex = () =>
+      props.selectedIndex != null
+        ? +props.selectedIndex
+        : innerSelectedIndex.value;
+
+    const setSelectedIndex = (index: number) => {
+      innerSelectedIndex.value = index;
+      emit('update:selectedIndex', index);
+    };
+
+    watch(
+      () => props.selectedIndex,
+      (value) => {
+        if (value != null) {
+          innerSelectedIndex.value = +value;
+        }
+      },
+    );
+
+    const getReferenceScope = () => {
+      const index = getSelectedIndex();
+      const action = props.actions[index] ?? props.actions[0];
+
+      return {
+        index,
+        action,
+        text: action?.text ?? '',
+      };
+    };
 
     const getPopoverOptions = () => ({
       placement: props.placement,
@@ -175,6 +208,7 @@ export default defineComponent({
         return;
       }
 
+      setSelectedIndex(index);
       emit('select', action, index);
 
       if (props.closeOnClickAction) {
@@ -295,6 +329,26 @@ export default defineComponent({
       );
     };
 
+    const renderReference = () => {
+      const scope = getReferenceScope();
+
+      if (slots.reference) {
+        return slots.reference(scope);
+      }
+
+      if (props.referenceText && props.actions.length) {
+        return (
+          <span class={bem('reference-text')}>
+            {scope.text}
+            <Icon
+              name="arrow-down"
+              class={bem('reference-icon', { expanded: show.value })}
+            />
+          </span>
+        );
+      }
+    };
+
     onMounted(() => {
       updateLocation();
       watchEffect(() => {
@@ -329,7 +383,7 @@ export default defineComponent({
             class={bem('wrapper')}
             onClick={onClickWrapper}
           >
-            {slots.reference?.()}
+            {renderReference()}
           </span>
           <Popup
             ref={popoverRef}

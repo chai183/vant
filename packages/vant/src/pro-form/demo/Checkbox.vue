@@ -1,4 +1,4 @@
-<script setup lang="ts">
+<script setup lang="tsx">
 import { computed, ref } from 'vue';
 import { useTranslate } from '../../../docs/site';
 import VanProForm from '..';
@@ -16,6 +16,7 @@ const t = useTranslate({
     option2: '选项 2',
     option3: '选项 3',
     optionDesc: '描述信息',
+    checkboxPickerComment: '点击选择多个选项',
   },
   'en-US': {
     checkbox: 'Checkbox',
@@ -27,6 +28,7 @@ const t = useTranslate({
     option2: 'Option 2',
     option3: 'Option 3',
     optionDesc: 'Description',
+    checkboxPickerComment: 'Tap to select multiple options',
   },
 });
 
@@ -60,6 +62,15 @@ const columns = computed<ProFormColumn[]>(() => [
     component: 'checkboxPicker',
     defaultValue: ['1'],
     fieldProps: { placeholder: t('checkboxPickerPlaceholder') },
+    fieldSlots: {
+      'input-comment': () => (
+        <div
+          class="demo-pro-form__field-slot-comment"
+        >
+          {t('checkboxPickerComment')}
+        </div>
+      ),
+    },
     componentProps: {
       shape: 'block',
       columns: 3,
@@ -78,6 +89,7 @@ const columns = computed<ProFormColumn[]>(() => [
     fieldProps: { placeholder: t('checkboxPickerPlaceholder') },
     componentProps: {
       isList: true,
+      showSearch: true,
       options: listOptions.value,
     },
   },
@@ -89,6 +101,7 @@ const columns = computed<ProFormColumn[]>(() => [
     fieldProps: { labelAlign: 'top', placeholder: t('checkboxPickerPlaceholder') },
     componentProps: {
       isList: true,
+      showSearch: true,
       options: listOptions.value,
     },
   },

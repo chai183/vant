@@ -85,7 +85,7 @@ export default {
 | v-model | 当前输入的金额 | _number \| string_ | - |
 | label | 输入框左侧文本 | _string_ | - |
 | placeholder | 占位提示文字 | _string_ | - |
-| currency | 货币符号，渲染在输入框左侧 | _string_ | `¥` |
+| currency | 货币符号，透传至 Field 的 `money-currency` | _string_ | `¥` |
 | label-tooltip | 标签旁的提示文案 | _string_ | - |
 | label-align | 标签对齐方式，可选值为 `left` `center` `right` `top` | _string_ | `top` |
 | error-message | 错误提示文案 | _string_ | - |
@@ -108,7 +108,7 @@ export default {
 
 | 名称 | 说明 |
 | --- | --- |
-| input-left | 自定义输入框左侧内容，默认展示 `currency` 对应的货币符号 |
+| input-left | 自定义输入框左侧内容，默认展示 `currency` 对应的货币符号（基于 Field 的 `money-currency`） |
 | input-comment | 自定义输入区下方说明内容 |
 | label | 自定义输入框标签 |
 | button | 自定义输入框尾部按钮 |
@@ -130,6 +130,7 @@ import type { FieldMoneyProps } from 'vant';
 | --- | --- | --- |
 | --van-field-money-currency-font-size | _16px_ | 货币符号字号 |
 | --van-field-money-currency-font-weight | _var(--van-font-bold)_ | 货币符号字重 |
+| --van-field-money-currency-filled-color | _#333333_ | 已输入时货币符号颜色 |
 | --van-field-money-input-font-size | _24px_ | 金额输入字号 |
 | --van-field-money-input-font-weight | _var(--van-font-bold)_ | 金额输入字重 |
 | --van-field-money-body-margin-top | _12px_ | 输入区与标签的间距 |

@@ -1,6 +1,12 @@
 import { Field } from '..';
 import { mount, later } from '../../../test';
 
+const showToast = vi.hoisted(() => vi.fn());
+
+vi.mock('../../toast', () => ({
+  showToast,
+}));
+
 test('should emit "update:modelValue" event when after inputting', () => {
   const wrapper = mount(Field);
   const input = wrapper.find('input');
@@ -254,6 +260,43 @@ test('should limit maxlength of input value when using maxlength prop', async ()
   // see: https://github.com/vant-ui/vant/issues/7265
   input.element.value = 1423;
   input.trigger('input');
+  expect(input.element.value).toEqual('123');
+});
+
+test('should show toast when maxlength exceeded by default', async () => {
+  showToast.mockClear();
+
+  const wrapper = mount(Field, {
+    props: {
+      maxlength: 3,
+      modelValue: '123',
+    },
+  });
+
+  const input = wrapper.find('input');
+  input.element.value = '1234';
+  input.trigger('input');
+
+  expect(showToast).toHaveBeenCalledWith('Maximum length reached');
+  expect(input.element.value).toEqual('123');
+});
+
+test('should not show toast when show-maxlength-toast is false', async () => {
+  showToast.mockClear();
+
+  const wrapper = mount(Field, {
+    props: {
+      maxlength: 3,
+      modelValue: '123',
+      showMaxlengthToast: false,
+    },
+  });
+
+  const input = wrapper.find('input');
+  input.element.value = '1234';
+  input.trigger('input');
+
+  expect(showToast).not.toHaveBeenCalled();
   expect(input.element.value).toEqual('123');
 });
 
@@ -688,6 +731,21 @@ test('should render readonly tags when modelValue is array', () => {
   expect(wrapper.find('input').exists()).toBe(false);
 });
 
+test('should render joined text when modelValue is array with valueSeparator', () => {
+  const wrapper = mount(Field, {
+    props: {
+      readonly: true,
+      modelValue: ['A', 'B', 'C'],
+      valueSeparator: ';',
+    },
+  });
+
+  expect(wrapper.find('.van-text-ellipsis').exists()).toBe(true);
+  expect(wrapper.find('.van-field__readonly-tags').exists()).toBe(false);
+  expect(wrapper.find('.van-tag').exists()).toBe(false);
+  expect(wrapper.find('.van-text-ellipsis').text()).toContain('A;B;C');
+});
+
 test('should render native input when readonlyEllipsis is disabled', () => {
   const wrapper = mount(Field, {
     props: {
@@ -701,7 +759,7 @@ test('should render native input when readonlyEllipsis is disabled', () => {
   expect(wrapper.find('.van-text-ellipsis').exists()).toBe(false);
 });
 
-test('should render label comment in cell label', () => {
+test('should render label comment in field label-comment', () => {
   const wrapper = mount(Field, {
     props: {
       label: 'Label',
@@ -709,7 +767,7 @@ test('should render label comment in cell label', () => {
     },
   });
 
-  expect(wrapper.find('.van-cell__label').text()).toEqual('Label note');
+  expect(wrapper.find('.van-field__label-comment').text()).toEqual('Label note');
 });
 
 test('should render label comment below label when labelAlign is top', () => {
@@ -723,7 +781,7 @@ test('should render label comment below label when labelAlign is top', () => {
 
   const title = wrapper.find('.van-cell__title');
   const labelTopRow = title.find('.van-field__label-top-row');
-  const labelComment = title.find('.van-cell__label');
+  const labelComment = title.find('.van-field__label-comment');
 
   expect(labelTopRow.exists()).toBe(true);
   expect(labelTopRow.text()).toContain('Label');
@@ -747,14 +805,14 @@ test('should toggle field body when label is collapsible', async () => {
   });
 
   expect(wrapper.find('.van-field__body').exists()).toBe(true);
-  expect(wrapper.find('.van-cell__label').exists()).toBe(true);
+  expect(wrapper.find('.van-field__label-comment').exists()).toBe(true);
   expect(wrapper.find('.van-field__label-collapse-text').text()).toEqual(
     'Collapse',
   );
 
   await wrapper.find('.van-field__label-top-row').trigger('click');
   expect(wrapper.find('.van-field__body').exists()).toBe(false);
-  expect(wrapper.find('.van-cell__label').exists()).toBe(true);
+  expect(wrapper.find('.van-field__label-comment').exists()).toBe(true);
   expect(wrapper.find('.van-field__label-collapse-text').text()).toEqual(
     'Expand',
   );
@@ -780,7 +838,7 @@ test('should not render label collapse control when labelCollapsible without lab
   expect(wrapper.find('.van-field__label-collapse').exists()).toBe(false);
 });
 
-test('should render label-comment slot in cell label', () => {
+test('should render label-comment slot', () => {
   const wrapper = mount(Field, {
     props: {
       label: 'Label',
@@ -791,7 +849,57 @@ test('should render label-comment slot in cell label', () => {
     },
   });
 
-  expect(wrapper.find('.van-cell__label').text()).toEqual('slot note');
+  expect(wrapper.find('.van-field__label-comment').text()).toEqual('slot note');
+});
+
+test('should render money currency by default when type is money', () => {
+  const wrapper = mount(Field, {
+    props: {
+      type: 'money',
+      modelValue: '',
+    },
+  });
+
+  const currency = wrapper.find('.van-field__money-currency');
+  expect(currency.exists()).toBe(true);
+  expect(currency.text()).toEqual('¥');
+});
+
+test('should not render money currency when showMoneyCurrency is false', () => {
+  const wrapper = mount(Field, {
+    props: {
+      type: 'money',
+      showMoneyCurrency: false,
+      modelValue: '100',
+    },
+  });
+
+  expect(wrapper.find('.van-field__money-currency').exists()).toBe(false);
+});
+
+test('should render custom money currency', () => {
+  const wrapper = mount(Field, {
+    props: {
+      type: 'money',
+      moneyCurrency: '$',
+      modelValue: '100',
+    },
+  });
+
+  expect(wrapper.find('.van-field__money-currency').text()).toEqual('$');
+});
+
+test('should add filled class to money currency when value is not empty', () => {
+  const wrapper = mount(Field, {
+    props: {
+      type: 'money',
+      modelValue: '100',
+    },
+  });
+
+  expect(
+    wrapper.find('.van-field__money-currency--filled').exists(),
+  ).toBe(true);
 });
 
 test('should not render money unit label by default when type is money', () => {

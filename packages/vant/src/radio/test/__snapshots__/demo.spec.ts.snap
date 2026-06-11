@@ -75,7 +75,7 @@ exports[`should render demo and match snapshot 1`] = `
   <div
     class="van-radio-group van-radio-group--horizontal van-radio-group--block demo-radio-block-group"
     role="radiogroup"
-    style="--van-radio-group-columns: 3;"
+    style="--van-radio-group-columns: 2;"
   >
     <div
       role="radio"
@@ -177,12 +177,59 @@ exports[`should render demo and match snapshot 1`] = `
 </div>
 <div>
   <div
+    class="van-radio-group van-radio-group--horizontal van-radio-group--block demo-radio-group"
+    role="radiogroup"
+    style="--van-radio-group-columns: 3;"
+  >
+    <div
+      role="radio"
+      class="van-radio van-radio--block van-radio--checked van-radio--horizontal"
+      tabindex="0"
+      aria-checked="true"
+    >
+      <span class="van-radio__label van-radio__label--block">
+        <span class="van-radio__label-text">
+          Option 1
+        </span>
+      </span>
+    </div>
+    <div
+      role="radio"
+      class="van-radio van-radio--block van-radio--horizontal"
+      tabindex="0"
+      aria-checked="false"
+    >
+      <span class="van-radio__label van-radio__label--block">
+        <span class="van-radio__label-text">
+          <i class="van-badge__wrapper van-icon van-icon-shop-o van-radio-group__option-icon">
+          </i>
+          Option 2
+        </span>
+      </span>
+    </div>
+    <div
+      role="radio"
+      class="van-radio van-radio--disabled van-radio--block van-radio--horizontal"
+      aria-checked="false"
+    >
+      <span class="van-radio__label van-radio__label--disabled van-radio__label--block">
+        <span class="van-radio__label-text">
+          <i class="van-badge__wrapper van-icon van-icon-shop-o van-radio-group__option-icon">
+          </i>
+          Option 3
+        </span>
+      </span>
+    </div>
+  </div>
+</div>
+<div>
+  <div
     class="van-radio-group van-radio-group--list"
     role="radiogroup"
   >
     <div class="van-cell-group">
       <div
-        class="van-cell van-cell--clickable van-cell--borderless"
+        class="van-cell van-cell--center van-cell--clickable van-cell--borderless"
         role="button"
         tabindex="0"
       >
@@ -204,7 +251,7 @@ exports[`should render demo and match snapshot 1`] = `
         </div>
       </div>
       <div
-        class="van-cell van-cell--clickable van-cell--borderless"
+        class="van-cell van-cell--center van-cell--clickable van-cell--borderless"
         role="button"
         tabindex="0"
       >
@@ -228,7 +275,7 @@ exports[`should render demo and match snapshot 1`] = `
           </div>
         </div>
       </div>
-      <div class="van-cell van-cell--borderless">
+      <div class="van-cell van-cell--center van-cell--borderless">
         <i class="van-badge__wrapper van-icon van-icon-shop-o van-cell__left-icon">
         </i>
         <div class="van-cell__title">
@@ -585,7 +632,7 @@ exports[`should render demo and match snapshot 1`] = `
   >
     <div class="van-cell-group van-cell-group--inset">
       <div
-        class="van-cell van-cell--clickable"
+        class="van-cell van-cell--center van-cell--clickable"
         role="button"
         tabindex="0"
       >
@@ -607,7 +654,7 @@ exports[`should render demo and match snapshot 1`] = `
         </div>
       </div>
       <div
-        class="van-cell van-cell--clickable"
+        class="van-cell van-cell--center van-cell--clickable"
         role="button"
         tabindex="0"
       >

@@ -1,5 +1,5 @@
 import { defineComponent, type ExtractPropTypes } from 'vue';
-import { truthProp, makeStringProp, createNamespace } from '../utils';
+import { makeStringProp, createNamespace } from '../utils';
 
 const [name, bem] = createNamespace('divider');
 
@@ -7,7 +7,7 @@ export type DividerContentPosition = 'left' | 'center' | 'right';
 
 export const dividerProps = {
   dashed: Boolean,
-  hairline: truthProp,
+  hairline: Boolean,
   vertical: Boolean,
   borderless: Boolean,
   contentPosition: makeStringProp<DividerContentPosition>('center'),

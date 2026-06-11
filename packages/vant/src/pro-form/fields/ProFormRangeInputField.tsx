@@ -4,8 +4,6 @@ import { Field } from '../../field';
 import RangeInput from '../../range-input';
 import type { FieldProps } from '../../field/Field';
 import type { ProFormFieldSlots } from '../resolveFieldSlots';
-import { FieldInputBridge } from './FieldInputBridge';
-
 const [, bem] = createNamespace('range-input');
 
 const proFormRangeInputFieldProps = {
@@ -47,15 +45,13 @@ export default defineComponent({
         >
           {{
             input: () => (
-              <FieldInputBridge modelValue={modelValue}>
-                <RangeInput
-                  {...props.componentProps}
-                  modelValue={modelValue}
-                  onUpdate:modelValue={(value: string[]) =>
-                    emit('update:modelValue', value)
-                  }
-                />
-              </FieldInputBridge>
+              <RangeInput
+                {...props.componentProps}
+                modelValue={modelValue}
+                onUpdate:modelValue={(value: string[]) =>
+                  emit('update:modelValue', value)
+                }
+              />
             ),
             ...props.fieldSlots,
           }}

@@ -3,6 +3,7 @@ import { ref } from 'vue';
 import { useTranslate } from '../../../docs/site';
 import VanUploaderFile from '..';
 import VanButton from '../../button';
+import VanField from '../../field';
 import { showToast } from '../../toast';
 import type { UploaderFileUpload, UploaderFileListItem } from '..';
 
@@ -117,90 +118,136 @@ const upload: UploaderFileUpload = (item) =>
 
 <template>
   <demo-block :title="t('basic')">
-    <van-uploader-file
-      v-model="fileList"
-      :description="[t('desc1'), t('desc2')]"
-      :upload="upload"
-      accept="*"
-      :max-size="20 * 1024 * 1024"
-      multiple
-    />
+    <van-field :label="t('basic')" label-align="top">
+      <template #label-comment>
+        <div class="demo-uploader-file__label-comment">
+          <div>{{ t('desc1') }}</div>
+          <div>{{ t('desc2') }}</div>
+        </div>
+      </template>
+      <template #input>
+        <van-uploader-file
+          v-model="fileList"
+          :upload="upload"
+          accept="*"
+          :max-size="20 * 1024 * 1024"
+          multiple
+        />
+      </template>
+    </van-field>
   </demo-block>
 
   <demo-block :title="t('status')">
-    <van-uploader-file v-model="statusFileList" readonly />
+    <van-field :label="t('status')" label-align="top">
+      <template #input>
+        <van-uploader-file v-model="statusFileList" readonly />
+      </template>
+    </van-field>
   </demo-block>
 
   <demo-block :title="t('customUpload')">
-    <van-uploader-file
-      v-model="customFileList"
-      :upload="upload"
-      accept="*"
-      multiple
-    >
-      <van-button icon="plus" type="primary" plain block>
-        {{ t('upload') }}
-      </van-button>
-    </van-uploader-file>
+    <van-field :label="t('customUpload')" label-align="top">
+      <template #input>
+        <van-uploader-file
+          v-model="customFileList"
+          :upload="upload"
+          accept="*"
+          multiple
+        >
+          <van-button icon="plus" type="primary" plain block>
+            {{ t('upload') }}
+          </van-button>
+        </van-uploader-file>
+      </template>
+    </van-field>
   </demo-block>
 
   <demo-block :title="t('disabled')">
-    <van-uploader-file v-model="disabledFileList" :upload="upload" disabled />
+    <van-field :label="t('disabled')" label-align="top">
+      <template #input>
+        <van-uploader-file
+          v-model="disabledFileList"
+          :upload="upload"
+          disabled
+        />
+      </template>
+    </van-field>
   </demo-block>
 
   <demo-block :title="t('multiple')">
-    <van-uploader-file
-      v-model="singleFileList"
-      :upload="upload"
-      accept="*"
-      :multiple="false"
-    />
+    <van-field :label="t('multiple')" label-align="top">
+      <template #input>
+        <van-uploader-file
+          v-model="singleFileList"
+          :upload="upload"
+          accept="*"
+          :multiple="false"
+        />
+      </template>
+    </van-field>
   </demo-block>
 
   <demo-block :title="t('accept')">
-    <van-uploader-file
-      v-model="acceptFileList"
-      :description="t('acceptDesc')"
-      :upload="upload"
-      accept=".pdf,.doc,.docx"
-      multiple
-    />
+    <van-field :label="t('accept')" label-align="top">
+      <template #label-comment>
+        <div class="demo-uploader-file__label-comment">
+          {{ t('acceptDesc') }}
+        </div>
+      </template>
+      <template #input>
+        <van-uploader-file
+          v-model="acceptFileList"
+          :upload="upload"
+          accept=".pdf,.doc,.docx"
+          multiple
+        />
+      </template>
+    </van-field>
   </demo-block>
 
   <demo-block :title="t('maxSize')">
-    <van-uploader-file
-      v-model="maxSizeFileList"
-      :description="t('maxSizeDesc')"
-      :upload="upload"
-      accept="*"
-      multiple
-      :max-size="MAX_SIZE"
-      @oversize="onOversize"
-    />
+    <van-field :label="t('maxSize')" label-align="top">
+      <template #label-comment>
+        <div class="demo-uploader-file__label-comment">
+          {{ t('maxSizeDesc') }}
+        </div>
+      </template>
+      <template #input>
+        <van-uploader-file
+          v-model="maxSizeFileList"
+          :upload="upload"
+          accept="*"
+          multiple
+          :max-size="MAX_SIZE"
+          @oversize="onOversize"
+        />
+      </template>
+    </van-field>
   </demo-block>
 
   <demo-block :title="t('maxCount')">
-    <van-uploader-file
-      v-model="maxCountFileList"
-      :description="t('maxCountDesc')"
-      :upload="upload"
-      accept="*"
-      multiple
-      :max-count="MAX_COUNT"
-    />
+    <van-field :label="t('maxCount')" label-align="top">
+      <template #label-comment>
+        <div class="demo-uploader-file__label-comment">
+          {{ t('maxCountDesc') }}
+        </div>
+      </template>
+      <template #input>
+        <van-uploader-file
+          v-model="maxCountFileList"
+          :upload="upload"
+          accept="*"
+          multiple
+          :max-count="MAX_COUNT"
+        />
+      </template>
+    </van-field>
   </demo-block>
 </template>
 
 <style lang="less">
-.demo-uploader-file {
-  background: var(--van-background-2);
-
-  .van-doc-demo-block {
-    padding: 0 var(--van-padding-md);
-  }
-
-  .van-doc-demo-block__title {
-    padding-left: 0;
-  }
+.demo-uploader-file__label-comment {
+  padding-top: 6px;
+  padding-bottom: 12px;
 }
 </style>

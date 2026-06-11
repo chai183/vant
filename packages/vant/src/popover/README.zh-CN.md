@@ -55,6 +55,52 @@ export default {
 };
 ```
 
+### 选项引用
+
+开启 `reference-text` 后，组件会在 `reference` 插槽位置展示当前选中的选项文案，未选中时默认展示第一个选项。也可以通过 `reference` 插槽的参数自定义展示内容。
+
+```html
+<van-popover
+  v-model:show="showPopover"
+  v-model:selected-index="selectedIndex"
+  :actions="actions"
+  reference-text
+  @select="onSelect"
+/>
+
+<van-popover v-model:show="showPopover" :actions="actions" @select="onSelect">
+  <template #reference="{ text }">
+    <van-button type="primary">{{ text }}</van-button>
+  </template>
+</van-popover>
+```
+
+```js
+import { ref } from 'vue';
+
+export default {
+  setup() {
+    const showPopover = ref(false);
+    const selectedIndex = ref(0);
+    const actions = [
+      { text: '选项一' },
+      { text: '选项二' },
+      { text: '选项三' },
+    ];
+    const onSelect = (action) => {
+      console.log(action.text);
+    };
+
+    return {
+      actions,
+      onSelect,
+      showPopover,
+      selectedIndex,
+    };
+  },
+};
+```
+
 ### 深色风格
 
 Popover 支持浅色和深色两种风格，默认为浅色风格，将 `theme` 属性设置为 `dark` 可切换为深色风格。
@@ -319,6 +365,7 @@ export default {
 | 参数 | 说明 | 类型 | 默认值 |
 | --- | --- | --- | --- |
 | v-model:show | 是否展示气泡弹出层 | _boolean_ | `false` |
+| v-model:selected-index `new` | 当前选中选项对应的索引 | _number \| string_ | `0` |
 | message | 一句话文案，传入后以文本模式展示（优先级低于 `default` / `content` 插槽） | _string \| number_ | - |
 | width | 内容区域宽度 | _number \| string_ | - |
 | height | 内容区域高度 | _number \| string_ | - |
@@ -327,6 +374,7 @@ export default {
 | content-class | 内容区域自定义类名 | _string \| Array \| object_ | - |
 | content-style | 内容区域自定义样式 | _object_ | - |
 | actions | 选项列表 | _PopoverAction[]_ | `[]` |
+| reference-text `new` | 是否使用内置的选项文案作为触发器内容 | _boolean_ | `false` |
 | actions-direction `v4.4.1` | 选项列表的排列方向，可选值为 `horizontal` | _PopoverActionsDirection_ | `vertical` |
 | placement | 弹出位置 | _PopoverPlacement_ | `bottom` |
 | theme | 主题风格，可选值为 `dark` | _PopoverTheme_ | `light` |
@@ -372,7 +420,7 @@ export default {
 | 名称 | 说明 | 参数 |
 | --- | --- | --- |
 | default | 自定义菜单内容 | - |
-| reference | 触发 Popover 显示的元素内容 | - |
+| reference | 触发 Popover 显示的元素内容 | _{ text: string, action: PopoverAction, index: number }_ |
 | content | 自定义内容区域（`message` 模式下可拿到 `message`） | _{ message: string \| number }_ |
 | message | 自定义一句话文案 | _{ message: string \| number }_ |
 | action | 自定义选项内容 | _{ action: PopoverAction, index: number }_ |

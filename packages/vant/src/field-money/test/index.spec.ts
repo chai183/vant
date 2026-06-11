@@ -11,7 +11,7 @@ test('should render money field with currency prefix', async () => {
 
   await later();
   expect(wrapper.find('.van-field-money').exists()).toBe(true);
-  expect(wrapper.find('.van-field-money__currency').text()).toBe('¥');
+  expect(wrapper.find('.van-field__money-currency').text()).toBe('¥');
   expect(wrapper.find('input').attributes('inputmode')).toBe('decimal');
 });
 
@@ -50,7 +50,7 @@ test('should apply filled currency color when modelValue is set', async () => {
   });
 
   await later();
-  expect(wrapper.find('.van-field-money__currency--filled').exists()).toBe(
+  expect(wrapper.find('.van-field__money-currency--filled').exists()).toBe(
     true,
   );
 });
@@ -59,22 +59,30 @@ test('should not apply filled currency color when modelValue is empty', async ()
   const wrapper = mount(FieldMoney);
 
   await later();
-  expect(wrapper.find('.van-field-money__currency--filled').exists()).toBe(
+  expect(wrapper.find('.van-field__money-currency--filled').exists()).toBe(
     false,
   );
 });
 
-test('should support custom currency via input-left slot', async () => {
+test('should support custom currency via currency prop', async () => {
   const wrapper = mount(FieldMoney, {
     props: {
       currency: '$',
     },
+  });
+
+  await later();
+  expect(wrapper.find('.van-field__money-currency').text()).toBe('$');
+});
+
+test('should support custom currency via input-left slot', async () => {
+  const wrapper = mount(FieldMoney, {
     slots: {
       'input-left': () => '$',
     },
   });
 
   await later();
-  expect(wrapper.find('.van-field-money__currency').exists()).toBe(false);
+  expect(wrapper.find('.van-field__money-currency').exists()).toBe(false);
   expect(wrapper.text()).toContain('$');
 });

@@ -63,6 +63,7 @@ import { useExpose } from '../composables/use-expose';
 import { Icon } from '../icon';
 import { Cell } from '../cell';
 import { Popover } from '../popover';
+import { showToast } from '../toast';
 import TextEllipsis from '../text-ellipsis/TextEllipsis';
 import FieldReadonlyTags from './FieldReadonlyTags';
 
@@ -139,6 +140,10 @@ export const fieldSharedProps = {
 };
 
 export const fieldProps = extend({}, cellSharedProps, fieldSharedProps, {
+  center: {
+    type: Boolean,
+    default: false,
+  },
   rows: numericProp,
   type: makeStringProp<FieldType>('text'),
   rules: Array as PropType<FieldRule[]>,
@@ -154,11 +159,15 @@ export const fieldProps = extend({}, cellSharedProps, fieldSharedProps, {
   labelComment: String,
   readonlyEllipsis: truthProp,
   readonlyEllipsisRows: makeNumericProp(1),
+  valueSeparator: String,
   groupedDisplay: Object as PropType<FieldGroupedDisplayConfig | undefined>,
   labelAlign: String as PropType<FieldTextAlign>,
   showWordLimit: Boolean,
+  showMaxlengthToast: truthProp,
   showMoneyUppercase: Boolean,
   showMoneyUnit: Boolean,
+  showMoneyCurrency: truthProp,
+  moneyCurrency: makeStringProp('¥'),
   moneyUppercaseLabel: String,
   errorMessageAlign: String as PropType<FieldTextAlign>,
   errorMessageInfo: Boolean,
@@ -236,7 +245,16 @@ export default defineComponent({
       emit('update:labelExpanded', labelExpanded.value);
     };
 
-    const getModelValue = () => String(props.modelValue ?? '');
+    const getModelValue = () => {
+      if (Array.isArray(props.modelValue)) {
+        const items = props.modelValue.map((item) => String(item));
+        if (props.valueSeparator !== undefined) {
+          return items.join(props.valueSeparator);
+        }
+        return items.join(',');
+      }
+      return String(props.modelValue ?? '');
+    };
 
     const getProp = <T extends FieldFormSharedProps>(key: T) => {
       if (isDef(props[key])) {
@@ -428,16 +446,27 @@ export default defineComponent({
       }
 
       let typeCapDiffLen = 0;
+      let maxlengthExceeded = false;
       if (gd?.normalizeModelValue) {
         const out = gd.normalizeModelValue(value, {
           maxlength: isDef(props.maxlength) ? +props.maxlength : undefined,
         });
         value = out.value;
         typeCapDiffLen = out.capDiffLen ?? 0;
+        if (typeCapDiffLen > 0) {
+          maxlengthExceeded = true;
+        }
       }
 
       const originalValue = value;
+      const valueBeforeLimit = value;
       value = gd?.skipLimitValueLength ? value : limitValueLength(value);
+      if (
+        !gd?.skipLimitValueLength &&
+        getStringLength(valueBeforeLimit) > getStringLength(value)
+      ) {
+        maxlengthExceeded = true;
+      }
       // 超过 maxlength 被截断时记录截掉的长度，用于修正光标位置
       // https://github.com/youzan/vant/issues/11289
       const limitDiffLen =
@@ -477,6 +506,7 @@ export default defineComponent({
         // 格式化后可能超过 maxlength，需再截断
         if (isDef(maxlength) && getStringLength(value) > +maxlength) {
           value = cutString(value, +maxlength);
+          maxlengthExceeded = true;
         }
         if (inputRef.value && state.focused) {
           const { selectionEnd } = inputRef.value;
@@ -528,6 +558,14 @@ export default defineComponent({
         } else {
           inputRef.value.value = displayValue;
         }
+      }
+
+      if (
+        maxlengthExceeded &&
+        props.showMaxlengthToast &&
+        isDef(props.maxlength)
+      ) {
+        showToast(t('maxlengthTip') || '达到字数上限');
       }
 
       // 内部处理后的值与 v-model 不一致时再同步，避免多余触发
@@ -632,10 +670,13 @@ export default defineComponent({
 
     const isReadonlyArrayValue = () => Array.isArray(props.modelValue);
 
+    const useReadonlyArrayTags = () =>
+      isReadonlyArrayValue() && props.valueSeparator === undefined;
+
     const showReadonlyDisplay = () =>
       getProp('readonly') &&
       !slots.input &&
-      (props.readonlyEllipsis || isReadonlyArrayValue());
+      (props.readonlyEllipsis || useReadonlyArrayTags());
 
     const getReadonlyEllipsisRows = () => {
       if (props.type === 'textarea' && props.rows !== undefined) {
@@ -678,7 +719,7 @@ export default defineComponent({
     };
 
     const renderReadonlyEllipsisInput = () => {
-      if (isReadonlyArrayValue()) {
+      if (useReadonlyArrayTags()) {
         return renderReadonlyArrayInput();
       }
 
@@ -1117,6 +1158,28 @@ export default defineComponent({
       return <div class={bem('input-bottom', 'fixed')}>{money}</div>;
     };
 
+    const renderInputLeft = () => {
+      if (slots['input-left']) {
+        return (
+          <div class={bem('input-left')}>{slots['input-left']()}</div>
+        );
+      }
+
+      if (!props.showMoneyCurrency || props.type !== 'money') {
+        return;
+      }
+
+      const hasValue = getModelValue().trim() !== '';
+
+      return (
+        <div class={bem('input-left')}>
+          <span class={bem('money-currency', { filled: hasValue })}>
+            {props.moneyCurrency}
+          </span>
+        </div>
+      );
+    };
+
     const renderFieldBody = () => {
       if (isLabelCollapsible() && !labelExpanded.value) {
         return null;
@@ -1135,9 +1198,7 @@ export default defineComponent({
 
       return [
         <div class={[bem('body'), props.bodyClass]} style={props.bodyStyle}>
-          {slots['input-left'] && (
-            <div class={bem('input-left')}>{slots['input-left']()}</div>
-          )}
+          {renderInputLeft()}
           {wrappedInput}
           {showClear.value && (
             <Icon
@@ -1232,12 +1293,27 @@ export default defineComponent({
                   )}
                 </div>
               )}
-              {comment && <div class="van-cell__label">{comment}</div>}
+              {comment && <div class={bem('label-comment')}>{comment}</div>}
             </>
           );
         }
         const Label = renderLabel();
-        return Label || [];
+        const comment = renderCellLabel();
+
+        if (!Label && !comment) {
+          return [];
+        }
+
+        if (!comment) {
+          return Label || [];
+        }
+
+        return (
+          <>
+            {Label}
+            <div class={bem('label-comment')}>{comment}</div>
+          </>
+        );
       };
 
       return (
@@ -1245,11 +1321,6 @@ export default defineComponent({
           v-slots={{
             icon: LeftIcon && labelAlign !== 'top' ? () => LeftIcon : null,
             title: renderTitle,
-            label:
-              labelAlign !== 'top' &&
-              (slots['label-comment'] || props.labelComment)
-                ? renderCellLabel
-                : null,
             value: renderFieldBody,
             extra: slots.extra,
             bottom: slots.bottom ?? null,

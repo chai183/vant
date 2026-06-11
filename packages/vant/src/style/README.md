@@ -100,6 +100,14 @@ Usually used in clickable elements such as button.
 <div class="van-haptics-feedback"></div>
 ```
 
+### Gray Block
+
+Add a gray background container style for an element, commonly used for form bottom descriptions or hint text.
+
+```html
+<div class="van-gray-block">This is a hint text</div>
+```
+
 ### Clearfix
 
 Clear floated content within a container.
@@ -107,3 +115,16 @@ Clear floated content within a container.
 ```html
 <div class="van-clearfix"></div>
 ```
+
+## Theme Customization
+
+### CSS Variables
+
+The component provides the following CSS variables, which can be used to customize styles. Please refer to [ConfigProvider component](#/en-US/config-provider).
+
+| Name | Default Value | Description |
+| --- | --- | --- |
+| --van-gray-block-background | _#f5f5f5_ | Background color |
+| --van-gray-block-padding | _var(--van-padding-sm) var(--van-padding-md-plus)_ | Padding |
+| --van-gray-block-radius | _var(--van-radius-md)_ | Border radius |
+| --van-gray-block-color | _#999999_ | Text color |

@@ -8,6 +8,7 @@ export type CheckboxGroupOption = {
   label: string;
   value: Numeric;
   disabled?: boolean;
+  icon?: string;
   cellProps?: Partial<CellProps>;
 };
 

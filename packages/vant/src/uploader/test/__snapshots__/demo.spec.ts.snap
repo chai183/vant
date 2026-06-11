@@ -4,7 +4,7 @@ exports[`should render demo and match snapshot 1`] = `
 <div>
   <div class="van-uploader">
     <div class="van-uploader__wrapper">
-      <div class="van-uploader__upload">
+      <div class="van-uploader__upload van-hairline--surround">
         <i class="van-badge__wrapper van-icon van-icon-photograph van-uploader__upload-icon">
         </i>
         <span class="van-uploader__upload-text">
@@ -66,7 +66,7 @@ exports[`should render demo and match snapshot 1`] = `
           </i>
         </div>
       </div>
-      <div class="van-uploader__upload">
+      <div class="van-uploader__upload van-hairline--surround">
         <i class="van-badge__wrapper van-icon van-icon-photograph van-uploader__upload-icon">
         </i>
         <span class="van-uploader__upload-text">
@@ -152,7 +152,7 @@ exports[`should render demo and match snapshot 1`] = `
           </i>
         </div>
       </div>
-      <div class="van-uploader__upload">
+      <div class="van-uploader__upload van-hairline--surround">
         <i class="van-badge__wrapper van-icon van-icon-photograph van-uploader__upload-icon">
         </i>
         <span class="van-uploader__upload-text">
@@ -192,7 +192,7 @@ exports[`should render demo and match snapshot 1`] = `
           </i>
         </div>
       </div>
-      <div class="van-uploader__upload">
+      <div class="van-uploader__upload van-hairline--surround">
         <i class="van-badge__wrapper van-icon van-icon-photograph van-uploader__upload-icon">
         </i>
         <span class="van-uploader__upload-text">
@@ -233,7 +233,7 @@ exports[`should render demo and match snapshot 1`] = `
           </i>
         </div>
       </div>
-      <div class="van-uploader__upload">
+      <div class="van-uploader__upload van-hairline--surround">
         <i class="van-badge__wrapper van-icon van-icon-photograph van-uploader__upload-icon">
         </i>
         <span class="van-uploader__upload-text">
@@ -304,7 +304,7 @@ exports[`should render demo and match snapshot 1`] = `
           </i>
         </div>
       </div>
-      <div class="van-uploader__upload">
+      <div class="van-uploader__upload van-hairline--surround">
         <i class="van-badge__wrapper van-icon van-icon-photograph van-uploader__upload-icon">
         </i>
         <span class="van-uploader__upload-text">
@@ -348,7 +348,7 @@ exports[`should render demo and match snapshot 1`] = `
         </div>
       </div>
       <div
-        class="van-uploader__upload"
+        class="van-uploader__upload van-hairline--surround"
         style="width: 60px; height: 60px;"
       >
         <i class="van-badge__wrapper van-icon van-icon-photograph van-uploader__upload-icon">
@@ -368,7 +368,7 @@ exports[`should render demo and match snapshot 1`] = `
 <div>
   <div class="van-uploader">
     <div class="van-uploader__wrapper">
-      <div class="van-uploader__upload">
+      <div class="van-uploader__upload van-hairline--surround">
         <i class="van-badge__wrapper van-icon van-icon-photograph van-uploader__upload-icon">
         </i>
         <span class="van-uploader__upload-text">
@@ -386,7 +386,7 @@ exports[`should render demo and match snapshot 1`] = `
 <div>
   <div class="van-uploader">
     <div class="van-uploader__wrapper van-uploader__wrapper--disabled">
-      <div class="van-uploader__upload">
+      <div class="van-uploader__upload van-hairline--surround">
         <i class="van-badge__wrapper van-icon van-icon-photograph van-uploader__upload-icon">
         </i>
         <span class="van-uploader__upload-text">
@@ -440,7 +440,7 @@ exports[`should render demo and match snapshot 1`] = `
           </div>
         </div>
       </div>
-      <div class="van-uploader__upload">
+      <div class="van-uploader__upload van-hairline--surround">
         <i class="van-badge__wrapper van-icon van-icon-photograph van-uploader__upload-icon">
         </i>
         <span class="van-uploader__upload-text">
@@ -481,7 +481,7 @@ exports[`should render demo and match snapshot 1`] = `
           </i>
         </div>
       </div>
-      <div class="van-uploader__upload">
+      <div class="van-uploader__upload van-hairline--surround">
         <i class="van-badge__wrapper van-icon van-icon-photograph van-uploader__upload-icon">
         </i>
         <span class="van-uploader__upload-text">

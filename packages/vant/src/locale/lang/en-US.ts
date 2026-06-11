@@ -34,6 +34,7 @@ export default {
   vanField: {
     labelExpand: 'Expand',
     labelCollapse: 'Collapse',
+    maxlengthTip: 'Maximum length reached',
   },
   vanPagination: {
     prev: 'Previous',
@@ -76,5 +77,13 @@ export default {
     lastWeek: 'Last week',
     lastMonth: 'Last month',
     lastThreeMonths: 'Last 3 months',
+  },
+  vanCheckboxGroup: {
+    searchPlaceholder: 'Enter filter keyword',
+    searchEmpty: 'No search results',
+  },
+  vanRadioGroup: {
+    searchPlaceholder: 'Enter filter keyword',
+    searchEmpty: 'No search results',
   },
 };

@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import VanField from '..';
 import VanCellGroup from '../../cell-group';
+import VanHighlight from '../../highlight';
 import { ref } from 'vue';
 import { useTranslate } from '../../../docs/site';
 
@@ -13,8 +14,10 @@ const t = useTranslate({
     labelComment: '标签下方的备注说明',
     slotLabelComment: '插槽：标签备注可自定义样式',
     slotComment: '插槽：可放链接或强调样式',
+    slotCommentKeywords: ['链接', '强调样式'],
     bottomSlot:
       'bottom 插槽：整行展示在标签与输入框下方，适合协议勾选、风险提示等',
+    bottomSlotKeywords: ['协议勾选', '风险提示'],
   },
   'en-US': {
     title: 'Comment & bottom',
@@ -24,8 +27,10 @@ const t = useTranslate({
     labelComment: 'Note below the label',
     slotLabelComment: 'Slot: custom label note',
     slotComment: 'Slot: links or emphasized text',
+    slotCommentKeywords: ['links', 'emphasized'],
     bottomSlot:
       'The bottom slot spans the full row below the label and input — useful for agreements, risk notes, etc.',
+    bottomSlotKeywords: ['agreements', 'risk notes'],
   },
 });
 
@@ -66,7 +71,11 @@ const value5 = ref('');
         :placeholder="t('placeholder')"
       >
         <template #input-comment>
-          <span>{{ t('slotComment') }}</span>
+          <van-highlight
+            tag="span"
+            :source-string="t('slotComment')"
+            :keywords="t('slotCommentKeywords')"
+          />
         </template>
       </van-field>
       <van-field
@@ -75,7 +84,13 @@ const value5 = ref('');
         :placeholder="t('placeholder')"
       >
         <template #bottom>
-          <span style="color: var(--van-text-color-2)">{{ t('bottomSlot') }}</span>
+          <div class="van-gray-block" style="margin-top: 4px;">
+            <van-highlight
+              tag="span"
+              :source-string="t('bottomSlot')"
+              :keywords="t('bottomSlotKeywords')"
+            />
+          </div>
         </template>
       </van-field>
     </van-cell-group>

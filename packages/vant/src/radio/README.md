@@ -164,9 +164,33 @@ Set `label-position` prop to `'left'` to adjust the label position to the left o
 </van-radio-group>
 ```
 
+### Option Icon
+
+Use the `icon` field in `options` to set an icon for each option. In list mode, the icon is shown on the left of the Cell; otherwise, it is shown before the option label.
+
+```html
+<van-radio-group v-model="checked" :options="options" />
+```
+
+```js
+import { ref } from 'vue';
+
+export default {
+  setup() {
+    const checked = ref('1');
+    const options = [
+      { label: 'Option 1', value: '1' },
+      { label: 'Option 2', value: '2', icon: 'shop-o' },
+      { label: 'Option 3', value: '3', disabled: true, icon: 'shop-o' },
+    ];
+    return { checked, options };
+  },
+};
+```
+
 ### List Layout
 
-Set `is-list` to render options as a Cell list. Use `cellProps` in each option to customize Cell props.
+Set `is-list` to render options as a Cell list. Use `icon` or `cellProps` in each option to customize Cell props.
 
 ```html
 <van-radio-group v-model="checked" is-list :options="options" />
@@ -189,7 +213,41 @@ export default {
         label: 'Option 3',
         value: '3',
         disabled: true,
-        cellProps: { icon: 'shop-o' },
+        icon: 'shop-o',
+      },
+    ];
+    return { checked, options };
+  },
+};
+```
+
+### List Search
+
+When `is-list` is enabled, set `show-search` to render a search field at the top. The keyword is passed to the [Cell component](#/en-US/cell)'s `highlight` prop to highlight matched text and filter unmatched options. When no results match, an [Empty component](#/en-US/empty) is shown with the default description "No search results". Use the `search-empty` slot to customize the empty state.
+
+```html
+<van-radio-group
+  v-model="checked"
+  is-list
+  show-search
+  search-placeholder="Search options"
+  :options="options"
+/>
+```
+
+```js
+import { ref } from 'vue';
+
+export default {
+  setup() {
+    const checked = ref('1');
+    const options = [
+      { label: 'Option 1 Apple', value: '1' },
+      { label: 'Option 2 Banana', value: '2' },
+      {
+        label: 'Option 3 Cherry',
+        value: '3',
+        cellProps: { label: 'Description' },
       },
     ];
     return { checked, options };
@@ -253,7 +311,9 @@ import type {
 | direction | Direction, can be set to `horizontal` | _string_ | `vertical` |
 | columns `new` | Number of options per row in horizontal layout | _number \| string_ | `3` |
 | is-list `new` | Whether to render options as a Cell list | _boolean_ | `false` |
-| options `new` | Render options from config, each item is `{ label, value, disabled?, cellProps? }`, `cellProps` are [Cell](#/en-US/cell) props | _RadioGroupOption[]_ | `[]` |
+| show-search `new` | Whether to show a search field at the top of the list, requires `is-list` | _boolean_ | `false` |
+| search-placeholder `new` | Search field placeholder text | _string_ | `Enter filter keyword` |
+| options `new` | Render options from config, each item is `{ label, value, disabled?, icon?, cellProps? }`, `icon` is the icon name, `cellProps` are [Cell](#/en-US/cell) props | _RadioGroupOption[]_ | `[]` |
 | icon-size | Icon size of all radios | _number \| string_ | `20px` |
 | checked-color | Checked color of all radios | _string_ | `#1989fa` |
 | shape `v4.6.3` | Can be set to `square` `dot` `block` | _string_ | `round` |
@@ -276,6 +336,13 @@ import type {
 | ------- | ------------ | ----------------------------------------- |
 | default | Custom label | _{ checked: boolean, disabled: boolean }_ |
 | icon    | Custom icon  | _{ checked: boolean, disabled: boolean }_ |
+
+### RadioGroup Slots
+
+| Name | Description |
+| --- | --- |
+| default | Custom options |
+| search-empty `new` | Custom content when list search has no results; requires `is-list` and `show-search` |
 
 ## Theming
 

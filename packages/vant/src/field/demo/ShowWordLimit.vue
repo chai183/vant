@@ -9,15 +9,18 @@ const t = useTranslate({
     message: '留言',
     placeholder: '请输入留言',
     showWordLimit: '显示字数统计',
+    hideMaxlengthToast: '关闭上限提示',
   },
   'en-US': {
     message: 'Message',
     placeholder: 'Message',
     showWordLimit: 'Show Word Limit',
+    hideMaxlengthToast: 'Disable Maxlength Toast',
   },
 });
 
 const value = ref('');
+const valueWithoutToast = ref('');
 </script>
 
 <template>
@@ -29,8 +32,19 @@ const value = ref('');
         show-word-limit
         rows="2"
         type="textarea"
-        maxlength="50"
+        maxlength="5"
         :label="t('message')"
+        :placeholder="t('placeholder')"
+      />
+      <van-field
+        v-model="valueWithoutToast"
+        autosize
+        show-word-limit
+        rows="2"
+        type="textarea"
+        maxlength="5"
+        :show-maxlength-toast="false"
+        :label="t('hideMaxlengthToast')"
         :placeholder="t('placeholder')"
       />
     </van-cell-group>

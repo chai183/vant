@@ -2,6 +2,7 @@
 :host {
   --van-field-money-currency-font-size: 16px;
   --van-field-money-currency-font-weight: var(--van-font-bold);
+  --van-field-money-currency-filled-color: #333333;
   --van-field-money-input-font-size: 24px;
   --van-field-money-input-height: 24px;
   --van-field-money-input-font-weight: var(--van-font-bold);
@@ -9,6 +10,9 @@
 }
 
 .van-field-money {
+  --van-field-money-currency-font-size: 16px;
+  --van-field-money-currency-filled-color: #333333;
+
   .van-field__body {
     align-items: baseline;
     margin-top: var(--van-field-money-body-margin-top);
@@ -18,14 +22,5 @@
     font-size: var(--van-field-money-input-font-size);
     font-weight: var(--van-field-money-input-font-weight);
     height: var(--van-field-money-input-height);
-  }
-
-  &__currency {
-    font-size: var(--van-field-money-currency-font-size);
-    font-weight: var(--van-field-money-currency-font-weight);
-
-    &--filled {
-      color: #333333;
-    }
   }
 }

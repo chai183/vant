@@ -1,4 +1,6 @@
 import {
+  ref,
+  computed,
   watch,
   defineComponent,
   type PropType,
@@ -20,11 +22,19 @@ import {
 import { useChildren, useCustomFieldValue } from '@vant/use';
 import { useExpose } from '../composables/use-expose';
 import { useRefs } from '../composables/use-refs';
+import {
+  filterListOptions,
+  getListSearchHighlight,
+  isListSearchEmpty,
+} from '../composables/filter-list-options';
 
 // Components
 import Checkbox from '../checkbox';
 import Cell from '../cell';
 import CellGroup from '../cell-group';
+import Search from '../search';
+import Empty from '../empty';
+import { Icon } from '../icon';
 
 // Types
 import type { CheckboxInstance } from '../checkbox/types';
@@ -36,7 +46,7 @@ import type {
   CheckboxGroupToggleAllOptions,
 } from './types';
 
-const [name, bem] = createNamespace('checkbox-group');
+const [name, bem, t] = createNamespace('checkbox-group');
 
 export const checkboxGroupProps = {
   max: numericProp,
@@ -48,6 +58,8 @@ export const checkboxGroupProps = {
   modelValue: makeArrayProp<unknown>(),
   checkedColor: String,
   isList: Boolean,
+  showSearch: Boolean,
+  searchPlaceholder: String,
   options: makeArrayProp<CheckboxGroupOption>(),
 };
 
@@ -66,6 +78,25 @@ export default defineComponent({
   setup(props, { emit, slots }) {
     const { children, linkChildren } = useChildren(CHECKBOX_GROUP_KEY);
     const [checkboxRefs, setCheckboxRefs] = useRefs<CheckboxInstance>();
+    const searchKeyword = ref('');
+
+    const listOptions = computed(() => {
+      if (!props.isList || !props.showSearch) {
+        return props.options;
+      }
+      return filterListOptions(props.options, searchKeyword.value);
+    });
+
+    const listHighlight = computed(() =>
+      props.showSearch ? getListSearchHighlight(searchKeyword.value) : [],
+    );
+
+    const showListEmpty = computed(
+      () =>
+        props.isList &&
+        props.showSearch &&
+        isListSearchEmpty(searchKeyword.value, listOptions.value.length),
+    );
 
     const updateValue = (value: unknown[]) => emit('update:modelValue', value);
 
@@ -102,6 +133,18 @@ export default defineComponent({
       updateValue,
     });
 
+    const renderOptionLabel = (option: CheckboxGroupOption) => {
+      if (option.icon) {
+        return (
+          <>
+            <Icon name={option.icon} class={bem('option-icon')} />
+            {option.label}
+          </>
+        );
+      }
+      return option.label;
+    };
+
     const renderOptions = () =>
       props.options.map((option) => (
         <Checkbox
@@ -109,32 +152,75 @@ export default defineComponent({
           name={option.value}
           disabled={option.disabled}
         >
-          {option.label}
+          {renderOptionLabel(option)}
         </Checkbox>
       ));
 
-    const toggleOption = (index: number, option: CheckboxGroupOption) => {
+    const toggleOption = (option: CheckboxGroupOption) => {
       if (props.disabled || option.disabled) {
         return;
       }
-      checkboxRefs.value[index]?.toggle();
+      const index = props.options.findIndex((item) => item.value === option.value);
+      if (index >= 0) {
+        checkboxRefs.value[index]?.toggle();
+      }
     };
 
-    const renderListOptions = () => (
+    const renderSearch = () => {
+      if (!props.isList || !props.showSearch) {
+        return;
+      }
+
+      return (
+        <Search
+          modelValue={searchKeyword.value}
+          placeholder={props.searchPlaceholder ?? t('searchPlaceholder')}
+          onUpdate:modelValue={(value: string) => {
+            searchKeyword.value = value;
+          }}
+        />
+      );
+    };
+
+    const renderListEmpty = () => {
+      if (slots['search-empty']) {
+        return slots['search-empty']();
+      }
+
+      return (
+        <Empty class={bem('empty')} description={t('searchEmpty')}>
+          {{ image: () => null }}
+        </Empty>
+      );
+    };
+
+    const renderListOptions = () => {
+      if (showListEmpty.value) {
+        return renderListEmpty();
+      }
+
+      return (
       <CellGroup border={false}>
-        {props.options.map((option, index) => {
-          const { label, value, disabled, cellProps } = option;
+        {listOptions.value.map((option) => {
+          const { label, value, disabled, icon, cellProps } = option;
+          const index = props.options.findIndex((item) => item.value === value);
+          const highlight =
+            listHighlight.value.length > 0
+              ? listHighlight.value
+              : cellProps?.highlight;
 
           return (
             <Cell
               key={String(value)}
               title={label}
               {...cellProps}
+              highlight={highlight}
+              icon={cellProps?.icon ?? icon}
               border={false}
               clickable={
                 cellProps?.clickable ?? (!props.disabled && !disabled)
               }
-              onClick={() => toggleOption(index, option)}
+              onClick={() => toggleOption(option)}
             >
               {{
                 'right-icon': () => (
@@ -151,7 +237,8 @@ export default defineComponent({
           );
         })}
       </CellGroup>
-    );
+      );
+    };
 
     return () => (
       <div
@@ -169,6 +256,7 @@ export default defineComponent({
             : undefined
         }
       >
+        {renderSearch()}
         {props.isList ? renderListOptions() : renderOptions()}
         {slots.default?.()}
       </div>

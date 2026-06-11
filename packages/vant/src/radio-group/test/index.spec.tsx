@@ -154,6 +154,51 @@ test('should render radios from options prop', async () => {
   expect(wrapper.vm.result).toEqual('b');
 });
 
+test('should render icon from options prop', () => {
+  const wrapper = mount({
+    setup() {
+      return {
+        result: ref('a'),
+        options: [
+          { label: 'Option A', value: 'a' },
+          { label: 'Option B', value: 'b', icon: 'shop-o' },
+        ],
+      };
+    },
+    render() {
+      return (
+        <RadioGroup v-model={this.result} options={this.options} />
+      );
+    },
+  });
+
+  const icons = wrapper.findAll('.van-radio-group__option-icon');
+  expect(icons).toHaveLength(1);
+  expect(icons[0].classes()).toContain('van-icon-shop-o');
+});
+
+test('should render icon from options prop when isList is true', () => {
+  const wrapper = mount({
+    setup() {
+      return {
+        result: ref('a'),
+        options: [
+          { label: 'Option A', value: 'a' },
+          { label: 'Option B', value: 'b', icon: 'shop-o' },
+        ],
+      };
+    },
+    render() {
+      return (
+        <RadioGroup v-model={this.result} isList options={this.options} />
+      );
+    },
+  });
+
+  const cells = wrapper.findAll('.van-cell');
+  expect(cells[1].find('.van-icon-shop-o').exists()).toBe(true);
+});
+
 test('should ignore direction, columns and shape when isList is true', () => {
   const wrapper = mount({
     setup() {
@@ -184,6 +229,53 @@ test('should ignore direction, columns and shape when isList is true', () => {
   expect(wrapper.attributes('style')).toBeUndefined();
   expect(wrapper.find('.van-radio--block').exists()).toBe(false);
   expect(wrapper.findAll('.van-cell')).toHaveLength(2);
+});
+
+test('should render search and filter list options when showSearch is true', async () => {
+  const wrapper = mount({
+    setup() {
+      return {
+        result: ref('a'),
+        options: [
+          { label: 'Apple', value: 'a' },
+          { label: 'Banana', value: 'b' },
+          {
+            label: 'Cherry',
+            value: 'c',
+            cellProps: { label: 'Red fruit' },
+          },
+        ],
+      };
+    },
+    render() {
+      return (
+        <RadioGroup
+          v-model={this.result}
+          isList
+          showSearch
+          searchPlaceholder="Search fruit"
+          options={this.options}
+        />
+      );
+    },
+  });
+
+  expect(wrapper.find('.van-radio-group__search').exists()).toBe(true);
+  expect(wrapper.find('.van-cell-group').findAll('.van-cell')).toHaveLength(3);
+
+  const input = wrapper.find('.van-search input');
+  await input.setValue('ban');
+  expect(wrapper.find('.van-cell-group').findAll('.van-cell')).toHaveLength(1);
+  expect(wrapper.find('.van-cell__title .van-cell__highlight').text()).toBe(
+    'Ban',
+  );
+
+  await input.setValue('xyz');
+  expect(wrapper.find('.van-empty').exists()).toBe(true);
+  expect(wrapper.find('.van-cell-group').exists()).toBe(false);
+  expect(['未找到搜索项', 'No search results']).toContain(
+    wrapper.find('.van-empty__description').text(),
+  );
 });
 
 test('should render shape correctly when using shape prop', () => {

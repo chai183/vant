@@ -12,6 +12,7 @@ const t = useTranslate({
     phone: '手机号',
     number: '数字',
     money: '金额',
+    moneyNoCurrency: '金额（无货币符号）',
     customType: '自定义类型',
     smsPlaceholder: '请输入短信验证码',
     textPlaceholder: '请输入文本',
@@ -35,6 +36,7 @@ const t = useTranslate({
     phone: 'Phone',
     number: 'Number',
     money: 'Money',
+    moneyNoCurrency: 'Money (No Currency)',
     customType: 'Custom Type',
     smsPlaceholder: 'SMS',
     textPlaceholder: 'Text',
@@ -59,6 +61,7 @@ const phone = ref('');
 const digit = ref('');
 const number = ref('');
 const money = ref('');
+const moneyNoCurrency = ref('');
 const password = ref('');
 const account = ref('');
 const idcard = ref('');
@@ -98,6 +101,13 @@ const ukey = ref('');
           type="money"
           :label="t('money')"
           :placeholder="t('moneyPlaceholder')"
+        />
+        <van-field
+          v-model="moneyNoCurrency"
+          type="money"
+          :label="t('moneyNoCurrency')"
+          :placeholder="t('moneyPlaceholder')"
+          :show-money-currency="false"
         />
         <van-field
           v-model="password"

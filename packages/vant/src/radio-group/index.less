@@ -8,12 +8,41 @@
     min-width: 0;
   }
 
+  &__search {
+    padding: var(--van-padding-xs) var(--van-padding-md);
+  }
+
+  &__empty {
+    --van-empty-padding:48px 0;
+    background-color: #fff;
+    --van-empty-description-margin-top: 0;
+
+    .van-empty__image {
+      display: none;
+    }
+  }
+
   &--block:not(&--horizontal):not(&--list) {
     width: 100%;
 
     > .van-radio.van-radio--block {
       width: 100%;
       min-width: 0;
+    }
+  }
+
+  &__option-icon {
+    margin-right: var(--van-padding-base);
+    vertical-align: -0.15em;
+  }
+
+  &--horizontal:not(&--block):not(&--list) {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--van-padding-lg);
+
+    > .van-radio.van-radio--horizontal {
+      margin-right: 0;
     }
   }
 

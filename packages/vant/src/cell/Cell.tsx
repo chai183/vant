@@ -46,7 +46,7 @@ export const cellSharedProps = {
   title: [Number, String, Array] as PropType<Numeric | Numeric[]>,
   value: numericProp,
   label: numericProp,
-  center: Boolean,
+  center: truthProp,
   isLink: Boolean,
   border: truthProp,
   iconPrefix: String,
@@ -253,7 +253,7 @@ export default defineComponent({
         required: !!required,
         clickable,
         borderless: !border,
-        'has-bottom': !!slots.bottom,
+        hasBottom: !!slots.bottom,
       };
       if (size) {
         classes[size] = !!size;

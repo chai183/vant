@@ -9,14 +9,14 @@ exports[`should change arrow direction when using arrow-direction prop 1`] = `
 `;
 
 exports[`should change icon class prefix when using icon-prefix prop 1`] = `
-<div class="van-cell">
+<div class="van-cell van-cell--center">
   <i class="van-badge__wrapper my-icon my-icon-success van-cell__left-icon">
   </i>
 </div>
 `;
 
 exports[`should render array title correctly 1`] = `
-<div class="van-cell">
+<div class="van-cell van-cell--center">
   <div class="van-cell__title">
     <div class="van-cell__title-text">
       <span>
@@ -36,19 +36,19 @@ exports[`should render array title correctly 1`] = `
 `;
 
 exports[`should render extra slot correctly 1`] = `
-<div class="van-cell">
+<div class="van-cell van-cell--center">
   Custom Extra
 </div>
 `;
 
 exports[`should render icon slot correctly 1`] = `
-<div class="van-cell">
+<div class="van-cell van-cell--center">
   Custom Icon
 </div>
 `;
 
 exports[`should render label slot correctly 1`] = `
-<div class="van-cell">
+<div class="van-cell van-cell--center">
   <div class="van-cell__title">
     <span>
       Title
@@ -61,7 +61,7 @@ exports[`should render label slot correctly 1`] = `
 `;
 
 exports[`should render tag prop correctly 1`] = `
-"<a class="van-cell">
+"<a class="van-cell van-cell--center">
   <!---->
   <!---->
   <!---->
@@ -72,7 +72,7 @@ exports[`should render tag prop correctly 1`] = `
 `;
 
 exports[`should render title slot correctly 1`] = `
-<div class="van-cell">
+<div class="van-cell van-cell--center">
   <div class="van-cell__title">
     Custom Title
   </div>
@@ -80,7 +80,7 @@ exports[`should render title slot correctly 1`] = `
 `;
 
 exports[`should render value slot correctly 1`] = `
-<div class="van-cell">
+<div class="van-cell van-cell--center">
   <div class="van-cell__value">
     Custom Value
   </div>

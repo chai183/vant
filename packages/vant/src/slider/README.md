@@ -18,51 +18,76 @@ app.use(Slider);
 
 ## Usage
 
-### Basic Usage
+### Single Slider
+
+Use `type="single"` for a single draggable thumb.
 
 ```html
-<van-slider v-model="value" @change="onChange" />
+<van-slider v-model="value" type="single" @change="onChange" />
+```
+
+### Range Slider
+
+Use `type="range"` for a range slider with two draggable thumbs. `v-model` must be an array.
+
+```html
+<van-slider v-model="value" type="range" @change="onChange" />
 ```
 
 ```js
 import { ref } from 'vue';
-import { showToast } from 'vant';
 
 export default {
   setup() {
-    const value = ref(50);
-    const onChange = (value) => showToast('Current value: ' + value);
-    return {
-      value,
-      onChange,
-    };
+    const value = ref([20, 80]);
+    return { value };
   },
 };
 ```
 
-### Dual thumb
+### Node Range Slider
 
-Add `range` attribute to open dual thumb mode.
+Use `type="node-range"` with `min`, `max`, and `step` (or `marks`) to snap both thumbs to nodes.
 
 ```html
-<van-slider v-model="value" range @change="onChange" />
+<van-slider
+  v-model="value"
+  type="node-range"
+  :min="200"
+  :max="1000"
+  :step="200"
+/>
 ```
 
-```js
-import { ref } from 'vue';
-import { showToast } from 'vant';
+### Amount Range
 
-export default {
-  setup() {
-    // value must be an Array
-    const value = ref([10, 50]);
-    const onChange = (value) => showToast('Current value: ' + value);
-    return {
-      value,
-      onChange,
-    };
-  },
-};
+Use `type="range"` with `show-inputs` to display min/max amount inputs below the slider with two-way sync. Customize display via `formatter` / `parser`.
+
+```html
+<van-slider
+  v-model="amountRange"
+  type="range"
+  show-inputs
+  :min="0"
+  :max="100000000000"
+  min-placeholder="¥ Min amount"
+  max-placeholder="¥ Max amount"
+/>
+```
+
+### Select Amount
+
+Use `type="single"` with `show-value` to display unselected text or a formatted amount below the slider.
+
+```html
+<van-slider
+  v-model="amount"
+  type="single"
+  show-value
+  :min="0"
+  :max="100000000000"
+  unselected-text="Unselected"
+/>
 ```
 
 ### Range
@@ -154,11 +179,20 @@ export default {
 | max | Max value | _number \| string_ | `100` |
 | min | Min value | _number \| string_ | `0` |
 | step | Step size | _number \| string_ | `1` |
-| bar-height | Height of bar | _number \| string_ | `2px` |
-| button-size | Button size | _number \| string_ | `24px` |
-| active-color | Active color of bar | _string_ | `#1989fa` |
-| inactive-color | Inactive color of bar | _string_ | `#e5e5e5` |
-| range | Whether to enable dual thumb mode | _boolean_ | `false` |
+| type | Slider type, can be set to `single` `range` `node-range` | _string_ | `single` |
+| marks | Node values for `node-range` | _number[]_ | - |
+| bar-height | Track height | _number \| string_ | `4px` |
+| button-size | Button size | _number \| string_ | `30x16` |
+| active-color | Active color of bar | _string_ | `#ff6b00` |
+| inactive-color | Inactive color of bar | _string_ | `#f5f5f5` |
+| show-value | Whether to display value text below slider (single mode) | _boolean_ | `false` |
+| show-inputs | Whether to display range inputs below slider (range mode) | _boolean_ | `false` |
+| unselected-text | Text when unselected, use with `show-value` | _string_ | `未选择` |
+| min-placeholder | Min amount input placeholder, use with `show-inputs` | _string_ | `¥ 最低金额` |
+| max-placeholder | Max amount input placeholder, use with `show-inputs` | _string_ | `¥ 最高金额` |
+| formatter | Custom value formatter | _(value: number) => string_ | - |
+| parser | Custom input parser | _(text: string) => number \| null_ | - |
+| range | Whether to enable dual thumb mode, prefer `type="range"` | _boolean_ | `false` |
 | reverse | Whether to reverse slider | _boolean_ | `false` |
 | disabled | Whether to disable slider | _boolean_ | `false` |
 | readonly | Whether to be readonly | _boolean_ | `false` |
@@ -180,13 +214,15 @@ export default {
 | button | Custom button | _{ value: number, dragging: boolean }_ |
 | left-button | Custom left button in range mode | _{ value: number, dragging: boolean, dragIndex?: number }_ |
 | right-button | Custom right button in range mode | _{ value: number, dragging: boolean, dragIndex?: number }_ |
+| value | Custom value display, use with `show-value` | _{ value: number, selected: boolean }_ |
+| range-input | Custom range inputs, use with `show-inputs` | _{ modelValue: [number, number], min: string, max: string }_ |
 
 ### Types
 
 The component exports the following type definitions:
 
 ```ts
-import type { SliderProps } from 'vant';
+import type { SliderProps, SliderType } from 'vant';
 ```
 
 ## Theming
@@ -197,12 +233,25 @@ The component provides the following CSS variables, which can be used to customi
 
 | Name | Default Value | Description |
 | --- | --- | --- |
-| --van-slider-active-background | _var(--van-primary-color)_ | - |
-| --van-slider-inactive-background | _var(--van-gray-3)_ | - |
+| --van-slider-active-background | _#ff6b00_ | - |
+| --van-slider-inactive-background | _#f5f5f5_ | - |
 | --van-slider-disabled-opacity | _var(--van-disabled-opacity)_ | - |
-| --van-slider-bar-height | _2px_ | - |
-| --van-slider-button-width | _24px_ | - |
-| --van-slider-button-height | _24px_ | - |
-| --van-slider-button-radius | _50%_ | - |
+| --van-slider-bar-height | _4px_ | - |
+| --van-slider-active-bar-height | _4px_ | - |
+| --van-slider-button-width | _30px_ | - |
+| --van-slider-button-height | _16px_ | - |
+| --van-slider-button-radius | _half of button height_ | - |
 | --van-slider-button-background | _var(--van-white)_ | - |
-| --van-slider-button-shadow | _0 1px 2px rgba(0, 0, 0, 0.5)_ | - |
+| --van-slider-button-border-color | _#dddddd_ | - |
+| --van-slider-button-grip-color | _#999999_ | - |
+| --van-slider-button-grip-gap | _4px_ | - |
+| --van-slider-mark-label-color | _var(--van-gray-6)_ | - |
+| --van-slider-mark-label-active-color | _#ff6b00_ | - |
+| --van-slider-mark-dot-color | _#dddddd_ | - |
+| --van-slider-mark-dot-active-color | _#ff6b00_ | - |
+| --van-slider-mark-dot-active-border-color | _var(--van-white)_ | - |
+| --van-slider-value-margin-top | _22px_ | - |
+| --van-slider-value-color | _#cccccc_ | - |
+| --van-slider-value-font-size | _12px_ | - |
+| --van-slider-value-line-height | _17px_ | - |
+| --van-slider-value-active-color | _#ff6b00_ | - |

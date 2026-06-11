@@ -10,11 +10,12 @@
 
 ```js
 import { createApp } from 'vue';
-import { Tab, Tabs } from 'vant';
+import { Tab, Tabs, CascadeTabs } from 'vant';
 
 const app = createApp();
 app.use(Tab);
 app.use(Tabs);
+app.use(CascadeTabs);
 ```
 
 ## 代码演示
@@ -39,6 +40,135 @@ export default {
   setup() {
     const active = ref(0);
     return { active };
+  },
+};
+```
+
+### 下划线风格
+
+通过 `type="underline"` 启用下划线风格，未选中标签文字颜色为 `#333333`，选中标签文字为主题色，并在文字下方展示宽 20px、高 2px 的主题色下划线（每个标签独立展示，非底部滑动条）；整条标签栏高度为 48px。
+
+```html
+<van-tabs v-model:active="active" type="underline">
+  <van-tab title="标签 1">内容 1</van-tab>
+  <van-tab title="标签 2">内容 2</van-tab>
+  <van-tab title="标签 3">内容 3</van-tab>
+  <van-tab title="标签 4">内容 4</van-tab>
+</van-tabs>
+```
+
+### 圆角背景风格
+
+通过 `type="rounded"` 启用圆角背景风格，未选中标签为 `#f5f5f5` 背景（内边距上下 6px、左右 12px），标签间距 12px，选中后为背景主题色、文字为白色；整条白色标签栏内边距为上下 10px、左右 12px。标签数少于 `swipe-threshold`（默认 5）时按内容宽度左对齐排列；等于 5 个时均分占满宽度；大于 5 个时横向滚动。
+
+```html
+<van-tabs v-model:active="active" type="rounded">
+  <van-tab title="标签 1">内容 1</van-tab>
+  <van-tab title="标签 2">内容 2</van-tab>
+  <van-tab title="标签 3">内容 3</van-tab>
+  <van-tab title="标签 4">内容 4</van-tab>
+</van-tabs>
+```
+
+### 分隔线风格
+
+通过 `type="divider"` 启用分隔线风格，白色标签栏上下内边距为 16px，每个标签左右内边距为 12px（按内容宽度排列）；未选中文字颜色为 `#666666`，选中为主题色（不加粗）；每个标签右侧展示竖向分隔线（最后一项除外）。
+
+```html
+<van-tabs v-model:active="active" type="divider">
+  <van-tab title="标签 1">内容 1</van-tab>
+  <van-tab title="标签 2">内容 2</van-tab>
+  <van-tab title="标签 3">内容 3</van-tab>
+  <van-tab title="标签 4">内容 4</van-tab>
+</van-tabs>
+```
+
+### 多级联动
+
+通过 `CascadeTabs` 组件实现多级标签联动，支持 2 级或 3 级。各级标签栏样式固定为：
+
+- 第 1 级：`underline` 下划线风格（与「下划线风格」demo 一致）
+- 第 2 级：`rounded` 圆角背景风格（与「圆角背景风格」demo 一致）
+- 第 3 级：`divider` 分隔线风格
+
+通过 `v-model:active` 绑定各级选中索引组成的数组，通过 `options` 传入树形选项数据。切换上级标签时，下级选中索引会自动重置为 0。任一级标签内容超出容器宽度时，会自动横向滚动并在右侧展示菜单图标。
+
+#### 三级联动
+
+```html
+<van-cascade-tabs v-model:active="active" :levels="3" :options="options">
+  <template #default="{ active, titles }">
+    当前选中：{{ titles.join(' / ') }}
+  </template>
+</van-cascade-tabs>
+```
+
+```js
+import { ref } from 'vue';
+
+export default {
+  setup() {
+    const active = ref([0, 0, 0]);
+    const options = ref([
+      {
+        title: '标签 1',
+        children: [
+          {
+            title: '标签 1-1',
+            children: [{ title: '标签 1-1-1' }, { title: '标签 1-1-2' }],
+          },
+          {
+            title: '标签 1-2',
+            children: [{ title: '标签 1-2-1' }, { title: '标签 1-2-2' }],
+          },
+        ],
+      },
+      {
+        title: '标签 2',
+        children: [
+          {
+            title: '标签 2-1',
+            children: [{ title: '标签 2-1-1' }, { title: '标签 2-1-2' }],
+          },
+        ],
+      },
+    ]);
+
+    return { active, options };
+  },
+};
+```
+
+#### 二级联动
+
+设置 `levels` 为 `2` 即可启用二级联动，仅展示下划线风格与圆角背景风格两级标签栏。
+
+```html
+<van-cascade-tabs v-model:active="active" :levels="2" :options="options">
+  <template #default="{ titles }">
+    当前选中：{{ titles.join(' / ') }}
+  </template>
+</van-cascade-tabs>
+```
+
+```js
+import { ref } from 'vue';
+
+export default {
+  setup() {
+    const active = ref([0, 0]);
+    const options = ref([
+      {
+        title: '标签 1',
+        children: [{ title: '标签 1-1' }, { title: '标签 1-2' }],
+      },
+      {
+        title: '标签 2',
+        children: [{ title: '标签 2-1' }, { title: '标签 2-2' }],
+      },
+    ]);
+
+    return { active, options };
   },
 };
 ```
@@ -68,10 +198,36 @@ export default {
 
 ### 标签栏滚动
 
-标签数量超过 5 个时，标签栏可以在水平方向上滚动，切换时会自动将当前标签居中。
+标签数量超过当前宽度时可横向滚动，支持两种溢出展示方式，通过 `nav-overflow` 属性切换：
+
+#### 菜单图标（默认）
+
+此时右侧会展示菜单图标（默认 `#333333`，展开时为 `color` 属性设置的主题色），点击后通过 `RadioGroup` 的列表展示（`is-list`）快速切换标签。
 
 ```html
-<van-tabs v-model:active="active">
+<van-tabs v-model:active="active" type="underline">
+  <van-tab v-for="index in 8" :title="'标签 ' + index">
+    内容 {{ index }}
+  </van-tab>
+</van-tabs>
+```
+
+可通过 `show-nav-menu` 属性关闭右侧菜单图标：
+
+```html
+<van-tabs v-model:active="active" :show-nav-menu="false">
+  <van-tab v-for="index in 8" :title="'标签 ' + index">
+    内容 {{ index }}
+  </van-tab>
+</van-tabs>
+```
+
+#### 滚动阴影
+
+设置 `nav-overflow="shadow"` 后，最右侧会展示宽 12px 的小方块，并在方块左侧显示阴影，提示可继续向右滚动；滚动到最右侧后，小方块会移动到 tabs 左侧，并在方块右侧显示阴影。
+
+```html
+<van-tabs v-model:active="active" type="underline" nav-overflow="shadow">
   <van-tab v-for="index in 8" :title="'标签 ' + index">
     内容 {{ index }}
   </van-tab>
@@ -92,7 +248,7 @@ export default {
 
 ### 样式风格
 
-`Tab` 支持两种样式风格：`line` 和`card`，默认为 `line` 样式，可以通过 `type` 属性切换样式风格。
+`Tabs` 支持多种样式风格：`line`、`card`、`rounded`、`underline`、`divider`，默认为 `line` 样式，可以通过 `type` 属性切换样式风格。
 
 ```html
 <van-tabs v-model:active="active" type="card">
@@ -168,7 +324,10 @@ export default {
 ```html
 <van-tabs v-model:active="active">
   <van-tab v-for="index in 2">
-    <template #title><van-icon name="more-o" />标签</template>
+    <template #title>
+      <van-icon name="more-o" />
+      标签
+    </template>
     内容 {{ index }}
   </van-tab>
 </van-tabs>
@@ -267,7 +426,7 @@ export default {
 | 参数 | 说明 | 类型 | 默认值 |
 | --- | --- | --- | --- |
 | v-model:active | 绑定当前选中标签的标识符 | _number \| string_ | `0` |
-| type | 样式风格类型，可选值为 `card` | _string_ | `line` |
+| type | 样式风格类型，可选值为 `line` `card` `rounded` `underline` `divider` | _string_ | `line` |
 | color | 标签主题色 | _string_ | `#1989fa` |
 | background | 标签栏背景色 | _string_ | `white` |
 | duration | 动画时间，单位秒，设置为 0 可以禁用动画 | _number \| string_ | `0.3` |
@@ -282,6 +441,8 @@ export default {
 | lazy-render | 是否开启延迟渲染（首次切换到标签时才触发内容渲染） | _boolean_ | `true` |
 | scrollspy | 是否开启滚动导航 | _boolean_ | `false` |
 | show-header `v4.7.3` | 是否显示标题栏 | _boolean_ | `true` |
+| show-nav-menu | 标签栏滚动时，是否在右侧展示菜单图标，`nav-overflow` 为 `menu` 时生效 | _boolean_ | `true` |
+| nav-overflow | 标签栏溢出时的展示方式，可选值为 `menu` `shadow` | _string_ | `menu` |
 | offset-top | 粘性布局下吸顶时与顶部的距离，支持 `px` `vw` `vh` `rem` 单位，默认 `px` | _number \| string_ | `0` |
 | swipe-threshold | 滚动阈值，标签数量超过阈值且总宽度超过标签栏宽度时开始横向滚动（仅在 `shrink` 为 `false` 且 `ellipsis` 为 `true` 时生效） | _number \| string_ | `5` |
 | title-active-color | 标题选中态颜色 | _string_ | - |
@@ -358,26 +519,96 @@ tabsRef.value?.scrollTo(0);
 | default | 标签页内容 |
 | title   | 自定义标题 |
 
+### CascadeTabs Props
+
+| 参数 | 说明 | 类型 | 默认值 |
+| --- | --- | --- | --- |
+| v-model:active | 各级选中索引组成的数组 | _number[]_ | `[0, 0, 0]` |
+| levels | 联动级数，可选值为 `2` `3` | _number \| string_ | `3` |
+| options | 树形选项数据 | _CascadeTabOption[]_ | `[]` |
+| color | 标签主题色，会传递给各级 `Tabs` | _string_ | - |
+| swipe-threshold | 滚动阈值，会传递给各级 `Tabs` | _number \| string_ | `5` |
+| show-nav-menu | 标签栏滚动时是否在右侧展示菜单图标 | _boolean_ | `true` |
+
+### CascadeTabOption 数据结构
+
+| 键名     | 说明     | 类型                 |
+| -------- | -------- | -------------------- |
+| title    | 标签标题 | _string_             |
+| disabled | 是否禁用 | _boolean_            |
+| children | 子级选项 | _CascadeTabOption[]_ |
+
+### CascadeTabs Events
+
+| 事件名 | 说明               | 回调参数                                 |
+| ------ | ------------------ | ---------------------------------------- |
+| change | 选中路径变化时触发 | _{ active: number[], titles: string[] }_ |
+
+### CascadeTabs Slots
+
+| 名称    | 说明         | 参数                                     |
+| ------- | ------------ | ---------------------------------------- |
+| default | 联动内容区域 | _{ active: number[], titles: string[] }_ |
+
+### CascadeTabs 类型定义
+
+组件导出以下类型定义：
+
+```ts
+import type {
+  CascadeTabOption,
+  CascadeTabsProps,
+  CascadeTabsInstance,
+  CascadeTabsActivePath,
+  CascadeTabsChangeParams,
+} from 'vant';
+```
+
 ## 主题定制
 
 ### 样式变量
 
 组件提供了下列 CSS 变量，可用于自定义样式，使用方法请参考 [ConfigProvider 组件](#/zh-CN/config-provider)。
 
-| 名称                          | 默认值                      | 描述 |
-| ----------------------------- | --------------------------- | ---- |
-| --van-tab-text-color          | _var(--van-gray-7)_         | -    |
-| --van-tab-active-text-color   | _var(--van-text-color)_     | -    |
-| --van-tab-disabled-text-color | _var(--van-text-color-3)_   | -    |
-| --van-tab-font-size           | _var(--van-font-size-md)_   | -    |
-| --van-tab-line-height         | _var(--van-line-height-md)_ | -    |
-| --van-tabs-default-color      | _var(--van-primary-color)_  | -    |
-| --van-tabs-line-height        | _44px_                      | -    |
-| --van-tabs-card-height        | _30px_                      | -    |
-| --van-tabs-nav-background     | _var(--van-background-2)_   | -    |
-| --van-tabs-bottom-bar-width   | _40px_                      | -    |
-| --van-tabs-bottom-bar-height  | _3px_                       | -    |
-| --van-tabs-bottom-bar-color   | _var(--van-primary-color)_  | -    |
+| 名称 | 默认值 | 描述 |
+| --- | --- | --- |
+| --van-tab-text-color | _var(--van-gray-7)_ | - |
+| --van-tab-active-text-color | _var(--van-text-color)_ | - |
+| --van-tab-disabled-text-color | _var(--van-text-color-3)_ | - |
+| --van-tab-font-size | _var(--van-font-size-md)_ | - |
+| --van-tab-line-height | _var(--van-line-height-md)_ | - |
+| --van-tabs-default-color | _var(--van-primary-color)_ | - |
+| --van-tabs-line-height | _44px_ | - |
+| --van-tabs-card-height | _30px_ | - |
+| --van-tabs-rounded-inactive-background | _#f5f5f5_ | - |
+| --van-tabs-rounded-padding-vertical | _6px_ | - |
+| --van-tabs-rounded-padding-horizontal | _12px_ | - |
+| --van-tabs-rounded-gap | _12px_ | - |
+| --van-tabs-rounded-nav-background | _var(--van-white)_ | - |
+| --van-tabs-rounded-nav-padding-vertical | _10px_ | - |
+| --van-tabs-rounded-nav-padding-horizontal | _12px_ | - |
+| --van-tabs-rounded-nav-radius | _var(--van-radius-lg)_ | - |
+| --van-tabs-nav-background | _var(--van-background-2)_ | - |
+| --van-tabs-divider-nav-padding-vertical | _16px_ | - |
+| --van-tabs-divider-tab-padding-horizontal | _12px_ | - |
+| --van-tabs-divider-nav-background | _var(--van-white)_ | - |
+| --van-tabs-divider-inactive-text-color | _#666666_ | - |
+| --van-tabs-divider-line-width | _0.5px_ | - |
+| --van-tabs-divider-line-height | _12px_ | - |
+| --van-tabs-divider-line-color | _#dddddd_ | - |
+| --van-tabs-nav-menu-icon-color | _#333333_ | - |
+| --van-tabs-nav-menu-icon-active-color | _var(--van-primary-color)_ | - |
+| --van-tabs-nav-menu-background | _var(--van-white)_ | - |
+| --van-tabs-nav-menu-panel-padding-horizontal | _12px_ | - |
+| --van-tabs-scroll-shadow-width | _12px_ | - |
+| --van-tabs-scroll-shadow-color | _rgba(0, 0, 0, 0.08)_ | - |
+| --van-tabs-bottom-bar-width | _40px_ | - |
+| --van-tabs-bottom-bar-height | _3px_ | - |
+| --van-tabs-bottom-bar-color | _var(--van-primary-color)_ | - |
+| --van-tabs-underline-height | _48px_ | - |
+| --van-tabs-underline-bar-width | _20px_ | - |
+| --van-tabs-underline-bar-height | _2px_ | - |
+| --van-tabs-underline-inactive-text-color | _#333333_ | - |
 
 ## 常见问题
 

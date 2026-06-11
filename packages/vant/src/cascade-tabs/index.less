@@ -1,0 +1,28 @@
+.van-cascade-tabs {
+  background: var(--van-white);
+
+  &__content {
+    background: var(--van-background-2);
+  }
+
+  > .van-tabs > .van-tabs__content {
+    display: none;
+  }
+
+  &__level {
+    // Level 1/2 use standalone underline/rounded styles without overrides.
+
+    .van-tabs__nav {
+      flex-wrap: nowrap;
+    }
+
+    &--underline,
+    &--rounded,
+    &--divider {
+      .van-tab {
+        flex-shrink: 0;
+        white-space: nowrap;
+      }
+    }
+  }
+}

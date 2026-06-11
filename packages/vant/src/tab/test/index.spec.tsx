@@ -514,3 +514,47 @@ test('should re-render when line-width or line-height changed', async () => {
   expect(line.style.width).toEqual('30px');
   expect(line.style.height).toEqual('10px');
 });
+
+test('should render scroll shadow indicator when nav-overflow is shadow', async () => {
+  const wrapper = mount({
+    render() {
+      return (
+        <Tabs navOverflow="shadow">
+          {Array.from({ length: 8 }, (_, index) => (
+            <Tab title={`Tab ${index + 1}`}>{index + 1}</Tab>
+          ))}
+        </Tabs>
+      );
+    },
+  });
+
+  await later();
+  expect(wrapper.find('.van-tabs__scroll-shadow').exists()).toBe(true);
+  expect(wrapper.find('.van-tabs__scroll-shadow--right').exists()).toBe(true);
+  expect(wrapper.find('.van-tabs__nav-menu').exists()).toBe(false);
+});
+
+test('should render radio group list in nav menu panel', async () => {
+  const wrapper = mount({
+    render() {
+      return (
+        <Tabs showNavMenu>
+          {Array.from({ length: 8 }, (_, index) => (
+            <Tab title={`Tab ${index + 1}`}>{index + 1}</Tab>
+          ))}
+        </Tabs>
+      );
+    },
+  });
+
+  await later();
+  await wrapper.find('.van-dropdown-menu__title').trigger('click');
+  await later();
+
+  const radioGroup = wrapper.find('.van-radio-group--list');
+  expect(radioGroup.exists()).toBe(true);
+  expect(wrapper.findAll('.van-radio-group--list .van-cell')).toHaveLength(8);
+  expect(wrapper.find('.van-radio-group--list .van-radio__icon').exists()).toBe(
+    true,
+  );
+});

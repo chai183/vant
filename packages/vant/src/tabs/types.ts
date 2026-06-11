@@ -2,7 +2,9 @@ import type { ComponentPublicInstance, ComputedRef } from 'vue';
 import type { Numeric } from '../utils';
 import type { TabsProps } from './Tabs';
 
-export type TabsType = 'line' | 'card' | 'rounded';
+export type NavOverflow = 'menu' | 'shadow';
+
+export type TabsType = 'line' | 'card' | 'rounded' | 'underline' | 'divider';
 
 export type TabsClickTabEventParams = {
   name: Numeric;
@@ -39,8 +41,34 @@ export type TabsThemeVars = {
   tabsLineHeight?: number | string;
   tabsCardHeight?: string;
   tabsRoundedInactiveBackground?: string;
+  tabsRoundedPaddingVertical?: string;
+  tabsRoundedPaddingHorizontal?: string;
+  tabsRoundedGap?: string;
+  tabsRoundedNavBackground?: string;
+  tabsRoundedNavPaddingVertical?: string;
+  tabsRoundedNavPaddingHorizontal?: string;
+  tabsRoundedNavRadius?: string;
   tabsNavBackground?: string;
   tabsBottomBarWidth?: string;
   tabsBottomBarHeight?: string;
   tabsBottomBarColor?: string;
+  tabsUnderlineHeight?: string;
+  tabsUnderlineBarWidth?: string;
+  tabsUnderlineBarHeight?: string;
+  tabsUnderlineInactiveTextColor?: string;
+  tabsDividerNavPaddingVertical?: string;
+  tabsDividerTabPaddingHorizontal?: string;
+  tabsDividerNavBackground?: string;
+  tabsDividerInactiveTextColor?: string;
+  tabsDividerLineWidth?: string;
+  tabsDividerLineHeight?: string;
+  tabsDividerLineColor?: string;
+  tabsNavMenuIconColor?: string;
+  tabsNavMenuIconActiveColor?: string;
+  tabsNavMenuBackground?: string;
+  tabsNavMenuPanelPaddingHorizontal?: string;
+  tabsNavMenuPadding?: string;
+  tabsNavMenuZIndex?: number | string;
+  tabsScrollShadowWidth?: string;
+  tabsScrollShadowColor?: string;
 };

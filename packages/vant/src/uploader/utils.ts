@@ -74,8 +74,12 @@ export function isImageFile(item: UploaderFileListItem): boolean {
     return true;
   }
 
-  if (item.file && item.file.type) {
+  if (item.file?.type) {
     return item.file.type.indexOf('image') === 0;
+  }
+
+  if (item.file?.name) {
+    return isImageUrl(item.file.name);
   }
 
   if (item.url) {

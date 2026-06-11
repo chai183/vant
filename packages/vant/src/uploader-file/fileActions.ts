@@ -5,7 +5,7 @@
 import { extend, type ComponentInstance } from '../utils';
 import { showImagePreview } from '../image-preview';
 import { isImageFile } from '../uploader/utils';
-import { getFileName, getFileUrl } from './utils';
+import { getFileName, getFileUrl, getPreviewImageSrc } from './utils';
 import type { UploaderFileEntry } from './utils';
 import type { UploaderFileListItem } from '../uploader/types';
 import type { ImagePreviewOptions } from '../image-preview';
@@ -29,13 +29,7 @@ export function previewFileWithImagePreview(
 
   const imageFiles = fileList.filter(isImageFile);
   const images = imageFiles
-    .map((file) => {
-      const url = getFileUrl(file);
-      if (url) {
-        return url;
-      }
-      return file.content;
-    })
+    .map((file) => getPreviewImageSrc(file))
     .filter(Boolean) as string[];
 
   if (!images.length) {

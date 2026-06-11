@@ -225,6 +225,7 @@ export const UPLOADER_FILE_ACTION_TEXTS = {
   maxCountExceeded: (count: number) => `最多上传${count}个文件`,
   preview: '预览',
   previewUnsupported: '当前文件不支持预览',
+  previewFailed: '图片预览失败',
   rename: '重命名',
   download: '下载',
   downloadFailed: '下载失败',
@@ -242,6 +243,34 @@ export type UploaderFileActionName =
 /** 可用于预览/下载的地址：服务端 url 或本地 objectUrl */
 export function getFileUrl(item: UploaderFileListItem): string | undefined {
   return item.url || item.objectUrl;
+}
+
+/** 图片全屏预览地址：本地 File 仍在时优先 blob/dataUrl，避免服务端 url 不可用 */
+export function getPreviewImageSrc(
+  item: UploaderFileListItem,
+): string | undefined {
+  if (item.file && item.status !== 'failed') {
+    if (item.objectUrl) {
+      return item.objectUrl;
+    }
+    if (
+      typeof item.content === 'string' &&
+      item.content.startsWith('data:image')
+    ) {
+      return item.content;
+    }
+  }
+
+  const url = getFileUrl(item);
+  if (url) {
+    return url;
+  }
+
+  if (typeof item.content === 'string') {
+    return item.content;
+  }
+
+  return undefined;
 }
 
 export type UploaderFileStatusTexts = typeof UPLOADER_FILE_STATUS_TEXTS;

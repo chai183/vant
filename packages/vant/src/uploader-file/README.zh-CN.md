@@ -265,7 +265,6 @@ export default {
 | download | 自定义下载，不传则后台拉取 Blob 触发下载（不跳转页面） | _(item: UploaderFileListItem) => void_ | - |
 | rename | 自定义重命名，不传则更新列表项 `displayName` | _(item, newName) => void \| Promise\<void\>_ | - |
 | rename-maxlength | 重命名输入框最大字数，不传则不限制；传入后展示字数统计 | _number \| string_ | - |
-| description | 说明文案，支持字符串或字符串数组（多行） | _string \| string[]_ | - |
 | upload-text | 上传按钮文案 | _string_ | `添加附件` |
 
 #### 继承自 Uploader
@@ -301,6 +300,8 @@ export default {
 | 失败 | `上传失败`（可被 `reject(Error)` 的 message 覆盖） |
 
 上传失败时，列表项右侧展示「重新上传」链接，点击后使用同一文件重新执行 `upload`。
+
+列表项左侧默认展示文件类型 SVG 图标；图片文件会直接展示缩略图（优先使用本地 `objectUrl` / `content`，否则使用 `url`），上传失败的图片仍展示错误态图标。
 
 上传成功后，右侧展示 `weapp-nav` 菜单按钮，点击弹出 [ActionSheet 动作面板](/zh-CN/action-sheet)，包含预览、重命名、下载、删除（删除需 [Dialog](/zh-CN/dialog) 二次确认）。预览对图片文件使用与 [Uploader](/zh-CN/uploader) 相同的 [ImagePreview](/zh-CN/image-preview) 全屏预览，不再新开页面。
 
@@ -375,10 +376,6 @@ import type {
 
 | 名称 | 默认值 | 描述 |
 | --- | --- | --- |
-| --van-uploader-file-desc-color | _var(--van-gray-6)_ | 说明文案颜色 |
-| --van-uploader-file-desc-font-size | _var(--van-font-size-sm)_ | 说明文案字号 |
-| --van-uploader-file-desc-line-height | _var(--van-line-height-sm)_ | 说明文案行高 |
-| --van-uploader-file-header-margin-bottom | _var(--van-padding-sm)_ | 头部下边距 |
 | --van-uploader-file-upload-height | _40px_ | 上传按钮高度 |
 | --van-uploader-file-upload-radius | _var(--van-radius-md)_ | 上传按钮圆角 |
 | --van-uploader-file-upload-border-color | _var(--van-gray-4)_ | 上传按钮边框色 |

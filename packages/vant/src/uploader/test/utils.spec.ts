@@ -16,6 +16,9 @@ test('isImageFile', () => {
   expect(
     isImageFile({ file: new File([], 'bar.pdf', { type: 'application/pdf' }) }),
   ).toBeFalsy();
+  expect(
+    isImageFile({ file: new File([], 'photo.jpg') }),
+  ).toBeTruthy();
   expect(isImageFile({ content: 'data:image/xxx' })).toBeTruthy();
   expect(isImageFile({ content: 'data:application/xxx' })).toBeFalsy();
   expect(isImageFile({ isImage: true })).toBeTruthy();

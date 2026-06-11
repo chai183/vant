@@ -62,8 +62,6 @@ const [name] = createNamespace('uploader-file');
 
 /** UploaderFile 在 Uploader 基础上扩展的 props（上传、预览、下载、重命名等） */
 const uploaderFileOwnProps = {
-  /** 顶部说明文案，支持字符串或字符串数组 */
-  description: [String, Array] as PropType<string | string[]>,
   /** 上传按钮文案 */
   uploadText: makeStringProp('添加附件'),
   /** v-model 绑定的文件列表 */
@@ -170,15 +168,6 @@ export default defineComponent({
     );
 
     // ---------- 派生状态 ----------
-    /** 将 description 统一为字符串数组，便于 map 渲染 */
-    const descriptions = computed(() => {
-      const { description } = props;
-      if (!description) {
-        return [];
-      }
-      return Array.isArray(description) ? description : [description];
-    });
-
     /** 是否已达到 maxCount 上限（用于禁用选文件与样式） */
     const isMaxCountReached = computed(() => {
       const maxCount = +props.maxCount;
@@ -413,6 +402,10 @@ export default defineComponent({
           imagePreview = undefined;
         },
       });
+
+      if (!imagePreview && props.previewFullImage) {
+        showToast(UPLOADER_FILE_ACTION_TEXTS.previewFailed);
+      }
     };
 
     /** 优先走 props.download；否则走默认下载（如 a 标签 / 新窗口） */
@@ -488,23 +481,6 @@ export default defineComponent({
     };
 
     // ---------- 渲染函数 ----------
-    /** 顶部说明区域 */
-    const renderHeader = () => {
-      if (!descriptions.value.length) {
-        return;
-      }
-
-      return (
-        <div class={bem('header')}>
-          {descriptions.value.map((text) => (
-            <div key={text} class={bem('desc')}>
-              {text}
-            </div>
-          ))}
-        </div>
-      );
-    };
-
     /** 上传触发区：默认插槽或内置 Button */
     const renderUploadTrigger = () => {
       if (slots.default) {
@@ -623,7 +599,6 @@ export default defineComponent({
     // ---------- 根渲染：Uploader 负责选文件，列表与弹层由本组件渲染 ----------
     return () => (
       <div class={bem()}>
-        {renderHeader()}
         {/* previewImage=false：缩略图列表由 UploaderFileItem 展示，不用 Uploader 默认网格 */}
         <Uploader
           ref={uploaderRef}

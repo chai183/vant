@@ -1,8 +1,5 @@
 :root,
 :host {
-  --van-uploader-file-desc-color: var(--van-gray-6);
-  --van-uploader-file-desc-font-size: var(--van-font-size-sm);
-  --van-uploader-file-desc-line-height: var(--van-line-height-sm);
   --van-uploader-file-upload-height: 40px;
   --van-uploader-file-upload-radius: var(--van-radius-md);
   --van-uploader-file-upload-border-color: var(--van-gray-4);
@@ -31,16 +28,6 @@
 
 .van-uploader-file {
   width: 100%;
-
-  &__header {
-    margin-bottom: var(--van-padding-md-plus);
-  }
-
-  &__desc {
-    color: var(--van-uploader-file-desc-color);
-    font-size: var(--van-uploader-file-desc-font-size);
-    line-height: var(--van-uploader-file-desc-line-height);
-  }
 
   &__uploader.van-uploader {
     display: block;
@@ -101,6 +88,11 @@
     width: var(--van-uploader-file-icon-width);
     height: var(--van-uploader-file-icon-height);
     margin-right: var(--van-uploader-file-icon-margin-right);
+
+    &--image {
+      overflow: hidden;
+      border-radius: var(--van-radius-sm);
+    }
   }
 
   &__file-icon-img {
@@ -108,6 +100,10 @@
     width: 100%;
     height: 100%;
     object-fit: contain;
+
+    &--preview {
+      object-fit: cover;
+    }
   }
 
   &__file-info {

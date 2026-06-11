@@ -18,10 +18,12 @@ import {
   type Interceptor,
   type Numeric,
 } from '../utils';
+import { isImageFile } from '../uploader/utils';
 import {
   bem,
   getFileName,
   getFileTypeIcon,
+  getPreviewImageSrc,
   getStatusMessage,
   calcMiddleEllipsis,
   createTextWidthMeasurer,
@@ -222,11 +224,40 @@ export default defineComponent({
       );
     };
 
+    /** 图片文件展示缩略图，其余类型展示 SVG 图标；失败图片仍用错误态图标 */
+    const renderFileIcon = (item: UploaderFileListItem) => {
+      const imageSrc =
+        isImageFile(item) && item.status !== 'failed'
+          ? getPreviewImageSrc(item)
+          : undefined;
+
+      if (imageSrc) {
+        return (
+          <div class={bem('file-icon', { image: true })}>
+            <img
+              class={bem('file-icon-img', { preview: true })}
+              src={imageSrc}
+              alt=""
+            />
+          </div>
+        );
+      }
+
+      return (
+        <div class={bem('file-icon')}>
+          <img
+            class={bem('file-icon-img')}
+            src={getFileTypeIcon(item)}
+            alt=""
+          />
+        </div>
+      );
+    };
+
     // 渲染函数：根据 props.item 状态拼一整行 UI
     return () => {
       const { item, deletable } = props;
       const fileName = getFileName(item);
-      const fileTypeIcon = getFileTypeIcon(item);
       const status = getStatusMessage(item);
       const isUploading = item.status === 'uploading';
       const isFailed = item.status === 'failed';
@@ -236,14 +267,7 @@ export default defineComponent({
 
       return (
         <div class={[bem('item'), BORDER_BOTTOM]}>
-          {/* 左侧文件类型 SVG 图标 */}
-          <div class={bem('file-icon')}>
-            <img
-              class={bem('file-icon-img')}
-              src={fileTypeIcon}
-              alt=""
-            />
-          </div>
+          {renderFileIcon(item)}
           {/* 中间：文件名 + 状态行 */}
           <div ref={fileInfoRef} class={bem('file-info')}>
             {renderFileName(fileName)}

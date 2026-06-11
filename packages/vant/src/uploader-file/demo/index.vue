@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { ref } from 'vue';
-import { useTranslate } from '../../../docs/site';
+import { cdnURL, useTranslate } from '../../../docs/site';
 import VanUploaderFile from '..';
 import VanButton from '../../button';
 import VanField from '../../field';
@@ -30,6 +30,7 @@ const t = useTranslate({
     waitingFile: '项目方案.docx',
     uploadingFile: '财务报表.xlsx',
     doneFile: '会议纪要2023年文件关于指示.doc',
+    doneImage: '产品封面.jpg',
     failedFile: '合同扫描件.pdf',
   },
   'en-US': {
@@ -54,6 +55,7 @@ const t = useTranslate({
     waitingFile: 'Project Plan.docx',
     uploadingFile: 'Financial Report.xlsx',
     doneFile: 'Meeting Minutes 2023.doc',
+    doneImage: 'Product Cover.jpg',
     failedFile: 'Contract Scan.pdf',
   },
 });
@@ -75,6 +77,12 @@ const statusFileList = ref<UploaderFileListItem[]>([
     file: new File([new Uint8Array(1536 * 1024)], t('doneFile')),
     status: 'done',
     url: 'https://example.com/meeting.doc',
+  },
+  {
+    file: { name: t('doneImage') } as File,
+    status: 'done',
+    url: cdnURL('apple-3.jpeg'),
+    isImage: true,
   },
   {
     file: { name: t('failedFile') } as File,

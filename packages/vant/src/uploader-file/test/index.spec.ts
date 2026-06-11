@@ -1,11 +1,12 @@
 import { nextTick } from 'vue';
 import { UploaderFile } from '..';
-import { mount, later } from '../../../test';
+import { mount, later, trigger } from '../../../test';
 import type { UploaderFileListItem } from '..';
 import {
   UPLOADER_FILE_ACTION_TEXTS,
   UPLOADER_FILE_STATUS_TEXTS,
   formatFileSize,
+  getPreviewImageSrc,
   getStatusMessage,
   isFileNameEllipsised,
 } from '../utils';
@@ -125,10 +126,31 @@ test('should replace file list when multiple is false', async () => {
   expect(upload).toHaveBeenCalledTimes(1);
 });
 
-test('should render description and file list', () => {
+test('should render image thumbnail for image file', () => {
+  const imageUrl = 'https://example.com/photo.jpg';
   const wrapper = mount(UploaderFile, {
     props: {
-      description: ['说明一', '说明二'],
+      modelValue: [
+        {
+          file: new File([new ArrayBuffer(100)], 'photo.jpg', {
+            type: 'image/jpeg',
+          }),
+          status: 'done',
+          url: imageUrl,
+          objectUrl: 'blob:local-thumb',
+        },
+      ] as UploaderFileListItem[],
+    },
+  });
+
+  const previewIcon = wrapper.find('.van-uploader-file__file-icon-img--preview');
+  expect(previewIcon.exists()).toBe(true);
+  expect(previewIcon.attributes('src')).toBe('blob:local-thumb');
+});
+
+test('should render file list', () => {
+  const wrapper = mount(UploaderFile, {
+    props: {
       modelValue: [
         {
           file: new File([new ArrayBuffer(100)], 'demo.doc'),
@@ -138,7 +160,6 @@ test('should render description and file list', () => {
     },
   });
 
-  expect(wrapper.findAll('.van-uploader-file__desc')).toHaveLength(2);
   expect(wrapper.find('.van-uploader-file__file-name').text()).toBe('demo.doc');
   expect(wrapper.find('.van-uploader-file__upload .van-button__text').text()).toBe(
     '添加附件',
@@ -291,6 +312,54 @@ test('should delete file when click delete icon', async () => {
 
   expect(wrapper.emitted('update:modelValue')?.[0]?.[0]).toEqual([]);
   expect(wrapper.emitted('delete')?.[0]?.[0]).toEqual(file);
+});
+
+test('should prefer local objectUrl for image preview after upload', () => {
+  const objectUrl = 'blob:local-image';
+  const item = {
+    file: new File([new ArrayBuffer(100)], 'photo.jpg', {
+      type: 'image/jpeg',
+    }),
+    status: 'done' as const,
+    url: 'https://example.com/photo.jpg',
+    objectUrl,
+  };
+
+  expect(getPreviewImageSrc(item)).toBe(objectUrl);
+});
+
+test('should preview image from action sheet', async () => {
+  const objectUrl = 'blob:preview-image';
+  const wrapper = mount(UploaderFile, {
+    props: {
+      modelValue: [
+        {
+          file: new File([new ArrayBuffer(100)], 'photo.jpg', {
+            type: 'image/jpeg',
+          }),
+          status: 'done',
+          url: 'https://example.com/photo.jpg',
+          objectUrl,
+        },
+      ],
+    },
+    attachTo: document.body,
+  });
+
+  await wrapper.find('.van-uploader-file__menu').trigger('click');
+  await nextTick();
+
+  const previewAction = document.body.querySelector(
+    '.van-action-sheet__item',
+  ) as HTMLElement;
+  await trigger(previewAction, 'click');
+  await later();
+
+  expect(document.querySelector('.van-image-preview')).toBeTruthy();
+  expect(
+    document.querySelector<HTMLImageElement>('.van-image-preview img')?.src,
+  ).toBe(objectUrl);
+  wrapper.unmount();
 });
 
 test('should open action sheet when click menu on done item', async () => {

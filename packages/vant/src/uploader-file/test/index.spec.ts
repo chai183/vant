@@ -6,6 +6,7 @@ import {
   UPLOADER_FILE_ACTION_TEXTS,
   UPLOADER_FILE_STATUS_TEXTS,
   formatFileSize,
+  getFileTypeIcon,
   getPreviewImageSrc,
   getStatusMessage,
   isFileNameEllipsised,
@@ -126,8 +127,7 @@ test('should replace file list when multiple is false', async () => {
   expect(upload).toHaveBeenCalledTimes(1);
 });
 
-test('should render image thumbnail for image file', () => {
-  const imageUrl = 'https://example.com/photo.jpg';
+test('should render picture-wrong icon for image file', () => {
   const wrapper = mount(UploaderFile, {
     props: {
       modelValue: [
@@ -136,16 +136,19 @@ test('should render image thumbnail for image file', () => {
             type: 'image/jpeg',
           }),
           status: 'done',
-          url: imageUrl,
+          url: 'https://example.com/photo.jpg',
           objectUrl: 'blob:local-thumb',
         },
       ] as UploaderFileListItem[],
     },
   });
 
-  const previewIcon = wrapper.find('.van-uploader-file__file-icon-img--preview');
-  expect(previewIcon.exists()).toBe(true);
-  expect(previewIcon.attributes('src')).toBe('blob:local-thumb');
+  const icon = wrapper.find('.van-uploader-file__file-icon-img');
+  expect(icon.exists()).toBe(true);
+  expect(icon.attributes('src')).toBe(getFileTypeIcon(wrapper.props('modelValue')[0]));
+  expect(wrapper.find('.van-uploader-file__file-icon-img--preview').exists()).toBe(
+    false,
+  );
 });
 
 test('should render file list', () => {
@@ -232,6 +235,105 @@ test('should set failed status when upload promise rejects', async () => {
     | undefined;
   expect(list?.[0]?.status).toBe('failed');
   expect(list?.[0]?.message).toBe('网络异常');
+});
+
+test('should not show reupload button without upload handler', () => {
+  const wrapper = mount(UploaderFile, {
+    props: {
+      modelValue: [
+        {
+          file: failFile,
+          status: 'failed',
+          message: '上传失败',
+        },
+      ],
+    },
+  });
+
+  expect(wrapper.find('.van-uploader-file__reupload').exists()).toBe(false);
+});
+
+test('should keep uploading status when parent overwrites modelValue with stale data', async () => {
+  const upload = vi.fn(
+    () =>
+      new Promise(() => {
+        /* keep pending */
+      }),
+  );
+
+  const wrapper = mount(UploaderFile, {
+    props: {
+      modelValue: [
+        {
+          file: failFile,
+          status: 'failed',
+          message: '上传失败',
+        },
+      ],
+      upload,
+    },
+  });
+
+  await wrapper.find('.van-uploader-file__reupload').trigger('click');
+  await nextTick();
+
+  expect(
+    wrapper.find('.van-uploader-file__file-status--uploading').exists(),
+  ).toBe(true);
+
+  // Parent pushes stale failed state back
+  await wrapper.setProps({
+    modelValue: [
+      {
+        file: failFile,
+        status: 'failed',
+        message: '上传失败',
+      },
+    ],
+  });
+  await nextTick();
+
+  expect(
+    wrapper.find('.van-uploader-file__file-status--uploading').exists(),
+  ).toBe(true);
+  expect(wrapper.find('.van-uploader-file__reupload').exists()).toBe(false);
+});
+
+test('should show uploading status immediately when retry upload', async () => {
+  const upload = vi.fn(
+    () =>
+      new Promise(() => {
+        /* keep pending */
+      }),
+  );
+
+  const wrapper = mount(UploaderFile, {
+    props: {
+      modelValue: [
+        {
+          file: failFile,
+          status: 'failed',
+          message: '上传失败',
+        },
+      ],
+      upload,
+      'onUpdate:modelValue': (value: UploaderFileListItem[]) => {
+        wrapper.setProps({ modelValue: value });
+      },
+    },
+  });
+
+  await wrapper.find('.van-uploader-file__reupload').trigger('click');
+  await nextTick();
+
+  expect(upload).toHaveBeenCalled();
+  expect(
+    wrapper.find('.van-uploader-file__file-status--uploading').exists(),
+  ).toBe(true);
+  expect(wrapper.find('.van-uploader-file__reupload').exists()).toBe(false);
+  expect(
+    wrapper.find('.van-uploader-file__file-status').text(),
+  ).toContain(UPLOADER_FILE_STATUS_TEXTS.uploading);
 });
 
 test('should retry upload when click reupload on failed item', async () => {
@@ -381,6 +483,52 @@ test('should open action sheet when click menu on done item', async () => {
 
   expect(document.body.querySelector('.van-action-sheet')).toBeTruthy();
   wrapper.unmount();
+});
+
+test('should render custom action menu items', async () => {
+  const wrapper = mount(UploaderFile, {
+    props: {
+      modelValue: [
+        {
+          file: { name: 'done.doc' } as File,
+          status: 'done',
+          url: 'https://example.com/done.doc',
+        },
+      ],
+      actions: ['preview', 'download'],
+    },
+    attachTo: document.body,
+  });
+
+  await wrapper.find('.van-uploader-file__menu').trigger('click');
+  await nextTick();
+
+  const actionTexts = Array.from(
+    document.body.querySelectorAll('.van-action-sheet__item'),
+  ).map((item) => item.textContent?.trim());
+
+  expect(actionTexts).toEqual([
+    UPLOADER_FILE_ACTION_TEXTS.preview,
+    UPLOADER_FILE_ACTION_TEXTS.download,
+  ]);
+  wrapper.unmount();
+});
+
+test('should hide menu button when actions is empty', () => {
+  const wrapper = mount(UploaderFile, {
+    props: {
+      modelValue: [
+        {
+          file: { name: 'done.doc' } as File,
+          status: 'done',
+          url: 'https://example.com/done.doc',
+        },
+      ],
+      actions: [],
+    },
+  });
+
+  expect(wrapper.find('.van-uploader-file__menu').exists()).toBe(false);
 });
 
 test('should keep upload button visible and toast when max count exceeded', async () => {

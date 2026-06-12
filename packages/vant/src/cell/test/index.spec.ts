@@ -29,6 +29,19 @@ test('should render array title correctly', () => {
   expect(wrapper.html()).toMatchSnapshot();
 });
 
+test('should apply titleTextClass to array title text', () => {
+  const wrapper = mount(Cell, {
+    props: {
+      title: ['Main Title', 'Sub Title'],
+      titleTextClass: 'custom-title-text',
+    },
+  });
+
+  expect(wrapper.find('.van-cell__title-text').classes()).toContain(
+    'custom-title-text',
+  );
+});
+
 test('should highlight title, value and label when using highlight prop', () => {
   const wrapper = mount(Cell, {
     props: {

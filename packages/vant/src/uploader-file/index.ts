@@ -9,6 +9,7 @@ export type { UploaderFileListItem, UploaderBeforeRead } from '../uploader/types
 export type { UploaderFileEntry } from './utils';
 export type {
   UploaderFileInstance,
+  UploaderFileMenuAction,
   UploaderFileThemeVars,
   UploaderFileUpload,
   UploaderFileUploadResult,

@@ -53,6 +53,7 @@ export const cellSharedProps = {
   valueClass: unknownProp,
   labelClass: unknownProp,
   titleClass: unknownProp,
+  titleTextClass: unknownProp,
   titleStyle: null as unknown as PropType<string | CSSProperties>,
   arrowDirection: String as PropType<CellArrowDirection>,
   required: {
@@ -153,7 +154,7 @@ export default defineComponent({
 
       if (Array.isArray(props.title)) {
         return (
-          <div class={bem('title-text')}>
+          <div class={[bem('title-text'), props.titleTextClass]}>
             {props.title.map((text, index) => (
               <span key={index}>{renderText(text)}</span>
             ))}

@@ -249,6 +249,23 @@ export default {
 </van-field>
 ```
 
+### 操作菜单
+
+通过 `actions` 属性可以配置上传成功后操作菜单展示的项，可选值为 `preview` `rename` `download` `delete`，默认展示全部。
+
+```html
+<van-field label="操作菜单" label-comment="仅展示预览与下载" label-align="top">
+  <template #input>
+    <van-uploader-file
+      v-model="fileList"
+      :upload="upload"
+      readonly
+      :actions="['preview', 'download']"
+    />
+  </template>
+</van-field>
+```
+
 ## API
 
 ### Props
@@ -265,28 +282,16 @@ export default {
 | download | 自定义下载，不传则后台拉取 Blob 触发下载（不跳转页面） | _(item: UploaderFileListItem) => void_ | - |
 | rename | 自定义重命名，不传则更新列表项 `displayName` | _(item, newName) => void \| Promise\<void\>_ | - |
 | rename-maxlength | 重命名输入框最大字数，不传则不限制；传入后展示字数统计 | _number \| string_ | - |
+| actions `new` | 操作菜单项，可选值为 `preview` `rename` `download` `delete` | _UploaderFileMenuAction[]_ | `['preview', 'rename', 'download', 'delete']` |
 | upload-text | 上传按钮文案 | _string_ | `添加附件` |
 
 #### 继承自 Uploader
 
-以下属性透传至内部 [Uploader](/zh-CN/uploader)，默认值与 Uploader 不同时已注明：
+除下述差异外，[Uploader](/zh-CN/uploader) 支持的属性均可在本组件上使用，完整说明见 [Uploader Props](/zh-CN/uploader#props)：
 
-| 参数 | 说明 | 类型 | 默认值 |
-| --- | --- | --- | --- |
-| accept | 允许上传的文件类型 | _string_ | `*` |
-| multiple | 是否开启多选 | _boolean_ | `true` |
-| result-type | 文件读取结果类型 | _string_ | `file` |
-| name | 标识符，可在回调 `detail` 中获取 | _number \| string_ | - |
-| disabled | 是否禁用 | _boolean_ | `false` |
-| readonly | 是否只读 | _boolean_ | `false` |
-| deletable | 是否展示删除按钮 | _boolean_ | `true` |
-| max-size | 文件大小限制，单位 `byte` | _number \| string \| (file: File) => boolean_ | `Infinity` |
-| max-count | 文件数量限制 | _number \| string_ | `Infinity` |
-| before-read | 文件读取前的回调 | _Function_ | - |
-| before-delete | 文件删除前的回调 | _Function_ | - |
-| capture | 选取模式，如 `camera` | _string_ | - |
-
-更多 Uploader 属性见 [Uploader 文档](/zh-CN/uploader#props)。组件内部固定 `preview-image` 为 `false`，由列表区域展示文件。
+- `preview-image` 固定为 `false`，文件列表由本组件渲染
+- `max-count` 由本组件自行拦截并提示，上传按钮保持可见
+- 默认值与 Uploader 不同：`accept` 为 `*`，`multiple` 为 `true`，`result-type` 为 `file`，`upload-text` 为 `添加附件`
 
 ### 内置状态文案
 
@@ -299,11 +304,11 @@ export default {
 | 成功 | 文件大小，如 `1.5MB` |
 | 失败 | `上传失败`（可被 `reject(Error)` 的 message 覆盖） |
 
-上传失败时，列表项右侧展示「重新上传」链接，点击后使用同一文件重新执行 `upload`。
+上传失败且配置了 `upload` 时，列表项右侧展示「重新上传」链接，点击后使用同一文件重新执行 `upload`，并切换为「上传中」样式。
 
-列表项左侧默认展示文件类型 SVG 图标；图片文件会直接展示缩略图（优先使用本地 `objectUrl` / `content`，否则使用 `url`），上传失败的图片仍展示错误态图标。
+列表项左侧默认展示文件类型 SVG 图标；图片文件统一展示 `picture-wrong` 图标，不再展示缩略图。
 
-上传成功后，右侧展示 `weapp-nav` 菜单按钮，点击弹出 [ActionSheet 动作面板](/zh-CN/action-sheet)，包含预览、重命名、下载、删除（删除需 [Dialog](/zh-CN/dialog) 二次确认）。预览对图片文件使用与 [Uploader](/zh-CN/uploader) 相同的 [ImagePreview](/zh-CN/image-preview) 全屏预览，不再新开页面。
+上传成功后，右侧展示 `weapp-nav` 菜单按钮，点击弹出 [ActionSheet 动作面板](/zh-CN/action-sheet)，包含预览、重命名、下载、删除（删除需 [Dialog](/zh-CN/dialog) 二次确认），可通过 `actions` 配置需要展示的项。预览对图片文件使用与 [Uploader](/zh-CN/uploader) 相同的 [ImagePreview](/zh-CN/image-preview) 全屏预览，不再新开页面。
 
 ### Events
 
@@ -361,6 +366,7 @@ uploaderFileRef.value?.chooseFile();
 import type {
   UploaderFileProps,
   UploaderFileInstance,
+  UploaderFileMenuAction,
   UploaderFileUpload,
   UploaderFileUploadResult,
   UploaderFileThemeVars,

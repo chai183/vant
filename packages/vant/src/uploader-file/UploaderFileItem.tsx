@@ -18,12 +18,10 @@ import {
   type Interceptor,
   type Numeric,
 } from '../utils';
-import { isImageFile } from '../uploader/utils';
 import {
   bem,
   getFileName,
   getFileTypeIcon,
-  getPreviewImageSrc,
   getStatusMessage,
   calcMiddleEllipsis,
   createTextWidthMeasurer,
@@ -56,6 +54,13 @@ export default defineComponent({
     name: [Number, String] as PropType<Numeric>,
     // 是否显示删除能力
     deletable: Boolean,
+    // 是否允许重新上传（需父组件提供 upload）
+    reuploadable: Boolean,
+    // 上传成功后是否展示更多操作菜单
+    showMenu: {
+      type: Boolean,
+      default: true,
+    },
     // 全局删除前拦截器
     beforeDelete: Function as PropType<Interceptor>,
   },
@@ -224,46 +229,28 @@ export default defineComponent({
       );
     };
 
-    /** 图片文件展示缩略图，其余类型展示 SVG 图标；失败图片仍用错误态图标 */
-    const renderFileIcon = (item: UploaderFileListItem) => {
-      const imageSrc =
-        isImageFile(item) && item.status !== 'failed'
-          ? getPreviewImageSrc(item)
-          : undefined;
-
-      if (imageSrc) {
-        return (
-          <div class={bem('file-icon', { image: true })}>
-            <img
-              class={bem('file-icon-img', { preview: true })}
-              src={imageSrc}
-              alt=""
-            />
-          </div>
-        );
-      }
-
-      return (
-        <div class={bem('file-icon')}>
-          <img
-            class={bem('file-icon-img')}
-            src={getFileTypeIcon(item)}
-            alt=""
-          />
-        </div>
-      );
-    };
+    /** 列表项左侧展示文件类型 SVG 图标，图片文件统一使用 picture-wrong */
+    const renderFileIcon = (item: UploaderFileListItem) => (
+      <div class={bem('file-icon')}>
+        <img
+          class={bem('file-icon-img')}
+          src={getFileTypeIcon(item)}
+          alt=""
+        />
+      </div>
+    );
 
     // 渲染函数：根据 props.item 状态拼一整行 UI
     return () => {
-      const { item, deletable } = props;
+      const { item, deletable, reuploadable, showMenu } = props;
       const fileName = getFileName(item);
       const status = getStatusMessage(item);
       const isUploading = item.status === 'uploading';
       const isFailed = item.status === 'failed';
       const isDone = item.status === 'done';
-      // 完成：更多菜单；失败：重传；未完成且 deletable：直接删（不走 ActionSheet）
-      const showActions = isDone || isFailed || deletable;
+      const showReupload = isFailed && reuploadable;
+      // 完成：更多菜单；失败且可重传：重传；未完成且 deletable：直接删（不走 ActionSheet）
+      const showActions = isDone || showReupload || deletable;
 
       return (
         <div class={[bem('item'), BORDER_BOTTOM]}>
@@ -285,7 +272,7 @@ export default defineComponent({
           {/* 右侧操作区：按状态展示不同按钮 */}
           {showActions ? (
             <div class={bem('actions')}>
-              {isFailed ? (
+              {showReupload ? (
                 <span
                   role="button"
                   class={bem('reupload')}
@@ -296,7 +283,7 @@ export default defineComponent({
                   {UPLOADER_FILE_STATUS_TEXTS.reupload}
                 </span>
               ) : null}
-              {isDone ? (
+              {isDone && showMenu ? (
                 <Icon
                   role="button"
                   name="ellipsis"

@@ -157,6 +157,11 @@ const t = useTranslate({
       :value="t('content')"
       :label="t('desc')"
     />
+    <van-cell
+      :title="[t('titleLine1'), t('titleLine2')]"
+      :value="t('content')"
+      title-text-class="custom-title-text"
+    />
   </demo-block>
 </template>
 
@@ -174,6 +179,10 @@ const t = useTranslate({
 
   .custom-highlight {
     color: var(--van-danger-color);
+  }
+
+  .custom-title-text {
+    color: var(--van-primary-color);
   }
 }
 </style>

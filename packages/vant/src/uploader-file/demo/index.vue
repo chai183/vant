@@ -5,7 +5,11 @@ import VanUploaderFile from '..';
 import VanButton from '../../button';
 import VanField from '../../field';
 import { showToast } from '../../toast';
-import type { UploaderFileUpload, UploaderFileListItem } from '..';
+import type {
+  UploaderFileMenuAction,
+  UploaderFileUpload,
+  UploaderFileListItem,
+} from '..';
 
 const t = useTranslate({
   'zh-CN': {
@@ -25,6 +29,8 @@ const t = useTranslate({
     acceptDesc: '仅支持 PDF、DOC、DOCX 格式',
     maxSizeDesc: '单个文件大小不能超过 500kb',
     maxCountDesc: '最多上传 2 个文件',
+    actions: '操作菜单',
+    actionsDesc: '仅展示预览与下载',
     overSizeTip: '文件大小不能超过 500kb',
     upload: '添加附件',
     waitingFile: '项目方案.docx',
@@ -50,6 +56,8 @@ const t = useTranslate({
     acceptDesc: 'Only PDF, DOC, DOCX are supported',
     maxSizeDesc: 'Max file size 500kb per file',
     maxCountDesc: 'Max 2 files',
+    actions: 'Action Menu',
+    actionsDesc: 'Only preview and download',
     overSizeTip: 'File size cannot exceed 500kb',
     upload: 'Add Attachment',
     waitingFile: 'Project Plan.docx',
@@ -103,6 +111,15 @@ const singleFileList = ref<UploaderFileListItem[]>([]);
 const acceptFileList = ref<UploaderFileListItem[]>([]);
 const maxSizeFileList = ref<UploaderFileListItem[]>([]);
 const maxCountFileList = ref<UploaderFileListItem[]>([]);
+const actionsFileList = ref<UploaderFileListItem[]>([
+  {
+    file: new File([new Uint8Array(1536 * 1024)], t('doneFile')),
+    status: 'done',
+    url: 'https://example.com/meeting.doc',
+  },
+]);
+
+const menuActions: UploaderFileMenuAction[] = ['preview', 'download'];
 
 const MAX_SIZE = 500 * 1024;
 const MAX_COUNT = 2;
@@ -148,7 +165,11 @@ const upload: UploaderFileUpload = (item) =>
   <demo-block :title="t('status')">
     <van-field :label="t('status')" label-align="top">
       <template #input>
-        <van-uploader-file v-model="statusFileList" readonly />
+        <van-uploader-file
+          v-model="statusFileList"
+          :upload="upload"
+          readonly
+        />
       </template>
     </van-field>
   </demo-block>
@@ -247,6 +268,24 @@ const upload: UploaderFileUpload = (item) =>
           accept="*"
           multiple
           :max-count="MAX_COUNT"
+        />
+      </template>
+    </van-field>
+  </demo-block>
+
+  <demo-block :title="t('actions')">
+    <van-field :label="t('actions')" label-align="top">
+      <template #label-comment>
+        <div class="demo-uploader-file__label-comment">
+          {{ t('actionsDesc') }}
+        </div>
+      </template>
+      <template #input>
+        <van-uploader-file
+          v-model="actionsFileList"
+          :upload="upload"
+          readonly
+          :actions="menuActions"
         />
       </template>
     </van-field>

@@ -189,6 +189,7 @@ Use the `highlight` prop to set the text that needs to be highlighted.
 | arrow-direction | Can be set to `left` `up` `down` | _string_ | `right` |
 | title-style | Title style | _string \| Array \| object_ | - |
 | title-class | Title className | _string \| Array \| object_ | - |
+| title-text-class `new` | Multi-line title text className | _string \| Array \| object_ | - |
 | value-class | Value className | _string \| Array \| object_ | - |
 | label-class | Label className | _string \| Array \| object_ | - |
 

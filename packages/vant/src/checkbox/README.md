@@ -265,7 +265,7 @@ export default {
 
 ### List Layout
 
-Set `is-list` to render options as a Cell list. Use `icon` or `cellProps` in each option to customize Cell props.
+Set `is-list` to render options as a Cell list. Use `icon` or `cellProps` in each option to customize Cell props. When both `icon` and `cellProps.icon` are set, `cellProps.icon` takes precedence.
 
 ```html
 <van-checkbox-group v-model="checked" is-list :options="options" />
@@ -508,7 +508,7 @@ export default {
 | is-list `new` | Whether to render options as a Cell list | _boolean_ | `false` |
 | show-search `new` | Whether to show a search field at the top of the list, requires `is-list` | _boolean_ | `false` |
 | search-placeholder `new` | Search field placeholder text | _string_ | `Enter filter keyword` |
-| options `new` | Render options from config, each item is `{ label, value, disabled?, icon?, cellProps? }`, `icon` is the icon name, `cellProps` are [Cell](#/en-US/cell) props | _CheckboxGroupOption[]_ | `[]` |
+| options `new` | Render options from config, each item is `{ label, value, disabled?, icon?, cellProps? }`, `icon` is the icon name, `cellProps` are [Cell](#/en-US/cell) props; when both `icon` and `cellProps.icon` are set, `cellProps.icon` takes precedence | _CheckboxGroupOption[]_ | `[]` |
 | icon-size | Icon size of all checkboxes | _number \| string_ | `20px` |
 | checked-color | Checked color of all checkboxes | _string_ | `#1989fa` |
 | shape `v4.6.3` | Can be set to `square` `block` | _string_ | `round` |

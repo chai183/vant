@@ -1,4 +1,4 @@
-// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+// Rstest Snapshot v1
 
 exports[`should render demo and match snapshot 1`] = `
 <div>
@@ -50,6 +50,34 @@ exports[`should render demo and match snapshot 1`] = `
   >
     <div class="van-cell__title">
       <span>
+        Confirm Text Longer Than 5
+      </span>
+    </div>
+    <i class="van-badge__wrapper van-icon van-icon-arrow van-cell__right-icon">
+    </i>
+  </div>
+  <div
+    class="van-cell van-cell--clickable"
+    role="button"
+    tabindex="0"
+  >
+    <div class="van-cell__title">
+      <span>
+        Three Actions Dialog
+      </span>
+    </div>
+    <i class="van-badge__wrapper van-icon van-icon-arrow van-cell__right-icon">
+    </i>
+  </div>
+</div>
+<div>
+  <div
+    class="van-cell van-cell--clickable"
+    role="button"
+    tabindex="0"
+  >
+    <div class="van-cell__title">
+      <span>
         Alert
       </span>
     </div>
@@ -78,6 +106,106 @@ exports[`should render demo and match snapshot 1`] = `
   >
     <div class="van-cell__title">
       <span>
+        Function Highlight
+      </span>
+    </div>
+    <i class="van-badge__wrapper van-icon van-icon-arrow van-cell__right-icon">
+    </i>
+  </div>
+  <div
+    class="van-cell van-cell--clickable"
+    role="button"
+    tabindex="0"
+  >
+    <div class="van-cell__title">
+      <span>
+        Component Highlight
+      </span>
+    </div>
+    <i class="van-badge__wrapper van-icon van-icon-arrow van-cell__right-icon">
+    </i>
+  </div>
+  <transition-stub
+    name="van-fade"
+    appear="true"
+    persisted="false"
+    css="true"
+  >
+  </transition-stub>
+  <transition-stub
+    name="van-dialog-bounce"
+    appear="false"
+    persisted="false"
+    css="true"
+  >
+    <div
+      role="dialog"
+      tabindex="0"
+      class="van-popup van-popup--center van-dialog"
+      aria-labelledby="Title"
+      style="display: none;"
+    >
+      <div class="van-dialog__header">
+        Title
+      </div>
+      <div class="van-dialog__content">
+        <div class="van-highlight van-dialog__message van-dialog__message--has-title">
+          <span>
+            Please read the
+          </span>
+          <span
+            class="van-highlight__tag"
+            style="font-weight: 600; font-style: italic; color: rgb(238, 10, 36);"
+          >
+            Terms of Service
+          </span>
+          <span>
+            carefully and confirm the
+          </span>
+          <span
+            class="van-highlight__tag"
+            style="font-weight: 600; font-style: italic; color: rgb(238, 10, 36);"
+          >
+            Risk Notice
+          </span>
+          <span>
+            content.
+          </span>
+        </div>
+      </div>
+      <div class="van-hairline--top van-dialog__footer">
+        <button
+          type="button"
+          class="van-button van-button--default van-button--large van-dialog__cancel van-dialog__button"
+        >
+          <div class="van-button__content">
+            <span class="van-button__text">
+              取消
+            </span>
+          </div>
+        </button>
+        <button
+          type="button"
+          class="van-button van-button--default van-button--large van-dialog__confirm van-dialog__button van-hairline--left"
+        >
+          <div class="van-button__content">
+            <span class="van-button__text">
+              主要操作
+            </span>
+          </div>
+        </button>
+      </div>
+    </div>
+  </transition-stub>
+</div>
+<div>
+  <div
+    class="van-cell van-cell--clickable"
+    role="button"
+    tabindex="0"
+  >
+    <div class="van-cell__title">
+      <span>
         Before Close
       </span>
     </div>
@@ -94,6 +222,19 @@ exports[`should render demo and match snapshot 1`] = `
     <div class="van-cell__title">
       <span>
         Use Dialog Component
+      </span>
+    </div>
+    <i class="van-badge__wrapper van-icon van-icon-arrow van-cell__right-icon">
+    </i>
+  </div>
+  <div
+    class="van-cell van-cell--clickable"
+    role="button"
+    tabindex="0"
+  >
+    <div class="van-cell__title">
+      <span>
+        Component Three Actions
       </span>
     </div>
     <i class="van-badge__wrapper van-icon van-icon-arrow van-cell__right-icon">
@@ -128,21 +269,83 @@ exports[`should render demo and match snapshot 1`] = `
       <div class="van-hairline--top van-dialog__footer">
         <button
           type="button"
-          class="van-button van-button--default van-button--large van-dialog__cancel"
+          class="van-button van-button--default van-button--large van-dialog__cancel van-dialog__button"
         >
           <div class="van-button__content">
             <span class="van-button__text">
-              Cancel
+              取消
             </span>
           </div>
         </button>
         <button
           type="button"
-          class="van-button van-button--default van-button--large van-dialog__confirm van-hairline--left"
+          class="van-button van-button--default van-button--large van-dialog__confirm van-dialog__button van-hairline--left"
         >
           <div class="van-button__content">
             <span class="van-button__text">
-              Confirm
+              主要操作
+            </span>
+          </div>
+        </button>
+      </div>
+    </div>
+  </transition-stub>
+  <transition-stub
+    name="van-fade"
+    appear="true"
+    persisted="false"
+    css="true"
+  >
+  </transition-stub>
+  <transition-stub
+    name="van-dialog-bounce"
+    appear="false"
+    persisted="false"
+    css="true"
+  >
+    <div
+      role="dialog"
+      tabindex="0"
+      class="van-popup van-popup--center van-dialog"
+      aria-labelledby="Title"
+      style="display: none;"
+    >
+      <div class="van-dialog__header">
+        Title
+      </div>
+      <div class="van-dialog__content">
+        <div class="van-dialog__message van-dialog__message--has-title">
+          If the solution is ugly, then there must be a better solution, but it has not been discovered yet.
+        </div>
+      </div>
+      <div class="van-hairline--top van-dialog__footer van-dialog__footer--vertical">
+        <button
+          type="button"
+          class="van-button van-button--default van-button--large van-dialog__confirm van-dialog__button van-dialog__button--vertical"
+        >
+          <div class="van-button__content">
+            <span class="van-button__text">
+              Continue Action
+            </span>
+          </div>
+        </button>
+        <button
+          type="button"
+          class="van-button van-button--default van-button--large van-dialog__secondary van-dialog__button van-dialog__button--vertical van-hairline--top"
+        >
+          <div class="van-button__content">
+            <span class="van-button__text">
+              Review Details
+            </span>
+          </div>
+        </button>
+        <button
+          type="button"
+          class="van-button van-button--default van-button--large van-dialog__cancel van-dialog__button van-dialog__button--vertical van-hairline--top"
+        >
+          <div class="van-button__content">
+            <span class="van-button__text">
+              取消
             </span>
           </div>
         </button>

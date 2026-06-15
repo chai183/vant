@@ -3,7 +3,7 @@
 exports[`should render demo and match snapshot 1`] = `
 <div>
   <div class="van-cell-group van-hairline--top-bottom">
-    <div class="van-cell">
+    <div class="van-cell van-cell--center">
       <div class="van-cell__title">
         <span>
           Cell title
@@ -15,7 +15,7 @@ exports[`should render demo and match snapshot 1`] = `
         </span>
       </div>
     </div>
-    <div class="van-cell">
+    <div class="van-cell van-cell--center">
       <div class="van-cell__title">
         <span>
           Cell title
@@ -34,7 +34,7 @@ exports[`should render demo and match snapshot 1`] = `
 </div>
 <div>
   <div class="van-cell-group van-cell-group--inset">
-    <div class="van-cell">
+    <div class="van-cell van-cell--center">
       <div class="van-cell__title">
         <span>
           Cell title
@@ -46,7 +46,7 @@ exports[`should render demo and match snapshot 1`] = `
         </span>
       </div>
     </div>
-    <div class="van-cell">
+    <div class="van-cell van-cell--center">
       <div class="van-cell__title">
         <span>
           Cell title
@@ -64,7 +64,7 @@ exports[`should render demo and match snapshot 1`] = `
   </div>
 </div>
 <div>
-  <div class="van-cell van-cell--large">
+  <div class="van-cell van-cell--center van-cell--large">
     <div class="van-cell__title">
       <span>
         Cell title
@@ -76,7 +76,7 @@ exports[`should render demo and match snapshot 1`] = `
       </span>
     </div>
   </div>
-  <div class="van-cell van-cell--large">
+  <div class="van-cell van-cell--center van-cell--large">
     <div class="van-cell__title">
       <span>
         Cell title
@@ -93,7 +93,7 @@ exports[`should render demo and match snapshot 1`] = `
   </div>
 </div>
 <div>
-  <div class="van-cell">
+  <div class="van-cell van-cell--center">
     <i class="van-badge__wrapper van-icon van-icon-location-o van-cell__left-icon">
     </i>
     <div class="van-cell__title">
@@ -109,7 +109,7 @@ exports[`should render demo and match snapshot 1`] = `
   </div>
 </div>
 <div>
-  <div class="van-cell">
+  <div class="van-cell van-cell--center">
     <div class="van-cell__left-avatar">
       <div
         class="van-avatar van-avatar--small van-avatar--text"
@@ -133,7 +133,7 @@ exports[`should render demo and match snapshot 1`] = `
   </div>
 </div>
 <div>
-  <div class="van-cell">
+  <div class="van-cell van-cell--center">
     <div class="van-cell__title">
       <span>
         <span class="van-highlight">
@@ -166,7 +166,7 @@ exports[`should render demo and match snapshot 1`] = `
 </div>
 <div>
   <div
-    class="van-cell van-cell--clickable"
+    class="van-cell van-cell--center van-cell--clickable"
     role="button"
     tabindex="0"
   >
@@ -179,7 +179,7 @@ exports[`should render demo and match snapshot 1`] = `
     </i>
   </div>
   <div
-    class="van-cell van-cell--clickable"
+    class="van-cell van-cell--center van-cell--clickable"
     role="button"
     tabindex="0"
   >
@@ -197,7 +197,7 @@ exports[`should render demo and match snapshot 1`] = `
     </i>
   </div>
   <div
-    class="van-cell van-cell--clickable"
+    class="van-cell van-cell--center van-cell--clickable"
     role="button"
     tabindex="0"
   >
@@ -217,7 +217,7 @@ exports[`should render demo and match snapshot 1`] = `
 </div>
 <div>
   <div
-    class="van-cell van-cell--clickable"
+    class="van-cell van-cell--center van-cell--clickable"
     role="button"
     tabindex="0"
   >
@@ -230,7 +230,7 @@ exports[`should render demo and match snapshot 1`] = `
     </i>
   </div>
   <div
-    class="van-cell van-cell--clickable"
+    class="van-cell van-cell--center van-cell--clickable"
     role="button"
     tabindex="0"
   >
@@ -248,7 +248,7 @@ exports[`should render demo and match snapshot 1`] = `
     Group 1
   </div>
   <div class="van-cell-group van-hairline--top-bottom">
-    <div class="van-cell">
+    <div class="van-cell van-cell--center">
       <div class="van-cell__title">
         <span>
           Cell title
@@ -265,7 +265,7 @@ exports[`should render demo and match snapshot 1`] = `
     Group 2
   </div>
   <div class="van-cell-group van-hairline--top-bottom">
-    <div class="van-cell">
+    <div class="van-cell van-cell--center">
       <div class="van-cell__title">
         <span>
           Cell title
@@ -281,7 +281,7 @@ exports[`should render demo and match snapshot 1`] = `
 </div>
 <div>
   <div
-    class="van-cell van-cell--clickable"
+    class="van-cell van-cell--center van-cell--clickable"
     role="button"
     tabindex="0"
   >
@@ -307,7 +307,7 @@ exports[`should render demo and match snapshot 1`] = `
     <i class="van-badge__wrapper van-icon van-icon-arrow van-cell__right-icon">
     </i>
   </div>
-  <div class="van-cell">
+  <div class="van-cell van-cell--center">
     <i class="van-badge__wrapper van-icon van-icon-shop-o van-cell__left-icon">
     </i>
     <div class="van-cell__title">
@@ -337,7 +337,7 @@ exports[`should render demo and match snapshot 1`] = `
   </div>
 </div>
 <div>
-  <div class="van-cell">
+  <div class="van-cell van-cell--center">
     <div class="van-cell__title">
       <div class="van-cell__title-text">
         <span>
@@ -354,7 +354,7 @@ exports[`should render demo and match snapshot 1`] = `
       </span>
     </div>
   </div>
-  <div class="van-cell">
+  <div class="van-cell van-cell--center">
     <div class="van-cell__title">
       <div class="van-cell__title-text">
         <span>
@@ -366,6 +366,23 @@ exports[`should render demo and match snapshot 1`] = `
       </div>
       <div class="van-cell__label">
         Description
+      </div>
+    </div>
+    <div class="van-cell__value">
+      <span>
+        Content
+      </span>
+    </div>
+  </div>
+  <div class="van-cell van-cell--center">
+    <div class="van-cell__title">
+      <div class="van-cell__title-text custom-title-text">
+        <span>
+          Main Title
+        </span>
+        <span>
+          Sub Title
+        </span>
       </div>
     </div>
     <div class="van-cell__value">

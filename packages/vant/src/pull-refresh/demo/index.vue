@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import VanTabs from '../../tabs';
 import VanTab from '../../tab';
-import VanPullRefresh from '..';
+import VanPullRefresh, { type PullRefreshRefreshParams } from '..';
 import { computed, onMounted, ref } from 'vue';
 import { cdnURL, useTranslate } from '../../../docs/site';
 import { showToast } from '../../toast';
@@ -12,6 +12,8 @@ const t = useTranslate({
     text: '刷新次数',
     success: '刷新成功',
     successTip: '成功提示',
+    errorTip: '失败提示',
+    networkError: '网络不可用，请检查网络设置',
     customTips: '自定义提示',
   },
   'en-US': {
@@ -19,12 +21,17 @@ const t = useTranslate({
     text: 'Refresh Count',
     success: 'Refresh success',
     successTip: 'Success Tip',
+    errorTip: 'Error Tip',
+    networkError: 'Network unavailable, please check network settings',
     customTips: 'Custom Tips',
   },
 });
 
 const count = ref(0);
 const loading = ref(false);
+
+// 自定义示例的最大拖拽高度，同时作为缩放比例的计算基准。
+const maxPullDistance = 100;
 
 const tips = computed(() => {
   if (count.value) {
@@ -33,6 +40,7 @@ const tips = computed(() => {
   return t('try');
 });
 
+// setTimeout 仅用于模拟异步刷新，真实场景中一般为接口请求。
 const onRefresh = (isShowToast: boolean) => {
   setTimeout(() => {
     if (isShowToast) {
@@ -43,8 +51,25 @@ const onRefresh = (isShowToast: boolean) => {
   }, 1000);
 };
 
+const onRefreshError = ({ error }: PullRefreshRefreshParams) => {
+  setTimeout(() => {
+    // 请求失败后调用组件提供的 error 方法，组件会默认 Toast 并结束 loading。
+    error(new Error(t('networkError')));
+  }, 1000);
+};
+
+const onError = (error: unknown) => {
+  // error 事件用于业务层接收失败回调，不额外 Toast，避免覆盖组件默认错误提示。
+  void error;
+};
+
+// distance / maxPullDistance 会得到 0~1 的缩放比例，Math.min 用于限制最大 100%。
+const getPullingStyle = (distance: number) => ({
+  transform: `scale(${Math.min(distance / maxPullDistance, 1)})`,
+});
+
 const preloadImage = () => {
-  // preload doge image
+  // 提前加载自定义图片，避免首次下拉时图片闪烁。
   const doge = new Image();
   const dogeFire = new Image();
 
@@ -73,24 +98,42 @@ onMounted(preloadImage);
       </van-pull-refresh>
     </van-tab>
 
+    <van-tab :title="t('errorTip')">
+      <van-pull-refresh
+        v-model="loading"
+        @refresh="onRefreshError"
+        @error="onError"
+      >
+        <p>{{ tips }}</p>
+      </van-pull-refresh>
+    </van-tab>
+
     <van-tab :title="t('customTips')">
       <van-pull-refresh
         v-model="loading"
-        head-height="80"
+        :head-height="maxPullDistance"
+        :pull-distance="maxPullDistance"
         @refresh="onRefresh(true)"
       >
         <template #pulling="{ distance }">
+          <!-- 下拉过程中，图片跟随 distance 从中心逐步放大到 100%。 -->
           <img
             class="doge"
             :src="cdnURL('doge.png')"
-            :style="{ transform: `scale(${distance / 80})` }"
+            :style="getPullingStyle(distance)"
           />
         </template>
         <template #loosing>
+          <!-- 达到最大拖拽距离后，释放态保持 100% 大小。 -->
           <img :src="cdnURL('doge.png')" class="doge" />
         </template>
         <template #loading>
+          <!-- 松手进入刷新态后，图片/GIF 保持 100% 大小不变。 -->
           <img :src="cdnURL('doge-fire.jpeg')" class="doge" />
+        </template>
+        <template #success>
+          <!-- 刷新成功后，图片从 100% 缩放到 0%，随后组件回到初始位置。 -->
+          <img :src="cdnURL('doge.png')" class="doge doge-success" />
         </template>
         <p>{{ tips }}</p>
       </van-pull-refresh>
@@ -111,11 +154,27 @@ onMounted(preloadImage);
     height: 72px;
     margin-top: 8px;
     border-radius: 4px;
+    transform-origin: center;
+  }
+
+  .doge-success {
+    // success 插槽展示期间执行缩小动画，动画结束后组件会自动收起头部区域。
+    animation: doge-scale-out 500ms ease both;
   }
 
   p {
     margin: 0;
     padding: var(--van-padding-md) 0 0 var(--van-padding-md);
+  }
+}
+
+@keyframes doge-scale-out {
+  from {
+    transform: scale(1);
+  }
+
+  to {
+    transform: scale(0);
   }
 }
 </style>

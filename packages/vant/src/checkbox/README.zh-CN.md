@@ -275,7 +275,7 @@ export default {
 
 ### 列表展示
 
-设置 `is-list` 并以 Cell 列表形式展示选项，可通过 `options` 中的 `icon` 或 `cellProps` 自定义单元格属性。
+设置 `is-list` 并以 Cell 列表形式展示选项，可通过 `options` 中的 `icon` 或 `cellProps` 自定义单元格属性。同时设置 `icon` 与 `cellProps.icon` 时，优先使用 `cellProps.icon`。
 
 ```html
 <van-checkbox-group v-model="checked" is-list :options="options" />
@@ -525,7 +525,7 @@ export default {
 | is-list `new` | 是否以 Cell 列表形式展示选项 | _boolean_ | `false` |
 | show-search `new` | 是否在列表顶部展示搜索框，需配合 `is-list` 使用 | _boolean_ | `false` |
 | search-placeholder `new` | 搜索框占位提示文字 | _string_ | `请输入筛选关键词` |
-| options `new` | 通过配置渲染选项，项为 `{ label, value, disabled?, icon?, cellProps? }`，`icon` 为图标名称，`cellProps` 为 [Cell 组件](#/zh-CN/cell) 的属性 | _CheckboxGroupOption[]_ | `[]` |
+| options `new` | 通过配置渲染选项，项为 `{ label, value, disabled?, icon?, cellProps? }`，`icon` 为图标名称，`cellProps` 为 [Cell 组件](#/zh-CN/cell) 的属性；同时设置 `icon` 与 `cellProps.icon` 时，优先使用 `cellProps.icon` | _CheckboxGroupOption[]_ | `[]` |
 | icon-size | 所有复选框的图标大小，默认单位为 `px` | _number \| string_ | `16px` |
 | checked-color | 所有复选框的选中状态颜色 | _string_ | `#1989fa` |
 | shape `v4.6.3` | 形状，可选值为 `square` `block` | _string_ | `round` |

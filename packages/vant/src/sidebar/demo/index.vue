@@ -13,11 +13,19 @@ const t = useTranslate({
     disabled: '禁用选项',
     showBadge: '徽标提示',
     changeEvent: '监听切换事件',
+    limitLabel: '极限标签',
+    limitShort: '短标签',
+    limitLong: '超长标签名称展示',
+    limitDot: '圆点极限标签展示',
   },
   'en-US': {
     disabled: 'Disabled',
     showBadge: 'Show Badge',
     changeEvent: 'Change Event',
+    limitLabel: 'Limit Label',
+    limitShort: 'Short',
+    limitLong: 'VeryLongLabelName',
+    limitDot: 'DotLongLabelName',
   },
 });
 
@@ -25,6 +33,7 @@ const active1 = ref(0);
 const active2 = ref(0);
 const active3 = ref(0);
 const active4 = ref(0);
+const active5 = ref(0);
 
 const onChange = (index: number) => showToast(`${t('title')} ${index + 1}`);
 </script>
@@ -64,6 +73,15 @@ const onChange = (index: number) => showToast(`${t('title')} ${index + 1}`);
         <van-sidebar-item :title="`${t('title')} 1`" />
         <van-sidebar-item :title="`${t('title')} 2`" />
         <van-sidebar-item :title="`${t('title')} 3`" />
+      </van-sidebar>
+    </van-grid-item>
+
+    <van-grid-item>
+      <h3 class="demo-sidebar-title">{{ t('limitLabel') }}</h3>
+      <van-sidebar v-model="active5">
+        <van-sidebar-item :title="t('limitShort')" badge="1" />
+        <van-sidebar-item :title="t('limitLong')" badge="100" />
+        <van-sidebar-item :title="t('limitDot')" dot />
       </van-sidebar>
     </van-grid-item>
   </van-grid>

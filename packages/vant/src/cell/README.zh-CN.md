@@ -176,6 +176,11 @@ app.use(CellGroup);
   value="内容"
   label="描述信息"
 />
+<van-cell
+  :title="['主标题', '副标题']"
+  value="内容"
+  title-text-class="custom-title-text"
+/>
 ```
 
 ## API
@@ -213,6 +218,7 @@ app.use(CellGroup);
 | arrow-direction | 箭头方向，可选值为 `left` `up` `down` | _string_ | `right` |
 | title-style | 左侧标题额外样式 | _string \| Array \| object_ | - |
 | title-class | 左侧标题额外类名 | _string \| Array \| object_ | - |
+| title-text-class `new` | 多行标题文本额外类名 | _string \| Array \| object_ | - |
 | value-class | 右侧内容额外类名 | _string \| Array \| object_ | - |
 | label-class | 描述信息额外类名 | _string \| Array \| object_ | - |
 

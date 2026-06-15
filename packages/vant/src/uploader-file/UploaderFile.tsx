@@ -55,7 +55,11 @@ import type {
   UploaderExpose,
   UploaderFileListItem,
 } from '../uploader/types';
-import type { UploaderFileUpload, UploaderFileUploadResult } from './types';
+import type {
+  UploaderFileMenuAction,
+  UploaderFileUpload,
+  UploaderFileUploadResult,
+} from './types';
 
 // 生成组件名与 BEM 前缀：van-uploader-file
 const [name] = createNamespace('uploader-file');
@@ -78,6 +82,12 @@ const uploaderFileOwnProps = {
   >,
   /** 重命名输入框最大长度，有值时显示字数统计 */
   renameMaxlength: numericProp,
+  /** 上传成功后操作菜单展示的项 */
+  actions: {
+    type: Array as PropType<UploaderFileMenuAction[]>,
+    default: () =>
+      ['preview', 'rename', 'download', 'delete'] as UploaderFileMenuAction[],
+  },
 };
 
 /** 合并 Uploader 与自有 props，并覆盖部分默认值以适配附件场景 */
@@ -96,28 +106,39 @@ export const uploaderFileProps = extend({}, uploaderProps, uploaderFileOwnProps,
 
 export type UploaderFileProps = ExtractPropTypes<typeof uploaderFileProps>;
 
-/** 透传给底层 Uploader 的 props，文件列表 UI 由本组件自行渲染 */
-const UPLOADER_INHERIT_PROPS = [
-  'name',
-  'accept',
-  'capture',
-  'multiple',
-  'disabled',
-  'readonly',
-  'maxSize',
-  'resultType',
-  'beforeRead',
-  'beforeDelete',
-  'deletable',
+/** UploaderFile 自有、不属于 Uploader 的 props */
+const UPLOADER_FILE_OWN_PROPS = [
+  'upload',
+  'preview',
+  'download',
+  'rename',
+  'renameMaxlength',
+  'actions',
 ] as const;
 
-/** 更多操作菜单的固定项顺序 */
-const ACTION_SHEET_ACTIONS = [
-  UPLOADER_FILE_ACTION_TEXTS.preview,
-  UPLOADER_FILE_ACTION_TEXTS.rename,
-  UPLOADER_FILE_ACTION_TEXTS.download,
-  UPLOADER_FILE_ACTION_TEXTS.delete,
+/** 由 UploaderFile 接管后再传给 Uploader 的 props */
+const UPLOADER_MANAGED_PROPS = [
+  ...UPLOADER_FILE_OWN_PROPS,
+  'modelValue',
+  'previewImage',
+  'beforeRead',
+  // maxCount 由 UploaderFile 拦截并提示，不透传以免 Uploader 隐藏上传按钮
+  'maxCount',
 ] as const;
+
+/** 透传给底层 Uploader 的 props */
+const UPLOADER_INHERIT_PROPS = Object.keys(uploaderProps).filter(
+  (key): key is keyof typeof uploaderProps =>
+    !(UPLOADER_MANAGED_PROPS as readonly string[]).includes(key),
+);
+
+/** 操作菜单项 key 与展示文案的映射 */
+const ACTION_KEY_TO_TEXT: Record<UploaderFileMenuAction, string> = {
+  preview: UPLOADER_FILE_ACTION_TEXTS.preview,
+  rename: UPLOADER_FILE_ACTION_TEXTS.rename,
+  download: UPLOADER_FILE_ACTION_TEXTS.download,
+  delete: UPLOADER_FILE_ACTION_TEXTS.delete,
+};
 
 /** 仅对未开始或失败项触发自动上传，避免重复请求 */
 function shouldAutoUpload(item: UploaderFileListItem) {
@@ -163,7 +184,31 @@ export default defineComponent({
     watch(
       () => props.modelValue,
       (value) => {
-        innerList.value = value;
+        if (value === innerList.value) {
+          return;
+        }
+
+        const hasLocalUploading = innerList.value.some(
+          (item) => item.status === 'uploading',
+        );
+
+        if (!hasLocalUploading) {
+          innerList.value = value;
+          return;
+        }
+
+        // 外部 modelValue 滞后时，保留本地上传中的项，避免 uploading 样式被覆盖
+        innerList.value = value.map((item, index) => {
+          const local = innerList.value[index];
+          if (
+            local?.status === 'uploading' &&
+            item.status !== 'done' &&
+            local.file === item.file
+          ) {
+            return local;
+          }
+          return item;
+        });
       },
     );
 
@@ -224,12 +269,10 @@ export default defineComponent({
 
     /** ActionSheet 选项，删除项使用危险色 */
     const actionSheetActions = computed<ActionSheetAction[]>(() =>
-      ACTION_SHEET_ACTIONS.map((name) => ({
-        name,
+      props.actions.map((action) => ({
+        name: ACTION_KEY_TO_TEXT[action],
         color:
-          name === UPLOADER_FILE_ACTION_TEXTS.delete
-            ? 'var(--van-danger-color)'
-            : undefined,
+          action === 'delete' ? 'var(--van-danger-color)' : undefined,
       })),
     );
 
@@ -520,6 +563,8 @@ export default defineComponent({
               index={index}
               name={props.name}
               deletable={props.deletable}
+              reuploadable={!!props.upload}
+              showMenu={props.actions.length > 0}
               beforeDelete={props.beforeDelete}
               onDelete={() => deleteFile(item, index)}
               onReupload={() => startUpload(index)}
@@ -607,7 +652,6 @@ export default defineComponent({
             isMaxCountReached.value && bem('uploader', 'max-count'),
           ]}
           {...uploaderBindProps.value}
-          multiple={props.multiple}
           modelValue={innerList.value}
           previewImage={false}
           onClickUpload={onClickUpload}

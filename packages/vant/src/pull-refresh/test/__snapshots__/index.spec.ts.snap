@@ -1,4 +1,4 @@
-// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+// Rstest Snapshot v1
 
 exports[`should allow to custom pull distance 1`] = `
 <div class="van-pull-refresh">
@@ -7,8 +7,15 @@ exports[`should allow to custom pull distance 1`] = `
     style="transition-duration: 0ms; transform: translate3d(0,100px, 0);"
   >
     <div class="van-pull-refresh__head">
-      <div class="van-pull-refresh__text">
-        Pull to refresh...
+      <div class="van-pull-refresh__status">
+        <i
+          class="van-badge__wrapper van-icon van-icon-down van-pull-refresh__status-icon van-pull-refresh__status-icon--pulling"
+          style="transform: scale(0.33);"
+        >
+        </i>
+        <span class="van-pull-refresh__text">
+          下拉刷新
+        </span>
       </div>
     </div>
   </div>
@@ -22,8 +29,15 @@ exports[`should render different head content in different pulling status 1`] = 
     style="transition-duration: 0ms; transform: translate3d(0,20px, 0);"
   >
     <div class="van-pull-refresh__head">
-      <div class="van-pull-refresh__text">
-        Pull to refresh...
+      <div class="van-pull-refresh__status">
+        <i
+          class="van-badge__wrapper van-icon van-icon-down van-pull-refresh__status-icon van-pull-refresh__status-icon--pulling"
+          style="transform: scale(0.23);"
+        >
+        </i>
+        <span class="van-pull-refresh__text">
+          下拉刷新
+        </span>
       </div>
     </div>
   </div>
@@ -34,11 +48,18 @@ exports[`should render different head content in different pulling status 2`] = 
 <div class="van-pull-refresh">
   <div
     class="van-pull-refresh__track"
-    style="transition-duration: 0ms; transform: translate3d(0,75px, 0);"
+    style="transition-duration: 0ms; transform: translate3d(0,94px, 0);"
   >
     <div class="van-pull-refresh__head">
-      <div class="van-pull-refresh__text">
-        Loose to refresh...
+      <div class="van-pull-refresh__status">
+        <i
+          class="van-badge__wrapper van-icon van-icon-down van-pull-refresh__status-icon van-pull-refresh__status-icon--loosing van-pull-refresh__status-icon--reverse"
+          style
+        >
+        </i>
+        <span class="van-pull-refresh__text">
+          松开刷新
+        </span>
       </div>
     </div>
   </div>
@@ -49,30 +70,17 @@ exports[`should render different head content in different pulling status 3`] = 
 <div class="van-pull-refresh">
   <div
     class="van-pull-refresh__track"
-    style="transition-duration: 300ms; transform: translate3d(0,50px, 0);"
+    style="transition-duration: 300ms; transform: translate3d(0,88px, 0);"
   >
     <div class="van-pull-refresh__head">
-      <div
-        class="van-loading van-loading--circular van-pull-refresh__loading"
-        aria-live="polite"
-        aria-busy="true"
-      >
-        <span class="van-loading__spinner van-loading__spinner--circular">
-          <svg
-            class="van-loading__circular"
-            viewbox="25 25 50 50"
-          >
-            <circle
-              cx="50"
-              cy="50"
-              r="20"
-              fill="none"
-            >
-            </circle>
-          </svg>
-        </span>
-        <span class="van-loading__text">
-          Loading...
+      <div class="van-pull-refresh__status">
+        <i
+          class="van-badge__wrapper van-icon van-icon-replay van-pull-refresh__status-icon van-pull-refresh__status-icon--loading van-pull-refresh__status-icon--spin"
+          style
+        >
+        </i>
+        <span class="van-pull-refresh__text">
+          刷新中
         </span>
       </div>
     </div>
@@ -84,30 +92,17 @@ exports[`should render different head content in different pulling status 4`] = 
 <div class="van-pull-refresh">
   <div
     class="van-pull-refresh__track"
-    style="transition-duration: 300ms; transform: translate3d(0,50px, 0);"
+    style="transition-duration: 300ms; transform: translate3d(0,88px, 0);"
   >
     <div class="van-pull-refresh__head">
-      <div
-        class="van-loading van-loading--circular van-pull-refresh__loading"
-        aria-live="polite"
-        aria-busy="true"
-      >
-        <span class="van-loading__spinner van-loading__spinner--circular">
-          <svg
-            class="van-loading__circular"
-            viewbox="25 25 50 50"
-          >
-            <circle
-              cx="50"
-              cy="50"
-              r="20"
-              fill="none"
-            >
-            </circle>
-          </svg>
-        </span>
-        <span class="van-loading__text">
-          Loading...
+      <div class="van-pull-refresh__status">
+        <i
+          class="van-badge__wrapper van-icon van-icon-replay van-pull-refresh__status-icon van-pull-refresh__status-icon--loading van-pull-refresh__status-icon--spin"
+          style
+        >
+        </i>
+        <span class="van-pull-refresh__text">
+          刷新中
         </span>
       </div>
     </div>
@@ -144,10 +139,10 @@ exports[`should render status slots correctly 2`] = `
 <div class="van-pull-refresh">
   <div
     class="van-pull-refresh__track"
-    style="transition-duration: 0ms; transform: translate3d(0,75px, 0);"
+    style="transition-duration: 0ms; transform: translate3d(0,94px, 0);"
   >
     <div class="van-pull-refresh__head">
-      loosing 75
+      loosing 94
     </div>
   </div>
 </div>
@@ -157,10 +152,10 @@ exports[`should render status slots correctly 3`] = `
 <div class="van-pull-refresh">
   <div
     class="van-pull-refresh__track"
-    style="transition-duration: 300ms; transform: translate3d(0,50px, 0);"
+    style="transition-duration: 300ms; transform: translate3d(0,88px, 0);"
   >
     <div class="van-pull-refresh__head">
-      loading 50
+      loading 88
     </div>
   </div>
 </div>
@@ -170,7 +165,7 @@ exports[`should render success slot correctly 1`] = `
 <div class="van-pull-refresh">
   <div
     class="van-pull-refresh__track"
-    style="transition-duration: 300ms; transform: translate3d(0,50px, 0);"
+    style="transition-duration: 300ms; transform: translate3d(0,88px, 0);"
   >
     <div class="van-pull-refresh__head">
       Custom Success
@@ -183,11 +178,18 @@ exports[`should render success text correctly 1`] = `
 <div class="van-pull-refresh">
   <div
     class="van-pull-refresh__track"
-    style="transition-duration: 300ms; transform: translate3d(0,50px, 0);"
+    style="transition-duration: 300ms; transform: translate3d(0,88px, 0);"
   >
     <div class="van-pull-refresh__head">
-      <div class="van-pull-refresh__text">
-        success
+      <div class="van-pull-refresh__success">
+        <i
+          class="van-badge__wrapper van-icon van-icon-passed van-pull-refresh__success-icon"
+          style="font-size: 16px;"
+        >
+        </i>
+        <span class="van-pull-refresh__success-text">
+          success
+        </span>
       </div>
     </div>
   </div>

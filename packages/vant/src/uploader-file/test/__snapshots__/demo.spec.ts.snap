@@ -238,6 +238,32 @@ exports[`should render demo and match snapshot 1`] = `
                 <div class="van-uploader-file__file-icon">
                   <img
                     class="van-uploader-file__file-icon-img"
+                    src="/src/uploader-file/assets/picture-wrong.svg"
+                    alt
+                  >
+                </div>
+                <div class="van-uploader-file__file-info">
+                  <div class="van-uploader-file__file-name">
+                    Product Cover.jpg
+                  </div>
+                  <div class="van-uploader-file__file-status van-uploader-file__file-status--done">
+                    <span>
+                    </span>
+                  </div>
+                </div>
+                <div class="van-uploader-file__actions">
+                  <i
+                    class="van-badge__wrapper van-icon van-icon-ellipsis van-uploader-file__menu"
+                    role="button"
+                    tabindex="0"
+                  >
+                  </i>
+                </div>
+              </div>
+              <div class="van-uploader-file__item van-hairline--bottom">
+                <div class="van-uploader-file__file-icon">
+                  <img
+                    class="van-uploader-file__file-icon-img"
                     src="/src/uploader-file/assets/unknown.svg"
                     alt
                   >
@@ -781,6 +807,113 @@ exports[`should render demo and match snapshot 1`] = `
                     accept="*"
                     multiple
                   >
+                </div>
+              </div>
+            </div>
+            <transition-stub
+              name="van-fade"
+              appear="true"
+              persisted="false"
+              css="true"
+            >
+            </transition-stub>
+            <transition-stub
+              name="van-popup-slide-bottom"
+              appear="false"
+              persisted="false"
+              css="true"
+            >
+            </transition-stub>
+            <transition-stub
+              name="van-fade"
+              appear="true"
+              persisted="false"
+              css="true"
+            >
+            </transition-stub>
+            <transition-stub
+              name="van-dialog-bounce"
+              appear="false"
+              persisted="false"
+              css="true"
+            >
+            </transition-stub>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div>
+  <div class="van-cell van-field van-field--label-top">
+    <div class="van-cell__title van-field__label van-field__label--top">
+      <div class="van-field__label-top-row">
+        <label
+          id="van-field-label"
+          data-allow-mismatch="attribute"
+        >
+          Action Menu
+        </label>
+      </div>
+      <div class="van-field__label-comment">
+        <div class="demo-uploader-file__label-comment">
+          Only preview and download
+        </div>
+      </div>
+    </div>
+    <div class="van-cell__value van-field__value">
+      <div class="van-field__body">
+        <div class="van-field__control van-field__control--custom">
+          <div class="van-uploader-file">
+            <div class="van-uploader van-uploader-file__uploader">
+              <div class="van-uploader__wrapper">
+                <div class="van-uploader__input-wrapper">
+                  <button
+                    type="button"
+                    class="van-button van-button--default van-button--normal van-uploader-file__upload"
+                  >
+                    <div class="van-button__content">
+                      <div class="van-button__icon">
+                        <img
+                          class="van-uploader-file__upload-icon"
+                          src="/src/uploader-file/assets/upload.svg"
+                          alt
+                        >
+                      </div>
+                      <span class="van-button__text">
+                        添加附件
+                      </span>
+                    </div>
+                  </button>
+                </div>
+              </div>
+            </div>
+            <div class="van-uploader-file__list">
+              <div class="van-uploader-file__item van-hairline--bottom">
+                <div class="van-uploader-file__file-icon">
+                  <img
+                    class="van-uploader-file__file-icon-img"
+                    src="/src/uploader-file/assets/word.svg"
+                    alt
+                  >
+                </div>
+                <div class="van-uploader-file__file-info">
+                  <div class="van-uploader-file__file-name">
+                    Meeting Minutes 2023.doc
+                  </div>
+                  <div class="van-uploader-file__file-status van-uploader-file__file-status--done">
+                    <span>
+                      1.5MB
+                    </span>
+                  </div>
+                </div>
+                <div class="van-uploader-file__actions">
+                  <i
+                    class="van-badge__wrapper van-icon van-icon-ellipsis van-uploader-file__menu"
+                    role="button"
+                    tabindex="0"
+                  >
+                  </i>
                 </div>
               </div>
             </div>

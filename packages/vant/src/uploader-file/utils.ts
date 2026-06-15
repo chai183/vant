@@ -137,17 +137,17 @@ const EXTENSION_ICON_MAP: Record<string, FileTypeIcon> = {
   flv: 'mp4',
   m4v: 'mp4',
   '3gp': 'mp4',
-  jpg: 'picture',
-  jpeg: 'picture',
-  png: 'picture',
-  gif: 'picture',
-  bmp: 'picture',
-  webp: 'picture',
-  svg: 'picture',
-  jfif: 'picture',
-  avif: 'picture',
-  dpg: 'picture',
-  heic: 'picture',
+  jpg: 'picture-wrong',
+  jpeg: 'picture-wrong',
+  png: 'picture-wrong',
+  gif: 'picture-wrong',
+  bmp: 'picture-wrong',
+  webp: 'picture-wrong',
+  svg: 'picture-wrong',
+  jfif: 'picture-wrong',
+  avif: 'picture-wrong',
+  dpg: 'picture-wrong',
+  heic: 'picture-wrong',
   txt: 'txt',
   md: 'txt',
   log: 'txt',
@@ -161,14 +161,9 @@ const EXTENSION_ICON_MAP: Record<string, FileTypeIcon> = {
   xz: 'zip',
 };
 
-function isPictureFile(item: UploaderFileListItem): boolean {
-  const ext = getFileExtension(getFileName(item));
-  return isImageFile(item) || EXTENSION_ICON_MAP[ext] === 'picture';
-}
-
 /** 根据扩展名返回列表项左侧 SVG 图标地址，未匹配到已知类型时使用 unknown */
 export function getFileTypeIcon(item: UploaderFileListItem): string {
-  if (item.status === 'failed' && isPictureFile(item)) {
+  if (isImageFile(item)) {
     return FILE_TYPE_ICONS['picture-wrong'];
   }
 

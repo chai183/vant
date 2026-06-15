@@ -1,0 +1,72 @@
+// Rstest Snapshot v1
+
+exports[`should render configured badge only when page has selected item 1`] = `
+"<div class="van-cascade-tree-select" style="height: 300px;">
+  <div class="van-cascade-tree-select__nav">
+    <div role="tablist" class="van-cascade-tree-select__column van-cascade-tree-select__column--double van-cascade-tree-select__column--multiple van-cascade-tree-select__column--outer">
+      <!---->
+      <div role="tab" class="van-cascade-tree-select__item van-cascade-tree-select__item--active van-cascade-tree-select__item--indicator van-cascade-tree-select__item--multiple" tabindex="0" aria-selected="true"><span class="van-cascade-tree-select__label"><span class="van-ellipsis van-cascade-tree-select__text">Food</span>
+        <!----></span>
+        <!---->
+      </div>
+      <!---->
+    </div>
+    <div role="tablist" class="van-cascade-tree-select__column van-cascade-tree-select__column--double van-cascade-tree-select__column--multiple van-cascade-tree-select__column--inner">
+      <!---->
+      <div role="tab" class="van-cascade-tree-select__item van-cascade-tree-select__item--multiple van-cascade-tree-select__item--with-badge" tabindex="0" aria-selected="false"><span class="van-cascade-tree-select__label"><span class="van-ellipsis van-cascade-tree-select__text">Apple</span>
+        <!----></span>
+        <div class="van-badge van-badge--top-right van-cascade-tree-select__badge">4</div>
+      </div>
+      <div role="tab" class="van-cascade-tree-select__item van-cascade-tree-select__item--multiple" tabindex="0" aria-selected="false"><span class="van-cascade-tree-select__label"><span class="van-ellipsis van-cascade-tree-select__text">Banana</span>
+        <!----></span>
+        <!---->
+      </div>
+      <!---->
+    </div>
+  </div>
+  <!---->
+</div>"
+`;
+
+exports[`should render content and option slots correctly 1`] = `
+"<div class="van-cascade-tree-select" style="height: 300px;">
+  <div class="van-cascade-tree-select__nav">
+    <div role="tablist" class="van-cascade-tree-select__column van-cascade-tree-select__column--double van-cascade-tree-select__column--outer">
+      <!---->
+      <div role="tab" class="van-cascade-tree-select__item van-cascade-tree-select__item--active van-cascade-tree-select__item--indicator" tabindex="0" aria-selected="true"><span class="van-cascade-tree-select__label"><span class="van-ellipsis van-cascade-tree-select__text">Custom Food</span>
+        <!----></span>
+        <!---->
+      </div>
+      <div role="tab" class="van-cascade-tree-select__item" tabindex="0" aria-selected="false"><span class="van-cascade-tree-select__label"><span class="van-ellipsis van-cascade-tree-select__text">Custom Digital</span>
+        <!----></span>
+        <!---->
+      </div>
+      <!---->
+    </div>
+    <div role="tablist" class="van-cascade-tree-select__column van-cascade-tree-select__column--double van-cascade-tree-select__column--inner">
+      <!---->
+      <div role="tab" class="van-cascade-tree-select__item van-cascade-tree-select__item--selected" tabindex="0" aria-selected="true"><span class="van-cascade-tree-select__label"><span class="van-ellipsis van-cascade-tree-select__text">Custom Apple</span>
+        <!----></span>
+        <!---->
+      </div>
+      <div role="tab" class="van-cascade-tree-select__item" tabindex="0" aria-selected="false"><span class="van-cascade-tree-select__label"><span class="van-ellipsis van-cascade-tree-select__text">Custom Banana</span>
+        <!----></span>
+        <!---->
+      </div>
+      <div role="tab" class="van-cascade-tree-select__item van-cascade-tree-select__item--disabled" aria-selected="false" aria-disabled="true"><span class="van-cascade-tree-select__label"><span class="van-ellipsis van-cascade-tree-select__text">Custom Tea</span>
+        <!----></span>
+        <!---->
+      </div>
+      <!---->
+    </div>
+  </div>
+  <div class="van-cascade-tree-select__content">Current Food</div>
+</div>"
+`;
+
+exports[`should render empty CascadeTreeSelect correctly 1`] = `
+"<div class="van-cascade-tree-select" style="height: 300px;">
+  <div class="van-cascade-tree-select__nav"></div>
+  <!---->
+</div>"
+`;

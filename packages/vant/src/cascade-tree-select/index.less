@@ -1,0 +1,227 @@
+:root,
+:host {
+  --van-cascade-tree-select-font-size: 14px;
+  --van-cascade-tree-select-text-color: #333;
+  --van-cascade-tree-select-active-color: var(--van-primary-orange);
+  --van-cascade-tree-select-disabled-color: #ddd;
+  --van-cascade-tree-select-active-background: #fff;
+  --van-cascade-tree-select-item-background: #f5f5f5;
+  --van-cascade-tree-select-selected-background: #fff;
+  --van-cascade-tree-select-outer-active-background: #fafafa;
+  --van-cascade-tree-select-nav-background: #f5f5f5;
+  --van-cascade-tree-select-column-background: #f5f5f5;
+  --van-cascade-tree-select-content-background: #fff;
+  --van-cascade-tree-select-single-column-width: 136px;
+  --van-cascade-tree-select-double-column-width: 108px;
+  --van-cascade-tree-select-multiple-single-column-width: 148px;
+  --van-cascade-tree-select-multiple-double-outer-column-width: 108px;
+  --van-cascade-tree-select-multiple-double-inner-column-width: 118px;
+  --van-cascade-tree-select-item-height: 48px;
+  --van-cascade-tree-select-item-padding-left: 8px;
+  --van-cascade-tree-select-item-padding-right: 8px;
+  --van-cascade-tree-select-item-padding: 0
+    var(--van-cascade-tree-select-item-padding-right) 0
+    var(--van-cascade-tree-select-item-padding-left);
+  --van-cascade-tree-select-selected-border-width: 2px;
+  --van-cascade-tree-select-selected-border-height: 48px;
+  --van-cascade-tree-select-selected-border-color: var(
+    --van-cascade-tree-select-active-color
+  );
+  --van-cascade-tree-select-dot-size: 6px;
+  --van-cascade-tree-select-dot-color: var(--van-primary-orange);
+  --van-cascade-tree-select-badge-gap: 4px;
+  --van-cascade-tree-select-badge-color: #666;
+  --van-cascade-tree-select-badge-background: #ddd;
+  --van-cascade-tree-select-badge-font-size: 10px;
+  --van-cascade-tree-select-badge-height: 14px;
+  --van-cascade-tree-select-badge-padding: 0 4px;
+}
+
+.van-cascade-tree-select {
+  position: relative;
+  display: flex;
+  color: var(--van-cascade-tree-select-text-color);
+  font-size: var(--van-cascade-tree-select-font-size);
+
+  // /-----整体布局 start-----/
+  &__nav {
+    display: flex;
+    flex: none;
+    height: 100%;
+    overflow-x: auto;
+    background: var(--van-cascade-tree-select-nav-background);
+    -webkit-overflow-scrolling: touch;
+  }
+
+  &__column {
+    box-sizing: border-box;
+    flex: none;
+    height: 100%;
+    overflow-y: auto;
+    background: var(--van-cascade-tree-select-column-background);
+    -webkit-overflow-scrolling: touch;
+
+    &--single {
+      max-width: var(--van-cascade-tree-select-single-column-width);
+    }
+
+    &--double {
+      max-width: var(--van-cascade-tree-select-double-column-width);
+    }
+
+    &--multiple&--single&--with-badge {
+      max-width: var(--van-cascade-tree-select-multiple-single-column-width);
+    }
+
+    &--multiple&--double&--outer {
+      max-width: var(
+        --van-cascade-tree-select-multiple-double-outer-column-width
+      );
+    }
+
+    &--multiple&--double&--inner {
+      max-width: var(
+        --van-cascade-tree-select-multiple-double-inner-column-width
+      );
+    }
+
+    // 单列：未选中项灰底，选中/展开项白底。
+    &--single {
+      .van-cascade-tree-select__item {
+        background-color: var(--van-cascade-tree-select-item-background);
+
+        &--active,
+        &--selected {
+          background-color: var(--van-cascade-tree-select-selected-background);
+        }
+      }
+    }
+
+    // 双列外层：整列保持灰底，仅当前展开项使用浅灰高亮。
+    &--double&--outer {
+      .van-cascade-tree-select__item {
+        background-color: var(--van-cascade-tree-select-item-background);
+
+        &--active,
+        &--indicator {
+          background-color: var(
+            --van-cascade-tree-select-outer-active-background
+          );
+        }
+      }
+    }
+
+    // 双列内层：整列保持灰底，仅选中项白底。
+    &--double&--inner {
+      .van-cascade-tree-select__item {
+        background-color: var(--van-cascade-tree-select-item-background);
+
+        &--selected {
+          background-color: var(--van-cascade-tree-select-selected-background);
+        }
+      }
+    }
+  }
+
+  &__content {
+    flex: 1;
+    min-width: 0;
+    height: 100%;
+    overflow-y: auto;
+    background: var(--van-cascade-tree-select-content-background);
+    -webkit-overflow-scrolling: touch;
+  }
+  // /-----整体布局 end-----/
+
+  // /-----选项样式 start-----/
+  &__item {
+    position: relative;
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    min-height: var(--van-cascade-tree-select-item-height);
+    padding: var(--van-cascade-tree-select-item-padding);
+    line-height: var(--van-line-height-md);
+    user-select: none;
+    cursor: pointer;
+
+    &:active {
+      background-color: var(--van-active-color);
+    }
+
+    &--active,
+    &--selected {
+      color: var(--van-cascade-tree-select-active-color);
+    }
+
+    &--indicator {
+      &,
+      &:active {
+        background-color: var(--van-cascade-tree-select-active-background);
+      }
+
+      &::before {
+        position: absolute;
+        top: 50%;
+        left: 0;
+        width: var(--van-cascade-tree-select-selected-border-width);
+        height: var(--van-cascade-tree-select-selected-border-height);
+        background-color: var(--van-cascade-tree-select-selected-border-color);
+        transform: translateY(-50%);
+        content: '';
+      }
+    }
+
+    &--disabled {
+      color: var(--van-cascade-tree-select-disabled-color);
+      cursor: not-allowed;
+
+      &:active {
+        background-color: transparent;
+      }
+    }
+  }
+
+  &__label {
+    position: relative;
+    display: inline-flex;
+    flex: 0 1 auto;
+    align-items: flex-start;
+    min-width: 0;
+    max-width: 100%;
+  }
+
+  &__text {
+    min-width: 0;
+    max-width: 100%;
+  }
+  // /-----选项样式 end-----/
+
+  // /-----徽标样式 start-----/
+  &__dot {
+    flex: none;
+    width: var(--van-cascade-tree-select-dot-size);
+    height: var(--van-cascade-tree-select-dot-size);
+    background: var(--van-cascade-tree-select-dot-color);
+    border-radius: 50%;
+    position: absolute;
+    right: -8px;
+    top: -2px;
+  }
+
+  &__badge {
+    flex: none;
+    margin-left: var(--van-cascade-tree-select-badge-gap);
+    min-width: var(--van-cascade-tree-select-badge-height);
+    height: var(--van-cascade-tree-select-badge-height);
+    padding: var(--van-cascade-tree-select-badge-padding);
+    color: var(--van-cascade-tree-select-badge-color);
+    font-weight: normal;
+    font-size: var(--van-cascade-tree-select-badge-font-size);
+    line-height: var(--van-cascade-tree-select-badge-height);
+    background: var(--van-cascade-tree-select-badge-background);
+    border: none;
+    transform: none;
+  }
+  // /-----徽标样式 end-----/
+}

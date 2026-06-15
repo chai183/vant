@@ -13,6 +13,13 @@ export type UploaderFileUpload = (
   item: UploaderFileListItem,
 ) => Promise<UploaderFileUploadResult | void>;
 
+/** 上传成功后操作菜单项，可选值为 `preview` `rename` `download` `delete` */
+export type UploaderFileMenuAction =
+  | 'preview'
+  | 'rename'
+  | 'download'
+  | 'delete';
+
 export type UploaderFileThemeVars = {
   uploaderFileDescColor?: string;
   uploaderFileDescFontSize?: string;

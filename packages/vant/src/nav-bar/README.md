@@ -99,6 +99,43 @@ Use the `left-disabled` or `right-disabled` props to disable the buttons on eith
 />
 ```
 
+### Multiple Buttons and Dropdown Menu
+
+Use `left-buttons` and `right-buttons` to place multiple buttons on both sides of the nav bar. Up to two buttons are displayed. When the left button icon is not set, the first button uses the back icon by default, and the second button uses the close icon by default. Right buttons can configure a dropdown menu via `menu`.
+
+```html
+<van-nav-bar
+  title="Title"
+  :left-buttons="leftButtons"
+  :right-buttons="rightButtons"
+  @click-left-button="onClickLeftButton"
+  @click-right-button="onClickRightButton"
+  @select-right-menu="onSelectRightMenu"
+/>
+```
+
+```js
+const leftButtons = [{}, {}];
+
+const rightButtons = [
+  {
+    icon: 'ellipsis',
+    menu: [
+      { icon: 'search', text: 'Search' },
+      { icon: 'cross', text: 'Close' },
+    ],
+  },
+];
+```
+
+### Search
+
+When no title is set, you can use the `search` prop to render the title area as a search box. The search box reuses the `Search` component and emits `search` when the left search icon is clicked.
+
+```html
+<van-nav-bar search search-placeholder="Search" @search="onSearch" />
+```
+
 ## API
 
 ### Props
@@ -106,8 +143,11 @@ Use the `left-disabled` or `right-disabled` props to disable the buttons on eith
 | Attribute | Description | Type | Default |
 | --- | --- | --- | --- |
 | title | Title | _string_ | `''` |
+| background | Background color of nav bar | _string_ | - |
 | left-text | Left Text | _string_ | `''` |
-| right-text | Right Text | _string_ | `''` |
+| right-text | Right Text, up to four characters are displayed | _string_ | `''` |
+| left-buttons | Left button options, up to two buttons are displayed | _NavBarButton[]_ | `[]` |
+| right-buttons | Right button options, up to two buttons are displayed | _NavBarButton[]_ | `[]` |
 | left-disabled `v4.6.8` | Whether to disable the left button, decrease opacity and make it unclickable | _boolean_ | `false` |
 | right-disabled `v4.6.8` | Whether to disable the right button, decrease opacity and make it unclickable | _boolean_ | `false` |
 | left-arrow | Whether to show left arrow | _boolean_ | `false` |
@@ -117,29 +157,72 @@ Use the `left-disabled` or `right-disabled` props to disable the buttons on eith
 | z-index | Z-index | _number \| string_ | `1` |
 | safe-area-inset-top | Whether to enable top safe area adaptation | _boolean_ | `false` |
 | clickable | Whether to show click feedback when the left or right content is clicked | _boolean_ | `true` |
+| search | Whether to render the title area as a search box when no title is set | _boolean_ | `false` |
+| search-value | Search value | _string_ | `''` |
+| search-placeholder | Search placeholder | _string_ | `''` |
+| search-props | Native Search component props | _Partial\<SearchProps\>_ | - |
 
 ### Slots
 
-| Name  | Description               |
-| ----- | ------------------------- |
-| title | Custom title              |
-| left  | Custom left side content  |
-| right | Custom right side content |
+| Name               | Description                       |
+| ------------------ | --------------------------------- |
+| title              | Custom title                      |
+| left               | Custom left side content          |
+| right              | Custom right side content         |
+| left-action        | Custom first left action button   |
+| left-extra-action  | Custom second left action button  |
+| right-action       | Custom first right action button  |
+| right-extra-action | Custom second right action button |
+| search             | Custom search content             |
 
 ### Events
 
-| Event       | Description                              | Arguments           |
-| ----------- | ---------------------------------------- | ------------------- |
-| click-left  | Emitted when the left button is clicked  | _event: MouseEvent_ |
+| Event | Description | Arguments |
+| --- | --- | --- |
+| click-left | Emitted when the left button is clicked | _event: MouseEvent_ |
 | click-right | Emitted when the right button is clicked | _event: MouseEvent_ |
+| click-left-button | Emitted when a left button is clicked | _button: NavBarButton, index: number, event: MouseEvent_ |
+| click-right-button | Emitted when a right button is clicked | _button: NavBarButton, index: number, event: MouseEvent_ |
+| select-right-menu | Emitted when a right button menu item is selected | _item: NavBarMenuItem, itemIndex: number, button: NavBarButton, buttonIndex: number, event: MouseEvent_ |
+| update:search-value | Emitted when search value changes | _value: string_ |
+| search | Emitted when the left search icon is clicked | _value: string, event: MouseEvent_ |
 
 ### Types
 
 The component exports the following type definitions:
 
 ```ts
-import type { NavBarProps } from 'vant';
+import type {
+  NavBarProps,
+  NavBarButton,
+  NavBarMenuItem,
+  SearchProps,
+} from 'vant';
 ```
+
+### NavBarButton
+
+| Name | Description | Type |
+| --- | --- | --- |
+| icon | Icon name | _string_ |
+| iconPrefix | Icon class prefix | _string_ |
+| size | Icon size, also used as button width and height. Defaults to `28px` | _number \| string_ |
+| text | Button text | _string_ |
+| color | Button color | _string_ |
+| disabled | Whether to disable the button | _boolean_ |
+| className | Custom button class name | _string_ |
+| menu | Right button dropdown menu options | _NavBarMenuItem[]_ |
+
+### NavBarMenuItem
+
+| Name       | Description                      | Type      |
+| ---------- | -------------------------------- | --------- |
+| icon       | Icon name                        | _string_  |
+| iconPrefix | Icon class prefix                | _string_  |
+| text       | Menu item text                   | _string_  |
+| color      | Menu item color                  | _string_  |
+| disabled   | Whether to disable the menu item | _boolean_ |
+| className  | Custom menu item class name      | _string_  |
 
 ## Theming
 
@@ -147,13 +230,32 @@ import type { NavBarProps } from 'vant';
 
 The component provides the following CSS variables, which can be used to customize styles. Please refer to [ConfigProvider component](#/en-US/config-provider).
 
-| Name                           | Default Value              | Description |
-| ------------------------------ | -------------------------- | ----------- |
-| --van-nav-bar-height           | _46px_                     | -           |
-| --van-nav-bar-background       | _var(--van-background-2)_  | -           |
-| --van-nav-bar-arrow-size       | _16px_                     | -           |
-| --van-nav-bar-icon-color       | _var(--van-primary-color)_ | -           |
-| --van-nav-bar-text-color       | _var(--van-primary-color)_ | -           |
-| --van-nav-bar-title-font-size  | _var(--van-font-size-lg)_  | -           |
-| --van-nav-bar-title-text-color | _var(--van-text-color)_    | -           |
-| --van-nav-bar-z-index          | _1_                        | -           |
+| Name                              | Default Value              | Description |
+| --------------------------------- | -------------------------- | ----------- |
+| --van-nav-bar-height              | _44px_                     | -           |
+| --van-nav-bar-background          | _var(--van-background-2)_  | -           |
+| --van-nav-bar-arrow-size          | _16px_                     | -           |
+| --van-nav-bar-icon-color          | _var(--van-primary-color)_ | -           |
+| --van-nav-bar-text-color          | _var(--van-primary-color)_ | -           |
+| --van-nav-bar-title-font-size     | _var(--van-font-size-lg)_  | -           |
+| --van-nav-bar-title-min-font-size | _14px_                     | -           |
+| --van-nav-bar-title-gap           | _6px_                      | -           |
+| --van-nav-bar-title-text-color    | _var(--van-text-color)_    | -           |
+| --van-nav-bar-z-index             | _1_                        | -           |
+| --van-nav-bar-horizontal-padding  | _8px_                      | -           |
+| --van-nav-bar-button-gap          | _12px_                     | -           |
+| --van-nav-bar-button-width        | _28px_                     | -           |
+| --van-nav-bar-button-height       | _28px_                     | -           |
+| --van-nav-bar-button-icon-size    | _28px_                     | -           |
+| --van-nav-bar-menu-z-index        | _2000_                     | -           |
+| --van-nav-bar-menu-width          | _112px_                    | -           |
+| --van-nav-bar-menu-edge-gap       | _8px_                      | -           |
+| --van-nav-bar-menu-arrow-gap      | _2px_                      | -           |
+| --van-nav-bar-menu-arrow-width    | _10px_                     | -           |
+| --van-nav-bar-menu-arrow-height   | _4px_                      | -           |
+| --van-nav-bar-menu-arrow-color    | _#fff_                     | -           |
+| --van-nav-bar-menu-item-height    | _48px_                     | -           |
+| --van-nav-bar-menu-background     | _var(--van-background-2)_  | -           |
+| --van-nav-bar-search-height       | _32px_                     | -           |
+| --van-nav-bar-search-background   | _var(--van-background)_    | -           |
+| --van-nav-bar-search-radius       | _var(--van-radius-md)_     | -           |

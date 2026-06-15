@@ -1,5 +1,7 @@
 :root,
 :host {
+  --van-tabbar-item-font-size: var(--van-font-size-xs);
+  --van-tabbar-item-text-color: var(--van-gray-14);
   --van-tabbar-item-font-size: var(--van-font-size-sm);
   --van-tabbar-item-text-color: var(--van-text-color-4);
   --van-tabbar-item-active-color: var(--van-primary-color);
@@ -7,9 +9,18 @@
   --van-tabbar-item-line-height: 1;
   --van-tabbar-item-icon-size: 22px;
   --van-tabbar-item-icon-margin-bottom: var(--van-padding-base);
+  --van-tabbar-item-padding: 3px;
+  --van-tabbar-item-active-background-min-width: 60px;
+  --van-tabbar-item-active-background-max-width: 72px;
+  --van-tabbar-item-active-background: linear-gradient(
+    180deg,
+    #fff2e9 0%,
+    #ffffff 100%
+  );
 }
 
 .van-tabbar-item {
+  position: relative;
   display: flex;
   flex: 1;
   flex-direction: column;
@@ -19,10 +30,30 @@
   font-size: var(--van-tabbar-item-font-size);
   line-height: var(--van-tabbar-item-line-height);
   cursor: pointer;
+  font-family: var(--van-base-font);
+  &::before {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    width: clamp(
+      var(--van-tabbar-item-active-background-min-width),
+      100%,
+      var(--van-tabbar-item-active-background-max-width)
+    );
+    height: 100%;
+    background: var(--van-tabbar-item-active-background);
+    transform: translateX(-50%);
+    opacity: 0;
+    content: '';
+    pointer-events: none;
+  }
 
   &__icon {
+    position: relative;
+    z-index: 1;
     margin-bottom: var(--van-tabbar-item-icon-margin-bottom);
     font-size: var(--van-tabbar-item-icon-size);
+    padding: var(--van-tabbar-item-padding);
 
     .van-icon {
       display: block;
@@ -30,6 +61,8 @@
 
     .van-badge {
       margin-top: var(--van-padding-base);
+      font-weight: normal;
+      font-family: var(--van-base-font);
     }
 
     img {
@@ -37,9 +70,15 @@
       height: 20px;
     }
   }
-
+  &__text {
+    position: relative;
+    z-index: 1;
+  }
   &--active {
     color: var(--van-tabbar-item-active-color);
     background-color: var(--van-tabbar-item-active-background);
+    &::before {
+      opacity: 1;
+    }
   }
 }

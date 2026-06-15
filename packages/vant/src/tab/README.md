@@ -22,7 +22,7 @@ app.use(CascadeTabs);
 
 ### Basic Usage
 
-The first tab is active by default, you can set `v-model:active` to active specified tab.
+The first tab is active by default, you can set `v-model:active` to active specified tab. The default style is underline (`type="underline"`).
 
 ```html
 <van-tabs v-model:active="active">
@@ -45,10 +45,14 @@ export default {
 
 ### Underline Style
 
-Use `type="underline"` to show an underline below the active tab title (per tab, not the sliding bottom bar). Inactive tabs use `#333333`, the active tab uses the theme color, the underline is 20px wide and 2px high, and the tab bar height is 48px.
+Underline style is the default: inactive tabs use `#333333`, the active tab uses the theme color, each active tab shows a 20px × 2px underline (not the sliding bottom bar), and the tab bar height is 48px.
+
+### Line Style
+
+Use `type="line"` for the sliding bottom bar style.
 
 ```html
-<van-tabs v-model:active="active" type="underline">
+<van-tabs v-model:active="active" type="line">
   <van-tab v-for="index in 4" :title="'Tab ' + index">
     content of tab {{ index }}
   </van-tab>
@@ -409,7 +413,7 @@ By setting the `showHeader` prop to `false`, the title bar of the Tabs component
 | Attribute | Description | Type | Default |
 | --- | --- | --- | --- |
 | v-model:active | Index of active tab | _number \| string_ | `0` |
-| type | Can be set to `line` `card` `rounded` `underline` `divider` | _string_ | `line` |
+| type | Can be set to `line` `card` `rounded` `underline` `divider` | _string_ | `underline` |
 | color | Tab color | _string_ | `#1989fa` |
 | background | Background color | _string_ | `white` |
 | duration | Toggle tab's animation time | _number \| string_ | `0.3` |

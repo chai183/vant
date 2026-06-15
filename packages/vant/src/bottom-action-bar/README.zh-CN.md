@@ -94,14 +94,69 @@ const onMoreAction = (action) => {
 
 ### 内容区 + 底部按钮
 
-中间 `#default` 插槽可放标签筛选、日期选择等任意内容。
+顶部 `#top` 插槽可放筛选表单等内容，搭配 [ProForm](#/zh-CN/pro-form) 通过 `columns` 配置字段；底部按钮区触发 `formRef.submit()` 提交，隐藏 ProForm 自带提交按钮。
 
 ```html
-<van-bottom-action-bar secondary-button-text="重置" primary-button-text="确定">
-  <template #default>
-    <!-- 自定义筛选内容 -->
+<van-bottom-action-bar
+  secondary-button-text="重置"
+  primary-button-text="确定"
+  @click-secondary="onReset"
+  @click-primary="formRef?.submit()"
+>
+  <template #top>
+    <van-pro-form
+      v-model="model"
+      ref="formRef"
+      :columns="columns"
+      :show-submit="false"
+      @submit="onSubmit"
+      @failed="onFailed"
+    />
   </template>
 </van-bottom-action-bar>
+```
+
+```js
+import { ref } from 'vue';
+
+const model = ref({});
+const formRef = ref();
+
+const columns = [
+  {
+    name: 'tag',
+    label: '标签列表-常规',
+    component: 'radioGroup',
+    defaultValue: '0',
+    fieldProps: { labelAlign: 'top' },
+    componentProps: {
+      shape: 'block',
+      columns: 3,
+      options: [
+        { label: '选项 1', value: '0' },
+        { label: '未选', value: '1' },
+      ],
+    },
+  },
+  {
+    name: 'dateRange',
+    label: '选择日期',
+    component: 'rangeInput',
+    defaultValue: ['', ''],
+    componentProps: {
+      layout: 'horizontal',
+      showDateShortcuts: true,
+      start: {
+        component: 'datePicker',
+        fieldProps: { inputBorder: true, placeholder: '起始日期' },
+      },
+      end: {
+        component: 'datePicker',
+        fieldProps: { inputBorder: true, placeholder: '终止日期' },
+      },
+    },
+  },
+];
 ```
 
 ### 完全自定义按钮区
@@ -170,8 +225,8 @@ const onMoreAction = (action) => {
 
 | 名称             | 说明                                                     |
 | ---------------- | -------------------------------------------------------- |
-| top              | 顶部提示/协议区（白底、12px 内边距）                     |
-| default          | 中间内容区（如筛选标签、日期）                           |
+| top              | 顶部内容区（协议、筛选表单等，白底、12px 内边距）        |
+| default          | 中间内容区（位于顶部区与按钮区之间）                     |
 | before           | 按钮区左侧扩展（与 `more` 二选一，优先级低于 `more`）    |
 | more             | 自定义「更多操作」区域                                   |
 | more-panel       | 自定义气泡内容（与 `more-actions` 二选一，优先展示插槽） |

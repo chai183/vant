@@ -23,7 +23,7 @@ const active1 = ref(0);
 
 <template>
   <demo-block :title="t('shrink')">
-    <van-tabs v-model:active="active1" type="underline" shrink>
+    <van-tabs v-model:active="active1" shrink>
       <van-tab :title="t('tab') + index" v-for="index in tabs" :key="index">
         {{ t('content') }} {{ index }}
       </van-tab>

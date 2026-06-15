@@ -206,6 +206,7 @@ test('should change title style when using title-style prop', async () => {
 test('should allot to hide bottom border by border prop', async () => {
   const wrapper = mount(Tabs, {
     props: {
+      type: 'line',
       border: true,
     },
   });
@@ -494,7 +495,11 @@ test('should re-render when line-width or line-height changed', async () => {
     },
     render() {
       return (
-        <Tabs lineWidth={this.lineWidth} lineHeight={this.lineHeight}>
+        <Tabs
+          type="line"
+          lineWidth={this.lineWidth}
+          lineHeight={this.lineHeight}
+        >
           <Tab>1</Tab>
         </Tabs>
       );
@@ -535,26 +540,34 @@ test('should render scroll shadow indicator when nav-overflow is shadow', async 
 });
 
 test('should render radio group list in nav menu panel', async () => {
-  const wrapper = mount({
-    render() {
-      return (
-        <Tabs showNavMenu>
-          {Array.from({ length: 8 }, (_, index) => (
-            <Tab title={`Tab ${index + 1}`}>{index + 1}</Tab>
-          ))}
-        </Tabs>
-      );
+  const wrapper = mount(
+    {
+      render() {
+        return (
+          <Tabs showNavMenu>
+            {Array.from({ length: 8 }, (_, index) => (
+              <Tab title={`Tab ${index + 1}`}>{index + 1}</Tab>
+            ))}
+          </Tabs>
+        );
+      },
     },
-  });
+    { attachTo: document.body },
+  );
 
   await later();
   await wrapper.find('.van-dropdown-menu__title').trigger('click');
   await later();
 
-  const radioGroup = wrapper.find('.van-radio-group--list');
-  expect(radioGroup.exists()).toBe(true);
-  expect(wrapper.findAll('.van-radio-group--list .van-cell')).toHaveLength(8);
-  expect(wrapper.find('.van-radio-group--list .van-radio__icon').exists()).toBe(
-    true,
-  );
+  const radioGroup = document.body.querySelector('.van-radio-group--list');
+  expect(radioGroup).toBeTruthy();
+  expect(
+    document.body.querySelectorAll('.van-radio-group--list .van-cell'),
+  ).toHaveLength(8);
+  expect(
+    document.body.querySelector('.van-radio-group--list .van-radio__icon'),
+  ).toBeTruthy();
+
+  wrapper.unmount();
+  document.body.innerHTML = '';
 });

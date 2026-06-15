@@ -549,36 +549,6 @@ exports[`should render demo and match snapshot 1`] = `
         style="display:none;"
       >
       </div>
-      <div
-        id="van-tab"
-        role="tabpanel"
-        class="van-tab__panel"
-        tabindex="-1"
-        aria-labelledby="van-tabs-5"
-        data-allow-mismatch="attribute"
-        style="display:none;"
-      >
-      </div>
-      <div
-        id="van-tab"
-        role="tabpanel"
-        class="van-tab__panel"
-        tabindex="-1"
-        aria-labelledby="van-tabs-6"
-        data-allow-mismatch="attribute"
-        style="display:none;"
-      >
-      </div>
-      <div
-        id="van-tab"
-        role="tabpanel"
-        class="van-tab__panel"
-        tabindex="-1"
-        aria-labelledby="van-tabs-7"
-        data-allow-mismatch="attribute"
-        style="display:none;"
-      >
-      </div>
     </div>
   </div>
 </div>
@@ -827,12 +797,6 @@ exports[`should render demo and match snapshot 1`] = `
           <!--[-->
         </div>
         <!--[-->
-        <div
-          style="top:0px;display:none;"
-          class="van-dropdown-item van-dropdown-item--down"
-        >
-          <!--[-->
-        </div>
       </div>
     </div>
     <div class="van-tabs__content">

@@ -1,17 +1,17 @@
 // Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
 exports[`should render Tab inside a component correctly 1`] = `
-<div class="van-tabs van-tabs--line">
+<div class="van-tabs van-tabs--underline">
   <div class="van-tabs__wrap">
     <div
       role="tablist"
-      class="van-tabs__nav van-tabs__nav--line"
+      class="van-tabs__nav van-tabs__nav--underline"
       aria-orientation="horizontal"
     >
       <div
         id="van-tabs-0"
         role="tab"
-        class="van-tab van-tab--line"
+        class="van-tab van-tab--underline"
         tabindex="-1"
         aria-selected="false"
         aria-controls="van-tab"
@@ -24,7 +24,7 @@ exports[`should render Tab inside a component correctly 1`] = `
       <div
         id="van-tabs-1"
         role="tab"
-        class="van-tab van-tab--line van-tab--active"
+        class="van-tab van-tab--underline van-tab--active"
         tabindex="0"
         aria-selected="true"
         aria-controls="van-tab"
@@ -37,7 +37,7 @@ exports[`should render Tab inside a component correctly 1`] = `
       <div
         id="van-tabs-2"
         role="tab"
-        class="van-tab van-tab--line"
+        class="van-tab van-tab--underline"
         tabindex="-1"
         aria-selected="false"
         aria-controls="van-tab"
@@ -46,11 +46,6 @@ exports[`should render Tab inside a component correctly 1`] = `
         <span class="van-tab__text van-tab__text--ellipsis">
           3
         </span>
-      </div>
-      <div
-        class="van-tabs__line"
-        style="transform: translateX(50px) translateX(-50%);"
-      >
       </div>
     </div>
   </div>
@@ -91,17 +86,17 @@ exports[`should render Tab inside a component correctly 1`] = `
 `;
 
 exports[`should render correctly after inserting a tab 1`] = `
-<div class="van-tabs van-tabs--line">
+<div class="van-tabs van-tabs--underline">
   <div class="van-tabs__wrap">
     <div
       role="tablist"
-      class="van-tabs__nav van-tabs__nav--line"
+      class="van-tabs__nav van-tabs__nav--underline"
       aria-orientation="horizontal"
     >
       <div
         id="van-tabs-0"
         role="tab"
-        class="van-tab van-tab--line"
+        class="van-tab van-tab--underline"
         tabindex="-1"
         aria-selected="false"
         aria-controls="van-tab"
@@ -114,7 +109,7 @@ exports[`should render correctly after inserting a tab 1`] = `
       <div
         id="van-tabs-1"
         role="tab"
-        class="van-tab van-tab--line van-tab--active"
+        class="van-tab van-tab--underline van-tab--active"
         tabindex="0"
         aria-selected="true"
         aria-controls="van-tab"
@@ -127,7 +122,7 @@ exports[`should render correctly after inserting a tab 1`] = `
       <div
         id="van-tabs-2"
         role="tab"
-        class="van-tab van-tab--line"
+        class="van-tab van-tab--underline"
         tabindex="-1"
         aria-selected="false"
         aria-controls="van-tab"
@@ -136,11 +131,6 @@ exports[`should render correctly after inserting a tab 1`] = `
         <span class="van-tab__text van-tab__text--ellipsis">
           3
         </span>
-      </div>
-      <div
-        class="van-tabs__line"
-        style="transform: translateX(50px) translateX(-50%); transition-duration: 0.3s;"
-      >
       </div>
     </div>
   </div>
@@ -183,17 +173,17 @@ exports[`should render correctly after inserting a tab 1`] = `
 `;
 
 exports[`should render correctly after inserting a tab from an array 1`] = `
-<div class="van-tabs van-tabs--line">
+<div class="van-tabs van-tabs--underline">
   <div class="van-tabs__wrap">
     <div
       role="tablist"
-      class="van-tabs__nav van-tabs__nav--line"
+      class="van-tabs__nav van-tabs__nav--underline"
       aria-orientation="horizontal"
     >
       <div
         id="van-tabs-0"
         role="tab"
-        class="van-tab van-tab--line"
+        class="van-tab van-tab--underline"
         tabindex="-1"
         aria-selected="false"
         aria-controls="van-tab"
@@ -206,7 +196,7 @@ exports[`should render correctly after inserting a tab from an array 1`] = `
       <div
         id="van-tabs-1"
         role="tab"
-        class="van-tab van-tab--line van-tab--active"
+        class="van-tab van-tab--underline van-tab--active"
         tabindex="0"
         aria-selected="true"
         aria-controls="van-tab"
@@ -219,7 +209,7 @@ exports[`should render correctly after inserting a tab from an array 1`] = `
       <div
         id="van-tabs-2"
         role="tab"
-        class="van-tab van-tab--line"
+        class="van-tab van-tab--underline"
         tabindex="-1"
         aria-selected="false"
         aria-controls="van-tab"
@@ -229,11 +219,6 @@ exports[`should render correctly after inserting a tab from an array 1`] = `
           3
         </span>
       </div>
-      <div
-        class="van-tabs__line"
-        style="transform: translateX(50px) translateX(-50%);"
-      >
-      </div>
     </div>
   </div>
   <div class="van-tabs__content">
@@ -242,17 +227,17 @@ exports[`should render correctly after inserting a tab from an array 1`] = `
 `;
 
 exports[`should render correctly after inserting a tab with name 1`] = `
-<div class="van-tabs van-tabs--line">
+<div class="van-tabs van-tabs--underline">
   <div class="van-tabs__wrap">
     <div
       role="tablist"
-      class="van-tabs__nav van-tabs__nav--line"
+      class="van-tabs__nav van-tabs__nav--underline"
       aria-orientation="horizontal"
     >
       <div
         id="van-tabs-0"
         role="tab"
-        class="van-tab van-tab--line"
+        class="van-tab van-tab--underline"
         tabindex="-1"
         aria-selected="false"
         aria-controls="van-tab"
@@ -265,7 +250,7 @@ exports[`should render correctly after inserting a tab with name 1`] = `
       <div
         id="van-tabs-1"
         role="tab"
-        class="van-tab van-tab--line van-tab--active"
+        class="van-tab van-tab--underline van-tab--active"
         tabindex="0"
         aria-selected="true"
         aria-controls="van-tab"
@@ -274,11 +259,6 @@ exports[`should render correctly after inserting a tab with name 1`] = `
         <span class="van-tab__text van-tab__text--ellipsis">
           foo
         </span>
-      </div>
-      <div
-        class="van-tabs__line"
-        style="transform: translateX(50px) translateX(-50%); transition-duration: 0.3s;"
-      >
       </div>
     </div>
   </div>
@@ -310,11 +290,11 @@ exports[`should render correctly after inserting a tab with name 1`] = `
 `;
 
 exports[`should render nav-bottom slot correctly 1`] = `
-<div class="van-tabs van-tabs--line">
+<div class="van-tabs van-tabs--underline">
   <div class="van-tabs__wrap">
     <div
       role="tablist"
-      class="van-tabs__nav van-tabs__nav--line"
+      class="van-tabs__nav van-tabs__nav--underline"
       aria-orientation="horizontal"
     >
     </div>

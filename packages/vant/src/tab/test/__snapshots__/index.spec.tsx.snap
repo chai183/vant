@@ -53,17 +53,17 @@ exports[`should allow to disable lazy-render prop 2`] = `
 `;
 
 exports[`should allow to set name prop 1`] = `
-<div class="van-tabs van-tabs--line">
+<div class="van-tabs van-tabs--underline">
   <div class="van-tabs__wrap">
     <div
       role="tablist"
-      class="van-tabs__nav van-tabs__nav--line"
+      class="van-tabs__nav van-tabs__nav--underline"
       aria-orientation="horizontal"
     >
       <div
         id="van-tabs-0"
         role="tab"
-        class="van-tab van-tab--line van-tab--active"
+        class="van-tab van-tab--underline van-tab--active"
         tabindex="0"
         aria-selected="true"
         aria-controls="van-tab"
@@ -76,7 +76,7 @@ exports[`should allow to set name prop 1`] = `
       <div
         id="van-tabs-1"
         role="tab"
-        class="van-tab van-tab--line"
+        class="van-tab van-tab--underline"
         tabindex="-1"
         aria-selected="false"
         aria-controls="van-tab"
@@ -89,7 +89,7 @@ exports[`should allow to set name prop 1`] = `
       <div
         id="van-tabs-2"
         role="tab"
-        class="van-tab van-tab--line van-tab--disabled"
+        class="van-tab van-tab--underline van-tab--disabled"
         aria-selected="false"
         aria-disabled="true"
         aria-controls="van-tab"
@@ -98,11 +98,6 @@ exports[`should allow to set name prop 1`] = `
         <span class="van-tab__text van-tab__text--ellipsis">
           title3
         </span>
-      </div>
-      <div
-        class="van-tabs__line"
-        style="transform: translateX(50px) translateX(-50%);"
-      >
       </div>
     </div>
   </div>
@@ -165,7 +160,7 @@ exports[`should render badge prop correctly 1`] = `
 <div
   id="van-tabs-0"
   role="tab"
-  class="van-tab van-tab--line van-tab--active"
+  class="van-tab van-tab--underline van-tab--active"
   tabindex="0"
   aria-selected="true"
   aria-controls="van-tab"
@@ -185,14 +180,14 @@ exports[`should render nav-left、nav-right slot correctly 1`] = `
 <div class="van-tabs__wrap">
   <div
     role="tablist"
-    class="van-tabs__nav van-tabs__nav--line"
+    class="van-tabs__nav van-tabs__nav--underline"
     aria-orientation="horizontal"
   >
     Custom nav left
     <div
       id="van-tabs-0"
       role="tab"
-      class="van-tab van-tab--line van-tab--active"
+      class="van-tab van-tab--underline van-tab--active"
       tabindex="0"
       aria-selected="true"
       aria-controls="van-tab"
@@ -202,28 +197,23 @@ exports[`should render nav-left、nav-right slot correctly 1`] = `
         Title
       </span>
     </div>
-    <div
-      class="van-tabs__line"
-      style="transform: translateX(50px) translateX(-50%);"
-    >
-    </div>
     Custom nav right
   </div>
 </div>
 `;
 
 exports[`should switch tab after click the tab title 1`] = `
-<div class="van-tabs van-tabs--line">
+<div class="van-tabs van-tabs--underline">
   <div class="van-tabs__wrap">
     <div
       role="tablist"
-      class="van-tabs__nav van-tabs__nav--line"
+      class="van-tabs__nav van-tabs__nav--underline"
       aria-orientation="horizontal"
     >
       <div
         id="van-tabs-0"
         role="tab"
-        class="van-tab van-tab--line van-tab--active"
+        class="van-tab van-tab--underline van-tab--active"
         tabindex="0"
         aria-selected="true"
         aria-controls="van-tab"
@@ -236,7 +226,7 @@ exports[`should switch tab after click the tab title 1`] = `
       <div
         id="van-tabs-1"
         role="tab"
-        class="van-tab van-tab--line"
+        class="van-tab van-tab--underline"
         tabindex="-1"
         aria-selected="false"
         aria-controls="van-tab"
@@ -249,7 +239,7 @@ exports[`should switch tab after click the tab title 1`] = `
       <div
         id="van-tabs-2"
         role="tab"
-        class="van-tab van-tab--line van-tab--disabled"
+        class="van-tab van-tab--underline van-tab--disabled"
         aria-selected="false"
         aria-disabled="true"
         aria-controls="van-tab"
@@ -258,11 +248,6 @@ exports[`should switch tab after click the tab title 1`] = `
         <span class="van-tab__text van-tab__text--ellipsis">
           title3
         </span>
-      </div>
-      <div
-        class="van-tabs__line"
-        style="transform: translateX(50px) translateX(-50%);"
-      >
       </div>
     </div>
   </div>
@@ -303,17 +288,17 @@ exports[`should switch tab after click the tab title 1`] = `
 `;
 
 exports[`should switch tab after click the tab title 2`] = `
-<div class="van-tabs van-tabs--line">
+<div class="van-tabs van-tabs--underline">
   <div class="van-tabs__wrap">
     <div
       role="tablist"
-      class="van-tabs__nav van-tabs__nav--line"
+      class="van-tabs__nav van-tabs__nav--underline"
       aria-orientation="horizontal"
     >
       <div
         id="van-tabs-0"
         role="tab"
-        class="van-tab van-tab--line"
+        class="van-tab van-tab--underline"
         tabindex="-1"
         aria-selected="false"
         aria-controls="van-tab"
@@ -326,7 +311,7 @@ exports[`should switch tab after click the tab title 2`] = `
       <div
         id="van-tabs-1"
         role="tab"
-        class="van-tab van-tab--line van-tab--active"
+        class="van-tab van-tab--underline van-tab--active"
         tabindex="0"
         aria-selected="true"
         aria-controls="van-tab"
@@ -339,7 +324,7 @@ exports[`should switch tab after click the tab title 2`] = `
       <div
         id="van-tabs-2"
         role="tab"
-        class="van-tab van-tab--line van-tab--disabled"
+        class="van-tab van-tab--underline van-tab--disabled"
         aria-selected="false"
         aria-disabled="true"
         aria-controls="van-tab"
@@ -348,11 +333,6 @@ exports[`should switch tab after click the tab title 2`] = `
         <span class="van-tab__text van-tab__text--ellipsis">
           title3
         </span>
-      </div>
-      <div
-        class="van-tabs__line"
-        style="transform: translateX(50px) translateX(-50%); transition-duration: 0.3s;"
-      >
       </div>
     </div>
   </div>
@@ -394,17 +374,17 @@ exports[`should switch tab after click the tab title 2`] = `
 `;
 
 exports[`swipe switch tab after swiping tab content 1`] = `
-<div class="van-tabs van-tabs--line">
+<div class="van-tabs van-tabs--underline">
   <div class="van-tabs__wrap">
     <div
       role="tablist"
-      class="van-tabs__nav van-tabs__nav--line"
+      class="van-tabs__nav van-tabs__nav--underline"
       aria-orientation="horizontal"
     >
       <div
         id="van-tabs-0"
         role="tab"
-        class="van-tab van-tab--line van-tab--active"
+        class="van-tab van-tab--underline van-tab--active"
         tabindex="0"
         aria-selected="true"
         aria-controls="van-tab"
@@ -417,7 +397,7 @@ exports[`swipe switch tab after swiping tab content 1`] = `
       <div
         id="van-tabs-1"
         role="tab"
-        class="van-tab van-tab--line"
+        class="van-tab van-tab--underline"
         tabindex="-1"
         aria-selected="false"
         aria-controls="van-tab"
@@ -430,7 +410,7 @@ exports[`swipe switch tab after swiping tab content 1`] = `
       <div
         id="van-tabs-2"
         role="tab"
-        class="van-tab van-tab--line van-tab--disabled"
+        class="van-tab van-tab--underline van-tab--disabled"
         aria-selected="false"
         aria-disabled="true"
         aria-controls="van-tab"
@@ -439,11 +419,6 @@ exports[`swipe switch tab after swiping tab content 1`] = `
         <span class="van-tab__text van-tab__text--ellipsis">
           title3
         </span>
-      </div>
-      <div
-        class="van-tabs__line"
-        style="transform: translateX(50px) translateX(-50%);"
-      >
       </div>
     </div>
   </div>
@@ -499,17 +474,17 @@ exports[`swipe switch tab after swiping tab content 1`] = `
 `;
 
 exports[`swipe switch tab after swiping tab content 2`] = `
-<div class="van-tabs van-tabs--line">
+<div class="van-tabs van-tabs--underline">
   <div class="van-tabs__wrap">
     <div
       role="tablist"
-      class="van-tabs__nav van-tabs__nav--line"
+      class="van-tabs__nav van-tabs__nav--underline"
       aria-orientation="horizontal"
     >
       <div
         id="van-tabs-0"
         role="tab"
-        class="van-tab van-tab--line"
+        class="van-tab van-tab--underline"
         tabindex="-1"
         aria-selected="false"
         aria-controls="van-tab"
@@ -522,7 +497,7 @@ exports[`swipe switch tab after swiping tab content 2`] = `
       <div
         id="van-tabs-1"
         role="tab"
-        class="van-tab van-tab--line van-tab--active"
+        class="van-tab van-tab--underline van-tab--active"
         tabindex="0"
         aria-selected="true"
         aria-controls="van-tab"
@@ -535,7 +510,7 @@ exports[`swipe switch tab after swiping tab content 2`] = `
       <div
         id="van-tabs-2"
         role="tab"
-        class="van-tab van-tab--line van-tab--disabled"
+        class="van-tab van-tab--underline van-tab--disabled"
         aria-selected="false"
         aria-disabled="true"
         aria-controls="van-tab"
@@ -544,11 +519,6 @@ exports[`swipe switch tab after swiping tab content 2`] = `
         <span class="van-tab__text van-tab__text--ellipsis">
           title3
         </span>
-      </div>
-      <div
-        class="van-tabs__line"
-        style="transform: translateX(50px) translateX(-50%);"
-      >
       </div>
     </div>
   </div>
@@ -607,17 +577,17 @@ exports[`swipe switch tab after swiping tab content 2`] = `
 `;
 
 exports[`swipe switch tab after swiping tab content 3`] = `
-<div class="van-tabs van-tabs--line">
+<div class="van-tabs van-tabs--underline">
   <div class="van-tabs__wrap">
     <div
       role="tablist"
-      class="van-tabs__nav van-tabs__nav--line"
+      class="van-tabs__nav van-tabs__nav--underline"
       aria-orientation="horizontal"
     >
       <div
         id="van-tabs-0"
         role="tab"
-        class="van-tab van-tab--line"
+        class="van-tab van-tab--underline"
         tabindex="-1"
         aria-selected="false"
         aria-controls="van-tab"
@@ -630,7 +600,7 @@ exports[`swipe switch tab after swiping tab content 3`] = `
       <div
         id="van-tabs-1"
         role="tab"
-        class="van-tab van-tab--line van-tab--active"
+        class="van-tab van-tab--underline van-tab--active"
         tabindex="0"
         aria-selected="true"
         aria-controls="van-tab"
@@ -643,7 +613,7 @@ exports[`swipe switch tab after swiping tab content 3`] = `
       <div
         id="van-tabs-2"
         role="tab"
-        class="van-tab van-tab--line van-tab--disabled"
+        class="van-tab van-tab--underline van-tab--disabled"
         aria-selected="false"
         aria-disabled="true"
         aria-controls="van-tab"
@@ -652,11 +622,6 @@ exports[`swipe switch tab after swiping tab content 3`] = `
         <span class="van-tab__text van-tab__text--ellipsis">
           title3
         </span>
-      </div>
-      <div
-        class="van-tabs__line"
-        style="transform: translateX(50px) translateX(-50%); transition-duration: 0.3s;"
-      >
       </div>
     </div>
   </div>

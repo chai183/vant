@@ -22,7 +22,7 @@ app.use(CascadeTabs);
 
 ### 基础用法
 
-通过 `v-model:active` 绑定当前激活标签对应的索引值，默认情况下启用第一个标签。
+通过 `v-model:active` 绑定当前激活标签对应的索引值，默认情况下启用第一个标签。默认样式为下划线风格（`type="underline"`）。
 
 ```html
 <van-tabs v-model:active="active">
@@ -46,10 +46,14 @@ export default {
 
 ### 下划线风格
 
-通过 `type="underline"` 启用下划线风格，未选中标签文字颜色为 `#333333`，选中标签文字为主题色，并在文字下方展示宽 20px、高 2px 的主题色下划线（每个标签独立展示，非底部滑动条）；整条标签栏高度为 48px。
+默认即为下划线风格：未选中标签文字颜色为 `#333333`，选中标签文字为主题色，并在文字下方展示宽 20px、高 2px 的主题色下划线（每个标签独立展示，非底部滑动条）；整条标签栏高度为 48px。
+
+### 线条风格
+
+通过 `type="line"` 切换为底部滑动条风格。
 
 ```html
-<van-tabs v-model:active="active" type="underline">
+<van-tabs v-model:active="active" type="line">
   <van-tab title="标签 1">内容 1</van-tab>
   <van-tab title="标签 2">内容 2</van-tab>
   <van-tab title="标签 3">内容 3</van-tab>
@@ -248,7 +252,7 @@ export default {
 
 ### 样式风格
 
-`Tabs` 支持多种样式风格：`line`、`card`、`rounded`、`underline`、`divider`，默认为 `line` 样式，可以通过 `type` 属性切换样式风格。
+`Tabs` 支持多种样式风格：`line`、`card`、`rounded`、`underline`、`divider`，默认为 `underline` 样式，可以通过 `type` 属性切换样式风格。
 
 ```html
 <van-tabs v-model:active="active" type="card">
@@ -426,7 +430,7 @@ export default {
 | 参数 | 说明 | 类型 | 默认值 |
 | --- | --- | --- | --- |
 | v-model:active | 绑定当前选中标签的标识符 | _number \| string_ | `0` |
-| type | 样式风格类型，可选值为 `line` `card` `rounded` `underline` `divider` | _string_ | `line` |
+| type | 样式风格类型，可选值为 `line` `card` `rounded` `underline` `divider` | _string_ | `underline` |
 | color | 标签主题色 | _string_ | `#1989fa` |
 | background | 标签栏背景色 | _string_ | `white` |
 | duration | 动画时间，单位秒，设置为 0 可以禁用动画 | _number \| string_ | `0.3` |

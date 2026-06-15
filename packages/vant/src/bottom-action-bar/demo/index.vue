@@ -2,10 +2,11 @@
 import VanBottomActionBar from '..';
 import type { PopoverAction } from '../../popover';
 import VanButton from '../../button';
-import VanTag from '../../tag';
 import VanCheckbox from '../../checkbox';
 import VanCheckboxGroup from '../../checkbox-group';
-import VanField from '../../field';
+import VanProForm from '../../pro-form';
+import type { ProFormColumn } from '../../pro-form/types';
+import type { FormExpose } from '../../form/types';
 import { ref, computed } from 'vue';
 import { useTranslate } from '../../../docs/site';
 import { showToast } from '../../toast';
@@ -31,13 +32,8 @@ const t = useTranslate({
     moreSelectToast: '选中：',
     agreement1: '本人已仔细阅读并同意以上所有条款',
     agreement2: '并同意《宁波银行APP隐私协议》',
-    tagSectionTitle: '标签列表-常规',
     tagOption1: '选项 1',
     tagUnselected: '未选',
-    dateSectionTitle: '选择日期',
-    dateWeek: '近一周',
-    dateMonth: '近一月',
-    dateQuarter: '近三月',
     startDate: '起始日期',
     endDate: '终止日期',
     toastReset: '重置',
@@ -64,13 +60,8 @@ const t = useTranslate({
     moreSelectToast: 'Selected: ',
     agreement1: 'I have read and agree to the terms above.',
     agreement2: 'I agree to the Privacy Policy.',
-    tagSectionTitle: 'Tag list',
     tagOption1: 'Option 1',
     tagUnselected: 'None',
-    dateSectionTitle: 'Select date',
-    dateWeek: 'Last week',
-    dateMonth: 'Last month',
-    dateQuarter: 'Last 3 months',
     startDate: 'Start date',
     endDate: 'End date',
     toastReset: 'Reset',
@@ -79,7 +70,6 @@ const t = useTranslate({
   },
 });
 
-const activeTag = ref(0);
 const agreedItems = ref<string[]>([]);
 const moreExpanded = ref(false);
 
@@ -89,21 +79,85 @@ const moreActions = computed<PopoverAction[]>(() => [
   { text: t('extraAction3'), value: 'action3' },
 ]);
 
-const tagLabels = computed(() => [
-  t('tagOption1'),
-  t('tagUnselected'),
-  t('tagUnselected'),
-  t('tagUnselected'),
-  t('tagUnselected'),
-  t('tagUnselected'),
+const tagOptions = computed(() => [
+  { label: t('tagOption1'), value: '0' },
+  { label: t('tagUnselected'), value: '1' },
+  { label: t('tagUnselected'), value: '2' },
+  { label: t('tagUnselected'), value: '3' },
+  { label: t('tagUnselected'), value: '4' },
+  { label: t('tagUnselected'), value: '5' },
 ]);
 
-const activeDatePreset = ref(-1);
-const startDateVal = ref('');
-const endDateVal = ref('');
+const tagModel = ref({ tag: '0' });
+const tagFormRef = ref<FormExpose>();
+
+const tagColumns = computed<ProFormColumn[]>(() => [
+  {
+    name: 'tag',
+    component: 'radioGroup',
+    defaultValue: '0',
+    fieldProps: {
+      labelAlign: 'top',
+    },
+    componentProps: {
+      shape: 'block',
+      columns: 3,
+      direction: 'horizontal',
+      options: tagOptions.value,
+    },
+  },
+]);
+
+const dateModel = ref({});
+const dateFormRef = ref<FormExpose>();
+
+const dateColumns = computed<ProFormColumn[]>(() => [
+  {
+    name: 'dateRange',
+    component: 'rangeInput',
+    defaultValue: ['', ''],
+    componentProps: {
+      layout: 'horizontal',
+      showDateShortcuts: true,
+      start: {
+        component: 'datePicker',
+        fieldProps: {
+          inputBorder: true,
+          placeholder: t('startDate'),
+        },
+      },
+      end: {
+        component: 'datePicker',
+        fieldProps: {
+          inputBorder: true,
+          placeholder: t('endDate'),
+        },
+      },
+    },
+  },
+]);
 
 const onMoreSelect = (action: PopoverAction) => {
   showToast(`${t('moreSelectToast')}${action.value}`);
+};
+
+const onTagReset = () => {
+  tagModel.value = { tag: '0' };
+  tagFormRef.value?.resetValidation();
+  showToast(t('toastReset'));
+};
+
+const onTagSubmit = () => {
+  showToast(t('toastConfirm'));
+};
+
+const onDateSubmit = (values: Record<string, unknown>) => {
+  const range = values.dateRange as string[];
+  if (range?.[0] && range?.[1]) {
+    showToast(`${range[0]} ~ ${range[1]}`);
+    return;
+  }
+  showToast(t('toastConfirm'));
 };
 </script>
 
@@ -199,75 +253,38 @@ const onMoreSelect = (action: PopoverAction) => {
   <demo-block :title="t('filterContent')">
     <div class="demo-bottom-action-bar demo-bottom-action-bar--panel">
       <section class="demo-bottom-action-bar__filter-block">
-        <p class="demo-bottom-action-bar__filter-title">
-          {{ t('tagSectionTitle') }}
-        </p>
         <van-bottom-action-bar
           :secondary-button-text="t('reset')"
           :primary-button-text="t('confirm')"
-          @click-secondary="showToast(t('toastReset'))"
-          @click-primary="showToast(t('toastConfirm'))"
+          @click-secondary="onTagReset"
+          @click-primary="tagFormRef?.submit()"
         >
-          <template #default>
-            <div class="demo-bottom-action-bar__tag-grid">
-              <van-tag
-                v-for="(label, index) in tagLabels"
-                :key="index"
-                size="medium"
-                :type="activeTag === index ? 'primary' : 'default'"
-                :plain="activeTag === index"
-                class="demo-bottom-action-bar__tag-cell"
-                @click="activeTag = index"
-              >
-                {{ label }}
-              </van-tag>
-            </div>
+          <template #top>
+            <van-pro-form
+              v-model="tagModel"
+              ref="tagFormRef"
+              :columns="tagColumns"
+              :show-submit="false"
+              @submit="onTagSubmit"
+            />
           </template>
         </van-bottom-action-bar>
       </section>
 
       <section class="demo-bottom-action-bar__filter-block">
-        <p class="demo-bottom-action-bar__filter-title">
-          {{ t('dateSectionTitle') }}
-        </p>
         <van-bottom-action-bar
           :show-secondary-button="false"
           :primary-button-text="t('confirm')"
-          @click-primary="showToast(t('toastConfirm'))"
+          @click-primary="dateFormRef?.submit()"
         >
-          <template #default>
-            <div class="demo-bottom-action-bar__date-body">
-              <div class="demo-bottom-action-bar__date-presets">
-                <van-tag
-                  v-for="(preset, index) in [
-                    t('dateWeek'),
-                    t('dateMonth'),
-                    t('dateQuarter'),
-                  ]"
-                  :key="preset"
-                  class="demo-bottom-action-bar__date-preset"
-                  :type="activeDatePreset === index ? 'primary' : 'default'"
-                  :plain="activeDatePreset === index"
-                  @click="activeDatePreset = index"
-                >
-                  {{ preset }}
-                </van-tag>
-              </div>
-              <div class="demo-bottom-action-bar__date-fields">
-                <van-field
-                  v-model="startDateVal"
-                  readonly
-                  :placeholder="t('startDate')"
-                  class="demo-bottom-action-bar__date-field"
-                />
-                <van-field
-                  v-model="endDateVal"
-                  readonly
-                  :placeholder="t('endDate')"
-                  class="demo-bottom-action-bar__date-field"
-                />
-              </div>
-            </div>
+          <template #top>
+            <van-pro-form
+              v-model="dateModel"
+              ref="dateFormRef"
+              :columns="dateColumns"
+              :show-submit="false"
+              @submit="onDateSubmit"
+            />
           </template>
         </van-bottom-action-bar>
       </section>
@@ -313,93 +330,12 @@ const onMoreSelect = (action: PopoverAction) => {
     }
   }
 
-  &__filter-title {
-    margin: 0 0 var(--van-padding-sm);
-    padding: 0 var(--van-padding-xs);
-    font-size: var(--van-font-size-sm);
-    line-height: 1.4;
-    color: var(--van-text-color-2);
-  }
-
-  &__tag-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: var(--van-padding-sm);
-    padding: var(--van-padding-md);
-    background: var(--van-white);
-  }
-
-  &__tag-cell {
-    box-sizing: border-box;
-    justify-content: center;
-    margin: 0;
-    padding: var(--van-padding-sm) var(--van-padding-xs);
-    font-size: var(--van-font-size-sm);
-    border-radius: var(--van-radius-md);
-
-    &.van-tag--plain.van-tag--primary {
-      color: var(--van-primary-color);
-      background: var(--van-white);
-      border-color: var(--van-primary-color);
-    }
-
-    &.van-tag--default:not(.van-tag--plain) {
-      color: var(--van-text-color);
-      background: var(--van-background-2);
-      border-color: transparent;
-    }
-  }
-
-  &__date-body {
-    padding: var(--van-padding-md);
-    background: var(--van-white);
-  }
-
-  &__date-presets {
-    display: flex;
-    flex-wrap: wrap;
-    gap: var(--van-padding-sm);
-    margin-bottom: var(--van-padding-md);
-  }
-
-  &__date-preset {
-    margin: 0;
-    padding: var(--van-padding-xs) var(--van-padding-sm);
-    font-size: var(--van-font-size-sm);
-    border-radius: var(--van-radius-md);
-
-    &.van-tag--default:not(.van-tag--plain) {
-      color: var(--van-text-color);
-      background: var(--van-background-2);
-      border-color: transparent;
-    }
-
-    &.van-tag--plain.van-tag--primary {
-      background: var(--van-white);
-      border-color: var(--van-primary-color);
-    }
-  }
-
-  &__date-fields {
-    display: flex;
-    gap: var(--van-padding-sm);
-  }
-
-  &__date-field {
-    flex: 1;
-    overflow: hidden;
-    background: var(--van-background-2);
-    border-radius: var(--van-radius-md);
-
-    .van-field__control {
-      font-size: var(--van-font-size-sm);
-    }
-  }
-
   &__agreement-group {
     display: flex;
     flex-direction: column;
     gap: var(--van-padding-sm);
+    padding: 12px;
+    border-bottom: 1px solid #eeeeee;
   }
 
   &__agreement {

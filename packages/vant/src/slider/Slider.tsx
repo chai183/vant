@@ -391,6 +391,26 @@ export default defineComponent({
       return bem('button-wrapper', props.reverse ? 'left' : 'right');
     };
 
+    const getButtonPositionStyle = (value: number): CSSProperties => {
+      const percent = ((value - Number(props.min)) * 100) / scope.value;
+      const position = props.reverse ? 100 - percent : percent;
+      const mainAxis = props.vertical ? 'top' : 'left';
+      const buttonStyle = getSizeStyle(props.buttonSize);
+      const style: CSSProperties = {
+        [mainAxis]: `clamp(0px, calc(${position}% - var(--van-slider-button-width) / 2), calc(100% - var(--van-slider-button-width)))`,
+      };
+
+      if (buttonStyle?.width) {
+        style['--van-slider-button-width'] = buttonStyle.width;
+      }
+
+      if (buttonStyle?.height) {
+        style['--van-slider-button-height'] = buttonStyle.height;
+      }
+
+      return style;
+    };
+
     const renderButtonContent = (value: number, index?: 0 | 1) => {
       const dragging = dragStatus.value === 'dragging';
 
@@ -613,6 +633,7 @@ export default defineComponent({
           ref={slider[index ?? 0]}
           role="slider"
           class={getButtonClassName(index)}
+          style={getButtonPositionStyle(current)}
           tabindex={props.disabled ? undefined : 0}
           aria-valuemin={props.min}
           aria-valuenow={current}
@@ -670,11 +691,10 @@ export default defineComponent({
             onClick={onClick}
           >
             {renderMarkDots()}
-            <div class={bem('bar')} style={barStyle.value}>
-              {isRangeMode.value
-                ? [renderButton(0), renderButton(1)]
-                : renderButton()}
-            </div>
+            <div class={bem('bar')} style={barStyle.value} />
+            {isRangeMode.value
+              ? [renderButton(0), renderButton(1)]
+              : renderButton()}
           </div>
         </div>
         {renderValue()}

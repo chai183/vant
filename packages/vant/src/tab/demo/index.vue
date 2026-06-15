@@ -83,7 +83,7 @@ const beforeChange = (name: number) => {
 
 <template>
   <demo-block :title="t('basicUsage')">
-    <van-tabs v-model:active="active1" type="underline" nav-overflow="shadow">
+    <van-tabs v-model:active="active1" nav-overflow="shadow">
       <van-tab :title="t('tab') + index" v-for="index in tabs" :key="index">
         {{ t('content') }} {{ index }}
       </van-tab>
@@ -109,7 +109,7 @@ const beforeChange = (name: number) => {
   <cascade />
 
   <demo-block :title="t('matchByName')">
-    <van-tabs v-model:active="activeName" type="underline">
+    <van-tabs v-model:active="activeName">
       <van-tab name="a" :title="t('tab') + 1">{{ t('content') }} 1</van-tab>
       <van-tab name="b" :title="t('tab') + 2">{{ t('content') }} 2</van-tab>
       <van-tab name="c" :title="t('tab') + 3">{{ t('content') }} 3</van-tab>
@@ -117,7 +117,7 @@ const beforeChange = (name: number) => {
   </demo-block>
 
   <demo-block :title="t('title2')">
-    <van-tabs v-model:active="active2" type="underline">
+    <van-tabs v-model:active="active2">
       <van-tab v-for="index in 8" :title="t('tab') + index" :key="index">
         {{ t('content') }} {{ index }}
       </van-tab>
@@ -125,11 +125,7 @@ const beforeChange = (name: number) => {
   </demo-block>
 
   <demo-block :title="t('title2Shadow')">
-    <van-tabs
-      v-model:active="active2Shadow"
-      type="underline"
-      nav-overflow="shadow"
-    >
+    <van-tabs v-model:active="active2Shadow" nav-overflow="shadow">
       <van-tab v-for="index in 5" :title="t('tab') + index" :key="index">
         {{ t('content') }} {{ index }}
       </van-tab>
@@ -137,7 +133,7 @@ const beforeChange = (name: number) => {
   </demo-block>
 
   <demo-block :title="t('title3')">
-    <van-tabs v-model:active="active3" type="underline">
+    <van-tabs v-model:active="active3">
       <van-tab
         v-for="index in 3"
         :title="t('tab') + index"
@@ -158,7 +154,7 @@ const beforeChange = (name: number) => {
   </demo-block>
 
   <demo-block :title="t('title5')">
-    <van-tabs v-model:active="active5" type="underline" @click-tab="onClickTab">
+    <van-tabs v-model:active="active5" @click-tab="onClickTab">
       <van-tab v-for="index in 2" :title="t('tab') + index" :key="index">
         {{ t('content') }} {{ index }}
       </van-tab>
@@ -166,7 +162,7 @@ const beforeChange = (name: number) => {
   </demo-block>
 
   <demo-block :title="t('title6')">
-    <van-tabs v-model:active="active6" type="underline" sticky>
+    <van-tabs v-model:active="active6" sticky>
       <van-tab :title="t('tab') + index" v-for="index in tabs" :key="index">
         {{ t('content') }} {{ index }}
       </van-tab>
@@ -176,7 +172,7 @@ const beforeChange = (name: number) => {
   <shrink />
 
   <demo-block :title="t('title7')">
-    <van-tabs v-model:active="active7" type="underline">
+    <van-tabs v-model:active="active7">
       <van-tab v-for="index in 2" :key="index">
         <template #title><van-icon name="more-o" />{{ t('tab') }}</template>
         {{ t('content') }} {{ index }}
@@ -185,7 +181,7 @@ const beforeChange = (name: number) => {
   </demo-block>
 
   <demo-block :title="t('title8')">
-    <van-tabs v-model:active="active8" type="underline" animated>
+    <van-tabs v-model:active="active8" animated>
       <van-tab :title="t('tab') + index" v-for="index in tabs" :key="index">
         {{ t('content') }} {{ index }}
       </van-tab>
@@ -193,7 +189,7 @@ const beforeChange = (name: number) => {
   </demo-block>
 
   <demo-block :title="t('title9')">
-    <van-tabs v-model:active="active9" type="underline" swipeable>
+    <van-tabs v-model:active="active9" swipeable>
       <van-tab :title="t('tab') + index" v-for="index in tabs" :key="index">
         {{ t('content') }} {{ index }}
       </van-tab>
@@ -201,7 +197,7 @@ const beforeChange = (name: number) => {
   </demo-block>
 
   <demo-block :title="t('title10')">
-    <van-tabs v-model:active="active10" type="underline" scrollspy sticky>
+    <van-tabs v-model:active="active10" scrollspy sticky>
       <van-tab :title="t('tab') + index" v-for="index in 8" :key="index">
         {{ t('content') }} {{ index }}
       </van-tab>
@@ -209,11 +205,7 @@ const beforeChange = (name: number) => {
   </demo-block>
 
   <demo-block :title="t('beforeChange')">
-    <van-tabs
-      v-model:active="active11"
-      type="underline"
-      :before-change="beforeChange"
-    >
+    <van-tabs v-model:active="active11" :before-change="beforeChange">
       <van-tab :title="t('tab') + index" v-for="index in 4" :key="index">
         {{ t('content') }} {{ index }}
       </van-tab>

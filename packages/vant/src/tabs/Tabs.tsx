@@ -69,7 +69,7 @@ const [name, bem] = createNamespace('tabs');
 const NAV_MENU_Z_INDEX = 100;
 
 export const tabsProps = {
-  type: makeStringProp<TabsType>('line'),
+  type: makeStringProp<TabsType>('underline'),
   color: String,
   border: Boolean,
   sticky: Boolean,

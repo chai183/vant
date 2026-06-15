@@ -78,12 +78,14 @@ export type ConfigProviderThemeVars = BaseThemeVars &
   import('../action-sheet').ActionSheetThemeVars &
   import('../address-edit').AddressEditThemeVars &
   import('../address-list').AddressListThemeVars &
+  import('../ad-dialog').AdDialogThemeVars &
   import('../back-top').BackTopThemeVars &
   import('../badge').BadgeThemeVars &
   import('../barrage').BarrageThemeVars &
   import('../bottom-action-bar').BottomActionBarThemeVars &
   import('../button').ButtonThemeVars &
   import('../calendar').CalendarThemeVars &
+  import('../cascade-tree-select').CascadeTreeSelectThemeVars &
   import('../card').CardThemeVars &
   import('../cascader').CascaderThemeVars &
   import('../cell').CellThemeVars &

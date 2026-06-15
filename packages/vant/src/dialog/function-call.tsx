@@ -21,12 +21,20 @@ const DEFAULT_OPTIONS = {
   overlayClass: '',
   overlayStyle: undefined,
   messageAlign: '',
+  messageHighlightConfig: undefined,
+  inputValue: undefined,
+  inputConfig: undefined,
   cancelButtonText: '',
   cancelButtonColor: null,
   cancelButtonDisabled: false,
   confirmButtonText: '',
   confirmButtonColor: null,
   confirmButtonDisabled: false,
+  secondaryButtonText: '',
+  secondaryButtonColor: null,
+  secondaryButtonDisabled: false,
+  confirmButtonVerticalThreshold: 5,
+  verticalButtonMaxTextLength: 15,
   showConfirmButton: true,
   showCancelButton: false,
   closeOnPopstate: true,
@@ -40,7 +48,19 @@ function initInstance() {
   const Wrapper = {
     setup() {
       const { state, toggle } = usePopupState();
-      return () => <Dialog {...state} onUpdate:show={toggle} />;
+
+      const onUpdateInputValue = (value: string) => {
+        state.inputValue = value;
+        state['onUpdate:inputValue']?.(value);
+      };
+
+      return () => (
+        <Dialog
+          {...state}
+          onUpdate:show={toggle}
+          onUpdate:inputValue={onUpdateInputValue}
+        />
+      );
     },
   };
 
@@ -63,10 +83,18 @@ export function showDialog(
       initInstance();
     }
 
+    const userCallback = options.callback;
+
     instance.open(
       extend({}, currentOptions, options, {
-        callback: (action?: DialogAction) => {
-          (action === 'confirm' ? resolve : reject)(action);
+        callback: (action?: DialogAction, inputValue?: string) => {
+          userCallback?.(action, inputValue);
+
+          if (action === 'confirm' || action === 'secondary') {
+            resolve(action);
+          } else {
+            reject(action);
+          }
         },
       }),
     );

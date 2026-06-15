@@ -1,0 +1,185 @@
+:root,
+:host {
+  --van-ad-dialog-width: 320px;
+  --van-ad-dialog-checkbox-padding: 0;
+  --van-ad-dialog-checkbox-font-size: var(--van-font-size-md);
+  --van-ad-dialog-checkbox-text-color: var(--van-white);
+  --van-ad-dialog-close-icon-margin: var(--van-padding-md);
+  --van-ad-dialog-close-button-size: 32px;
+  --van-ad-dialog-close-button-background: rgba(255, 255, 255, 0.96);
+  --van-ad-dialog-close-button-border-color: rgba(0, 0, 0, 0.08);
+  --van-ad-dialog-close-icon-size: 18px;
+  --van-ad-dialog-close-icon-color: var(--van-gray-6);
+}
+
+.van-ad-dialog {
+  width: var(--van-ad-dialog-width);
+  max-width: calc(100vw - 32px);
+  background: transparent;
+  overflow: visible;
+
+  &__wrapper {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  &__image-wrapper {
+    position: relative;
+    width: var(--van-ad-dialog-width);
+  }
+
+  &__swipe,
+  &__swipe-item {
+    width: 100%;
+  }
+
+  &__image,
+  .van-image {
+    display: block;
+    width: 100%;
+  }
+
+  &__checkbox {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    margin-top: 12px;
+    padding: var(--van-ad-dialog-checkbox-padding);
+
+    .van-checkbox {
+      --van-checkbox-label-color: var(--van-ad-dialog-checkbox-text-color);
+      --van-checkbox-border-color: rgba(255, 255, 255, 0.75);
+      --van-checkbox-disabled-label-color: rgba(255, 255, 255, 0.45);
+      --van-checkbox-disabled-icon-color: rgba(255, 255, 255, 0.35);
+      --van-checkbox-disabled-background: rgba(255, 255, 255, 0.18);
+
+      display: flex;
+      align-items: center;
+    }
+
+    .van-checkbox__label {
+      color: var(--van-ad-dialog-checkbox-text-color);
+      font-size: var(--van-ad-dialog-checkbox-font-size);
+      line-height: var(--van-line-height-md);
+    }
+  }
+
+  &__close-area {
+    display: flex;
+    width: 100%;
+
+    &--top-left,
+    &--bottom-left {
+      justify-content: flex-start;
+    }
+
+    &--top-right,
+    &--bottom-right {
+      justify-content: flex-end;
+    }
+
+    &--bottom-center {
+      justify-content: center;
+    }
+
+    &--outside&--top-left,
+    &--outside&--top-right {
+      margin-bottom: var(--van-ad-dialog-close-icon-margin);
+    }
+
+    &--outside&--bottom-left,
+    &--outside&--bottom-center,
+    &--outside&--bottom-right {
+      margin-top: var(--van-ad-dialog-close-icon-margin);
+    }
+
+    &--custom {
+      position: absolute;
+      z-index: 1;
+      width: auto;
+      margin: 0;
+    }
+  }
+
+  &__inside-close {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    pointer-events: none;
+
+    .van-ad-dialog__close-button {
+      pointer-events: auto;
+    }
+
+    &--top-left {
+      align-items: flex-start;
+      justify-content: flex-start;
+      padding: var(--van-ad-dialog-close-icon-margin) 0 0
+        var(--van-ad-dialog-close-icon-margin);
+    }
+
+    &--top-right {
+      align-items: flex-start;
+      justify-content: flex-end;
+      padding: var(--van-ad-dialog-close-icon-margin)
+        var(--van-ad-dialog-close-icon-margin) 0 0;
+    }
+
+    &--bottom-left {
+      align-items: flex-end;
+      justify-content: flex-start;
+      padding: 0 0 var(--van-ad-dialog-close-icon-margin)
+        var(--van-ad-dialog-close-icon-margin);
+    }
+
+    &--bottom-center {
+      align-items: flex-end;
+      justify-content: center;
+      padding-bottom: var(--van-ad-dialog-close-icon-margin);
+    }
+
+    &--bottom-right {
+      align-items: flex-end;
+      justify-content: flex-end;
+      padding: 0 var(--van-ad-dialog-close-icon-margin)
+        var(--van-ad-dialog-close-icon-margin) 0;
+    }
+
+    &--custom {
+      inset: auto;
+      display: block;
+      padding: 0;
+      z-index: 1;
+    }
+  }
+
+  &__close-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: var(--van-ad-dialog-close-button-size);
+    height: var(--van-ad-dialog-close-button-size);
+    padding: 0;
+    appearance: none;
+    color: var(--van-ad-dialog-close-icon-color);
+    background: var(--van-ad-dialog-close-button-background);
+    border: var(--van-border-width) solid
+      var(--van-ad-dialog-close-button-border-color);
+    border-radius: var(--van-radius-max);
+    outline: none;
+
+    &--plain {
+      width: auto;
+      height: auto;
+      background: transparent;
+      border: 0;
+    }
+  }
+
+  &__close-icon {
+    font-size: var(--van-ad-dialog-close-icon-size);
+    line-height: 1;
+  }
+}

@@ -89,14 +89,60 @@
     }
   }
 
+  &__input {
+    padding: 0 var(--van-dialog-message-padding) var(--van-padding-lg);
+
+    &--has-title {
+      padding-top: var(--van-dialog-has-title-message-padding-top);
+    }
+
+    &--isolated {
+      padding-top: 26px;
+    }
+
+    .van-cell {
+      padding: 0;
+      background: transparent;
+      .van-field__word-limit {
+        position: absolute;
+        right: 12px;
+        bottom: 12px;
+      }
+    }
+    .van-field__error {
+      .van-field__body {
+        border-color: var(--van-danger-color);
+      }
+      .van-field__word-limit {
+        bottom: 36px;
+      }
+    }
+    .van-field__body {
+      box-sizing: border-box;
+      padding: var(--van-padding-xs) var(--van-padding-sm);
+      border: var(--van-border-width) solid var(--van-border-color);
+      border-radius: var(--van-radius-md);
+      transition: border-color var(--van-duration-fast);
+    }
+
+    .van-field__body:focus-within {
+      border-color: var(--van-primary-color);
+    }
+  }
+
   &__footer {
     display: flex;
     overflow: hidden;
     user-select: none;
+
+    &--vertical {
+      flex-direction: column;
+    }
   }
 
   &__confirm,
-  &__cancel {
+  &__cancel,
+  &__secondary {
     flex: 1;
     height: var(--van-dialog-button-height);
     margin: 0;
@@ -104,7 +150,22 @@
     border-radius: 0;
   }
 
-  &__confirm {
+  &__button {
+    &--vertical {
+      flex: none;
+      width: 100%;
+
+      .van-button__text {
+        display: block;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
+    }
+  }
+
+  &__confirm,
+  &__secondary {
     &,
     &:active {
       color: var(--van-dialog-confirm-button-text-color);

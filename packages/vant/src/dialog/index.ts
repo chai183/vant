@@ -14,11 +14,16 @@ export {
 
 export type { DialogProps } from './Dialog';
 export type {
+  DialogAction,
   DialogTheme,
   DialogMessage,
   DialogOptions,
   DialogThemeVars,
+  DialogInputType,
+  DialogInputConfig,
   DialogMessageAlign,
+  DialogInputValidateTrigger,
+  DialogMessageHighlightConfig,
 } from './types';
 
 declare module 'vue' {

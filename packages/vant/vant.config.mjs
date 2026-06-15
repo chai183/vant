@@ -487,6 +487,10 @@ location.href = location.href.replace('youzan.github.io', 'vant-ui.github.io');
                 title: 'Coupon 优惠券',
               },
               {
+                path: 'ad-dialog',
+                title: 'AdDialog 广告弹窗',
+              },
+              {
                 path: 'submit-bar',
                 title: 'SubmitBar 提交订单栏',
               },
@@ -952,6 +956,10 @@ location.href = location.href.replace('youzan.github.io', 'vant-ui.github.io');
               {
                 path: 'tree-select',
                 title: 'TreeSelect',
+              },
+              {
+                path: 'cascade-tree-select',
+                title: 'CascadeTreeSelect',
               },
             ],
           },

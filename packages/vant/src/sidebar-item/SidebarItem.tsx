@@ -67,11 +67,14 @@ export default defineComponent({
         >
           <Badge
             dot={dot}
-            class={bem('text')}
+            class={bem('label')}
             content={badge}
+            max={99}
             {...props.badgeProps}
           >
-            {slots.title ? slots.title() : title}
+            <span class={bem('title')}>
+              {slots.title ? slots.title() : title}
+            </span>
           </Badge>
         </div>
       );

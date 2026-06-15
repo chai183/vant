@@ -1,4 +1,4 @@
-// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+// Rstest Snapshot v1
 
 exports[`should render demo and match snapshot 1`] = `
 <div>
@@ -11,15 +11,8 @@ exports[`should render demo and match snapshot 1`] = `
   </div>
 </div>
 <div>
-  <div class="van-nav-bar van-hairline--bottom">
+  <div class="van-nav-bar van-nav-bar--custom-background van-hairline--bottom">
     <div class="van-nav-bar__content">
-      <div class="van-nav-bar__left van-haptics-feedback">
-        <i class="van-badge__wrapper van-icon van-icon-arrow-left van-nav-bar__arrow">
-        </i>
-        <span class="van-nav-bar__text">
-          Back
-        </span>
-      </div>
       <div class="van-nav-bar__title van-ellipsis">
         Title
       </div>
@@ -36,36 +29,54 @@ exports[`should render demo and match snapshot 1`] = `
           Back
         </span>
       </div>
-      <div class="van-nav-bar__title van-ellipsis">
+      <div
+        class="van-nav-bar__title van-ellipsis"
+        style="max-width: calc(100% - 100px);"
+      >
         Title
       </div>
       <div class="van-nav-bar__right van-haptics-feedback">
-        <span class="van-nav-bar__text">
+        <span class="van-nav-bar__text van-nav-bar__text--right">
           Button
         </span>
       </div>
     </div>
   </div>
-</div>
-<div>
   <div class="van-nav-bar van-hairline--bottom">
     <div class="van-nav-bar__content">
-      <div class="van-nav-bar__left van-haptics-feedback">
-        <i class="van-badge__wrapper van-icon van-icon-arrow-left van-nav-bar__arrow">
-        </i>
-        <span class="van-nav-bar__text">
-          Back
-        </span>
+      <div class="van-nav-bar__left">
+        <div class="van-nav-bar__actions">
+          <div
+            class="van-nav-bar__action van-haptics-feedback"
+            tabindex="0"
+          >
+            <i class="van-badge__wrapper van-icon van-icon-arrow-left van-nav-bar__action-icon">
+            </i>
+            <span class="van-nav-bar__action-text">
+              Back
+            </span>
+          </div>
+        </div>
       </div>
-      <div class="van-nav-bar__title van-ellipsis">
+      <div
+        class="van-nav-bar__title van-ellipsis"
+        style="max-width: calc(100% - 156px);"
+      >
         Title
       </div>
-      <div class="van-nav-bar__right van-haptics-feedback">
-        <i
-          class="van-badge__wrapper van-icon van-icon-search"
-          style="font-size: 18px;"
-        >
-        </i>
+      <div class="van-nav-bar__right">
+        <div class="van-nav-bar__actions">
+          <span class="van-nav-bar__text van-nav-bar__text--right van-haptics-feedback">
+            Button
+          </span>
+          <div
+            class="van-nav-bar__action van-haptics-feedback"
+            tabindex="0"
+          >
+            <i class="van-badge__wrapper van-icon van-icon-search van-nav-bar__action-icon">
+            </i>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -73,20 +84,243 @@ exports[`should render demo and match snapshot 1`] = `
 <div>
   <div class="van-nav-bar van-hairline--bottom">
     <div class="van-nav-bar__content">
-      <div class="van-nav-bar__left van-nav-bar__left--disabled">
-        <i class="van-badge__wrapper van-icon van-icon-arrow-left van-nav-bar__arrow">
-        </i>
-        <span class="van-nav-bar__text">
-          Back
-        </span>
+      <div class="van-nav-bar__left">
+        <div class="van-nav-bar__actions">
+          <div
+            class="van-nav-bar__action van-haptics-feedback"
+            tabindex="0"
+          >
+            <i class="van-badge__wrapper van-icon van-icon-arrow-left van-nav-bar__action-icon">
+            </i>
+          </div>
+          <div
+            class="van-nav-bar__action van-haptics-feedback"
+            tabindex="0"
+          >
+            <i class="van-badge__wrapper van-icon van-icon-cross van-nav-bar__action-icon">
+            </i>
+          </div>
+        </div>
       </div>
-      <div class="van-nav-bar__title van-ellipsis">
+      <div
+        class="van-nav-bar__title van-ellipsis"
+        style="max-width: calc(100% - 156px);"
+      >
         Title
       </div>
-      <div class="van-nav-bar__right van-nav-bar__right--disabled">
-        <span class="van-nav-bar__text">
-          Button
-        </span>
+      <div class="van-nav-bar__right">
+        <div class="van-nav-bar__actions">
+          <div
+            class="van-nav-bar__action van-nav-bar__action--menu van-haptics-feedback"
+            tabindex="0"
+          >
+            <i class="van-badge__wrapper van-icon van-icon-ellipsis van-nav-bar__action-icon">
+            </i>
+          </div>
+          <div
+            class="van-nav-bar__action van-haptics-feedback"
+            tabindex="0"
+          >
+            <i class="van-badge__wrapper van-icon van-icon-search van-nav-bar__action-icon">
+            </i>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div>
+  <div class="van-nav-bar van-hairline--bottom">
+    <div class="van-nav-bar__content">
+      <div
+        class="van-nav-bar__title van-ellipsis"
+        style="max-width: calc(100% - 156px);"
+      >
+        This is a very long title for NavBar display
+      </div>
+      <div class="van-nav-bar__right">
+        <div class="van-nav-bar__actions">
+          <div
+            class="van-nav-bar__action van-haptics-feedback"
+            tabindex="0"
+          >
+            <i class="van-badge__wrapper van-icon van-icon-search van-nav-bar__action-icon">
+            </i>
+          </div>
+          <div
+            class="van-nav-bar__action van-haptics-feedback"
+            tabindex="0"
+          >
+            <i class="van-badge__wrapper van-icon van-icon-ellipsis van-nav-bar__action-icon">
+            </i>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div>
+  <div class="van-nav-bar van-hairline--bottom">
+    <div class="van-nav-bar__content">
+      <div
+        class="van-nav-bar__title van-nav-bar__title--search"
+        style="left: 8px; right: 8px;"
+      >
+        <div class="van-nav-bar__search">
+          <div class="van-search">
+            <div class="van-search__content van-search__content--round">
+              <div class="van-cell van-cell--borderless van-field van-field--label-left van-search__field">
+                <div class="van-field__left-icon">
+                  <i class="van-badge__wrapper van-icon van-icon-search">
+                  </i>
+                </div>
+                <div class="van-cell__value van-field__value">
+                  <div class="van-field__body">
+                    <input
+                      type="search"
+                      id="van-search-input"
+                      class="van-field__control"
+                      placeholder="Search"
+                      data-allow-mismatch="attribute"
+                    >
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="van-nav-bar van-hairline--bottom">
+    <div class="van-nav-bar__content">
+      <div class="van-nav-bar__left">
+        <div class="van-nav-bar__actions">
+          <div
+            class="van-nav-bar__action van-haptics-feedback"
+            tabindex="0"
+          >
+            <i class="van-badge__wrapper van-icon van-icon-arrow-left van-nav-bar__action-icon">
+            </i>
+            <span class="van-nav-bar__action-text">
+              Back
+            </span>
+          </div>
+        </div>
+      </div>
+      <div
+        class="van-nav-bar__title van-nav-bar__title--search van-nav-bar__title--has-left van-nav-bar__title--has-right"
+        style="left: 50px; right: 78px;"
+      >
+        <div class="van-nav-bar__search">
+          <div class="van-search">
+            <div class="van-search__content van-search__content--square">
+              <div class="van-cell van-cell--borderless van-field van-field--label-left van-search__field">
+                <div class="van-field__left-icon">
+                  <i class="van-badge__wrapper van-icon van-icon-search">
+                  </i>
+                </div>
+                <div class="van-cell__value van-field__value">
+                  <div class="van-field__body">
+                    <input
+                      type="search"
+                      id="van-search-input"
+                      class="van-field__control"
+                      placeholder="Search"
+                      data-allow-mismatch="attribute"
+                    >
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="van-nav-bar__right">
+        <div class="van-nav-bar__actions">
+          <div
+            class="van-nav-bar__action van-haptics-feedback"
+            tabindex="0"
+          >
+            <i class="van-badge__wrapper van-icon van-icon-search van-nav-bar__action-icon">
+            </i>
+          </div>
+          <div
+            class="van-nav-bar__action van-haptics-feedback"
+            tabindex="0"
+          >
+            <i class="van-badge__wrapper van-icon van-icon-ellipsis van-nav-bar__action-icon">
+            </i>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="van-nav-bar van-hairline--bottom">
+    <div class="van-nav-bar__content">
+      <div class="van-nav-bar__left">
+        <div class="van-nav-bar__actions">
+          <div
+            class="van-nav-bar__action van-haptics-feedback"
+            tabindex="0"
+          >
+            <i class="van-badge__wrapper van-icon van-icon-arrow-left van-nav-bar__action-icon">
+            </i>
+          </div>
+          <div
+            class="van-nav-bar__action van-haptics-feedback"
+            tabindex="0"
+          >
+            <i class="van-badge__wrapper van-icon van-icon-cross van-nav-bar__action-icon">
+            </i>
+          </div>
+        </div>
+      </div>
+      <div
+        class="van-nav-bar__title van-nav-bar__title--search van-nav-bar__title--has-left van-nav-bar__title--has-right"
+        style="left: 78px; right: 78px;"
+      >
+        <div class="van-nav-bar__search">
+          <div class="van-search">
+            <div class="van-search__content van-search__content--square">
+              <div class="van-cell van-cell--borderless van-field van-field--label-left van-search__field">
+                <div class="van-field__left-icon">
+                  <i class="van-badge__wrapper van-icon van-icon-search">
+                  </i>
+                </div>
+                <div class="van-cell__value van-field__value">
+                  <div class="van-field__body">
+                    <input
+                      type="search"
+                      id="van-search-input"
+                      class="van-field__control"
+                      placeholder="Search"
+                      data-allow-mismatch="attribute"
+                    >
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="van-nav-bar__right">
+        <div class="van-nav-bar__actions">
+          <div
+            class="van-nav-bar__action van-haptics-feedback"
+            tabindex="0"
+          >
+            <i class="van-badge__wrapper van-icon van-icon-search van-nav-bar__action-icon">
+            </i>
+          </div>
+          <div
+            class="van-nav-bar__action van-haptics-feedback"
+            tabindex="0"
+          >
+            <i class="van-badge__wrapper van-icon van-icon-ellipsis van-nav-bar__action-icon">
+            </i>
+          </div>
+        </div>
       </div>
     </div>
   </div>

@@ -1,10 +1,13 @@
 :root,
 :host {
-  --van-sidebar-width: 80px;
+  --van-sidebar-width: fit-content;
+  --van-sidebar-max-width: 148px;
 }
 
 .van-sidebar {
+  display: grid;
   width: var(--van-sidebar-width);
+  max-width: var(--van-sidebar-max-width);
   overflow-y: auto;
   -webkit-overflow-scrolling: touch;
 }

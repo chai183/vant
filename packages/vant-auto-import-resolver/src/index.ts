@@ -76,6 +76,12 @@ function getAPIMap() {
       'setDialogDefaultOptions',
       'resetDialogDefaultOptions',
     ],
+    adDialog: [
+      'showAdDialog',
+      'closeAdDialog',
+      'setAdDialogDefaultOptions',
+      'resetAdDialogDefaultOptions',
+    ],
     imagePreview: ['showImagePreview'],
     notify: [
       'showNotify',
@@ -118,7 +124,7 @@ export function VantResolver(options: VantResolverOptions = {}) {
           return {
             name: partialName,
             from: `vant/${moduleType}`,
-            sideEffects: getSideEffects(kebabCase(partialName), options)
+            sideEffects: getSideEffects(kebabCase(partialName), options),
           };
         }
       }
@@ -126,11 +132,11 @@ export function VantResolver(options: VantResolverOptions = {}) {
       // import API
       if (apiMap.has(name) && !options.exclude?.includes(name)) {
         const partialName = apiMap.get(name)!;
-          return {
-            name,
-            from: `vant/${moduleType}`,
-            sideEffects: getSideEffects(kebabCase(partialName), options),
-          };
+        return {
+          name,
+          from: `vant/${moduleType}`,
+          sideEffects: getSideEffects(kebabCase(partialName), options),
+        };
       }
     },
   };

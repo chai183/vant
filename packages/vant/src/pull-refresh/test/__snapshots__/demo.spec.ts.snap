@@ -1,4 +1,4 @@
-// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+// Rstest Snapshot v1
 
 exports[`should render demo and match snapshot 1`] = `
 <div class="van-tabs van-tabs--line">
@@ -36,6 +36,19 @@ exports[`should render demo and match snapshot 1`] = `
       </div>
       <div
         id="van-tabs-2"
+        role="tab"
+        class="van-tab van-tab--line"
+        tabindex="-1"
+        aria-selected="false"
+        aria-controls="van-tab"
+        data-allow-mismatch="attribute"
+      >
+        <span class="van-tab__text van-tab__text--ellipsis">
+          Error Tip
+        </span>
+      </div>
+      <div
+        id="van-tabs-3"
         role="tab"
         class="van-tab van-tab--line"
         tabindex="-1"
@@ -93,6 +106,16 @@ exports[`should render demo and match snapshot 1`] = `
       class="van-tab__panel"
       tabindex="-1"
       aria-labelledby="van-tabs-2"
+      data-allow-mismatch="attribute"
+      style="display: none;"
+    >
+    </div>
+    <div
+      id="van-tab"
+      role="tabpanel"
+      class="van-tab__panel"
+      tabindex="-1"
+      aria-labelledby="van-tabs-3"
       data-allow-mismatch="attribute"
       style="display: none;"
     >

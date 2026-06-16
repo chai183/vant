@@ -3,7 +3,7 @@ import { mount } from '../../../test';
 import type { SearchInstance } from '../types';
 
 test('should emit update:modelValue event when input value changed', () => {
-  const onUpdateModelValue = vi.fn();
+  const onUpdateModelValue = rs.fn();
   const wrapper = mount(Search, {
     props: {
       'onUpdate:modelValue': onUpdateModelValue,
@@ -16,6 +16,62 @@ test('should emit update:modelValue event when input value changed', () => {
 
   expect(onUpdateModelValue).toHaveBeenCalledTimes(1);
   expect(onUpdateModelValue).toHaveBeenCalledWith('1');
+});
+
+test('should show clear icon when has value and not focused', () => {
+  const wrapper = mount(Search, {
+    props: {
+      modelValue: 'test',
+    },
+  });
+
+  expect(wrapper.find('.van-field__clear').exists()).toBeTruthy();
+});
+
+test('should show cancel action when scene is search-page', () => {
+  const wrapper = mount(Search, {
+    props: {
+      scene: 'search-page',
+    },
+  });
+
+  expect(wrapper.find('.van-search__action').exists()).toBeTruthy();
+  expect(wrapper.find('.van-search--search-page').exists()).toBeTruthy();
+  expect(wrapper.find('.van-search__content--round').exists()).toBeTruthy();
+});
+
+test('should use round shape for filter-bar scene', () => {
+  const wrapper = mount(Search, {
+    props: {
+      scene: 'filter-bar',
+    },
+  });
+
+  expect(wrapper.find('.van-search__content--round').exists()).toBeTruthy();
+});
+
+test('should emit search when scene is filter-bar and action is clicked', () => {
+  const onSearch = rs.fn();
+  const wrapper = mount(Search, {
+    props: {
+      scene: 'filter-bar',
+      modelValue: 'foo',
+      onSearch,
+    },
+  });
+
+  wrapper.find('.van-search__action').trigger('click');
+  expect(onSearch).toHaveBeenCalledWith('foo');
+});
+
+test('should not render left icon when scene is filter-inner', () => {
+  const wrapper = mount(Search, {
+    props: {
+      scene: 'filter-inner',
+    },
+  });
+
+  expect(wrapper.find('.van-field__left-icon').exists()).toBeFalsy();
 });
 
 test('should emit cancel event when cancel button click is clicked', () => {
@@ -123,7 +179,7 @@ test('should render action text when using action-text prop', () => {
 
 test('should call input.focus when vm.focus is called', () => {
   const wrapper = mount(Search);
-  const onFocus = vi.fn();
+  const onFocus = rs.fn();
   wrapper.find('input').element.focus = onFocus;
 
   (wrapper.vm as SearchInstance).focus();
@@ -132,7 +188,7 @@ test('should call input.focus when vm.focus is called', () => {
 
 test('should call input.blur when vm.blur is called', () => {
   const wrapper = mount(Search);
-  const onBlur = vi.fn();
+  const onBlur = rs.fn();
   wrapper.find('input').element.blur = onBlur;
 
   (wrapper.vm as SearchInstance).blur();

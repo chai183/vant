@@ -1,0 +1,12 @@
+/*
+ * 提供印章标签使用的粗黑字体变量兜底。
+ * 如业务侧注入真实字体，可覆盖 --van-chuangcuhei-font-family。
+ */
+:root,
+:host {
+  --van-chuangcuhei-font-family: 'Microsoft YaHei', '微软雅黑', 'PingFang SC', sans-serif;
+}
+
+.van-chuangcuhei-font {
+  font-family: var(--van-chuangcuhei-font-family);
+}

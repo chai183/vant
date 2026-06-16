@@ -37,6 +37,88 @@ export default {
 };
 ```
 
+### 搜索页模态
+
+设置 `scene="search-page"`。
+
+```html
+<van-search
+  v-model="valuePage"
+  scene="search-page"
+  placeholder="请输入搜索关键词"
+  @search="onSearch"
+  @cancel="onCancel"
+/>
+```
+
+```js
+import { ref } from 'vue';
+import { showToast } from 'vant';
+
+export default {
+  setup() {
+    const valuePage = ref('');
+    const onSearch = (val) => showToast(val);
+    const onCancel = () => showToast('取消');
+    return { valuePage, onSearch, onCancel };
+  },
+};
+```
+
+### 筛选栏模态
+
+设置 `scene="filter-bar"`。
+
+```html
+<form action="/">
+  <van-search
+    v-model="valueFilterBar"
+    scene="filter-bar"
+    placeholder="请输入搜索关键词"
+    @search="onSearch"
+  />
+</form>
+```
+
+```js
+import { ref } from 'vue';
+import { showToast } from 'vant';
+
+export default {
+  setup() {
+    const valueFilterBar = ref('');
+    const onSearch = (val) => showToast(val);
+    return { valueFilterBar, onSearch };
+  },
+};
+```
+
+### 筛选内模态
+
+设置 `scene="filter-inner"`。
+
+```html
+<van-search
+  v-model="valueFilterInner"
+  scene="filter-inner"
+  placeholder="请输入搜索关键词"
+  @search="onSearch"
+/>
+```
+
+```js
+import { ref } from 'vue';
+import { showToast } from 'vant';
+
+export default {
+  setup() {
+    const valueFilterInner = ref('');
+    const onSearch = (val) => showToast(val);
+    return { valueFilterInner, onSearch };
+  },
+};
+```
+
 ### 事件监听
 
 Search 组件提供了 `search` 和 `cancel` 事件，`search` 事件在点击键盘上的搜索/回车按钮后触发，`cancel` 事件在点击搜索框右侧取消按钮时触发。
@@ -158,10 +240,11 @@ export default {
 | placeholder | 占位提示文字 | _string_ | - |
 | clearable | 是否启用清除图标，点击清除图标后会清空输入框 | _boolean_ | `true` |
 | clear-icon | 清除图标名称或图片链接，等同于 Icon 组件的 [name 属性](#/zh-CN/icon#props) | _string_ | `clear` |
-| clear-trigger | 显示清除图标的时机，`always` 表示输入框不为空时展示，<br>`focus` 表示输入框聚焦且不为空时展示 | _string_ | `focus` |
+| clear-trigger | 显示清除图标的时机，`always` 表示输入框不为空时展示，<br>`focus` 表示输入框聚焦且不为空时展示 | _string_ | `always` |
 | autofocus | 是否自动聚焦，iOS 系统不支持该属性 | _boolean_ | `false` |
 | show-action | 是否在搜索框右侧显示取消按钮 | _boolean_ | `false` |
-| action-text | 取消按钮文字 | _string_ | `取消` |
+| scene | 场景预设，可选 `default` `search-page` `filter-bar` `filter-inner` | _string_ | `default` |
+| action-text | 右侧按钮文字；`search-page` 下默认「取消」，`filter-bar` 下默认「搜索」 | _string_ | - |
 | disabled | 是否禁用输入框 | _boolean_ | `false` |
 | readonly | 是否将输入框设为只读状态，只读状态下无法输入内容 | _boolean_ | `false` |
 | error | 是否将输入内容标红 | _boolean_ | `false` |
@@ -201,7 +284,12 @@ export default {
 组件导出以下类型定义：
 
 ```ts
-import type { SearchProps, SearchShape, SearchInstance } from 'vant';
+import type {
+  SearchProps,
+  SearchShape,
+  SearchScene,
+  SearchInstance,
+} from 'vant';
 ```
 
 `SearchInstance` 是组件实例的类型，用法如下：
@@ -231,19 +319,22 @@ searchRef.value?.focus();
 
 组件提供了下列 CSS 变量，可用于自定义样式，使用方法请参考 [ConfigProvider 组件](#/zh-CN/config-provider)。
 
-| 名称                            | 默认值                       | 描述 |
-| ------------------------------- | ---------------------------- | ---- |
-| --van-search-padding            | _10px var(--van-padding-sm)_ | -    |
-| --van-search-background         | _var(--van-background-2)_    | -    |
-| --van-search-content-background | _var(--van-gray-1)_          | -    |
-| --van-search-input-height       | _34px_                       | -    |
-| --van-search-label-padding      | _0 5px_                      | -    |
-| --van-search-label-color        | _var(--van-text-color)_      | -    |
-| --van-search-label-font-size    | _var(--van-font-size-md)_    | -    |
-| --van-search-left-icon-color    | _var(--van-gray-6)_          | -    |
-| --van-search-action-padding     | _0 var(--van-padding-xs)_    | -    |
-| --van-search-action-text-color  | _var(--van-text-color)_      | -    |
-| --van-search-action-font-size   | _var(--van-font-size-md)_    | -    |
+| 名称                            | 默认值                      | 描述 |
+| ------------------------------- | --------------------------- | ---- |
+| --van-search-height             | _44px_                      | -    |
+| --van-search-padding            | _6px var(--van-padding-sm)_ | -    |
+| --van-search-background         | _var(--van-background-2)_   | -    |
+| --van-search-content-background | _#f5f5f5_                   | -    |
+| --van-search-input-height       | _32px_                      | -    |
+| --van-search-font-size          | _14px_                      | -    |
+| --van-search-left-icon-size     | _16px_                      | -    |
+| --van-search-label-padding      | _0 5px_                     | -    |
+| --van-search-label-color        | _var(--van-text-color)_     | -    |
+| --van-search-label-font-size    | _var(--van-font-size-md)_   | -    |
+| --van-search-left-icon-color    | _var(--van-gray-6)_         | -    |
+| --van-search-action-padding     | _0 var(--van-padding-xs)_   | -    |
+| --van-search-action-text-color  | _#333333_                   | -    |
+| --van-search-action-font-size   | _18px_                      | -    |
 
 ## 常见问题
 

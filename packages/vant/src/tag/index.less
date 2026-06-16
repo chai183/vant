@@ -1,76 +1,106 @@
+@import '../style/font.css';
+
 :root,
 :host {
-  --van-tag-padding: 0 var(--van-padding-base);
+  --van-tag-height: 20px;
+  --van-tag-padding: var(--van-padding-base);
   --van-tag-text-color: var(--van-white);
   --van-tag-font-size: var(--van-font-size-sm);
-  --van-tag-radius: 2px;
-  --van-tag-line-height: 16px;
+  --van-tag-radius: var(--van-radius-sm);
+  --van-tag-line-height: var(--van-font-size-sm);
+  --van-tag-mark-height: var(--van-padding-lg);
+  --van-tag-mark-padding: var(--van-padding-base) var(--van-padding-xs);
+  --van-tag-mark-radius: 0 var(--van-radius-lg) 0 var(--van-radius-lg);
   --van-tag-medium-padding: 2px 6px;
   --van-tag-large-padding: var(--van-padding-base) var(--van-padding-xs);
   --van-tag-large-radius: var(--van-radius-md);
   --van-tag-large-font-size: var(--van-font-size-md);
   --van-tag-round-radius: var(--van-radius-max);
-  --van-tag-danger-color: var(--van-danger-color);
+  --van-tag-default-color: var(--van-primary-color);
   --van-tag-primary-color: var(--van-primary-color);
-  --van-tag-success-color: var(--van-success-color);
+  --van-tag-success-color: #2bcd79;
+  --van-tag-danger-color: #ff3333;
+  --van-tag-info-color: var(--van-gray-6);
   --van-tag-warning-color: var(--van-warning-color);
-  --van-tag-default-color: var(--van-gray-6);
+  --van-tag-plain-default-background: #fff2e9;
+  --van-tag-plain-success-background: #e9f9f1;
+  --van-tag-plain-danger-background: #ffeaea;
+  --van-tag-plain-info-background: var(--van-gray-2);
+  --van-tag-currency-background: var(--van-gray-2);
+  --van-tag-currency-text-color: var(--van-text-color);
   --van-tag-plain-background: var(--van-background-2);
+  --van-tag-stamp-size: 64px;
+  --van-tag-stamp-success-color: #00cc00;
+  --van-tag-stamp-fail-color: #ff0000;
+  --van-tag-stamp-wait-color: #ff9900;
+  --van-tag-stamp-void-color: #e3e3e3;
+  --van-tag-stamp-text-size-short: var(--van-font-size-md);
+  --van-tag-stamp-text-size-len-3: 13px;
+  --van-tag-stamp-text-size-len-4: var(--van-font-size-sm);
+  --van-tag-stamp-text-size-len-5: var(--van-font-size-xs);
+  --van-tag-stamp-text-wrap-s: 11px;
+  --van-tag-stamp-text-wrap-m: var(--van-font-size-xs);
+  --van-tag-stamp-text-wrap-l: 9px;
+  --van-tag-stamp-text-wrap-xl: 8px;
+  --van-tag-stamp-font-family: var(
+    --van-chuangcuhei-font-family,
+    'Microsoft YaHei',
+    '微软雅黑',
+    'PingFang SC',
+    sans-serif
+  );
+  /** 印章外框与文案整体旋转角度（相对 64×64 区域中心） */
+  --van-tag-stamp-rotate: -30deg;
 }
 
 .van-tag {
   position: relative;
   display: inline-flex;
   align-items: center;
+  box-sizing: border-box;
+  min-height: var(--van-tag-height);
   padding: var(--van-tag-padding);
   color: var(--van-tag-text-color);
   font-size: var(--van-tag-font-size);
   line-height: var(--van-tag-line-height);
   border-radius: var(--van-tag-radius);
 
-  &--default {
-    background: var(--van-tag-default-color);
-
-    &.van-tag--plain {
-      color: var(--van-tag-default-color);
-    }
+  &__icon {
+    display: flex;
+    flex-shrink: 0;
+    align-items: center;
+    margin-right: 2px;
+    font-size: 12px;
+    line-height: 1;
   }
 
-  &--danger {
-    background: var(--van-tag-danger-color);
-
-    &.van-tag--plain {
-      color: var(--van-tag-danger-color);
-    }
+  &--default {
+    background: var(--van-tag-default-color);
   }
 
   &--primary {
     background: var(--van-tag-primary-color);
-
-    &.van-tag--plain {
-      color: var(--van-tag-primary-color);
-    }
   }
 
   &--success {
     background: var(--van-tag-success-color);
+  }
 
-    &.van-tag--plain {
-      color: var(--van-tag-success-color);
-    }
+  &--danger {
+    background: var(--van-tag-danger-color);
+  }
+
+  &--info {
+    background: var(--van-tag-info-color);
   }
 
   &--warning {
     background: var(--van-tag-warning-color);
-
-    &.van-tag--plain {
-      color: var(--van-tag-warning-color);
-    }
   }
 
   &--plain {
-    background: var(--van-tag-plain-background);
-    border-color: currentColor;
+    background: var(--van-tag-plain-default-background);
+    color: var(--van-tag-default-color);
 
     &::before {
       position: absolute;
@@ -78,11 +108,57 @@
       right: 0;
       bottom: 0;
       left: 0;
-      border: 1px solid;
-      border-color: inherit;
+      border: 1px solid currentColor;
       border-radius: inherit;
       content: '';
       pointer-events: none;
+    }
+
+    &.van-tag--default,
+    &.van-tag--primary {
+      background: var(--van-tag-plain-default-background);
+      color: var(--van-tag-default-color);
+    }
+
+    &.van-tag--success {
+      background: var(--van-tag-plain-success-background);
+      color: var(--van-tag-success-color);
+    }
+
+    &.van-tag--danger {
+      background: var(--van-tag-plain-danger-background);
+      color: var(--van-tag-danger-color);
+    }
+
+    &.van-tag--info {
+      background: var(--van-tag-plain-info-background);
+      color: var(--van-tag-info-color);
+    }
+
+    &.van-tag--warning {
+      background: var(--van-tag-plain-background);
+      color: var(--van-tag-warning-color);
+    }
+  }
+
+  &--currency {
+    color: var(--van-tag-currency-text-color);
+    background: var(--van-tag-currency-background);
+  }
+
+  &--mark {
+    min-height: var(--van-tag-mark-height);
+    padding: var(--van-tag-mark-padding);
+    border-radius: var(--van-tag-mark-radius);
+
+    &::after {
+      display: none;
+    }
+  }
+
+  &--mark.van-tag--plain {
+    &::before {
+      border-radius: inherit;
     }
   }
 
@@ -96,18 +172,219 @@
     border-radius: var(--van-tag-large-radius);
   }
 
-  &--mark {
-    border-radius: 0 var(--van-tag-round-radius) var(--van-tag-round-radius) 0;
+  &--round {
+    border-radius: var(--van-tag-round-radius);
+  }
 
-    &::after {
-      display: block;
-      width: 2px;
+  &--preset-risk-high,
+  &--preset-risk-medium-high {
+    color: var(--van-tag-danger-color);
+    background: var(--van-tag-plain-danger-background);
+
+    &::before {
+      position: absolute;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      left: 0;
+      border: 1px solid currentColor;
+      border-radius: inherit;
       content: '';
+      pointer-events: none;
     }
   }
 
-  &--round {
-    border-radius: var(--van-tag-round-radius);
+  &--preset-risk-medium {
+    color: #ffa710;
+    background: #fff6e7;
+
+    &::before {
+      position: absolute;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      left: 0;
+      border: 1px solid #ffa710;
+      border-radius: inherit;
+      content: '';
+      pointer-events: none;
+    }
+  }
+
+  &--preset-risk-low,
+  &--preset-risk-medium-low,
+  &--preset-risk-selected {
+    color: #3780fd;
+    background: #ebf2fe;
+
+    &::before {
+      position: absolute;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      left: 0;
+      border: 1px solid #3780fd;
+      border-radius: inherit;
+      content: '';
+      pointer-events: none;
+    }
+  }
+
+  &--preset-risk-new {
+    color: var(--van-tag-success-color);
+    background: var(--van-tag-plain-success-background);
+
+    &::before {
+      position: absolute;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      left: 0;
+      border: 1px solid currentColor;
+      border-radius: inherit;
+      content: '';
+      pointer-events: none;
+    }
+  }
+
+  &--preset-product-bill {
+    color: var(--van-tag-text-color);
+    background: var(--van-tag-default-color);
+  }
+
+  &--preset-product-finance {
+    color: var(--van-tag-text-color);
+    background: var(--van-tag-danger-color);
+  }
+
+  &--preset-product-deposit {
+    color: var(--van-tag-text-color);
+    background: #1b4eb4;
+  }
+
+  &--preset-product-payroll {
+    color: var(--van-tag-text-color);
+    background: #3780fd;
+  }
+
+  &--stamp {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: var(--van-tag-stamp-size);
+    height: var(--van-tag-stamp-size);
+    min-height: var(--van-tag-stamp-size);
+    padding: 0;
+    background: transparent;
+  }
+
+  &--stamp-success {
+    color: var(--van-tag-stamp-success-color);
+  }
+
+  &--stamp-fail {
+    color: var(--van-tag-stamp-fail-color);
+  }
+
+  &--stamp-wait {
+    color: var(--van-tag-stamp-wait-color);
+  }
+
+  &--stamp-void {
+    color: var(--van-tag-stamp-void-color);
+  }
+
+  &__stamp {
+    position: relative;
+    display: block;
+    width: 100%;
+    height: 100%;
+    transform-origin: center center;
+    // transform: rotate(var(--van-tag-stamp-rotate));
+  }
+
+  &__stamp-frame {
+    position: absolute;
+    inset: 0;
+    background-color: currentColor;
+    mask-repeat: no-repeat;
+    mask-position: center;
+    mask-size: contain;
+    -webkit-mask-repeat: no-repeat;
+    -webkit-mask-position: center;
+    -webkit-mask-size: contain;
+  }
+
+  &__stamp-text {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
+    max-width: 80%;
+    max-height: 60%;
+    overflow: hidden;
+    color: currentColor;
+    font-family: var(--van-tag-stamp-font-family);
+    font-weight: 400;
+    line-height: 1.12;
+    text-align: center;
+    transform: translate(-50%, -50%) rotate(var(--van-tag-stamp-rotate));
+    pointer-events: none;
+    white-space: nowrap;
+
+    &-line {
+      display: block;
+      max-width: 100%;
+      overflow: hidden;
+      text-overflow: clip;
+      white-space: nowrap;
+      line-height: 1.12;
+    }
+
+    &--short {
+      font-size: var(--van-tag-stamp-text-size-short);
+      letter-spacing: 3px;
+    }
+
+    &--len-3 {
+      font-size: var(--van-tag-stamp-text-size-len-3);
+      letter-spacing: 1px;
+    }
+
+    &--len-4 {
+      font-size: var(--van-tag-stamp-text-size-len-4);
+      letter-spacing: 0.5px;
+    }
+
+    &--len-5 {
+      font-size: var(--van-tag-stamp-text-size-len-5);
+      letter-spacing: 0;
+    }
+
+    &--wrap-s {
+      font-size: var(--van-tag-stamp-text-wrap-s);
+      letter-spacing: 0.5px;
+    }
+
+    &--wrap-m {
+      font-size: var(--van-tag-stamp-text-wrap-m);
+      letter-spacing: 0;
+    }
+
+    &--wrap-l {
+      font-size: var(--van-tag-stamp-text-wrap-l);
+      letter-spacing: 0;
+    }
+
+    &--wrap-xl {
+      font-size: var(--van-tag-stamp-text-wrap-xl);
+      letter-spacing: 0;
+    }
   }
 
   &__close {

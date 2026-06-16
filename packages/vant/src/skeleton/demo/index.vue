@@ -13,6 +13,11 @@ const t = useTranslate({
     title: '关于 Vant',
     desc: 'Vant 是一套轻量、可定制的移动端 Vue 组件库，提供了丰富的基础组件和业务组件，帮助开发者快速搭建移动应用。',
     customContent: '自定义展示内容',
+    textSkeleton: '文本骨架屏',
+    gridSkeleton: '宫格骨架屏',
+    paragraphSkeleton: '段落骨架屏',
+    cellSkeleton: '单元格骨架屏',
+    mediaSkeleton: '图文组合骨架屏',
   },
   'en-US': {
     showAvatar: 'Show Avatar',
@@ -20,6 +25,11 @@ const t = useTranslate({
     title: 'About Vant',
     desc: 'Vant is a set of Mobile UI Components built on Vue.',
     customContent: 'Custom Content',
+    textSkeleton: 'Text Skeleton',
+    gridSkeleton: 'Grid Skeleton',
+    paragraphSkeleton: 'Paragraph Skeleton',
+    cellSkeleton: 'Cell Skeleton',
+    mediaSkeleton: 'Media Skeleton',
   },
 });
 
@@ -27,6 +37,26 @@ const show = ref(false);
 </script>
 
 <template>
+  <demo-block :title="t('textSkeleton')">
+    <van-skeleton round :row="2" :row-width="['100%', '100%']" />
+  </demo-block>
+
+  <demo-block :title="t('gridSkeleton')">
+    <van-skeleton template-type="grid" />
+  </demo-block>
+
+  <demo-block :title="t('paragraphSkeleton')">
+    <van-skeleton round :row="4" :row-width="['100%', '100%', '100%', '50%']" />
+  </demo-block>
+
+  <demo-block :title="t('cellSkeleton')">
+    <van-skeleton template-type="cell" />
+  </demo-block>
+
+  <demo-block :title="t('mediaSkeleton')">
+    <van-skeleton template-type="media" />
+  </demo-block>
+
   <demo-block :title="t('basicUsage')">
     <van-skeleton title :row="3" />
   </demo-block>

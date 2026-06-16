@@ -8,4 +8,15 @@ export type SkeletonThemeVars = {
   SkeletonImageSize?: string;
   SkeletonImageRadius?: string;
   skeletonDuration?: string;
+  skeletonBackgroundFrom?: string;
+  skeletonBackgroundTo?: string;
+  skeletonPaddingHorizontal?: string;
+  skeletonGridAvatarSize?: string;
+  skeletonGridTextWidth?: string;
+  skeletonGridGap?: string;
+  skeletonCellAvatarSize?: string;
+  skeletonMediaGap?: string;
+  skeletonMediaAspectRatio?: string;
+  skeletonMediaRowLeftWidth?: string;
+  skeletonMediaRowRightWidth?: string;
 };

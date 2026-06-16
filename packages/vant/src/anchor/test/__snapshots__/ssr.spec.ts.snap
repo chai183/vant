@@ -1,0 +1,10 @@
+// Rstest Snapshot v1
+
+exports[`should render correctly when SSR 1`] = `
+<!--[-->
+<div
+  class="van-anchor"
+  style
+>
+</div>
+`;

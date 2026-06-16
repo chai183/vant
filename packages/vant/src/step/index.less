@@ -1,16 +1,43 @@
 :root,
 :host {
-  --van-step-text-color: var(--van-text-color-2);
+  --van-step-text-color: var(--van-text-color);
+  --van-step-description-color: var(--van-gray-7);
   --van-step-active-color: var(--van-primary-color);
-  --van-step-process-text-color: var(--van-text-color);
-  --van-step-font-size: var(--van-font-size-md);
+  --van-step-process-text-color: var(--van-primary-color);
+  --van-step-font-size: var(--van-font-size-sm);
   --van-step-line-color: var(--van-border-color);
   --van-step-finish-line-color: var(--van-primary-color);
   --van-step-finish-text-color: var(--van-text-color);
-  --van-step-icon-size: 12px;
+  --van-step-icon-size: var(--van-font-size-sm);
   --van-step-circle-size: 5px;
   --van-step-circle-color: var(--van-gray-6);
+  --van-step-circle-number-size: var(--van-font-size-lg);
+  --van-step-waiting-circle-bg: var(--van-gray-4);
+  --van-step-waiting-circle-color: var(--van-text-color-2);
+  --van-step-error-color: #ff3333;
   --van-step-horizontal-title-font-size: var(--van-font-size-sm);
+  --van-step-vertical-title-font-size: var(--van-font-size-md);
+  --van-step-vertical-content-padding: var(--van-padding-base);
+  --van-step-vertical-padding-right: var(--van-padding-sm);
+  --van-step-vertical-padding-bottom: 10px;
+  --van-step-vertical-circle-top: calc(
+    var(--van-step-vertical-content-padding) + var(--van-line-height-md) / 2
+  );
+  --van-step-vertical-step-gap: 60px;
+  // 折叠连线长度：上方已完成方向 1/3（主题色渐变）
+  --van-step-vertical-collapsed-line-preview: calc(
+    var(--van-step-vertical-step-gap) / 3
+  );
+  // 折叠连线长度：下方未完成方向 2/3（灰色渐变）
+  --van-step-vertical-collapsed-line-tail: calc(
+    var(--van-step-vertical-step-gap) * 2 / 3
+  );
+  // 折叠连线渐变终点色（与步骤背景一致）
+  --van-step-collapsed-line-fade: var(--van-steps-background, var(--van-white));
+  --van-step-horizontal-node-center: calc(
+    var(--van-step-circle-number-size) / 2
+  );
+  --van-step-horizontal-text-height: calc(var(--van-line-height-sm) * 3 + 2px);
 }
 
 .van-step {
@@ -27,6 +54,42 @@
     border-radius: 50%;
   }
 
+  &__circle-num {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: var(--van-step-circle-number-size);
+    height: var(--van-step-circle-number-size);
+    color: var(--van-step-waiting-circle-color);
+    font-size: var(--van-step-font-size);
+    line-height: 1;
+    background-color: var(--van-step-waiting-circle-bg);
+    border-radius: 50%;
+
+    &--finish,
+    &--process {
+      color: var(--van-white);
+      background-color: var(--van-primary-color);
+    }
+
+    &--error {
+      color: var(--van-white);
+      background-color: var(--van-step-error-color);
+    }
+  }
+
+  &__circle-check {
+    font-size: var(--van-font-size-xs);
+    line-height: 1;
+  }
+
+  &__description {
+    color: var(--van-step-description-color);
+    font-size: var(--van-step-font-size);
+    line-height: var(--van-line-height-sm);
+    margin-top: 5px;
+  }
+
   &__line {
     position: absolute;
     background-color: var(--van-step-line-color);
@@ -34,78 +97,111 @@
   }
 
   &--horizontal {
-    float: left;
-
-    &:first-child {
-      .van-step__title {
-        margin-left: 0;
-        transform: none;
-      }
-    }
-
-    &:last-child:not(:first-child) {
-      position: absolute;
-      right: 1px;
-      width: auto;
-
-      .van-step__title {
-        margin-left: 0;
-        transform: none;
-      }
-
-      .van-step__circle-container {
-        right: -9px;
-        left: auto;
-      }
-    }
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    align-items: center;
+    min-width: 0;
 
     .van-step__circle-container {
-      position: absolute;
-      top: 30px;
-      left: calc(var(--van-padding-xs) * -1);
+      position: relative;
       z-index: 1;
-      padding: 0 var(--van-padding-xs);
-      background-color: var(--van-background-2);
-      transform: translateY(-50%);
+      flex-shrink: 0;
+      line-height: 0;
+    }
+
+    .van-step__content {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+      width: 100%;
+      max-width: var(--van-step-horizontal-content-max-width, 100%);
+      min-height: var(--van-step-horizontal-text-height);
+      margin-top: var(--van-padding-xs);
+      text-align: center;
     }
 
     .van-step__title {
-      display: inline-block;
-      margin-left: 3px;
+      width: 100%;
+      max-width: 100%;
+      overflow: hidden;
       font-size: var(--van-step-horizontal-title-font-size);
-      transform: translateX(-50%);
+      line-height: var(--van-line-height-sm);
+      white-space: nowrap;
+      text-overflow: ellipsis;
+    }
+
+    .van-step__description {
+      display: -webkit-box;
+      width: 100%;
+      max-width: 100%;
+      max-height: calc(var(--van-line-height-sm) * 2);
+      overflow: hidden;
+      -webkit-box-orient: vertical;
+      -webkit-line-clamp: 2;
     }
 
     .van-step__line {
-      top: 30px;
-      left: 0;
-      width: 100%;
+      position: absolute;
+      top: calc(var(--van-step-circle-number-size) / 2);
+      left: 50%;
+      width: calc(100% + 1px);
       height: 1px;
+      transform: translateY(-50%);
     }
 
     .van-step__icon {
       display: block;
       font-size: var(--van-step-icon-size);
-    }
-
-    .van-step--process {
-      color: var(--van-step-process-text-color);
+      background-color: var(--van-background-2);
     }
   }
 
   &--vertical {
     display: block;
     float: none;
-    padding: 10px 10px 10px 0;
+    padding: 0 var(--van-step-vertical-padding-right)
+      var(--van-step-vertical-padding-bottom) 0;
     line-height: var(--van-line-height-sm);
 
-    &:not(:last-child)::after {
-      border-bottom-width: 1px;
+    .van-step__content {
+      display: flex;
+      gap: var(--van-padding-sm);
+      align-items: flex-start;
+      padding: var(--van-step-vertical-content-padding);
+      padding-right: 0;
+    }
+
+    .van-step__left {
+      flex: 3;
+      min-width: 0;
+    }
+
+    .van-step__right {
+      flex: 2;
+      min-width: 0;
+      overflow: hidden;
+      color: var(--van-step-description-color);
+      font-size: var(--van-step-font-size);
+      line-height: var(--van-line-height-md);
+      text-align: right;
+      word-break: break-all;
+    }
+
+    .van-step__title {
+      font-size: var(--van-step-vertical-title-font-size);
+      line-height: var(--van-line-height-md);
+      word-break: break-all;
+    }
+
+    .van-step__description {
+      word-break: break-all;
     }
 
     .van-step__circle-container {
       position: absolute;
-      top: 19px;
+      top: var(--van-step-vertical-circle-top);
       left: -15px;
       z-index: 1;
       font-size: var(--van-step-icon-size);
@@ -114,10 +210,94 @@
     }
 
     .van-step__line {
-      top: 16px;
+      top: var(--van-step-vertical-circle-top);
       left: -15px;
       width: 1px;
       height: 100%;
+    }
+
+    // 折叠态当前步骤：独立绘制 prev/next 渐变连线（替代原 van-step__line）
+    &.van-step--collapsed-active {
+      box-sizing: border-box;
+      max-width: 100%;
+      padding-bottom: 0;
+
+      .van-step__content {
+        box-sizing: border-box;
+        width: 100%;
+        max-width: 100%;
+        overflow: hidden;
+      }
+
+      // 折叠连线公共定位（与节点圆心对齐）
+      .van-step__collapsed-line {
+        position: absolute;
+        left: -15px;
+        z-index: 0;
+        width: 1px;
+        transform: translateX(-50%);
+      }
+
+      // 正序：指向上一步，节点上方 1/3 主题色 → 背景色渐变
+      .van-step__collapsed-line--prev {
+        top: calc(
+          var(--van-step-vertical-circle-top) -
+            var(--van-step-circle-number-size) / 2 -
+            var(--van-step-vertical-collapsed-line-preview)
+        );
+        height: var(--van-step-vertical-collapsed-line-preview);
+        background: linear-gradient(
+          to top,
+          var(--van-step-collapsed-line-start-prev) 0%,
+          var(--van-step-collapsed-line-fade) 100%
+        );
+      }
+
+      // 正序：指向下一步，节点下方 2/3 灰色 → 背景色渐变
+      .van-step__collapsed-line--next {
+        top: calc(
+          var(--van-step-vertical-circle-top) +
+            var(--van-step-circle-number-size) / 2
+        );
+        height: var(--van-step-vertical-collapsed-line-tail);
+        background: linear-gradient(
+          to bottom,
+          var(--van-step-collapsed-line-start-next) 0%,
+          var(--van-step-collapsed-line-fade) 100%
+        );
+      }
+
+      // 倒序：prev/next 方向与渐变对调
+      &.van-step--reverse {
+        // 倒序：指向下一步（已完成），节点下方 1/3 主题色渐变
+        .van-step__collapsed-line--prev {
+          top: calc(
+            var(--van-step-vertical-circle-top) +
+              var(--van-step-circle-number-size) / 2
+          );
+          height: var(--van-step-vertical-collapsed-line-preview);
+          background: linear-gradient(
+            to bottom,
+            var(--van-step-collapsed-line-start-prev) 0%,
+            var(--van-step-collapsed-line-fade) 100%
+          );
+        }
+
+        // 倒序：指向上一步（未完成），节点上方 2/3 灰色渐变
+        .van-step__collapsed-line--next {
+          top: calc(
+            var(--van-step-vertical-circle-top) -
+              var(--van-step-circle-number-size) / 2 -
+              var(--van-step-vertical-collapsed-line-tail)
+          );
+          height: var(--van-step-vertical-collapsed-line-tail);
+          background: linear-gradient(
+            to top,
+            var(--van-step-collapsed-line-start-next) 0%,
+            var(--van-step-collapsed-line-fade) 100%
+          );
+        }
+      }
     }
   }
 
@@ -136,8 +316,11 @@
     }
   }
 
-  &__icon,
-  &__title {
+  &--process {
+    color: var(--van-step-process-text-color);
+  }
+
+  &__icon {
     transition: color var(--van-duration-base);
 
     &--active,
@@ -145,4 +328,20 @@
       color: var(--van-step-active-color);
     }
   }
+
+  &__title {
+    transition: color var(--van-duration-base);
+  }
+}
+
+.van-steps--count-3 {
+  --van-step-horizontal-content-max-width: min(109px, 100%);
+}
+
+.van-steps--count-4 {
+  --van-step-horizontal-content-max-width: min(78px, 100%);
+}
+
+.van-steps--count-5 {
+  --van-step-horizontal-content-max-width: min(60px, 100%);
 }

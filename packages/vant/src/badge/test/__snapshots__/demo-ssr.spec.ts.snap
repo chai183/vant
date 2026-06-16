@@ -1,4 +1,4 @@
-// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+// Rstest Snapshot v1
 
 exports[`should render demo and match snapshot 1`] = `
 <!--[-->
@@ -69,7 +69,7 @@ exports[`should render demo and match snapshot 1`] = `
       class="van-badge van-badge--top-right van-badge--fixed"
       style
     >
-      20+
+      ···
     </div>
   </div>
   <div class="van-badge__wrapper">
@@ -115,6 +115,41 @@ exports[`should render demo and match snapshot 1`] = `
     <div
       class="van-badge van-badge--top-right van-badge--dot van-badge--fixed"
       style="background:#1989fa;"
+    >
+    </div>
+  </div>
+</div>
+<div>
+  <!--[-->
+  <div class="van-badge__wrapper">
+    <!--[-->
+    <div class="child">
+    </div>
+    <div
+      class="van-badge van-badge--top-right van-badge--fixed van-badge--weak"
+      style
+    >
+      5
+    </div>
+  </div>
+  <div class="van-badge__wrapper">
+    <!--[-->
+    <div class="child">
+    </div>
+    <div
+      class="van-badge van-badge--top-right van-badge--fixed van-badge--weak"
+      style
+    >
+      10
+    </div>
+  </div>
+  <div class="van-badge__wrapper">
+    <!--[-->
+    <div class="child">
+    </div>
+    <div
+      class="van-badge van-badge--top-right van-badge--dot van-badge--fixed van-badge--weak"
+      style
     >
     </div>
   </div>

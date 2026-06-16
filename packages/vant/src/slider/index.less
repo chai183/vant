@@ -145,6 +145,14 @@
     position: absolute;
     top: 0;
     transform: translateX(-50%);
+
+    &--start {
+      transform: none;
+    }
+
+    &--end {
+      transform: translateX(-100%);
+    }
   }
 
   &__mark-label {
@@ -408,6 +416,14 @@
       align-items: center;
       width: 100%;
       transform: translateY(-50%);
+
+      &--start {
+        transform: none;
+      }
+
+      &--end {
+        transform: translateY(-100%);
+      }
     }
 
     .van-slider__mark-label {

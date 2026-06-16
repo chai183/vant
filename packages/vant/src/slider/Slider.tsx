@@ -396,8 +396,15 @@ export default defineComponent({
       const position = props.reverse ? 100 - percent : percent;
       const mainAxis = props.vertical ? 'top' : 'left';
       const buttonStyle = getSizeStyle(props.buttonSize);
+      const mainSize = props.vertical
+        ? buttonStyle?.height ||
+          buttonStyle?.width ||
+          'var(--van-slider-button-width)'
+        : buttonStyle?.width ||
+          buttonStyle?.height ||
+          'var(--van-slider-button-width)';
       const style: CSSProperties = {
-        [mainAxis]: `clamp(0px, calc(${position}% - var(--van-slider-button-width) / 2), calc(100% - var(--van-slider-button-width)))`,
+        [mainAxis]: `clamp(0px, calc(${position}% - ${mainSize} / 2), calc(100% - ${mainSize}))`,
       };
 
       if (buttonStyle?.width) {
@@ -459,15 +466,24 @@ export default defineComponent({
     const getMarkState = () => {
       const { modelValue } = props;
       const rangeValue = isRange(modelValue) ? modelValue : null;
+      const min = Number(props.min);
 
-      return markList.value.map((mark) => ({
-        mark,
-        positionStyle: getMarkPositionStyle(mark),
-        isEndpoint:
-          !!rangeValue && (mark === rangeValue[0] || mark === rangeValue[1]),
-        isActive:
-          !!rangeValue && mark >= rangeValue[0] && mark <= rangeValue[1],
-      }));
+      return markList.value.map((mark) => {
+        const percent = ((mark - min) * 100) / scope.value;
+        const position =
+          props.reverse && props.vertical ? 100 - percent : percent;
+
+        return {
+          mark,
+          positionStyle: getMarkPositionStyle(mark),
+          isStartBoundary: position === 0,
+          isEndBoundary: position === 100,
+          isEndpoint:
+            !!rangeValue && (mark === rangeValue[0] || mark === rangeValue[1]),
+          isActive:
+            !!rangeValue && mark >= rangeValue[0] && mark <= rangeValue[1],
+        };
+      });
     };
 
     const renderMarkLabels = () => {
@@ -477,17 +493,32 @@ export default defineComponent({
 
       return (
         <div class={bem('marks')}>
-          {getMarkState().map(({ mark, positionStyle, isEndpoint }) => (
-            <div key={mark} class={bem('mark')} style={positionStyle}>
-              <span
-                class={bem('mark-label', {
-                  active: isEndpoint,
+          {getMarkState().map(
+            ({
+              mark,
+              positionStyle,
+              isEndpoint,
+              isStartBoundary,
+              isEndBoundary,
+            }) => (
+              <div
+                key={mark}
+                class={bem('mark', {
+                  start: isStartBoundary,
+                  end: isEndBoundary,
                 })}
+                style={positionStyle}
               >
-                {mark}
-              </span>
-            </div>
-          ))}
+                <span
+                  class={bem('mark-label', {
+                    active: isEndpoint,
+                  })}
+                >
+                  {mark}
+                </span>
+              </div>
+            ),
+          )}
         </div>
       );
     };

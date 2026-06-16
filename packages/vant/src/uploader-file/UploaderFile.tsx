@@ -47,7 +47,6 @@ import {
   previewFileWithImagePreview,
   renameFileName,
 } from './fileActions';
-import uploadIcon from './assets/upload.svg';
 
 // 类型定义
 import type {
@@ -60,6 +59,8 @@ import type {
   UploaderFileUpload,
   UploaderFileUploadResult,
 } from './types';
+
+const uploadIcon = new URL('./assets/upload.svg', import.meta.url).href;
 
 // 生成组件名与 BEM 前缀：van-uploader-file
 const [name] = createNamespace('uploader-file');

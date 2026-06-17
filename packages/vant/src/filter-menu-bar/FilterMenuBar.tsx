@@ -953,7 +953,7 @@ export default defineComponent({
       resetText?: string;
     }) => (
       <div class={bem('footer')}>
-        <Button round onClick={options.onReset}>
+        <Button type="primary" plain round onClick={options.onReset}>
           {options.resetText ?? props.resetText}
         </Button>
         <Button type="primary" round onClick={handleConfirm}>

@@ -70,7 +70,11 @@ export const TabTitle = defineComponent({
     });
 
     const shouldEllipsis = computed(() => {
-      if (props.type === 'rounded' || props.type === 'divider') {
+      if (
+        props.type === 'rounded' ||
+        props.type === 'divider' ||
+        props.shrink
+      ) {
         return false;
       }
 

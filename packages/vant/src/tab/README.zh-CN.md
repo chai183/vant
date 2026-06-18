@@ -305,7 +305,7 @@ export default {
 
 ### 收缩布局
 
-通过 `shrink` 属性可以开启收缩布局，开启后，所有的标签会向左侧收缩对齐。
+通过 `shrink` 属性可以开启收缩布局，开启后，所有的标签会向左侧收缩对齐。未溢出时不展示右侧图标；标签总宽度超出容器后，默认展示右侧菜单图标（`nav-overflow="menu"`），也可通过 `nav-overflow="shadow"` 切换为滚动阴影提示。
 
 ```html
 <van-tabs v-model:active="active" shrink>
@@ -314,8 +314,14 @@ export default {
   </van-tab>
 </van-tabs>
 
-<van-tabs v-model:active="active" shrink type="card">
-  <van-tab v-for="index in 4" :title="'标签 ' + index">
+<van-tabs v-model:active="active" shrink>
+  <van-tab v-for="index in 8" :title="'标签 ' + index">
+    内容 {{ index }}
+  </van-tab>
+</van-tabs>
+
+<van-tabs v-model:active="active" shrink nav-overflow="shadow">
+  <van-tab v-for="index in 8" :title="'标签 ' + index">
     内容 {{ index }}
   </van-tab>
 </van-tabs>

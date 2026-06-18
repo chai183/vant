@@ -293,7 +293,7 @@ In sticky mode, the tab nav will be fixed to top when scroll to top.
 
 ### Shrink
 
-In shrink mode, the tabs will be shrinked to the left.
+In shrink mode, tabs align to the left. When content does not overflow, no right-side icon is shown. After overflow, the menu icon appears by default (`nav-overflow="menu"`), or use `nav-overflow="shadow"` for the scroll shadow indicator.
 
 ```html
 <van-tabs v-model:active="active" shrink>
@@ -302,8 +302,14 @@ In shrink mode, the tabs will be shrinked to the left.
   </van-tab>
 </van-tabs>
 
-<van-tabs v-model:active="active" shrink type="card">
-  <van-tab v-for="index in 4" :title="'Tab ' + index">
+<van-tabs v-model:active="active" shrink>
+  <van-tab v-for="index in 8" :title="'Tab ' + index">
+    content of tab {{ index }}
+  </van-tab>
+</van-tabs>
+
+<van-tabs v-model:active="active" shrink nav-overflow="shadow">
+  <van-tab v-for="index in 8" :title="'Tab ' + index">
     content of tab {{ index }}
   </van-tab>
 </van-tabs>

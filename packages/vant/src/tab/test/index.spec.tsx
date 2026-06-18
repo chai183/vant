@@ -520,6 +520,67 @@ test('should re-render when line-width or line-height changed', async () => {
   expect(line.style.height).toEqual('10px');
 });
 
+test('should not render nav menu in shrink mode when tabs do not overflow', async () => {
+  const wrapper = mount({
+    render() {
+      return (
+        <Tabs shrink>
+          {Array.from({ length: 4 }, (_, index) => (
+            <Tab title={`Tab ${index + 1}`}>{index + 1}</Tab>
+          ))}
+        </Tabs>
+      );
+    },
+  });
+
+  await later();
+  expect(wrapper.find('.van-tabs__nav-menu').exists()).toBe(false);
+  expect(wrapper.find('.van-tabs__wrap--show-menu').exists()).toBe(false);
+});
+
+test('should render nav menu in shrink mode when tabs overflow', async () => {
+  const wrapper = mount(
+    {
+      render() {
+        return (
+          <Tabs shrink>
+            {Array.from({ length: 4 }, (_, index) => (
+              <Tab title={`Tab ${index + 1}`}>{index + 1}</Tab>
+            ))}
+          </Tabs>
+        );
+      },
+    },
+    { attachTo: document.body },
+  );
+
+  await later();
+
+  const wrap = wrapper.find('.van-tabs__wrap').element as HTMLElement;
+  const nav = wrapper.find('.van-tabs__nav').element as HTMLElement;
+
+  Object.defineProperty(wrap, 'clientWidth', {
+    configurable: true,
+    value: 100,
+  });
+  Object.defineProperty(nav, 'scrollWidth', {
+    configurable: true,
+    value: 300,
+  });
+  Object.defineProperty(nav, 'clientWidth', {
+    configurable: true,
+    value: 100,
+  });
+
+  (wrapper.findComponent(Tabs).vm as TabsInstance).resize();
+  await later();
+
+  expect(wrapper.find('.van-tabs__nav-menu').exists()).toBe(true);
+
+  wrapper.unmount();
+  document.body.innerHTML = '';
+});
+
 test('should render scroll shadow indicator when nav-overflow is shadow', async () => {
   const wrapper = mount({
     render() {

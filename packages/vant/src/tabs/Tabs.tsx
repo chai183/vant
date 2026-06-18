@@ -188,13 +188,17 @@ export default defineComponent({
     };
 
     // whether the nav is scrollable
-    const scrollable = computed(
-      () =>
+    const scrollable = computed(() => {
+      if (props.shrink) {
+        return isNavOverflow.value;
+      }
+
+      return (
         children.length > +props.swipeThreshold ||
         !props.ellipsis ||
-        props.shrink ||
-        isNavOverflow.value,
-    );
+        isNavOverflow.value
+      );
+    });
 
     // 是否展示右侧菜单图标（nav-overflow="menu" 时生效）
     const showNavMenuVisible = computed(

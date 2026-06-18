@@ -1,229 +1,1419 @@
-// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+// Rstest Snapshot v1
 
 exports[`should render demo and match snapshot 1`] = `
 <!--[-->
 <div>
   <!--[-->
-  <div class="van-card">
-    <div class="van-card__header">
-      <a class="van-card__thumb">
-        <div
-          class="van-image"
-          style="width:100%;height:100%;"
+  <div class="van-card van-card--default van-card--no-body">
+    <!--[-->
+    <div class="van-card__title van-card__title--has-extra">
+      <div class="van-card__status-tag">
+        <span
+          style
+          class="van-tag van-tag--mark van-tag--primary"
         >
-          <img
-            src="https://fastly.jsdelivr.net/npm/@vant/assets/ipad.jpeg"
-            class="van-image__img"
-            style="object-fit:cover;"
-          >
-          <div class="van-image__loading">
-            <i
-              class="van-badge__wrapper van-icon van-icon-photo van-image__loading-icon"
-              style
-            >
-              <!--[-->
-            </i>
-          </div>
-        </div>
-      </a>
-      <div class="van-card__content">
-        <div>
-          <div class="van-card__title van-multi-ellipsis--l2">
-            Title
-          </div>
-          <div class="van-card__desc van-ellipsis">
-            Description
-          </div>
-        </div>
-        <div class="van-card__bottom">
-          <div class="van-card__price">
-            <div>
-              <span class="van-card__price-currency">
-                ¥
-              </span>
-              <span class="van-card__price-integer">
-                2
-              </span>
-              <!--[-->
-              .
-              <span class="van-card__price-decimal">
-                00
-              </span>
-            </div>
-          </div>
-          <div class="van-card__num">
-            x2
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-<div>
-  <!--[-->
-  <div class="van-card">
-    <div class="van-card__header">
-      <a class="van-card__thumb">
-        <div
-          class="van-image"
-          style="width:100%;height:100%;"
-        >
-          <img
-            src="https://fastly.jsdelivr.net/npm/@vant/assets/ipad.jpeg"
-            class="van-image__img"
-            style="object-fit:cover;"
-          >
-          <div class="van-image__loading">
-            <i
-              class="van-badge__wrapper van-icon van-icon-photo van-image__loading-icon"
-              style
-            >
-              <!--[-->
-            </i>
-          </div>
-        </div>
-        <div class="van-card__tag">
-          <span
-            style
-            class="van-tag van-tag--mark van-tag--primary"
-          >
-            <!--[-->
-            Tag
-          </span>
-        </div>
-      </a>
-      <div class="van-card__content">
-        <div>
-          <div class="van-card__title van-multi-ellipsis--l2">
-            Title
-          </div>
-          <div class="van-card__desc van-ellipsis">
-            Description
-          </div>
-        </div>
-        <div class="van-card__bottom">
-          <div class="van-card__price">
-            <div>
-              <span class="van-card__price-currency">
-                ¥
-              </span>
-              <span class="van-card__price-integer">
-                2
-              </span>
-              <!--[-->
-              .
-              <span class="van-card__price-decimal">
-                00
-              </span>
-            </div>
-          </div>
-          <div class="van-card__origin-price">
-            ¥ 10.00
-          </div>
-          <div class="van-card__num">
-            x2
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-<div>
-  <!--[-->
-  <div class="van-card">
-    <div class="van-card__header">
-      <a class="van-card__thumb">
-        <div
-          class="van-image"
-          style="width:100%;height:100%;"
-        >
-          <img
-            src="https://fastly.jsdelivr.net/npm/@vant/assets/ipad.jpeg"
-            class="van-image__img"
-            style="object-fit:cover;"
-          >
-          <div class="van-image__loading">
-            <i
-              class="van-badge__wrapper van-icon van-icon-photo van-image__loading-icon"
-              style
-            >
-              <!--[-->
-            </i>
-          </div>
-        </div>
-      </a>
-      <div class="van-card__content">
-        <div>
-          <div class="van-card__title van-multi-ellipsis--l2">
-            Title
-          </div>
-          <div class="van-card__desc van-ellipsis">
-            Description
-          </div>
           <!--[-->
-          <span
-            style="margin-right:5px;"
-            class="van-tag van-tag--plain van-tag--primary"
-          >
-            <!--[-->
-            Tag
-          </span>
-          <span
+          <!--[-->
+          Mark9999
+        </span>
+      </div>
+      <div class="van-card__title-inner">
+        <div class="van-card__title-content van-card__title-content--has-extra">
+          <div
+            class="van-card__title-text van-multi-ellipsis--l2"
             style
-            class="van-tag van-tag--plain van-tag--primary"
           >
+            Card Title
+          </div>
+          <div
+            class="van-card__subtitle van-ellipsis"
+            style
+          >
+            Subtitle text
+          </div>
+          <div class="van-card__tags">
             <!--[-->
-            Tag
-          </span>
-        </div>
-        <div class="van-card__bottom">
-          <div class="van-card__price">
-            <div>
-              <span class="van-card__price-currency">
-                ¥
-              </span>
-              <span class="van-card__price-integer">
-                2
-              </span>
+            <span
+              style
+              class="van-tag van-tag--plain van-tag--primary van-card__tag-item"
+            >
               <!--[-->
-              .
-              <span class="van-card__price-decimal">
-                00
-              </span>
+              标签一
+            </span>
+            <span
+              style
+              class="van-tag van-tag--plain van-tag--success van-card__tag-item"
+            >
+              <!--[-->
+              标签二
+            </span>
+          </div>
+        </div>
+        <div class="van-card__title-extra">
+          <div class="van-card__title-link-wrap">
+            <i
+              class="van-badge__wrapper van-icon van-icon-arrow van-card__title-link"
+              style
+            >
+              <!--[-->
+            </i>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div>
+  <!--[-->
+  <div class="van-card van-card--default">
+    <!--[-->
+    <div class="van-card__title van-card__title--has-extra">
+      <div class="van-card__title-inner">
+        <div class="van-card__title-content van-card__title-content--has-extra">
+          <div
+            class="van-card__title-text van-multi-ellipsis--l2"
+            style
+          >
+            Card Title
+          </div>
+          <div
+            class="van-card__subtitle van-ellipsis"
+            style
+          >
+            Subtitle text
+          </div>
+          <div class="van-card__tags">
+            <!--[-->
+            <span
+              style
+              class="van-tag van-tag--plain van-tag--primary van-card__tag-item"
+            >
+              <!--[-->
+              标签一
+            </span>
+            <span
+              style
+              class="van-tag van-tag--plain van-tag--success van-card__tag-item"
+            >
+              <!--[-->
+              标签二
+            </span>
+          </div>
+        </div>
+        <div class="van-card__title-extra">
+          <div class="van-card__title-action-wrap">
+            <div class="van-card__title-action">
+              <!--[-->
+              <div style="font-size:12px;color:red;cursor:pointer;">
+                自定义按钮
+                <i
+                  class="van-badge__wrapper van-icon van-icon-arrow"
+                  style
+                >
+                  <!--[-->
+                </i>
+              </div>
             </div>
           </div>
-          <div class="van-card__num">
-            x2
+        </div>
+      </div>
+    </div>
+    <div class="van-card__body">
+      <!--[-->
+      <div class="demo-card-thirds">
+        <div class="demo-card-thirds__item">
+          <div class="demo-card-thirds__value demo-card-thirds__value--primary">
+            100,000.00
+          </div>
+          <div class="demo-card-thirds__label">
+            Face Amount (CNY)
+          </div>
+        </div>
+        <div class="demo-card-thirds__item">
+          <div class="demo-card-thirds__value">
+            3.25%
+          </div>
+          <div class="demo-card-thirds__label">
+            Face Amount (CNY)
+          </div>
+        </div>
+        <div class="demo-card-thirds__item">
+          <div class="demo-card-thirds__value">
+            Structured Deposit
+          </div>
+          <div class="demo-card-thirds__label">
+            Product Type
           </div>
         </div>
       </div>
     </div>
     <div class="van-card__footer">
+      <div class="van-card__footer-note van-card__footer-note--split">
+        <span class="van-card__note-left">
+          注释信息左对齐
+        </span>
+        <span class="van-card__note-right">
+          注释信息右对齐
+        </span>
+      </div>
+    </div>
+  </div>
+  <div
+    class="van-card van-card--default"
+    style="margin-top:12px;"
+  >
+    <!--[-->
+    <div class="van-card__title">
+      <div class="van-card__title-inner">
+        <div class="van-card__title-content">
+          <div
+            class="van-card__title-text van-multi-ellipsis--l2"
+            style
+          >
+            Card Title
+          </div>
+          <div class="van-card__tags">
+            <!--[-->
+            <span
+              style
+              class="van-tag van-tag--plain van-tag--primary van-card__tag-item"
+            >
+              <!--[-->
+              标签一
+            </span>
+            <span
+              style
+              class="van-tag van-tag--plain van-tag--success van-card__tag-item"
+            >
+              <!--[-->
+              标签二
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="van-card__body">
       <!--[-->
-      <button
-        type="button"
-        class="van-button van-button--default van-button--mini van-button--round"
+      <div class="demo-card-halves">
+        <div class="demo-card-halves__item">
+          <div class="demo-card-halves__value demo-card-halves__value--primary">
+            100,000.00
+          </div>
+          <div class="demo-card-halves__label">
+            Face Amount (CNY)
+          </div>
+        </div>
+        <div class="demo-card-halves__item">
+          <div class="demo-card-halves__value">
+            3.25%
+          </div>
+          <div class="demo-card-halves__label">
+            Face Amount (CNY)
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="van-card__footer">
+      <div class="van-card__footer-note van-card__footer-note--left">
+        <!--[-->
+        <span class="demo-card-footer-note">
+          <i
+            class="van-badge__wrapper van-icon van-icon-info-o demo-card-footer-note__icon"
+            style
+          >
+            <!--[-->
+          </i>
+          Note with icon
+        </span>
+      </div>
+    </div>
+  </div>
+  <div
+    class="van-card van-card--default"
+    style="margin-top:12px;"
+  >
+    <!--[-->
+    <div class="van-card__title">
+      <div class="van-card__title-inner">
+        <div class="van-card__title-content">
+          <div
+            class="van-card__title-text van-multi-ellipsis--l2"
+            style
+          >
+            宁银理财｜天欣天天鎏金现金管理类理财产品3号
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="van-card__body">
+      <!--[-->
+      <div class="demo-card-split">
+        <div class="demo-card-split__item demo-card-split__item--left">
+          <div class="demo-card-split__value demo-card-split__value--danger">
+            100%
+          </div>
+          <div class="demo-card-split__label">
+            7-Day Annualized Yield
+          </div>
+        </div>
+        <div class="demo-card-split__item demo-card-split__item--right">
+          <div class="demo-card-split__value">
+            Redeem Anytime T+1
+          </div>
+          <div class="demo-card-split__label">
+            From CNY 10 | Medium Risk
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div>
+  <!--[-->
+  <div class="van-card van-card--default van-card--no-body">
+    <!--[-->
+    <div class="van-card__title van-card__title--has-avatar">
+      <div class="van-card__title-inner">
+        <div class="van-card__avatar van-card__avatar--small">
+          <div
+            class="van-image van-image--round"
+            style="width:100%;height:100%;"
+          >
+            <img
+              src="https://fastly.jsdelivr.net/npm/@vant/assets/ipad.jpeg"
+              class="van-image__img"
+              style="object-fit:cover;"
+            >
+            <div class="van-image__loading">
+              <i
+                class="van-badge__wrapper van-icon van-icon-photo van-image__loading-icon"
+                style
+              >
+                <!--[-->
+              </i>
+            </div>
+          </div>
+        </div>
+        <div class="van-card__title-content">
+          <div
+            class="van-card__title-text van-multi-ellipsis--l2"
+            style
+          >
+            Card Title
+          </div>
+          <div
+            class="van-card__subtitle van-ellipsis"
+            style
+          >
+            Subtitle text
+          </div>
+          <div class="van-card__tags">
+            <!--[-->
+            <span
+              style
+              class="van-tag van-tag--plain van-tag--primary van-card__tag-item"
+            >
+              <!--[-->
+              标签
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div
+    class="van-card van-card--default van-card--no-body"
+    style="margin-top:12px;"
+  >
+    <!--[-->
+    <div class="van-card__title van-card__title--has-avatar van-card__title--avatar-large">
+      <div class="van-card__title-inner">
+        <div class="van-card__avatar van-card__avatar--large">
+          <div
+            class="van-image van-image--round"
+            style="width:100%;height:100%;"
+          >
+            <img
+              src="https://fastly.jsdelivr.net/npm/@vant/assets/ipad.jpeg"
+              class="van-image__img"
+              style="object-fit:cover;"
+            >
+            <div class="van-image__loading">
+              <i
+                class="van-badge__wrapper van-icon van-icon-photo van-image__loading-icon"
+                style
+              >
+                <!--[-->
+              </i>
+            </div>
+          </div>
+        </div>
+        <div class="van-card__title-content">
+          <div
+            class="van-card__title-text van-multi-ellipsis--l2"
+            style
+          >
+            Card Title
+          </div>
+          <div
+            class="van-card__subtitle van-ellipsis"
+            style
+          >
+            Subtitle text
+          </div>
+          <div class="van-card__tags">
+            <!--[-->
+            <span
+              style
+              class="van-tag van-tag--plain van-tag--primary van-card__tag-item"
+            >
+              <!--[-->
+              标签
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div>
+  <!--[-->
+  <div class="van-card van-card--default van-card--no-body">
+    <!--[-->
+    <div class="van-card__title van-card__title--has-extra">
+      <div class="van-card__title-inner">
+        <div class="van-card__title-content van-card__title-content--has-extra">
+          <div
+            class="van-card__title-text van-multi-ellipsis--l2"
+            style
+          >
+            Card Title
+          </div>
+        </div>
+        <div class="van-card__title-badge">
+          <div
+            class="van-badge van-badge--top-right"
+            style="background:#FF3333;"
+          >
+            3
+          </div>
+        </div>
+        <div class="van-card__title-extra">
+          <div class="van-card__title-link-wrap">
+            <i
+              class="van-badge__wrapper van-icon van-icon-arrow van-card__title-link"
+              style
+            >
+              <!--[-->
+            </i>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div
+    class="van-card van-card--default van-card--no-body"
+    style="margin-top:12px;"
+  >
+    <!--[-->
+    <div class="van-card__title van-card__title--has-extra">
+      <div class="van-card__title-inner">
+        <div class="van-card__title-content van-card__title-content--has-extra">
+          <div
+            class="van-card__title-text van-multi-ellipsis--l2"
+            style
+          >
+            Card Title
+          </div>
+          <div
+            class="van-card__subtitle van-ellipsis"
+            style
+          >
+            Subtitle text
+          </div>
+        </div>
+        <div class="van-card__title-extra">
+          <div class="van-card__title-action-wrap">
+            <div class="van-card__title-action">
+              <!--[-->
+              <div style="font-size:12px;color:red;">
+                自定义按钮
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div>
+  <!--[-->
+  <div class="van-card van-card--default">
+    <!--[-->
+    <div class="van-card__body van-card__body--link">
+      <div class="van-card__text-list">
+        <!--[-->
+        <div class="van-card__text-list-row">
+          <div class="van-card__text-list-label">
+            Label
+          </div>
+          <div class="van-card__text-list-main">
+            <div
+              class="van-card__text-list-value van-ellipsis"
+              style
+            >
+              Value content
+            </div>
+          </div>
+        </div>
+        <div class="van-card__text-list-row">
+          <div class="van-card__text-list-label">
+            Label
+          </div>
+          <div class="van-card__text-list-main">
+            <div
+              class="van-card__text-list-value van-ellipsis"
+              style
+            >
+              6222 **** **** 1234
+            </div>
+            <div class="van-card__text-list-action">
+              <button
+                type="button"
+                class="van-card__text-list-btn"
+              >
+                Action
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="van-card__body-link-wrap">
+        <i
+          class="van-badge__wrapper van-icon van-icon-arrow van-card__body-link"
+          style
+        >
+          <!--[-->
+        </i>
+      </div>
+    </div>
+  </div>
+</div>
+<div>
+  <!--[-->
+  <div class="van-card van-card--default">
+    <!--[-->
+    <div class="van-card__title">
+      <div class="van-card__title-inner">
+        <div class="van-card__title-content">
+          <div
+            class="van-card__title-text van-multi-ellipsis--l2"
+            style
+          >
+            Card Title
+          </div>
+          <div
+            class="van-card__subtitle van-ellipsis"
+            style
+          >
+            Subtitle text
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="van-card__body">
+      <div class="van-card__text-list">
+        <!--[-->
+        <div class="van-card__text-list-row">
+          <div class="van-card__text-list-label">
+            开户行
+          </div>
+          <div class="van-card__text-list-main">
+            <div
+              class="van-card__text-list-value van-multi-ellipsis--l2"
+              style
+            >
+              中国工商银行股份有限公司
+            </div>
+            <div class="van-card__text-list-action">
+              <!--[-->
+              <span style="font-size:14px;color:var(--van-primary-color);">
+                复制
+              </span>
+            </div>
+          </div>
+        </div>
+        <div class="van-card__text-list-row">
+          <div class="van-card__text-list-label">
+            账号
+          </div>
+          <div class="van-card__text-list-main">
+            <div
+              class="van-card__text-list-value van-ellipsis"
+              style
+            >
+              6222 **** **** 1234
+            </div>
+            <div class="van-card__text-list-action">
+              <!--[-->
+              <button
+                type="button"
+                class="van-button van-button--primary van-button--mini van-button--plain"
+                style
+              >
+                <div class="van-button__content">
+                  <span class="van-button__text">
+                    <!--[-->
+                    Action
+                  </span>
+                </div>
+              </button>
+            </div>
+          </div>
+        </div>
+        <div class="van-card__text-list-row">
+          <div class="van-card__text-list-label">
+            户名
+          </div>
+          <div class="van-card__text-list-main">
+            <div
+              class="van-card__text-list-value van-ellipsis"
+              style
+            >
+              张三
+            </div>
+            <div class="van-card__text-list-action">
+              <button
+                type="button"
+                class="van-card__text-list-btn"
+              >
+                Action
+              </button>
+            </div>
+          </div>
+        </div>
+        <div class="van-card__collapse-toggle">
+          <span>
+            展开
+          </span>
+          <i
+            class="van-badge__wrapper van-icon van-icon-arrow-down van-card__collapse-icon"
+            style
+          >
+            <!--[-->
+          </i>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div>
+  <!--[-->
+  <div class="van-card van-card--default van-card--selectable">
+    <!--[-->
+    <div class="van-card__title van-card__title--selectable">
+      <div class="van-card__title-inner">
+        <div class="van-card__select van-card__select--title">
+          <div
+            role="checkbox"
+            class="van-checkbox"
+            tabindex="0"
+            aria-checked="false"
+          >
+            <!--[-->
+            <div
+              class="van-checkbox__icon van-checkbox__icon--square"
+              style
+            >
+              <i
+                class="van-badge__wrapper van-icon van-icon-success"
+                style
+              >
+                <!--[-->
+              </i>
+            </div>
+          </div>
+        </div>
+        <div class="van-card__title-content">
+          <div
+            class="van-card__title-text van-multi-ellipsis--l2"
+            style
+          >
+            Card Title
+          </div>
+          <div
+            class="van-card__subtitle van-ellipsis"
+            style
+          >
+            Subtitle text
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="van-card__body">
+      <div class="van-card__text-list">
+        <!--[-->
+        <div class="van-card__text-list-row">
+          <div class="van-card__text-list-label">
+            Label
+          </div>
+          <div class="van-card__text-list-main">
+            <div
+              class="van-card__text-list-value van-ellipsis"
+              style
+            >
+              Value content
+            </div>
+          </div>
+        </div>
+        <div class="van-card__text-list-row">
+          <div class="van-card__text-list-label">
+            Label
+          </div>
+          <div class="van-card__text-list-main">
+            <div
+              class="van-card__text-list-value van-ellipsis"
+              style
+            >
+              Value content
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div
+    class="van-card van-card--default van-card--selectable"
+    style="margin-top:12px;"
+  >
+    <!--[-->
+    <div class="van-card__body van-card__body--selectable">
+      <div class="van-card__select-col">
+        <div class="van-card__select van-card__select--body">
+          <div
+            role="checkbox"
+            class="van-checkbox"
+            tabindex="0"
+            aria-checked="false"
+          >
+            <!--[-->
+            <div
+              class="van-checkbox__icon van-checkbox__icon--square"
+              style
+            >
+              <i
+                class="van-badge__wrapper van-icon van-icon-success"
+                style
+              >
+                <!--[-->
+              </i>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="van-card__body-inner">
+        <div class="van-card__text-list">
+          <!--[-->
+          <div class="van-card__text-list-row">
+            <div class="van-card__text-list-label">
+              Label
+            </div>
+            <div class="van-card__text-list-main">
+              <div
+                class="van-card__text-list-value van-ellipsis"
+                style
+              >
+                Value content
+              </div>
+            </div>
+          </div>
+          <div class="van-card__text-list-row">
+            <div class="van-card__text-list-label">
+              Label
+            </div>
+            <div class="van-card__text-list-main">
+              <div
+                class="van-card__text-list-value van-ellipsis"
+                style
+              >
+                Value content
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div>
+  <!--[-->
+  <div class="van-card van-card--default">
+    <!--[-->
+    <div class="van-card__title">
+      <div class="van-card__title-inner">
+        <div class="van-card__title-content">
+          <div
+            class="van-card__title-text van-multi-ellipsis--l2"
+            style
+          >
+            Card Title
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="van-card__body">
+      <div class="van-card__text-list">
+        <!--[-->
+        <div class="van-card__text-list-row">
+          <div class="van-card__text-list-label">
+            Label
+          </div>
+          <div class="van-card__text-list-main">
+            <div
+              class="van-card__text-list-value van-ellipsis"
+              style
+            >
+              Value content
+            </div>
+          </div>
+        </div>
+        <div class="van-card__text-list-row">
+          <div class="van-card__text-list-label">
+            Label
+          </div>
+          <div class="van-card__text-list-main">
+            <div
+              class="van-card__text-list-value van-ellipsis"
+              style
+            >
+              Value content
+            </div>
+          </div>
+        </div>
+        <div class="van-card__text-list-row">
+          <div class="van-card__text-list-label">
+            Label
+          </div>
+          <div class="van-card__text-list-main">
+            <div
+              class="van-card__text-list-value van-ellipsis"
+              style
+            >
+              Value content
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="van-card__footer">
+      <div class="van-card__footer-buttons van-card__footer-buttons--text">
+        <!--[-->
+        <div class="van-card__footer-button-row">
+          <!--[-->
+          <!--[-->
+          <button
+            type="button"
+            class="van-card__footer-btn"
+            style="color:var(--van-primary-color);"
+          >
+            Action 1
+          </button>
+          <!--[-->
+          <div class="van-card__button-divider">
+          </div>
+          <button
+            type="button"
+            class="van-card__footer-btn"
+            style
+          >
+            Action 2
+          </button>
+          <!--[-->
+          <div class="van-card__button-divider">
+          </div>
+          <button
+            type="button"
+            class="van-card__footer-btn"
+            style
+          >
+            Action 2
+          </button>
+        </div>
+        <div class="van-card__footer-button-row">
+          <!--[-->
+          <!--[-->
+          <button
+            type="button"
+            class="van-card__footer-btn"
+            style
+          >
+            Action 2
+          </button>
+          <!--[-->
+          <div class="van-card__button-divider">
+          </div>
+          <button
+            type="button"
+            class="van-card__footer-btn"
+            style
+          >
+            Action 2
+          </button>
+          <!--[-->
+          <div class="van-card__button-divider">
+          </div>
+          <button
+            type="button"
+            class="van-card__footer-btn"
+            style
+          >
+            Action 2
+          </button>
+        </div>
+      </div>
+      <div class="van-card__footer-note van-card__footer-note--center">
+        <span class="van-card__note-center">
+          Subtitle text
+        </span>
+      </div>
+    </div>
+  </div>
+  <div
+    class="van-card van-card--default van-card--no-body"
+    style="margin-top:12px;"
+  >
+    <!--[-->
+    <div class="van-card__title">
+      <div class="van-card__title-inner">
+        <div class="van-card__title-content">
+          <div
+            class="van-card__title-text van-multi-ellipsis--l2"
+            style
+          >
+            Card Title
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="van-card__footer">
+      <div class="van-card__footer-buttons van-card__footer-buttons--outline">
+        <!--[-->
+        <div class="van-card__footer-button-row">
+          <!--[-->
+          <!--[-->
+          <button
+            type="button"
+            class="van-card__footer-btn"
+            style="color:#07c160;border-color:#07c160;"
+          >
+            Action 1
+          </button>
+          <!--[-->
+          <button
+            type="button"
+            class="van-card__footer-btn"
+            style
+          >
+            Action 2
+          </button>
+          <!--[-->
+          <button
+            type="button"
+            class="van-card__footer-btn"
+            style
+          >
+            Action 1
+          </button>
+        </div>
+        <div class="van-card__footer-button-row">
+          <!--[-->
+          <!--[-->
+          <button
+            type="button"
+            class="van-card__footer-btn"
+            style="color:#ee0a24;border-color:#ee0a24;"
+          >
+            Action 2
+          </button>
+          <!--[-->
+          <button
+            type="button"
+            class="van-card__footer-btn"
+            style="color:#07c160;border-color:#07c160;"
+          >
+            Action 1
+          </button>
+        </div>
+      </div>
+      <div class="van-card__footer-note van-card__footer-note--split">
+        <span class="van-card__note-left">
+          Left note
+        </span>
+        <span class="van-card__note-right">
+          Right note
+        </span>
+      </div>
+    </div>
+  </div>
+</div>
+<div>
+  <!--[-->
+  <div class="van-card van-card--default van-card--selectable">
+    <!--[-->
+    <div class="van-card__title van-card__title--has-extra van-card__title--has-avatar van-card__title--selectable">
+      <div class="van-card__status-tag">
+        <span
+          style
+          class="van-tag van-tag--mark van-tag--primary"
+        >
+          <!--[-->
+          <!--[-->
+          Mark
+        </span>
+      </div>
+      <div class="van-card__title-inner">
+        <div class="van-card__select van-card__select--title">
+          <div
+            role="checkbox"
+            class="van-checkbox"
+            tabindex="0"
+            aria-checked="false"
+          >
+            <!--[-->
+            <div
+              class="van-checkbox__icon van-checkbox__icon--square"
+              style
+            >
+              <i
+                class="van-badge__wrapper van-icon van-icon-success"
+                style
+              >
+                <!--[-->
+              </i>
+            </div>
+          </div>
+        </div>
+        <div class="van-card__avatar van-card__avatar--small">
+          <div
+            class="van-image van-image--round"
+            style="width:100%;height:100%;"
+          >
+            <img
+              src="https://fastly.jsdelivr.net/npm/@vant/assets/ipad.jpeg"
+              class="van-image__img"
+              style="object-fit:cover;"
+            >
+            <div class="van-image__loading">
+              <i
+                class="van-badge__wrapper van-icon van-icon-photo van-image__loading-icon"
+                style
+              >
+                <!--[-->
+              </i>
+            </div>
+          </div>
+        </div>
+        <div class="van-card__title-content van-card__title-content--has-extra">
+          <div
+            class="van-card__title-text van-multi-ellipsis--l2"
+            style
+          >
+            Card Title
+          </div>
+          <div
+            class="van-card__subtitle van-ellipsis"
+            style
+          >
+            Subtitle text
+          </div>
+          <div class="van-card__tags">
+            <!--[-->
+            <span
+              style
+              class="van-tag van-tag--plain van-tag--primary van-card__tag-item"
+            >
+              <!--[-->
+              标签一
+            </span>
+            <span
+              style
+              class="van-tag van-tag--plain van-tag--success van-card__tag-item"
+            >
+              <!--[-->
+              标签二
+            </span>
+          </div>
+        </div>
+        <div class="van-card__title-extra">
+          <div class="van-card__title-link-wrap">
+            <i
+              class="van-badge__wrapper van-icon van-icon-arrow van-card__title-link"
+              style
+            >
+              <!--[-->
+            </i>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="van-card__body">
+      <div class="van-card__text-list">
+        <!--[-->
+        <div class="van-card__text-list-row">
+          <div class="van-card__text-list-label">
+            开户行
+          </div>
+          <div class="van-card__text-list-main">
+            <div
+              class="van-card__text-list-value van-multi-ellipsis--l2"
+              style
+            >
+              中国工商银行股份有限公司
+            </div>
+            <div class="van-card__text-list-action">
+              <!--[-->
+              <span style="font-size:14px;color:var(--van-primary-color);cursor:pointer;">
+                复制
+              </span>
+            </div>
+          </div>
+        </div>
+        <div class="van-card__text-list-row">
+          <div class="van-card__text-list-label">
+            账号
+          </div>
+          <div class="van-card__text-list-main">
+            <div
+              class="van-card__text-list-value van-ellipsis"
+              style
+            >
+              6222 **** **** 1234
+            </div>
+            <div class="van-card__text-list-action">
+              <!--[-->
+              <button
+                type="button"
+                class="van-button van-button--primary van-button--mini van-button--plain"
+                style
+              >
+                <div class="van-button__content">
+                  <span class="van-button__text">
+                    <!--[-->
+                    Action
+                  </span>
+                </div>
+              </button>
+            </div>
+          </div>
+        </div>
+        <div class="van-card__text-list-row">
+          <div class="van-card__text-list-label">
+            户名
+          </div>
+          <div class="van-card__text-list-main">
+            <div
+              class="van-card__text-list-value van-ellipsis"
+              style
+            >
+              张三
+            </div>
+            <div class="van-card__text-list-action">
+              <button
+                type="button"
+                class="van-card__text-list-btn"
+              >
+                Action
+              </button>
+            </div>
+          </div>
+        </div>
+        <div class="van-card__collapse-toggle">
+          <span>
+            展开
+          </span>
+          <i
+            class="van-badge__wrapper van-icon van-icon-arrow-down van-card__collapse-icon"
+            style
+          >
+            <!--[-->
+          </i>
+        </div>
+      </div>
+    </div>
+    <div class="van-card__footer">
+      <div class="van-card__footer-buttons van-card__footer-buttons--text">
+        <!--[-->
+        <div class="van-card__footer-button-row">
+          <!--[-->
+          <!--[-->
+          <button
+            type="button"
+            class="van-card__footer-btn"
+            style="color:var(--van-primary-color);"
+          >
+            Action 1
+          </button>
+          <!--[-->
+          <div class="van-card__button-divider">
+          </div>
+          <button
+            type="button"
+            class="van-card__footer-btn"
+            style
+          >
+            Action 2
+          </button>
+          <!--[-->
+          <div class="van-card__button-divider">
+          </div>
+          <button
+            type="button"
+            class="van-card__footer-btn"
+            style
+          >
+            Action
+          </button>
+        </div>
+      </div>
+      <div class="van-card__footer-note van-card__footer-note--split">
+        <span class="van-card__note-left">
+          Left note
+        </span>
+        <span class="van-card__note-right">
+          Right note
+        </span>
+      </div>
+    </div>
+  </div>
+</div>
+<div>
+  <!--[-->
+  <div class="van-card van-card--image-large van-card--no-body">
+    <!--[-->
+    <div
+      class="van-card__image-header van-card__image-header--image-large"
+      style="margin-left:16px;margin-right:16px;"
+    >
+      <div
+        class="van-card__image-wrap"
+        style="padding-bottom:50%;"
+      >
+        <div class="van-card__image-inner">
+          <div
+            class="van-image"
+            style="width:100%;height:100%;"
+          >
+            <img
+              src="https://fastly.jsdelivr.net/npm/@vant/assets/ipad.jpeg"
+              class="van-image__img"
+              style="object-fit:cover;"
+            >
+            <div class="van-image__loading">
+              <i
+                class="van-badge__wrapper van-icon van-icon-photo van-image__loading-icon"
+                style
+              >
+                <!--[-->
+              </i>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="van-card__image-title">
+      <div class="van-card__title">
+        <div class="van-card__title-inner">
+          <div class="van-card__title-content">
+            <div
+              class="van-card__title-text van-multi-ellipsis--l2"
+              style
+            >
+              Card Title
+            </div>
+            <div
+              class="van-card__subtitle van-ellipsis"
+              style
+            >
+              Subtitle text
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="van-card__footer">
+      <div class="van-card__footer-note van-card__footer-note--split van-card__footer-note--no-border">
+        <span class="van-card__note-left">
+          Left note
+        </span>
+        <span class="van-card__note-right">
+          Right note
+        </span>
+      </div>
+    </div>
+  </div>
+</div>
+<div>
+  <!--[-->
+  <div class="demo-card-image-double">
+    <div class="van-card van-card--image-double van-card--no-body">
+      <!--[-->
+      <div
+        class="van-card__image-header van-card__image-header--image-double"
         style
       >
-        <div class="van-button__content">
-          <span class="van-button__text">
-            <!--[-->
-            Button
+        <div
+          class="van-card__image-wrap"
+          style="padding-bottom:50%;"
+        >
+          <div class="van-card__image-inner">
+            <div
+              class="van-image"
+              style="width:100%;height:100%;"
+            >
+              <img
+                src="https://fastly.jsdelivr.net/npm/@vant/assets/ipad.jpeg"
+                class="van-image__img"
+                style="object-fit:cover;"
+              >
+              <div class="van-image__loading">
+                <i
+                  class="van-badge__wrapper van-icon van-icon-photo van-image__loading-icon"
+                  style
+                >
+                  <!--[-->
+                </i>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="van-card__image-title">
+        <div class="van-card__title">
+          <div class="van-card__title-inner">
+            <div class="van-card__title-content">
+              <div
+                class="van-card__title-text van-multi-ellipsis--l2"
+                style
+              >
+                Card Title
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="van-card__footer">
+        <div class="van-card__footer-note van-card__footer-note--split van-card__footer-note--no-border">
+          <span class="van-card__note-left">
+            Left note
+          </span>
+          <span class="van-card__note-right">
+            Right note
           </span>
         </div>
-      </button>
-      <button
-        type="button"
-        class="van-button van-button--default van-button--mini van-button--round"
+      </div>
+    </div>
+    <div class="van-card van-card--image-double van-card--no-body">
+      <!--[-->
+      <div
+        class="van-card__image-header van-card__image-header--image-double"
         style
       >
-        <div class="van-button__content">
-          <span class="van-button__text">
-            <!--[-->
-            Button
+        <div
+          class="van-card__image-wrap"
+          style="padding-bottom:50%;"
+        >
+          <div class="van-card__image-inner">
+            <div
+              class="van-image"
+              style="width:100%;height:100%;"
+            >
+              <img
+                src="https://fastly.jsdelivr.net/npm/@vant/assets/ipad.jpeg"
+                class="van-image__img"
+                style="object-fit:cover;"
+              >
+              <div class="van-image__loading">
+                <i
+                  class="van-badge__wrapper van-icon van-icon-photo van-image__loading-icon"
+                  style
+                >
+                  <!--[-->
+                </i>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="van-card__image-title">
+        <div class="van-card__title">
+          <div class="van-card__title-inner">
+            <div class="van-card__title-content">
+              <div
+                class="van-card__title-text van-multi-ellipsis--l2"
+                style
+              >
+                Card Title
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="van-card__footer">
+        <div class="van-card__footer-note van-card__footer-note--split van-card__footer-note--no-border">
+          <span class="van-card__note-left">
+            Left note
+          </span>
+          <span class="van-card__note-right">
+            Right note
           </span>
         </div>
-      </button>
+      </div>
+    </div>
+  </div>
+</div>
+<div>
+  <!--[-->
+  <div class="van-card van-card--image-right van-card--no-body">
+    <!--[-->
+    <div class="van-card__image-right-header">
+      <div class="van-card__image-right-text-wrap">
+        <div
+          class="van-card__image-right-text van-card__image-right-text--van-multi-ellipsis--l2"
+          style
+        >
+          Card Title
+        </div>
+      </div>
+      <div class="van-card__image-right-thumb">
+        <div
+          class="van-image"
+          style="width:100%;height:100%;"
+        >
+          <img
+            src="https://fastly.jsdelivr.net/npm/@vant/assets/ipad.jpeg"
+            class="van-image__img"
+            style="object-fit:cover;"
+          >
+          <div class="van-image__loading">
+            <i
+              class="van-badge__wrapper van-icon van-icon-photo van-image__loading-icon"
+              style
+            >
+              <!--[-->
+            </i>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="van-card__footer">
+      <div class="van-card__footer-note van-card__footer-note--split van-card__footer-note--no-border">
+        <span class="van-card__note-left">
+          Left note
+        </span>
+        <span class="van-card__note-right">
+          Right note
+        </span>
+      </div>
     </div>
   </div>
 </div>

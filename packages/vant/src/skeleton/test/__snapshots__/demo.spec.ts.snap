@@ -1,6 +1,162 @@
-// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+// Rstest Snapshot v1
 
 exports[`should render demo and match snapshot 1`] = `
+<div>
+  <div class="van-skeleton van-skeleton--animate van-skeleton--round">
+    <div class="van-skeleton__content">
+      <div
+        class="van-skeleton-paragraph van-skeleton-paragraph--round"
+        style="width: 100%;"
+      >
+      </div>
+      <div
+        class="van-skeleton-paragraph van-skeleton-paragraph--round"
+        style="width: 100%;"
+      >
+      </div>
+    </div>
+  </div>
+</div>
+<div>
+  <div class="van-skeleton van-skeleton--animate van-skeleton--round van-skeleton--grid">
+    <div class="van-skeleton__grid">
+      <div class="van-skeleton__grid-item">
+        <div class="van-skeleton-avatar van-skeleton-avatar--round">
+        </div>
+        <div class="van-skeleton-paragraph van-skeleton-paragraph--round">
+        </div>
+      </div>
+      <div class="van-skeleton__grid-item">
+        <div class="van-skeleton-avatar van-skeleton-avatar--round">
+        </div>
+        <div class="van-skeleton-paragraph van-skeleton-paragraph--round">
+        </div>
+      </div>
+      <div class="van-skeleton__grid-item">
+        <div class="van-skeleton-avatar van-skeleton-avatar--round">
+        </div>
+        <div class="van-skeleton-paragraph van-skeleton-paragraph--round">
+        </div>
+      </div>
+      <div class="van-skeleton__grid-item">
+        <div class="van-skeleton-avatar van-skeleton-avatar--round">
+        </div>
+        <div class="van-skeleton-paragraph van-skeleton-paragraph--round">
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div>
+  <div class="van-skeleton van-skeleton--animate van-skeleton--round">
+    <div class="van-skeleton__content">
+      <div
+        class="van-skeleton-paragraph van-skeleton-paragraph--round"
+        style="width: 100%;"
+      >
+      </div>
+      <div
+        class="van-skeleton-paragraph van-skeleton-paragraph--round"
+        style="width: 100%;"
+      >
+      </div>
+      <div
+        class="van-skeleton-paragraph van-skeleton-paragraph--round"
+        style="width: 100%;"
+      >
+      </div>
+      <div
+        class="van-skeleton-paragraph van-skeleton-paragraph--round"
+        style="width: 50%;"
+      >
+      </div>
+    </div>
+  </div>
+</div>
+<div>
+  <div class="van-skeleton van-skeleton--animate van-skeleton--round van-skeleton--cell">
+    <div class="van-skeleton__cell">
+      <div
+        class="van-skeleton-paragraph van-skeleton-paragraph--round"
+        style="width: 33.33%;"
+      >
+      </div>
+      <div
+        class="van-skeleton-paragraph van-skeleton-paragraph--round"
+        style="width: 100%;"
+      >
+      </div>
+      <div class="van-skeleton__cell-row">
+        <div class="van-skeleton-avatar van-skeleton-avatar--round">
+        </div>
+        <div class="van-skeleton__cell-content">
+          <div
+            class="van-skeleton-paragraph van-skeleton-paragraph--round"
+            style="width: 100%;"
+          >
+          </div>
+          <div
+            class="van-skeleton-paragraph van-skeleton-paragraph--round"
+            style="width: 50%;"
+          >
+          </div>
+        </div>
+      </div>
+      <div class="van-skeleton__cell-row">
+        <div class="van-skeleton-avatar van-skeleton-avatar--square">
+        </div>
+        <div class="van-skeleton__cell-content">
+          <div
+            class="van-skeleton-paragraph van-skeleton-paragraph--round"
+            style="width: 100%;"
+          >
+          </div>
+          <div
+            class="van-skeleton-paragraph van-skeleton-paragraph--round"
+            style="width: 50%;"
+          >
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div>
+  <div class="van-skeleton van-skeleton--animate van-skeleton--round van-skeleton--media">
+    <div class="van-skeleton__media">
+      <div class="van-skeleton__media-item">
+        <div class="van-skeleton-image van-skeleton-image--square">
+        </div>
+        <div
+          class="van-skeleton-paragraph van-skeleton-paragraph--round"
+          style="width: 100%;"
+        >
+        </div>
+        <div class="van-skeleton__media-row">
+          <div class="van-skeleton-paragraph van-skeleton-paragraph--round">
+          </div>
+          <div class="van-skeleton-paragraph van-skeleton-paragraph--round">
+          </div>
+        </div>
+      </div>
+      <div class="van-skeleton__media-item">
+        <div class="van-skeleton-image van-skeleton-image--square">
+        </div>
+        <div
+          class="van-skeleton-paragraph van-skeleton-paragraph--round"
+          style="width: 100%;"
+        >
+        </div>
+        <div class="van-skeleton__media-row">
+          <div class="van-skeleton-paragraph van-skeleton-paragraph--round">
+          </div>
+          <div class="van-skeleton-paragraph van-skeleton-paragraph--round">
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
 <div>
   <div class="van-skeleton van-skeleton--animate">
     <div class="van-skeleton__content">

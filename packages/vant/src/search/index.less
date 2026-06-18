@@ -1,22 +1,27 @@
 :root,
 :host {
-  --van-search-padding: 10px var(--van-padding-sm);
+  --van-search-height: 44px;
+  --van-search-padding: 6px var(--van-padding-sm);
   --van-search-background: var(--van-background-2);
-  --van-search-content-background: var(--van-background);
-  --van-search-input-height: 34px;
+  --van-search-content-background: #f5f5f5;
+  --van-search-input-height: 32px;
+  --van-search-font-size: 14px;
+  --van-search-left-icon-size: 16px;
   --van-search-label-padding: 0 5px;
   --van-search-label-color: var(--van-text-color);
   --van-search-label-font-size: var(--van-font-size-md);
   --van-search-left-icon-color: var(--van-gray-6);
   --van-search-action-padding: 0 var(--van-padding-xs);
-  --van-search-action-text-color: var(--van-text-color);
-  --van-search-action-font-size: var(--van-font-size-md);
+  --van-search-action-margin-horizontal: 12px;
+  --van-search-action-text-color: #333333;
+  --van-search-action-font-size: 18px;
 }
 
 .van-search {
   display: flex;
   align-items: center;
   box-sizing: border-box;
+  min-height: var(--van-search-height);
   padding: var(--van-search-padding);
   background: var(--van-search-background);
 
@@ -29,6 +34,16 @@
 
     &--round {
       border-radius: var(--van-radius-max);
+    }
+  }
+
+  &--filter-inner {
+    .van-search__content {
+      padding-left: var(--van-padding-xs);
+      background: #ffffff;
+      border: 1px solid #eeeeee;
+      border-radius: 4px;
+      box-sizing: border-box;
     }
   }
 
@@ -47,7 +62,26 @@
     background-color: transparent;
 
     .van-field__left-icon {
+      display: flex;
+      align-items: center;
+      height: var(--van-search-left-icon-size);
+      margin-right: 4px;
       color: var(--van-search-left-icon-color);
+      font-size: var(--van-search-left-icon-size);
+    }
+
+    .van-field__left-icon .van-icon {
+      font-size: var(--van-search-left-icon-size);
+    }
+
+    .van-field__control input,
+    .van-field__control textarea {
+      font-size: var(--van-search-font-size);
+    }
+
+    .van-field__control input::placeholder,
+    .van-field__control textarea::placeholder {
+      font-size: var(--van-search-font-size);
     }
 
     &--with-message {
@@ -72,6 +106,8 @@
   }
 
   &__action {
+    margin-left: var(--van-search-action-margin-horizontal);
+    margin-right: var(--van-search-action-margin-horizontal);
     padding: var(--van-search-action-padding);
     color: var(--van-search-action-text-color);
     font-size: var(--van-search-action-font-size);
@@ -81,6 +117,10 @@
 
     &:active {
       background-color: var(--van-active-color);
+    }
+
+    &--active {
+      color: var(--van-primary-color);
     }
   }
 }

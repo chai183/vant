@@ -1,4 +1,4 @@
-// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+// Rstest Snapshot v1
 
 exports[`should render content slot correctly 1`] = `
 <div class="van-badge van-badge--top-right">
@@ -13,5 +13,11 @@ exports[`should render nothing when content is undefined 1`] = `""`;
 exports[`should render nothing when content is zero 1`] = `
 <div class="van-badge van-badge--top-right">
   0
+</div>
+`;
+
+exports[`should render weak badge 1`] = `
+<div class="van-badge van-badge--top-right van-badge--weak">
+  5
 </div>
 `;

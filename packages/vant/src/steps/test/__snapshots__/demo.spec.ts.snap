@@ -1,49 +1,62 @@
-// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+// Rstest Snapshot v1
 
 exports[`should render demo and match snapshot 1`] = `
 <div>
-  <div class="van-steps van-steps--horizontal">
+  <div class="van-steps van-steps--horizontal van-steps--count-4">
     <div class="van-steps__items">
       <div class="van-hairline van-step van-step--horizontal van-step--finish">
-        <div class="van-step__title">
-          Step1
-        </div>
         <div class="van-step__circle-container">
-          <i class="van-step__circle">
-          </i>
+          <div class="van-step__circle-num van-step__circle-num--finish">
+            <i class="van-badge__wrapper van-icon van-icon-success van-step__circle-check">
+            </i>
+          </div>
+        </div>
+        <div class="van-step__content">
+          <div class="van-step__title">
+            Step1
+          </div>
         </div>
         <div class="van-step__line">
         </div>
       </div>
       <div class="van-hairline van-step van-step--horizontal van-step--process">
-        <div class="van-step__title van-step__title--active">
-          Step2
-        </div>
         <div class="van-step__circle-container">
-          <i class="van-badge__wrapper van-icon van-icon-checked van-step__icon van-step__icon--active">
-          </i>
+          <div class="van-step__circle-num van-step__circle-num--process">
+            2
+          </div>
+        </div>
+        <div class="van-step__content">
+          <div class="van-step__title van-step__title--active">
+            Step2
+          </div>
         </div>
         <div class="van-step__line">
         </div>
       </div>
       <div class="van-hairline van-step van-step--horizontal van-step--waiting">
-        <div class="van-step__title">
-          Step3
-        </div>
         <div class="van-step__circle-container">
-          <i class="van-step__circle">
-          </i>
+          <div class="van-step__circle-num van-step__circle-num--waiting">
+            3
+          </div>
+        </div>
+        <div class="van-step__content">
+          <div class="van-step__title">
+            Step3
+          </div>
         </div>
         <div class="van-step__line">
         </div>
       </div>
       <div class="van-hairline van-step van-step--horizontal van-step--waiting">
-        <div class="van-step__title">
-          Step4
-        </div>
         <div class="van-step__circle-container">
-          <i class="van-step__circle">
-          </i>
+          <div class="van-step__circle-num van-step__circle-num--waiting">
+            4
+          </div>
+        </div>
+        <div class="van-step__content">
+          <div class="van-step__title">
+            Step4
+          </div>
         </div>
         <div class="van-step__line">
         </div>
@@ -62,57 +75,73 @@ exports[`should render demo and match snapshot 1`] = `
   </button>
 </div>
 <div>
-  <div class="van-steps van-steps--horizontal">
+  <div class="van-steps van-steps--horizontal van-steps--count-4">
     <div class="van-steps__items">
       <div class="van-hairline van-step van-step--horizontal van-step--finish">
-        <div class="van-step__title">
-          Step1
-        </div>
         <div class="van-step__circle-container">
-          <i class="van-badge__wrapper van-icon van-icon-arrow van-step__icon">
-          </i>
+          <div class="van-step__circle-num van-step__circle-num--finish">
+            <i class="van-badge__wrapper van-icon van-icon-success van-step__circle-check">
+            </i>
+          </div>
         </div>
-        <div
-          class="van-step__line"
-          style="background: rgb(7, 193, 96);"
-        >
+        <div class="van-step__content">
+          <div class="van-step__title">
+            Step1
+          </div>
+          <div class="van-step__description">
+            Waiting for payment
+          </div>
+        </div>
+        <div class="van-step__line">
         </div>
       </div>
       <div class="van-hairline van-step van-step--horizontal van-step--process">
-        <div
-          class="van-step__title van-step__title--active"
-          style="color: rgb(7, 193, 96);"
-        >
-          Step2
-        </div>
         <div class="van-step__circle-container">
-          <i
-            class="van-badge__wrapper van-icon van-icon-success van-step__icon van-step__icon--active"
-            style="color: rgb(7, 193, 96);"
-          >
-          </i>
+          <div class="van-step__circle-num van-step__circle-num--process">
+            2
+          </div>
+        </div>
+        <div class="van-step__content">
+          <div class="van-step__title van-step__title--active">
+            Step2
+          </div>
+          <div class="van-step__description">
+            Order accepted
+          </div>
         </div>
         <div class="van-step__line">
         </div>
       </div>
       <div class="van-hairline van-step van-step--horizontal van-step--waiting">
-        <div class="van-step__title">
-          Step3
-        </div>
         <div class="van-step__circle-container">
-          <i class="van-badge__wrapper van-icon van-icon-arrow van-step__icon">
-          </i>
+          <div class="van-step__circle-num van-step__circle-num--waiting">
+            3
+          </div>
+        </div>
+        <div class="van-step__content">
+          <div class="van-step__title">
+            Step3
+          </div>
+          <div class="van-step__description">
+            Waiting for pickup
+          </div>
         </div>
         <div class="van-step__line">
         </div>
       </div>
       <div class="van-hairline van-step van-step--horizontal van-step--waiting">
-        <div class="van-step__title">
-          Step4
-        </div>
         <div class="van-step__circle-container">
-          <i class="van-badge__wrapper van-icon van-icon-arrow van-step__icon">
-          </i>
+          <div class="van-step__circle-num van-step__circle-num--waiting">
+            4
+          </div>
+        </div>
+        <div class="van-step__content">
+          <div class="van-step__title">
+            Step4
+          </div>
+          <div class="van-step__description">
+            Completed
+          </div>
         </div>
         <div class="van-step__line">
         </div>
@@ -121,56 +150,372 @@ exports[`should render demo and match snapshot 1`] = `
   </div>
 </div>
 <div>
-  <div class="van-steps van-steps--vertical">
+  <div class="van-steps van-steps--horizontal van-steps--count-4">
     <div class="van-steps__items">
-      <div class="van-hairline van-step van-step--vertical van-step--process">
-        <div class="van-step__title van-step__title--active">
-          <h3>
-            【City】Status1
-          </h3>
-          <p>
+      <div class="van-hairline van-step van-step--horizontal van-step--finish">
+        <div class="van-step__circle-container">
+          <div class="van-step__circle-num van-step__circle-num--finish">
+            <i class="van-badge__wrapper van-icon van-icon-success van-step__circle-check">
+            </i>
+          </div>
+        </div>
+        <div class="van-step__content">
+          <div class="van-step__title">
+            Step1
+          </div>
+        </div>
+        <div
+          class="van-step__line"
+          style="background: rgb(7, 193, 96);"
+        >
+        </div>
+      </div>
+      <div class="van-hairline van-step van-step--horizontal van-step--process">
+        <div class="van-step__circle-container">
+          <i
+            class="van-badge__wrapper van-icon van-icon-success van-step__icon van-step__icon--active"
+            style="color: rgb(7, 193, 96);"
+          >
+          </i>
+        </div>
+        <div class="van-step__content">
+          <div
+            class="van-step__title van-step__title--active"
+            style="color: rgb(7, 193, 96);"
+          >
+            Step2
+          </div>
+        </div>
+        <div class="van-step__line">
+        </div>
+      </div>
+      <div class="van-hairline van-step van-step--horizontal van-step--waiting">
+        <div class="van-step__circle-container">
+          <i class="van-badge__wrapper van-icon van-icon-arrow van-step__icon">
+          </i>
+        </div>
+        <div class="van-step__content">
+          <div class="van-step__title">
+            Step3
+          </div>
+        </div>
+        <div class="van-step__line">
+        </div>
+      </div>
+      <div class="van-hairline van-step van-step--horizontal van-step--waiting">
+        <div class="van-step__circle-container">
+          <i class="van-badge__wrapper van-icon van-icon-arrow van-step__icon">
+          </i>
+        </div>
+        <div class="van-step__content">
+          <div class="van-step__title">
+            Step4
+          </div>
+        </div>
+        <div class="van-step__line">
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div>
+  <div class="van-steps van-steps--horizontal van-steps--count-4">
+    <div class="van-steps__items">
+      <div class="van-hairline van-step van-step--horizontal van-step--finish">
+        <div class="van-step__circle-container">
+          <div class="van-step__circle-num van-step__circle-num--finish">
+            <i class="van-badge__wrapper van-icon van-icon-success van-step__circle-check">
+            </i>
+          </div>
+        </div>
+        <div class="van-step__content">
+          <div class="van-step__title">
+            Step1
+          </div>
+        </div>
+        <div class="van-step__line">
+        </div>
+      </div>
+      <div class="van-hairline van-step van-step--horizontal van-step--finish">
+        <div class="van-step__circle-container">
+          <div class="van-step__circle-num van-step__circle-num--finish">
+            <i class="van-badge__wrapper van-icon van-icon-success van-step__circle-check">
+            </i>
+          </div>
+        </div>
+        <div class="van-step__content">
+          <div class="van-step__title">
+            Step2
+          </div>
+        </div>
+        <div class="van-step__line">
+        </div>
+      </div>
+      <div class="van-hairline van-step van-step--horizontal van-step--error">
+        <div class="van-step__circle-container">
+          <div class="van-step__circle-num van-step__circle-num--error">
+            3
+          </div>
+        </div>
+        <div class="van-step__content">
+          <div class="van-step__title">
+            Step3
+          </div>
+        </div>
+        <div class="van-step__line">
+        </div>
+      </div>
+      <div class="van-hairline van-step van-step--horizontal van-step--waiting">
+        <div class="van-step__circle-container">
+          <div class="van-step__circle-num van-step__circle-num--waiting">
+            4
+          </div>
+        </div>
+        <div class="van-step__content">
+          <div class="van-step__title">
+            Step4
+          </div>
+        </div>
+        <div class="van-step__line">
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div>
+  <div class="van-steps van-steps--vertical van-steps--count-3">
+    <div class="van-steps__items">
+      <div class="van-step van-step--vertical van-step--finish">
+        <div class="van-step__circle-container">
+          <div class="van-step__circle-num van-step__circle-num--finish">
+            <i class="van-badge__wrapper van-icon van-icon-success van-step__circle-check">
+            </i>
+          </div>
+        </div>
+        <div class="van-step__line">
+        </div>
+        <div class="van-step__content">
+          <div class="van-step__left">
+            <div class="van-step__title">
+              【City】Status1
+            </div>
+            <div class="van-step__description">
+              Package arrived
+            </div>
+          </div>
+          <div class="van-step__right">
             2016-07-12 12:40
-          </p>
+          </div>
         </div>
+      </div>
+      <div class="van-step van-step--vertical van-step--process">
         <div class="van-step__circle-container">
-          <i class="van-badge__wrapper van-icon van-icon-checked van-step__icon van-step__icon--active">
-          </i>
+          <div class="van-step__circle-num van-step__circle-num--process">
+            2
+          </div>
         </div>
         <div class="van-step__line">
         </div>
-      </div>
-      <div class="van-hairline van-step van-step--vertical van-step--waiting">
-        <div class="van-step__title">
-          <h3>
-            【City】Status2
-          </h3>
-          <p>
+        <div class="van-step__content">
+          <div class="van-step__left">
+            <div class="van-step__title van-step__title--active">
+              【City】Status2
+            </div>
+            <div class="van-step__description">
+              In transit
+            </div>
+          </div>
+          <div class="van-step__right">
             2016-07-11 10:00
-          </p>
+          </div>
         </div>
+      </div>
+      <div class="van-step van-step--vertical van-step--waiting">
         <div class="van-step__circle-container">
-          <i class="van-step__circle">
-          </i>
+          <div class="van-step__circle-num van-step__circle-num--waiting">
+            3
+          </div>
         </div>
         <div class="van-step__line">
         </div>
-      </div>
-      <div class="van-hairline van-step van-step--vertical van-step--waiting">
-        <div class="van-step__title">
-          <h3>
-            【City】Status3
-          </h3>
-          <p>
+        <div class="van-step__content">
+          <div class="van-step__left">
+            <div class="van-step__title">
+              【City】Status3
+            </div>
+            <div class="van-step__description">
+              Shipped
+            </div>
+          </div>
+          <div class="van-step__right">
             2016-07-10 09:30
-          </p>
-        </div>
-        <div class="van-step__circle-container">
-          <i class="van-step__circle">
-          </i>
-        </div>
-        <div class="van-step__line">
+          </div>
         </div>
       </div>
+    </div>
+  </div>
+</div>
+<div>
+  <div class="van-steps van-steps--vertical van-steps--count-3 van-steps--collapsible">
+    <div class="van-steps__content">
+      <div class="van-steps__items">
+        <div class="van-step van-step--vertical van-step--finish">
+          <div class="van-step__circle-container">
+            <div class="van-step__circle-num van-step__circle-num--finish">
+              <i class="van-badge__wrapper van-icon van-icon-success van-step__circle-check">
+              </i>
+            </div>
+          </div>
+          <div class="van-step__line">
+          </div>
+          <div class="van-step__content">
+            <div class="van-step__left">
+              <div class="van-step__title">
+                【City】Status1
+              </div>
+              <div class="van-step__description">
+                Package arrived
+              </div>
+            </div>
+            <div class="van-step__right">
+              2016-07-12 12:40
+            </div>
+          </div>
+        </div>
+        <div class="van-step van-step--vertical van-step--process">
+          <div class="van-step__circle-container">
+            <div class="van-step__circle-num van-step__circle-num--process">
+              2
+            </div>
+          </div>
+          <div class="van-step__line">
+          </div>
+          <div class="van-step__content">
+            <div class="van-step__left">
+              <div class="van-step__title van-step__title--active">
+                【City】Status2
+              </div>
+              <div class="van-step__description">
+                In transit
+              </div>
+            </div>
+            <div class="van-step__right">
+              2016-07-11 10:00
+            </div>
+          </div>
+        </div>
+        <div class="van-step van-step--vertical van-step--waiting">
+          <div class="van-step__circle-container">
+            <div class="van-step__circle-num van-step__circle-num--waiting">
+              3
+            </div>
+          </div>
+          <div class="van-step__line">
+          </div>
+          <div class="van-step__content">
+            <div class="van-step__left">
+              <div class="van-step__title">
+                【City】Status3
+              </div>
+              <div class="van-step__description">
+                Shipped
+              </div>
+            </div>
+            <div class="van-step__right">
+              2016-07-10 09:30
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="van-steps__collapse">
+      <span class="van-steps__collapse-text">
+        收起
+      </span>
+      <i class="van-badge__wrapper van-icon van-icon-arrow-up van-steps__collapse-icon">
+      </i>
+    </div>
+  </div>
+</div>
+<div>
+  <div class="van-steps van-steps--vertical van-steps--count-3 van-steps--reverse van-steps--collapsible">
+    <div class="van-steps__content">
+      <div class="van-steps__items">
+        <div class="van-step van-step--vertical van-step--finish van-step--reverse">
+          <div class="van-step__circle-container">
+            <div class="van-step__circle-num van-step__circle-num--finish">
+              <i class="van-badge__wrapper van-icon van-icon-success van-step__circle-check">
+              </i>
+            </div>
+          </div>
+          <div class="van-step__line">
+          </div>
+          <div class="van-step__content">
+            <div class="van-step__left">
+              <div class="van-step__title">
+                【City】Status1
+              </div>
+              <div class="van-step__description">
+                Package arrived
+              </div>
+            </div>
+            <div class="van-step__right">
+              2016-07-12 12:40
+            </div>
+          </div>
+        </div>
+        <div class="van-step van-step--vertical van-step--process van-step--reverse">
+          <div class="van-step__circle-container">
+            <div class="van-step__circle-num van-step__circle-num--process">
+              2
+            </div>
+          </div>
+          <div class="van-step__line">
+          </div>
+          <div class="van-step__content">
+            <div class="van-step__left">
+              <div class="van-step__title van-step__title--active">
+                【City】Status2
+              </div>
+              <div class="van-step__description">
+                In transit
+              </div>
+            </div>
+            <div class="van-step__right">
+              2016-07-11 10:00
+            </div>
+          </div>
+        </div>
+        <div class="van-step van-step--vertical van-step--waiting van-step--reverse">
+          <div class="van-step__circle-container">
+            <div class="van-step__circle-num van-step__circle-num--waiting">
+              3
+            </div>
+          </div>
+          <div class="van-step__line">
+          </div>
+          <div class="van-step__content">
+            <div class="van-step__left">
+              <div class="van-step__title">
+                【City】Status3
+              </div>
+              <div class="van-step__description">
+                Shipped
+              </div>
+            </div>
+            <div class="van-step__right">
+              2016-07-10 09:30
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="van-steps__collapse">
+      <span class="van-steps__collapse-text">
+        收起
+      </span>
+      <i class="van-badge__wrapper van-icon van-icon-arrow-up van-steps__collapse-icon">
+      </i>
     </div>
   </div>
 </div>

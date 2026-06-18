@@ -58,10 +58,10 @@ const customSrc = cdnURL('logo.png');
 
   <demo-block :title="t('withBadge')">
     <van-space wrap :size="16">
-      <van-badge content="5">
+      <van-badge content="5" :offset="[-8, 8]">
         <van-avatar type="text" text="V" />
       </van-badge>
-      <van-badge dot>
+      <van-badge dot :offset="[-8, 8]">
         <van-avatar type="default" />
       </van-badge>
     </van-space>

@@ -14,6 +14,7 @@ const t = useTranslate({
     imageType: '图片类型',
     customSize: '自定义大小',
     description: '描述文字',
+    secondaryDescription: '辅助说明文字',
     customImage: '自定义图片',
     bottomContent: '底部内容',
   },
@@ -24,6 +25,7 @@ const t = useTranslate({
     imageType: 'Image Type',
     customSize: 'Custom Size',
     description: 'Description',
+    secondaryDescription: 'Secondary description',
     customImage: 'Custom Image',
     bottomContent: 'Bottom Content',
   },
@@ -34,7 +36,28 @@ const active = ref('error');
 
 <template>
   <demo-block :title="t('basicUsage')">
+    <!-- 插图 + 文字型 -->
     <van-empty :description="t('description')" />
+
+    <!-- 文字型（无插图） -->
+    <van-empty :description="t('description')" :show-image="false" />
+
+    <!-- 插图 + 文字型 + 按钮型 -->
+    <van-empty :description="t('description')">
+      <van-button round type="primary" class="bottom-button">
+        {{ t('button') }}
+      </van-button>
+    </van-empty>
+
+    <!-- 插图 + 文字型 + 辅助说明 + 按钮型 -->
+    <van-empty
+      :description="t('description')"
+      :secondary-description="t('secondaryDescription')"
+    >
+      <van-button round type="primary" class="bottom-button">
+        {{ t('button') }}
+      </van-button>
+    </van-empty>
   </demo-block>
 
   <demo-block :title="t('imageType')">

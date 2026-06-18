@@ -35,6 +35,88 @@ export default {
 };
 ```
 
+### Search page
+
+Use `scene="search-page"`.
+
+```html
+<van-search
+  v-model="valuePage"
+  scene="search-page"
+  placeholder="Placeholder"
+  @search="onSearch"
+  @cancel="onCancel"
+/>
+```
+
+```js
+import { ref } from 'vue';
+import { showToast } from 'vant';
+
+export default {
+  setup() {
+    const valuePage = ref('');
+    const onSearch = (val) => showToast(val);
+    const onCancel = () => showToast('Cancel');
+    return { valuePage, onSearch, onCancel };
+  },
+};
+```
+
+### Filter bar
+
+Use `scene="filter-bar"`.
+
+```html
+<form action="/">
+  <van-search
+    v-model="valueFilterBar"
+    scene="filter-bar"
+    placeholder="Placeholder"
+    @search="onSearch"
+  />
+</form>
+```
+
+```js
+import { ref } from 'vue';
+import { showToast } from 'vant';
+
+export default {
+  setup() {
+    const valueFilterBar = ref('');
+    const onSearch = (val) => showToast(val);
+    return { valueFilterBar, onSearch };
+  },
+};
+```
+
+### Filter inner
+
+Use `scene="filter-inner"`.
+
+```html
+<van-search
+  v-model="valueFilterInner"
+  scene="filter-inner"
+  placeholder="Placeholder"
+  @search="onSearch"
+/>
+```
+
+```js
+import { ref } from 'vue';
+import { showToast } from 'vant';
+
+export default {
+  setup() {
+    const valueFilterInner = ref('');
+    const onSearch = (val) => showToast(val);
+    return { valueFilterInner, onSearch };
+  },
+};
+```
+
 ### Listen to Events
 
 `search` event will be Emitted when click the search button on the keyboard, `cancel` event will be Emitted when click the cancel button.
@@ -146,10 +228,11 @@ export default {
 | placeholder | Placeholder | _string_ | - |
 | clearable | Whether to be clearable | _boolean_ | `true` |
 | clear-icon | Clear icon name | _string_ | `clear` |
-| clear-trigger | When to display the clear icon, `always` means to display the icon when value is not empty, `focus` means to display the icon when input is focused | _string_ | `focus` |
+| clear-trigger | When to display the clear icon, `always` means to display the icon when value is not empty, `focus` means to display the icon when input is focused | _string_ | `always` |
 | autofocus | Whether to auto focus, unsupported in iOS | _boolean_ | `false` |
 | show-action | Whether to show right action button | _boolean_ | `false` |
-| action-text | Text of action button | _string_ | `Cancel` |
+| scene | Preset scene: `default` `search-page` `filter-bar` `filter-inner` | _string_ | `default` |
+| action-text | Action label; default Cancel in `search-page`, default Search in `filter-bar` | _string_ | - |
 | disabled | Whether to disable field | _boolean_ | `false` |
 | readonly | Whether to be readonly | _boolean_ | `false` |
 | error | Whether to mark the input content in red | _boolean_ | `false` |
@@ -189,7 +272,12 @@ Use [ref](https://vuejs.org/guide/essentials/template-refs.html) to get Search i
 The component exports the following type definitions:
 
 ```ts
-import type { SearchProps, SearchShape, SearchInstance } from 'vant';
+import type {
+  SearchProps,
+  SearchShape,
+  SearchScene,
+  SearchInstance,
+} from 'vant';
 ```
 
 `SearchInstance` is the type of component instance:
@@ -219,16 +307,19 @@ searchRef.value?.focus();
 
 The component provides the following CSS variables, which can be used to customize styles. Please refer to [ConfigProvider component](#/en-US/config-provider).
 
-| Name                            | Default Value                | Description |
-| ------------------------------- | ---------------------------- | ----------- |
-| --van-search-padding            | _10px var(--van-padding-sm)_ | -           |
-| --van-search-background         | _var(--van-background-2)_    | -           |
-| --van-search-content-background | _var(--van-gray-1)_          | -           |
-| --van-search-input-height       | _34px_                       | -           |
-| --van-search-label-padding      | _0 5px_                      | -           |
-| --van-search-label-color        | _var(--van-text-color)_      | -           |
-| --van-search-label-font-size    | _var(--van-font-size-md)_    | -           |
-| --van-search-left-icon-color    | _var(--van-gray-6)_          | -           |
-| --van-search-action-padding     | _0 var(--van-padding-xs)_    | -           |
-| --van-search-action-text-color  | _var(--van-text-color)_      | -           |
-| --van-search-action-font-size   | _var(--van-font-size-md)_    | -           |
+| Name                            | Default Value               | Description |
+| ------------------------------- | --------------------------- | ----------- |
+| --van-search-height             | _44px_                      | -           |
+| --van-search-padding            | _6px var(--van-padding-sm)_ | -           |
+| --van-search-background         | _var(--van-background-2)_   | -           |
+| --van-search-content-background | _#f5f5f5_                   | -           |
+| --van-search-input-height       | _32px_                      | -           |
+| --van-search-font-size          | _14px_                      | -           |
+| --van-search-left-icon-size     | _16px_                      | -           |
+| --van-search-label-padding      | _0 5px_                     | -           |
+| --van-search-label-color        | _var(--van-text-color)_     | -           |
+| --van-search-label-font-size    | _var(--van-font-size-md)_   | -           |
+| --van-search-left-icon-color    | _var(--van-gray-6)_         | -           |
+| --van-search-action-padding     | _0 var(--van-padding-xs)_   | -           |
+| --van-search-action-text-color  | _#333333_                   | -           |
+| --van-search-action-font-size   | _18px_                      | -           |

@@ -13,6 +13,10 @@ const t = useTranslate({
     placeholder: '请输入搜索关键词',
     customButton: '自定义按钮',
     listenToEvents: '事件监听',
+    sceneSearchPage: '搜索页模态',
+    sceneFilterBar: '筛选栏（搜索）',
+    sceneFilterInner: '筛选内（极简）',
+    cancel: '取消',
   },
   'en-US': {
     label: 'Address',
@@ -22,6 +26,10 @@ const t = useTranslate({
     placeholder: 'Placeholder',
     customButton: 'Custom Action Button',
     listenToEvents: 'Listen to Events',
+    sceneSearchPage: 'Search page',
+    sceneFilterBar: 'Filter bar (Search)',
+    sceneFilterInner: 'Filter inner (Minimal)',
+    cancel: 'Cancel',
   },
 });
 
@@ -31,6 +39,9 @@ const value3 = ref('');
 const value4 = ref('');
 const value5 = ref('');
 const value6 = ref('');
+const value7 = ref('');
+const value8 = ref('');
+const value9 = ref('');
 
 const onSearch = (val: string) => showToast(val);
 const onCancel = () => showToast(t('cancel'));
@@ -40,6 +51,36 @@ const onClickButton = () => showToast(value6.value);
 <template>
   <demo-block :title="t('basicUsage')">
     <van-search v-model="value1" :placeholder="t('placeholder')" />
+  </demo-block>
+
+  <demo-block :title="t('sceneSearchPage')">
+    <van-search
+      v-model="value7"
+      scene="search-page"
+      :placeholder="t('placeholder')"
+      @search="onSearch"
+      @cancel="onCancel"
+    />
+  </demo-block>
+
+  <demo-block :title="t('sceneFilterBar')">
+    <!-- <form action="/"> -->
+    <van-search
+      v-model="value8"
+      scene="filter-bar"
+      :placeholder="t('placeholder')"
+      @search="onSearch"
+    />
+    <!-- </form> -->
+  </demo-block>
+
+  <demo-block class="demo-search__filter-inner" :title="t('sceneFilterInner')">
+    <van-search
+      v-model="value9"
+      scene="filter-inner"
+      :placeholder="t('placeholder')"
+      @search="onSearch"
+    />
   </demo-block>
 
   <demo-block :title="t('listenToEvents')">
@@ -89,3 +130,13 @@ const onClickButton = () => showToast(value6.value);
     </van-search>
   </demo-block>
 </template>
+
+<style lang="less">
+.demo-search__filter-inner {
+  background: #f5f5f5;
+
+  .van-search {
+    background: #f5f5f5;
+  }
+}
+</style>

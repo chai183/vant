@@ -1,12 +1,17 @@
 :root,
 :host {
   --van-skeleton-paragraph-height: 16px;
-  --van-skeleton-paragraph-background: var(--van-active-color);
-  --van-skeleton-paragraph-margin-top: var(--van-padding-sm);
+  --van-skeleton-paragraph-background: var(
+    --van-skeleton-background-from,
+    #fafafa
+  );
+  --van-skeleton-paragraph-margin-top: var(--van-padding-md);
 }
 
 .van-skeleton {
   &-paragraph {
+    box-sizing: border-box;
+    max-width: 100%;
     height: var(--van-skeleton-paragraph-height);
     background: var(--van-skeleton-paragraph-background);
 

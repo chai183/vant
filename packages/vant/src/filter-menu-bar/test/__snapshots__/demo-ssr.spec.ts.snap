@@ -1,0 +1,685 @@
+// Rstest Snapshot v1
+
+exports[`should render demo and match snapshot 1`] = `
+<!--[-->
+<div>
+  <!--[-->
+  <div class="van-filter-menu-bar">
+    <div
+      style
+      class="van-filter-menu-bar__bar"
+    >
+      <!--[-->
+      <div
+        id="van-filter-menu-bar-0"
+        role="button"
+        tabindex="0"
+        class="van-filter-menu-bar__item van-haptics-feedback"
+      >
+        <span
+          class="van-filter-menu-bar__title van-filter-menu-bar__title--active"
+          style="color:var(--van-primary-color);"
+        >
+          <div class="van-ellipsis">
+            全部
+          </div>
+        </span>
+        <i
+          class="van-badge__wrapper van-icon van-icon-arrow-down van-filter-menu-bar__title-icon"
+          style="color:var(--van-primary-color);"
+        >
+          <!--[-->
+        </i>
+      </div>
+      <div
+        id="van-filter-menu-bar-1"
+        role="button"
+        tabindex="0"
+        class="van-filter-menu-bar__item van-haptics-feedback"
+      >
+        <span
+          class="van-filter-menu-bar__title van-filter-menu-bar__title--active"
+          style="color:var(--van-primary-color);"
+        >
+          <div class="van-ellipsis">
+            品牌 A
+          </div>
+        </span>
+        <i
+          class="van-badge__wrapper van-icon van-icon-arrow-down van-filter-menu-bar__title-icon"
+          style="color:var(--van-primary-color);"
+        >
+          <!--[-->
+        </i>
+      </div>
+      <div
+        id="van-filter-menu-bar-2"
+        role="button"
+        tabindex="0"
+        class="van-filter-menu-bar__item van-haptics-feedback"
+      >
+        <span
+          class="van-filter-menu-bar__title van-filter-menu-bar__title--active"
+          style="color:var(--van-primary-color);"
+        >
+          <div class="van-ellipsis">
+            关键词 A
+          </div>
+        </span>
+        <i
+          class="van-badge__wrapper van-icon van-icon-arrow-down van-filter-menu-bar__title-icon"
+          style="color:var(--van-primary-color);"
+        >
+          <!--[-->
+        </i>
+      </div>
+      <div
+        id="van-filter-menu-bar-3"
+        role="button"
+        tabindex="0"
+        class="van-filter-menu-bar__item van-filter-menu-bar__item--funnel van-haptics-feedback"
+      >
+        <span
+          class="van-filter-menu-bar__title"
+          style="color:;"
+        >
+          <div class="van-ellipsis">
+            Title
+          </div>
+        </span>
+        <i
+          class="van-badge__wrapper van-icon van-icon-filter-o van-filter-menu-bar__funnel-icon"
+          style="color:#cccccc;"
+        >
+          <!--[-->
+        </i>
+      </div>
+    </div>
+  </div>
+  <div class="van-cell van-cell--center">
+    <div
+      class="van-cell__title"
+      style
+    >
+      <span>
+        model
+      </span>
+      <div class="van-cell__label">
+        {&quot;filterItem1&quot;:&quot;all&quot;,&quot;filterItem2&quot;:[&quot;brand-a&quot;],&quot;filterItem3&quot;:[&quot;keyword-a&quot;],&quot;tagNormalTwo&quot;:&quot;digital&quot;,&quot;tagFoldThree&quot;:&quot;food&quot;,&quot;tagNormalFour&quot;:&quot;home&quot;,&quot;tagIconThree&quot;:&quot;digital&quot;,&quot;range&quot;:[400,800],&quot;amountRange&quot;:[3000,30000000000],&quot;date&quot;:[&quot;2024-05-01&quot;,&quot;2024-05-22&quot;],&quot;radioTitle&quot;:&quot;all&quot;,&quot;checkboxTitle&quot;:[&quot;delivery&quot;],&quot;keyword&quot;:&quot;手机&quot;,&quot;amount&quot;:0}
+      </div>
+    </div>
+  </div>
+</div>
+<div>
+  <!--[-->
+  <div class="van-filter-menu-bar">
+    <div
+      style
+      class="van-filter-menu-bar__bar"
+    >
+      <!--[-->
+      <div
+        id="van-filter-menu-bar-0"
+        role="button"
+        tabindex="0"
+        class="van-filter-menu-bar__item van-haptics-feedback"
+      >
+        <span
+          class="van-filter-menu-bar__title van-filter-menu-bar__title--active"
+          style="color:var(--van-primary-color);"
+        >
+          <div class="van-ellipsis">
+            数码
+          </div>
+        </span>
+        <i
+          class="van-badge__wrapper van-icon van-icon-arrow-down van-filter-menu-bar__title-icon"
+          style="color:var(--van-primary-color);"
+        >
+          <!--[-->
+        </i>
+      </div>
+      <div
+        id="van-filter-menu-bar-1"
+        role="button"
+        tabindex="0"
+        class="van-filter-menu-bar__item van-haptics-feedback"
+      >
+        <span
+          class="van-filter-menu-bar__title van-filter-menu-bar__title--active"
+          style="color:var(--van-primary-color);"
+        >
+          <div class="van-ellipsis">
+            Date
+          </div>
+        </span>
+        <i
+          class="van-badge__wrapper van-icon van-icon-arrow-down van-filter-menu-bar__title-icon"
+          style="color:var(--van-primary-color);"
+        >
+          <!--[-->
+        </i>
+      </div>
+      <div
+        id="van-filter-menu-bar-2"
+        role="button"
+        tabindex="0"
+        class="van-filter-menu-bar__item van-haptics-feedback"
+      >
+        <span
+          class="van-filter-menu-bar__title van-filter-menu-bar__title--active"
+          style="color:var(--van-primary-color);"
+        >
+          <div class="van-ellipsis">
+            多选
+          </div>
+        </span>
+        <i
+          class="van-badge__wrapper van-icon van-icon-arrow-down van-filter-menu-bar__title-icon"
+          style="color:var(--van-primary-color);"
+        >
+          <!--[-->
+        </i>
+      </div>
+    </div>
+  </div>
+  <div class="van-cell van-cell--center">
+    <div
+      class="van-cell__title"
+      style
+    >
+      <span>
+        model
+      </span>
+      <div class="van-cell__label">
+        {&quot;category&quot;:&quot;digital&quot;,&quot;date&quot;:[&quot;2024-05-01&quot;,&quot;2024-05-22&quot;],&quot;area&quot;:[&quot;tag-1-1&quot;,&quot;tag-1-2&quot;]}
+      </div>
+    </div>
+  </div>
+</div>
+<div>
+  <!--[-->
+  <div class="van-filter-menu-bar">
+    <div
+      style
+      class="van-filter-menu-bar__bar"
+    >
+      <!--[-->
+      <div
+        id="van-filter-menu-bar-0"
+        role="button"
+        class="van-filter-menu-bar__item van-filter-menu-bar__item--disabled"
+      >
+        <span
+          class="van-filter-menu-bar__title"
+          style="color:;"
+        >
+          <div class="van-ellipsis">
+            禁用
+          </div>
+        </span>
+        <i
+          class="van-badge__wrapper van-icon van-icon-arrow-down van-filter-menu-bar__title-icon"
+          style="color:#cccccc;"
+        >
+          <!--[-->
+        </i>
+      </div>
+      <div
+        id="van-filter-menu-bar-1"
+        role="button"
+        tabindex="0"
+        class="van-filter-menu-bar__item van-haptics-feedback"
+      >
+        <span
+          class="van-filter-menu-bar__title"
+          style="color:;"
+        >
+          <div class="van-ellipsis">
+            Sort
+          </div>
+        </span>
+        <span class="van-filter-menu-bar__sort-icon">
+          <i
+            class="van-badge__wrapper van-icon van-icon-arrow-down van-filter-menu-bar__sort-icon-up"
+            style="color:#cccccc;font-size:8px;"
+          >
+            <!--[-->
+          </i>
+          <i
+            class="van-badge__wrapper van-icon van-icon-arrow-down van-filter-menu-bar__sort-icon-down"
+            style="color:#cccccc;font-size:8px;"
+          >
+            <!--[-->
+          </i>
+        </span>
+      </div>
+    </div>
+  </div>
+  <div class="van-cell van-cell--center">
+    <div
+      class="van-cell__title"
+      style
+    >
+      <span>
+        sort event
+      </span>
+    </div>
+  </div>
+</div>
+<div>
+  <!--[-->
+  <div class="van-filter-menu-bar">
+    <div
+      style
+      class="van-filter-menu-bar__bar van-filter-menu-bar__bar--single"
+    >
+      <!--[-->
+      <div
+        id="van-filter-menu-bar-0"
+        role="button"
+        tabindex="0"
+        class="van-filter-menu-bar__item van-haptics-feedback"
+      >
+        <span
+          class="van-filter-menu-bar__title"
+          style="color:;"
+        >
+          <div class="van-ellipsis">
+            单个筛选项
+          </div>
+        </span>
+        <i
+          class="van-badge__wrapper van-icon van-icon-arrow-down van-filter-menu-bar__title-icon"
+          style="color:#cccccc;"
+        >
+          <!--[-->
+        </i>
+      </div>
+    </div>
+  </div>
+</div>
+<div>
+  <!--[-->
+  <div class="van-filter-menu-bar">
+    <div
+      style
+      class="van-filter-menu-bar__bar"
+    >
+      <!--[-->
+      <div
+        id="van-filter-menu-bar-0"
+        role="button"
+        tabindex="0"
+        class="van-filter-menu-bar__item van-haptics-feedback"
+      >
+        <span
+          class="van-filter-menu-bar__title van-filter-menu-bar__title--active"
+          style="color:var(--van-primary-color);"
+        >
+          <div class="van-ellipsis">
+            第一个筛选项里这是一个超级长超级长超级长的选项文案用于观察两个筛选项并排展示时选中返显是否能够正常省略不会把第二个筛选项挤出屏幕
+          </div>
+        </span>
+        <i
+          class="van-badge__wrapper van-icon van-icon-arrow-down van-filter-menu-bar__title-icon"
+          style="color:var(--van-primary-color);"
+        >
+          <!--[-->
+        </i>
+      </div>
+      <div
+        id="van-filter-menu-bar-1"
+        role="button"
+        tabindex="0"
+        class="van-filter-menu-bar__item van-haptics-feedback"
+      >
+        <span
+          class="van-filter-menu-bar__title van-filter-menu-bar__title--active"
+          style="color:var(--van-primary-color);"
+        >
+          <div class="van-ellipsis">
+            第二个筛选项里这是一个超级长超级长超级长的选项文案用于观察右侧项目选中返显之后是否可以保持稳定宽度并且标题能够正常省略显示
+          </div>
+        </span>
+        <i
+          class="van-badge__wrapper van-icon van-icon-arrow-down van-filter-menu-bar__title-icon"
+          style="color:var(--van-primary-color);"
+        >
+          <!--[-->
+        </i>
+      </div>
+    </div>
+  </div>
+</div>
+<div>
+  <!--[-->
+  <div class="van-filter-menu-bar">
+    <div
+      style
+      class="van-filter-menu-bar__bar van-filter-menu-bar__bar--single"
+    >
+      <!--[-->
+      <div
+        id="van-filter-menu-bar-0"
+        role="button"
+        tabindex="0"
+        class="van-filter-menu-bar__item van-haptics-feedback"
+      >
+        <span
+          class="van-filter-menu-bar__title"
+          style="color:;"
+        >
+          <div class="van-ellipsis">
+            Empty options
+          </div>
+        </span>
+        <i
+          class="van-badge__wrapper van-icon van-icon-arrow-down van-filter-menu-bar__title-icon"
+          style="color:#cccccc;"
+        >
+          <!--[-->
+        </i>
+      </div>
+    </div>
+  </div>
+</div>
+<div>
+  <!--[-->
+  <div class="van-filter-menu-bar">
+    <div
+      style
+      class="van-filter-menu-bar__bar van-filter-menu-bar__bar--single"
+    >
+      <!--[-->
+      <div
+        id="van-filter-menu-bar-0"
+        role="button"
+        tabindex="0"
+        class="van-filter-menu-bar__item van-haptics-feedback"
+      >
+        <span
+          class="van-filter-menu-bar__title"
+          style="color:;"
+        >
+          <div class="van-ellipsis">
+            Menu list
+          </div>
+        </span>
+        <i
+          class="van-badge__wrapper van-icon van-icon-arrow-down van-filter-menu-bar__title-icon"
+          style="color:#cccccc;"
+        >
+          <!--[-->
+        </i>
+      </div>
+    </div>
+  </div>
+  <div class="van-cell van-cell--center">
+    <div
+      class="van-cell__title"
+      style
+    >
+      <span>
+        model
+      </span>
+      <div class="van-cell__label">
+        {&quot;menuList&quot;:&quot;&quot;}
+      </div>
+    </div>
+  </div>
+</div>
+<div>
+  <!--[-->
+  <div class="van-filter-menu-bar">
+    <div
+      style
+      class="van-filter-menu-bar__bar van-filter-menu-bar__bar--single"
+    >
+      <!--[-->
+      <div
+        id="van-filter-menu-bar-0"
+        role="button"
+        tabindex="0"
+        class="van-filter-menu-bar__item van-haptics-feedback"
+      >
+        <span
+          class="van-filter-menu-bar__title van-filter-menu-bar__title--active"
+          style="color:var(--van-primary-color);"
+        >
+          <div class="van-ellipsis">
+            数码
+          </div>
+        </span>
+        <i
+          class="van-badge__wrapper van-icon van-icon-arrow-down van-filter-menu-bar__title-icon"
+          style="color:var(--van-primary-color);"
+        >
+          <!--[-->
+        </i>
+      </div>
+    </div>
+  </div>
+  <div class="van-cell van-cell--center">
+    <div
+      class="van-cell__title"
+      style
+    >
+      <span>
+        model
+      </span>
+      <div class="van-cell__label">
+        {&quot;category&quot;:&quot;digital&quot;}
+      </div>
+    </div>
+  </div>
+</div>
+<div>
+  <!--[-->
+  <div class="van-filter-menu-bar">
+    <div
+      style
+      class="van-filter-menu-bar__bar van-filter-menu-bar__bar--single"
+    >
+      <!--[-->
+      <div
+        id="van-filter-menu-bar-0"
+        role="button"
+        tabindex="0"
+        class="van-filter-menu-bar__item van-haptics-feedback"
+      >
+        <span
+          class="van-filter-menu-bar__title van-filter-menu-bar__title--active"
+          style="color:var(--van-primary-color);"
+        >
+          <div class="van-ellipsis">
+            多选
+          </div>
+        </span>
+        <i
+          class="van-badge__wrapper van-icon van-icon-arrow-down van-filter-menu-bar__title-icon"
+          style="color:var(--van-primary-color);"
+        >
+          <!--[-->
+        </i>
+      </div>
+    </div>
+  </div>
+  <div class="van-cell van-cell--center">
+    <div
+      class="van-cell__title"
+      style
+    >
+      <span>
+        model
+      </span>
+      <div class="van-cell__label">
+        {&quot;category&quot;:[&quot;digital&quot;,&quot;home&quot;,&quot;all&quot;]}
+      </div>
+    </div>
+  </div>
+</div>
+<div>
+  <!--[-->
+  <div class="van-filter-menu-bar">
+    <div
+      style
+      class="van-filter-menu-bar__bar van-filter-menu-bar__bar--single"
+    >
+      <!--[-->
+      <div
+        id="van-filter-menu-bar-0"
+        role="button"
+        tabindex="0"
+        class="van-filter-menu-bar__item van-haptics-feedback"
+      >
+        <span
+          class="van-filter-menu-bar__title van-filter-menu-bar__title--active"
+          style="color:var(--van-primary-color);"
+        >
+          <div class="van-ellipsis">
+            用户 A
+          </div>
+        </span>
+        <i
+          class="van-badge__wrapper van-icon van-icon-arrow-down van-filter-menu-bar__title-icon"
+          style="color:var(--van-primary-color);"
+        >
+          <!--[-->
+        </i>
+      </div>
+    </div>
+  </div>
+  <div class="van-cell van-cell--center">
+    <div
+      class="van-cell__title"
+      style
+    >
+      <span>
+        model
+      </span>
+      <div class="van-cell__label">
+        {&quot;user&quot;:&quot;a&quot;}
+      </div>
+    </div>
+  </div>
+</div>
+<div>
+  <!--[-->
+  <div class="van-filter-menu-bar">
+    <div
+      style
+      class="van-filter-menu-bar__bar van-filter-menu-bar__bar--single"
+    >
+      <!--[-->
+      <div
+        id="van-filter-menu-bar-0"
+        role="button"
+        tabindex="0"
+        class="van-filter-menu-bar__item van-haptics-feedback"
+      >
+        <span
+          class="van-filter-menu-bar__title van-filter-menu-bar__title--active"
+          style="color:var(--van-primary-color);"
+        >
+          <div class="van-ellipsis">
+            多选
+          </div>
+        </span>
+        <i
+          class="van-badge__wrapper van-icon van-icon-arrow-down van-filter-menu-bar__title-icon"
+          style="color:var(--van-primary-color);"
+        >
+          <!--[-->
+        </i>
+      </div>
+    </div>
+  </div>
+  <div class="van-cell van-cell--center">
+    <div
+      class="van-cell__title"
+      style
+    >
+      <span>
+        model
+      </span>
+      <div class="van-cell__label">
+        {&quot;user&quot;:[&quot;a&quot;,&quot;b&quot;]}
+      </div>
+    </div>
+  </div>
+</div>
+<div>
+  <!--[-->
+  <div class="van-filter-menu-bar">
+    <div
+      style
+      class="van-filter-menu-bar__bar van-filter-menu-bar__bar--single"
+    >
+      <!--[-->
+      <div
+        id="van-filter-menu-bar-0"
+        role="button"
+        tabindex="0"
+        class="van-filter-menu-bar__item van-haptics-feedback"
+      >
+        <span
+          class="van-filter-menu-bar__title van-filter-menu-bar__title--active"
+          style="color:var(--van-primary-color);"
+        >
+          <div class="van-ellipsis">
+            多选
+          </div>
+        </span>
+        <i
+          class="van-badge__wrapper van-icon van-icon-arrow-down van-filter-menu-bar__title-icon"
+          style="color:var(--van-primary-color);"
+        >
+          <!--[-->
+        </i>
+      </div>
+    </div>
+  </div>
+  <div class="van-cell van-cell--center">
+    <div
+      class="van-cell__title"
+      style
+    >
+      <span>
+        model
+      </span>
+      <div class="van-cell__label">
+        {&quot;menuList&quot;:[&quot;a&quot;,&quot;b&quot;]}
+      </div>
+    </div>
+  </div>
+</div>
+<div class="van-empty">
+  <div
+    class="van-empty__image"
+    style
+  >
+    <img
+      src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxNjAgMTYwIj4KICAgICAgPGRlZnM+CiAgICAgICAgPGxpbmVhckdyYWRpZW50CiAgICAgICAgICB4MT0iNTAlIgogICAgICAgICAgeDI9IjUwJSIKICAgICAgICAgIHkyPSIxMDAlIgogICAgICAgICAgaWQ9InZhbi1lbXB0eS01IgogICAgICAgID4KICAgICAgICAgIDxzdG9wCiAgICAgICAgICAgIHN0b3AtY29sb3I9IiNGMkYzRjUiCiAgICAgICAgICAgIG9mZnNldD0iMCUiCiAgICAgICAgICAvPgogICAgICAgICAgPHN0b3AKICAgICAgICAgICAgc3RvcC1jb2xvcj0iI0RDREVFMCIKICAgICAgICAgICAgb2Zmc2V0PSIxMDAlIgogICAgICAgICAgLz4KICAgICAgICA8L2xpbmVhckdyYWRpZW50PgogICAgICAgIDxsaW5lYXJHcmFkaWVudAogICAgICAgICAgeDE9Ijk1JSIKICAgICAgICAgIHkxPSI0OCUiCiAgICAgICAgICB4Mj0iNS41JSIKICAgICAgICAgIHkyPSI1MSUiCiAgICAgICAgICBpZD0idmFuLWVtcHR5LTYiCiAgICAgICAgPgogICAgICAgICAgPHN0b3AKICAgICAgICAgICAgc3RvcC1jb2xvcj0iI0VBRURGMSIKICAgICAgICAgICAgb2Zmc2V0PSIwJSIKICAgICAgICAgIC8+CiAgICAgICAgICA8c3RvcAogICAgICAgICAgICBzdG9wLWNvbG9yPSIjRENERUUwIgogICAgICAgICAgICBvZmZzZXQ9IjEwMCUiCiAgICAgICAgICAvPgogICAgICAgIDwvbGluZWFyR3JhZGllbnQ+CiAgICAgICAgPGxpbmVhckdyYWRpZW50CiAgICAgICAgICB5MT0iNDUlIgogICAgICAgICAgeDI9IjEwMCUiCiAgICAgICAgICB5Mj0iNTQlIgogICAgICAgICAgaWQ9InZhbi1lbXB0eS03IgogICAgICAgID4KICAgICAgICAgIDxzdG9wCiAgICAgICAgICAgIHN0b3AtY29sb3I9IiNFQUVERjEiCiAgICAgICAgICAgIG9mZnNldD0iMCUiCiAgICAgICAgICAvPgogICAgICAgICAgPHN0b3AKICAgICAgICAgICAgc3RvcC1jb2xvcj0iI0RDREVFMCIKICAgICAgICAgICAgb2Zmc2V0PSIxMDAlIgogICAgICAgICAgLz4KICAgICAgICA8L2xpbmVhckdyYWRpZW50PgogICAgICA8L2RlZnM+CiAgICAgIDxkZWZzPgogICAgICAgIDxsaW5lYXJHcmFkaWVudAogICAgICAgICAgaWQ9InZhbi1lbXB0eS1hIgogICAgICAgICAgeDE9IjY0JSIKICAgICAgICAgIHkxPSIxMDAlIgogICAgICAgICAgeDI9IjY0JSIKICAgICAgICA+CiAgICAgICAgICA8c3RvcAogICAgICAgICAgICBzdG9wLWNvbG9yPSIjRkZGIgogICAgICAgICAgICBvZmZzZXQ9IjAlIgogICAgICAgICAgICBzdG9wLW9wYWNpdHk9IjAuNSIKICAgICAgICAgIC8+CiAgICAgICAgICA8c3RvcAogICAgICAgICAgICBzdG9wLWNvbG9yPSIjRjJGM0Y1IgogICAgICAgICAgICBvZmZzZXQ9IjEwMCUiCiAgICAgICAgICAvPgogICAgICAgIDwvbGluZWFyR3JhZGllbnQ+CiAgICAgIDwvZGVmcz4KICAgICAgPGcKICAgICAgICBvcGFjaXR5PSIuOCIKICAgICAgPgogICAgICAgIDxwYXRoCiAgICAgICAgICBkPSJNMzYgMTMxVjUzSDE2djIwSDJ2NThoMzR6IgogICAgICAgICAgZmlsbD0idXJsKCN2YW4tZW1wdHktYSkiCiAgICAgICAgLz4KICAgICAgICA8cGF0aAogICAgICAgICAgZD0iTTEyMyAxNWgyMnYxNGg5djc3aC0zMVYxNXoiCiAgICAgICAgICBmaWxsPSJ1cmwoI3Zhbi1lbXB0eS1hKSIKICAgICAgICAvPgogICAgICA8L2c+CiAgICAgIDxkZWZzPgogICAgICAgIDxsaW5lYXJHcmFkaWVudAogICAgICAgICAgaWQ9InZhbi1lbXB0eS1iIgogICAgICAgICAgeDE9IjY0JSIKICAgICAgICAgIHkxPSI5NyUiCiAgICAgICAgICB4Mj0iNjQlIgogICAgICAgICAgeTI9IjAlIgogICAgICAgID4KICAgICAgICAgIDxzdG9wCiAgICAgICAgICAgIHN0b3AtY29sb3I9IiNGMkYzRjUiCiAgICAgICAgICAgIG9mZnNldD0iMCUiCiAgICAgICAgICAgIHN0b3Atb3BhY2l0eT0iMC4zIgogICAgICAgICAgLz4KICAgICAgICAgIDxzdG9wCiAgICAgICAgICAgIHN0b3AtY29sb3I9IiNGMkYzRjUiCiAgICAgICAgICAgIG9mZnNldD0iMTAwJSIKICAgICAgICAgIC8+CiAgICAgICAgPC9saW5lYXJHcmFkaWVudD4KICAgICAgPC9kZWZzPgogICAgICA8ZwogICAgICAgIG9wYWNpdHk9Ii44IgogICAgICA+CiAgICAgICAgPHBhdGgKICAgICAgICAgIGQ9Ik04NyA2YzMgMCA3IDMgOCA2YTggOCAwIDEgMS0xIDE2SDgwYTcgNyAwIDAgMS04LTZjMC00IDMtNyA2LTcgMC01IDQtOSA5LTlaIgogICAgICAgICAgZmlsbD0idXJsKCN2YW4tZW1wdHktYikiCiAgICAgICAgLz4KICAgICAgICA8cGF0aAogICAgICAgICAgZD0iTTE5IDIzYzIgMCAzIDEgNCAzIDIgMCA0IDIgNCA0YTQgNCAwIDAgMS00IDN2MWgtN3YtMWwtMSAxYy0yIDAtMy0yLTMtNCAwLTEgMS0zIDMtMyAwLTIgMi00IDQtNFoiCiAgICAgICAgICBmaWxsPSJ1cmwoI3Zhbi1lbXB0eS1iKSIKICAgICAgICAvPgogICAgICA8L2c+CiAgICAgIDxnCiAgICAgICAgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoMzYgNTApIgogICAgICAgIGZpbGw9Im5vbmUiCiAgICAgID4KICAgICAgICA8ZyB0cmFuc2Zvcm09InRyYW5zbGF0ZSg4KSI+CiAgICAgICAgICA8cmVjdAogICAgICAgICAgICBmaWxsPSIjRUJFREYwIgogICAgICAgICAgICBvcGFjaXR5PSIuNiIKICAgICAgICAgICAgeD0iMzgiCiAgICAgICAgICAgIHk9IjEzIgogICAgICAgICAgICB3aWR0aD0iMzYiCiAgICAgICAgICAgIGhlaWdodD0iNTMiCiAgICAgICAgICAgIHJ4PSIyIgogICAgICAgICAgLz4KICAgICAgICAgIDxyZWN0CiAgICAgICAgICAgIGZpbGw9InVybCgjdmFuLWVtcHR5LTUpIgogICAgICAgICAgICB3aWR0aD0iNjQiCiAgICAgICAgICAgIGhlaWdodD0iNjYiCiAgICAgICAgICAgIHJ4PSIyIgogICAgICAgICAgLz4KICAgICAgICAgIDxyZWN0CiAgICAgICAgICAgIGZpbGw9IiNGRkYiCiAgICAgICAgICAgIHg9IjYiCiAgICAgICAgICAgIHk9IjYiCiAgICAgICAgICAgIHdpZHRoPSI1MiIKICAgICAgICAgICAgaGVpZ2h0PSI1NSIKICAgICAgICAgICAgcng9IjEiCiAgICAgICAgICAvPgogICAgICAgICAgPGcKICAgICAgICAgICAgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoMTUgMTcpIgogICAgICAgICAgICBmaWxsPSJ1cmwoI3Zhbi1lbXB0eS02KSIKICAgICAgICAgID4KICAgICAgICAgICAgPHJlY3QKICAgICAgICAgICAgICB3aWR0aD0iMzQiCiAgICAgICAgICAgICAgaGVpZ2h0PSI2IgogICAgICAgICAgICAgIHJ4PSIxIgogICAgICAgICAgICAvPgogICAgICAgICAgICA8cGF0aCBkPSJNMCAxNGgzNHY2SDB6Ii8+CiAgICAgICAgICAgIDxyZWN0CiAgICAgICAgICAgICAgeT0iMjgiCiAgICAgICAgICAgICAgd2lkdGg9IjM0IgogICAgICAgICAgICAgIGhlaWdodD0iNiIKICAgICAgICAgICAgICByeD0iMSIKICAgICAgICAgICAgLz4KICAgICAgICAgIDwvZz4KICAgICAgICA8L2c+CiAgICAgICAgPHJlY3QKICAgICAgICAgIGZpbGw9InVybCgjdmFuLWVtcHR5LTcpIgogICAgICAgICAgeT0iNjEiCiAgICAgICAgICB3aWR0aD0iODgiCiAgICAgICAgICBoZWlnaHQ9IjI4IgogICAgICAgICAgcng9IjEiCiAgICAgICAgLz4KICAgICAgICA8cmVjdAogICAgICAgICAgZmlsbD0iI0Y3RjhGQSIKICAgICAgICAgIHg9IjI5IgogICAgICAgICAgeT0iNzIiCiAgICAgICAgICB3aWR0aD0iMzAiCiAgICAgICAgICBoZWlnaHQ9IjYiCiAgICAgICAgICByeD0iMSIKICAgICAgICAvPgogICAgICA8L2c+CiAgICA8L3N2Zz4="
+      alt
+    >
+  </div>
+  <p class="van-empty__description">
+    占位
+  </p>
+</div>
+<div class="van-empty">
+  <div
+    class="van-empty__image"
+    style
+  >
+    <img
+      src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxNjAgMTYwIj4KICAgICAgPGRlZnM+CiAgICAgICAgPGxpbmVhckdyYWRpZW50CiAgICAgICAgICB4MT0iNTAlIgogICAgICAgICAgeDI9IjUwJSIKICAgICAgICAgIHkyPSIxMDAlIgogICAgICAgICAgaWQ9InZhbi1lbXB0eS01IgogICAgICAgID4KICAgICAgICAgIDxzdG9wCiAgICAgICAgICAgIHN0b3AtY29sb3I9IiNGMkYzRjUiCiAgICAgICAgICAgIG9mZnNldD0iMCUiCiAgICAgICAgICAvPgogICAgICAgICAgPHN0b3AKICAgICAgICAgICAgc3RvcC1jb2xvcj0iI0RDREVFMCIKICAgICAgICAgICAgb2Zmc2V0PSIxMDAlIgogICAgICAgICAgLz4KICAgICAgICA8L2xpbmVhckdyYWRpZW50PgogICAgICAgIDxsaW5lYXJHcmFkaWVudAogICAgICAgICAgeDE9Ijk1JSIKICAgICAgICAgIHkxPSI0OCUiCiAgICAgICAgICB4Mj0iNS41JSIKICAgICAgICAgIHkyPSI1MSUiCiAgICAgICAgICBpZD0idmFuLWVtcHR5LTYiCiAgICAgICAgPgogICAgICAgICAgPHN0b3AKICAgICAgICAgICAgc3RvcC1jb2xvcj0iI0VBRURGMSIKICAgICAgICAgICAgb2Zmc2V0PSIwJSIKICAgICAgICAgIC8+CiAgICAgICAgICA8c3RvcAogICAgICAgICAgICBzdG9wLWNvbG9yPSIjRENERUUwIgogICAgICAgICAgICBvZmZzZXQ9IjEwMCUiCiAgICAgICAgICAvPgogICAgICAgIDwvbGluZWFyR3JhZGllbnQ+CiAgICAgICAgPGxpbmVhckdyYWRpZW50CiAgICAgICAgICB5MT0iNDUlIgogICAgICAgICAgeDI9IjEwMCUiCiAgICAgICAgICB5Mj0iNTQlIgogICAgICAgICAgaWQ9InZhbi1lbXB0eS03IgogICAgICAgID4KICAgICAgICAgIDxzdG9wCiAgICAgICAgICAgIHN0b3AtY29sb3I9IiNFQUVERjEiCiAgICAgICAgICAgIG9mZnNldD0iMCUiCiAgICAgICAgICAvPgogICAgICAgICAgPHN0b3AKICAgICAgICAgICAgc3RvcC1jb2xvcj0iI0RDREVFMCIKICAgICAgICAgICAgb2Zmc2V0PSIxMDAlIgogICAgICAgICAgLz4KICAgICAgICA8L2xpbmVhckdyYWRpZW50PgogICAgICA8L2RlZnM+CiAgICAgIDxkZWZzPgogICAgICAgIDxsaW5lYXJHcmFkaWVudAogICAgICAgICAgaWQ9InZhbi1lbXB0eS1hIgogICAgICAgICAgeDE9IjY0JSIKICAgICAgICAgIHkxPSIxMDAlIgogICAgICAgICAgeDI9IjY0JSIKICAgICAgICA+CiAgICAgICAgICA8c3RvcAogICAgICAgICAgICBzdG9wLWNvbG9yPSIjRkZGIgogICAgICAgICAgICBvZmZzZXQ9IjAlIgogICAgICAgICAgICBzdG9wLW9wYWNpdHk9IjAuNSIKICAgICAgICAgIC8+CiAgICAgICAgICA8c3RvcAogICAgICAgICAgICBzdG9wLWNvbG9yPSIjRjJGM0Y1IgogICAgICAgICAgICBvZmZzZXQ9IjEwMCUiCiAgICAgICAgICAvPgogICAgICAgIDwvbGluZWFyR3JhZGllbnQ+CiAgICAgIDwvZGVmcz4KICAgICAgPGcKICAgICAgICBvcGFjaXR5PSIuOCIKICAgICAgPgogICAgICAgIDxwYXRoCiAgICAgICAgICBkPSJNMzYgMTMxVjUzSDE2djIwSDJ2NThoMzR6IgogICAgICAgICAgZmlsbD0idXJsKCN2YW4tZW1wdHktYSkiCiAgICAgICAgLz4KICAgICAgICA8cGF0aAogICAgICAgICAgZD0iTTEyMyAxNWgyMnYxNGg5djc3aC0zMVYxNXoiCiAgICAgICAgICBmaWxsPSJ1cmwoI3Zhbi1lbXB0eS1hKSIKICAgICAgICAvPgogICAgICA8L2c+CiAgICAgIDxkZWZzPgogICAgICAgIDxsaW5lYXJHcmFkaWVudAogICAgICAgICAgaWQ9InZhbi1lbXB0eS1iIgogICAgICAgICAgeDE9IjY0JSIKICAgICAgICAgIHkxPSI5NyUiCiAgICAgICAgICB4Mj0iNjQlIgogICAgICAgICAgeTI9IjAlIgogICAgICAgID4KICAgICAgICAgIDxzdG9wCiAgICAgICAgICAgIHN0b3AtY29sb3I9IiNGMkYzRjUiCiAgICAgICAgICAgIG9mZnNldD0iMCUiCiAgICAgICAgICAgIHN0b3Atb3BhY2l0eT0iMC4zIgogICAgICAgICAgLz4KICAgICAgICAgIDxzdG9wCiAgICAgICAgICAgIHN0b3AtY29sb3I9IiNGMkYzRjUiCiAgICAgICAgICAgIG9mZnNldD0iMTAwJSIKICAgICAgICAgIC8+CiAgICAgICAgPC9saW5lYXJHcmFkaWVudD4KICAgICAgPC9kZWZzPgogICAgICA8ZwogICAgICAgIG9wYWNpdHk9Ii44IgogICAgICA+CiAgICAgICAgPHBhdGgKICAgICAgICAgIGQ9Ik04NyA2YzMgMCA3IDMgOCA2YTggOCAwIDEgMS0xIDE2SDgwYTcgNyAwIDAgMS04LTZjMC00IDMtNyA2LTcgMC01IDQtOSA5LTlaIgogICAgICAgICAgZmlsbD0idXJsKCN2YW4tZW1wdHktYikiCiAgICAgICAgLz4KICAgICAgICA8cGF0aAogICAgICAgICAgZD0iTTE5IDIzYzIgMCAzIDEgNCAzIDIgMCA0IDIgNCA0YTQgNCAwIDAgMS00IDN2MWgtN3YtMWwtMSAxYy0yIDAtMy0yLTMtNCAwLTEgMS0zIDMtMyAwLTIgMi00IDQtNFoiCiAgICAgICAgICBmaWxsPSJ1cmwoI3Zhbi1lbXB0eS1iKSIKICAgICAgICAvPgogICAgICA8L2c+CiAgICAgIDxnCiAgICAgICAgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoMzYgNTApIgogICAgICAgIGZpbGw9Im5vbmUiCiAgICAgID4KICAgICAgICA8ZyB0cmFuc2Zvcm09InRyYW5zbGF0ZSg4KSI+CiAgICAgICAgICA8cmVjdAogICAgICAgICAgICBmaWxsPSIjRUJFREYwIgogICAgICAgICAgICBvcGFjaXR5PSIuNiIKICAgICAgICAgICAgeD0iMzgiCiAgICAgICAgICAgIHk9IjEzIgogICAgICAgICAgICB3aWR0aD0iMzYiCiAgICAgICAgICAgIGhlaWdodD0iNTMiCiAgICAgICAgICAgIHJ4PSIyIgogICAgICAgICAgLz4KICAgICAgICAgIDxyZWN0CiAgICAgICAgICAgIGZpbGw9InVybCgjdmFuLWVtcHR5LTUpIgogICAgICAgICAgICB3aWR0aD0iNjQiCiAgICAgICAgICAgIGhlaWdodD0iNjYiCiAgICAgICAgICAgIHJ4PSIyIgogICAgICAgICAgLz4KICAgICAgICAgIDxyZWN0CiAgICAgICAgICAgIGZpbGw9IiNGRkYiCiAgICAgICAgICAgIHg9IjYiCiAgICAgICAgICAgIHk9IjYiCiAgICAgICAgICAgIHdpZHRoPSI1MiIKICAgICAgICAgICAgaGVpZ2h0PSI1NSIKICAgICAgICAgICAgcng9IjEiCiAgICAgICAgICAvPgogICAgICAgICAgPGcKICAgICAgICAgICAgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoMTUgMTcpIgogICAgICAgICAgICBmaWxsPSJ1cmwoI3Zhbi1lbXB0eS02KSIKICAgICAgICAgID4KICAgICAgICAgICAgPHJlY3QKICAgICAgICAgICAgICB3aWR0aD0iMzQiCiAgICAgICAgICAgICAgaGVpZ2h0PSI2IgogICAgICAgICAgICAgIHJ4PSIxIgogICAgICAgICAgICAvPgogICAgICAgICAgICA8cGF0aCBkPSJNMCAxNGgzNHY2SDB6Ii8+CiAgICAgICAgICAgIDxyZWN0CiAgICAgICAgICAgICAgeT0iMjgiCiAgICAgICAgICAgICAgd2lkdGg9IjM0IgogICAgICAgICAgICAgIGhlaWdodD0iNiIKICAgICAgICAgICAgICByeD0iMSIKICAgICAgICAgICAgLz4KICAgICAgICAgIDwvZz4KICAgICAgICA8L2c+CiAgICAgICAgPHJlY3QKICAgICAgICAgIGZpbGw9InVybCgjdmFuLWVtcHR5LTcpIgogICAgICAgICAgeT0iNjEiCiAgICAgICAgICB3aWR0aD0iODgiCiAgICAgICAgICBoZWlnaHQ9IjI4IgogICAgICAgICAgcng9IjEiCiAgICAgICAgLz4KICAgICAgICA8cmVjdAogICAgICAgICAgZmlsbD0iI0Y3RjhGQSIKICAgICAgICAgIHg9IjI5IgogICAgICAgICAgeT0iNzIiCiAgICAgICAgICB3aWR0aD0iMzAiCiAgICAgICAgICBoZWlnaHQ9IjYiCiAgICAgICAgICByeD0iMSIKICAgICAgICAvPgogICAgICA8L2c+CiAgICA8L3N2Zz4="
+      alt
+    >
+  </div>
+  <p class="van-empty__description">
+    占位
+  </p>
+</div>
+`;

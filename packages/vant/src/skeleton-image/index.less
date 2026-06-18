@@ -7,11 +7,17 @@
 .van-skeleton {
   &-image {
     display: flex;
+    box-sizing: border-box;
+    max-width: 100%;
     width: var(--van-skeleton-image-size);
     height: var(--van-skeleton-image-size);
     align-items: center;
     justify-content: center;
-    background: var(--van-active-color);
+    background: var(--van-skeleton-background-from, #fafafa);
+
+    &--square {
+      border-radius: var(--van-radius-lg);
+    }
 
     &--round {
       border-radius: var(--van-skeleton-image-radius);

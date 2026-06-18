@@ -1,7 +1,10 @@
 :root,
 :host {
   --van-skeleton-avatar-size: 32px;
-  --van-skeleton-avatar-background: var(--van-active-color);
+  --van-skeleton-avatar-background: var(
+    --van-skeleton-background-from,
+    #fafafa
+  );
 }
 
 .van-skeleton {
@@ -11,6 +14,10 @@
     height: var(--van-skeleton-avatar-size);
     margin-right: var(--van-padding-md);
     background: var(--van-skeleton-avatar-background);
+
+    &--square {
+      border-radius: var(--van-radius-lg);
+    }
 
     &--round {
       border-radius: var(--van-radius-max);

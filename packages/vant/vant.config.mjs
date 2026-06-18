@@ -114,6 +114,10 @@ location.href = location.href.replace('youzan.github.io', 'vant-ui.github.io');
             title: '基础组件',
             items: [
               {
+                path: 'avatar',
+                title: 'Avatar 头像',
+              },
+              {
                 path: 'button',
                 title: 'Button 按钮',
               },
@@ -406,6 +410,10 @@ location.href = location.href.replace('youzan.github.io', 'vant-ui.github.io');
             title: '导航组件',
             items: [
               {
+                path: 'anchor',
+                title: 'Anchor 锚点',
+              },
+              {
                 path: 'action-bar',
                 title: 'ActionBar 动作栏',
               },
@@ -450,6 +458,10 @@ location.href = location.href.replace('youzan.github.io', 'vant-ui.github.io');
           {
             title: '业务组件',
             items: [
+              {
+                path: 'filter-menu-bar',
+                title: 'FilterMenuBar 筛选菜单栏',
+              },
               {
                 path: 'address-edit',
                 title: 'AddressEdit 地址编辑',
@@ -625,6 +637,10 @@ location.href = location.href.replace('youzan.github.io', 'vant-ui.github.io');
           {
             title: 'Basic Components',
             items: [
+              {
+                path: 'avatar',
+                title: 'Avatar 头像',
+              },
               {
                 path: 'button',
                 title: 'Button',
@@ -918,6 +934,10 @@ location.href = location.href.replace('youzan.github.io', 'vant-ui.github.io');
             title: 'Navigation Components',
             items: [
               {
+                path: 'anchor',
+                title: 'Anchor 锚点',
+              },
+              {
                 path: 'action-bar',
                 title: 'ActionBar',
               },
@@ -966,6 +986,10 @@ location.href = location.href.replace('youzan.github.io', 'vant-ui.github.io');
           {
             title: 'Business Components',
             items: [
+              {
+                path: 'filter-menu-bar',
+                title: 'FilterMenuBar 筛选菜单栏',
+              },
               {
                 path: 'address-edit',
                 title: 'AddressEdit',

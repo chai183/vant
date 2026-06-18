@@ -21,7 +21,18 @@ app.use(Empty);
 ### 基础用法
 
 ```html
+<!-- 插图 + 文字型 -->
 <van-empty description="描述文字" />
+<!-- 文字型（无插图） -->
+<van-empty description="描述文字" :show-image="false" />
+<!-- 插图 + 文字型 + 按钮型 -->
+<van-empty description="描述文字">
+  <van-button round type="primary" class="bottom-button">按钮</van-button>
+</van-empty>
+<!-- 插图 + 文字型 + 辅助说明 + 按钮型 -->
+<van-empty description="描述文字" secondary-description="辅助说明文字">
+  <van-button round type="primary" class="bottom-button">按钮</van-button>
+</van-empty>
 ```
 
 ### 图片类型
@@ -91,15 +102,18 @@ Empty 组件内置了多种占位图片类型，可以在不同业务场景下�
 | --- | --- | --- | --- |
 | image | 图片类型，可选值为 `error` `network` `search`，支持传入图片 URL | _string_ | `default` |
 | image-size | 图片大小，默认单位为 `px` | _number \| string \| Array_ | - |
-| description | 图片下方的描述文字 | _string_ | - |
+| description | 主描述文字（位于插图下方） | _string_ | - |
+| secondary-description | 辅助说明（位于主描述之后、底部内容之前） | _string_ | - |
+| show-image | 是否显示图片区域 | _boolean_ | `true` |
 
 ### Slots
 
-| 名称        | 说明           |
-| ----------- | -------------- |
-| default     | 自定义底部内容 |
-| image       | 自定义图标     |
-| description | 自定义描述文字 |
+| 名称        | 说明             |
+| ----------- | ---------------- |
+| default     | 自定义底部内容   |
+| image       | 自定义图标       |
+| description | 自定义主描述文字 |
+| secondary   | 自定义辅助说明   |
 
 ### 类型定义
 
@@ -115,13 +129,16 @@ import type { EmptyProps } from 'vant';
 
 组件提供了下列 CSS 变量，可用于自定义样式，使用方法请参考 [ConfigProvider 组件](#/zh-CN/config-provider)。
 
-| 名称                                | 默认值                      | 描述 |
-| ----------------------------------- | --------------------------- | ---- |
-| --van-empty-padding                 | _var(--van-padding-xl) 0_   | -    |
-| --van-empty-image-size              | _160px_                     | -    |
-| --van-empty-description-margin-top  | _var(--van-padding-md)_     | -    |
-| --van-empty-description-padding     | _0 60px_                    | -    |
-| --van-empty-description-color       | _var(--van-text-color-2)_   | -    |
-| --van-empty-description-font-size   | _var(--van-font-size-md)_   | -    |
-| --van-empty-description-line-height | _var(--van-line-height-md)_ | -    |
-| --van-empty-bottom-margin-top       | _24px_                      | -    |
+| 名称 | 默认值 | 描述 |
+| --- | --- | --- |
+| --van-empty-padding | _var(--van-padding-xl) 0_ | - |
+| --van-empty-image-size | _160px_ | - |
+| --van-empty-description-margin-top | _var(--van-padding-md)_ | - |
+| --van-empty-description-padding | _0 60px_ | - |
+| --van-empty-description-color | _var(--van-text-color-2)_ | - |
+| --van-empty-description-font-size | _14px_ | - |
+| --van-empty-description-line-height | _22px_ | - |
+| --van-empty-secondary-font-size | _14px_ | - |
+| --van-empty-secondary-line-height | _22px_ | - |
+| --van-empty-secondary-max-width | _14em_ | 辅助说明单行约 14 字宽，配合两行截断 |
+| --van-empty-bottom-margin-top | _24px_ | - |

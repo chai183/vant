@@ -1,215 +1,71 @@
-// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+// Rstest Snapshot v1
 
 exports[`should render demo and match snapshot 1`] = `
 <div>
   <div class="van-empty">
     <div class="van-empty__image">
-      <svg viewbox="0 0 160 160">
-        <defs data-allow-mismatch="children">
-          <linearGradient
-            x1="50%"
-            x2="50%"
-            y2="100%"
-            id="van-empty-5"
-          >
-            <stop
-              stop-color="#F2F3F5"
-              offset="0%"
-            >
-            </stop>
-            <stop
-              stop-color="#DCDEE0"
-              offset="100%"
-            >
-            </stop>
-          </linearGradient>
-          <linearGradient
-            x1="95%"
-            y1="48%"
-            x2="5.5%"
-            y2="51%"
-            id="van-empty-6"
-          >
-            <stop
-              stop-color="#EAEDF1"
-              offset="0%"
-            >
-            </stop>
-            <stop
-              stop-color="#DCDEE0"
-              offset="100%"
-            >
-            </stop>
-          </linearGradient>
-          <linearGradient
-            y1="45%"
-            x2="100%"
-            y2="54%"
-            id="van-empty-7"
-          >
-            <stop
-              stop-color="#EAEDF1"
-              offset="0%"
-            >
-            </stop>
-            <stop
-              stop-color="#DCDEE0"
-              offset="100%"
-            >
-            </stop>
-          </linearGradient>
-        </defs>
-        <defs>
-          <linearGradient
-            id="van-empty-a"
-            x1="64%"
-            y1="100%"
-            x2="64%"
-            data-allow-mismatch="attribute"
-          >
-            <stop
-              stop-color="#FFF"
-              offset="0%"
-              stop-opacity="0.5"
-            >
-            </stop>
-            <stop
-              stop-color="#F2F3F5"
-              offset="100%"
-            >
-            </stop>
-          </linearGradient>
-        </defs>
-        <g
-          opacity=".8"
-          data-allow-mismatch="children"
-        >
-          <path
-            d="M36 131V53H16v20H2v58h34z"
-            fill="url(#van-empty-a)"
-          >
-          </path>
-          <path
-            d="M123 15h22v14h9v77h-31V15z"
-            fill="url(#van-empty-a)"
-          >
-          </path>
-        </g>
-        <defs>
-          <linearGradient
-            id="van-empty-b"
-            x1="64%"
-            y1="97%"
-            x2="64%"
-            y2="0%"
-            data-allow-mismatch="attribute"
-          >
-            <stop
-              stop-color="#F2F3F5"
-              offset="0%"
-              stop-opacity="0.3"
-            >
-            </stop>
-            <stop
-              stop-color="#F2F3F5"
-              offset="100%"
-            >
-            </stop>
-          </linearGradient>
-        </defs>
-        <g
-          opacity=".8"
-          data-allow-mismatch="children"
-        >
-          <path
-            d="M87 6c3 0 7 3 8 6a8 8 0 1 1-1 16H80a7 7 0 0 1-8-6c0-4 3-7 6-7 0-5 4-9 9-9Z"
-            fill="url(#van-empty-b)"
-          >
-          </path>
-          <path
-            d="M19 23c2 0 3 1 4 3 2 0 4 2 4 4a4 4 0 0 1-4 3v1h-7v-1l-1 1c-2 0-3-2-3-4 0-1 1-3 3-3 0-2 2-4 4-4Z"
-            fill="url(#van-empty-b)"
-          >
-          </path>
-        </g>
-        <g
-          transform="translate(36 50)"
-          fill="none"
-        >
-          <g transform="translate(8)">
-            <rect
-              fill="#EBEDF0"
-              opacity=".6"
-              x="38"
-              y="13"
-              width="36"
-              height="53"
-              rx="2"
-            >
-            </rect>
-            <rect
-              fill="url(#van-empty-5)"
-              width="64"
-              height="66"
-              rx="2"
-              data-allow-mismatch="attribute"
-            >
-            </rect>
-            <rect
-              fill="#FFF"
-              x="6"
-              y="6"
-              width="52"
-              height="55"
-              rx="1"
-            >
-            </rect>
-            <g
-              transform="translate(15 17)"
-              fill="url(#van-empty-6)"
-              data-allow-mismatch="attribute"
-            >
-              <rect
-                width="34"
-                height="6"
-                rx="1"
-              >
-              </rect>
-              <path d="M0 14h34v6H0z">
-              </path>
-              <rect
-                y="28"
-                width="34"
-                height="6"
-                rx="1"
-              >
-              </rect>
-            </g>
-          </g>
-          <rect
-            fill="url(#van-empty-7)"
-            y="61"
-            width="88"
-            height="28"
-            rx="1"
-            data-allow-mismatch="attribute"
-          >
-          </rect>
-          <rect
-            fill="#F7F8FA"
-            x="29"
-            y="72"
-            width="30"
-            height="6"
-            rx="1"
-          >
-          </rect>
-        </g>
-      </svg>
+      <img
+        src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxNjAgMTYwIj4KICAgICAgPGRlZnM+CiAgICAgICAgPGxpbmVhckdyYWRpZW50CiAgICAgICAgICB4MT0iNTAlIgogICAgICAgICAgeDI9IjUwJSIKICAgICAgICAgIHkyPSIxMDAlIgogICAgICAgICAgaWQ9InZhbi1lbXB0eS01IgogICAgICAgID4KICAgICAgICAgIDxzdG9wCiAgICAgICAgICAgIHN0b3AtY29sb3I9IiNGMkYzRjUiCiAgICAgICAgICAgIG9mZnNldD0iMCUiCiAgICAgICAgICAvPgogICAgICAgICAgPHN0b3AKICAgICAgICAgICAgc3RvcC1jb2xvcj0iI0RDREVFMCIKICAgICAgICAgICAgb2Zmc2V0PSIxMDAlIgogICAgICAgICAgLz4KICAgICAgICA8L2xpbmVhckdyYWRpZW50PgogICAgICAgIDxsaW5lYXJHcmFkaWVudAogICAgICAgICAgeDE9Ijk1JSIKICAgICAgICAgIHkxPSI0OCUiCiAgICAgICAgICB4Mj0iNS41JSIKICAgICAgICAgIHkyPSI1MSUiCiAgICAgICAgICBpZD0idmFuLWVtcHR5LTYiCiAgICAgICAgPgogICAgICAgICAgPHN0b3AKICAgICAgICAgICAgc3RvcC1jb2xvcj0iI0VBRURGMSIKICAgICAgICAgICAgb2Zmc2V0PSIwJSIKICAgICAgICAgIC8+CiAgICAgICAgICA8c3RvcAogICAgICAgICAgICBzdG9wLWNvbG9yPSIjRENERUUwIgogICAgICAgICAgICBvZmZzZXQ9IjEwMCUiCiAgICAgICAgICAvPgogICAgICAgIDwvbGluZWFyR3JhZGllbnQ+CiAgICAgICAgPGxpbmVhckdyYWRpZW50CiAgICAgICAgICB5MT0iNDUlIgogICAgICAgICAgeDI9IjEwMCUiCiAgICAgICAgICB5Mj0iNTQlIgogICAgICAgICAgaWQ9InZhbi1lbXB0eS03IgogICAgICAgID4KICAgICAgICAgIDxzdG9wCiAgICAgICAgICAgIHN0b3AtY29sb3I9IiNFQUVERjEiCiAgICAgICAgICAgIG9mZnNldD0iMCUiCiAgICAgICAgICAvPgogICAgICAgICAgPHN0b3AKICAgICAgICAgICAgc3RvcC1jb2xvcj0iI0RDREVFMCIKICAgICAgICAgICAgb2Zmc2V0PSIxMDAlIgogICAgICAgICAgLz4KICAgICAgICA8L2xpbmVhckdyYWRpZW50PgogICAgICA8L2RlZnM+CiAgICAgIDxkZWZzPgogICAgICAgIDxsaW5lYXJHcmFkaWVudAogICAgICAgICAgaWQ9InZhbi1lbXB0eS1hIgogICAgICAgICAgeDE9IjY0JSIKICAgICAgICAgIHkxPSIxMDAlIgogICAgICAgICAgeDI9IjY0JSIKICAgICAgICA+CiAgICAgICAgICA8c3RvcAogICAgICAgICAgICBzdG9wLWNvbG9yPSIjRkZGIgogICAgICAgICAgICBvZmZzZXQ9IjAlIgogICAgICAgICAgICBzdG9wLW9wYWNpdHk9IjAuNSIKICAgICAgICAgIC8+CiAgICAgICAgICA8c3RvcAogICAgICAgICAgICBzdG9wLWNvbG9yPSIjRjJGM0Y1IgogICAgICAgICAgICBvZmZzZXQ9IjEwMCUiCiAgICAgICAgICAvPgogICAgICAgIDwvbGluZWFyR3JhZGllbnQ+CiAgICAgIDwvZGVmcz4KICAgICAgPGcKICAgICAgICBvcGFjaXR5PSIuOCIKICAgICAgPgogICAgICAgIDxwYXRoCiAgICAgICAgICBkPSJNMzYgMTMxVjUzSDE2djIwSDJ2NThoMzR6IgogICAgICAgICAgZmlsbD0idXJsKCN2YW4tZW1wdHktYSkiCiAgICAgICAgLz4KICAgICAgICA8cGF0aAogICAgICAgICAgZD0iTTEyMyAxNWgyMnYxNGg5djc3aC0zMVYxNXoiCiAgICAgICAgICBmaWxsPSJ1cmwoI3Zhbi1lbXB0eS1hKSIKICAgICAgICAvPgogICAgICA8L2c+CiAgICAgIDxkZWZzPgogICAgICAgIDxsaW5lYXJHcmFkaWVudAogICAgICAgICAgaWQ9InZhbi1lbXB0eS1iIgogICAgICAgICAgeDE9IjY0JSIKICAgICAgICAgIHkxPSI5NyUiCiAgICAgICAgICB4Mj0iNjQlIgogICAgICAgICAgeTI9IjAlIgogICAgICAgID4KICAgICAgICAgIDxzdG9wCiAgICAgICAgICAgIHN0b3AtY29sb3I9IiNGMkYzRjUiCiAgICAgICAgICAgIG9mZnNldD0iMCUiCiAgICAgICAgICAgIHN0b3Atb3BhY2l0eT0iMC4zIgogICAgICAgICAgLz4KICAgICAgICAgIDxzdG9wCiAgICAgICAgICAgIHN0b3AtY29sb3I9IiNGMkYzRjUiCiAgICAgICAgICAgIG9mZnNldD0iMTAwJSIKICAgICAgICAgIC8+CiAgICAgICAgPC9saW5lYXJHcmFkaWVudD4KICAgICAgPC9kZWZzPgogICAgICA8ZwogICAgICAgIG9wYWNpdHk9Ii44IgogICAgICA+CiAgICAgICAgPHBhdGgKICAgICAgICAgIGQ9Ik04NyA2YzMgMCA3IDMgOCA2YTggOCAwIDEgMS0xIDE2SDgwYTcgNyAwIDAgMS04LTZjMC00IDMtNyA2LTcgMC01IDQtOSA5LTlaIgogICAgICAgICAgZmlsbD0idXJsKCN2YW4tZW1wdHktYikiCiAgICAgICAgLz4KICAgICAgICA8cGF0aAogICAgICAgICAgZD0iTTE5IDIzYzIgMCAzIDEgNCAzIDIgMCA0IDIgNCA0YTQgNCAwIDAgMS00IDN2MWgtN3YtMWwtMSAxYy0yIDAtMy0yLTMtNCAwLTEgMS0zIDMtMyAwLTIgMi00IDQtNFoiCiAgICAgICAgICBmaWxsPSJ1cmwoI3Zhbi1lbXB0eS1iKSIKICAgICAgICAvPgogICAgICA8L2c+CiAgICAgIDxnCiAgICAgICAgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoMzYgNTApIgogICAgICAgIGZpbGw9Im5vbmUiCiAgICAgID4KICAgICAgICA8ZyB0cmFuc2Zvcm09InRyYW5zbGF0ZSg4KSI+CiAgICAgICAgICA8cmVjdAogICAgICAgICAgICBmaWxsPSIjRUJFREYwIgogICAgICAgICAgICBvcGFjaXR5PSIuNiIKICAgICAgICAgICAgeD0iMzgiCiAgICAgICAgICAgIHk9IjEzIgogICAgICAgICAgICB3aWR0aD0iMzYiCiAgICAgICAgICAgIGhlaWdodD0iNTMiCiAgICAgICAgICAgIHJ4PSIyIgogICAgICAgICAgLz4KICAgICAgICAgIDxyZWN0CiAgICAgICAgICAgIGZpbGw9InVybCgjdmFuLWVtcHR5LTUpIgogICAgICAgICAgICB3aWR0aD0iNjQiCiAgICAgICAgICAgIGhlaWdodD0iNjYiCiAgICAgICAgICAgIHJ4PSIyIgogICAgICAgICAgLz4KICAgICAgICAgIDxyZWN0CiAgICAgICAgICAgIGZpbGw9IiNGRkYiCiAgICAgICAgICAgIHg9IjYiCiAgICAgICAgICAgIHk9IjYiCiAgICAgICAgICAgIHdpZHRoPSI1MiIKICAgICAgICAgICAgaGVpZ2h0PSI1NSIKICAgICAgICAgICAgcng9IjEiCiAgICAgICAgICAvPgogICAgICAgICAgPGcKICAgICAgICAgICAgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoMTUgMTcpIgogICAgICAgICAgICBmaWxsPSJ1cmwoI3Zhbi1lbXB0eS02KSIKICAgICAgICAgID4KICAgICAgICAgICAgPHJlY3QKICAgICAgICAgICAgICB3aWR0aD0iMzQiCiAgICAgICAgICAgICAgaGVpZ2h0PSI2IgogICAgICAgICAgICAgIHJ4PSIxIgogICAgICAgICAgICAvPgogICAgICAgICAgICA8cGF0aCBkPSJNMCAxNGgzNHY2SDB6Ii8+CiAgICAgICAgICAgIDxyZWN0CiAgICAgICAgICAgICAgeT0iMjgiCiAgICAgICAgICAgICAgd2lkdGg9IjM0IgogICAgICAgICAgICAgIGhlaWdodD0iNiIKICAgICAgICAgICAgICByeD0iMSIKICAgICAgICAgICAgLz4KICAgICAgICAgIDwvZz4KICAgICAgICA8L2c+CiAgICAgICAgPHJlY3QKICAgICAgICAgIGZpbGw9InVybCgjdmFuLWVtcHR5LTcpIgogICAgICAgICAgeT0iNjEiCiAgICAgICAgICB3aWR0aD0iODgiCiAgICAgICAgICBoZWlnaHQ9IjI4IgogICAgICAgICAgcng9IjEiCiAgICAgICAgLz4KICAgICAgICA8cmVjdAogICAgICAgICAgZmlsbD0iI0Y3RjhGQSIKICAgICAgICAgIHg9IjI5IgogICAgICAgICAgeT0iNzIiCiAgICAgICAgICB3aWR0aD0iMzAiCiAgICAgICAgICBoZWlnaHQ9IjYiCiAgICAgICAgICByeD0iMSIKICAgICAgICAvPgogICAgICA8L2c+CiAgICA8L3N2Zz4="
+        alt
+      >
     </div>
     <p class="van-empty__description">
       Description
     </p>
+  </div>
+  <div class="van-empty van-empty--text-only">
+    <p class="van-empty__description">
+      Description
+    </p>
+  </div>
+  <div class="van-empty">
+    <div class="van-empty__image">
+      <img
+        src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxNjAgMTYwIj4KICAgICAgPGRlZnM+CiAgICAgICAgPGxpbmVhckdyYWRpZW50CiAgICAgICAgICB4MT0iNTAlIgogICAgICAgICAgeDI9IjUwJSIKICAgICAgICAgIHkyPSIxMDAlIgogICAgICAgICAgaWQ9InZhbi1lbXB0eS01IgogICAgICAgID4KICAgICAgICAgIDxzdG9wCiAgICAgICAgICAgIHN0b3AtY29sb3I9IiNGMkYzRjUiCiAgICAgICAgICAgIG9mZnNldD0iMCUiCiAgICAgICAgICAvPgogICAgICAgICAgPHN0b3AKICAgICAgICAgICAgc3RvcC1jb2xvcj0iI0RDREVFMCIKICAgICAgICAgICAgb2Zmc2V0PSIxMDAlIgogICAgICAgICAgLz4KICAgICAgICA8L2xpbmVhckdyYWRpZW50PgogICAgICAgIDxsaW5lYXJHcmFkaWVudAogICAgICAgICAgeDE9Ijk1JSIKICAgICAgICAgIHkxPSI0OCUiCiAgICAgICAgICB4Mj0iNS41JSIKICAgICAgICAgIHkyPSI1MSUiCiAgICAgICAgICBpZD0idmFuLWVtcHR5LTYiCiAgICAgICAgPgogICAgICAgICAgPHN0b3AKICAgICAgICAgICAgc3RvcC1jb2xvcj0iI0VBRURGMSIKICAgICAgICAgICAgb2Zmc2V0PSIwJSIKICAgICAgICAgIC8+CiAgICAgICAgICA8c3RvcAogICAgICAgICAgICBzdG9wLWNvbG9yPSIjRENERUUwIgogICAgICAgICAgICBvZmZzZXQ9IjEwMCUiCiAgICAgICAgICAvPgogICAgICAgIDwvbGluZWFyR3JhZGllbnQ+CiAgICAgICAgPGxpbmVhckdyYWRpZW50CiAgICAgICAgICB5MT0iNDUlIgogICAgICAgICAgeDI9IjEwMCUiCiAgICAgICAgICB5Mj0iNTQlIgogICAgICAgICAgaWQ9InZhbi1lbXB0eS03IgogICAgICAgID4KICAgICAgICAgIDxzdG9wCiAgICAgICAgICAgIHN0b3AtY29sb3I9IiNFQUVERjEiCiAgICAgICAgICAgIG9mZnNldD0iMCUiCiAgICAgICAgICAvPgogICAgICAgICAgPHN0b3AKICAgICAgICAgICAgc3RvcC1jb2xvcj0iI0RDREVFMCIKICAgICAgICAgICAgb2Zmc2V0PSIxMDAlIgogICAgICAgICAgLz4KICAgICAgICA8L2xpbmVhckdyYWRpZW50PgogICAgICA8L2RlZnM+CiAgICAgIDxkZWZzPgogICAgICAgIDxsaW5lYXJHcmFkaWVudAogICAgICAgICAgaWQ9InZhbi1lbXB0eS1hIgogICAgICAgICAgeDE9IjY0JSIKICAgICAgICAgIHkxPSIxMDAlIgogICAgICAgICAgeDI9IjY0JSIKICAgICAgICA+CiAgICAgICAgICA8c3RvcAogICAgICAgICAgICBzdG9wLWNvbG9yPSIjRkZGIgogICAgICAgICAgICBvZmZzZXQ9IjAlIgogICAgICAgICAgICBzdG9wLW9wYWNpdHk9IjAuNSIKICAgICAgICAgIC8+CiAgICAgICAgICA8c3RvcAogICAgICAgICAgICBzdG9wLWNvbG9yPSIjRjJGM0Y1IgogICAgICAgICAgICBvZmZzZXQ9IjEwMCUiCiAgICAgICAgICAvPgogICAgICAgIDwvbGluZWFyR3JhZGllbnQ+CiAgICAgIDwvZGVmcz4KICAgICAgPGcKICAgICAgICBvcGFjaXR5PSIuOCIKICAgICAgPgogICAgICAgIDxwYXRoCiAgICAgICAgICBkPSJNMzYgMTMxVjUzSDE2djIwSDJ2NThoMzR6IgogICAgICAgICAgZmlsbD0idXJsKCN2YW4tZW1wdHktYSkiCiAgICAgICAgLz4KICAgICAgICA8cGF0aAogICAgICAgICAgZD0iTTEyMyAxNWgyMnYxNGg5djc3aC0zMVYxNXoiCiAgICAgICAgICBmaWxsPSJ1cmwoI3Zhbi1lbXB0eS1hKSIKICAgICAgICAvPgogICAgICA8L2c+CiAgICAgIDxkZWZzPgogICAgICAgIDxsaW5lYXJHcmFkaWVudAogICAgICAgICAgaWQ9InZhbi1lbXB0eS1iIgogICAgICAgICAgeDE9IjY0JSIKICAgICAgICAgIHkxPSI5NyUiCiAgICAgICAgICB4Mj0iNjQlIgogICAgICAgICAgeTI9IjAlIgogICAgICAgID4KICAgICAgICAgIDxzdG9wCiAgICAgICAgICAgIHN0b3AtY29sb3I9IiNGMkYzRjUiCiAgICAgICAgICAgIG9mZnNldD0iMCUiCiAgICAgICAgICAgIHN0b3Atb3BhY2l0eT0iMC4zIgogICAgICAgICAgLz4KICAgICAgICAgIDxzdG9wCiAgICAgICAgICAgIHN0b3AtY29sb3I9IiNGMkYzRjUiCiAgICAgICAgICAgIG9mZnNldD0iMTAwJSIKICAgICAgICAgIC8+CiAgICAgICAgPC9saW5lYXJHcmFkaWVudD4KICAgICAgPC9kZWZzPgogICAgICA8ZwogICAgICAgIG9wYWNpdHk9Ii44IgogICAgICA+CiAgICAgICAgPHBhdGgKICAgICAgICAgIGQ9Ik04NyA2YzMgMCA3IDMgOCA2YTggOCAwIDEgMS0xIDE2SDgwYTcgNyAwIDAgMS04LTZjMC00IDMtNyA2LTcgMC01IDQtOSA5LTlaIgogICAgICAgICAgZmlsbD0idXJsKCN2YW4tZW1wdHktYikiCiAgICAgICAgLz4KICAgICAgICA8cGF0aAogICAgICAgICAgZD0iTTE5IDIzYzIgMCAzIDEgNCAzIDIgMCA0IDIgNCA0YTQgNCAwIDAgMS00IDN2MWgtN3YtMWwtMSAxYy0yIDAtMy0yLTMtNCAwLTEgMS0zIDMtMyAwLTIgMi00IDQtNFoiCiAgICAgICAgICBmaWxsPSJ1cmwoI3Zhbi1lbXB0eS1iKSIKICAgICAgICAvPgogICAgICA8L2c+CiAgICAgIDxnCiAgICAgICAgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoMzYgNTApIgogICAgICAgIGZpbGw9Im5vbmUiCiAgICAgID4KICAgICAgICA8ZyB0cmFuc2Zvcm09InRyYW5zbGF0ZSg4KSI+CiAgICAgICAgICA8cmVjdAogICAgICAgICAgICBmaWxsPSIjRUJFREYwIgogICAgICAgICAgICBvcGFjaXR5PSIuNiIKICAgICAgICAgICAgeD0iMzgiCiAgICAgICAgICAgIHk9IjEzIgogICAgICAgICAgICB3aWR0aD0iMzYiCiAgICAgICAgICAgIGhlaWdodD0iNTMiCiAgICAgICAgICAgIHJ4PSIyIgogICAgICAgICAgLz4KICAgICAgICAgIDxyZWN0CiAgICAgICAgICAgIGZpbGw9InVybCgjdmFuLWVtcHR5LTUpIgogICAgICAgICAgICB3aWR0aD0iNjQiCiAgICAgICAgICAgIGhlaWdodD0iNjYiCiAgICAgICAgICAgIHJ4PSIyIgogICAgICAgICAgLz4KICAgICAgICAgIDxyZWN0CiAgICAgICAgICAgIGZpbGw9IiNGRkYiCiAgICAgICAgICAgIHg9IjYiCiAgICAgICAgICAgIHk9IjYiCiAgICAgICAgICAgIHdpZHRoPSI1MiIKICAgICAgICAgICAgaGVpZ2h0PSI1NSIKICAgICAgICAgICAgcng9IjEiCiAgICAgICAgICAvPgogICAgICAgICAgPGcKICAgICAgICAgICAgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoMTUgMTcpIgogICAgICAgICAgICBmaWxsPSJ1cmwoI3Zhbi1lbXB0eS02KSIKICAgICAgICAgID4KICAgICAgICAgICAgPHJlY3QKICAgICAgICAgICAgICB3aWR0aD0iMzQiCiAgICAgICAgICAgICAgaGVpZ2h0PSI2IgogICAgICAgICAgICAgIHJ4PSIxIgogICAgICAgICAgICAvPgogICAgICAgICAgICA8cGF0aCBkPSJNMCAxNGgzNHY2SDB6Ii8+CiAgICAgICAgICAgIDxyZWN0CiAgICAgICAgICAgICAgeT0iMjgiCiAgICAgICAgICAgICAgd2lkdGg9IjM0IgogICAgICAgICAgICAgIGhlaWdodD0iNiIKICAgICAgICAgICAgICByeD0iMSIKICAgICAgICAgICAgLz4KICAgICAgICAgIDwvZz4KICAgICAgICA8L2c+CiAgICAgICAgPHJlY3QKICAgICAgICAgIGZpbGw9InVybCgjdmFuLWVtcHR5LTcpIgogICAgICAgICAgeT0iNjEiCiAgICAgICAgICB3aWR0aD0iODgiCiAgICAgICAgICBoZWlnaHQ9IjI4IgogICAgICAgICAgcng9IjEiCiAgICAgICAgLz4KICAgICAgICA8cmVjdAogICAgICAgICAgZmlsbD0iI0Y3RjhGQSIKICAgICAgICAgIHg9IjI5IgogICAgICAgICAgeT0iNzIiCiAgICAgICAgICB3aWR0aD0iMzAiCiAgICAgICAgICBoZWlnaHQ9IjYiCiAgICAgICAgICByeD0iMSIKICAgICAgICAvPgogICAgICA8L2c+CiAgICA8L3N2Zz4="
+        alt
+      >
+    </div>
+    <p class="van-empty__description">
+      Description
+    </p>
+    <div class="van-empty__bottom">
+      <button
+        type="button"
+        class="van-button van-button--primary van-button--normal van-button--round bottom-button"
+      >
+        <div class="van-button__content">
+          <span class="van-button__text">
+            Button
+          </span>
+        </div>
+      </button>
+    </div>
+  </div>
+  <div class="van-empty">
+    <div class="van-empty__image">
+      <img
+        src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxNjAgMTYwIj4KICAgICAgPGRlZnM+CiAgICAgICAgPGxpbmVhckdyYWRpZW50CiAgICAgICAgICB4MT0iNTAlIgogICAgICAgICAgeDI9IjUwJSIKICAgICAgICAgIHkyPSIxMDAlIgogICAgICAgICAgaWQ9InZhbi1lbXB0eS01IgogICAgICAgID4KICAgICAgICAgIDxzdG9wCiAgICAgICAgICAgIHN0b3AtY29sb3I9IiNGMkYzRjUiCiAgICAgICAgICAgIG9mZnNldD0iMCUiCiAgICAgICAgICAvPgogICAgICAgICAgPHN0b3AKICAgICAgICAgICAgc3RvcC1jb2xvcj0iI0RDREVFMCIKICAgICAgICAgICAgb2Zmc2V0PSIxMDAlIgogICAgICAgICAgLz4KICAgICAgICA8L2xpbmVhckdyYWRpZW50PgogICAgICAgIDxsaW5lYXJHcmFkaWVudAogICAgICAgICAgeDE9Ijk1JSIKICAgICAgICAgIHkxPSI0OCUiCiAgICAgICAgICB4Mj0iNS41JSIKICAgICAgICAgIHkyPSI1MSUiCiAgICAgICAgICBpZD0idmFuLWVtcHR5LTYiCiAgICAgICAgPgogICAgICAgICAgPHN0b3AKICAgICAgICAgICAgc3RvcC1jb2xvcj0iI0VBRURGMSIKICAgICAgICAgICAgb2Zmc2V0PSIwJSIKICAgICAgICAgIC8+CiAgICAgICAgICA8c3RvcAogICAgICAgICAgICBzdG9wLWNvbG9yPSIjRENERUUwIgogICAgICAgICAgICBvZmZzZXQ9IjEwMCUiCiAgICAgICAgICAvPgogICAgICAgIDwvbGluZWFyR3JhZGllbnQ+CiAgICAgICAgPGxpbmVhckdyYWRpZW50CiAgICAgICAgICB5MT0iNDUlIgogICAgICAgICAgeDI9IjEwMCUiCiAgICAgICAgICB5Mj0iNTQlIgogICAgICAgICAgaWQ9InZhbi1lbXB0eS03IgogICAgICAgID4KICAgICAgICAgIDxzdG9wCiAgICAgICAgICAgIHN0b3AtY29sb3I9IiNFQUVERjEiCiAgICAgICAgICAgIG9mZnNldD0iMCUiCiAgICAgICAgICAvPgogICAgICAgICAgPHN0b3AKICAgICAgICAgICAgc3RvcC1jb2xvcj0iI0RDREVFMCIKICAgICAgICAgICAgb2Zmc2V0PSIxMDAlIgogICAgICAgICAgLz4KICAgICAgICA8L2xpbmVhckdyYWRpZW50PgogICAgICA8L2RlZnM+CiAgICAgIDxkZWZzPgogICAgICAgIDxsaW5lYXJHcmFkaWVudAogICAgICAgICAgaWQ9InZhbi1lbXB0eS1hIgogICAgICAgICAgeDE9IjY0JSIKICAgICAgICAgIHkxPSIxMDAlIgogICAgICAgICAgeDI9IjY0JSIKICAgICAgICA+CiAgICAgICAgICA8c3RvcAogICAgICAgICAgICBzdG9wLWNvbG9yPSIjRkZGIgogICAgICAgICAgICBvZmZzZXQ9IjAlIgogICAgICAgICAgICBzdG9wLW9wYWNpdHk9IjAuNSIKICAgICAgICAgIC8+CiAgICAgICAgICA8c3RvcAogICAgICAgICAgICBzdG9wLWNvbG9yPSIjRjJGM0Y1IgogICAgICAgICAgICBvZmZzZXQ9IjEwMCUiCiAgICAgICAgICAvPgogICAgICAgIDwvbGluZWFyR3JhZGllbnQ+CiAgICAgIDwvZGVmcz4KICAgICAgPGcKICAgICAgICBvcGFjaXR5PSIuOCIKICAgICAgPgogICAgICAgIDxwYXRoCiAgICAgICAgICBkPSJNMzYgMTMxVjUzSDE2djIwSDJ2NThoMzR6IgogICAgICAgICAgZmlsbD0idXJsKCN2YW4tZW1wdHktYSkiCiAgICAgICAgLz4KICAgICAgICA8cGF0aAogICAgICAgICAgZD0iTTEyMyAxNWgyMnYxNGg5djc3aC0zMVYxNXoiCiAgICAgICAgICBmaWxsPSJ1cmwoI3Zhbi1lbXB0eS1hKSIKICAgICAgICAvPgogICAgICA8L2c+CiAgICAgIDxkZWZzPgogICAgICAgIDxsaW5lYXJHcmFkaWVudAogICAgICAgICAgaWQ9InZhbi1lbXB0eS1iIgogICAgICAgICAgeDE9IjY0JSIKICAgICAgICAgIHkxPSI5NyUiCiAgICAgICAgICB4Mj0iNjQlIgogICAgICAgICAgeTI9IjAlIgogICAgICAgID4KICAgICAgICAgIDxzdG9wCiAgICAgICAgICAgIHN0b3AtY29sb3I9IiNGMkYzRjUiCiAgICAgICAgICAgIG9mZnNldD0iMCUiCiAgICAgICAgICAgIHN0b3Atb3BhY2l0eT0iMC4zIgogICAgICAgICAgLz4KICAgICAgICAgIDxzdG9wCiAgICAgICAgICAgIHN0b3AtY29sb3I9IiNGMkYzRjUiCiAgICAgICAgICAgIG9mZnNldD0iMTAwJSIKICAgICAgICAgIC8+CiAgICAgICAgPC9saW5lYXJHcmFkaWVudD4KICAgICAgPC9kZWZzPgogICAgICA8ZwogICAgICAgIG9wYWNpdHk9Ii44IgogICAgICA+CiAgICAgICAgPHBhdGgKICAgICAgICAgIGQ9Ik04NyA2YzMgMCA3IDMgOCA2YTggOCAwIDEgMS0xIDE2SDgwYTcgNyAwIDAgMS04LTZjMC00IDMtNyA2LTcgMC01IDQtOSA5LTlaIgogICAgICAgICAgZmlsbD0idXJsKCN2YW4tZW1wdHktYikiCiAgICAgICAgLz4KICAgICAgICA8cGF0aAogICAgICAgICAgZD0iTTE5IDIzYzIgMCAzIDEgNCAzIDIgMCA0IDIgNCA0YTQgNCAwIDAgMS00IDN2MWgtN3YtMWwtMSAxYy0yIDAtMy0yLTMtNCAwLTEgMS0zIDMtMyAwLTIgMi00IDQtNFoiCiAgICAgICAgICBmaWxsPSJ1cmwoI3Zhbi1lbXB0eS1iKSIKICAgICAgICAvPgogICAgICA8L2c+CiAgICAgIDxnCiAgICAgICAgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoMzYgNTApIgogICAgICAgIGZpbGw9Im5vbmUiCiAgICAgID4KICAgICAgICA8ZyB0cmFuc2Zvcm09InRyYW5zbGF0ZSg4KSI+CiAgICAgICAgICA8cmVjdAogICAgICAgICAgICBmaWxsPSIjRUJFREYwIgogICAgICAgICAgICBvcGFjaXR5PSIuNiIKICAgICAgICAgICAgeD0iMzgiCiAgICAgICAgICAgIHk9IjEzIgogICAgICAgICAgICB3aWR0aD0iMzYiCiAgICAgICAgICAgIGhlaWdodD0iNTMiCiAgICAgICAgICAgIHJ4PSIyIgogICAgICAgICAgLz4KICAgICAgICAgIDxyZWN0CiAgICAgICAgICAgIGZpbGw9InVybCgjdmFuLWVtcHR5LTUpIgogICAgICAgICAgICB3aWR0aD0iNjQiCiAgICAgICAgICAgIGhlaWdodD0iNjYiCiAgICAgICAgICAgIHJ4PSIyIgogICAgICAgICAgLz4KICAgICAgICAgIDxyZWN0CiAgICAgICAgICAgIGZpbGw9IiNGRkYiCiAgICAgICAgICAgIHg9IjYiCiAgICAgICAgICAgIHk9IjYiCiAgICAgICAgICAgIHdpZHRoPSI1MiIKICAgICAgICAgICAgaGVpZ2h0PSI1NSIKICAgICAgICAgICAgcng9IjEiCiAgICAgICAgICAvPgogICAgICAgICAgPGcKICAgICAgICAgICAgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoMTUgMTcpIgogICAgICAgICAgICBmaWxsPSJ1cmwoI3Zhbi1lbXB0eS02KSIKICAgICAgICAgID4KICAgICAgICAgICAgPHJlY3QKICAgICAgICAgICAgICB3aWR0aD0iMzQiCiAgICAgICAgICAgICAgaGVpZ2h0PSI2IgogICAgICAgICAgICAgIHJ4PSIxIgogICAgICAgICAgICAvPgogICAgICAgICAgICA8cGF0aCBkPSJNMCAxNGgzNHY2SDB6Ii8+CiAgICAgICAgICAgIDxyZWN0CiAgICAgICAgICAgICAgeT0iMjgiCiAgICAgICAgICAgICAgd2lkdGg9IjM0IgogICAgICAgICAgICAgIGhlaWdodD0iNiIKICAgICAgICAgICAgICByeD0iMSIKICAgICAgICAgICAgLz4KICAgICAgICAgIDwvZz4KICAgICAgICA8L2c+CiAgICAgICAgPHJlY3QKICAgICAgICAgIGZpbGw9InVybCgjdmFuLWVtcHR5LTcpIgogICAgICAgICAgeT0iNjEiCiAgICAgICAgICB3aWR0aD0iODgiCiAgICAgICAgICBoZWlnaHQ9IjI4IgogICAgICAgICAgcng9IjEiCiAgICAgICAgLz4KICAgICAgICA8cmVjdAogICAgICAgICAgZmlsbD0iI0Y3RjhGQSIKICAgICAgICAgIHg9IjI5IgogICAgICAgICAgeT0iNzIiCiAgICAgICAgICB3aWR0aD0iMzAiCiAgICAgICAgICBoZWlnaHQ9IjYiCiAgICAgICAgICByeD0iMSIKICAgICAgICAvPgogICAgICA8L2c+CiAgICA8L3N2Zz4="
+        alt
+      >
+    </div>
+    <p class="van-empty__description">
+      Description
+    </p>
+    <p class="van-empty__secondary">
+      Secondary description
+    </p>
+    <div class="van-empty__bottom">
+      <button
+        type="button"
+        class="van-button van-button--primary van-button--normal van-button--round bottom-button"
+      >
+        <div class="van-button__content">
+          <span class="van-button__text">
+            Button
+          </span>
+        </div>
+      </button>
+    </div>
   </div>
 </div>
 <div>
@@ -278,141 +134,10 @@ exports[`should render demo and match snapshot 1`] = `
       >
         <div class="van-empty">
           <div class="van-empty__image">
-            <svg viewbox="0 0 160 160">
-              <defs>
-                <linearGradient
-                  x1="50%"
-                  x2="50%"
-                  y2="100%"
-                  id="van-empty-8"
-                  data-allow-mismatch="attribute"
-                >
-                  <stop
-                    stop-color="#EAEDF1"
-                    offset="0%"
-                  >
-                  </stop>
-                  <stop
-                    stop-color="#DCDEE0"
-                    offset="100%"
-                  >
-                  </stop>
-                </linearGradient>
-              </defs>
-              <defs>
-                <linearGradient
-                  id="van-empty-a"
-                  x1="64%"
-                  y1="100%"
-                  x2="64%"
-                  data-allow-mismatch="attribute"
-                >
-                  <stop
-                    stop-color="#FFF"
-                    offset="0%"
-                    stop-opacity="0.5"
-                  >
-                  </stop>
-                  <stop
-                    stop-color="#F2F3F5"
-                    offset="100%"
-                  >
-                  </stop>
-                </linearGradient>
-              </defs>
-              <g
-                opacity=".8"
-                data-allow-mismatch="children"
-              >
-                <path
-                  d="M36 131V53H16v20H2v58h34z"
-                  fill="url(#van-empty-a)"
-                >
-                </path>
-                <path
-                  d="M123 15h22v14h9v77h-31V15z"
-                  fill="url(#van-empty-a)"
-                >
-                </path>
-              </g>
-              <defs>
-                <linearGradient
-                  id="van-empty-b"
-                  x1="64%"
-                  y1="97%"
-                  x2="64%"
-                  y2="0%"
-                  data-allow-mismatch="attribute"
-                >
-                  <stop
-                    stop-color="#F2F3F5"
-                    offset="0%"
-                    stop-opacity="0.3"
-                  >
-                  </stop>
-                  <stop
-                    stop-color="#F2F3F5"
-                    offset="100%"
-                  >
-                  </stop>
-                </linearGradient>
-              </defs>
-              <g
-                opacity=".8"
-                data-allow-mismatch="children"
-              >
-                <path
-                  d="M87 6c3 0 7 3 8 6a8 8 0 1 1-1 16H80a7 7 0 0 1-8-6c0-4 3-7 6-7 0-5 4-9 9-9Z"
-                  fill="url(#van-empty-b)"
-                >
-                </path>
-                <path
-                  d="M19 23c2 0 3 1 4 3 2 0 4 2 4 4a4 4 0 0 1-4 3v1h-7v-1l-1 1c-2 0-3-2-3-4 0-1 1-3 3-3 0-2 2-4 4-4Z"
-                  fill="url(#van-empty-b)"
-                >
-                </path>
-              </g>
-              <defs>
-                <radialGradient
-                  id="van-empty-c"
-                  cx="50%"
-                  cy="54%"
-                  fx="50%"
-                  fy="54%"
-                  r="297%"
-                  gradienttransform="matrix(-.16 0 0 -.33 .58 .72)"
-                  data-allow-mismatch="attribute"
-                >
-                  <stop
-                    stop-color="#EBEDF0"
-                    offset="0%"
-                  >
-                  </stop>
-                  <stop
-                    stop-color="#F2F3F5"
-                    offset="100%"
-                    stop-opacity="0.3"
-                  >
-                  </stop>
-                </radialGradient>
-              </defs>
-              <ellipse
-                fill="url(#van-empty-c)"
-                opacity=".8"
-                cx="80"
-                cy="140"
-                rx="46"
-                ry="8"
-                data-allow-mismatch="attribute"
-              >
-              </ellipse>
-              <path
-                d="m59 60 21 21 21-21h3l9 9v3L92 93l21 21v3l-9 9h-3l-21-21-21 21h-3l-9-9v-3l21-21-21-21v-3l9-9h3Z"
-                fill="url(#van-empty-8)"
-                data-allow-mismatch="attribute"
-              >
-              </path>
-            </svg>
+            <img
+              src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxNjAgMTYwIj4KICAgICAgICAgICAgICA8ZGVmcz4KICAgICAgICAgICAgICAgIDxsaW5lYXJHcmFkaWVudAogICAgICAgICAgICAgICAgICB4MT0iNTAlIgogICAgICAgICAgICAgICAgICB4Mj0iNTAlIgogICAgICAgICAgICAgICAgICB5Mj0iMTAwJSIKICAgICAgICAgICAgICAgICAgaWQ9InZhbi1lbXB0eS04IgogICAgICAgICAgICAgICAgPgogICAgICAgICAgICAgICAgICA8c3RvcAogICAgICAgICAgICAgICAgICAgIHN0b3AtY29sb3I9IiNFQUVERjEiCiAgICAgICAgICAgICAgICAgICAgb2Zmc2V0PSIwJSIKICAgICAgICAgICAgICAgICAgLz4KICAgICAgICAgICAgICAgICAgPHN0b3AKICAgICAgICAgICAgICAgICAgICBzdG9wLWNvbG9yPSIjRENERUUwIgogICAgICAgICAgICAgICAgICAgIG9mZnNldD0iMTAwJSIKICAgICAgICAgICAgICAgICAgLz4KICAgICAgICAgICAgICAgIDwvbGluZWFyR3JhZGllbnQ+CiAgICAgICAgICAgICAgPC9kZWZzPgogICAgICAgICAgICAgIDxkZWZzPgogICAgICAgICAgICAgICAgPGxpbmVhckdyYWRpZW50CiAgICAgICAgICAgICAgICAgIGlkPSJ2YW4tZW1wdHktYSIKICAgICAgICAgICAgICAgICAgeDE9IjY0JSIKICAgICAgICAgICAgICAgICAgeTE9IjEwMCUiCiAgICAgICAgICAgICAgICAgIHgyPSI2NCUiCiAgICAgICAgICAgICAgICA+CiAgICAgICAgICAgICAgICAgIDxzdG9wCiAgICAgICAgICAgICAgICAgICAgc3RvcC1jb2xvcj0iI0ZGRiIKICAgICAgICAgICAgICAgICAgICBvZmZzZXQ9IjAlIgogICAgICAgICAgICAgICAgICAgIHN0b3Atb3BhY2l0eT0iMC41IgogICAgICAgICAgICAgICAgICAvPgogICAgICAgICAgICAgICAgICA8c3RvcAogICAgICAgICAgICAgICAgICAgIHN0b3AtY29sb3I9IiNGMkYzRjUiCiAgICAgICAgICAgICAgICAgICAgb2Zmc2V0PSIxMDAlIgogICAgICAgICAgICAgICAgICAvPgogICAgICAgICAgICAgICAgPC9saW5lYXJHcmFkaWVudD4KICAgICAgICAgICAgICA8L2RlZnM+CiAgICAgICAgICAgICAgPGcKICAgICAgICAgICAgICAgIG9wYWNpdHk9Ii44IgogICAgICAgICAgICAgID4KICAgICAgICAgICAgICAgIDxwYXRoCiAgICAgICAgICAgICAgICAgIGQ9Ik0zNiAxMzFWNTNIMTZ2MjBIMnY1OGgzNHoiCiAgICAgICAgICAgICAgICAgIGZpbGw9InVybCgjdmFuLWVtcHR5LWEpIgogICAgICAgICAgICAgICAgLz4KICAgICAgICAgICAgICAgIDxwYXRoCiAgICAgICAgICAgICAgICAgIGQ9Ik0xMjMgMTVoMjJ2MTRoOXY3N2gtMzFWMTV6IgogICAgICAgICAgICAgICAgICBmaWxsPSJ1cmwoI3Zhbi1lbXB0eS1hKSIKICAgICAgICAgICAgICAgIC8+CiAgICAgICAgICAgICAgPC9nPgogICAgICAgICAgICAgIDxkZWZzPgogICAgICAgICAgICAgICAgPGxpbmVhckdyYWRpZW50CiAgICAgICAgICAgICAgICAgIGlkPSJ2YW4tZW1wdHktYiIKICAgICAgICAgICAgICAgICAgeDE9IjY0JSIKICAgICAgICAgICAgICAgICAgeTE9Ijk3JSIKICAgICAgICAgICAgICAgICAgeDI9IjY0JSIKICAgICAgICAgICAgICAgICAgeTI9IjAlIgogICAgICAgICAgICAgICAgPgogICAgICAgICAgICAgICAgICA8c3RvcAogICAgICAgICAgICAgICAgICAgIHN0b3AtY29sb3I9IiNGMkYzRjUiCiAgICAgICAgICAgICAgICAgICAgb2Zmc2V0PSIwJSIKICAgICAgICAgICAgICAgICAgICBzdG9wLW9wYWNpdHk9IjAuMyIKICAgICAgICAgICAgICAgICAgLz4KICAgICAgICAgICAgICAgICAgPHN0b3AKICAgICAgICAgICAgICAgICAgICBzdG9wLWNvbG9yPSIjRjJGM0Y1IgogICAgICAgICAgICAgICAgICAgIG9mZnNldD0iMTAwJSIKICAgICAgICAgICAgICAgICAgLz4KICAgICAgICAgICAgICAgIDwvbGluZWFyR3JhZGllbnQ+CiAgICAgICAgICAgICAgPC9kZWZzPgogICAgICAgICAgICAgIDxnCiAgICAgICAgICAgICAgICBvcGFjaXR5PSIuOCIKICAgICAgICAgICAgICA+CiAgICAgICAgICAgICAgICA8cGF0aAogICAgICAgICAgICAgICAgICBkPSJNODcgNmMzIDAgNyAzIDggNmE4IDggMCAxIDEtMSAxNkg4MGE3IDcgMCAwIDEtOC02YzAtNCAzLTcgNi03IDAtNSA0LTkgOS05WiIKICAgICAgICAgICAgICAgICAgZmlsbD0idXJsKCN2YW4tZW1wdHktYikiCiAgICAgICAgICAgICAgICAvPgogICAgICAgICAgICAgICAgPHBhdGgKICAgICAgICAgICAgICAgICAgZD0iTTE5IDIzYzIgMCAzIDEgNCAzIDIgMCA0IDIgNCA0YTQgNCAwIDAgMS00IDN2MWgtN3YtMWwtMSAxYy0yIDAtMy0yLTMtNCAwLTEgMS0zIDMtMyAwLTIgMi00IDQtNFoiCiAgICAgICAgICAgICAgICAgIGZpbGw9InVybCgjdmFuLWVtcHR5LWIpIgogICAgICAgICAgICAgICAgLz4KICAgICAgICAgICAgICA8L2c+CiAgICAgICAgICAgICAgPGRlZnM+CiAgICAgICAgICAgICAgICA8cmFkaWFsR3JhZGllbnQKICAgICAgICAgICAgICAgICAgaWQ9InZhbi1lbXB0eS1jIgogICAgICAgICAgICAgICAgICBjeD0iNTAlIgogICAgICAgICAgICAgICAgICBjeT0iNTQlIgogICAgICAgICAgICAgICAgICBmeD0iNTAlIgogICAgICAgICAgICAgICAgICBmeT0iNTQlIgogICAgICAgICAgICAgICAgICByPSIyOTclIgogICAgICAgICAgICAgICAgICBncmFkaWVudFRyYW5zZm9ybT0ibWF0cml4KC0uMTYgMCAwIC0uMzMgLjU4IC43MikiCiAgICAgICAgICAgICAgICA+CiAgICAgICAgICAgICAgICAgIDxzdG9wCiAgICAgICAgICAgICAgICAgICAgc3RvcC1jb2xvcj0iI0VCRURGMCIKICAgICAgICAgICAgICAgICAgICBvZmZzZXQ9IjAlIgogICAgICAgICAgICAgICAgICAvPgogICAgICAgICAgICAgICAgICA8c3RvcAogICAgICAgICAgICAgICAgICAgIHN0b3AtY29sb3I9IiNGMkYzRjUiCiAgICAgICAgICAgICAgICAgICAgb2Zmc2V0PSIxMDAlIgogICAgICAgICAgICAgICAgICAgIHN0b3Atb3BhY2l0eT0iMC4zIgogICAgICAgICAgICAgICAgICAvPgogICAgICAgICAgICAgICAgPC9yYWRpYWxHcmFkaWVudD4KICAgICAgICAgICAgICA8L2RlZnM+CiAgICAgICAgICAgICAgPGVsbGlwc2UKICAgICAgICAgICAgICAgIGZpbGw9InVybCgjdmFuLWVtcHR5LWMpIgogICAgICAgICAgICAgICAgb3BhY2l0eT0iLjgiCiAgICAgICAgICAgICAgICBjeD0iODAiCiAgICAgICAgICAgICAgICBjeT0iMTQwIgogICAgICAgICAgICAgICAgcng9IjQ2IgogICAgICAgICAgICAgICAgcnk9IjgiCiAgICAgICAgICAgICAgLz4KICAgICAgICAgICAgICA8cGF0aAogICAgICAgICAgICAgICAgZD0ibTU5IDYwIDIxIDIxIDIxLTIxaDNsOSA5djNMOTIgOTNsMjEgMjF2M2wtOSA5aC0zbC0yMS0yMS0yMSAyMWgtM2wtOS05di0zbDIxLTIxLTIxLTIxdi0zbDktOWgzWiIKICAgICAgICAgICAgICAgIGZpbGw9InVybCgjdmFuLWVtcHR5LTgpIgogICAgICAgICAgICAgIC8+CiAgICAgICAgICAgIDwvc3ZnPg=="
+              alt
+            >
           </div>
           <p class="van-empty__description">
             Description
@@ -448,208 +173,10 @@ exports[`should render demo and match snapshot 1`] = `
       class="van-empty__image"
       style="width: 100px; height: 100px;"
     >
-      <svg viewbox="0 0 160 160">
-        <defs data-allow-mismatch="children">
-          <linearGradient
-            x1="50%"
-            x2="50%"
-            y2="100%"
-            id="van-empty-5"
-          >
-            <stop
-              stop-color="#F2F3F5"
-              offset="0%"
-            >
-            </stop>
-            <stop
-              stop-color="#DCDEE0"
-              offset="100%"
-            >
-            </stop>
-          </linearGradient>
-          <linearGradient
-            x1="95%"
-            y1="48%"
-            x2="5.5%"
-            y2="51%"
-            id="van-empty-6"
-          >
-            <stop
-              stop-color="#EAEDF1"
-              offset="0%"
-            >
-            </stop>
-            <stop
-              stop-color="#DCDEE0"
-              offset="100%"
-            >
-            </stop>
-          </linearGradient>
-          <linearGradient
-            y1="45%"
-            x2="100%"
-            y2="54%"
-            id="van-empty-7"
-          >
-            <stop
-              stop-color="#EAEDF1"
-              offset="0%"
-            >
-            </stop>
-            <stop
-              stop-color="#DCDEE0"
-              offset="100%"
-            >
-            </stop>
-          </linearGradient>
-        </defs>
-        <defs>
-          <linearGradient
-            id="van-empty-a"
-            x1="64%"
-            y1="100%"
-            x2="64%"
-            data-allow-mismatch="attribute"
-          >
-            <stop
-              stop-color="#FFF"
-              offset="0%"
-              stop-opacity="0.5"
-            >
-            </stop>
-            <stop
-              stop-color="#F2F3F5"
-              offset="100%"
-            >
-            </stop>
-          </linearGradient>
-        </defs>
-        <g
-          opacity=".8"
-          data-allow-mismatch="children"
-        >
-          <path
-            d="M36 131V53H16v20H2v58h34z"
-            fill="url(#van-empty-a)"
-          >
-          </path>
-          <path
-            d="M123 15h22v14h9v77h-31V15z"
-            fill="url(#van-empty-a)"
-          >
-          </path>
-        </g>
-        <defs>
-          <linearGradient
-            id="van-empty-b"
-            x1="64%"
-            y1="97%"
-            x2="64%"
-            y2="0%"
-            data-allow-mismatch="attribute"
-          >
-            <stop
-              stop-color="#F2F3F5"
-              offset="0%"
-              stop-opacity="0.3"
-            >
-            </stop>
-            <stop
-              stop-color="#F2F3F5"
-              offset="100%"
-            >
-            </stop>
-          </linearGradient>
-        </defs>
-        <g
-          opacity=".8"
-          data-allow-mismatch="children"
-        >
-          <path
-            d="M87 6c3 0 7 3 8 6a8 8 0 1 1-1 16H80a7 7 0 0 1-8-6c0-4 3-7 6-7 0-5 4-9 9-9Z"
-            fill="url(#van-empty-b)"
-          >
-          </path>
-          <path
-            d="M19 23c2 0 3 1 4 3 2 0 4 2 4 4a4 4 0 0 1-4 3v1h-7v-1l-1 1c-2 0-3-2-3-4 0-1 1-3 3-3 0-2 2-4 4-4Z"
-            fill="url(#van-empty-b)"
-          >
-          </path>
-        </g>
-        <g
-          transform="translate(36 50)"
-          fill="none"
-        >
-          <g transform="translate(8)">
-            <rect
-              fill="#EBEDF0"
-              opacity=".6"
-              x="38"
-              y="13"
-              width="36"
-              height="53"
-              rx="2"
-            >
-            </rect>
-            <rect
-              fill="url(#van-empty-5)"
-              width="64"
-              height="66"
-              rx="2"
-              data-allow-mismatch="attribute"
-            >
-            </rect>
-            <rect
-              fill="#FFF"
-              x="6"
-              y="6"
-              width="52"
-              height="55"
-              rx="1"
-            >
-            </rect>
-            <g
-              transform="translate(15 17)"
-              fill="url(#van-empty-6)"
-              data-allow-mismatch="attribute"
-            >
-              <rect
-                width="34"
-                height="6"
-                rx="1"
-              >
-              </rect>
-              <path d="M0 14h34v6H0z">
-              </path>
-              <rect
-                y="28"
-                width="34"
-                height="6"
-                rx="1"
-              >
-              </rect>
-            </g>
-          </g>
-          <rect
-            fill="url(#van-empty-7)"
-            y="61"
-            width="88"
-            height="28"
-            rx="1"
-            data-allow-mismatch="attribute"
-          >
-          </rect>
-          <rect
-            fill="#F7F8FA"
-            x="29"
-            y="72"
-            width="30"
-            height="6"
-            rx="1"
-          >
-          </rect>
-        </g>
-      </svg>
+      <img
+        src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxNjAgMTYwIj4KICAgICAgPGRlZnM+CiAgICAgICAgPGxpbmVhckdyYWRpZW50CiAgICAgICAgICB4MT0iNTAlIgogICAgICAgICAgeDI9IjUwJSIKICAgICAgICAgIHkyPSIxMDAlIgogICAgICAgICAgaWQ9InZhbi1lbXB0eS01IgogICAgICAgID4KICAgICAgICAgIDxzdG9wCiAgICAgICAgICAgIHN0b3AtY29sb3I9IiNGMkYzRjUiCiAgICAgICAgICAgIG9mZnNldD0iMCUiCiAgICAgICAgICAvPgogICAgICAgICAgPHN0b3AKICAgICAgICAgICAgc3RvcC1jb2xvcj0iI0RDREVFMCIKICAgICAgICAgICAgb2Zmc2V0PSIxMDAlIgogICAgICAgICAgLz4KICAgICAgICA8L2xpbmVhckdyYWRpZW50PgogICAgICAgIDxsaW5lYXJHcmFkaWVudAogICAgICAgICAgeDE9Ijk1JSIKICAgICAgICAgIHkxPSI0OCUiCiAgICAgICAgICB4Mj0iNS41JSIKICAgICAgICAgIHkyPSI1MSUiCiAgICAgICAgICBpZD0idmFuLWVtcHR5LTYiCiAgICAgICAgPgogICAgICAgICAgPHN0b3AKICAgICAgICAgICAgc3RvcC1jb2xvcj0iI0VBRURGMSIKICAgICAgICAgICAgb2Zmc2V0PSIwJSIKICAgICAgICAgIC8+CiAgICAgICAgICA8c3RvcAogICAgICAgICAgICBzdG9wLWNvbG9yPSIjRENERUUwIgogICAgICAgICAgICBvZmZzZXQ9IjEwMCUiCiAgICAgICAgICAvPgogICAgICAgIDwvbGluZWFyR3JhZGllbnQ+CiAgICAgICAgPGxpbmVhckdyYWRpZW50CiAgICAgICAgICB5MT0iNDUlIgogICAgICAgICAgeDI9IjEwMCUiCiAgICAgICAgICB5Mj0iNTQlIgogICAgICAgICAgaWQ9InZhbi1lbXB0eS03IgogICAgICAgID4KICAgICAgICAgIDxzdG9wCiAgICAgICAgICAgIHN0b3AtY29sb3I9IiNFQUVERjEiCiAgICAgICAgICAgIG9mZnNldD0iMCUiCiAgICAgICAgICAvPgogICAgICAgICAgPHN0b3AKICAgICAgICAgICAgc3RvcC1jb2xvcj0iI0RDREVFMCIKICAgICAgICAgICAgb2Zmc2V0PSIxMDAlIgogICAgICAgICAgLz4KICAgICAgICA8L2xpbmVhckdyYWRpZW50PgogICAgICA8L2RlZnM+CiAgICAgIDxkZWZzPgogICAgICAgIDxsaW5lYXJHcmFkaWVudAogICAgICAgICAgaWQ9InZhbi1lbXB0eS1hIgogICAgICAgICAgeDE9IjY0JSIKICAgICAgICAgIHkxPSIxMDAlIgogICAgICAgICAgeDI9IjY0JSIKICAgICAgICA+CiAgICAgICAgICA8c3RvcAogICAgICAgICAgICBzdG9wLWNvbG9yPSIjRkZGIgogICAgICAgICAgICBvZmZzZXQ9IjAlIgogICAgICAgICAgICBzdG9wLW9wYWNpdHk9IjAuNSIKICAgICAgICAgIC8+CiAgICAgICAgICA8c3RvcAogICAgICAgICAgICBzdG9wLWNvbG9yPSIjRjJGM0Y1IgogICAgICAgICAgICBvZmZzZXQ9IjEwMCUiCiAgICAgICAgICAvPgogICAgICAgIDwvbGluZWFyR3JhZGllbnQ+CiAgICAgIDwvZGVmcz4KICAgICAgPGcKICAgICAgICBvcGFjaXR5PSIuOCIKICAgICAgPgogICAgICAgIDxwYXRoCiAgICAgICAgICBkPSJNMzYgMTMxVjUzSDE2djIwSDJ2NThoMzR6IgogICAgICAgICAgZmlsbD0idXJsKCN2YW4tZW1wdHktYSkiCiAgICAgICAgLz4KICAgICAgICA8cGF0aAogICAgICAgICAgZD0iTTEyMyAxNWgyMnYxNGg5djc3aC0zMVYxNXoiCiAgICAgICAgICBmaWxsPSJ1cmwoI3Zhbi1lbXB0eS1hKSIKICAgICAgICAvPgogICAgICA8L2c+CiAgICAgIDxkZWZzPgogICAgICAgIDxsaW5lYXJHcmFkaWVudAogICAgICAgICAgaWQ9InZhbi1lbXB0eS1iIgogICAgICAgICAgeDE9IjY0JSIKICAgICAgICAgIHkxPSI5NyUiCiAgICAgICAgICB4Mj0iNjQlIgogICAgICAgICAgeTI9IjAlIgogICAgICAgID4KICAgICAgICAgIDxzdG9wCiAgICAgICAgICAgIHN0b3AtY29sb3I9IiNGMkYzRjUiCiAgICAgICAgICAgIG9mZnNldD0iMCUiCiAgICAgICAgICAgIHN0b3Atb3BhY2l0eT0iMC4zIgogICAgICAgICAgLz4KICAgICAgICAgIDxzdG9wCiAgICAgICAgICAgIHN0b3AtY29sb3I9IiNGMkYzRjUiCiAgICAgICAgICAgIG9mZnNldD0iMTAwJSIKICAgICAgICAgIC8+CiAgICAgICAgPC9saW5lYXJHcmFkaWVudD4KICAgICAgPC9kZWZzPgogICAgICA8ZwogICAgICAgIG9wYWNpdHk9Ii44IgogICAgICA+CiAgICAgICAgPHBhdGgKICAgICAgICAgIGQ9Ik04NyA2YzMgMCA3IDMgOCA2YTggOCAwIDEgMS0xIDE2SDgwYTcgNyAwIDAgMS04LTZjMC00IDMtNyA2LTcgMC01IDQtOSA5LTlaIgogICAgICAgICAgZmlsbD0idXJsKCN2YW4tZW1wdHktYikiCiAgICAgICAgLz4KICAgICAgICA8cGF0aAogICAgICAgICAgZD0iTTE5IDIzYzIgMCAzIDEgNCAzIDIgMCA0IDIgNCA0YTQgNCAwIDAgMS00IDN2MWgtN3YtMWwtMSAxYy0yIDAtMy0yLTMtNCAwLTEgMS0zIDMtMyAwLTIgMi00IDQtNFoiCiAgICAgICAgICBmaWxsPSJ1cmwoI3Zhbi1lbXB0eS1iKSIKICAgICAgICAvPgogICAgICA8L2c+CiAgICAgIDxnCiAgICAgICAgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoMzYgNTApIgogICAgICAgIGZpbGw9Im5vbmUiCiAgICAgID4KICAgICAgICA8ZyB0cmFuc2Zvcm09InRyYW5zbGF0ZSg4KSI+CiAgICAgICAgICA8cmVjdAogICAgICAgICAgICBmaWxsPSIjRUJFREYwIgogICAgICAgICAgICBvcGFjaXR5PSIuNiIKICAgICAgICAgICAgeD0iMzgiCiAgICAgICAgICAgIHk9IjEzIgogICAgICAgICAgICB3aWR0aD0iMzYiCiAgICAgICAgICAgIGhlaWdodD0iNTMiCiAgICAgICAgICAgIHJ4PSIyIgogICAgICAgICAgLz4KICAgICAgICAgIDxyZWN0CiAgICAgICAgICAgIGZpbGw9InVybCgjdmFuLWVtcHR5LTUpIgogICAgICAgICAgICB3aWR0aD0iNjQiCiAgICAgICAgICAgIGhlaWdodD0iNjYiCiAgICAgICAgICAgIHJ4PSIyIgogICAgICAgICAgLz4KICAgICAgICAgIDxyZWN0CiAgICAgICAgICAgIGZpbGw9IiNGRkYiCiAgICAgICAgICAgIHg9IjYiCiAgICAgICAgICAgIHk9IjYiCiAgICAgICAgICAgIHdpZHRoPSI1MiIKICAgICAgICAgICAgaGVpZ2h0PSI1NSIKICAgICAgICAgICAgcng9IjEiCiAgICAgICAgICAvPgogICAgICAgICAgPGcKICAgICAgICAgICAgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoMTUgMTcpIgogICAgICAgICAgICBmaWxsPSJ1cmwoI3Zhbi1lbXB0eS02KSIKICAgICAgICAgID4KICAgICAgICAgICAgPHJlY3QKICAgICAgICAgICAgICB3aWR0aD0iMzQiCiAgICAgICAgICAgICAgaGVpZ2h0PSI2IgogICAgICAgICAgICAgIHJ4PSIxIgogICAgICAgICAgICAvPgogICAgICAgICAgICA8cGF0aCBkPSJNMCAxNGgzNHY2SDB6Ii8+CiAgICAgICAgICAgIDxyZWN0CiAgICAgICAgICAgICAgeT0iMjgiCiAgICAgICAgICAgICAgd2lkdGg9IjM0IgogICAgICAgICAgICAgIGhlaWdodD0iNiIKICAgICAgICAgICAgICByeD0iMSIKICAgICAgICAgICAgLz4KICAgICAgICAgIDwvZz4KICAgICAgICA8L2c+CiAgICAgICAgPHJlY3QKICAgICAgICAgIGZpbGw9InVybCgjdmFuLWVtcHR5LTcpIgogICAgICAgICAgeT0iNjEiCiAgICAgICAgICB3aWR0aD0iODgiCiAgICAgICAgICBoZWlnaHQ9IjI4IgogICAgICAgICAgcng9IjEiCiAgICAgICAgLz4KICAgICAgICA8cmVjdAogICAgICAgICAgZmlsbD0iI0Y3RjhGQSIKICAgICAgICAgIHg9IjI5IgogICAgICAgICAgeT0iNzIiCiAgICAgICAgICB3aWR0aD0iMzAiCiAgICAgICAgICBoZWlnaHQ9IjYiCiAgICAgICAgICByeD0iMSIKICAgICAgICAvPgogICAgICA8L2c+CiAgICA8L3N2Zz4="
+        alt
+      >
     </div>
     <p class="van-empty__description">
       Description
@@ -662,7 +189,10 @@ exports[`should render demo and match snapshot 1`] = `
       class="van-empty__image"
       style="width: 80px; height: 80px;"
     >
-      <img src="https://fastly.jsdelivr.net/npm/@vant/assets/custom-empty-image.png">
+      <img
+        src="https://fastly.jsdelivr.net/npm/@vant/assets/custom-empty-image.png"
+        alt
+      >
     </div>
     <p class="van-empty__description">
       Description
@@ -672,208 +202,10 @@ exports[`should render demo and match snapshot 1`] = `
 <div>
   <div class="van-empty">
     <div class="van-empty__image">
-      <svg viewbox="0 0 160 160">
-        <defs data-allow-mismatch="children">
-          <linearGradient
-            x1="50%"
-            x2="50%"
-            y2="100%"
-            id="van-empty-5"
-          >
-            <stop
-              stop-color="#F2F3F5"
-              offset="0%"
-            >
-            </stop>
-            <stop
-              stop-color="#DCDEE0"
-              offset="100%"
-            >
-            </stop>
-          </linearGradient>
-          <linearGradient
-            x1="95%"
-            y1="48%"
-            x2="5.5%"
-            y2="51%"
-            id="van-empty-6"
-          >
-            <stop
-              stop-color="#EAEDF1"
-              offset="0%"
-            >
-            </stop>
-            <stop
-              stop-color="#DCDEE0"
-              offset="100%"
-            >
-            </stop>
-          </linearGradient>
-          <linearGradient
-            y1="45%"
-            x2="100%"
-            y2="54%"
-            id="van-empty-7"
-          >
-            <stop
-              stop-color="#EAEDF1"
-              offset="0%"
-            >
-            </stop>
-            <stop
-              stop-color="#DCDEE0"
-              offset="100%"
-            >
-            </stop>
-          </linearGradient>
-        </defs>
-        <defs>
-          <linearGradient
-            id="van-empty-a"
-            x1="64%"
-            y1="100%"
-            x2="64%"
-            data-allow-mismatch="attribute"
-          >
-            <stop
-              stop-color="#FFF"
-              offset="0%"
-              stop-opacity="0.5"
-            >
-            </stop>
-            <stop
-              stop-color="#F2F3F5"
-              offset="100%"
-            >
-            </stop>
-          </linearGradient>
-        </defs>
-        <g
-          opacity=".8"
-          data-allow-mismatch="children"
-        >
-          <path
-            d="M36 131V53H16v20H2v58h34z"
-            fill="url(#van-empty-a)"
-          >
-          </path>
-          <path
-            d="M123 15h22v14h9v77h-31V15z"
-            fill="url(#van-empty-a)"
-          >
-          </path>
-        </g>
-        <defs>
-          <linearGradient
-            id="van-empty-b"
-            x1="64%"
-            y1="97%"
-            x2="64%"
-            y2="0%"
-            data-allow-mismatch="attribute"
-          >
-            <stop
-              stop-color="#F2F3F5"
-              offset="0%"
-              stop-opacity="0.3"
-            >
-            </stop>
-            <stop
-              stop-color="#F2F3F5"
-              offset="100%"
-            >
-            </stop>
-          </linearGradient>
-        </defs>
-        <g
-          opacity=".8"
-          data-allow-mismatch="children"
-        >
-          <path
-            d="M87 6c3 0 7 3 8 6a8 8 0 1 1-1 16H80a7 7 0 0 1-8-6c0-4 3-7 6-7 0-5 4-9 9-9Z"
-            fill="url(#van-empty-b)"
-          >
-          </path>
-          <path
-            d="M19 23c2 0 3 1 4 3 2 0 4 2 4 4a4 4 0 0 1-4 3v1h-7v-1l-1 1c-2 0-3-2-3-4 0-1 1-3 3-3 0-2 2-4 4-4Z"
-            fill="url(#van-empty-b)"
-          >
-          </path>
-        </g>
-        <g
-          transform="translate(36 50)"
-          fill="none"
-        >
-          <g transform="translate(8)">
-            <rect
-              fill="#EBEDF0"
-              opacity=".6"
-              x="38"
-              y="13"
-              width="36"
-              height="53"
-              rx="2"
-            >
-            </rect>
-            <rect
-              fill="url(#van-empty-5)"
-              width="64"
-              height="66"
-              rx="2"
-              data-allow-mismatch="attribute"
-            >
-            </rect>
-            <rect
-              fill="#FFF"
-              x="6"
-              y="6"
-              width="52"
-              height="55"
-              rx="1"
-            >
-            </rect>
-            <g
-              transform="translate(15 17)"
-              fill="url(#van-empty-6)"
-              data-allow-mismatch="attribute"
-            >
-              <rect
-                width="34"
-                height="6"
-                rx="1"
-              >
-              </rect>
-              <path d="M0 14h34v6H0z">
-              </path>
-              <rect
-                y="28"
-                width="34"
-                height="6"
-                rx="1"
-              >
-              </rect>
-            </g>
-          </g>
-          <rect
-            fill="url(#van-empty-7)"
-            y="61"
-            width="88"
-            height="28"
-            rx="1"
-            data-allow-mismatch="attribute"
-          >
-          </rect>
-          <rect
-            fill="#F7F8FA"
-            x="29"
-            y="72"
-            width="30"
-            height="6"
-            rx="1"
-          >
-          </rect>
-        </g>
-      </svg>
+      <img
+        src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxNjAgMTYwIj4KICAgICAgPGRlZnM+CiAgICAgICAgPGxpbmVhckdyYWRpZW50CiAgICAgICAgICB4MT0iNTAlIgogICAgICAgICAgeDI9IjUwJSIKICAgICAgICAgIHkyPSIxMDAlIgogICAgICAgICAgaWQ9InZhbi1lbXB0eS01IgogICAgICAgID4KICAgICAgICAgIDxzdG9wCiAgICAgICAgICAgIHN0b3AtY29sb3I9IiNGMkYzRjUiCiAgICAgICAgICAgIG9mZnNldD0iMCUiCiAgICAgICAgICAvPgogICAgICAgICAgPHN0b3AKICAgICAgICAgICAgc3RvcC1jb2xvcj0iI0RDREVFMCIKICAgICAgICAgICAgb2Zmc2V0PSIxMDAlIgogICAgICAgICAgLz4KICAgICAgICA8L2xpbmVhckdyYWRpZW50PgogICAgICAgIDxsaW5lYXJHcmFkaWVudAogICAgICAgICAgeDE9Ijk1JSIKICAgICAgICAgIHkxPSI0OCUiCiAgICAgICAgICB4Mj0iNS41JSIKICAgICAgICAgIHkyPSI1MSUiCiAgICAgICAgICBpZD0idmFuLWVtcHR5LTYiCiAgICAgICAgPgogICAgICAgICAgPHN0b3AKICAgICAgICAgICAgc3RvcC1jb2xvcj0iI0VBRURGMSIKICAgICAgICAgICAgb2Zmc2V0PSIwJSIKICAgICAgICAgIC8+CiAgICAgICAgICA8c3RvcAogICAgICAgICAgICBzdG9wLWNvbG9yPSIjRENERUUwIgogICAgICAgICAgICBvZmZzZXQ9IjEwMCUiCiAgICAgICAgICAvPgogICAgICAgIDwvbGluZWFyR3JhZGllbnQ+CiAgICAgICAgPGxpbmVhckdyYWRpZW50CiAgICAgICAgICB5MT0iNDUlIgogICAgICAgICAgeDI9IjEwMCUiCiAgICAgICAgICB5Mj0iNTQlIgogICAgICAgICAgaWQ9InZhbi1lbXB0eS03IgogICAgICAgID4KICAgICAgICAgIDxzdG9wCiAgICAgICAgICAgIHN0b3AtY29sb3I9IiNFQUVERjEiCiAgICAgICAgICAgIG9mZnNldD0iMCUiCiAgICAgICAgICAvPgogICAgICAgICAgPHN0b3AKICAgICAgICAgICAgc3RvcC1jb2xvcj0iI0RDREVFMCIKICAgICAgICAgICAgb2Zmc2V0PSIxMDAlIgogICAgICAgICAgLz4KICAgICAgICA8L2xpbmVhckdyYWRpZW50PgogICAgICA8L2RlZnM+CiAgICAgIDxkZWZzPgogICAgICAgIDxsaW5lYXJHcmFkaWVudAogICAgICAgICAgaWQ9InZhbi1lbXB0eS1hIgogICAgICAgICAgeDE9IjY0JSIKICAgICAgICAgIHkxPSIxMDAlIgogICAgICAgICAgeDI9IjY0JSIKICAgICAgICA+CiAgICAgICAgICA8c3RvcAogICAgICAgICAgICBzdG9wLWNvbG9yPSIjRkZGIgogICAgICAgICAgICBvZmZzZXQ9IjAlIgogICAgICAgICAgICBzdG9wLW9wYWNpdHk9IjAuNSIKICAgICAgICAgIC8+CiAgICAgICAgICA8c3RvcAogICAgICAgICAgICBzdG9wLWNvbG9yPSIjRjJGM0Y1IgogICAgICAgICAgICBvZmZzZXQ9IjEwMCUiCiAgICAgICAgICAvPgogICAgICAgIDwvbGluZWFyR3JhZGllbnQ+CiAgICAgIDwvZGVmcz4KICAgICAgPGcKICAgICAgICBvcGFjaXR5PSIuOCIKICAgICAgPgogICAgICAgIDxwYXRoCiAgICAgICAgICBkPSJNMzYgMTMxVjUzSDE2djIwSDJ2NThoMzR6IgogICAgICAgICAgZmlsbD0idXJsKCN2YW4tZW1wdHktYSkiCiAgICAgICAgLz4KICAgICAgICA8cGF0aAogICAgICAgICAgZD0iTTEyMyAxNWgyMnYxNGg5djc3aC0zMVYxNXoiCiAgICAgICAgICBmaWxsPSJ1cmwoI3Zhbi1lbXB0eS1hKSIKICAgICAgICAvPgogICAgICA8L2c+CiAgICAgIDxkZWZzPgogICAgICAgIDxsaW5lYXJHcmFkaWVudAogICAgICAgICAgaWQ9InZhbi1lbXB0eS1iIgogICAgICAgICAgeDE9IjY0JSIKICAgICAgICAgIHkxPSI5NyUiCiAgICAgICAgICB4Mj0iNjQlIgogICAgICAgICAgeTI9IjAlIgogICAgICAgID4KICAgICAgICAgIDxzdG9wCiAgICAgICAgICAgIHN0b3AtY29sb3I9IiNGMkYzRjUiCiAgICAgICAgICAgIG9mZnNldD0iMCUiCiAgICAgICAgICAgIHN0b3Atb3BhY2l0eT0iMC4zIgogICAgICAgICAgLz4KICAgICAgICAgIDxzdG9wCiAgICAgICAgICAgIHN0b3AtY29sb3I9IiNGMkYzRjUiCiAgICAgICAgICAgIG9mZnNldD0iMTAwJSIKICAgICAgICAgIC8+CiAgICAgICAgPC9saW5lYXJHcmFkaWVudD4KICAgICAgPC9kZWZzPgogICAgICA8ZwogICAgICAgIG9wYWNpdHk9Ii44IgogICAgICA+CiAgICAgICAgPHBhdGgKICAgICAgICAgIGQ9Ik04NyA2YzMgMCA3IDMgOCA2YTggOCAwIDEgMS0xIDE2SDgwYTcgNyAwIDAgMS04LTZjMC00IDMtNyA2LTcgMC01IDQtOSA5LTlaIgogICAgICAgICAgZmlsbD0idXJsKCN2YW4tZW1wdHktYikiCiAgICAgICAgLz4KICAgICAgICA8cGF0aAogICAgICAgICAgZD0iTTE5IDIzYzIgMCAzIDEgNCAzIDIgMCA0IDIgNCA0YTQgNCAwIDAgMS00IDN2MWgtN3YtMWwtMSAxYy0yIDAtMy0yLTMtNCAwLTEgMS0zIDMtMyAwLTIgMi00IDQtNFoiCiAgICAgICAgICBmaWxsPSJ1cmwoI3Zhbi1lbXB0eS1iKSIKICAgICAgICAvPgogICAgICA8L2c+CiAgICAgIDxnCiAgICAgICAgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoMzYgNTApIgogICAgICAgIGZpbGw9Im5vbmUiCiAgICAgID4KICAgICAgICA8ZyB0cmFuc2Zvcm09InRyYW5zbGF0ZSg4KSI+CiAgICAgICAgICA8cmVjdAogICAgICAgICAgICBmaWxsPSIjRUJFREYwIgogICAgICAgICAgICBvcGFjaXR5PSIuNiIKICAgICAgICAgICAgeD0iMzgiCiAgICAgICAgICAgIHk9IjEzIgogICAgICAgICAgICB3aWR0aD0iMzYiCiAgICAgICAgICAgIGhlaWdodD0iNTMiCiAgICAgICAgICAgIHJ4PSIyIgogICAgICAgICAgLz4KICAgICAgICAgIDxyZWN0CiAgICAgICAgICAgIGZpbGw9InVybCgjdmFuLWVtcHR5LTUpIgogICAgICAgICAgICB3aWR0aD0iNjQiCiAgICAgICAgICAgIGhlaWdodD0iNjYiCiAgICAgICAgICAgIHJ4PSIyIgogICAgICAgICAgLz4KICAgICAgICAgIDxyZWN0CiAgICAgICAgICAgIGZpbGw9IiNGRkYiCiAgICAgICAgICAgIHg9IjYiCiAgICAgICAgICAgIHk9IjYiCiAgICAgICAgICAgIHdpZHRoPSI1MiIKICAgICAgICAgICAgaGVpZ2h0PSI1NSIKICAgICAgICAgICAgcng9IjEiCiAgICAgICAgICAvPgogICAgICAgICAgPGcKICAgICAgICAgICAgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoMTUgMTcpIgogICAgICAgICAgICBmaWxsPSJ1cmwoI3Zhbi1lbXB0eS02KSIKICAgICAgICAgID4KICAgICAgICAgICAgPHJlY3QKICAgICAgICAgICAgICB3aWR0aD0iMzQiCiAgICAgICAgICAgICAgaGVpZ2h0PSI2IgogICAgICAgICAgICAgIHJ4PSIxIgogICAgICAgICAgICAvPgogICAgICAgICAgICA8cGF0aCBkPSJNMCAxNGgzNHY2SDB6Ii8+CiAgICAgICAgICAgIDxyZWN0CiAgICAgICAgICAgICAgeT0iMjgiCiAgICAgICAgICAgICAgd2lkdGg9IjM0IgogICAgICAgICAgICAgIGhlaWdodD0iNiIKICAgICAgICAgICAgICByeD0iMSIKICAgICAgICAgICAgLz4KICAgICAgICAgIDwvZz4KICAgICAgICA8L2c+CiAgICAgICAgPHJlY3QKICAgICAgICAgIGZpbGw9InVybCgjdmFuLWVtcHR5LTcpIgogICAgICAgICAgeT0iNjEiCiAgICAgICAgICB3aWR0aD0iODgiCiAgICAgICAgICBoZWlnaHQ9IjI4IgogICAgICAgICAgcng9IjEiCiAgICAgICAgLz4KICAgICAgICA8cmVjdAogICAgICAgICAgZmlsbD0iI0Y3RjhGQSIKICAgICAgICAgIHg9IjI5IgogICAgICAgICAgeT0iNzIiCiAgICAgICAgICB3aWR0aD0iMzAiCiAgICAgICAgICBoZWlnaHQ9IjYiCiAgICAgICAgICByeD0iMSIKICAgICAgICAvPgogICAgICA8L2c+CiAgICA8L3N2Zz4="
+        alt
+      >
     </div>
     <p class="van-empty__description">
       Description

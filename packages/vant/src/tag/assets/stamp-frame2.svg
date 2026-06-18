@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" fill="none">
+  <g stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+    <!-- ????? -->
+    <circle cx="100" cy="100" r="94" stroke-width="3.2"/>
+    <!-- ????????? 81??? 100,100? -->
+    <!-- ???????????? -->
+    <path d="M 28 118 A 81 81 0 0 1 26 78" stroke-width="2.6"/>
+    <!-- ???? -->
+    <path d="M 174 78 A 81 81 0 0 1 172 118" stroke-width="2.6"/>
+    <!-- ?????4 ? ~ 8 ?? -->
+    <path d="M 165 147 A 81 81 0 1 1 35 147" stroke-width="2.6"/>
+    <!-- ???????? 10 ??? -->
+    <path
+      fill="currentColor"
+      stroke="none"
+      d="M32 56 L34.8 63.8 L43 63 L37.2 68.2 L39.5 76 L32 71.5 L24.5 76 L26.8 68.2 L21 63 L29.2 63.8 Z"
+    />
+  </g>
+</svg>

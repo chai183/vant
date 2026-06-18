@@ -5,8 +5,11 @@
   --van-empty-description-margin-top: var(--van-padding-md);
   --van-empty-description-padding: 0 60px;
   --van-empty-description-color: var(--van-text-color-2);
-  --van-empty-description-font-size: var(--van-font-size-md);
-  --van-empty-description-line-height: var(--van-line-height-md);
+  --van-empty-description-font-size: 14px;
+  --van-empty-description-line-height: 22px;
+  --van-empty-secondary-font-size: 14px;
+  --van-empty-secondary-line-height: 22px;
+  --van-empty-secondary-max-width: 14em;
   --van-empty-bottom-margin-top: 24px;
 }
 
@@ -19,6 +22,8 @@
   padding: var(--van-empty-padding);
 
   &__image {
+    box-sizing: border-box;
+    flex-shrink: 0;
     width: var(--van-empty-image-size);
     height: var(--van-empty-image-size);
 
@@ -29,11 +34,44 @@
   }
 
   &__description {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    max-width: 22em;
     margin-top: var(--van-empty-description-margin-top);
     padding: var(--van-empty-description-padding);
     color: var(--van-empty-description-color);
     font-size: var(--van-empty-description-font-size);
     line-height: var(--van-empty-description-line-height);
+    text-align: center;
+  }
+
+  &--text-only &__description {
+    margin-top: 0;
+  }
+
+  &__secondary {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    max-width: var(--van-empty-secondary-max-width);
+    margin: 0;
+    margin-top: 4px;
+    padding: 0 60px;
+    color: var(--van-text-color-3);
+    font-size: var(--van-empty-secondary-font-size);
+    line-height: var(--van-empty-secondary-line-height);
+    text-align: center;
+  }
+
+  &__image + &__secondary {
+    margin-top: var(--van-empty-description-margin-top);
+  }
+
+  &--text-only > &__secondary:first-child {
+    margin-top: 0;
   }
 
   &__bottom {

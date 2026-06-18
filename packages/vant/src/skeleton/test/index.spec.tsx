@@ -78,3 +78,37 @@ test('should allow to disable animation', async () => {
   await wrapper.setProps({ animate: false });
   expect(wrapper.find('.van-skeleton--animate').exists()).toBeFalsy();
 });
+
+test('should render grid template', () => {
+  const wrapper = mount(Skeleton, {
+    props: {
+      templateType: 'grid',
+    },
+  });
+
+  expect(wrapper.find('.van-skeleton--grid').exists()).toBeTruthy();
+  expect(wrapper.findAll('.van-skeleton__grid-item')).toHaveLength(4);
+});
+
+test('should render cell template', () => {
+  const wrapper = mount(Skeleton, {
+    props: {
+      templateType: 'cell',
+    },
+  });
+
+  expect(wrapper.find('.van-skeleton--cell').exists()).toBeTruthy();
+  expect(wrapper.findAll('.van-skeleton__cell-row')).toHaveLength(2);
+});
+
+test('should render media template', () => {
+  const wrapper = mount(Skeleton, {
+    props: {
+      templateType: 'media',
+      mediaCount: 3,
+    },
+  });
+
+  expect(wrapper.find('.van-skeleton--media').exists()).toBeTruthy();
+  expect(wrapper.findAll('.van-skeleton__media-item')).toHaveLength(3);
+});

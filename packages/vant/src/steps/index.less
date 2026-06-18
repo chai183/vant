@@ -1,24 +1,124 @@
 :root,
 :host {
   --van-steps-background: var(--van-background-2);
+  --van-steps-padding-top: var(--van-padding-lg);
+  --van-steps-collapse-height: 40px;
+  --van-steps-collapse-font-size: var(--van-font-size-md);
+  --van-steps-collapse-color: var(--van-text-color-2);
+  --van-steps-collapse-border-color: var(--van-gray-3);
 }
 
 .van-steps {
-  overflow: hidden;
   background-color: var(--van-steps-background);
+  padding-top: var(--van-steps-padding-top);
 
   &--horizontal {
-    padding: 10px 10px 0;
+    overflow: visible;
+    box-sizing: border-box;
+    width: 100%;
+    padding-right: var(--van-padding-sm);
+    padding-left: var(--van-padding-sm);
 
     .van-steps__items {
       position: relative;
       display: flex;
+      width: 100%;
       margin: 0 0 10px;
-      padding-bottom: 22px;
     }
   }
 
   &--vertical {
-    padding: 0 0 0 var(--van-padding-xl);
+    overflow: hidden;
+    padding-left: var(--van-padding-xl);
+
+    &.van-steps--collapsible {
+      overflow: visible;
+    }
+
+    &.van-steps--reverse {
+      .van-steps__items {
+        display: flex;
+        flex-direction: column-reverse;
+      }
+
+      .van-step--vertical {
+        &:first-child .van-step__line {
+          width: 0;
+        }
+
+        &:last-child .van-step__line {
+          width: 1px;
+        }
+      }
+    }
+
+    // 竖向可折叠：步骤区 + 底部收起栏（连线绘制见 step/index.less）
+    &.van-steps--collapsible {
+      display: flex;
+      flex-direction: column;
+      overflow: visible;
+      padding-left: 0;
+
+      .van-steps__content {
+        flex: none;
+        box-sizing: border-box;
+        width: 100%;
+        overflow: visible;
+        padding: 0 0 0 var(--van-padding-xl);
+        background-color: var(--van-steps-background);
+      }
+
+      .van-steps__items {
+        position: relative;
+        width: 100%;
+        overflow: visible;
+      }
+
+      // 折叠态：步骤区与收起栏之间的间距（非连线本身）
+      &.van-steps--collapsed .van-steps__content {
+        padding-bottom: var(--van-padding-sm);
+      }
+    }
+
+    // 折叠渐变连线预留空间：上方 1/3 预览线（正序 prev 向上 / 倒序 next 向上）
+    &.van-steps--collapsed-top {
+      .van-steps__items {
+        padding-top: var(--van-step-vertical-collapsed-line-preview);
+      }
+    }
+
+    // 折叠渐变连线预留空间：下方 1/3 预览线（倒序 prev 向下）
+    &.van-steps--collapsed-bottom {
+      .van-steps__items {
+        padding-bottom: var(--van-step-vertical-collapsed-line-preview);
+      }
+    }
+  }
+
+  // 底部展开/收起按钮（非折叠连线）
+  &__collapse {
+    display: flex;
+    flex: none;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: var(--van-steps-collapse-height);
+    color: var(--van-steps-collapse-color);
+    font-size: var(--van-steps-collapse-font-size);
+    background-color: var(--van-steps-background);
+    border-top: 1px solid var(--van-steps-collapse-border-color);
+    cursor: pointer;
+    user-select: none;
+  }
+
+  &__collapse-text {
+    margin-right: 4px;
+    color: var(--van-steps-collapse-color);
+  }
+
+  &__collapse-icon {
+    font-size: var(--van-steps-collapse-font-size);
+    line-height: 1;
+    color: var(--van-steps-collapse-color);
   }
 }

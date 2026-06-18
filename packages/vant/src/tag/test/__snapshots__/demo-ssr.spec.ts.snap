@@ -1,4 +1,4 @@
-// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+// Rstest Snapshot v1
 
 exports[`should render demo and match snapshot 1`] = `
 <!--[-->
@@ -10,78 +10,54 @@ exports[`should render demo and match snapshot 1`] = `
       style
     >
       <span>
-        primary
+        Basic Usage
       </span>
     </div>
     <div class="van-cell__value">
       <!--[-->
-      <span
-        style
-        class="van-tag van-tag--primary"
-      >
-        <!--[-->
-        Tag
-      </span>
-    </div>
-  </div>
-  <div class="van-cell">
-    <div
-      class="van-cell__title"
-      style
-    >
-      <span>
-        success
-      </span>
-    </div>
-    <div class="van-cell__value">
-      <!--[-->
-      <span
-        style
-        class="van-tag van-tag--success"
-      >
-        <!--[-->
-        Tag
-      </span>
-    </div>
-  </div>
-  <div class="van-cell">
-    <div
-      class="van-cell__title"
-      style
-    >
-      <span>
-        danger
-      </span>
-    </div>
-    <div class="van-cell__value">
-      <!--[-->
-      <span
-        style
-        class="van-tag van-tag--danger"
-      >
-        <!--[-->
-        Tag
-      </span>
-    </div>
-  </div>
-  <div class="van-cell">
-    <div
-      class="van-cell__title"
-      style
-    >
-      <span>
-        warning
-      </span>
-    </div>
-    <div class="van-cell__value">
-      <!--[-->
-      <span
-        style
-        class="van-tag van-tag--warning"
-      >
-        <!--[-->
-        Tag
-      </span>
+      <div class="demo-tag-row">
+        <span
+          style
+          class="van-tag van-tag--default"
+        >
+          <!--[-->
+          标签
+        </span>
+        <span
+          style
+          class="van-tag van-tag--success"
+        >
+          <!--[-->
+          标签
+        </span>
+        <span
+          style
+          class="van-tag van-tag--danger"
+        >
+          <!--[-->
+          标签
+        </span>
+        <span
+          style
+          class="van-tag van-tag--info"
+        >
+          <!--[-->
+          标签
+        </span>
+        <span
+          style
+          class="van-tag van-tag--default"
+        >
+          <i
+            class="van-badge__wrapper van-icon van-icon-search van-tag__icon"
+            style
+          >
+            <!--[-->
+          </i>
+          <!--[-->
+          标签
+        </span>
+      </div>
     </div>
   </div>
 </div>
@@ -93,17 +69,63 @@ exports[`should render demo and match snapshot 1`] = `
       style
     >
       <span>
-        Plain style
+        Plain Tag
+      </span>
+    </div>
+    <div class="van-cell__value">
+      <!--[-->
+      <div class="demo-tag-row">
+        <span
+          style
+          class="van-tag van-tag--plain van-tag--default"
+        >
+          <!--[-->
+          标签
+        </span>
+        <span
+          style
+          class="van-tag van-tag--plain van-tag--success"
+        >
+          <!--[-->
+          标签
+        </span>
+        <span
+          style
+          class="van-tag van-tag--plain van-tag--danger"
+        >
+          <!--[-->
+          标签
+        </span>
+        <span
+          style
+          class="van-tag van-tag--plain van-tag--info"
+        >
+          <!--[-->
+          标签
+        </span>
+      </div>
+    </div>
+  </div>
+</div>
+<div>
+  <!--[-->
+  <div class="van-cell">
+    <div
+      class="van-cell__title"
+      style
+    >
+      <span>
+        Mark Tag
       </span>
     </div>
     <div class="van-cell__value">
       <!--[-->
       <span
         style
-        class="van-tag van-tag--plain van-tag--primary"
+        class="van-tag van-tag--mark van-tag--default"
       >
         <!--[-->
-        Tag
+        角标
       </span>
     </div>
   </div>
@@ -113,17 +135,17 @@ exports[`should render demo and match snapshot 1`] = `
       style
     >
       <span>
-        Round style
+        Plain Mark
       </span>
     </div>
     <div class="van-cell__value">
       <!--[-->
       <span
         style
-        class="van-tag van-tag--round van-tag--primary"
+        class="van-tag van-tag--mark van-tag--plain van-tag--success"
       >
         <!--[-->
-        Tag
+        角标
       </span>
     </div>
   </div>
@@ -133,18 +155,332 @@ exports[`should render demo and match snapshot 1`] = `
       style
     >
       <span>
-        Mark style
+        Currency Tag
       </span>
     </div>
     <div class="van-cell__value">
       <!--[-->
       <span
         style
-        class="van-tag van-tag--mark van-tag--primary"
+        class="van-tag van-tag--currency"
+      >
+        <i
+          class="van-badge__wrapper van-icon van-icon-photo-o van-tag__icon"
+          style
+        >
+          <!--[-->
+        </i>
+        <!--[-->
+        USD
+      </span>
+    </div>
+  </div>
+  <div class="van-cell">
+    <div
+      class="van-cell__title"
+      style
+    >
+      <span>
+        Preset currency
+      </span>
+    </div>
+    <div class="van-cell__value">
+      <!--[-->
+      <div class="demo-tag-row">
+        <span
+          style
+          class="van-tag van-tag--currency"
+        >
+          <i
+            class="van-badge__wrapper van-icon van-icon-gold-coin-o van-tag__icon"
+            style
+          >
+            <!--[-->
+          </i>
+          人民币
+        </span>
+        <span
+          style
+          class="van-tag van-tag--currency"
+        >
+          <i
+            class="van-badge__wrapper van-icon van-icon-gold-coin-o van-tag__icon"
+            style
+          >
+            <!--[-->
+          </i>
+          美元
+        </span>
+        <span
+          style
+          class="van-tag van-tag--currency"
+        >
+          <i
+            class="van-badge__wrapper van-icon van-icon-gold-coin-o van-tag__icon"
+            style
+          >
+            <!--[-->
+          </i>
+          欧元
+        </span>
+        <span
+          style
+          class="van-tag van-tag--currency"
+        >
+          <i
+            class="van-badge__wrapper van-icon van-icon-gold-coin-o van-tag__icon"
+            style
+          >
+            <!--[-->
+          </i>
+          港元
+        </span>
+        <span
+          style
+          class="van-tag van-tag--currency"
+        >
+          <i
+            class="van-badge__wrapper van-icon van-icon-gold-coin-o van-tag__icon"
+            style
+          >
+            <!--[-->
+          </i>
+          日元
+        </span>
+      </div>
+    </div>
+  </div>
+  <div class="van-cell">
+    <div
+      class="van-cell__title"
+      style
+    >
+      <span>
+        Risk Level
+      </span>
+    </div>
+    <div class="van-cell__value">
+      <!--[-->
+      <div class="demo-tag-row">
+        <span
+          style
+          class="van-tag van-tag--preset-risk-high"
+        >
+          <!--[-->
+          中高风险
+        </span>
+        <span
+          style
+          class="van-tag van-tag--preset-risk-medium"
+        >
+          <!--[-->
+          中风险
+        </span>
+        <span
+          style
+          class="van-tag van-tag--preset-risk-low"
+        >
+          <!--[-->
+          低风险
+        </span>
+        <span
+          style
+          class="van-tag van-tag--preset-risk-new"
+        >
+          <!--[-->
+          新发
+        </span>
+        <span
+          style
+          class="van-tag van-tag--preset-risk-selected"
+        >
+          <!--[-->
+          精选
+        </span>
+      </div>
+    </div>
+  </div>
+  <div class="van-cell">
+    <div
+      class="van-cell__title"
+      style
+    >
+      <span>
+        Product Type
+      </span>
+    </div>
+    <div class="van-cell__value">
+      <!--[-->
+      <div class="demo-tag-row">
+        <span
+          style
+          class="van-tag van-tag--preset-product-bill"
+        >
+          <!--[-->
+          票据
+        </span>
+        <span
+          style
+          class="van-tag van-tag--preset-product-finance"
+        >
+          <!--[-->
+          理财
+        </span>
+        <span
+          style
+          class="van-tag van-tag--preset-product-deposit"
+        >
+          <!--[-->
+          存款
+        </span>
+        <span
+          style
+          class="van-tag van-tag--preset-product-payroll"
+        >
+          <!--[-->
+          代发
+        </span>
+      </div>
+    </div>
+  </div>
+  <div class="van-cell">
+    <div
+      class="van-cell__title"
+      style
+    >
+      <span>
+        Status Tag
+      </span>
+    </div>
+    <div class="van-cell__value">
+      <!--[-->
+      <span
+        style
+        class="van-tag van-tag--mark van-tag--danger"
       >
         <!--[-->
-        Tag
+        Pending
       </span>
+      <span
+        style
+        class="van-tag van-tag--mark van-tag--plain van-tag--success"
+      >
+        <!--[-->
+        Approved
+      </span>
+    </div>
+  </div>
+  <div class="van-cell">
+    <div
+      class="van-cell__title"
+      style
+    >
+      <span>
+        Stamp Tag
+      </span>
+    </div>
+    <div class="van-cell__value">
+      <!--[-->
+      <div class="demo-tag-row">
+        <span
+          style
+          class="van-tag van-tag--stamp van-tag--stamp-success"
+        >
+          <span class="van-tag__stamp">
+            <span
+              class="van-tag__stamp-frame"
+              style="webkit-mask-image:url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyMDAgMjAwIiBmaWxsPSJub25lIj4KICA8ZyBzdHJva2U9ImN1cnJlbnRDb2xvciIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIj4KICAgIDwhLS0gPz8/Pz8gLS0+CiAgICA8Y2lyY2xlIGN4PSIxMDAiIGN5PSIxMDAiIHI9Ijk0IiBzdHJva2Utd2lkdGg9IjMuMiIvPgogICAgPCEtLSA/Pz8/Pz8/Pz8gODE/Pz8gMTAwLDEwMD8gLS0+CiAgICA8IS0tID8/Pz8/Pz8/Pz8/PyAtLT4KICAgIDxwYXRoIGQ9Ik0gMjggMTE4IEEgODEgODEgMCAwIDEgMjYgNzgiIHN0cm9rZS13aWR0aD0iMi42Ii8+CiAgICA8IS0tID8/Pz8gLS0+CiAgICA8cGF0aCBkPSJNIDE3NCA3OCBBIDgxIDgxIDAgMCAxIDE3MiAxMTgiIHN0cm9rZS13aWR0aD0iMi42Ii8+CiAgICA8IS0tID8/Pz8/NCA/IH4gOCA/PyAtLT4KICAgIDxwYXRoIGQ9Ik0gMTY1IDE0NyBBIDgxIDgxIDAgMSAxIDM1IDE0NyIgc3Ryb2tlLXdpZHRoPSIyLjYiLz4KICAgIDwhLS0gPz8/Pz8/Pz8gMTAgPz8/IC0tPgogICAgPHBhdGgKICAgICAgZmlsbD0iY3VycmVudENvbG9yIgogICAgICBzdHJva2U9Im5vbmUiCiAgICAgIGQ9Ik0zMiA1NiBMMzQuOCA2My44IEw0MyA2MyBMMzcuMiA2OC4yIEwzOS41IDc2IEwzMiA3MS41IEwyNC41IDc2IEwyNi44IDY4LjIgTDIxIDYzIEwyOS4yIDYzLjggWiIKICAgIC8+CiAgPC9nPgo8L3N2Zz4K);mask-image:url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyMDAgMjAwIiBmaWxsPSJub25lIj4KICA8ZyBzdHJva2U9ImN1cnJlbnRDb2xvciIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIj4KICAgIDwhLS0gPz8/Pz8gLS0+CiAgICA8Y2lyY2xlIGN4PSIxMDAiIGN5PSIxMDAiIHI9Ijk0IiBzdHJva2Utd2lkdGg9IjMuMiIvPgogICAgPCEtLSA/Pz8/Pz8/Pz8gODE/Pz8gMTAwLDEwMD8gLS0+CiAgICA8IS0tID8/Pz8/Pz8/Pz8/PyAtLT4KICAgIDxwYXRoIGQ9Ik0gMjggMTE4IEEgODEgODEgMCAwIDEgMjYgNzgiIHN0cm9rZS13aWR0aD0iMi42Ii8+CiAgICA8IS0tID8/Pz8gLS0+CiAgICA8cGF0aCBkPSJNIDE3NCA3OCBBIDgxIDgxIDAgMCAxIDE3MiAxMTgiIHN0cm9rZS13aWR0aD0iMi42Ii8+CiAgICA8IS0tID8/Pz8/NCA/IH4gOCA/PyAtLT4KICAgIDxwYXRoIGQ9Ik0gMTY1IDE0NyBBIDgxIDgxIDAgMSAxIDM1IDE0NyIgc3Ryb2tlLXdpZHRoPSIyLjYiLz4KICAgIDwhLS0gPz8/Pz8/Pz8gMTAgPz8/IC0tPgogICAgPHBhdGgKICAgICAgZmlsbD0iY3VycmVudENvbG9yIgogICAgICBzdHJva2U9Im5vbmUiCiAgICAgIGQ9Ik0zMiA1NiBMMzQuOCA2My44IEw0MyA2MyBMMzcuMiA2OC4yIEwzOS41IDc2IEwzMiA3MS41IEwyNC41IDc2IEwyNi44IDY4LjIgTDIxIDYzIEwyOS4yIDYzLjggWiIKICAgIC8+CiAgPC9nPgo8L3N2Zz4K);"
+              aria-hidden="true"
+            >
+            </span>
+            <span class="van-chuangcuhei-font van-tag__stamp-text van-tag__stamp-text--len-5">
+              <!--[-->
+              <span class="van-tag__stamp-text-line">
+                预约已通过
+              </span>
+            </span>
+          </span>
+        </span>
+        <span
+          style
+          class="van-tag van-tag--stamp van-tag--stamp-success"
+        >
+          <span class="van-tag__stamp">
+            <span
+              class="van-tag__stamp-frame"
+              style="webkit-mask-image:url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyMDAgMjAwIiBmaWxsPSJub25lIj4KICA8ZyBzdHJva2U9ImN1cnJlbnRDb2xvciIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIj4KICAgIDwhLS0gPz8/Pz8gLS0+CiAgICA8Y2lyY2xlIGN4PSIxMDAiIGN5PSIxMDAiIHI9Ijk0IiBzdHJva2Utd2lkdGg9IjMuMiIvPgogICAgPCEtLSA/Pz8/Pz8/Pz8gODE/Pz8gMTAwLDEwMD8gLS0+CiAgICA8IS0tID8/Pz8/Pz8/Pz8/PyAtLT4KICAgIDxwYXRoIGQ9Ik0gMjggMTE4IEEgODEgODEgMCAwIDEgMjYgNzgiIHN0cm9rZS13aWR0aD0iMi42Ii8+CiAgICA8IS0tID8/Pz8gLS0+CiAgICA8cGF0aCBkPSJNIDE3NCA3OCBBIDgxIDgxIDAgMCAxIDE3MiAxMTgiIHN0cm9rZS13aWR0aD0iMi42Ii8+CiAgICA8IS0tID8/Pz8/NCA/IH4gOCA/PyAtLT4KICAgIDxwYXRoIGQ9Ik0gMTY1IDE0NyBBIDgxIDgxIDAgMSAxIDM1IDE0NyIgc3Ryb2tlLXdpZHRoPSIyLjYiLz4KICAgIDwhLS0gPz8/Pz8/Pz8gMTAgPz8/IC0tPgogICAgPHBhdGgKICAgICAgZmlsbD0iY3VycmVudENvbG9yIgogICAgICBzdHJva2U9Im5vbmUiCiAgICAgIGQ9Ik0zMiA1NiBMMzQuOCA2My44IEw0MyA2MyBMMzcuMiA2OC4yIEwzOS41IDc2IEwzMiA3MS41IEwyNC41IDc2IEwyNi44IDY4LjIgTDIxIDYzIEwyOS4yIDYzLjggWiIKICAgIC8+CiAgPC9nPgo8L3N2Zz4K);mask-image:url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyMDAgMjAwIiBmaWxsPSJub25lIj4KICA8ZyBzdHJva2U9ImN1cnJlbnRDb2xvciIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIj4KICAgIDwhLS0gPz8/Pz8gLS0+CiAgICA8Y2lyY2xlIGN4PSIxMDAiIGN5PSIxMDAiIHI9Ijk0IiBzdHJva2Utd2lkdGg9IjMuMiIvPgogICAgPCEtLSA/Pz8/Pz8/Pz8gODE/Pz8gMTAwLDEwMD8gLS0+CiAgICA8IS0tID8/Pz8/Pz8/Pz8/PyAtLT4KICAgIDxwYXRoIGQ9Ik0gMjggMTE4IEEgODEgODEgMCAwIDEgMjYgNzgiIHN0cm9rZS13aWR0aD0iMi42Ii8+CiAgICA8IS0tID8/Pz8gLS0+CiAgICA8cGF0aCBkPSJNIDE3NCA3OCBBIDgxIDgxIDAgMCAxIDE3MiAxMTgiIHN0cm9rZS13aWR0aD0iMi42Ii8+CiAgICA8IS0tID8/Pz8/NCA/IH4gOCA/PyAtLT4KICAgIDxwYXRoIGQ9Ik0gMTY1IDE0NyBBIDgxIDgxIDAgMSAxIDM1IDE0NyIgc3Ryb2tlLXdpZHRoPSIyLjYiLz4KICAgIDwhLS0gPz8/Pz8/Pz8gMTAgPz8/IC0tPgogICAgPHBhdGgKICAgICAgZmlsbD0iY3VycmVudENvbG9yIgogICAgICBzdHJva2U9Im5vbmUiCiAgICAgIGQ9Ik0zMiA1NiBMMzQuOCA2My44IEw0MyA2MyBMMzcuMiA2OC4yIEwzOS41IDc2IEwzMiA3MS41IEwyNC41IDc2IEwyNi44IDY4LjIgTDIxIDYzIEwyOS4yIDYzLjggWiIKICAgIC8+CiAgPC9nPgo8L3N2Zz4K);"
+              aria-hidden="true"
+            >
+            </span>
+            <span class="van-chuangcuhei-font van-tag__stamp-text van-tag__stamp-text--wrap-m">
+              <!--[-->
+              <span class="van-tag__stamp-text-line">
+                预约审核
+              </span>
+              <span class="van-tag__stamp-text-line">
+                已通过
+              </span>
+            </span>
+          </span>
+        </span>
+        <span
+          style
+          class="van-tag van-tag--stamp van-tag--stamp-fail"
+        >
+          <span class="van-tag__stamp">
+            <span
+              class="van-tag__stamp-frame"
+              style="webkit-mask-image:url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyMDAgMjAwIiBmaWxsPSJub25lIj4KICA8ZyBzdHJva2U9ImN1cnJlbnRDb2xvciIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIj4KICAgIDwhLS0gPz8/Pz8gLS0+CiAgICA8Y2lyY2xlIGN4PSIxMDAiIGN5PSIxMDAiIHI9Ijk0IiBzdHJva2Utd2lkdGg9IjMuMiIvPgogICAgPCEtLSA/Pz8/Pz8/Pz8gODE/Pz8gMTAwLDEwMD8gLS0+CiAgICA8IS0tID8/Pz8/Pz8/Pz8/PyAtLT4KICAgIDxwYXRoIGQ9Ik0gMjggMTE4IEEgODEgODEgMCAwIDEgMjYgNzgiIHN0cm9rZS13aWR0aD0iMi42Ii8+CiAgICA8IS0tID8/Pz8gLS0+CiAgICA8cGF0aCBkPSJNIDE3NCA3OCBBIDgxIDgxIDAgMCAxIDE3MiAxMTgiIHN0cm9rZS13aWR0aD0iMi42Ii8+CiAgICA8IS0tID8/Pz8/NCA/IH4gOCA/PyAtLT4KICAgIDxwYXRoIGQ9Ik0gMTY1IDE0NyBBIDgxIDgxIDAgMSAxIDM1IDE0NyIgc3Ryb2tlLXdpZHRoPSIyLjYiLz4KICAgIDwhLS0gPz8/Pz8/Pz8gMTAgPz8/IC0tPgogICAgPHBhdGgKICAgICAgZmlsbD0iY3VycmVudENvbG9yIgogICAgICBzdHJva2U9Im5vbmUiCiAgICAgIGQ9Ik0zMiA1NiBMMzQuOCA2My44IEw0MyA2MyBMMzcuMiA2OC4yIEwzOS41IDc2IEwzMiA3MS41IEwyNC41IDc2IEwyNi44IDY4LjIgTDIxIDYzIEwyOS4yIDYzLjggWiIKICAgIC8+CiAgPC9nPgo8L3N2Zz4K);mask-image:url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyMDAgMjAwIiBmaWxsPSJub25lIj4KICA8ZyBzdHJva2U9ImN1cnJlbnRDb2xvciIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIj4KICAgIDwhLS0gPz8/Pz8gLS0+CiAgICA8Y2lyY2xlIGN4PSIxMDAiIGN5PSIxMDAiIHI9Ijk0IiBzdHJva2Utd2lkdGg9IjMuMiIvPgogICAgPCEtLSA/Pz8/Pz8/Pz8gODE/Pz8gMTAwLDEwMD8gLS0+CiAgICA8IS0tID8/Pz8/Pz8/Pz8/PyAtLT4KICAgIDxwYXRoIGQ9Ik0gMjggMTE4IEEgODEgODEgMCAwIDEgMjYgNzgiIHN0cm9rZS13aWR0aD0iMi42Ii8+CiAgICA8IS0tID8/Pz8gLS0+CiAgICA8cGF0aCBkPSJNIDE3NCA3OCBBIDgxIDgxIDAgMCAxIDE3MiAxMTgiIHN0cm9rZS13aWR0aD0iMi42Ii8+CiAgICA8IS0tID8/Pz8/NCA/IH4gOCA/PyAtLT4KICAgIDxwYXRoIGQ9Ik0gMTY1IDE0NyBBIDgxIDgxIDAgMSAxIDM1IDE0NyIgc3Ryb2tlLXdpZHRoPSIyLjYiLz4KICAgIDwhLS0gPz8/Pz8/Pz8gMTAgPz8/IC0tPgogICAgPHBhdGgKICAgICAgZmlsbD0iY3VycmVudENvbG9yIgogICAgICBzdHJva2U9Im5vbmUiCiAgICAgIGQ9Ik0zMiA1NiBMMzQuOCA2My44IEw0MyA2MyBMMzcuMiA2OC4yIEwzOS41IDc2IEwzMiA3MS41IEwyNC41IDc2IEwyNi44IDY4LjIgTDIxIDYzIEwyOS4yIDYzLjggWiIKICAgIC8+CiAgPC9nPgo8L3N2Zz4K);"
+              aria-hidden="true"
+            >
+            </span>
+            <span class="van-chuangcuhei-font van-tag__stamp-text van-tag__stamp-text--len-3">
+              <!--[-->
+              <span class="van-tag__stamp-text-line">
+                已拒绝
+              </span>
+            </span>
+          </span>
+        </span>
+        <span
+          style
+          class="van-tag van-tag--stamp van-tag--stamp-wait"
+        >
+          <span class="van-tag__stamp">
+            <span
+              class="van-tag__stamp-frame"
+              style="webkit-mask-image:url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyMDAgMjAwIiBmaWxsPSJub25lIj4KICA8ZyBzdHJva2U9ImN1cnJlbnRDb2xvciIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIj4KICAgIDwhLS0gPz8/Pz8gLS0+CiAgICA8Y2lyY2xlIGN4PSIxMDAiIGN5PSIxMDAiIHI9Ijk0IiBzdHJva2Utd2lkdGg9IjMuMiIvPgogICAgPCEtLSA/Pz8/Pz8/Pz8gODE/Pz8gMTAwLDEwMD8gLS0+CiAgICA8IS0tID8/Pz8/Pz8/Pz8/PyAtLT4KICAgIDxwYXRoIGQ9Ik0gMjggMTE4IEEgODEgODEgMCAwIDEgMjYgNzgiIHN0cm9rZS13aWR0aD0iMi42Ii8+CiAgICA8IS0tID8/Pz8gLS0+CiAgICA8cGF0aCBkPSJNIDE3NCA3OCBBIDgxIDgxIDAgMCAxIDE3MiAxMTgiIHN0cm9rZS13aWR0aD0iMi42Ii8+CiAgICA8IS0tID8/Pz8/NCA/IH4gOCA/PyAtLT4KICAgIDxwYXRoIGQ9Ik0gMTY1IDE0NyBBIDgxIDgxIDAgMSAxIDM1IDE0NyIgc3Ryb2tlLXdpZHRoPSIyLjYiLz4KICAgIDwhLS0gPz8/Pz8/Pz8gMTAgPz8/IC0tPgogICAgPHBhdGgKICAgICAgZmlsbD0iY3VycmVudENvbG9yIgogICAgICBzdHJva2U9Im5vbmUiCiAgICAgIGQ9Ik0zMiA1NiBMMzQuOCA2My44IEw0MyA2MyBMMzcuMiA2OC4yIEwzOS41IDc2IEwzMiA3MS41IEwyNC41IDc2IEwyNi44IDY4LjIgTDIxIDYzIEwyOS4yIDYzLjggWiIKICAgIC8+CiAgPC9nPgo8L3N2Zz4K);mask-image:url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyMDAgMjAwIiBmaWxsPSJub25lIj4KICA8ZyBzdHJva2U9ImN1cnJlbnRDb2xvciIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIj4KICAgIDwhLS0gPz8/Pz8gLS0+CiAgICA8Y2lyY2xlIGN4PSIxMDAiIGN5PSIxMDAiIHI9Ijk0IiBzdHJva2Utd2lkdGg9IjMuMiIvPgogICAgPCEtLSA/Pz8/Pz8/Pz8gODE/Pz8gMTAwLDEwMD8gLS0+CiAgICA8IS0tID8/Pz8/Pz8/Pz8/PyAtLT4KICAgIDxwYXRoIGQ9Ik0gMjggMTE4IEEgODEgODEgMCAwIDEgMjYgNzgiIHN0cm9rZS13aWR0aD0iMi42Ii8+CiAgICA8IS0tID8/Pz8gLS0+CiAgICA8cGF0aCBkPSJNIDE3NCA3OCBBIDgxIDgxIDAgMCAxIDE3MiAxMTgiIHN0cm9rZS13aWR0aD0iMi42Ii8+CiAgICA8IS0tID8/Pz8/NCA/IH4gOCA/PyAtLT4KICAgIDxwYXRoIGQ9Ik0gMTY1IDE0NyBBIDgxIDgxIDAgMSAxIDM1IDE0NyIgc3Ryb2tlLXdpZHRoPSIyLjYiLz4KICAgIDwhLS0gPz8/Pz8/Pz8gMTAgPz8/IC0tPgogICAgPHBhdGgKICAgICAgZmlsbD0iY3VycmVudENvbG9yIgogICAgICBzdHJva2U9Im5vbmUiCiAgICAgIGQ9Ik0zMiA1NiBMMzQuOCA2My44IEw0MyA2MyBMMzcuMiA2OC4yIEwzOS41IDc2IEwzMiA3MS41IEwyNC41IDc2IEwyNi44IDY4LjIgTDIxIDYzIEwyOS4yIDYzLjggWiIKICAgIC8+CiAgPC9nPgo8L3N2Zz4K);"
+              aria-hidden="true"
+            >
+            </span>
+            <span class="van-chuangcuhei-font van-tag__stamp-text van-tag__stamp-text--len-3">
+              <!--[-->
+              <span class="van-tag__stamp-text-line">
+                待审核
+              </span>
+            </span>
+          </span>
+        </span>
+        <span
+          style
+          class="van-tag van-tag--stamp van-tag--stamp-void"
+        >
+          <span class="van-tag__stamp">
+            <span
+              class="van-tag__stamp-frame"
+              style="webkit-mask-image:url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyMDAgMjAwIiBmaWxsPSJub25lIj4KICA8ZyBzdHJva2U9ImN1cnJlbnRDb2xvciIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIj4KICAgIDwhLS0gPz8/Pz8gLS0+CiAgICA8Y2lyY2xlIGN4PSIxMDAiIGN5PSIxMDAiIHI9Ijk0IiBzdHJva2Utd2lkdGg9IjMuMiIvPgogICAgPCEtLSA/Pz8/Pz8/Pz8gODE/Pz8gMTAwLDEwMD8gLS0+CiAgICA8IS0tID8/Pz8/Pz8/Pz8/PyAtLT4KICAgIDxwYXRoIGQ9Ik0gMjggMTE4IEEgODEgODEgMCAwIDEgMjYgNzgiIHN0cm9rZS13aWR0aD0iMi42Ii8+CiAgICA8IS0tID8/Pz8gLS0+CiAgICA8cGF0aCBkPSJNIDE3NCA3OCBBIDgxIDgxIDAgMCAxIDE3MiAxMTgiIHN0cm9rZS13aWR0aD0iMi42Ii8+CiAgICA8IS0tID8/Pz8/NCA/IH4gOCA/PyAtLT4KICAgIDxwYXRoIGQ9Ik0gMTY1IDE0NyBBIDgxIDgxIDAgMSAxIDM1IDE0NyIgc3Ryb2tlLXdpZHRoPSIyLjYiLz4KICAgIDwhLS0gPz8/Pz8/Pz8gMTAgPz8/IC0tPgogICAgPHBhdGgKICAgICAgZmlsbD0iY3VycmVudENvbG9yIgogICAgICBzdHJva2U9Im5vbmUiCiAgICAgIGQ9Ik0zMiA1NiBMMzQuOCA2My44IEw0MyA2MyBMMzcuMiA2OC4yIEwzOS41IDc2IEwzMiA3MS41IEwyNC41IDc2IEwyNi44IDY4LjIgTDIxIDYzIEwyOS4yIDYzLjggWiIKICAgIC8+CiAgPC9nPgo8L3N2Zz4K);mask-image:url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyMDAgMjAwIiBmaWxsPSJub25lIj4KICA8ZyBzdHJva2U9ImN1cnJlbnRDb2xvciIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIj4KICAgIDwhLS0gPz8/Pz8gLS0+CiAgICA8Y2lyY2xlIGN4PSIxMDAiIGN5PSIxMDAiIHI9Ijk0IiBzdHJva2Utd2lkdGg9IjMuMiIvPgogICAgPCEtLSA/Pz8/Pz8/Pz8gODE/Pz8gMTAwLDEwMD8gLS0+CiAgICA8IS0tID8/Pz8/Pz8/Pz8/PyAtLT4KICAgIDxwYXRoIGQ9Ik0gMjggMTE4IEEgODEgODEgMCAwIDEgMjYgNzgiIHN0cm9rZS13aWR0aD0iMi42Ii8+CiAgICA8IS0tID8/Pz8gLS0+CiAgICA8cGF0aCBkPSJNIDE3NCA3OCBBIDgxIDgxIDAgMCAxIDE3MiAxMTgiIHN0cm9rZS13aWR0aD0iMi42Ii8+CiAgICA8IS0tID8/Pz8/NCA/IH4gOCA/PyAtLT4KICAgIDxwYXRoIGQ9Ik0gMTY1IDE0NyBBIDgxIDgxIDAgMSAxIDM1IDE0NyIgc3Ryb2tlLXdpZHRoPSIyLjYiLz4KICAgIDwhLS0gPz8/Pz8/Pz8gMTAgPz8/IC0tPgogICAgPHBhdGgKICAgICAgZmlsbD0iY3VycmVudENvbG9yIgogICAgICBzdHJva2U9Im5vbmUiCiAgICAgIGQ9Ik0zMiA1NiBMMzQuOCA2My44IEw0MyA2MyBMMzcuMiA2OC4yIEwzOS41IDc2IEwzMiA3MS41IEwyNC41IDc2IEwyNi44IDY4LjIgTDIxIDYzIEwyOS4yIDYzLjggWiIKICAgIC8+CiAgPC9nPgo8L3N2Zz4K);"
+              aria-hidden="true"
+            >
+            </span>
+            <span class="van-chuangcuhei-font van-tag__stamp-text van-tag__stamp-text--short">
+              <!--[-->
+              <span class="van-tag__stamp-text-line">
+                作废
+              </span>
+            </span>
+          </span>
+        </span>
+      </div>
     </div>
   </div>
   <div class="van-cell">
@@ -160,10 +496,10 @@ exports[`should render demo and match snapshot 1`] = `
       <!--[-->
       <span
         style
-        class="van-tag van-tag--medium van-tag--primary"
+        class="van-tag van-tag--default van-tag--medium"
       >
         <!--[-->
-        Tag
+        标签
         <i
           class="van-badge__wrapper van-icon van-icon-cross van-tag__close van-haptics-feedback"
           style
@@ -189,10 +525,10 @@ exports[`should render demo and match snapshot 1`] = `
       <!--[-->
       <span
         style
-        class="van-tag van-tag--primary"
+        class="van-tag van-tag--default"
       >
         <!--[-->
-        Tag
+        标签
       </span>
     </div>
   </div>
@@ -209,10 +545,10 @@ exports[`should render demo and match snapshot 1`] = `
       <!--[-->
       <span
         style
-        class="van-tag van-tag--medium van-tag--primary"
+        class="van-tag van-tag--default van-tag--medium"
       >
         <!--[-->
-        Tag
+        标签
       </span>
     </div>
   </div>
@@ -229,10 +565,10 @@ exports[`should render demo and match snapshot 1`] = `
       <!--[-->
       <span
         style
-        class="van-tag van-tag--large van-tag--primary"
+        class="van-tag van-tag--default van-tag--large"
       >
         <!--[-->
-        Tag
+        标签
       </span>
     </div>
   </div>
@@ -255,7 +591,7 @@ exports[`should render demo and match snapshot 1`] = `
         class="van-tag van-tag--default"
       >
         <!--[-->
-        Tag
+        标签
       </span>
     </div>
   </div>
@@ -275,7 +611,7 @@ exports[`should render demo and match snapshot 1`] = `
         class="van-tag van-tag--default"
       >
         <!--[-->
-        Tag
+        标签
       </span>
     </div>
   </div>
@@ -295,7 +631,7 @@ exports[`should render demo and match snapshot 1`] = `
         class="van-tag van-tag--plain van-tag--default"
       >
         <!--[-->
-        Tag
+        标签
       </span>
     </div>
   </div>

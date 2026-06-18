@@ -7,7 +7,7 @@ export default Skeleton;
 
 // Skeleton
 export { skeletonProps } from './Skeleton';
-export type { SkeletonProps } from './Skeleton';
+export type { SkeletonProps, SkeletonTemplateType } from './Skeleton';
 
 export type { SkeletonThemeVars } from './types';
 

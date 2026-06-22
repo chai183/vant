@@ -327,7 +327,7 @@ test('image-fit prop', () => {
 test('upload-icon prop', () => {
   const wrapper = mount(Uploader, {
     props: {
-      uploadIcon: 'add',
+      uploadIcon: 'https://img.yzcdn.cn/vant/icon-demo.png',
     },
   });
 

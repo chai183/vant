@@ -56,6 +56,7 @@ export const resultProps = {
   mainButtonLoading: Boolean,
   secondaryButtonLoading: Boolean,
   secondaryButtonLoading2: Boolean,
+  singleButtonCenter: Boolean,
   safeAreaInsetBottom: truthProp,
 };
 
@@ -92,6 +93,24 @@ export default defineComponent({
 
     const hasActions = () =>
       hasMainButton() || hasSecondaryButton() || hasSecondaryButton2();
+
+    const getButtonCount = () => {
+      let count = 0;
+      if (hasMainButton()) count++;
+      if (hasSecondaryButton()) count++;
+      if (hasSecondaryButton2()) count++;
+      return count;
+    };
+
+    const showSingleButtonCenter = computed(
+      () => props.singleButtonCenter && getButtonCount() === 1,
+    );
+
+    const getActionsClass = (layout: ResultButtonLayout) =>
+      bem('actions', [
+        layout,
+        showSingleButtonCenter.value && 'single-center',
+      ]);
 
     const renderIcon = () => {
       if (slots.icon) {
@@ -214,12 +233,12 @@ export default defineComponent({
 
       if (layout === 'horizontal') {
         const buttons = [...secondaryButtons, mainButton].filter(Boolean);
-        return <div class={bem('actions', layout)}>{buttons}</div>;
+        return <div class={getActionsClass(layout)}>{buttons}</div>;
       }
 
       if (layout === 'hybrid') {
         return (
-          <div class={bem('actions', layout)}>
+          <div class={getActionsClass(layout)}>
             {mainButton}
             {secondaryButtons.length > 0 ? (
               <div class={bem('secondary-row')}>{secondaryButtons}</div>
@@ -229,7 +248,7 @@ export default defineComponent({
       }
 
       const buttons = [mainButton, ...secondaryButtons].filter(Boolean);
-      return <div class={bem('actions', layout)}>{buttons}</div>;
+      return <div class={getActionsClass(layout)}>{buttons}</div>;
     };
 
     const renderFooter = () => {

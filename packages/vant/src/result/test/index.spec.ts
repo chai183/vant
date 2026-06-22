@@ -126,3 +126,35 @@ test('should emit button click events', async () => {
   expect(wrapper.emitted('clickMainButton')).toHaveLength(1);
   expect(wrapper.emitted('clickSecondaryButton')).toHaveLength(1);
 });
+
+test('should center single button when single-button-center is enabled', async () => {
+  const wrapper = mount(Result, {
+    props: {
+      status: 'fail',
+      mainButtonText: 'Main',
+      singleButtonCenter: true,
+    },
+  });
+
+  await later();
+  expect(wrapper.find('.van-result__actions--single-center').exists()).toBe(
+    true,
+  );
+  expect(wrapper.findAll('.van-button')).toHaveLength(1);
+});
+
+test('should not center single button when multiple buttons exist', async () => {
+  const wrapper = mount(Result, {
+    props: {
+      status: 'fail',
+      mainButtonText: 'Main',
+      secondaryButtonText: 'Secondary',
+      singleButtonCenter: true,
+    },
+  });
+
+  await later();
+  expect(wrapper.find('.van-result__actions--single-center').exists()).toBe(
+    false,
+  );
+});

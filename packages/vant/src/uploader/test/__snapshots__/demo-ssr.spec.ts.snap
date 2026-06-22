@@ -11,12 +11,11 @@ exports[`should render demo and match snapshot 1`] = `
         class="van-uploader__upload van-hairline--surround"
         style
       >
-        <i
-          class="van-badge__wrapper van-icon van-icon-photograph van-uploader__upload-icon"
-          style
+        <span
+          class="van-uploader__upload-icon"
+          style="mask-image:url(file:///Users/czy/Downloads/vant-4.9.22/packages/vant/src/uploader-file/assets/upload.svg);webkit-mask-image:url(file:///Users/czy/Downloads/vant-4.9.22/packages/vant/src/uploader-file/assets/upload.svg);"
         >
-          <!--[-->
-        </i>
+        </span>
         <span class="van-uploader__upload-text">
           添加图片
         </span>
@@ -106,12 +105,11 @@ exports[`should render demo and match snapshot 1`] = `
         class="van-uploader__upload van-hairline--surround"
         style
       >
-        <i
-          class="van-badge__wrapper van-icon van-icon-photograph van-uploader__upload-icon"
-          style
+        <span
+          class="van-uploader__upload-icon"
+          style="mask-image:url(file:///Users/czy/Downloads/vant-4.9.22/packages/vant/src/uploader-file/assets/upload.svg);webkit-mask-image:url(file:///Users/czy/Downloads/vant-4.9.22/packages/vant/src/uploader-file/assets/upload.svg);"
         >
-          <!--[-->
-        </i>
+        </span>
         <span class="van-uploader__upload-text">
           添加图片
         </span>
@@ -228,12 +226,11 @@ exports[`should render demo and match snapshot 1`] = `
         class="van-uploader__upload van-hairline--surround"
         style
       >
-        <i
-          class="van-badge__wrapper van-icon van-icon-photograph van-uploader__upload-icon"
-          style
+        <span
+          class="van-uploader__upload-icon"
+          style="mask-image:url(file:///Users/czy/Downloads/vant-4.9.22/packages/vant/src/uploader-file/assets/upload.svg);webkit-mask-image:url(file:///Users/czy/Downloads/vant-4.9.22/packages/vant/src/uploader-file/assets/upload.svg);"
         >
-          <!--[-->
-        </i>
+        </span>
         <span class="van-uploader__upload-text">
           添加图片
         </span>
@@ -289,12 +286,11 @@ exports[`should render demo and match snapshot 1`] = `
         class="van-uploader__upload van-hairline--surround"
         style
       >
-        <i
-          class="van-badge__wrapper van-icon van-icon-photograph van-uploader__upload-icon"
-          style
+        <span
+          class="van-uploader__upload-icon"
+          style="mask-image:url(file:///Users/czy/Downloads/vant-4.9.22/packages/vant/src/uploader-file/assets/upload.svg);webkit-mask-image:url(file:///Users/czy/Downloads/vant-4.9.22/packages/vant/src/uploader-file/assets/upload.svg);"
         >
-          <!--[-->
-        </i>
+        </span>
         <span class="van-uploader__upload-text">
           添加图片
         </span>
@@ -351,12 +347,11 @@ exports[`should render demo and match snapshot 1`] = `
         class="van-uploader__upload van-hairline--surround"
         style
       >
-        <i
-          class="van-badge__wrapper van-icon van-icon-photograph van-uploader__upload-icon"
-          style
+        <span
+          class="van-uploader__upload-icon"
+          style="mask-image:url(file:///Users/czy/Downloads/vant-4.9.22/packages/vant/src/uploader-file/assets/upload.svg);webkit-mask-image:url(file:///Users/czy/Downloads/vant-4.9.22/packages/vant/src/uploader-file/assets/upload.svg);"
         >
-          <!--[-->
-        </i>
+        </span>
         <span class="van-uploader__upload-text">
           添加图片
         </span>
@@ -411,23 +406,18 @@ exports[`should render demo and match snapshot 1`] = `
       <!--[-->
       <div class="van-uploader__preview">
         <div
-          class="van-image van-uploader__preview-image"
+          class="van-uploader__file"
           style
         >
-          <img
-            src="https://fastly.jsdelivr.net/npm/@vant/assets/leaf.jpeg"
-            class="van-image__img"
-            style="object-fit:cover;"
+          <i
+            class="van-badge__wrapper van-icon van-icon-description van-uploader__file-icon"
+            style
           >
-          <div class="van-image__loading">
-            <i
-              class="van-badge__wrapper van-icon van-icon-photo van-image__loading-icon"
-              style
-            >
-              <!--[-->
-            </i>
+            <!--[-->
+          </i>
+          <div class="van-uploader__file-name van-ellipsis">
+            Image Name
           </div>
-          <!--[-->
           <div class="van-uploader__preview-cover">
             <!--[-->
             <div class="preview-cover van-ellipsis">
@@ -453,12 +443,11 @@ exports[`should render demo and match snapshot 1`] = `
         class="van-uploader__upload van-hairline--surround"
         style
       >
-        <i
-          class="van-badge__wrapper van-icon van-icon-photograph van-uploader__upload-icon"
-          style
+        <span
+          class="van-uploader__upload-icon"
+          style="mask-image:url(file:///Users/czy/Downloads/vant-4.9.22/packages/vant/src/uploader-file/assets/upload.svg);webkit-mask-image:url(file:///Users/czy/Downloads/vant-4.9.22/packages/vant/src/uploader-file/assets/upload.svg);"
         >
-          <!--[-->
-        </i>
+        </span>
         <span class="van-uploader__upload-text">
           添加图片
         </span>
@@ -514,12 +503,11 @@ exports[`should render demo and match snapshot 1`] = `
         class="van-uploader__upload van-hairline--surround"
         style="width:60px;height:60px;"
       >
-        <i
-          class="van-badge__wrapper van-icon van-icon-photograph van-uploader__upload-icon"
-          style
+        <span
+          class="van-uploader__upload-icon"
+          style="mask-image:url(file:///Users/czy/Downloads/vant-4.9.22/packages/vant/src/uploader-file/assets/upload.svg);webkit-mask-image:url(file:///Users/czy/Downloads/vant-4.9.22/packages/vant/src/uploader-file/assets/upload.svg);"
         >
-          <!--[-->
-        </i>
+        </span>
         <span class="van-uploader__upload-text">
           添加图片
         </span>
@@ -541,12 +529,11 @@ exports[`should render demo and match snapshot 1`] = `
         class="van-uploader__upload van-hairline--surround"
         style
       >
-        <i
-          class="van-badge__wrapper van-icon van-icon-photograph van-uploader__upload-icon"
-          style
+        <span
+          class="van-uploader__upload-icon"
+          style="mask-image:url(file:///Users/czy/Downloads/vant-4.9.22/packages/vant/src/uploader-file/assets/upload.svg);webkit-mask-image:url(file:///Users/czy/Downloads/vant-4.9.22/packages/vant/src/uploader-file/assets/upload.svg);"
         >
-          <!--[-->
-        </i>
+        </span>
         <span class="van-uploader__upload-text">
           添加图片
         </span>
@@ -568,12 +555,11 @@ exports[`should render demo and match snapshot 1`] = `
         class="van-uploader__upload van-hairline--surround"
         style
       >
-        <i
-          class="van-badge__wrapper van-icon van-icon-photograph van-uploader__upload-icon"
-          style
+        <span
+          class="van-uploader__upload-icon"
+          style="mask-image:url(file:///Users/czy/Downloads/vant-4.9.22/packages/vant/src/uploader-file/assets/upload.svg);webkit-mask-image:url(file:///Users/czy/Downloads/vant-4.9.22/packages/vant/src/uploader-file/assets/upload.svg);"
         >
-          <!--[-->
-        </i>
+        </span>
         <span class="van-uploader__upload-text">
           添加图片
         </span>
@@ -651,12 +637,11 @@ exports[`should render demo and match snapshot 1`] = `
         class="van-uploader__upload van-hairline--surround"
         style
       >
-        <i
-          class="van-badge__wrapper van-icon van-icon-photograph van-uploader__upload-icon"
-          style
+        <span
+          class="van-uploader__upload-icon"
+          style="mask-image:url(file:///Users/czy/Downloads/vant-4.9.22/packages/vant/src/uploader-file/assets/upload.svg);webkit-mask-image:url(file:///Users/czy/Downloads/vant-4.9.22/packages/vant/src/uploader-file/assets/upload.svg);"
         >
-          <!--[-->
-        </i>
+        </span>
         <span class="van-uploader__upload-text">
           添加图片
         </span>
@@ -713,12 +698,11 @@ exports[`should render demo and match snapshot 1`] = `
         class="van-uploader__upload van-hairline--surround"
         style
       >
-        <i
-          class="van-badge__wrapper van-icon van-icon-photograph van-uploader__upload-icon"
-          style
+        <span
+          class="van-uploader__upload-icon"
+          style="mask-image:url(file:///Users/czy/Downloads/vant-4.9.22/packages/vant/src/uploader-file/assets/upload.svg);webkit-mask-image:url(file:///Users/czy/Downloads/vant-4.9.22/packages/vant/src/uploader-file/assets/upload.svg);"
         >
-          <!--[-->
-        </i>
+        </span>
         <span class="van-uploader__upload-text">
           添加图片
         </span>

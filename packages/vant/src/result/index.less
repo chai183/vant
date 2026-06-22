@@ -12,6 +12,7 @@
   --van-result-description-margin-top: var(--van-padding-lg);
   --van-result-actions-margin-top: var(--van-padding-lg);
   --van-result-actions-gap: var(--van-padding-xs);
+  --van-result-single-button-width: 50%;
   --van-result-footer-margin-top: var(--van-padding-lg);
   --van-result-waiting-color: var(--van-orange-dark);
   --van-result-fail-color: var(--van-danger-color);
@@ -114,6 +115,32 @@
         .van-result__action {
           flex: 1;
           min-width: 0;
+        }
+      }
+    }
+
+    &--single-center {
+      .van-result__action {
+        flex: none;
+        width: var(--van-result-single-button-width);
+        max-width: 100%;
+      }
+
+      &.van-result__actions--horizontal {
+        justify-content: center;
+      }
+
+      &.van-result__actions--vertical,
+      &.van-result__actions--hybrid {
+        align-items: center;
+
+        .van-result__secondary-row:only-child {
+          width: var(--van-result-single-button-width);
+          max-width: 100%;
+
+          .van-result__action {
+            width: 100%;
+          }
         }
       }
     }

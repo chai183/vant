@@ -47,20 +47,30 @@ exports[`should render demo and match snapshot 1`] = `
       </button>
     </div>
     <div class="van-result__footer">
-      <div class="result-demo__card">
-        <div class="result-demo__card-title">
-          Card Module 1
+      <div class="van-cell-group van-cell-group--inset result-demo__cell-group">
+        <div class="van-cell van-cell--center">
+          <div class="van-cell__title">
+            <span>
+              Card Module 1
+            </span>
+          </div>
+          <div class="van-cell__value">
+            <span>
+              Card content goes here
+            </span>
+          </div>
         </div>
-        <div class="result-demo__card-content">
-          Card content goes here
-        </div>
-      </div>
-      <div class="result-demo__card">
-        <div class="result-demo__card-title">
-          Card Module 2
-        </div>
-        <div class="result-demo__card-content">
-          Card content goes here
+        <div class="van-cell van-cell--center">
+          <div class="van-cell__title">
+            <span>
+              Card Module 2
+            </span>
+          </div>
+          <div class="van-cell__value">
+            <span>
+              Card content goes here
+            </span>
+          </div>
         </div>
       </div>
     </div>
@@ -277,6 +287,33 @@ exports[`should render demo and match snapshot 1`] = `
 <div>
   <div class="van-result van-safe-area-bottom">
     <i
+      class="van-badge__wrapper van-icon van-icon-clear van-result__icon van-result__icon--fail"
+      style="font-size: 64px;"
+    >
+    </i>
+    <div class="van-result__title van-result__title--fail">
+      Failed
+    </div>
+    <div class="van-result__description">
+      Remarks, feedback or progress tips (up to two lines)
+    </div>
+    <div class="van-result__actions van-result__actions--vertical van-result__actions--single-center">
+      <button
+        type="button"
+        class="van-button van-button--primary van-button--normal van-button--block van-button--round van-result__action van-result__action--main"
+      >
+        <div class="van-button__content">
+          <span class="van-button__text">
+            Main Action
+          </span>
+        </div>
+      </button>
+    </div>
+  </div>
+</div>
+<div>
+  <div class="van-result van-safe-area-bottom">
+    <i
       class="van-badge__wrapper van-icon van-icon-checked van-result__icon van-result__icon--success"
       style="font-size: 64px;"
     >
@@ -298,20 +335,30 @@ exports[`should render demo and match snapshot 1`] = `
       Remarks, feedback or progress tips (up to two lines)
     </div>
     <div class="van-result__footer">
-      <div class="result-demo__card">
-        <div class="result-demo__card-title">
-          Card Module 1
+      <div class="van-cell-group van-cell-group--inset result-demo__cell-group">
+        <div class="van-cell van-cell--center">
+          <div class="van-cell__title">
+            <span>
+              Card Module 1
+            </span>
+          </div>
+          <div class="van-cell__value">
+            <span>
+              Card content goes here
+            </span>
+          </div>
         </div>
-        <div class="result-demo__card-content">
-          Card content goes here
-        </div>
-      </div>
-      <div class="result-demo__card">
-        <div class="result-demo__card-title">
-          Card Module 2
-        </div>
-        <div class="result-demo__card-content">
-          Card content goes here
+        <div class="van-cell van-cell--center">
+          <div class="van-cell__title">
+            <span>
+              Card Module 2
+            </span>
+          </div>
+          <div class="van-cell__value">
+            <span>
+              Card content goes here
+            </span>
+          </div>
         </div>
       </div>
     </div>

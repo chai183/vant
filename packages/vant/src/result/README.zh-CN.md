@@ -20,7 +20,7 @@ app.use(Result);
 
 ### 等待状态
 
-等待状态默认采用左右并排按钮布局（次按钮在左、主按钮在右）。
+等待状态默认采用左右并排按钮布局（次按钮在左、主按钮在右）。可在默认插槽与 `#footer` 插槽中补充金额、详情列表等内容。
 
 ```html
 <van-result
@@ -32,8 +32,34 @@ app.use(Result);
   @click-main-button="onMain"
   @click-secondary-button="onSecondary"
 >
-  <div>自定义内容区域</div>
+  <div class="result-demo__amount">
+    <div class="result-demo__amount-value">15,000,000.00</div>
+    <div class="result-demo__amount-caption">此处为金额大写及显示</div>
+  </div>
+  <template #footer>
+    <van-cell-group inset class="result-demo__cell-group">
+      <van-cell title="卡片内模块1" value="此处为卡片内模块内容" />
+      <van-cell title="卡片内模块2" value="此处为卡片内模块内容" />
+    </van-cell-group>
+  </template>
 </van-result>
+```
+
+```css
+.result-demo__cell-group {
+  --van-cell-group-inset-padding: 0;
+}
+
+.result-demo__cell-group .van-cell__title {
+  color: #666;
+  width: 100px;
+  flex: none;
+}
+
+.result-demo__cell-group .van-cell__value {
+  text-align: left;
+  color: #333;
+}
 ```
 
 ### 失败状态
@@ -84,34 +110,55 @@ app.use(Result);
 />
 ```
 
-### 自定义图标
+### 单个按钮居中
 
-通过 `icon` 覆盖默认图标名称，通过 `size` 设置图标大小（默认 `64`）。
+开启 `single-button-center` 后，当仅传入一个按钮时，按钮宽度为 50% 并居中展示。
 
 ```html
-<van-result status="success" title="XX成功" icon="checked" :size="48" />
+<van-result
+  status="fail"
+  title="XX失败"
+  description="备注信息"
+  single-button-center
+  main-button-text="主要操作"
+  @click-main-button="onMain"
+/>
 ```
-
-各 `status` 对应的默认图标如下：
-
-| status | 默认 icon |
-| --- | --- |
-| waiting | `underway` |
-| fail | `clear` |
-| warning | `warning` |
-| success | `checked` |
 
 ### 成功状态
 
-成功状态通常不展示按钮，可在默认插槽与 `#footer` 插槽中补充金额、明细卡片等内容。
+成功状态通常不展示按钮，可在默认插槽与 `#footer` 插槽中补充金额、明细列表等内容。底部详情推荐使用 [Cell](#/zh-CN/cell) 组件，通过 `title` 与 `value` 实现左右布局。
 
 ```html
 <van-result status="success" title="XX成功" description="备注信息">
-  <div>金额等内容</div>
+  <div class="result-demo__amount">
+    <div class="result-demo__amount-value">15,000,000.00</div>
+    <div class="result-demo__amount-caption">此处为金额大写及显示</div>
+  </div>
   <template #footer>
-    <div>底部详情卡片</div>
+    <van-cell-group inset class="result-demo__cell-group">
+      <van-cell title="卡片内模块1" value="此处为卡片内模块内容" />
+      <van-cell title="卡片内模块2" value="此处为卡片内模块内容" />
+    </van-cell-group>
   </template>
 </van-result>
+```
+
+```css
+.result-demo__cell-group {
+  --van-cell-group-inset-padding: 0;
+}
+
+.result-demo__cell-group .van-cell__title {
+  color: #666;
+  width: 100px;
+  flex: none;
+}
+
+.result-demo__cell-group .van-cell__value {
+  text-align: left;
+  color: #333;
+}
 ```
 
 ## API
@@ -135,6 +182,7 @@ app.use(Result);
 | main-button-loading | 主按钮是否展示加载状态 | _boolean_ | `false` |
 | secondary-button-loading | 第一个次按钮是否展示加载状态 | _boolean_ | `false` |
 | secondary-button-loading2 | 第二个次按钮是否展示加载状态 | _boolean_ | `false` |
+| single-button-center `new` | 仅传入一个按钮时，是否将按钮宽度设为 50% 并居中展示 | _boolean_ | `false` |
 | safe-area-inset-bottom | 是否开启底部安全区适配 | _boolean_ | `true` |
 
 ### Events
@@ -156,7 +204,7 @@ app.use(Result);
 | main-button | 自定义主按钮 |
 | secondary-button | 自定义第一个次按钮 |
 | secondary-button-2 | 自定义第二个次按钮 |
-| footer | 底部扩展区域，如详情卡片列表 |
+| footer | 底部扩展区域，如详情列表 |
 
 ### 默认按钮布局
 
@@ -202,6 +250,7 @@ import type {
 | --van-result-description-margin-top | _var(--van-padding-lg)_ | 备注上边距 |
 | --van-result-actions-margin-top | _var(--van-padding-lg)_ | 按钮区上边距 |
 | --van-result-actions-gap | _var(--van-padding-xs)_ | 按钮间距 |
+| --van-result-single-button-width | _50%_ | 单个按钮居中时的按钮宽度 |
 | --van-result-footer-margin-top | _var(--van-padding-lg)_ | 底部区域上边距 |
 | --van-result-waiting-color | _var(--van-orange-dark)_ | 等待状态图标、标题颜色 |
 | --van-result-fail-color | _var(--van-danger-color)_ | 失败状态图标、标题颜色 |

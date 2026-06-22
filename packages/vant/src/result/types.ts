@@ -15,6 +15,7 @@ export type ResultThemeVars = {
   resultDescriptionMarginTop?: string;
   resultActionsMarginTop?: string;
   resultActionsGap?: string;
+  resultSingleButtonWidth?: string;
   resultFooterMarginTop?: string;
   resultWaitingColor?: string;
   resultFailColor?: string;

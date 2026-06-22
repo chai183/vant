@@ -257,7 +257,8 @@ The component provides the following CSS variables, which can be used to customi
 | --van-cell-value-font-size | _inherit_ | - |
 | --van-cell-highlight-color | _var(--van-primary-color)_ | Highlight text color |
 | --van-cell-icon-size | _16px_ | - |
-| --van-cell-right-icon-color | _var(--van-gray-6)_ | - |
+| --van-cell-right-icon-size | _12px_ | - |
+| --van-cell-right-icon-color | _#ccc_ | - |
 | --van-cell-large-vertical-padding | _var(--van-padding-sm)_ | - |
 | --van-cell-large-title-font-size | _var(--van-font-size-lg)_ | - |
 | --van-cell-large-label-font-size | _var(--van-font-size-md)_ | - |

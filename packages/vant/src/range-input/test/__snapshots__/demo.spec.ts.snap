@@ -209,37 +209,47 @@ exports[`should render demo and match snapshot 1`] = `
   <div>
     <div class="van-cell-group van-cell-group--inset">
       <div class="van-range-input">
-        <div class="van-range-input__shortcuts">
-          <button
-            type="button"
-            class="van-button van-button--default van-button--small van-range-input__shortcut"
+        <div
+          class="van-range-input__shortcuts van-radio-group van-radio-group--horizontal van-radio-group--block"
+          role="radiogroup"
+          style="--van-radio-group-columns: 3;"
+        >
+          <div
+            role="radio"
+            class="van-radio van-radio--block van-radio--horizontal"
+            tabindex="0"
+            aria-checked="false"
           >
-            <div class="van-button__content">
-              <span class="van-button__text">
+            <span class="van-radio__label van-radio__label--block">
+              <span class="van-radio__label-text">
                 Last week
               </span>
-            </div>
-          </button>
-          <button
-            type="button"
-            class="van-button van-button--default van-button--small van-range-input__shortcut"
+            </span>
+          </div>
+          <div
+            role="radio"
+            class="van-radio van-radio--block van-radio--horizontal"
+            tabindex="0"
+            aria-checked="false"
           >
-            <div class="van-button__content">
-              <span class="van-button__text">
+            <span class="van-radio__label van-radio__label--block">
+              <span class="van-radio__label-text">
                 Last month
               </span>
-            </div>
-          </button>
-          <button
-            type="button"
-            class="van-button van-button--default van-button--small van-range-input__shortcut"
+            </span>
+          </div>
+          <div
+            role="radio"
+            class="van-radio van-radio--block van-radio--horizontal"
+            tabindex="0"
+            aria-checked="false"
           >
-            <div class="van-button__content">
-              <span class="van-button__text">
+            <span class="van-radio__label van-radio__label--block">
+              <span class="van-radio__label-text">
                 Last 3 months
               </span>
-            </div>
-          </button>
+            </span>
+          </div>
         </div>
         <div class="van-range-input__body van-range-input__body--vertical">
           <div
@@ -311,27 +321,35 @@ exports[`should render demo and match snapshot 1`] = `
   <div>
     <div class="van-cell-group van-cell-group--inset">
       <div class="van-range-input">
-        <div class="van-range-input__shortcuts">
-          <button
-            type="button"
-            class="van-button van-button--default van-button--small van-range-input__shortcut"
+        <div
+          class="van-range-input__shortcuts van-radio-group van-radio-group--horizontal van-radio-group--block"
+          role="radiogroup"
+          style="--van-radio-group-columns: 2;"
+        >
+          <div
+            role="radio"
+            class="van-radio van-radio--block van-radio--horizontal"
+            tabindex="0"
+            aria-checked="false"
           >
-            <div class="van-button__content">
-              <span class="van-button__text">
+            <span class="van-radio__label van-radio__label--block">
+              <span class="van-radio__label-text">
                 Last week
               </span>
-            </div>
-          </button>
-          <button
-            type="button"
-            class="van-button van-button--default van-button--small van-range-input__shortcut"
+            </span>
+          </div>
+          <div
+            role="radio"
+            class="van-radio van-radio--block van-radio--horizontal"
+            tabindex="0"
+            aria-checked="false"
           >
-            <div class="van-button__content">
-              <span class="van-button__text">
+            <span class="van-radio__label van-radio__label--block">
+              <span class="van-radio__label-text">
                 Last month
               </span>
-            </div>
-          </button>
+            </span>
+          </div>
         </div>
         <div class="van-range-input__body van-range-input__body--vertical">
           <div

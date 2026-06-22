@@ -4,7 +4,7 @@ export default {
   save: '保存',
   clear: '清空',
   cancel: '取消',
-  confirm: '确认',
+  confirm: '确定',
   delete: '删除',
   loading: '加载中...',
   noCoupon: '暂无优惠券',

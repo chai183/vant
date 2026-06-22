@@ -6,6 +6,10 @@
   &--list {
     width: 100%;
     min-width: 0;
+
+    .van-cell::after {
+      right: 0;
+    }
   }
 
   &__empty {
@@ -27,7 +31,15 @@
     }
   }
 
+  &__option-label {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    max-width: 100%;
+  }
+
   &__option-icon {
+    flex: none;
     margin-right: var(--van-padding-base);
     vertical-align: -0.15em;
   }

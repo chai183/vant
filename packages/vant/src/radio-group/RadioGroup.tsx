@@ -182,7 +182,6 @@ export default defineComponent({
               {...cellProps}
               highlight={highlight}
               icon={cellProps?.icon ?? icon}
-              border={false}
               clickable={
                 cellProps?.clickable ?? (!props.disabled && !disabled)
               }

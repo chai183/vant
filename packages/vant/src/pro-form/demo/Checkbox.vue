@@ -93,18 +93,6 @@ const columns = computed<ProFormColumn[]>(() => [
       options: listOptions.value,
     },
   },
-  {
-    name: 'checkboxListPickerGroup',
-    label: t('checkboxPicker'),
-    component: 'checkboxGroup',
-    defaultValue: ['1'],
-    fieldProps: { labelAlign: 'top', placeholder: t('checkboxPickerPlaceholder') },
-    componentProps: {
-      isList: true,
-      showSearch: true,
-      options: listOptions.value,
-    },
-  },
 ]);
 </script>
 

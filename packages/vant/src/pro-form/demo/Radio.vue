@@ -77,17 +77,6 @@ const columns = computed<ProFormColumn[]>(() => [
       options: listOptions.value,
     },
   },
-  {
-    name: 'radioListPickerGroup',
-    label: t('radioListPicker'),
-    component: 'radioGroup',
-    defaultValue: '1',
-    fieldProps: { labelAlign: 'top', placeholder: t('radioPickerPlaceholder') },
-    componentProps: {
-      isList: true,
-      options: listOptions.value,
-    },
-  },
 ]);
 </script>
 

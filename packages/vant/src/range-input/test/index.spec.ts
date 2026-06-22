@@ -132,7 +132,7 @@ test('should render shortcuts and update modelValue on click', async () => {
     },
   });
 
-  const items = wrapper.findAll('.van-range-input__shortcut');
+  const items = wrapper.findAll('.van-radio');
   expect(items.length).toBe(2);
   expect(items[0].text()).toBe('近一周');
 
@@ -158,7 +158,7 @@ test('should render default date shortcuts when showDateShortcuts is true', asyn
     },
   });
 
-  const items = wrapper.findAll('.van-range-input__shortcut');
+  const items = wrapper.findAll('.van-radio');
   expect(items.length).toBe(3);
   expect(items[0].text()).toBe('Last week');
   expect(items[2].text()).toBe('Last 3 months');
@@ -194,7 +194,7 @@ test('should render partial date shortcuts when showDateShortcuts is an array', 
     },
   });
 
-  const items = wrapper.findAll('.van-range-input__shortcut');
+  const items = wrapper.findAll('.van-radio');
   expect(items.length).toBe(2);
   expect(items[0].text()).toBe('Last week');
   expect(items[1].text()).toBe('Last month');

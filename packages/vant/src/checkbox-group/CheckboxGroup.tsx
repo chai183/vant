@@ -136,10 +136,10 @@ export default defineComponent({
     const renderOptionLabel = (option: CheckboxGroupOption) => {
       if (option.icon) {
         return (
-          <>
+          <span class={bem('option-label')}>
             <Icon name={option.icon} class={bem('option-icon')} />
             {option.label}
-          </>
+          </span>
         );
       }
       return option.label;
@@ -216,7 +216,6 @@ export default defineComponent({
               {...cellProps}
               highlight={highlight}
               icon={cellProps?.icon ?? icon}
-              border={false}
               clickable={
                 cellProps?.clickable ?? (!props.disabled && !disabled)
               }

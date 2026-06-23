@@ -437,6 +437,6 @@ import type {
 | --van-cascader-steps-border-bottom-width   | _8px_      | -    |
 | --van-cascader-steps-border-bottom-color   | _#f5f5f5_  | -    |
 | --van-cascader-step-indicator-width  | _16px_                    | -    |
-| --van-cascader-step-dot-size         | _8px_                     | -    |
+| --van-cascader-step-dot-size         | _6px_                     | -    |
 | --van-cascader-step-line-width       | _1px_                     | -    |
 | --van-cascader-step-arrow-color      | _var(--van-gray-5)_       | -    |

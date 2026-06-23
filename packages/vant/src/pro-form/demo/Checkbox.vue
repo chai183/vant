@@ -2,6 +2,7 @@
 import { computed, ref } from 'vue';
 import { useTranslate } from '../../../docs/site';
 import VanProForm from '..';
+import { Button } from '../../button';
 import { createListOptions } from './listOptions';
 import type { ProFormColumn } from '../types';
 
@@ -17,6 +18,8 @@ const t = useTranslate({
     option3: '选项 3',
     optionDesc: '描述信息',
     checkboxPickerComment: '点击选择多个选项',
+    checkboxPopupBottomSelectAll: '主要操作',
+    checkboxPopupBottomReset: '次要操作',
   },
   'en-US': {
     checkbox: 'Checkbox',
@@ -29,6 +32,8 @@ const t = useTranslate({
     option3: 'Option 3',
     optionDesc: 'Description',
     checkboxPickerComment: 'Tap to select multiple options',
+    checkboxPopupBottomSelectAll: 'Primary Action',
+    checkboxPopupBottomReset: 'Secondary Action',
   },
 });
 
@@ -92,6 +97,16 @@ const columns = computed<ProFormColumn[]>(() => [
       showSearch: true,
       options: listOptions.value,
     },
+    popupSlots: {
+      'popup-bottom': () => (
+        <div class="demo-pro-form__popup-bottom van-hairline--top">
+          <Button block>{t('checkboxPopupBottomReset')}</Button>
+          <Button block type="primary">
+            {t('checkboxPopupBottomSelectAll')}
+          </Button>
+        </div>
+      ),
+    },
   },
 ]);
 </script>
@@ -101,3 +116,12 @@ const columns = computed<ProFormColumn[]>(() => [
     <van-pro-form v-model="model" :columns="columns" :show-submit="false" />
   </demo-block>
 </template>
+
+<style>
+.demo-pro-form__popup-bottom {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+  padding: 8px 12px;
+}
+</style>

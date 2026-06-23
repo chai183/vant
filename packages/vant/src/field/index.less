@@ -2,7 +2,7 @@
 :host {
   --van-field-label-width: 98px;
   --van-field-label-color: var(--van-text-color);
-  --van-field-label-margin-right: var(--van-padding-sm);
+  --van-field-label-margin-right: 32px;
   --van-field-label-line-height: 20px;
   --van-field-input-text-color: var(--van-text-color);
   --van-field-input-error-text-color: var(--van-danger-color);
@@ -11,12 +11,13 @@
   --van-field-icon-size: 18px;
   --van-field-clear-icon-size: 18px;
   --van-field-clear-icon-color: var(--van-gray-5);
-  --van-field-right-icon-color: var(--van-gray-6);
+  --van-field-right-icon-color: #666;
   --van-field-right-icon-divider-height: 14px;
   --van-field-right-icon-divider-color: var(--van-border-color);
   --van-field-error-message-color: var(--van-danger-color);
   --van-field-error-message-font-size: 12px;
   --van-field-extra-margin-top: 2px;
+  --van-field-input-comment-color: #999;
   --van-field-error-message-info-background: #fff2f0;
   --van-field-error-message-info-padding: 6px 20px;
   --van-field-error-message-info-margin-top: var(--van-field-extra-margin-top);
@@ -34,7 +35,7 @@
   --van-field-money-unit-caret-gap: 2px;
   --van-field-money-unit-bottom-gap: 0px;
   --van-field-money-input-height: 24px;
-  --van-field-money-currency-font-size: inherit;
+  --van-field-money-currency-font-size: 14px;
   --van-field-money-currency-font-weight: var(--van-font-bold);
   --van-field-money-currency-color: var(--van-field-placeholder-text-color);
   --van-field-money-currency-filled-color: var(--van-field-input-text-color);
@@ -74,8 +75,16 @@
   }
 
   &__label-tooltip-icon {
-    font-size: var(--van-field-icon-size);
-    color: var(--van-field-right-icon-color);
+    display: block;
+    width: 12px;
+    height: 12px;
+    background-color: var(--van-field-right-icon-color);
+    mask-repeat: no-repeat;
+    mask-position: center;
+    mask-size: contain;
+    -webkit-mask-repeat: no-repeat;
+    -webkit-mask-position: center;
+    -webkit-mask-size: contain;
   }
 
   &__label-tooltip-content {
@@ -117,7 +126,7 @@
     }
 
     &--required {
-      &::before {
+      &::after {
         margin-right: 2px;
         color: var(--van-field-required-mark-color);
         content: '*';
@@ -250,11 +259,22 @@
   }
 
   &__input-left {
+    display: flex;
+    align-items: center;
     margin-right: var(--van-padding-base);
     line-height: inherit;
+
+    &:has(.van-field__money-currency) {
+      margin-right: 0;
+    }
   }
 
   &__money-currency {
+    display: inline-flex;
+    align-items: center;
+    // height: var(--van-field-money-input-height);
+    margin-right: 2px;
+    // line-height: 1;
     color: var(--van-field-money-currency-color);
     font-size: var(--van-field-money-currency-font-size);
     font-weight: var(--van-field-money-currency-font-weight);
@@ -547,6 +567,7 @@
 
   &__button {
     padding-left: var(--van-padding-xs);
+    color: #666;
   }
 
   &__input-bottom {
@@ -602,11 +623,18 @@
   &__label-comment,
   &__input-comment {
     margin-top: var(--van-field-extra-margin-top);
-    color: var(--van-text-color-2);
     font-size: var(--van-font-size-sm);
     line-height: var(--van-field-word-limit-line-height);
     text-align: left;
     word-break: break-word;
+  }
+
+  &__label-comment {
+    color: var(--van-text-color-2);
+  }
+
+  &__input-comment {
+    color: var(--van-field-input-comment-color);
   }
 
   &__word-limit {

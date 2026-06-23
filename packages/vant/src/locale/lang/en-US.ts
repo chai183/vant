@@ -35,6 +35,7 @@ export default {
     labelExpand: 'Expand',
     labelCollapse: 'Collapse',
     maxlengthTip: 'Maximum length reached',
+    placeholder: 'Please enter',
   },
   vanPagination: {
     prev: 'Previous',
@@ -85,5 +86,8 @@ export default {
   vanRadioGroup: {
     searchPlaceholder: 'Enter filter keyword',
     searchEmpty: 'No search results',
+  },
+  vanPicker: {
+    noData: 'No data',
   },
 };

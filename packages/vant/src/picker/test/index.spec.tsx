@@ -487,6 +487,25 @@ test('should render empty slot when options is empty', async () => {
   expect(wrapper.html()).not.toContain('empty content');
 });
 
+test('should render default empty component when options is empty', async () => {
+  const wrapper = mount(Picker, {
+    props: {
+      loading: true,
+      columns: [],
+    },
+  });
+
+  expect(wrapper.find('.van-empty').exists()).toBeFalsy();
+
+  await wrapper.setProps({ loading: false });
+  expect(wrapper.find('.van-empty').exists()).toBeTruthy();
+  expect(wrapper.find('.van-picker__empty').exists()).toBeTruthy();
+  expect(wrapper.find('.van-empty__description').text()).toBe('No data');
+
+  await wrapper.setProps({ columns: [{ text: 'foo', value: 'foo' }] });
+  expect(wrapper.find('.van-empty').exists()).toBeFalsy();
+});
+
 test('should emit correct values when clicking confirm button during column scrolling', async () => {
   const columnsOne: PickerOption[] = [
     { text: 'Beijing', value: 'Beijing' },

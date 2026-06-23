@@ -22,8 +22,8 @@ const t = useTranslate({
     selectArea: '请选择地区',
     domestic: '国内',
     foreign: '国外',
-    currentLocation: '当前位置',
-    refreshLocation: '刷新',
+    currentLocation: '当前位置：',
+    refreshLocation: '刷新定位',
     locating: '定位中...',
     locationRefreshed: '定位成功',
     currentLocationDomestic: '浙江省/杭州市/西湖区',
@@ -223,6 +223,7 @@ const refreshLocation = (type: LocationType) => {
                   <van-icon
                     name="location-o"
                     class="region-tab-current__icon"
+                    size="12"
                   />
                   <span class="region-tab-current__label">{{
                     t('currentLocation')
@@ -241,7 +242,7 @@ const refreshLocation = (type: LocationType) => {
                     v-if="locationRefreshing.domestic"
                     size="16"
                   />
-                  <van-icon v-else name="replay" />
+                  <van-icon v-else name="aim" size="14" />
                   <span>{{ t('refreshLocation') }}</span>
                 </div>
               </div>
@@ -268,6 +269,7 @@ const refreshLocation = (type: LocationType) => {
                   <van-icon
                     name="location-o"
                     class="region-tab-current__icon"
+                    size="12"
                   />
                   <span class="region-tab-current__label">{{
                     t('currentLocation')
@@ -286,7 +288,7 @@ const refreshLocation = (type: LocationType) => {
                     v-if="locationRefreshing.foreign"
                     size="16"
                   />
-                  <van-icon v-else name="replay" />
+                  <van-icon v-else name="aim" size="14"/>
                   <span>{{ t('refreshLocation') }}</span>
                 </div>
               </div>
@@ -331,15 +333,15 @@ const refreshLocation = (type: LocationType) => {
   }
 
   &__icon {
-    margin-right: 4px;
-    color: var(--van-primary-color);
+    margin-right: 12px;
+    color: #999;
     font-size: 16px;
   }
 
   &__label {
     flex: none;
-    margin-right: 8px;
-    color: var(--van-text-color-2);
+    // margin-right: 8px;
+    color: #333;
   }
 
   &__text {
@@ -347,6 +349,7 @@ const refreshLocation = (type: LocationType) => {
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
+    color: #333;
   }
 
   &__refresh {
@@ -358,7 +361,7 @@ const refreshLocation = (type: LocationType) => {
     cursor: pointer;
 
     .van-icon {
-      margin-right: 2px;
+      margin-right: 6px;
       font-size: 16px;
     }
   }

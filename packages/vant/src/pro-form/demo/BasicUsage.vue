@@ -39,8 +39,8 @@ const columns = computed<ProFormColumn[]>(() => [
     label: t('username'),
     component: 'field',
     fieldProps: {
+      required:true,
       placeholder: t('placeholder'),
-      rules: [{ required: true, message: t('placeholder') }],
     },
   },
   {

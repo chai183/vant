@@ -241,7 +241,7 @@ export default defineComponent({
           props.arrowDirection && props.arrowDirection !== 'right'
             ? `arrow-${props.arrowDirection}`
             : 'arrow';
-        return <Icon name={name} class={bem('right-icon')} />;
+        return <Icon name={name} class={bem('right-icon')} size={16} />;
       }
     };
 

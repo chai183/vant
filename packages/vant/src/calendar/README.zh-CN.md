@@ -204,12 +204,6 @@ export default {
         }
       }
 
-      if (day.type === 'start') {
-        day.bottomInfo = '入住';
-      } else if (day.type === 'end') {
-        day.bottomInfo = '离店';
-      }
-
       return day;
     };
 
@@ -274,7 +268,7 @@ export default {
 | formatter | 日期格式化函数 | _(day: Day) => Day_ | - |
 | poppable | 是否以弹层的形式展示日历 | _boolean_ | `true` |
 | lazy-render | 是否只渲染可视区域的内容 | _boolean_ | `true` |
-| show-mark | 是否显示月份背景水印 | _boolean_ | `true` |
+| show-mark | 是否显示月份背景水印 | _boolean_ | `false` |
 | show-title | 是否展示日历标题 | _boolean_ | `true` |
 | show-subtitle | 是否展示日历副标题（年月） | _boolean_ | `true` |
 | show-confirm | 是否展示确认按钮 | _boolean_ | `true` |

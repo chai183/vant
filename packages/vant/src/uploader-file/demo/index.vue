@@ -167,6 +167,7 @@ const upload: UploaderFileUpload = (item) =>
       <template #input>
         <van-uploader-file
           v-model="statusFileList"
+          :rename-maxlength="10"
           :upload="upload"
           readonly
         />
@@ -296,5 +297,6 @@ const upload: UploaderFileUpload = (item) =>
 .demo-uploader-file__label-comment {
   padding-top: 6px;
   padding-bottom: 12px;
+  color: #999;
 }
 </style>

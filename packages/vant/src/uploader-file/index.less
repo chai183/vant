@@ -1,9 +1,9 @@
 :root,
 :host {
   --van-uploader-file-upload-height: 36px;
-  --van-uploader-file-upload-radius: var(--van-radius-md);
+  --van-uploader-file-upload-radius: 8px;
   --van-uploader-file-upload-border-color: var(--van-gray-4);
-  --van-uploader-file-upload-color: var(--van-text-color);
+  --van-uploader-file-upload-color: #666;
   --van-uploader-file-upload-font-size: var(--van-font-size-md);
   --van-uploader-file-upload-icon-size: 16px;
   --van-uploader-file-item-padding: 16px 12px 16px 16px;
@@ -51,7 +51,12 @@
 
   &__upload {
     height: var(--van-uploader-file-upload-height);
+    border-radius: var(--van-uploader-file-upload-radius);
     font-size: 12px;
+
+    .van-button__content {
+      color: var(--van-uploader-file-upload-color);
+    }
   }
 
   &__upload-icon {

@@ -28,6 +28,14 @@ export type ProFormFieldSlots = Partial<
   Record<ProFormFieldSlotName, ProFormFieldSlot>
 >;
 
+export const PRO_FORM_POPUP_SLOT_NAMES = ['popup-bottom'] as const;
+
+export type ProFormPopupSlotName = (typeof PRO_FORM_POPUP_SLOT_NAMES)[number];
+
+export type ProFormPopupSlots = Partial<
+  Record<ProFormPopupSlotName, ProFormFieldSlot>
+>;
+
 type ProFormColumnFieldSlotRender = (
   ctx: ProFormRenderContext,
 ) => VNodeChild;
@@ -92,5 +100,59 @@ export function mergeFieldSlots(
   columnSlots: ProFormFieldSlots,
   templateSlots: ProFormFieldSlots,
 ): ProFormFieldSlots {
+  return { ...columnSlots, ...templateSlots };
+}
+
+type ProFormColumnPopupSlot = NonNullable<
+  NonNullable<ProFormColumn['popupSlots']>[ProFormPopupSlotName]
+>;
+
+export function resolveColumnPopupSlots(
+  column: ProFormColumn,
+  ctx: ProFormRenderContext,
+): ProFormPopupSlots {
+  const result: ProFormPopupSlots = {};
+  const columnSlots = column.popupSlots;
+
+  if (!columnSlots) {
+    return result;
+  }
+
+  for (const popupSlot of PRO_FORM_POPUP_SLOT_NAMES) {
+    const slot = columnSlots[popupSlot];
+    if (slot != null) {
+      const normalized = normalizeColumnFieldSlot(
+        slot as ProFormColumnPopupSlot,
+        ctx,
+      );
+      if (normalized) {
+        result[popupSlot] = normalized;
+      }
+    }
+  }
+
+  return result;
+}
+
+export function resolvePopupSlots(
+  slots: Slots,
+  columnSlotName: string,
+): ProFormPopupSlots {
+  const result: ProFormPopupSlots = {};
+
+  for (const popupSlot of PRO_FORM_POPUP_SLOT_NAMES) {
+    const proFormSlot = slots[`${popupSlot}-${columnSlotName}`];
+    if (proFormSlot) {
+      result[popupSlot] = proFormSlot;
+    }
+  }
+
+  return result;
+}
+
+export function mergePopupSlots(
+  columnSlots: ProFormPopupSlots,
+  templateSlots: ProFormPopupSlots,
+): ProFormPopupSlots {
   return { ...columnSlots, ...templateSlots };
 }

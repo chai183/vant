@@ -36,7 +36,7 @@ app.use(ProForm);
 ```js
 import { ref, computed } from 'vue';
 
-const model = ref({ username: '' });
+const model = ref({ username: '111' });
 
 const columns = computed(() => [
   {
@@ -44,15 +44,18 @@ const columns = computed(() => [
     label: '用户名',
     component: 'field',
     fieldProps: {
+      required: true,
       placeholder: '请输入用户名',
-      rules: [{ required: true, message: '请输入用户名' }],
     },
   },
   {
     name: 'switch',
     label: '开关',
     component: 'switch',
-    fieldProps: { inputAlign: 'right' },
+    fieldProps: {
+      inputAlign: 'right',
+      labelComment: '开关备注',
+    },
   },
   {
     name: 'stepper',
@@ -131,6 +134,8 @@ const columns = computed(() => [
 支持 `radioGroup` 平铺展示，以及 `radioPicker` 弹窗选择；通过 `componentProps.isList` 切换为列表样式，`options` 可配置 `cellProps` 等 Cell 属性。
 
 ```js
+import { Button } from 'vant';
+
 const columns = computed(() => [
   {
     name: 'radio',
@@ -171,18 +176,16 @@ const columns = computed(() => [
     fieldProps: { placeholder: '请选择' },
     componentProps: {
       isList: true,
+      showSearch: true,
       options: listOptions,
     },
-  },
-  {
-    name: 'radioListPickerGroup',
-    label: '单选列表弹窗',
-    component: 'radioGroup',
-    defaultValue: '1',
-    fieldProps: { labelAlign: 'top', placeholder: '请选择' },
-    componentProps: {
-      isList: true,
-      options: listOptions,
+    popupSlots: {
+      'popup-bottom': () => (
+        <div class="demo-pro-form__popup-bottom van-hairline--top">
+          <Button block>次要操作</Button>
+          <Button block type="primary">主要操作</Button>
+        </div>
+      ),
     },
   },
 ]);
@@ -193,6 +196,8 @@ const columns = computed(() => [
 支持 `checkboxGroup` 平铺展示，以及 `checkboxPicker` 弹窗多选；可配合 `fieldProps.labelCollapsible` 折叠长标签。
 
 ```js
+import { Button } from 'vant';
+
 const columns = computed(() => [
   {
     name: 'checkboxGroup',
@@ -207,9 +212,9 @@ const columns = computed(() => [
       columns: 3,
       direction: 'horizontal',
       options: [
-        { label: '复选框 1', value: '1' },
-        { label: '复选框 2', value: '2' },
-        { label: '复选框 3', value: '3' },
+        { label: '复选框复选框复选框复选框 1', value: '1' },
+        { label: '复选框复选框复选框复选框 2', value: '2' },
+        { label: '复选框复选框复选框复选框 3', value: '3' },
       ],
     },
   },
@@ -219,13 +224,16 @@ const columns = computed(() => [
     component: 'checkboxPicker',
     defaultValue: ['1'],
     fieldProps: { placeholder: '请选择' },
+    fieldSlots: {
+      'input-comment': () => <div>点击选择多个选项</div>,
+    },
     componentProps: {
       shape: 'block',
       columns: 3,
       direction: 'horizontal',
       options: [
-        { label: '复选框 1', value: '1' },
-        { label: '复选框 2', value: '2' },
+        { label: '复选框复选框复选框复选框 1', value: '1' },
+        { label: '复选框复选框复选框复选框 2', value: '2' },
       ],
     },
   },
@@ -237,22 +245,24 @@ const columns = computed(() => [
     fieldProps: { placeholder: '请选择' },
     componentProps: {
       isList: true,
+      showSearch: true,
       options: listOptions,
     },
-  },
-  {
-    name: 'checkboxListPickerGroup',
-    label: '多选弹窗',
-    component: 'checkboxGroup',
-    defaultValue: ['1'],
-    fieldProps: { labelAlign: 'top', placeholder: '请选择' },
-    componentProps: {
-      isList: true,
-      options: listOptions,
+    popupSlots: {
+      'popup-bottom': () => (
+        <div class="demo-pro-form__popup-bottom van-hairline--top">
+          <Button block>次要操作</Button>
+          <Button block type="primary">主要操作</Button>
+        </div>
+      ),
     },
   },
 ]);
 ```
+
+### 弹窗底部插槽
+
+`checkboxPicker` / `radioPicker` 支持通过 `popupSlots['popup-bottom']` 在弹窗内容下方插入自定义区域，也可使用模板插槽 `#popup-bottom-{name}`。列表弹窗场景见上方「单选框」「复选框组」示例中的 `radioListPicker`、`checkboxListPicker`。
 
 ### 金额输入
 
@@ -546,6 +556,7 @@ const columns = computed(() => [
 | defaultValue | 初始值；未传时按 `component` 使用内置默认值 | _unknown_ |
 | fieldProps | 透传 Field | _Partial\<FieldProps\>_ |
 | fieldSlots | 透传 Field 插槽，如 `label-comment` 等 | _object_ |
+| popupSlots | 弹层底部插槽，如 `popup-bottom` | _object_ |
 | componentProps | 透传控件 | _object_ |
 | hidden | 是否隐藏 | _boolean \| (model) => boolean_ |
 | slot | 自定义插槽名，等价于 `#field-{slot}` / `#input-{slot}` 中的 `slot` 名 | _string_ |
@@ -609,7 +620,19 @@ const columns = computed(() => [
 | submit | 自定义提交按钮 |
 | input-{name} | 覆盖对应项的 `#input` |
 | field-{name} | 完全自定义表单项 |
+| popup-bottom-{name} `new` | 弹窗内容下方区域，适用于 `checkboxPicker` / `radioPicker` |
 
 ### 方法
 
 通过 ref 可调用与 [Form](/#/zh-CN/form) 相同的方法：`submit`、`validate`、`getValues` 等。
+
+## 主题定制
+
+### 样式变量
+
+组件提供了下列 CSS 变量，可用于自定义样式，使用方法请参考 [ConfigProvider 组件](#/zh-CN/config-provider)。
+
+| 名称 | 默认值 | 描述 |
+| --- | --- | --- |
+| --van-pro-form-footer-padding | _0_ | 表单底部区域内边距 |
+| --van-pro-form-field-popup-body-max-height | _70vh_ | 弹窗内容区最大高度 |

@@ -64,6 +64,7 @@ const formatter = (type: string, option: PickerOption) => {
       v-model="basicDate"
       :title="t('chooseDate')"
       :min-date="minDate"
+      :formatter="formatter"
       :max-date="maxDate"
     />
   </demo-block>

@@ -16,8 +16,6 @@ const t = useTranslate({
     readonlyTagsSeparatorLabel: '分隔符展示',
     readonlyTagsSeparatorValue: ['设计', '交互', '前端'],
     readonlyShortTagsValue: ['设计', '交互', '前端'],
-    placeholder: '请选择收货地址',
-    tagsPlaceholder: '请选择标签',
   },
   'en-US': {
     readonlyEllipsisOverflow: 'Overflow',
@@ -38,8 +36,6 @@ const t = useTranslate({
     readonlyTagsSeparatorLabel: 'Separator',
     readonlyTagsSeparatorValue: ['Design', 'Interaction', 'Frontend'],
     readonlyShortTagsValue: ['Design', 'Interaction', 'Frontend'],
-    placeholder: 'Select address',
-    tagsPlaceholder: 'Select tags',
   },
 });
 </script>
@@ -51,20 +47,17 @@ const t = useTranslate({
         readonly
         :model-value="t('readonlyValue')"
         :label="t('readonlyLabel')"
-        :placeholder="t('placeholder')"
       />
       <van-field
         readonly
         :model-value="t('readonlyTagsValue')"
         :label="t('readonlyTagsLabel')"
-        :placeholder="t('tagsPlaceholder')"
       />
       <van-field
         readonly
         :model-value="t('readonlyTagsSeparatorValue')"
         :label="t('readonlyTagsSeparatorLabel')"
         value-separator=";"
-        :placeholder="t('tagsPlaceholder')"
       />
     </van-cell-group>
   </demo-block>
@@ -75,13 +68,11 @@ const t = useTranslate({
         readonly
         :model-value="t('readonlyShortValue')"
         :label="t('readonlyLabel')"
-        :placeholder="t('placeholder')"
       />
       <van-field
         readonly
         :model-value="t('readonlyShortTagsValue')"
         :label="t('readonlyTagsLabel')"
-        :placeholder="t('tagsPlaceholder')"
       />
     </van-cell-group>
   </demo-block>

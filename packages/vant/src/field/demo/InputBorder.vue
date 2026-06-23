@@ -6,29 +6,32 @@ import { useTranslate } from '../../../docs/site';
 
 const t = useTranslate({
   'zh-CN': {
+    inputBorder: '筛选关键词',
     label: '文本',
-    longLabel: '多行标题文本录入极限状态展示',
+    placeholder: '请输入筛选关键词',
+    unit: '单位',
   },
   'en-US': {
+    inputBorder: 'Input Border',
     label: 'Label',
-    longLabel: 'MultiLineTitleTextInputLimitStateDisplay',
+    placeholder: 'Please enter',
+    unit: 'Unit',
   },
 });
 
 const value = ref('');
-const longLabelValue = ref('');
 </script>
 
 <template>
-  <demo-block :title="t('basicUsage')">
-    <van-cell-group inset>
+  <demo-block :title="t('inputBorder')">
+    <van-cell-group
+      inset
+      :style="{ '--van-cell-group-inset-radius': '0' }"
+    >
       <van-field
         v-model="value"
-        :label="t('label')"
-      />
-      <van-field
-        v-model="longLabelValue"
-        :label="t('longLabel')"
+        :placeholder="t('placeholder')"
+        input-border
       />
     </van-cell-group>
   </demo-block>

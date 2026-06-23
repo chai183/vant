@@ -28,8 +28,11 @@ import { renderBuiltinField } from './renderBuiltinField';
 import { getDefaultValueByComponent } from './getDefaultValue';
 import {
   mergeFieldSlots,
+  mergePopupSlots,
   resolveColumnFieldSlots,
+  resolveColumnPopupSlots,
   resolveFieldSlots,
+  resolvePopupSlots,
 } from './resolveFieldSlots';
 import {
   buildRenderContext,
@@ -205,6 +208,15 @@ export default defineComponent({
       );
     };
 
+    const getColumnPopupSlots = (column: ProFormColumn) => {
+      const ctx = createRenderContext(column);
+      const slotName = column.slot ?? column.name;
+      return mergePopupSlots(
+        resolveColumnPopupSlots(column, ctx),
+        resolvePopupSlots(slots, slotName),
+      );
+    };
+
     /**
      * 用 Field 包裹自定义 input 内容。
      * bindModelValue：部分 render 返回的控件需要 Field 层也绑定 v-model（如文本类）
@@ -290,6 +302,7 @@ export default defineComponent({
           setValue: (value) => setFieldValue(column.name, value),
           fieldProps,
           fieldSlots: getColumnFieldSlots(column),
+          popupSlots: getColumnPopupSlots(column),
           formDisabled: props.disabled,
           formReadonly: props.readonly,
         });

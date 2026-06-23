@@ -32,25 +32,21 @@ const value = ref('');
       <van-field
         v-model="value"
         :label="t('label')"
-        :placeholder="t('top')"
         label-align="top"
       />
       <van-field
         v-model="value"
         :label="t('label')"
-        :placeholder="t('left')"
         label-align="left"
       />
       <van-field
         v-model="value"
         :label="t('label')"
-        :placeholder="t('center')"
         label-align="center"
       />
       <van-field
         v-model="value"
         :label="t('label')"
-        :placeholder="t('right')"
         label-align="right"
       />
     </van-cell-group>

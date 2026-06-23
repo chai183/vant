@@ -200,12 +200,6 @@ export default {
         }
       }
 
-      if (day.type === 'start') {
-        day.bottomInfo = 'In';
-      } else if (day.type === 'end') {
-        day.bottomInfo = 'Out';
-      }
-
       return day;
     };
 
@@ -270,7 +264,7 @@ Set `poppable` to `false`, the calendar will be displayed directly on the page i
 | formatter | Day formatter | _(day: Day) => Day_ | - |
 | poppable | Whether to show the calendar inside a popup | _boolean_ | `true` |
 | lazy-render | Whether to enable lazy render | _boolean_ | `true` |
-| show-mark | Whether to show background month mark | _boolean_ | `true` |
+| show-mark | Whether to show background month mark | _boolean_ | `false` |
 | show-title | Whether to show title | _boolean_ | `true` |
 | show-subtitle | Whether to show subtitle | _boolean_ | `true` |
 | show-confirm | Whether to show confirm button | _boolean_ | `true` |

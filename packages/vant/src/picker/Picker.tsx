@@ -25,6 +25,7 @@ import {
 import {
   bem,
   name,
+  t,
   isOptionExist,
   getColumnsType,
   findOptionByValue,
@@ -40,6 +41,7 @@ import { useExpose } from '../composables/use-expose';
 
 // Components
 import { Loading } from '../loading';
+import Empty from '../empty';
 import Column, { PICKER_KEY } from './PickerColumn';
 import Toolbar, {
   pickerToolbarPropKeys,
@@ -270,12 +272,20 @@ export default defineComponent({
       }
     };
 
+    const renderEmpty = () => {
+      if (slots.empty) {
+        return slots.empty();
+      }
+
+      return <Empty class={bem('empty')} description={t('noData')} />;
+    };
+
     const renderColumns = () => {
       const wrapHeight = optionHeight.value * +props.visibleOptionNum;
       const columnsStyle = { height: `${wrapHeight}px` };
 
-      if (!props.loading && !hasOptions.value && slots.empty) {
-        return slots.empty();
+      if (!props.loading && !hasOptions.value) {
+        return renderEmpty();
       }
 
       return (

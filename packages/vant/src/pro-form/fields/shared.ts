@@ -1,7 +1,10 @@
 import { inject, type ExtractPropTypes, type PropType } from 'vue';
 import { FORM_KEY, createNamespace, isDef, omit } from '../../utils';
 import type { FieldProps } from '../../field/Field';
-import type { ProFormFieldSlots } from '../resolveFieldSlots';
+import type {
+  ProFormFieldSlots,
+  ProFormPopupSlots,
+} from '../resolveFieldSlots';
 import type { ProFormOption } from '../types';
 
 export function getFormFieldOptions(
@@ -76,6 +79,10 @@ export const builtinFieldProps = {
   },
   fieldSlots: {
     type: Object as PropType<ProFormFieldSlots>,
+    default: () => ({}),
+  },
+  popupSlots: {
+    type: Object as PropType<ProFormPopupSlots>,
     default: () => ({}),
   },
 };

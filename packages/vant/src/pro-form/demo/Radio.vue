@@ -1,7 +1,8 @@
-<script setup lang="ts">
+<script setup lang="tsx">
 import { computed, ref } from 'vue';
 import { useTranslate } from '../../../docs/site';
 import VanProForm from '..';
+import { Button } from '../../button';
 import { createListOptions } from './listOptions';
 import type { ProFormColumn } from '../types';
 
@@ -15,6 +16,8 @@ const t = useTranslate({
     option2: '选项 2',
     option3: '选项 3',
     optionDesc: '描述信息',
+    radioPopupBottomSelectAll: '主要操作',
+    radioPopupBottomReset: '次要操作',
   },
   'en-US': {
     radio: 'Radio',
@@ -25,6 +28,8 @@ const t = useTranslate({
     option2: 'Option 2',
     option3: 'Option 3',
     optionDesc: 'Description',
+    radioPopupBottomSelectAll: 'Primary Action',
+    radioPopupBottomReset: 'Secondary Action',
   },
 });
 
@@ -74,7 +79,18 @@ const columns = computed<ProFormColumn[]>(() => [
     fieldProps: { placeholder: t('radioPickerPlaceholder') },
     componentProps: {
       isList: true,
+      showSearch: true,
       options: listOptions.value,
+    },
+    popupSlots: {
+      'popup-bottom': () => (
+        <div class="demo-pro-form__popup-bottom van-hairline--top">
+          <Button block>{t('radioPopupBottomReset')}</Button>
+          <Button block type="primary">
+            {t('radioPopupBottomSelectAll')}
+          </Button>
+        </div>
+      ),
     },
   },
 ]);
@@ -85,3 +101,12 @@ const columns = computed<ProFormColumn[]>(() => [
     <van-pro-form v-model="model" :columns="columns" :show-submit="false" />
   </demo-block>
 </template>
+
+<style>
+.demo-pro-form__popup-bottom {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+  padding: 8px 12px;
+}
+</style>

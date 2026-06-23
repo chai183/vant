@@ -55,6 +55,7 @@ export default defineComponent({
       const displayValue = props.modelValue
         ? resolveOptionLabel(options, props.modelValue)
         : '';
+      const popupBottom = props.popupSlots?.['popup-bottom'];
 
       return (
         <>
@@ -79,6 +80,8 @@ export default defineComponent({
               class={[
                 'van-pro-form-field-popup-body',
                 radioProps.isList && 'van-pro-form-field-popup-body--list',
+                radioProps.showSearch &&
+                  'van-pro-form-field-popup-body--show-search',
               ]}
             >
               <RadioGroup
@@ -89,6 +92,7 @@ export default defineComponent({
                 onUpdate:modelValue={onChange}
               />
             </div>
+            {popupBottom ? popupBottom() : null}
           </Popup>
         </>
       );

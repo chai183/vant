@@ -1,6 +1,9 @@
 import type { Component, VNode } from 'vue';
 import type { FieldProps } from '../field/Field';
-import type { ProFormFieldSlotName } from './resolveFieldSlots';
+import type {
+  ProFormFieldSlotName,
+  ProFormPopupSlotName,
+} from './resolveFieldSlots';
 
 export type ProFormBuiltinComponent =
   | 'switch'
@@ -69,6 +72,15 @@ export type ProFormColumn = {
   fieldSlots?: Partial<
     Record<
       ProFormFieldSlotName,
+      | string
+      | Component
+      | ((ctx: ProFormRenderContext) => VNode | VNode[] | null)
+    >
+  >;
+  /** 弹层类控件底部插槽，如 checkboxPicker / radioPicker 的 popup-bottom */
+  popupSlots?: Partial<
+    Record<
+      ProFormPopupSlotName,
       | string
       | Component
       | ((ctx: ProFormRenderContext) => VNode | VNode[] | null)

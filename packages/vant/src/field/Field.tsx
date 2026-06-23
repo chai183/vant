@@ -85,6 +85,8 @@ import type {
 } from './types';
 import type { PopoverProps } from '../popover';
 
+const infoIcon = new URL('./assets/info.svg', import.meta.url).href;
+
 const [name, bem, t] = createNamespace('field');
 
 // provide to Search component to inherit
@@ -267,6 +269,10 @@ export default defineComponent({
 
     const resolvedGroupedDisplay = computed(
       () => props.groupedDisplay ?? getBuiltinGroupedDisplayConfig(props.type),
+    );
+
+    const placeholder = computed(
+      () => props.placeholder || t('placeholder') || '请输入',
     );
 
     const showClear = computed(() => {
@@ -713,7 +719,7 @@ export default defineComponent({
 
       return (
         <div {...wrapperProps}>
-          <FieldReadonlyTags items={items} placeholder={props.placeholder} />
+          <FieldReadonlyTags items={items} placeholder={placeholder.value} />
         </div>
       );
     };
@@ -724,7 +730,7 @@ export default defineComponent({
       }
 
       const value = getModelValue();
-      const displayContent = value || props.placeholder || '';
+      const displayContent = value || placeholder.value;
       const isPlaceholder = !value;
 
       const controlClass = bem('control', [
@@ -789,7 +795,7 @@ export default defineComponent({
         disabled: getProp('disabled'),
         readonly: getProp('readonly'),
         autofocus: props.autofocus,
-        placeholder: props.placeholder,
+        placeholder: placeholder.value,
         autocomplete: props.autocomplete,
         autocapitalize: props.autocapitalize,
         autocorrect: props.autocorrect,
@@ -921,11 +927,12 @@ export default defineComponent({
             )}
             v-slots={{
               reference: () => (
-                <Icon
-                  size={14}
-                  name="info-o"
-                  classPrefix={props.iconPrefix}
+                <span
                   class={bem('label-tooltip-icon')}
+                  style={{
+                    maskImage: `url(${infoIcon})`,
+                    WebkitMaskImage: `url(${infoIcon})`,
+                  }}
                 />
               ),
               default: renderTooltipContent,

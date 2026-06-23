@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import BasicUsage from './BasicUsage.vue';
+import InputBorder from './InputBorder.vue';
 import CustomType from './CustomType.vue';
 import Disabled from './Disabled.vue';
 import ReadonlyEllipsis from './ReadonlyEllipsis.vue';
@@ -32,4 +33,5 @@ import LabelCollapsible from './LabelCollapsible.vue';
   <label-align />
   <Comment />
   <label-collapsible />
+  <input-border />
 </template>

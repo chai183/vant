@@ -8,7 +8,6 @@ const t = useTranslate({
   'zh-CN': {
     title: 'Label 收起展开',
     label: '标题',
-    placeholder: '请输入内容',
     labelComment: '收起后仍保留标签备注',
     labelAction: '添加',
     withAction: '与 label-action 组合',
@@ -16,7 +15,6 @@ const t = useTranslate({
   'en-US': {
     title: 'Label Collapse',
     label: 'Title',
-    placeholder: 'Text',
     labelComment: 'Label note remains when collapsed',
     labelAction: 'Add',
     withAction: 'With label-action',
@@ -35,14 +33,12 @@ const expanded = ref(true);
         v-model="value1"
         v-model:label-expanded="expanded"
         :label="t('label')"
-        :placeholder="t('placeholder')"
         label-align="top"
         label-collapsible
       />
       <van-field
         v-model="value2"
         :label="t('withAction')"
-        :placeholder="t('placeholder')"
         :label-comment="t('labelComment')"
         :label-action-text="t('labelAction')"
         label-align="top"

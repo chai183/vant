@@ -69,7 +69,7 @@ export default defineComponent({
           type="money"
           modelValue={props.modelValue}
           label={props.label}
-          placeholder={props.placeholder}
+          placeholder={props.placeholder || '请输入金额'}
           labelAlign={props.labelAlign}
           labelTooltip={props.labelTooltip}
           errorMessage={props.errorMessage}
@@ -82,6 +82,7 @@ export default defineComponent({
             emit('update:modelValue', value)
           }
           v-slots={slots}
+          error-message-info
         />
       );
     };

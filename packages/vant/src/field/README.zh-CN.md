@@ -21,12 +21,35 @@ app.use(CellGroup);
 
 ### 基础用法
 
-可以通过 `v-model` 双向绑定输入框的值，通过 `placeholder` 设置占位提示文字。
+可以通过 `v-model` 双向绑定输入框的值，默认占位提示文字为「请输入」，可通过 `placeholder` 自定义。
 
 ```html
 <!-- 可以使用 CellGroup 作为容器 -->
 <van-cell-group inset>
-  <van-field v-model="value" label="文本" placeholder="请输入文本" />
+  <van-field v-model="value" label="文本" />
+  <van-field v-model="longLabelValue" label="多行标题文本录入极限状态展示" />
+</van-cell-group>
+```
+
+```js
+import { ref } from 'vue';
+
+export default {
+  setup() {
+    const value = ref('');
+    const longLabelValue = ref('');
+    return { value, longLabelValue };
+  },
+};
+```
+
+### 输入框边框
+
+设置 `input-border` 可为输入区域添加外边框样式，常用于 [RangeInput](#/zh-CN/range-input) 等嵌套场景；开启后会关闭 Cell 内边框。
+
+```html
+<van-cell-group inset>
+  <van-field v-model="value" input-border />
 </van-cell-group>
 ```
 
@@ -48,64 +71,43 @@ export default {
 ```html
 <van-cell-group inset>
   <van-form>
-    <!-- 输入任意文本 -->
     <van-field
       v-model="text"
       label="文本"
-      placeholder="请输入文本"
       autocomplete="off"
     />
-    <!-- 输入手机号，调起手机号键盘 -->
+    <van-field v-model="phone" type="tel" label="手机号" />
+    <van-field v-model="digit" type="digit" label="整数" />
+    <van-field v-model="number" type="number" label="数字" />
+    <van-field v-model="money" type="money" label="金额" />
     <van-field
-      v-model="phone"
-      type="tel"
-      label="手机号"
-      placeholder="请输入手机号"
+      v-model="moneyNoCurrency"
+      type="money"
+      label="金额（无货币符号）"
+      :show-money-currency="false"
     />
-    <!-- 允许输入正整数，调起纯数字键盘 -->
-    <van-field
-      v-model="digit"
-      type="digit"
-      label="整数"
-      placeholder="请输入整数"
-    />
-    <!-- 允许输入数字，调起带符号的纯数字键盘 -->
-    <van-field
-      v-model="number"
-      type="number"
-      label="数字"
-      placeholder="请输入数字（支持小数）"
-    />
-    <!-- 输入密码 -->
     <van-field
       v-model="password"
       type="password"
       label="密码"
-      placeholder="请输入密码"
       autocomplete="off"
     />
-    <!-- 账号 -->
     <van-field
       v-model="account"
       type="account"
       label="账号"
-      placeholder="请输入账号"
       autocomplete="off"
     />
-    <!-- 身份证 -->
     <van-field
       v-model="idcard"
       type="idcard"
       label="身份证"
-      placeholder="请输入身份证"
       autocomplete="off"
     />
-    <!-- UKey -->
     <van-field
       v-model="ukey"
       type="ukey"
       label="UKey"
-      placeholder="请输入UKey"
       autocomplete="off"
     />
     <van-field
@@ -113,7 +115,6 @@ export default {
       label-align="top"
       autosize
       label="文本"
-      placeholder="请输入文本"
       autocomplete="off"
     />
   </van-form>
@@ -129,6 +130,8 @@ export default {
     const phone = ref('');
     const digit = ref('');
     const number = ref('');
+    const money = ref('');
+    const moneyNoCurrency = ref('');
     const password = ref('');
     const account = ref('');
     const idcard = ref('');
@@ -139,6 +142,8 @@ export default {
       phone,
       digit,
       number,
+      money,
+      moneyNoCurrency,
       password,
       account,
       idcard,
@@ -171,20 +176,17 @@ export default {
     label="收货地址"
     model-value="上海市浦东新区张江高科技园区科苑路88号张江大厦12层1201室"
     readonly
-    placeholder="请选择收货地址"
   />
   <van-field
     label="已选标签"
     :model-value="['设计设计设计设计设计设设计设计设计设计设计设', '交互', '前端']"
     readonly
-    placeholder="请选择标签"
   />
   <van-field
     label="分隔符展示"
     :model-value="['设计', '交互', '前端']"
     value-separator=";"
     readonly
-    placeholder="请选择标签"
   />
 </van-cell-group>
 ```
@@ -197,20 +199,18 @@ export default {
     label="收货地址"
     model-value="上海市浦东新区"
     readonly
-    placeholder="请选择收货地址"
   />
   <van-field
     label="已选标签"
     :model-value="['设计', '交互', '前端']"
     readonly
-    placeholder="请选择标签"
   />
 </van-cell-group>
 ```
 
 ### 显示图标
 
-通过 `left-icon` 和 `right-icon` 配置输入框两侧的图标，通过设置 `clearable` 在输入过程中展示清除图标。设置 `show-right-icon-divider` 可在右侧图标左侧展示竖向分隔线，可通过 `--van-field-right-icon-color` 自定义右侧图标颜色。使用 `right-icon` 插槽可自定义右侧内容，例如操作按钮或 [Popover](#/zh-CN/popover) 气泡菜单。
+通过 `left-icon` 和 `right-icon` 配置输入框两侧的图标，通过设置 `clearable` 在输入过程中展示清除图标。设置 `show-right-icon-divider` 可在右侧图标左侧展示竖向分隔线，可通过 `--van-field-right-icon-color` 自定义右侧图标颜色（默认为 `#666`）。使用 `right-icon` 插槽可自定义右侧内容，例如计量单位、操作按钮或 [Popover](#/zh-CN/popover) 气泡菜单。
 
 ```html
 <van-cell-group inset>
@@ -220,15 +220,22 @@ export default {
     label="文本"
     left-icon="smile-o"
     right-icon="warning-o"
-    placeholder="显示图标"
     :style="{ '--van-field-right-icon-color': 'var(--van-primary-color)' }"
   />
+  <van-field
+    v-model="value1"
+    label="文本"
+    left-icon="smile-o"
+  >
+    <template #right-icon>
+      <a>计量单位</a>
+    </template>
+  </van-field>
   <van-field
     v-model="value1"
     show-right-icon-divider
     label="文本"
     left-icon="smile-o"
-    placeholder="显示图标"
     :style="{ '--van-field-right-icon-color': 'var(--van-primary-color)' }"
   >
     <template #right-icon>
@@ -241,7 +248,6 @@ export default {
     clearable
     label="文本"
     left-icon="music-o"
-    placeholder="显示清除图标"
     :style="{ '--van-field-right-icon-color': 'var(--van-primary-color)' }"
   >
     <template #right-icon>
@@ -256,7 +262,6 @@ export default {
     show-right-icon-divider
     label="文本"
     left-icon="smile-o"
-    placeholder="气泡菜单"
   >
     <template #right-icon>
       <van-popover
@@ -307,18 +312,8 @@ export default {
 
 ```html
 <van-cell-group inset>
-  <van-field
-    v-model="username"
-    required
-    label="用户名"
-    placeholder="请输入用户名"
-  />
-  <van-field
-    v-model="phone"
-    required
-    label="手机号"
-    placeholder="请输入手机号"
-  />
+  <van-field v-model="username" required label="用户名" />
+  <van-field v-model="phone" required label="手机号" />
 </van-cell-group>
 ```
 
@@ -347,13 +342,11 @@ export default {
       v-model="username"
       :rules="[{ required: true }]"
       label="用户名"
-      placeholder="请输入用户名"
     />
     <van-field
       v-model="phone"
       :rules="[{ required: false }]"
       label="手机号"
-      placeholder="请输入手机号"
     />
   </van-form>
 </van-cell-group>
@@ -361,28 +354,15 @@ export default {
 
 ### 错误提示
 
-设置 `required` 属性表示这是一个必填项，可以配合 `error` 或 `error-message` 属性显示对应的错误提示。设置 `error-message-info` 时，`error-message` 会以信息样式（浅色背景块）展示。
+设置 `required` 属性表示这是一个必填项，可以配合 `error` 或 `error-message` 属性显示对应的错误提示。
 
 ```html
 <van-cell-group inset>
-  <van-field
-    v-model="username"
-    error
-    label="用户名"
-    placeholder="请输入用户名"
-  />
+  <van-field v-model="username" error label="用户名" />
   <van-field
     v-model="phone"
     label="手机号"
-    placeholder="请输入手机号"
     error-message="手机号格式错误"
-  />
-  <van-field
-    v-model="phone"
-    label="手机号"
-    placeholder="请输入手机号"
-    error-message="手机号格式错误"
-    error-message-info
   />
 </van-cell-group>
 ```
@@ -405,13 +385,7 @@ export default {
 
 ```html
 <van-cell-group inset>
-  <van-field
-    v-model="sms"
-    center
-    clearable
-    label="短信验证码"
-    placeholder="请输入短信验证码"
-  >
+  <van-field v-model="sms" center clearable label="短信验证码">
     <template #button>
       <van-button size="small" type="primary">发送验证码</van-button>
     </template>
@@ -425,18 +399,12 @@ export default {
 
 ```html
 <van-cell-group inset>
-  <van-field
-    v-model="value1"
-    label="文本"
-    :formatter="formatter"
-    placeholder="在输入时执行格式化"
-  />
+  <van-field v-model="value1" label="文本" :formatter="formatter" />
   <van-field
     v-model="value2"
     label="文本"
     :formatter="formatter"
     format-trigger="onBlur"
-    placeholder="在失焦时执行格式化"
   />
 </van-cell-group>
 ```
@@ -472,7 +440,6 @@ export default {
     rows="1"
     label="留言"
     type="textarea"
-    placeholder="请输入留言"
   />
 </van-cell-group>
 ```
@@ -491,7 +458,6 @@ export default {
     type="textarea"
     maxlength="5"
     label="留言"
-    placeholder="请输入留言"
   />
   <van-field
     v-model="messageWithoutToast"
@@ -502,7 +468,6 @@ export default {
     maxlength="5"
     :show-maxlength-toast="false"
     label="关闭上限提示"
-    placeholder="请输入留言"
   />
 </van-cell-group>
 ```
@@ -513,12 +478,7 @@ export default {
 
 ```html
 <van-cell-group inset>
-  <van-field
-    v-model="value"
-    label="文本"
-    placeholder="输入框内容右对齐"
-    input-align="right"
-  />
+  <van-field v-model="value" label="文本" input-align="right" />
 </van-cell-group>
 ```
 
@@ -528,30 +488,10 @@ export default {
 
 ```html
 <van-cell-group inset>
-  <van-field
-    v-model="value"
-    label="文本"
-    placeholder="顶部对齐"
-    label-align="top"
-  />
-  <van-field
-    v-model="value"
-    label="文本"
-    placeholder="左对齐"
-    label-align="left"
-  />
-  <van-field
-    v-model="value"
-    label="文本"
-    placeholder="居中对齐"
-    label-align="center"
-  />
-  <van-field
-    v-model="value"
-    label="文本"
-    placeholder="右对齐"
-    label-align="right"
-  />
+  <van-field v-model="value" label="文本" label-align="top" />
+  <van-field v-model="value" label="文本" label-align="left" />
+  <van-field v-model="value" label="文本" label-align="center" />
+  <van-field v-model="value" label="文本" label-align="right" />
 </van-cell-group>
 ```
 
@@ -571,8 +511,8 @@ export default {
 通过 `label-comment` 属性或 `label-comment` 插槽可在标签下方展示备注（插槽优先级高于属性）。
 
 ```html
-<van-field label="文本" label-comment="标签下方的备注说明" />
-<van-field label="文本" placeholder="请输入文本">
+<van-field v-model="value" label="文本" label-comment="标签下方的备注说明" />
+<van-field v-model="value" label="文本">
   <template #label-comment>
     <span>插槽：标签备注可自定义样式</span>
   </template>
@@ -588,10 +528,9 @@ export default {
   <van-field
     v-model="value4"
     label="文本"
-    placeholder="请输入文本"
     label-comment="标签下方的备注说明"
   />
-  <van-field v-model="value5" label="文本" placeholder="请输入文本">
+  <van-field v-model="value5" label="文本">
     <template #label-comment>
       <span>插槽：标签备注可自定义样式</span>
     </template>
@@ -599,19 +538,27 @@ export default {
   <van-field
     v-model="value1"
     label="文本"
-    placeholder="请输入文本"
     input-comment="这是一段辅助说明"
   />
-  <van-field v-model="value2" label="文本" placeholder="请输入文本">
+  <van-field v-model="value2" label="文本">
     <template #input-comment>
-      <span>插槽：可放链接或强调样式</span>
+      <van-highlight
+        tag="span"
+        :source-string="'插槽：可放链接或强调样式'"
+        :keywords="['链接', '强调样式']"
+      />
+      <van-tag currency currency-code="USD" />
     </template>
   </van-field>
-  <van-field v-model="value3" label="文本" placeholder="请输入文本">
+  <van-field v-model="value3" label="文本">
     <template #bottom>
-      <span style="color: var(--van-text-color-2)">
-        bottom 插槽：整行展示在标签与输入框下方，适合协议勾选、风险提示等
-      </span>
+      <div class="van-gray-block" style="margin-top: 4px;">
+        <van-highlight
+          tag="span"
+          :source-string="'bottom 插槽：整行展示在标签与输入框下方，适合协议勾选、风险提示等'"
+          :keywords="['协议勾选', '风险提示']"
+        />
+      </div>
     </template>
   </van-field>
 </van-cell-group>
@@ -625,7 +572,9 @@ export default {
     const value1 = ref('');
     const value2 = ref('');
     const value3 = ref('');
-    return { value1, value2, value3 };
+    const value4 = ref('');
+    const value5 = ref('');
+    return { value1, value2, value3, value4, value5 };
   },
 };
 ```
@@ -640,14 +589,12 @@ export default {
     v-model="value1"
     v-model:label-expanded="expanded"
     label="标题"
-    placeholder="请输入内容"
     label-align="top"
     label-collapsible
   />
   <van-field
     v-model="value2"
     label="与 label-action 组合"
-    placeholder="请输入内容"
     label-comment="收起后仍保留标签备注"
     label-action-text="添加"
     label-align="top"
@@ -684,8 +631,9 @@ export default {
 | maxlength | 输入的最大字符数 | _number \| string_ | - |
 | min `v4.9.5` | 输入框类型为 `number`、`money` 或 `digit` 类型时设置可允许的最小值 | _number_ | - |
 | max `v4.9.5` | 输入框类型为 `number`、`money` 或 `digit` 类型时设置可允许的最大值 | _number_ | - |
-| placeholder | 输入框占位提示文字 | _string_ | - |
+| placeholder | 输入框占位提示文字 | _string_ | `请输入` |
 | border | 是否显示内边框 | _boolean_ | `true` |
+| input-border `new` | 是否为输入区域添加外边框样式，常用于 RangeInput 等嵌套场景；开启后会关闭 Cell 内边框 | _boolean_ | `false` |
 | disabled | 是否禁用输入框 | _boolean_ | `false` |
 | readonly | 是否为只读状态，只读状态下无法输入内容 | _boolean_ | `false` |
 | readonly-ellipsis `new` | 只读时是否用 TextEllipsis 展示 | _boolean_ | `true` |
@@ -833,7 +781,7 @@ fieldRef.value?.focus();
 | ------------------------------------- | ------------------------- | ---- |
 | --van-field-label-width               | _6.2em_                   | -    |
 | --van-field-label-color               | _var(--van-text-color)_   | -    |
-| --van-field-label-margin-right        | _var(--van-padding-sm)_   | -    |
+| --van-field-label-margin-right        | _32px_                    | -    |
 | --van-field-input-text-color          | _var(--van-text-color)_   | -    |
 | --van-field-input-error-text-color    | _var(--van-danger-color)_ | -    |
 | --van-field-input-disabled-text-color | _var(--van-text-color-3)_ | -    |
@@ -841,12 +789,13 @@ fieldRef.value?.focus();
 | --van-field-icon-size                 | _18px_                    | -    |
 | --van-field-clear-icon-size           | _18px_                    | -    |
 | --van-field-clear-icon-color          | _var(--van-gray-5)_       | -    |
-| --van-field-right-icon-color          | _var(--van-gray-6)_       | -    |
+| --van-field-right-icon-color          | _#666_                    | -    |
 | --van-field-right-icon-divider-height | _14px_                    | -    |
 | --van-field-right-icon-divider-color  | _var(--van-border-color)_ | -    |
 | --van-field-error-message-color       | _var(--van-danger-color)_ | -    |
 | --van-field-error-message-font-size   | _12px_                    | -    |
 | --van-field-extra-margin-top          | _2px_                     | 输入区下方辅助内容的上边距 |
+| --van-field-input-comment-color       | _#999_                    | 输入区域下方辅助说明文字颜色 |
 | --van-field-error-message-info-background | _#fff2f0_             | -    |
 | --van-field-error-message-info-padding    | _6px 20px_            | -    |
 | --van-field-error-message-info-margin-top | _var(--van-field-extra-margin-top)_ | -    |
@@ -861,6 +810,11 @@ fieldRef.value?.focus();
 | --van-field-label-action-font-size    | _var(--van-font-size-md)_ | -    |
 | --van-field-label-collapse-color      | _var(--van-text-color-2)_ | -    |
 | --van-field-label-collapse-font-size  | _var(--van-font-size-sm)_ | -    |
+| --van-field-input-border-color        | _var(--van-border-color)_ | 输入框边框颜色 |
+| --van-field-input-border-radius       | _var(--van-radius-md)_ | 输入框边框圆角 |
+| --van-field-input-border-padding-y    | _8px_ | 输入框边框垂直内边距 |
+| --van-field-input-border-padding-x    | _12px_ | 输入框边框水平内边距 |
+| --van-field-input-border-background   | _var(--van-cell-background)_ | 输入框边框背景色 |
 | --van-field-money-currency-font-size | _inherit_ | 货币符号字号 |
 | --van-field-money-currency-font-weight | _var(--van-font-bold)_ | 货币符号字重 |
 | --van-field-money-currency-color | _var(--van-field-placeholder-text-color)_ | 未输入时货币符号颜色 |

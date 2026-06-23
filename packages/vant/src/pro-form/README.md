@@ -34,7 +34,7 @@ Use `v-model` for form data and `columns` for Field, Switch, Stepper, Rate, Slid
 ```js
 import { ref, computed } from 'vue';
 
-const model = ref({ username: '' });
+const model = ref({ username: '111' });
 
 const columns = computed(() => [
   {
@@ -42,15 +42,18 @@ const columns = computed(() => [
     label: 'Username',
     component: 'field',
     fieldProps: {
+      required: true,
       placeholder: 'Enter username',
-      rules: [{ required: true, message: 'Enter username' }],
     },
   },
   {
     name: 'switch',
     label: 'Switch',
     component: 'switch',
-    fieldProps: { inputAlign: 'right' },
+    fieldProps: {
+      inputAlign: 'right',
+      labelComment: 'Switch Comment',
+    },
   },
   {
     name: 'stepper',
@@ -124,6 +127,8 @@ const columns = computed(() => [
 `radioGroup` for inline layout, `radioPicker` for popup selection. Set `componentProps.isList` for list-style options with optional `cellProps`.
 
 ```js
+import { Button } from 'vant';
+
 const columns = computed(() => [
   {
     name: 'radio',
@@ -164,18 +169,16 @@ const columns = computed(() => [
     fieldProps: { placeholder: 'Select option' },
     componentProps: {
       isList: true,
+      showSearch: true,
       options: listOptions,
     },
-  },
-  {
-    name: 'radioListPickerGroup',
-    label: 'Radio List Popup',
-    component: 'radioGroup',
-    defaultValue: '1',
-    fieldProps: { labelAlign: 'top', placeholder: 'Select option' },
-    componentProps: {
-      isList: true,
-      options: listOptions,
+    popupSlots: {
+      'popup-bottom': () => (
+        <div class="demo-pro-form__popup-bottom van-hairline--top">
+          <Button block>Secondary Action</Button>
+          <Button block type="primary">Primary Action</Button>
+        </div>
+      ),
     },
   },
 ]);
@@ -186,6 +189,8 @@ const columns = computed(() => [
 `checkboxGroup` for inline layout, `checkboxPicker` for popup multi-select. Use `fieldProps.labelCollapsible` for long labels.
 
 ```js
+import { Button } from 'vant';
+
 const columns = computed(() => [
   {
     name: 'checkboxGroup',
@@ -212,6 +217,9 @@ const columns = computed(() => [
     component: 'checkboxPicker',
     defaultValue: ['1'],
     fieldProps: { placeholder: 'Select options' },
+    fieldSlots: {
+      'input-comment': () => <div>Tap to select multiple options</div>,
+    },
     componentProps: {
       shape: 'block',
       columns: 3,
@@ -230,22 +238,24 @@ const columns = computed(() => [
     fieldProps: { placeholder: 'Select options' },
     componentProps: {
       isList: true,
+      showSearch: true,
       options: listOptions,
     },
-  },
-  {
-    name: 'checkboxListPickerGroup',
-    label: 'Checkbox Popup',
-    component: 'checkboxGroup',
-    defaultValue: ['1'],
-    fieldProps: { labelAlign: 'top', placeholder: 'Select options' },
-    componentProps: {
-      isList: true,
-      options: listOptions,
+    popupSlots: {
+      'popup-bottom': () => (
+        <div class="demo-pro-form__popup-bottom van-hairline--top">
+          <Button block>Secondary Action</Button>
+          <Button block type="primary">Primary Action</Button>
+        </div>
+      ),
     },
   },
 ]);
 ```
+
+### Popup bottom slot
+
+`checkboxPicker` and `radioPicker` support `popupSlots['popup-bottom']` to render custom content below the popup body. You can also use the template slot `#popup-bottom-{name}`. See `radioListPicker` and `checkboxListPicker` in the Radio and Checkbox sections above.
 
 ### Money input
 
@@ -533,3 +543,25 @@ See [Chinese documentation](./README.zh-CN.md) for default values per component 
 | --- | --- | --- |
 | submit | Validation passed | _values_ |
 | failed | Validation failed | _{ values, errors }_ |
+
+### Slots
+
+| Name | Description |
+| --- | --- |
+| default | Extra fields after `columns` |
+| footer | Area above submit button |
+| submit | Custom submit button |
+| input-{name} | Override `#input` for a field |
+| field-{name} | Fully custom field |
+| popup-bottom-{name} `new` | Area below popup content for `checkboxPicker` / `radioPicker` |
+
+## Theme Customization
+
+### CSS Variables
+
+The component provides the following CSS variables for custom styling. See [ConfigProvider](/#/en-US/config-provider).
+
+| Name | Default | Description |
+| --- | --- | --- |
+| --van-pro-form-footer-padding | _0_ | Footer area padding |
+| --van-pro-form-field-popup-body-max-height | _70vh_ | Max height of popup content area |

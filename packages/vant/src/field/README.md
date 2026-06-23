@@ -771,6 +771,7 @@ The component provides the following CSS variables, which can be used to customi
 | --van-field-right-icon-divider-color | _var(--van-border-color)_ | - |
 | --van-field-error-message-color | _var(--van-danger-color)_ | - |
 | --van-field-error-message-font-size | _12px_ | - |
+| --van-field-bottom-margin-top | _8px_ | Top margin of the full-width bottom content |
 | --van-field-input-comment-color | _#999_ | Input area helper text color |
 | --van-field-text-area-min-height | _60px_ | - |
 | --van-field-word-limit-color | _var(--van-gray-7)_ | - |

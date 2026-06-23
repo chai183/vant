@@ -795,10 +795,11 @@ fieldRef.value?.focus();
 | --van-field-error-message-color       | _var(--van-danger-color)_ | -    |
 | --van-field-error-message-font-size   | _12px_                    | -    |
 | --van-field-extra-margin-top          | _2px_                     | 输入区下方辅助内容的上边距 |
+| --van-field-bottom-margin-top         | _8px_                     | 整行底部内容的上边距 |
 | --van-field-input-comment-color       | _#999_                    | 输入区域下方辅助说明文字颜色 |
 | --van-field-error-message-info-background | _#fff2f0_             | -    |
 | --van-field-error-message-info-padding    | _6px 20px_            | -    |
-| --van-field-error-message-info-margin-top | _var(--van-field-extra-margin-top)_ | -    |
+| --van-field-error-message-info-margin-top | _8px_ | -    |
 | --van-field-error-message-info-radius     | _var(--van-radius-md)_ | -    |
 | --van-field-text-area-min-height      | _60px_                    | -    |
 | --van-field-word-limit-color          | _var(--van-gray-7)_       | -    |

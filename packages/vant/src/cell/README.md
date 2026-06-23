@@ -241,13 +241,13 @@ The component provides the following CSS variables, which can be used to customi
 | Name | Default Value | Description |
 | --- | --- | --- |
 | --van-cell-font-size | _var(--van-font-size-md)_ | - |
-| --van-cell-line-height | _24px_ | - |
-| --van-cell-vertical-padding | _10px_ | - |
-| --van-cell-horizontal-padding | _var(--van-padding-md)_ | - |
+| --van-cell-line-height | _20px_ | - |
+| --van-cell-vertical-padding | _14px_ | - |
+| --van-cell-horizontal-padding | _12px_ | - |
 | --van-cell-text-color | _var(--van-text-color)_ | - |
 | --van-cell-background | _var(--van-background-2)_ | - |
 | --van-cell-border-color | _var(--van-border-color)_ | - |
-| --van-cell-active-color | _var(--van-active-color)_ | - |
+| --van-cell-active-color | _#f5f5f5_ | - |
 | --van-cell-required-color | _var(--van-danger-color)_ | - |
 | --van-cell-label-color | _var(--van-text-color-2)_ | - |
 | --van-cell-label-font-size | _var(--van-font-size-sm)_ | - |

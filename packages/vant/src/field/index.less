@@ -17,10 +17,11 @@
   --van-field-error-message-color: var(--van-danger-color);
   --van-field-error-message-font-size: 12px;
   --van-field-extra-margin-top: 2px;
+  --van-field-bottom-margin-top: 8px;
   --van-field-input-comment-color: #999;
   --van-field-error-message-info-background: #fff2f0;
   --van-field-error-message-info-padding: 6px 20px;
-  --van-field-error-message-info-margin-top: var(--van-field-extra-margin-top);
+  --van-field-error-message-info-margin-top: 8px;
   --van-field-error-message-info-radius: var(--van-radius-md);
   --van-field-text-area-min-height: 60px;
   --van-field-word-limit-color: var(--van-gray-7);
@@ -263,17 +264,13 @@
     align-items: center;
     margin-right: var(--van-padding-base);
     line-height: inherit;
-
-    &:has(.van-field__money-currency) {
-      margin-right: 0;
-    }
   }
 
   &__money-currency {
     display: inline-flex;
     align-items: center;
     // height: var(--van-field-money-input-height);
-    margin-right: 2px;
+    // margin-right: 2px;
     // line-height: 1;
     color: var(--van-field-money-currency-color);
     font-size: var(--van-field-money-currency-font-size);
@@ -646,10 +643,11 @@
   }
 
   > .van-cell__bottom {
-    margin-top: var(--van-field-extra-margin-top);
+    margin-top: var(--van-field-bottom-margin-top);
     text-align: left;
     font-size: var(--van-font-size-sm);
     line-height: var(--van-field-word-limit-line-height);
     word-break: break-word;
+    color: var(--van-field-input-comment-color);
   }
 }

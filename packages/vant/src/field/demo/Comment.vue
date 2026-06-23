@@ -81,7 +81,7 @@ const value5 = ref('');
         :label="t('label')"
       >
         <template #bottom>
-          <div class="van-gray-block" style="margin-top: 4px;">
+          <div class="van-gray-block">
             <van-highlight
               tag="span"
               :source-string="t('bottomSlot')"

@@ -158,12 +158,5 @@ const renderEnd = () =>
   .van-doc-demo-block__title {
     padding-top: var(--van-padding-md);
   }
-
-  &__unit {
-    margin-left: var(--van-padding-xs);
-    color: var(--van-text-color-2);
-    font-size: var(--van-font-size-sm);
-    white-space: nowrap;
-  }
 }
 </style>

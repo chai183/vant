@@ -17,11 +17,5 @@ export type RangeInputThemeVars = {
   rangeInputVerticalLineWidth?: string;
   rangeInputVerticalLineColor?: string;
   rangeInputVerticalLineMinHeight?: string;
-  rangeInputShortcutColor?: string;
-  rangeInputShortcutBackground?: string;
-  rangeInputShortcutFontSize?: string;
-  rangeInputShortcutGap?: string;
-  rangeInputShortcutPaddingY?: string;
-  rangeInputShortcutPaddingX?: string;
   rangeInputShortcutMarginBottom?: string;
 };

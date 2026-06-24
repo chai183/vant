@@ -156,6 +156,8 @@ export type FieldThemeVars = {
   fieldInputErrorTextColor?: string;
   fieldInputDisabledTextColor?: string;
   fieldPlaceholderTextColor?: string;
+  fieldCursorColor?: string;
+  fieldLabelCommentColor?: string;
   fieldIconSize?: string;
   fieldClearIconSize?: string;
   fieldClearIconColor?: string;
@@ -170,6 +172,8 @@ export type FieldThemeVars = {
   fieldRequiredMarkColor?: string;
   fieldLabelActionColor?: string;
   fieldLabelActionFontSize?: string;
+  fieldReadonlyTagBackground?: string;
+  fieldReadonlyTagTextColor?: string;
   fieldInputBorderColor?: string;
   fieldInputBorderRadius?: string;
   fieldInputBorderPaddingY?: string;

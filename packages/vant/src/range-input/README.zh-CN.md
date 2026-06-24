@@ -144,15 +144,11 @@ TSX 写法：
 
 ### 日期快捷选择
 
-开启 `show-date-shortcuts` 后，展示「近一周 / 近一月 / 近三月」按钮，点击后将对应日期区间写入 `v-model`。可与只读 [Field](#/zh-CN/field) 搭配 [DatePicker](#/zh-CN/date-picker) 弹层录入日期。
+开启 `show-date-shortcuts` 后，展示「近一周 / 近一月 / 近三月」快捷选项，点击后将对应日期区间写入 `v-model`。可与只读 [Field](#/zh-CN/field) 搭配 [DatePicker](#/zh-CN/date-picker) 弹层录入日期。
 
 ```html
 <van-cell-group inset>
-  <van-range-input
-    v-model="range"
-    layout="vertical"
-    show-date-shortcuts
-  >
+  <van-range-input v-model="range" layout="vertical" show-date-shortcuts>
     <template #start>
       <van-field input-border is-link readonly placeholder="点击选择时间" />
     </template>
@@ -204,8 +200,8 @@ export default {
 | v-model | 长度为 2 的数组，合并到两个子组件 | _string[] \| number[]_ | `['', '']` |
 | layout | 布局方向 | _'vertical' \| 'horizontal'_ | `vertical` |
 | vertical-separator | 纵向布局中间文案（上下为竖线段），并作为 `aria-label` | _string_ | `至` |
-| show-date-shortcuts | 是否展示内置日期区间快捷按钮；为 `true` 时展示全部，为数组时仅展示对应选项，可选 `lastWeek`、`lastMonth`、`lastThreeMonths` | _boolean \| RangeInputDateShortcutType[]_ | `false` |
-| shortcuts | 自定义快捷按钮，项为 `{ label, value }`，`value` 为长度 2 的数组；可与 `show-date-shortcuts` 同时使用，自定义项排在内置日期快捷之后 | _RangeInputShortcut[]_ | `[]` |
+| show-date-shortcuts | 是否展示内置日期区间快捷选项；为 `true` 时展示全部，为数组时仅展示对应选项，可选 `lastWeek`、`lastMonth`、`lastThreeMonths` | _boolean \| RangeInputDateShortcutType[]_ | `false` |
+| shortcuts | 自定义快捷选项，项为 `{ label, value }`，`value` 为长度 2 的数组；可与 `show-date-shortcuts` 同时使用，自定义项排在内置日期快捷之后 | _RangeInputShortcut[]_ | `[]` |
 | start | 起始输入的渲染函数，需与 `end` 同时传入；优先级高于插槽 | _() => VNode_ | - |
 | end | 结束输入的渲染函数，需与 `start` 同时传入；优先级高于插槽 | _() => VNode_ | - |
 
@@ -213,7 +209,7 @@ export default {
 
 | 事件名 | 说明 | 回调参数 |
 | --- | --- | --- |
-| update:modelValue | 任一侧子组件值变化，或点击快捷按钮 | _value: string[] \| number[]_ |
+| update:modelValue | 任一侧子组件值变化，或选中快捷选项 | _value: string[] \| number[]_ |
 
 ### Slots
 
@@ -257,10 +253,4 @@ type RangeInputShortcut = {
 | --van-range-input-vertical-line-width | _1px_ | 纵向布局竖线宽度 |
 | --van-range-input-vertical-line-color | _var(--van-border-color)_ | 纵向布局竖线颜色 |
 | --van-range-input-vertical-line-min-height | _24px_ | 纵向布局分隔列最小高度 |
-| --van-range-input-shortcut-color | _var(--van-text-color)_ | 快捷按钮文字颜色 |
-| --van-range-input-shortcut-background | _#f5f5f5_ | 快捷按钮背景色 |
-| --van-range-input-shortcut-font-size | _var(--van-font-size-sm)_ | 快捷按钮字号 |
-| --van-range-input-shortcut-gap | _8px_ | 快捷按钮间距 |
-| --van-range-input-shortcut-padding-y | _8px_ | 快捷按钮纵向内边距 |
-| --van-range-input-shortcut-padding-x | _4px_ | 快捷按钮横向内边距 |
-| --van-range-input-shortcut-margin-bottom | _var(--van-padding-xs)_ | 快捷按钮与内容区间距 |
+| --van-range-input-shortcut-margin-bottom | _var(--van-padding-xs)_ | 快捷选项与内容区间距 |

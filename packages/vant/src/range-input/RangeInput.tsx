@@ -20,7 +20,7 @@ import type { RangeInputDateShortcutType, RangeInputShortcut } from './types';
 import { getDefaultDateShortcuts } from './utils';
 
 // Components
-import { Button } from '../button';
+import { RadioGroup } from '../radio-group';
 
 const [name, bem, t] = createNamespace('range-input');
 
@@ -35,9 +35,7 @@ export const rangeInputProps = {
   },
   shortcuts: makeArrayProp<RangeInputShortcut>(),
   showDateShortcuts: {
-    type: [Boolean, Array] as PropType<
-      boolean | RangeInputDateShortcutType[]
-    >,
+    type: [Boolean, Array] as PropType<boolean | RangeInputDateShortcutType[]>,
     default: false,
   },
   /** 起始输入，渲染函数形式，需与 end 同时传入 */
@@ -102,9 +100,7 @@ export default defineComponent({
           aria-label={String(props.verticalSeparator)}
         >
           <div class={bem('v-sep', 'segment')} />
-          <span class={bem('v-sep', 'label')}>
-            {props.verticalSeparator}
-          </span>
+          <span class={bem('v-sep', 'label')}>{props.verticalSeparator}</span>
           <div class={bem('v-sep', 'segment')} />
         </div>
       );
@@ -129,12 +125,17 @@ export default defineComponent({
       return list;
     };
 
-    /** 点击快捷按钮时，用快捷项的 value 更新 v-model */
-    const onShortcutClick = (shortcut: RangeInputShortcut) => {
-      emit('update:modelValue', [...shortcut.value]);
+    /** 根据当前 v-model 匹配已选中的快捷项索引 */
+    const getSelectedShortcutIndex = (shortcuts: RangeInputShortcut[]) => {
+      const [start, end] = getModelValuePair(props.modelValue);
+      return shortcuts.findIndex(
+        (shortcut) =>
+          String(shortcut.value[0]) === start &&
+          String(shortcut.value[1]) === end,
+      );
     };
 
-    /** 渲染快捷选项按钮组 */
+    /** 渲染快捷选项单选框组 */
     const renderShortcuts = () => {
       const shortcuts = getShortcuts();
 
@@ -142,20 +143,26 @@ export default defineComponent({
         return;
       }
 
+      const selectedIndex = getSelectedShortcutIndex(shortcuts);
+
       return (
-        <div class={bem('shortcuts')}>
-          {shortcuts.map((shortcut, index) => (
-            <Button
-              key={`${shortcut.label}-${index}`}
-              class={bem('shortcut')}
-              size="small"
-              type="default"
-              onClick={() => onShortcutClick(shortcut)}
-            >
-              {shortcut.label}
-            </Button>
-          ))}
-        </div>
+        <RadioGroup
+          class={bem('shortcuts')}
+          modelValue={selectedIndex >= 0 ? selectedIndex : undefined}
+          direction="horizontal"
+          shape="block"
+          columns={shortcuts.length}
+          options={shortcuts.map((shortcut, index) => ({
+            label: shortcut.label,
+            value: index,
+          }))}
+          onUpdate:modelValue={(index: number) => {
+            const shortcut = shortcuts[index];
+            if (shortcut) {
+              emit('update:modelValue', [...shortcut.value]);
+            }
+          }}
+        />
       );
     };
 

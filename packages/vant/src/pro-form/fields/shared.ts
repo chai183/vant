@@ -1,7 +1,10 @@
 import { inject, type ExtractPropTypes, type PropType } from 'vue';
 import { FORM_KEY, createNamespace, isDef, omit } from '../../utils';
 import type { FieldProps } from '../../field/Field';
-import type { ProFormFieldSlots } from '../resolveFieldSlots';
+import type {
+  ProFormFieldSlots,
+  ProFormPopupSlots,
+} from '../resolveFieldSlots';
 import type { ProFormOption } from '../types';
 
 export function getFormFieldOptions(
@@ -11,10 +14,7 @@ export function getFormFieldOptions(
   return options ?? [];
 }
 
-export function resolveOptionLabel(
-  options: ProFormOption[],
-  value: unknown,
-) {
+export function resolveOptionLabel(options: ProFormOption[], value: unknown) {
   return options.find((opt) => opt.value === value)?.label ?? String(value);
 }
 
@@ -76,6 +76,10 @@ export const builtinFieldProps = {
   },
   fieldSlots: {
     type: Object as PropType<ProFormFieldSlots>,
+    default: () => ({}),
+  },
+  popupSlots: {
+    type: Object as PropType<ProFormPopupSlots>,
     default: () => ({}),
   },
 };
@@ -144,11 +148,9 @@ export function resolveFieldPopupProps(
     }
   } else if (options.confirmable) {
     popupHeaderProps.cancelButtonText =
-      (componentProps.cancelText as string | undefined) ??
-      popupT('cancel');
+      (componentProps.cancelText as string | undefined) ?? popupT('cancel');
     popupHeaderProps.confirmButtonText =
-      (componentProps.confirmText as string | undefined) ??
-      popupT('confirm');
+      (componentProps.confirmText as string | undefined) ?? popupT('confirm');
   } else if (enableClear && options.showClear) {
     popupHeaderProps.cancelButtonText =
       (componentProps.deleteText as string | undefined) ??

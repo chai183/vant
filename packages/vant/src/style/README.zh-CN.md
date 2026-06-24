@@ -127,4 +127,4 @@ Vant 中默认包含了一些常用样式，可以直接通过 className 的方�
 | --van-gray-block-background | _#f5f5f5_ | 背景色 |
 | --van-gray-block-padding | _var(--van-padding-sm) var(--van-padding-md-plus)_ | 内边距 |
 | --van-gray-block-radius | _var(--van-radius-md)_ | 圆角 |
-| --van-gray-block-color | _#999999_ | 文字颜色 |
+| --van-gray-block-color | _var(--van-text-color-auxiliary)_ | 文字颜色 |

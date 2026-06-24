@@ -204,12 +204,6 @@ export default {
         }
       }
 
-      if (day.type === 'start') {
-        day.bottomInfo = '入住';
-      } else if (day.type === 'end') {
-        day.bottomInfo = '离店';
-      }
-
       return day;
     };
 
@@ -274,7 +268,7 @@ export default {
 | formatter | 日期格式化函数 | _(day: Day) => Day_ | - |
 | poppable | 是否以弹层的形式展示日历 | _boolean_ | `true` |
 | lazy-render | 是否只渲染可视区域的内容 | _boolean_ | `true` |
-| show-mark | 是否显示月份背景水印 | _boolean_ | `true` |
+| show-mark | 是否显示月份背景水印 | _boolean_ | `false` |
 | show-title | 是否展示日历标题 | _boolean_ | `true` |
 | show-subtitle | 是否展示日历副标题（年月） | _boolean_ | `true` |
 | show-confirm | 是否展示确认按钮 | _boolean_ | `true` |
@@ -430,7 +424,7 @@ calendarRef.value?.reset();
 | --van-calendar-day-margin-bottom | _4px_ | - |
 | --van-calendar-padding-horizontal | _24px_ | - |
 | --van-calendar-month-gap | _24px_ | - |
-| --van-calendar-day-disabled-color | _var(--van-text-color-3)_ | - |
+| --van-calendar-day-disabled-color | _var(--van-text-color-disabled)_ | - |
 | --van-calendar-range-edge-color | _var(--van-white)_ | - |
 | --van-calendar-range-edge-background | _var(--van-primary-color)_ | - |
 | --van-calendar-range-middle-color | _var(--van-primary-color)_ | - |

@@ -136,10 +136,10 @@ export default defineComponent({
     const renderOptionLabel = (option: CheckboxGroupOption) => {
       if (option.icon) {
         return (
-          <>
+          <span class={bem('option-label')}>
             <Icon name={option.icon} class={bem('option-icon')} />
             {option.label}
-          </>
+          </span>
         );
       }
       return option.label;
@@ -160,7 +160,9 @@ export default defineComponent({
       if (props.disabled || option.disabled) {
         return;
       }
-      const index = props.options.findIndex((item) => item.value === option.value);
+      const index = props.options.findIndex(
+        (item) => item.value === option.value,
+      );
       if (index >= 0) {
         checkboxRefs.value[index]?.toggle();
       }
@@ -200,43 +202,44 @@ export default defineComponent({
       }
 
       return (
-      <CellGroup border={false}>
-        {listOptions.value.map((option) => {
-          const { label, value, disabled, icon, cellProps } = option;
-          const index = props.options.findIndex((item) => item.value === value);
-          const highlight =
-            listHighlight.value.length > 0
-              ? listHighlight.value
-              : cellProps?.highlight;
+        <CellGroup border={false}>
+          {listOptions.value.map((option) => {
+            const { label, value, disabled, icon, cellProps } = option;
+            const index = props.options.findIndex(
+              (item) => item.value === value,
+            );
+            const highlight =
+              listHighlight.value.length > 0
+                ? listHighlight.value
+                : cellProps?.highlight;
 
-          return (
-            <Cell
-              key={String(value)}
-              title={label}
-              {...cellProps}
-              highlight={highlight}
-              icon={cellProps?.icon ?? icon}
-              border={false}
-              clickable={
-                cellProps?.clickable ?? (!props.disabled && !disabled)
-              }
-              onClick={() => toggleOption(option)}
-            >
-              {{
-                'right-icon': () => (
-                  <Checkbox
-                    shape="square"
-                    ref={setCheckboxRefs(index)}
-                    name={value}
-                    disabled={disabled}
-                    onClick={(event: MouseEvent) => event.stopPropagation()}
-                  />
-                ),
-              }}
-            </Cell>
-          );
-        })}
-      </CellGroup>
+            return (
+              <Cell
+                key={String(value)}
+                title={label}
+                {...cellProps}
+                highlight={highlight}
+                icon={cellProps?.icon ?? icon}
+                clickable={
+                  cellProps?.clickable ?? (!props.disabled && !disabled)
+                }
+                onClick={() => toggleOption(option)}
+              >
+                {{
+                  'right-icon': () => (
+                    <Checkbox
+                      shape="square"
+                      ref={setCheckboxRefs(index)}
+                      name={value}
+                      disabled={disabled}
+                      onClick={(event: MouseEvent) => event.stopPropagation()}
+                    />
+                  ),
+                }}
+              </Cell>
+            );
+          })}
+        </CellGroup>
       );
     };
 

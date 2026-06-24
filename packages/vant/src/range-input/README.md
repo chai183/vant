@@ -123,8 +123,7 @@ export default {
     const range = ref(['', '']);
     const renderStart = () =>
       h(Field, { inputBorder: true, placeholder: 'Start' });
-    const renderEnd = () =>
-      h(Field, { inputBorder: true, placeholder: 'End' });
+    const renderEnd = () => h(Field, { inputBorder: true, placeholder: 'End' });
 
     return { range, renderStart, renderEnd };
   },
@@ -144,15 +143,11 @@ TSX:
 
 ### Date shortcuts
 
-Set `show-date-shortcuts` to show built-in buttons (last week / last month / last 3 months). Clicking a button writes the date range into `v-model`. Works well with readonly [Field](#/en-US/field) and a [DatePicker](#/en-US/date-picker) popup.
+Set `show-date-shortcuts` to show built-in options (last week / last month / last 3 months). Selecting an option writes the date range into `v-model`. Works well with readonly [Field](#/en-US/field) and a [DatePicker](#/en-US/date-picker) popup.
 
 ```html
 <van-cell-group inset>
-  <van-range-input
-    v-model="range"
-    layout="vertical"
-    show-date-shortcuts
-  >
+  <van-range-input v-model="range" layout="vertical" show-date-shortcuts>
     <template #start>
       <van-field input-border is-link readonly placeholder="Select time" />
     </template>
@@ -204,7 +199,7 @@ Pass an array to show only selected built-in options: `lastWeek`, `lastMonth`, `
 | v-model | Two-element array merged into both slot children | _string[] \| number[]_ | `['', '']` |
 | layout | Layout direction | _'vertical' \| 'horizontal'_ | `vertical` |
 | vertical-separator | Center label between vertical line segments; also `aria-label` | _string_ | `至` |
-| show-date-shortcuts | Show built-in date range shortcut buttons; `true` shows all, an array shows only the listed options: `lastWeek`, `lastMonth`, `lastThreeMonths` | _boolean \| RangeInputDateShortcutType[]_ | `false` |
+| show-date-shortcuts | Show built-in date range shortcut options; `true` shows all, an array shows only the listed options: `lastWeek`, `lastMonth`, `lastThreeMonths` | _boolean \| RangeInputDateShortcutType[]_ | `false` |
 | shortcuts | Custom shortcuts `{ label, value }`; `value` is a 2-item array. Can be combined with `show-date-shortcuts`; custom items are appended after the built-in date shortcuts | _RangeInputShortcut[]_ | `[]` |
 | start | Render function for the start input; must be used with `end`; takes priority over slots | _() => VNode_ | - |
 | end | Render function for the end input; must be used with `start`; takes priority over slots | _() => VNode_ | - |
@@ -213,7 +208,7 @@ Pass an array to show only selected built-in options: `lastWeek`, `lastMonth`, `
 
 | Event | Description | Arguments |
 | --- | --- | --- |
-| update:modelValue | Either child value changed, or a shortcut was clicked | _value: string[] \| number[]_ |
+| update:modelValue | Either child value changed, or a shortcut was selected | _value: string[] \| number[]_ |
 
 ### Slots
 
@@ -257,10 +252,4 @@ The component provides the following CSS variables. See the [ConfigProvider comp
 | --van-range-input-vertical-line-width | _1px_ | Vertical layout line width |
 | --van-range-input-vertical-line-color | _var(--van-border-color)_ | Vertical layout line color |
 | --van-range-input-vertical-line-min-height | _24px_ | Vertical layout separator column min height |
-| --van-range-input-shortcut-color | _var(--van-text-color)_ | Shortcut button text color |
-| --van-range-input-shortcut-background | _#f5f5f5_ | Shortcut button background |
-| --van-range-input-shortcut-font-size | _var(--van-font-size-sm)_ | Shortcut button font size |
-| --van-range-input-shortcut-gap | _8px_ | Gap between shortcut buttons |
-| --van-range-input-shortcut-padding-y | _8px_ | Shortcut button vertical padding |
-| --van-range-input-shortcut-padding-x | _4px_ | Shortcut button horizontal padding |
 | --van-range-input-shortcut-margin-bottom | _var(--van-padding-xs)_ | Space below shortcut row |

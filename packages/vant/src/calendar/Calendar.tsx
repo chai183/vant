@@ -67,7 +67,7 @@ export const calendarProps = {
   maxRange: makeNumericProp(null),
   position: makeStringProp<PopupPosition>('bottom'),
   teleport: [String, Object] as PropType<TeleportProps['to']>,
-  showMark: truthProp,
+  showMark: Boolean,
   showTitle: truthProp,
   formatter: Function as PropType<(item: CalendarDayItem) => CalendarDayItem>,
   rowHeight: numericProp,

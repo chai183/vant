@@ -167,40 +167,39 @@ export default defineComponent({
       }
 
       return (
-      <CellGroup border={false}>
-        {listOptions.value.map((option) => {
-          const { label, value, disabled, icon, cellProps } = option;
-          const highlight =
-            listHighlight.value.length > 0
-              ? listHighlight.value
-              : cellProps?.highlight;
+        <CellGroup border={false}>
+          {listOptions.value.map((option) => {
+            const { label, value, disabled, icon, cellProps } = option;
+            const highlight =
+              listHighlight.value.length > 0
+                ? listHighlight.value
+                : cellProps?.highlight;
 
-          return (
-            <Cell
-              key={String(value)}
-              title={label}
-              {...cellProps}
-              highlight={highlight}
-              icon={cellProps?.icon ?? icon}
-              border={false}
-              clickable={
-                cellProps?.clickable ?? (!props.disabled && !disabled)
-              }
-              onClick={() => selectOption(option)}
-            >
-              {{
-                'right-icon': () => (
-                  <Radio
-                    name={value}
-                    disabled={disabled}
-                    onClick={(event: MouseEvent) => event.stopPropagation()}
-                  />
-                ),
-              }}
-            </Cell>
-          );
-        })}
-      </CellGroup>
+            return (
+              <Cell
+                key={String(value)}
+                title={label}
+                {...cellProps}
+                highlight={highlight}
+                icon={cellProps?.icon ?? icon}
+                clickable={
+                  cellProps?.clickable ?? (!props.disabled && !disabled)
+                }
+                onClick={() => selectOption(option)}
+              >
+                {{
+                  'right-icon': () => (
+                    <Radio
+                      name={value}
+                      disabled={disabled}
+                      onClick={(event: MouseEvent) => event.stopPropagation()}
+                    />
+                  ),
+                }}
+              </Cell>
+            );
+          })}
+        </CellGroup>
       );
     };
 

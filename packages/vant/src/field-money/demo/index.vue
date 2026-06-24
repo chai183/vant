@@ -46,7 +46,6 @@ const valueSlotComment = ref('');
         v-model="value"
         :label="t('label')"
         :label-tooltip="t('labelTooltip')"
-        :placeholder="t('placeholder')"
       />
     </van-cell-group>
   </demo-block>
@@ -56,7 +55,6 @@ const valueSlotComment = ref('');
       <van-field-money
         v-model="valueError"
         :label="t('label')"
-        :placeholder="t('placeholder')"
         :error-message="t('amountError')"
       />
     </van-cell-group>
@@ -67,7 +65,6 @@ const valueSlotComment = ref('');
       <van-field-money
         v-model="valueComment"
         :label="t('label')"
-        :placeholder="t('placeholder')"
         :input-comment="t('inputCommentText')"
       />
     </van-cell-group>
@@ -75,11 +72,7 @@ const valueSlotComment = ref('');
 
   <demo-block :title="t('slotComment')">
     <van-cell-group inset>
-      <van-field-money
-        v-model="valueSlotComment"
-        :label="t('label')"
-        :placeholder="t('placeholder')"
-      >
+      <van-field-money v-model="valueSlotComment" :label="t('label')">
         <template #input-comment>
           <span style="color: var(--van-text-color-2)">{{
             t('slotCommentText')

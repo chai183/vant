@@ -29,30 +29,10 @@ const value = ref('');
 <template>
   <demo-block :title="t('labelAlign')">
     <van-cell-group inset>
-      <van-field
-        v-model="value"
-        :label="t('label')"
-        :placeholder="t('top')"
-        label-align="top"
-      />
-      <van-field
-        v-model="value"
-        :label="t('label')"
-        :placeholder="t('left')"
-        label-align="left"
-      />
-      <van-field
-        v-model="value"
-        :label="t('label')"
-        :placeholder="t('center')"
-        label-align="center"
-      />
-      <van-field
-        v-model="value"
-        :label="t('label')"
-        :placeholder="t('right')"
-        label-align="right"
-      />
+      <van-field v-model="value" :label="t('label')" label-align="top" />
+      <van-field v-model="value" :label="t('label')" label-align="left" />
+      <van-field v-model="value" :label="t('label')" label-align="center" />
+      <van-field v-model="value" :label="t('label')" label-align="right" />
     </van-cell-group>
   </demo-block>
 </template>

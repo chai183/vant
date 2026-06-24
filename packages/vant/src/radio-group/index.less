@@ -6,6 +6,10 @@
   &--list {
     width: 100%;
     min-width: 0;
+
+    .van-cell::after {
+      right: 0;
+    }
   }
 
   &__search {
@@ -13,7 +17,7 @@
   }
 
   &__empty {
-    --van-empty-padding:48px 0;
+    --van-empty-padding: 48px 0;
     background-color: #fff;
     --van-empty-description-margin-top: 0;
 

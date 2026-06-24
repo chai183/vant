@@ -179,7 +179,11 @@ Use `column-separator` to display characters between columns. Pass a string to u
 
 ```html
 <van-picker title="Title" :columns="columns" column-separator=":" />
-<van-picker title="Title" :columns="dateColumns" :column-separator="['/', '/']" />
+<van-picker
+  title="Title"
+  :columns="dateColumns"
+  :column-separator="['/', '/']"
+/>
 ```
 
 ```js
@@ -324,7 +328,11 @@ export default {
 
 ### Empty content
 
-When the data is empty, you can use the `empty` slot to customize the empty content.
+When the data is empty, the [Empty](#/en-US/empty) component is shown by default. You can also use the `empty` slot to customize the empty content.
+
+```html
+<van-picker title="Title" />
+```
 
 ```html
 <van-picker title="Title">
@@ -437,7 +445,7 @@ export default {
 | option | Custom option content | _option: PickerOption, index: number_ |
 | columns-top | Custom content above columns | - |
 | columns-bottom | Custom content below columns | - |
-| empty `v4.9.10` | Custom empty content | - |
+| empty `v4.9.10` | Custom empty content, shows Empty component by default when not provided | - |
 
 ### Data Structure of PickerOption
 

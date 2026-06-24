@@ -1,31 +1,35 @@
 :root,
 :host {
-  --van-field-label-width: 6.2em;
+  --van-field-label-width: 98px;
   --van-field-label-color: var(--van-text-color);
-  --van-field-label-margin-right: var(--van-padding-sm);
+  --van-field-label-margin-right: 32px;
   --van-field-label-line-height: 20px;
   --van-field-input-text-color: var(--van-text-color);
   --van-field-input-error-text-color: var(--van-danger-color);
-  --van-field-input-disabled-text-color: var(--van-text-color-3);
-  --van-field-placeholder-text-color: var(--van-text-color-3);
+  --van-field-input-disabled-text-color: var(--van-text-color-inverse);
+  --van-field-placeholder-text-color: var(--van-text-color-disabled);
+  --van-field-cursor-color: var(--van-primary-color);
   --van-field-icon-size: 18px;
   --van-field-clear-icon-size: 18px;
   --van-field-clear-icon-color: var(--van-gray-5);
-  --van-field-right-icon-color: var(--van-gray-6);
+  --van-field-right-icon-color: #666;
   --van-field-right-icon-divider-height: 14px;
   --van-field-right-icon-divider-color: var(--van-border-color);
   --van-field-error-message-color: var(--van-danger-color);
   --van-field-error-message-font-size: 12px;
   --van-field-extra-margin-top: 2px;
+  --van-field-bottom-margin-top: 8px;
+  --van-field-input-comment-color: #999;
+  --van-field-label-comment-color: var(--van-text-color-auxiliary);
   --van-field-error-message-info-background: #fff2f0;
   --van-field-error-message-info-padding: 6px 20px;
-  --van-field-error-message-info-margin-top: var(--van-field-extra-margin-top);
+  --van-field-error-message-info-margin-top: 8px;
   --van-field-error-message-info-radius: var(--van-radius-md);
   --van-field-text-area-min-height: 60px;
   --van-field-word-limit-color: var(--van-gray-7);
   --van-field-word-limit-font-size: var(--van-font-size-sm);
   --van-field-word-limit-line-height: 16px;
-  --van-field-disabled-text-color: var(--van-text-color-3);
+  --van-field-disabled-text-color: var(--van-text-color-inverse);
   --van-field-required-mark-color: var(--van-red);
   --van-field-money-unit-color: #cccccc;
   --van-field-money-unit-font-size: 10px;
@@ -34,13 +38,15 @@
   --van-field-money-unit-caret-gap: 2px;
   --van-field-money-unit-bottom-gap: 0px;
   --van-field-money-input-height: 24px;
-  --van-field-money-currency-font-size: inherit;
+  --van-field-money-currency-font-size: 14px;
   --van-field-money-currency-font-weight: var(--van-font-bold);
   --van-field-money-currency-color: var(--van-field-placeholder-text-color);
   --van-field-money-currency-filled-color: var(--van-field-input-text-color);
   --van-field-money-uppercase-value-padding-bottom: 52px;
   --van-field-label-action-color: var(--van-primary-color);
   --van-field-label-action-font-size: var(--van-font-size-md);
+  --van-field-readonly-tag-background: var(--van-border-color);
+  --van-field-readonly-tag-text-color: var(--van-text-color);
   --van-field-label-collapse-color: var(--van-text-color-2);
   --van-field-label-collapse-font-size: var(--van-font-size-sm);
   --van-field-input-border-color: var(--van-border-color);
@@ -74,8 +80,16 @@
   }
 
   &__label-tooltip-icon {
-    font-size: var(--van-field-icon-size);
-    color: var(--van-field-right-icon-color);
+    display: block;
+    width: 12px;
+    height: 12px;
+    background-color: var(--van-field-right-icon-color);
+    mask-repeat: no-repeat;
+    mask-position: center;
+    mask-size: contain;
+    -webkit-mask-repeat: no-repeat;
+    -webkit-mask-position: center;
+    -webkit-mask-size: contain;
   }
 
   &__label-tooltip-content {
@@ -117,7 +131,7 @@
     }
 
     &--required {
-      &::before {
+      &::after {
         margin-right: 2px;
         color: var(--van-field-required-mark-color);
         content: '*';
@@ -250,11 +264,18 @@
   }
 
   &__input-left {
+    display: flex;
+    align-items: center;
     margin-right: var(--van-padding-base);
     line-height: inherit;
   }
 
   &__money-currency {
+    display: inline-flex;
+    align-items: center;
+    // height: var(--van-field-money-input-height);
+    // margin-right: 2px;
+    // line-height: 1;
     color: var(--van-field-money-currency-color);
     font-size: var(--van-field-money-currency-font-size);
     font-weight: var(--van-field-money-currency-font-weight);
@@ -341,6 +362,7 @@
     margin: 0;
     padding: 0;
     color: var(--van-field-input-text-color);
+    caret-color: var(--van-field-cursor-color);
     line-height: inherit;
     text-align: left;
     background-color: transparent;
@@ -420,6 +442,7 @@
     min-width: 0;
     width: 100%;
     cursor: default;
+    color: #777777;
 
     &--placeholder {
       color: var(--van-field-placeholder-text-color);
@@ -480,6 +503,8 @@
       overflow: hidden;
       flex-shrink: 1;
       white-space: nowrap;
+      color: var(--van-field-readonly-tag-text-color);
+      background: var(--van-field-readonly-tag-background);
     }
 
     &--overflow {
@@ -523,8 +548,8 @@
     cursor: pointer;
   }
 
-  &__left-icon >.van-icon,
-  &__right-icon >.van-icon {
+  &__left-icon > .van-icon,
+  &__right-icon > .van-icon {
     display: block;
     font-size: var(--van-field-icon-size);
     line-height: inherit;
@@ -546,6 +571,7 @@
 
   &__button {
     padding-left: var(--van-padding-xs);
+    color: #666;
   }
 
   &__input-bottom {
@@ -601,11 +627,18 @@
   &__label-comment,
   &__input-comment {
     margin-top: var(--van-field-extra-margin-top);
-    color: var(--van-text-color-2);
     font-size: var(--van-font-size-sm);
     line-height: var(--van-field-word-limit-line-height);
     text-align: left;
     word-break: break-word;
+  }
+
+  &__label-comment {
+    color: var(--van-field-label-comment-color);
+  }
+
+  &__input-comment {
+    color: var(--van-field-input-comment-color);
   }
 
   &__word-limit {
@@ -617,10 +650,11 @@
   }
 
   > .van-cell__bottom {
-    margin-top: var(--van-field-extra-margin-top);
+    margin-top: var(--van-field-bottom-margin-top);
     text-align: left;
     font-size: var(--van-font-size-sm);
     line-height: var(--van-field-word-limit-line-height);
     word-break: break-word;
+    color: var(--van-field-input-comment-color);
   }
 }

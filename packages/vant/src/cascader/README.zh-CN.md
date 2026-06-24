@@ -246,11 +246,8 @@ export default {
   @finish="onFinish"
 >
   <template #step-title="{ tabIndex, selected }">
-    {{
-      selected
-        ? `已选${['省', '市', '区'][tabIndex]}：${selected.text}`
-        : `请选择${['省', '市', '区'][tabIndex]}`
-    }}
+    {{ selected ? `已选${['省', '市', '区'][tabIndex]}：${selected.text}` :
+    `请选择${['省', '市', '区'][tabIndex]}` }}
   </template>
 </van-cascader>
 ```
@@ -417,26 +414,26 @@ import type {
 
 组件提供了下列 CSS 变量，可用于自定义样式，使用方法请参考 [ConfigProvider 组件](#/zh-CN/config-provider)。
 
-| 名称                                 | 默认值                    | 描述 |
-| ------------------------------------ | ------------------------- | ---- |
-| --van-cascader-header-height         | _48px_                    | -    |
-| --van-cascader-header-padding        | _0 var(--van-padding-md)_ | -    |
-| --van-cascader-title-font-size       | _var(--van-font-size-lg)_ | -    |
-| --van-cascader-title-line-height     | _20px_                    | -    |
-| --van-cascader-close-icon-size       | _22px_                    | -    |
-| --van-cascader-close-icon-color      | _var(--van-gray-5)_       | -    |
-| --van-cascader-selected-icon-size    | _18px_                    | -    |
-| --van-cascader-tabs-height           | _48px_                    | -    |
-| --van-cascader-active-color          | _var(--van-danger-color)_ | -    |
-| --van-cascader-options-height        | _384px_                   | -    |
-| --van-cascader-option-disabled-color | _var(--van-text-color-3)_ | -    |
-| --van-cascader-tab-color             | _var(--van-text-color)_   | -    |
-| --van-cascader-unselected-tab-color  | _var(--van-text-color-2)_ | -    |
-| --van-cascader-steps-padding-vertical      | _24px_     | -    |
-| --van-cascader-steps-padding-horizontal    | _12px_     | -    |
-| --van-cascader-steps-border-bottom-width   | _8px_      | -    |
-| --van-cascader-steps-border-bottom-color   | _#f5f5f5_  | -    |
-| --van-cascader-step-indicator-width  | _16px_                    | -    |
-| --van-cascader-step-dot-size         | _8px_                     | -    |
-| --van-cascader-step-line-width       | _1px_                     | -    |
-| --van-cascader-step-arrow-color      | _var(--van-gray-5)_       | -    |
+| 名称                                     | 默认值                    | 描述 |
+| ---------------------------------------- | ------------------------- | ---- |
+| --van-cascader-header-height             | _48px_                    | -    |
+| --van-cascader-header-padding            | _0 var(--van-padding-md)_ | -    |
+| --van-cascader-title-font-size           | _var(--van-font-size-lg)_ | -    |
+| --van-cascader-title-line-height         | _20px_                    | -    |
+| --van-cascader-close-icon-size           | _22px_                    | -    |
+| --van-cascader-close-icon-color          | _var(--van-gray-5)_       | -    |
+| --van-cascader-selected-icon-size        | _18px_                    | -    |
+| --van-cascader-tabs-height               | _48px_                    | -    |
+| --van-cascader-active-color              | _var(--van-danger-color)_ | -    |
+| --van-cascader-options-height            | _384px_                   | -    |
+| --van-cascader-option-disabled-color     | _var(--van-text-color-3)_ | -    |
+| --van-cascader-tab-color                 | _var(--van-text-color)_   | -    |
+| --van-cascader-unselected-tab-color      | _var(--van-text-color-2)_ | -    |
+| --van-cascader-steps-padding-vertical    | _24px_                    | -    |
+| --van-cascader-steps-padding-horizontal  | _12px_                    | -    |
+| --van-cascader-steps-border-bottom-width | _8px_                     | -    |
+| --van-cascader-steps-border-bottom-color | _#f5f5f5_                 | -    |
+| --van-cascader-step-indicator-width      | _16px_                    | -    |
+| --van-cascader-step-dot-size             | _6px_                     | -    |
+| --van-cascader-step-line-width           | _1px_                     | -    |
+| --van-cascader-step-arrow-color          | _var(--van-gray-5)_       | -    |

@@ -21,11 +21,37 @@ app.use(CellGroup);
 
 ### Basic Usage
 
-The value of field is bound with v-model.
+The value of field is bound with v-model. The default placeholder is `Please enter`, and can be customized via the `placeholder` prop.
 
 ```html
 <van-cell-group inset>
-  <van-field v-model="value" label="Label" placeholder="Text" />
+  <van-field v-model="value" label="Label" />
+  <van-field
+    v-model="longLabelValue"
+    label="MultiLineTitleTextInputLimitStateDisplay"
+  />
+</van-cell-group>
+```
+
+```js
+import { ref } from 'vue';
+
+export default {
+  setup() {
+    const value = ref('');
+    const longLabelValue = ref('');
+    return { value, longLabelValue };
+  },
+};
+```
+
+### Input Border
+
+Set `input-border` to add a bordered style around the input area, commonly used in nested scenarios such as [RangeInput](#/en-US/range-input). When enabled, the Cell inner border is hidden.
+
+```html
+<van-cell-group inset>
+  <van-field v-model="value" input-border />
 </van-cell-group>
 ```
 
@@ -46,11 +72,45 @@ Use `type` prop to custom different type fields. For `money` type, see [FieldMon
 
 ```html
 <van-cell-group inset>
-  <van-field v-model="text" label="Text" />
-  <van-field v-model="tel" type="tel" label="Phone" />
-  <van-field v-model="digit" type="digit" label="Digit" />
-  <van-field v-model="number" type="number" label="Number" />
-  <van-field v-model="password" type="password" label="Password" />
+  <van-form>
+    <van-field v-model="text" label="Text" autocomplete="off" />
+    <van-field v-model="phone" type="tel" label="Phone" />
+    <van-field v-model="digit" type="digit" label="Digit" />
+    <van-field v-model="number" type="number" label="Number" />
+    <van-field v-model="money" type="money" label="Money" />
+    <van-field
+      v-model="moneyNoCurrency"
+      type="money"
+      label="Money (No Currency)"
+      :show-money-currency="false"
+    />
+    <van-field
+      v-model="password"
+      type="password"
+      label="Password"
+      autocomplete="off"
+    />
+    <van-field
+      v-model="account"
+      type="account"
+      label="Account"
+      autocomplete="off"
+    />
+    <van-field
+      v-model="idcard"
+      type="idcard"
+      label="ID Card"
+      autocomplete="off"
+    />
+    <van-field v-model="ukey" type="ukey" label="UKey" autocomplete="off" />
+    <van-field
+      v-model="text"
+      label-align="top"
+      autosize
+      label="Text"
+      autocomplete="off"
+    />
+  </van-form>
 </van-cell-group>
 ```
 
@@ -59,13 +119,29 @@ import { ref } from 'vue';
 
 export default {
   setup() {
-    const tel = ref('');
     const text = ref('');
+    const phone = ref('');
     const digit = ref('');
     const number = ref('');
+    const money = ref('');
+    const moneyNoCurrency = ref('');
     const password = ref('');
+    const account = ref('');
+    const idcard = ref('');
+    const ukey = ref('');
 
-    return { tel, text, digit, number, password };
+    return {
+      text,
+      phone,
+      digit,
+      number,
+      money,
+      moneyNoCurrency,
+      password,
+      account,
+      idcard,
+      ukey,
+    };
   },
 };
 ```
@@ -91,20 +167,17 @@ Overflow:
     label="Address"
     model-value="Room 1201, 12F, Zhangjiang Building, 88 Keyuan Road, Pudong, Shanghai"
     readonly
-    placeholder="Select address"
   />
   <van-field
     label="Tags"
     :model-value="['Design', 'Interaction', 'Frontend', 'QA', 'Product', 'Operations']"
     readonly
-    placeholder="Select tags"
   />
   <van-field
     label="Separator"
     :model-value="['Design', 'Interaction', 'Frontend']"
     value-separator=";"
     readonly
-    placeholder="Select tags"
   />
 </van-cell-group>
 ```
@@ -113,54 +186,104 @@ No overflow:
 
 ```html
 <van-cell-group inset>
-  <van-field
-    label="Address"
-    model-value="Pudong, Shanghai"
-    readonly
-    placeholder="Select address"
-  />
+  <van-field label="Address" model-value="Pudong, Shanghai" readonly />
   <van-field
     label="Tags"
     :model-value="['Design', 'Interaction', 'Frontend']"
     readonly
-    placeholder="Select tags"
   />
 </van-cell-group>
 ```
 
 ### Show Icon
 
-Use `left-icon` and `right-icon` for icons on both sides.
+Use `left-icon` and `right-icon` for icons on both sides. Set `clearable` to show a clear icon while typing. Set `show-right-icon-divider` to show a vertical divider to the left of the right icon. Customize the right icon color via `--van-field-right-icon-color` (default is `#666`). Use the `right-icon` slot for custom content such as units, action buttons, or a [Popover](#/en-US/popover) menu.
 
 ```html
 <van-cell-group inset>
   <van-field
     v-model="value1"
+    show-right-icon-divider
     label="Text"
     left-icon="smile-o"
     right-icon="warning-o"
-    placeholder="Show Icon"
+    :style="{ '--van-field-right-icon-color': 'var(--van-primary-color)' }"
   />
+  <van-field v-model="value1" label="Text" left-icon="smile-o">
+    <template #right-icon>
+      <a>Unit</a>
+    </template>
+  </van-field>
+  <van-field
+    v-model="value1"
+    show-right-icon-divider
+    label="Text"
+    left-icon="smile-o"
+    :style="{ '--van-field-right-icon-color': 'var(--van-primary-color)' }"
+  >
+    <template #right-icon>
+      <a>Action Button</a>
+    </template>
+  </van-field>
   <van-field
     v-model="value2"
+    show-right-icon-divider
     clearable
     label="Text"
     left-icon="music-o"
-    placeholder="Show Clear Icon"
-  />
+    :style="{ '--van-field-right-icon-color': 'var(--van-primary-color)' }"
+  >
+    <template #right-icon>
+      <div style="display: flex; align-items: center; gap: 8px">
+        <a>Button</a>
+        <van-icon name="scan" />
+      </div>
+    </template>
+  </van-field>
+  <van-field
+    v-model="value3"
+    show-right-icon-divider
+    label="Text"
+    left-icon="smile-o"
+  >
+    <template #right-icon>
+      <van-popover
+        v-model:show="showPopover"
+        :actions="actions"
+        reference-text
+        placement="bottom-end"
+        @select="onSelect"
+        @click.stop
+      />
+    </template>
+  </van-field>
 </van-cell-group>
 ```
 
 ```js
 import { ref } from 'vue';
+import { showToast } from 'vant';
 
 export default {
   setup() {
     const value1 = ref('');
     const value2 = ref('123');
+    const value3 = ref('');
+    const showPopover = ref(false);
+    const actions = [
+      { text: 'Option 1' },
+      { text: 'Option 2' },
+      { text: 'Option 3' },
+    ];
+    const onSelect = (action) => showToast(action.text);
+
     return {
       value1,
       value2,
+      value3,
+      showPopover,
+      actions,
+      onSelect,
     };
   },
 };
@@ -172,13 +295,8 @@ Use the `required` prop to display a required asterisk.
 
 ```html
 <van-cell-group inset>
-  <van-field
-    v-model="username"
-    required
-    label="Username"
-    placeholder="Username"
-  />
-  <van-field v-model="phone" required label="Phone" placeholder="Phone" />
+  <van-field v-model="username" required label="Username" />
+  <van-field v-model="phone" required label="Phone" />
 </van-cell-group>
 ```
 
@@ -189,20 +307,16 @@ Please note that the `required` prop is only used for controlling the style. For
 You can set `required="auto"` on the Form component, and all the fields inside the Form will automatically display the asterisk based on the `rule.required` option.
 
 ```html
-<van-form required="auto">
-  <van-field
-    v-model="username"
-    :rules="[{ required: true }]"
-    label="Username"
-    placeholder="Username"
-  />
-  <van-field
-    v-model="phone"
-    :rules="[{ required: false }]"
-    label="Phone"
-    placeholder="Phone"
-  />
-</van-form>
+<van-cell-group inset>
+  <van-form required="auto">
+    <van-field
+      v-model="username"
+      :rules="[{ required: true }]"
+      label="Username"
+    />
+    <van-field v-model="phone" :rules="[{ required: false }]" label="Phone" />
+  </van-form>
+</van-cell-group>
 ```
 
 ### Error Info
@@ -211,14 +325,21 @@ Use `error` or `error-message` to show error info.
 
 ```html
 <van-cell-group inset>
-  <van-field v-model="username" error label="Username" placeholder="Username" />
-  <van-field
-    v-model="phone"
-    label="Phone"
-    placeholder="Phone"
-    error-message="Invalid phone"
-  />
+  <van-field v-model="username" error label="Username" />
+  <van-field v-model="phone" label="Phone" error-message="Invalid phone" />
 </van-cell-group>
+```
+
+```js
+import { ref } from 'vue';
+
+export default {
+  setup() {
+    const username = ref('');
+    const phone = ref('123');
+    return { username, phone };
+  },
+};
 ```
 
 ### Insert Button
@@ -227,7 +348,7 @@ Use button slot to insert button.
 
 ```html
 <van-cell-group inset>
-  <van-field v-model="sms" center clearable label="SMS" placeholder="SMS">
+  <van-field v-model="sms" center clearable label="SMS">
     <template #button>
       <van-button size="small" type="primary">Send SMS</van-button>
     </template>
@@ -241,18 +362,12 @@ Use `formatter` prop to format the input value.
 
 ```html
 <van-cell-group inset>
-  <van-field
-    v-model="value1"
-    label="Text"
-    :formatter="formatter"
-    placeholder="Format On Change"
-  />
+  <van-field v-model="value1" label="Text" :formatter="formatter" />
   <van-field
     v-model="value2"
     label="Text"
     :formatter="formatter"
     format-trigger="onBlur"
-    placeholder="Format On Blur"
   />
 </van-cell-group>
 ```
@@ -283,11 +398,10 @@ Textarea Field can be auto resize when has `autosize` prop.
 <van-cell-group inset>
   <van-field
     v-model="message"
-    label="Message"
-    type="textarea"
-    placeholder="Message"
-    rows="1"
     autosize
+    rows="1"
+    type="textarea"
+    label="Message"
   />
 </van-cell-group>
 ```
@@ -306,7 +420,6 @@ After setting `maxlength` and `show-word-limit`, the word count is displayed at 
     type="textarea"
     maxlength="5"
     label="Message"
-    placeholder="Message"
   />
   <van-field
     v-model="messageWithoutToast"
@@ -317,7 +430,6 @@ After setting `maxlength` and `show-word-limit`, the word count is displayed at 
     maxlength="5"
     :show-maxlength-toast="false"
     label="Disable Maxlength Toast"
-    placeholder="Message"
   />
 </van-cell-group>
 ```
@@ -328,12 +440,7 @@ Use `input-align` prop to align the input value.
 
 ```html
 <van-cell-group inset>
-  <van-field
-    v-model="value"
-    label="Text"
-    placeholder="Input Align Right"
-    input-align="right"
-  />
+  <van-field v-model="value" label="Text" input-align="right" />
 </van-cell-group>
 ```
 
@@ -343,31 +450,22 @@ Use `label-align` prop to align the input value, can be set to `center`, `right`
 
 ```html
 <van-cell-group inset>
-  <van-field
-    v-model="value"
-    label="Label"
-    placeholder="Align Top"
-    label-align="top"
-  />
-  <van-field
-    v-model="value2"
-    label="Label"
-    placeholder="Align Left"
-    label-align="left"
-  />
-  <van-field
-    v-model="value3"
-    label="Label"
-    placeholder="Align Center"
-    label-align="center"
-  />
-  <van-field
-    v-model="value4"
-    label="Label"
-    placeholder="Align Right"
-    label-align="right"
-  />
+  <van-field v-model="value" label="Label" label-align="top" />
+  <van-field v-model="value" label="Label" label-align="left" />
+  <van-field v-model="value" label="Label" label-align="center" />
+  <van-field v-model="value" label="Label" label-align="right" />
 </van-cell-group>
+```
+
+```js
+import { ref } from 'vue';
+
+export default {
+  setup() {
+    const value = ref('');
+    return { value };
+  },
+};
 ```
 
 ### Label Tooltip
@@ -392,24 +490,105 @@ When a label is set, you can show an info icon on the right of the label. Tappin
 Use the `label-comment` prop or `label-comment` slot to show a note below the label. The content is passed through to Cell's `label` (the slot takes precedence over the prop).
 
 ```html
-<van-field label="Text" label-comment="Note below the label" />
-<van-field label="Text" placeholder="Text">
+<van-field v-model="value" label="Text" label-comment="Note below the label" />
+<van-field v-model="value" label="Text">
   <template #label-comment>
-    <span>Custom label note</span>
+    <span>Slot: custom label note</span>
   </template>
 </van-field>
 ```
 
-### Input Bottom
+### Comment & Bottom
 
-Use the `input-bottom` slot to render content below the input row and above the word limit and error message.
+Use the `input-comment` prop or `input-comment` slot to show helper text below the input area. Use the `bottom` slot to render content at the bottom of the full row, suitable for agreements, risk notes, etc.
 
 ```html
-<van-field v-model="text" label="Note" placeholder="Optional">
-  <template #input-bottom>
-    <span>Optional, max 200 characters</span>
-  </template>
-</van-field>
+<van-cell-group inset>
+  <van-field
+    v-model="value4"
+    label="Label"
+    label-comment="Note below the label"
+  />
+  <van-field v-model="value5" label="Label">
+    <template #label-comment>
+      <span>Slot: custom label note</span>
+    </template>
+  </van-field>
+  <van-field v-model="value1" label="Label" input-comment="Helper text" />
+  <van-field v-model="value2" label="Label">
+    <template #input-comment>
+      <van-highlight
+        tag="span"
+        :source-string="'Slot: links or emphasized text'"
+        :keywords="['links', 'emphasized']"
+      />
+      <van-tag currency currency-code="USD" />
+    </template>
+  </van-field>
+  <van-field v-model="value3" label="Label">
+    <template #bottom>
+      <div class="van-gray-block" style="margin-top: 4px;">
+        <van-highlight
+          tag="span"
+          :source-string="'The bottom slot spans the full row below the label and input — useful for agreements, risk notes, etc.'"
+          :keywords="['agreements', 'risk notes']"
+        />
+      </div>
+    </template>
+  </van-field>
+</van-cell-group>
+```
+
+```js
+import { ref } from 'vue';
+
+export default {
+  setup() {
+    const value1 = ref('');
+    const value2 = ref('');
+    const value3 = ref('');
+    const value4 = ref('');
+    const value5 = ref('');
+    return { value1, value2, value3, value4, value5 };
+  },
+};
+```
+
+### Label Collapse
+
+When `label-collapsible` is set with `label-align="top"`, a collapse/expand control appears next to the label. Use `v-model:label-expanded` to bind the expanded state. Combine with `label-action-text` or the `label-action` slot to show an action button on the right of the label row.
+
+```html
+<van-cell-group inset>
+  <van-field
+    v-model="value1"
+    v-model:label-expanded="expanded"
+    label="Title"
+    label-align="top"
+    label-collapsible
+  />
+  <van-field
+    v-model="value2"
+    label="With label-action"
+    label-comment="Label note remains when collapsed"
+    label-action-text="Add"
+    label-align="top"
+    label-collapsible
+  />
+</van-cell-group>
+```
+
+```js
+import { ref } from 'vue';
+
+export default {
+  setup() {
+    const value1 = ref('Sample content');
+    const value2 = ref('');
+    const expanded = ref(true);
+    return { value1, value2, expanded };
+  },
+};
 ```
 
 ## API
@@ -427,8 +606,9 @@ Use the `input-bottom` slot to render content below the input row and above the 
 | maxlength | Max length of value | _number \| string_ | - |
 | min `v4.9.5` | When the input type is `number`, `money` or `digit`, set the minimum allowable value | _number_ | - |
 | max `v4.9.5` | When the input type is `number`, `money` or `digit`, set the maximum allowable value | _number_ | - |
-| placeholder | Input placeholder | _string_ | - |
+| placeholder | Input placeholder | _string_ | `Please enter` |
 | border | Whether to show inner border | _boolean_ | `true` |
+| input-border `new` | Whether to add a bordered style around the input area, commonly used in nested scenarios such as RangeInput; hides the Cell inner border when enabled | _boolean_ | `false` |
 | disabled | Whether to disable field | _boolean_ | `false` |
 | readonly | Whether to be readonly | _boolean_ | `false` |
 | value-separator `new` | Delimiter to join array `model-value` items; uses TextEllipsis instead of Tag when set | _string_ | - |
@@ -461,6 +641,7 @@ Use the `input-bottom` slot to render content below the input row and above the 
 | autosize | Textarea auto resize, can accept an object,<br>e.g. { maxHeight: 100, minHeight: 50 } | _boolean \| FieldAutosizeConfig_ | `false` |
 | left-icon | Left side icon name | _string_ | - |
 | right-icon | Right side icon name | _string_ | - |
+| show-right-icon-divider `new` | Whether to show a vertical divider to the left of the right icon | _boolean_ | `false` |
 | icon-prefix | Icon className prefix | _string_ | `van-icon` |
 | rules | Form validation rules | _FieldRule[]_ | - |
 | autocomplete | HTML native attribute, see [MDN - autocomplete](https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/autocomplete) | _string_ | - |
@@ -531,16 +712,16 @@ fieldRef.value?.focus();
 
 ### Slots
 
-| Name          | Description                 | SlotProps             |
-| ------------- | --------------------------- | --------------------- |
-| label         | Custom label                | -                     |
+| Name | Description | SlotProps |
+| --- | --- | --- |
+| label | Custom label | - |
 | label-comment `new` | Custom note below the label, passed through to Cell's `label`; takes precedence over the `label-comment` prop | - |
-| input         | Custom input                | -                     |
-| left-icon     | Custom left icon            | -                     |
-| right-icon    | Custom right icon           | -                     |
-| button        | Insert button               | -                     |
-| error-message | Custom error message        | _{ message: string }_ |
-| extra         | Custom content on the right | -                     |
+| input | Custom input | - |
+| left-icon | Custom left icon | - |
+| right-icon | Custom right icon | - |
+| button | Insert button | - |
+| error-message | Custom error message | _{ message: string }_ |
+| extra | Custom content on the right | - |
 
 ## Theming
 
@@ -552,20 +733,26 @@ The component provides the following CSS variables, which can be used to customi
 | --- | --- | --- |
 | --van-field-label-width | _6.2em_ | - |
 | --van-field-label-color | _var(--van-text-color)_ | - |
-| --van-field-label-margin-right | _var(--van-padding-sm)_ | - |
+| --van-field-label-margin-right | _32px_ | - |
 | --van-field-input-text-color | _var(--van-text-color)_ | - |
 | --van-field-input-error-text-color | _var(--van-danger-color)_ | - |
-| --van-field-input-disabled-text-color | _var(--van-text-color-3)_ | - |
-| --van-field-placeholder-text-color | _var(--van-text-color-3)_ | - |
+| --van-field-input-disabled-text-color | _var(--van-text-color-inverse)_ | - |
+| --van-field-placeholder-text-color | _var(--van-text-color-disabled)_ | - |
+| --van-field-cursor-color | _var(--van-primary-color)_ | Input caret color |
 | --van-field-icon-size | _18px_ | - |
 | --van-field-clear-icon-size | _18px_ | - |
 | --van-field-clear-icon-color | _var(--van-gray-5)_ | - |
-| --van-field-right-icon-color | _var(--van-gray-6)_ | - |
+| --van-field-right-icon-color | _#666_ | - |
+| --van-field-right-icon-divider-height | _14px_ | - |
+| --van-field-right-icon-divider-color | _var(--van-border-color)_ | - |
 | --van-field-error-message-color | _var(--van-danger-color)_ | - |
 | --van-field-error-message-font-size | _12px_ | - |
+| --van-field-bottom-margin-top | _8px_ | Top margin of the full-width bottom content |
+| --van-field-input-comment-color | _#999_ | Input area helper text color |
+| --van-field-label-comment-color | _var(--van-text-color-auxiliary)_ | Label comment text color |
 | --van-field-text-area-min-height | _60px_ | - |
 | --van-field-word-limit-color | _var(--van-gray-7)_ | - |
 | --van-field-word-limit-font-size | _var(--van-font-size-sm)_ | - |
 | --van-field-word-limit-line-height | _16px_ | - |
-| --van-field-disabled-text-color | _var(--van-text-color-3)_ | - |
+| --van-field-disabled-text-color | _var(--van-text-color-inverse)_ | - |
 | --van-field-required-mark-color | _var(--van-red)_ | - |

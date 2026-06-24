@@ -35,6 +35,7 @@ export default {
     labelExpand: 'Expand',
     labelCollapse: 'Collapse',
     maxlengthTip: 'Maximum length reached',
+    placeholder: 'Please enter',
   },
   vanPagination: {
     prev: 'Previous',
@@ -88,5 +89,8 @@ export default {
   },
   vanPopup: {
     confirm: 'Confirm',
+  },
+  vanPicker: {
+    noData: 'No data',
   },
 };

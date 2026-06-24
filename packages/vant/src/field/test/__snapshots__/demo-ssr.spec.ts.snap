@@ -32,7 +32,7 @@ exports[`should render demo and match snapshot 1`] = `
             id="van-field-input"
             class="van-field__control"
             style
-            placeholder="Text"
+            placeholder="Please enter"
             aria-labelledby="van-field-label"
             data-allow-mismatch="attribute"
           >
@@ -73,7 +73,7 @@ exports[`should render demo and match snapshot 1`] = `
               id="van-field-input"
               class="van-field__control"
               style
-              placeholder="Text"
+              placeholder="Please enter"
               autocomplete="off"
               aria-labelledby="van-field-label"
               data-allow-mismatch="attribute"
@@ -107,7 +107,7 @@ exports[`should render demo and match snapshot 1`] = `
               id="van-field-input"
               class="van-field__control"
               style
-              placeholder="Phone"
+              placeholder="Please enter"
               aria-labelledby="van-field-label"
               data-allow-mismatch="attribute"
             >
@@ -141,7 +141,7 @@ exports[`should render demo and match snapshot 1`] = `
               id="van-field-input"
               class="van-field__control"
               style
-              placeholder="Digit"
+              placeholder="Please enter"
               aria-labelledby="van-field-label"
               data-allow-mismatch="attribute"
             >
@@ -175,7 +175,7 @@ exports[`should render demo and match snapshot 1`] = `
               id="van-field-input"
               class="van-field__control"
               style
-              placeholder="Number"
+              placeholder="Please enter"
               aria-labelledby="van-field-label"
               data-allow-mismatch="attribute"
             >
@@ -215,7 +215,7 @@ exports[`should render demo and match snapshot 1`] = `
                 id="van-field-input"
                 class="van-field__control"
                 style
-                placeholder="Please enter amount"
+                placeholder="Please enter"
                 aria-labelledby="van-field-label"
                 data-allow-mismatch="attribute"
               >
@@ -251,7 +251,7 @@ exports[`should render demo and match snapshot 1`] = `
                 id="van-field-input"
                 class="van-field__control"
                 style
-                placeholder="Please enter amount"
+                placeholder="Please enter"
                 aria-labelledby="van-field-label"
                 data-allow-mismatch="attribute"
               >
@@ -285,7 +285,7 @@ exports[`should render demo and match snapshot 1`] = `
               id="van-field-input"
               class="van-field__control"
               style
-              placeholder="Password"
+              placeholder="Please enter"
               autocomplete="off"
               aria-labelledby="van-field-label"
               data-allow-mismatch="attribute"
@@ -320,7 +320,7 @@ exports[`should render demo and match snapshot 1`] = `
               id="van-field-input"
               class="van-field__control"
               style
-              placeholder="Account"
+              placeholder="Please enter"
               autocomplete="off"
               aria-labelledby="van-field-label"
               data-allow-mismatch="attribute"
@@ -354,7 +354,7 @@ exports[`should render demo and match snapshot 1`] = `
               id="van-field-input"
               class="van-field__control"
               style
-              placeholder="Please enter the ID card"
+              placeholder="Please enter"
               autocomplete="off"
               aria-labelledby="van-field-label"
               data-allow-mismatch="attribute"
@@ -388,7 +388,7 @@ exports[`should render demo and match snapshot 1`] = `
               id="van-field-input"
               class="van-field__control"
               style
-              placeholder="Please enter the UKey"
+              placeholder="Please enter"
               autocomplete="off"
               aria-labelledby="van-field-label"
               data-allow-mismatch="attribute"
@@ -426,7 +426,7 @@ exports[`should render demo and match snapshot 1`] = `
               id="van-field-input"
               class="van-field__control"
               style
-              placeholder="Text"
+              placeholder="Please enter"
               autocomplete="off"
               aria-labelledby="van-field-label"
               data-allow-mismatch="attribute"
@@ -584,7 +584,6 @@ exports[`should render demo and match snapshot 1`] = `
                 data-measure-tag="true"
               >
                 <span
-                  style="color:#333333;background:#EEEEEE;"
                   class="van-tag van-tag--medium van-tag--default"
                 >
                   <!--[-->
@@ -598,7 +597,6 @@ exports[`should render demo and match snapshot 1`] = `
                 data-measure-tag="true"
               >
                 <span
-                  style="color:#333333;background:#EEEEEE;"
                   class="van-tag van-tag--medium van-tag--default"
                 >
                   <!--[-->
@@ -612,7 +610,6 @@ exports[`should render demo and match snapshot 1`] = `
                 data-measure-tag="true"
               >
                 <span
-                  style="color:#333333;background:#EEEEEE;"
                   class="van-tag van-tag--medium van-tag--default"
                 >
                   <!--[-->
@@ -626,7 +623,6 @@ exports[`should render demo and match snapshot 1`] = `
                 data-measure-tag="true"
               >
                 <span
-                  style="color:#333333;background:#EEEEEE;"
                   class="van-tag van-tag--medium van-tag--default"
                 >
                   <!--[-->
@@ -640,7 +636,6 @@ exports[`should render demo and match snapshot 1`] = `
                 data-measure-tag="true"
               >
                 <span
-                  style="color:#333333;background:#EEEEEE;"
                   class="van-tag van-tag--medium van-tag--default"
                 >
                   <!--[-->
@@ -654,7 +649,6 @@ exports[`should render demo and match snapshot 1`] = `
                 data-measure-tag="true"
               >
                 <span
-                  style="color:#333333;background:#EEEEEE;"
                   class="van-tag van-tag--medium van-tag--default"
                 >
                   <!--[-->
@@ -665,7 +659,6 @@ exports[`should render demo and match snapshot 1`] = `
               </div>
               <div class="van-field__readonly-tag van-field__readonly-tag--overflow">
                 <span
-                  style="color:#333333;background:#EEEEEE;"
                   class="van-tag van-tag--medium van-tag--default"
                 >
                   <!--[-->
@@ -677,7 +670,6 @@ exports[`should render demo and match snapshot 1`] = `
               <!--[-->
               <div class="van-field__readonly-tag">
                 <span
-                  style="color:#333333;background:#EEEEEE;"
                   class="van-tag van-tag--medium van-tag--default"
                 >
                   <!--[-->
@@ -688,7 +680,6 @@ exports[`should render demo and match snapshot 1`] = `
               </div>
               <div class="van-field__readonly-tag">
                 <span
-                  style="color:#333333;background:#EEEEEE;"
                   class="van-tag van-tag--medium van-tag--default"
                 >
                   <!--[-->
@@ -699,7 +690,6 @@ exports[`should render demo and match snapshot 1`] = `
               </div>
               <div class="van-field__readonly-tag">
                 <span
-                  style="color:#333333;background:#EEEEEE;"
                   class="van-tag van-tag--medium van-tag--default"
                 >
                   <!--[-->
@@ -710,7 +700,6 @@ exports[`should render demo and match snapshot 1`] = `
               </div>
               <div class="van-field__readonly-tag">
                 <span
-                  style="color:#333333;background:#EEEEEE;"
                   class="van-tag van-tag--medium van-tag--default"
                 >
                   <!--[-->
@@ -721,7 +710,6 @@ exports[`should render demo and match snapshot 1`] = `
               </div>
               <div class="van-field__readonly-tag">
                 <span
-                  style="color:#333333;background:#EEEEEE;"
                   class="van-tag van-tag--medium van-tag--default"
                 >
                   <!--[-->
@@ -732,7 +720,6 @@ exports[`should render demo and match snapshot 1`] = `
               </div>
               <div class="van-field__readonly-tag">
                 <span
-                  style="color:#333333;background:#EEEEEE;"
                   class="van-tag van-tag--medium van-tag--default"
                 >
                   <!--[-->
@@ -855,7 +842,6 @@ exports[`should render demo and match snapshot 1`] = `
                 data-measure-tag="true"
               >
                 <span
-                  style="color:#333333;background:#EEEEEE;"
                   class="van-tag van-tag--medium van-tag--default"
                 >
                   <!--[-->
@@ -869,7 +855,6 @@ exports[`should render demo and match snapshot 1`] = `
                 data-measure-tag="true"
               >
                 <span
-                  style="color:#333333;background:#EEEEEE;"
                   class="van-tag van-tag--medium van-tag--default"
                 >
                   <!--[-->
@@ -883,7 +868,6 @@ exports[`should render demo and match snapshot 1`] = `
                 data-measure-tag="true"
               >
                 <span
-                  style="color:#333333;background:#EEEEEE;"
                   class="van-tag van-tag--medium van-tag--default"
                 >
                   <!--[-->
@@ -894,7 +878,6 @@ exports[`should render demo and match snapshot 1`] = `
               </div>
               <div class="van-field__readonly-tag van-field__readonly-tag--overflow">
                 <span
-                  style="color:#333333;background:#EEEEEE;"
                   class="van-tag van-tag--medium van-tag--default"
                 >
                   <!--[-->
@@ -906,7 +889,6 @@ exports[`should render demo and match snapshot 1`] = `
               <!--[-->
               <div class="van-field__readonly-tag">
                 <span
-                  style="color:#333333;background:#EEEEEE;"
                   class="van-tag van-tag--medium van-tag--default"
                 >
                   <!--[-->
@@ -917,7 +899,6 @@ exports[`should render demo and match snapshot 1`] = `
               </div>
               <div class="van-field__readonly-tag">
                 <span
-                  style="color:#333333;background:#EEEEEE;"
                   class="van-tag van-tag--medium van-tag--default"
                 >
                   <!--[-->
@@ -928,7 +909,6 @@ exports[`should render demo and match snapshot 1`] = `
               </div>
               <div class="van-field__readonly-tag">
                 <span
-                  style="color:#333333;background:#EEEEEE;"
                   class="van-tag van-tag--medium van-tag--default"
                 >
                   <!--[-->
@@ -986,7 +966,7 @@ exports[`should render demo and match snapshot 1`] = `
             id="van-field-input"
             class="van-field__control"
             style
-            placeholder="Show Icon"
+            placeholder="Please enter"
             aria-labelledby="van-field-label"
             data-allow-mismatch="attribute"
           >
@@ -1042,7 +1022,7 @@ exports[`should render demo and match snapshot 1`] = `
             id="van-field-input"
             class="van-field__control"
             style
-            placeholder="Show Icon"
+            placeholder="Please enter"
             aria-labelledby="van-field-label"
             data-allow-mismatch="attribute"
           >
@@ -1096,7 +1076,7 @@ exports[`should render demo and match snapshot 1`] = `
             id="van-field-input"
             class="van-field__control"
             style
-            placeholder="Show Clear Icon"
+            placeholder="Please enter"
             aria-labelledby="van-field-label"
             data-allow-mismatch="attribute"
           >
@@ -1155,7 +1135,7 @@ exports[`should render demo and match snapshot 1`] = `
             id="van-field-input"
             class="van-field__control"
             style
-            placeholder="Popover Menu"
+            placeholder="Please enter"
             aria-labelledby="van-field-label"
             data-allow-mismatch="attribute"
           >
@@ -1213,7 +1193,7 @@ exports[`should render demo and match snapshot 1`] = `
             id="van-field-input"
             class="van-field__control"
             style
-            placeholder="Username"
+            placeholder="Please enter"
             aria-labelledby="van-field-label"
             data-allow-mismatch="attribute"
           >
@@ -1246,7 +1226,7 @@ exports[`should render demo and match snapshot 1`] = `
             id="van-field-input"
             class="van-field__control"
             style
-            placeholder="Phone"
+            placeholder="Please enter"
             aria-labelledby="van-field-label"
             data-allow-mismatch="attribute"
           >
@@ -1287,7 +1267,7 @@ exports[`should render demo and match snapshot 1`] = `
               id="van-field-input"
               class="van-field__control"
               style
-              placeholder="Username"
+              placeholder="Please enter"
               aria-labelledby="van-field-label"
               data-allow-mismatch="attribute"
             >
@@ -1320,7 +1300,7 @@ exports[`should render demo and match snapshot 1`] = `
               id="van-field-input"
               class="van-field__control"
               style
-              placeholder="Phone"
+              placeholder="Please enter"
               aria-labelledby="van-field-label"
               data-allow-mismatch="attribute"
             >
@@ -1360,7 +1340,7 @@ exports[`should render demo and match snapshot 1`] = `
             id="van-field-input"
             class="van-field__control van-field__control--error"
             style
-            placeholder="Username"
+            placeholder="Please enter"
             aria-labelledby="van-field-label"
             data-allow-mismatch="attribute"
           >
@@ -1393,7 +1373,7 @@ exports[`should render demo and match snapshot 1`] = `
             id="van-field-input"
             class="van-field__control"
             style
-            placeholder="Phone"
+            placeholder="Please enter"
             aria-labelledby="van-field-label"
             data-allow-mismatch="attribute"
           >
@@ -1429,7 +1409,7 @@ exports[`should render demo and match snapshot 1`] = `
             id="van-field-input"
             class="van-field__control"
             style
-            placeholder="Phone"
+            placeholder="Please enter"
             aria-labelledby="van-field-label"
             data-allow-mismatch="attribute"
           >
@@ -1471,7 +1451,7 @@ exports[`should render demo and match snapshot 1`] = `
             id="van-field-input"
             class="van-field__control"
             style
-            placeholder="SMS"
+            placeholder="Please enter"
             aria-labelledby="van-field-label"
             data-allow-mismatch="attribute"
           >
@@ -1525,7 +1505,7 @@ exports[`should render demo and match snapshot 1`] = `
             id="van-field-input"
             class="van-field__control"
             style
-            placeholder="Format On Change"
+            placeholder="Please enter"
             aria-labelledby="van-field-label"
             data-allow-mismatch="attribute"
           >
@@ -1558,7 +1538,7 @@ exports[`should render demo and match snapshot 1`] = `
             id="van-field-input"
             class="van-field__control"
             style
-            placeholder="Format On Blur"
+            placeholder="Please enter"
             aria-labelledby="van-field-label"
             data-allow-mismatch="attribute"
           >
@@ -1583,7 +1563,7 @@ exports[`should render demo and match snapshot 1`] = `
             rows="1"
             class="van-field__control"
             style
-            placeholder="Message"
+            placeholder="Please enter"
             data-allow-mismatch="attribute"
           >
           </textarea>
@@ -1622,7 +1602,7 @@ exports[`should render demo and match snapshot 1`] = `
             rows="2"
             class="van-field__control"
             style
-            placeholder="Message"
+            placeholder="Please enter"
             aria-labelledby="van-field-label"
             data-allow-mismatch="attribute"
           >
@@ -1662,7 +1642,7 @@ exports[`should render demo and match snapshot 1`] = `
             rows="2"
             class="van-field__control"
             style
-            placeholder="Message"
+            placeholder="Please enter"
             aria-labelledby="van-field-label"
             data-allow-mismatch="attribute"
           >
@@ -1708,7 +1688,7 @@ exports[`should render demo and match snapshot 1`] = `
             id="van-field-input"
             class="van-field__control van-field__control--right"
             style
-            placeholder="Input Align Right"
+            placeholder="Please enter"
             aria-labelledby="van-field-label"
             data-allow-mismatch="attribute"
           >
@@ -1751,7 +1731,7 @@ exports[`should render demo and match snapshot 1`] = `
             id="van-field-input"
             class="van-field__control"
             style
-            placeholder="Align Top"
+            placeholder="Please enter"
             aria-labelledby="van-field-label"
             data-allow-mismatch="attribute"
           >
@@ -1784,7 +1764,7 @@ exports[`should render demo and match snapshot 1`] = `
             id="van-field-input"
             class="van-field__control"
             style
-            placeholder="Align Left"
+            placeholder="Please enter"
             aria-labelledby="van-field-label"
             data-allow-mismatch="attribute"
           >
@@ -1817,7 +1797,7 @@ exports[`should render demo and match snapshot 1`] = `
             id="van-field-input"
             class="van-field__control"
             style
-            placeholder="Align Center"
+            placeholder="Please enter"
             aria-labelledby="van-field-label"
             data-allow-mismatch="attribute"
           >
@@ -1850,7 +1830,7 @@ exports[`should render demo and match snapshot 1`] = `
             id="van-field-input"
             class="van-field__control"
             style
-            placeholder="Align Right"
+            placeholder="Please enter"
             aria-labelledby="van-field-label"
             data-allow-mismatch="attribute"
           >
@@ -1893,7 +1873,7 @@ exports[`should render demo and match snapshot 1`] = `
             id="van-field-input"
             class="van-field__control"
             style
-            placeholder="Text"
+            placeholder="Please enter"
             aria-labelledby="van-field-label"
             data-allow-mismatch="attribute"
           >
@@ -1933,7 +1913,7 @@ exports[`should render demo and match snapshot 1`] = `
             id="van-field-input"
             class="van-field__control"
             style
-            placeholder="Text"
+            placeholder="Please enter"
             aria-labelledby="van-field-label"
             data-allow-mismatch="attribute"
           >
@@ -1966,7 +1946,7 @@ exports[`should render demo and match snapshot 1`] = `
             id="van-field-input"
             class="van-field__control"
             style
-            placeholder="Text"
+            placeholder="Please enter"
             aria-labelledby="van-field-label"
             data-allow-mismatch="attribute"
           >
@@ -2002,7 +1982,7 @@ exports[`should render demo and match snapshot 1`] = `
             id="van-field-input"
             class="van-field__control"
             style
-            placeholder="Text"
+            placeholder="Please enter"
             aria-labelledby="van-field-label"
             data-allow-mismatch="attribute"
           >
@@ -2056,7 +2036,7 @@ exports[`should render demo and match snapshot 1`] = `
             id="van-field-input"
             class="van-field__control"
             style
-            placeholder="Text"
+            placeholder="Please enter"
             aria-labelledby="van-field-label"
             data-allow-mismatch="attribute"
           >
@@ -2143,7 +2123,7 @@ exports[`should render demo and match snapshot 1`] = `
             id="van-field-input"
             class="van-field__control"
             style
-            placeholder="Text"
+            placeholder="Please enter"
             aria-labelledby="van-field-label"
             data-allow-mismatch="attribute"
           >
@@ -2211,7 +2191,7 @@ exports[`should render demo and match snapshot 1`] = `
             id="van-field-input"
             class="van-field__control"
             style
-            placeholder="Text"
+            placeholder="Please enter"
             aria-labelledby="van-field-label"
             data-allow-mismatch="attribute"
           >

@@ -2,6 +2,7 @@
 import VanField from '..';
 import VanCellGroup from '../../cell-group';
 import VanHighlight from '../../highlight';
+import VanTag from '../../tag';
 import { ref } from 'vue';
 import { useTranslate } from '../../../docs/site';
 
@@ -9,7 +10,6 @@ const t = useTranslate({
   'zh-CN': {
     title: '说明与底部',
     label: '文本',
-    placeholder: '请输入文本',
     inputComment: '这是一段辅助说明',
     labelComment: '标签下方的备注说明',
     slotLabelComment: '插槽：标签备注可自定义样式',
@@ -22,7 +22,6 @@ const t = useTranslate({
   'en-US': {
     title: 'Comment & bottom',
     label: 'Label',
-    placeholder: 'Text',
     inputComment: 'Helper text',
     labelComment: 'Note below the label',
     slotLabelComment: 'Slot: custom label note',
@@ -47,14 +46,9 @@ const value5 = ref('');
       <van-field
         v-model="value4"
         :label="t('label')"
-        :placeholder="t('placeholder')"
         :label-comment="t('labelComment')"
       />
-      <van-field
-        v-model="value5"
-        :label="t('label')"
-        :placeholder="t('placeholder')"
-      >
+      <van-field v-model="value5" :label="t('label')">
         <template #label-comment>
           <span>{{ t('slotLabelComment') }}</span>
         </template>
@@ -62,29 +56,23 @@ const value5 = ref('');
       <van-field
         v-model="value1"
         :label="t('label')"
-        :placeholder="t('placeholder')"
         :input-comment="t('inputComment')"
       />
-      <van-field
-        v-model="value2"
-        :label="t('label')"
-        :placeholder="t('placeholder')"
-      >
+      <van-field v-model="value2" :label="t('label')">
         <template #input-comment>
-          <van-highlight
-            tag="span"
-            :source-string="t('slotComment')"
-            :keywords="t('slotCommentKeywords')"
-          />
+          <div style="margin-bottom: 2px">
+            <van-highlight
+              tag="span"
+              :source-string="t('slotComment')"
+              :keywords="t('slotCommentKeywords')"
+            />
+          </div>
+          <van-tag currency currency-code="USD" />
         </template>
       </van-field>
-      <van-field
-        v-model="value3"
-        :label="t('label')"
-        :placeholder="t('placeholder')"
-      >
+      <van-field v-model="value3" :label="t('label')">
         <template #bottom>
-          <div class="van-gray-block" style="margin-top: 4px;">
+          <div class="van-gray-block">
             <van-highlight
               tag="span"
               :source-string="t('bottomSlot')"

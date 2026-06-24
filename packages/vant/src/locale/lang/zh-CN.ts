@@ -35,6 +35,7 @@ export default {
     labelExpand: '展开',
     labelCollapse: '收起',
     maxlengthTip: '达到字数上限',
+    placeholder: '请输入',
   },
   vanPagination: {
     prev: '上一页',
@@ -85,5 +86,8 @@ export default {
   vanRadioGroup: {
     searchPlaceholder: '请输入筛选关键词',
     searchEmpty: '未找到搜索项',
+  },
+  vanPicker: {
+    noData: '暂无数据',
   },
 };

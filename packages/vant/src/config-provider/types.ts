@@ -29,6 +29,16 @@ type BaseThemeVars = {
   textColor?: string;
   textColor2?: string;
   textColor3?: string;
+  /** 主要文字 #333 */
+  textColorPrimary?: string;
+  /** 次要文字 #666 */
+  textColorSecondary?: string;
+  /** 反显 #777 */
+  textColorInverse?: string;
+  /** 辅助 #999 */
+  textColorAuxiliary?: string;
+  /** 禁用 #ccc */
+  textColorDisabled?: string;
   activeColor?: string;
   activeOpacity?: number;
   disabledOpacity?: number;

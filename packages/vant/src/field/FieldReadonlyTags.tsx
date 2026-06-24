@@ -16,8 +16,6 @@ const [, bem] = createNamespace('field');
 
 const TAG_GAP = 8;
 const TAG_PROPS = {
-  color: '#EEEEEE',
-  textColor: '#333333',
   size: 'medium',
 } as const;
 

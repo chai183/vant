@@ -11,8 +11,8 @@ const t = useTranslate({
   'zh-CN': {
     text: '文本',
     showIcon: '显示图标',
-    showClearIcon: '显示清除图标',
     actionButton: '操作按钮',
+    measurementUnit: '计量单位',
     actionButton2: '按钮',
     rightIconPopover: '气泡菜单',
     actions: [{ text: '选项一' }, { text: '选项二' }, { text: '选项三' }],
@@ -20,8 +20,8 @@ const t = useTranslate({
   'en-US': {
     text: 'Text',
     showIcon: 'Show Icon',
-    showClearIcon: 'Show Clear Icon',
     actionButton: 'Action Button',
+    measurementUnit: 'Unit',
     actionButton2: 'Button',
     rightIconPopover: 'Popover Menu',
     actions: [{ text: 'Option 1' }, { text: 'Option 2' }, { text: 'Option 3' }],
@@ -45,15 +45,18 @@ const onSelect = (action: { text: string }) => showToast(action.text);
         :label="t('text')"
         left-icon="smile-o"
         right-icon="warning-o"
-        :placeholder="t('showIcon')"
         :style="{ '--van-field-right-icon-color': 'var(--van-primary-color)' }"
       />
+      <van-field v-model="icon1" :label="t('text')" left-icon="smile-o">
+        <template #right-icon>
+          <a>{{ t('measurementUnit') }}</a>
+        </template>
+      </van-field>
       <van-field
         v-model="icon1"
         :show-right-icon-divider="true"
         :label="t('text')"
         left-icon="smile-o"
-        :placeholder="t('showIcon')"
         :style="{ '--van-field-right-icon-color': 'var(--van-primary-color)' }"
       >
         <template #right-icon>
@@ -66,7 +69,6 @@ const onSelect = (action: { text: string }) => showToast(action.text);
         clearable
         :label="t('text')"
         left-icon="music-o"
-        :placeholder="t('showClearIcon')"
         :style="{ '--van-field-right-icon-color': 'var(--van-primary-color)' }"
       >
         <template #right-icon>
@@ -81,7 +83,6 @@ const onSelect = (action: { text: string }) => showToast(action.text);
         :show-right-icon-divider="true"
         :label="t('text')"
         left-icon="smile-o"
-        :placeholder="t('rightIconPopover')"
       >
         <template #right-icon>
           <van-popover

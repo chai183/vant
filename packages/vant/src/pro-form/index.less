@@ -1,6 +1,7 @@
 :root,
 :host {
   --van-pro-form-footer-padding: 0;
+  --van-pro-form-field-popup-body-max-height: 70vh;
 }
 
 .van-pro-form {
@@ -13,11 +14,46 @@
 .van-pro-form-field-popup-body {
   box-sizing: border-box;
   width: 100%;
+  max-height: var(--van-pro-form-field-popup-body-max-height);
   padding: 16px var(--van-padding-sm);
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
 
   &--list {
     padding-left: 0;
     padding-right: 0;
+    padding-bottom: 0;
+  }
+
+  &--show-search {
+    display: flex;
+    flex-direction: column;
+    padding-top: 0;
+    overflow: hidden;
+
+    .van-radio-group,
+    .van-checkbox-group {
+      display: flex;
+      flex: 1;
+      flex-direction: column;
+      min-height: 0;
+      overflow: hidden;
+
+      .van-search {
+        flex: none;
+        min-height: unset;
+        padding-top: 0;
+      }
+
+      .van-cell-group,
+      .van-checkbox-group__empty,
+      .van-radio-group__empty {
+        flex: 1;
+        min-height: 0;
+        overflow-y: auto;
+        -webkit-overflow-scrolling: touch;
+      }
+    }
   }
 
   .van-radio-group,

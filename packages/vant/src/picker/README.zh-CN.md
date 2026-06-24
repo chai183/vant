@@ -193,7 +193,11 @@ export default {
 
 ```html
 <van-picker title="标题" :columns="columns" column-separator=":" />
-<van-picker title="标题" :columns="dateColumns" :column-separator="['年', '月']" />
+<van-picker
+  title="标题"
+  :columns="dateColumns"
+  :column-separator="['年', '月']"
+/>
 ```
 
 ```js
@@ -344,7 +348,11 @@ export default {
 
 ### 空状态
 
-当数据为空时，可以使用 `empty` 插槽自定义空状态内容。
+当数据为空时，默认展示 [Empty 空状态](#/zh-CN/empty) 组件，也可以通过 `empty` 插槽自定义空状态内容。
+
+```html
+<van-picker title="标题" />
+```
 
 ```html
 <van-picker title="标题">
@@ -352,7 +360,7 @@ export default {
     <van-empty
       image="https://fastly.jsdelivr.net/npm/@vant/assets/custom-empty-image.png"
       image-size="80"
-      description="No data"
+      description="暂无数据"
     />
   </template>
 </van-picker>
@@ -457,7 +465,7 @@ export default {
 | option | 自定义选项内容 | _option: PickerOption, index: number_ |
 | columns-top | 自定义选项上方内容 | - |
 | columns-bottom | 自定义选项下方内容 | - |
-| empty `v4.9.10` | 自定义空状态内容 | - |
+| empty `v4.9.10` | 自定义空状态内容，未传入时默认展示 Empty 组件 | - |
 
 ### PickerOption 数据结构
 
@@ -513,24 +521,24 @@ pickerRef.value?.confirm();
 
 组件提供了下列 CSS 变量，可用于自定义样式，使用方法请参考 [ConfigProvider 组件](#/zh-CN/config-provider)。
 
-| 名称                                 | 默认值                      | 描述 |
-| ------------------------------------ | --------------------------- | ---- |
-| --van-picker-background              | _var(--van-background-2)_   | -    |
-| --van-picker-toolbar-height          | _44px_                      | -    |
-| --van-picker-title-font-size         | _var(--van-font-size-lg)_   | -    |
-| --van-picker-title-line-height       | _var(--van-line-height-md)_ | -    |
-| --van-picker-action-padding          | _0 var(--van-padding-md)_   | -    |
-| --van-picker-action-font-size        | _var(--van-font-size-md)_   | -    |
-| --van-picker-confirm-action-color    | _var(--van-primary-color)_  | -    |
-| --van-picker-cancel-action-color     | _var(--van-text-color-2)_   | -    |
-| --van-picker-option-padding          | _0 var(--van-padding-base)_ | -    |
-| --van-picker-option-font-size        | _var(--van-font-size-lg)_   | -    |
-| --van-picker-option-text-color       | _var(--van-text-color)_     | -    |
-| --van-picker-option-selected-text-color | _var(--van-primary-color)_ | - |
-| --van-picker-option-disabled-opacity | _0.3_                       | -    |
-| --van-picker-mask-color              | _linear-gradient_           | -    |
-| --van-picker-loading-icon-color      | _var(--van-primary-color)_  | -    |
-| --van-picker-loading-mask-color      | _rgba(255, 255, 255, 0.9)_  | -    |
+| 名称                                    | 默认值                      | 描述 |
+| --------------------------------------- | --------------------------- | ---- |
+| --van-picker-background                 | _var(--van-background-2)_   | -    |
+| --van-picker-toolbar-height             | _44px_                      | -    |
+| --van-picker-title-font-size            | _var(--van-font-size-lg)_   | -    |
+| --van-picker-title-line-height          | _var(--van-line-height-md)_ | -    |
+| --van-picker-action-padding             | _0 var(--van-padding-md)_   | -    |
+| --van-picker-action-font-size           | _var(--van-font-size-md)_   | -    |
+| --van-picker-confirm-action-color       | _var(--van-primary-color)_  | -    |
+| --van-picker-cancel-action-color        | _var(--van-text-color-2)_   | -    |
+| --van-picker-option-padding             | _0 var(--van-padding-base)_ | -    |
+| --van-picker-option-font-size           | _var(--van-font-size-lg)_   | -    |
+| --van-picker-option-text-color          | _var(--van-text-color)_     | -    |
+| --van-picker-option-selected-text-color | _var(--van-primary-color)_  | -    |
+| --van-picker-option-disabled-opacity    | _0.3_                       | -    |
+| --van-picker-mask-color                 | _linear-gradient_           | -    |
+| --van-picker-loading-icon-color         | _var(--van-primary-color)_  | -    |
+| --van-picker-loading-mask-color         | _rgba(255, 255, 255, 0.9)_  | -    |
 
 ## 常见问题
 

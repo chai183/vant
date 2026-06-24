@@ -208,15 +208,15 @@ Use the `highlight` prop to set the text that needs to be highlighted.
 
 ### Cell Slots
 
-| Name       | Description                       |
-| ---------- | --------------------------------- |
-| title      | Custom title                      |
-| value      | Custom value                      |
-| label      | Custom label                      |
-| icon       | Custom left icon                  |
-| avatar `new` | Custom left avatar              |
-| right-icon | Custom right icon                 |
-| extra      | Custom extra content on the right |
+| Name         | Description                       |
+| ------------ | --------------------------------- |
+| title        | Custom title                      |
+| value        | Custom value                      |
+| label        | Custom label                      |
+| icon         | Custom left icon                  |
+| avatar `new` | Custom left avatar                |
+| right-icon   | Custom right icon                 |
+| extra        | Custom extra content on the right |
 
 ### Types
 
@@ -241,13 +241,13 @@ The component provides the following CSS variables, which can be used to customi
 | Name | Default Value | Description |
 | --- | --- | --- |
 | --van-cell-font-size | _var(--van-font-size-md)_ | - |
-| --van-cell-line-height | _24px_ | - |
-| --van-cell-vertical-padding | _10px_ | - |
-| --van-cell-horizontal-padding | _var(--van-padding-md)_ | - |
+| --van-cell-line-height | _20px_ | - |
+| --van-cell-vertical-padding | _14px_ | - |
+| --van-cell-horizontal-padding | _12px_ | - |
 | --van-cell-text-color | _var(--van-text-color)_ | - |
 | --van-cell-background | _var(--van-background-2)_ | - |
 | --van-cell-border-color | _var(--van-border-color)_ | - |
-| --van-cell-active-color | _var(--van-active-color)_ | - |
+| --van-cell-active-color | _#f5f5f5_ | - |
 | --van-cell-required-color | _var(--van-danger-color)_ | - |
 | --van-cell-label-color | _var(--van-text-color-2)_ | - |
 | --van-cell-label-font-size | _var(--van-font-size-sm)_ | - |
@@ -257,7 +257,8 @@ The component provides the following CSS variables, which can be used to customi
 | --van-cell-value-font-size | _inherit_ | - |
 | --van-cell-highlight-color | _var(--van-primary-color)_ | Highlight text color |
 | --van-cell-icon-size | _16px_ | - |
-| --van-cell-right-icon-color | _var(--van-gray-6)_ | - |
+| --van-cell-right-icon-size | _12px_ | - |
+| --van-cell-right-icon-color | _#ccc_ | - |
 | --van-cell-large-vertical-padding | _var(--van-padding-sm)_ | - |
 | --van-cell-large-title-font-size | _var(--van-font-size-lg)_ | - |
 | --van-cell-large-label-font-size | _var(--van-font-size-md)_ | - |

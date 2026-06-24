@@ -297,12 +297,12 @@ export default {
 
 组件内部自动维护，无需外部传入：
 
-| 状态 | 文案 |
-| --- | --- |
-| 等待上传 | `等待上传` |
-| 上传中 | `上传中` |
-| 成功 | 文件大小，如 `1.5MB` |
-| 失败 | `上传失败`（可被 `reject(Error)` 的 message 覆盖） |
+| 状态     | 文案                                               |
+| -------- | -------------------------------------------------- |
+| 等待上传 | `等待上传`                                         |
+| 上传中   | `上传中`                                           |
+| 成功     | 文件大小，如 `1.5MB`                               |
+| 失败     | `上传失败`（可被 `reject(Error)` 的 message 覆盖） |
 
 上传失败且配置了 `upload` 时，列表项右侧展示「重新上传」链接，点击后使用同一文件重新执行 `upload`，并切换为「上传中」样式。
 
@@ -312,20 +312,20 @@ export default {
 
 ### Events
 
-| 事件名 | 说明 | 回调参数 |
-| --- | --- | --- |
-| update:modelValue | 文件列表变化 | _fileList: UploaderFileListItem[]_ |
-| preview | 点击预览 | _item, detail_ |
-| rename | 重命名确认 | _item, newName, detail_ |
-| download | 点击下载 | _item, detail_ |
-| delete | 删除文件 | 同 Uploader 的 `delete` |
-| oversize | 文件超出大小限制 | 同 Uploader 的 `oversize` |
-| click-upload | 点击上传区域 | _event: MouseEvent_ |
+| 事件名            | 说明             | 回调参数                           |
+| ----------------- | ---------------- | ---------------------------------- |
+| update:modelValue | 文件列表变化     | _fileList: UploaderFileListItem[]_ |
+| preview           | 点击预览         | _item, detail_                     |
+| rename            | 重命名确认       | _item, newName, detail_            |
+| download          | 点击下载         | _item, detail_                     |
+| delete            | 删除文件         | 同 Uploader 的 `delete`            |
+| oversize          | 文件超出大小限制 | 同 Uploader 的 `oversize`          |
+| click-upload      | 点击上传区域     | _event: MouseEvent_                |
 
 ### Slots
 
-| 名称 | 说明 |
-| --- | --- |
+| 名称    | 说明                                               |
+| ------- | -------------------------------------------------- |
 | default | 自定义上传触发区域，不传则使用默认「添加附件」按钮 |
 
 ### UploaderFileListItem 数据结构
@@ -345,11 +345,11 @@ export default {
 
 通过 ref 可获取组件实例并调用方法（与 Uploader 一致）：
 
-| 方法名 | 说明 | 参数 |
-| --- | --- | --- |
-| chooseFile | 调起文件选择 | - |
-| closeImagePreview | 关闭图片预览 | - |
-| reuploadFile | 覆盖上传指定项 | _index: number_ |
+| 方法名            | 说明           | 参数            |
+| ----------------- | -------------- | --------------- |
+| chooseFile        | 调起文件选择   | -               |
+| closeImagePreview | 关闭图片预览   | -               |
+| reuploadFile      | 覆盖上传指定项 | _index: number_ |
 
 ```ts
 import { ref } from 'vue';
@@ -383,9 +383,9 @@ import type {
 | 名称 | 默认值 | 描述 |
 | --- | --- | --- |
 | --van-uploader-file-upload-height | _40px_ | 上传按钮高度 |
-| --van-uploader-file-upload-radius | _var(--van-radius-md)_ | 上传按钮圆角 |
+| --van-uploader-file-upload-radius | _8px_ | 上传按钮圆角 |
 | --van-uploader-file-upload-border-color | _var(--van-gray-4)_ | 上传按钮边框色 |
-| --van-uploader-file-upload-color | _var(--van-text-color)_ | 上传按钮文字颜色 |
+| --van-uploader-file-upload-color | _#666_ | 上传按钮文字颜色 |
 | --van-uploader-file-upload-font-size | _var(--van-font-size-md)_ | 上传按钮字号 |
 | --van-uploader-file-upload-icon-size | _16px_ | 上传按钮图标大小 |
 | --van-uploader-file-list-margin-top | _var(--van-padding-xs)_ | 文件列表上边距 |

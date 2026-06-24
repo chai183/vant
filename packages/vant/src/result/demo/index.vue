@@ -1,5 +1,7 @@
 <script setup lang="ts">
 import { useTranslate } from '../../../docs/site';
+import VanCell from '../../cell';
+import VanCellGroup from '../../cell-group';
 import VanResult from '..';
 
 const t = useTranslate({
@@ -30,6 +32,7 @@ const t = useTranslate({
     layoutHorizontal: 'horizontal 左右并排',
     layoutVertical: 'vertical 上下堆叠',
     layoutHybrid: 'hybrid 主按钮通栏 + 次按钮并排',
+    singleButtonCenter: '单个按钮居中',
   },
   'en-US': {
     waiting: 'Waiting',
@@ -58,6 +61,7 @@ const t = useTranslate({
     layoutHorizontal: 'horizontal',
     layoutVertical: 'vertical',
     layoutHybrid: 'hybrid',
+    singleButtonCenter: 'Single Button Center',
   },
 });
 
@@ -95,14 +99,10 @@ const onSecondary2 = () => {
         </div>
       </div>
       <template #footer>
-        <div class="result-demo__card">
-          <div class="result-demo__card-title">{{ t('cardTitle1') }}</div>
-          <div class="result-demo__card-content">{{ t('cardContent') }}</div>
-        </div>
-        <div class="result-demo__card">
-          <div class="result-demo__card-title">{{ t('cardTitle2') }}</div>
-          <div class="result-demo__card-content">{{ t('cardContent') }}</div>
-        </div>
+        <van-cell-group inset class="result-demo__cell-group">
+          <van-cell :title="t('cardTitle1')" :value="t('cardContent')" />
+          <van-cell :title="t('cardTitle2')" :value="t('cardContent')" />
+        </van-cell-group>
       </template>
     </van-result>
   </demo-block>
@@ -169,8 +169,23 @@ const onSecondary2 = () => {
     />
   </demo-block>
 
+  <demo-block :title="t('singleButtonCenter')">
+    <van-result
+      status="fail"
+      :title="t('failTitle')"
+      :description="t('note')"
+      single-button-center
+      :main-button-text="t('mainAction')"
+      @click-main-button="onMain"
+    />
+  </demo-block>
+
   <demo-block :title="t('success')">
-    <van-result status="success" :title="t('successTitle')" :description="t('note')">
+    <van-result
+      status="success"
+      :title="t('successTitle')"
+      :description="t('note')"
+    >
       <div class="result-demo__amount">
         <div class="result-demo__amount-value">{{ t('amount') }}</div>
         <div class="result-demo__amount-caption">
@@ -178,14 +193,10 @@ const onSecondary2 = () => {
         </div>
       </div>
       <template #footer>
-        <div class="result-demo__card">
-          <div class="result-demo__card-title">{{ t('cardTitle1') }}</div>
-          <div class="result-demo__card-content">{{ t('cardContent') }}</div>
-        </div>
-        <div class="result-demo__card">
-          <div class="result-demo__card-title">{{ t('cardTitle2') }}</div>
-          <div class="result-demo__card-content">{{ t('cardContent') }}</div>
-        </div>
+        <van-cell-group inset class="result-demo__cell-group">
+          <van-cell :title="t('cardTitle1')" :value="t('cardContent')" />
+          <van-cell :title="t('cardTitle2')" :value="t('cardContent')" />
+        </van-cell-group>
       </template>
     </van-result>
   </demo-block>
@@ -213,27 +224,18 @@ const onSecondary2 = () => {
   color: var(--van-gray-10);
 }
 
-.result-demo__card {
-  padding: var(--van-padding-md);
-  border-radius: var(--van-radius-lg);
-  background: var(--van-background);
-}
+.result-demo__cell-group {
+  --van-cell-group-inset-padding: 0;
 
-.result-demo__card + .result-demo__card {
-  margin-top: var(--van-padding-sm);
-}
+  .van-cell__title {
+    color: #666;
+    width: 100px;
+    flex: none;
+  }
 
-.result-demo__card-title {
-  font-size: var(--van-font-size-md);
-  line-height: var(--van-line-height-md);
-  font-weight: var(--van-font-bold);
-  color: var(--van-text-color);
-}
-
-.result-demo__card-content {
-  margin-top: var(--van-padding-xs);
-  font-size: var(--van-font-size-sm);
-  line-height: var(--van-line-height-sm);
-  color: var(--van-text-color-2);
+  .van-cell__value {
+    text-align: left;
+    color: #333;
+  }
 }
 </style>

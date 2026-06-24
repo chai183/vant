@@ -14,7 +14,7 @@ const t = useTranslate({
     stepper: '步进器',
     username: '用户名',
     placeholder: '请输入用户名',
-    switchComment:'开关备注',
+    switchComment: '开关备注',
   },
   'en-US': {
     basicUsage: 'Basic Components',
@@ -39,8 +39,8 @@ const columns = computed<ProFormColumn[]>(() => [
     label: t('username'),
     component: 'field',
     fieldProps: {
+      required: true,
       placeholder: t('placeholder'),
-      rules: [{ required: true, message: t('placeholder') }],
     },
   },
   {
@@ -94,7 +94,13 @@ const onFailed = (errorInfo: {
 
 <template>
   <demo-block :title="t('basicUsage')">
-    <van-pro-form v-model="model" ref="formRef" :columns="columns" :submit-text="t('submit')" @submit="onSubmit"
-      @failed="onFailed" />
+    <van-pro-form
+      v-model="model"
+      ref="formRef"
+      :columns="columns"
+      :submit-text="t('submit')"
+      @submit="onSubmit"
+      @failed="onFailed"
+    />
   </demo-block>
 </template>

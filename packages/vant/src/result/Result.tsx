@@ -18,10 +18,7 @@ import { Icon } from '../icon';
 import { Button } from '../button';
 
 // Types
-import type {
-  ResultStatus,
-  ResultButtonLayout,
-} from './types';
+import type { ResultStatus, ResultButtonLayout } from './types';
 
 const [name, bem] = createNamespace('result');
 
@@ -32,13 +29,12 @@ const STATUS_ICON_MAP: Record<ResultStatus, string> = {
   success: 'checked',
 };
 
-const DEFAULT_BUTTON_LAYOUT: Record<ResultStatus, ResultButtonLayout> =
-  {
-    waiting: 'horizontal',
-    fail: 'vertical',
-    warning: 'hybrid',
-    success: 'vertical',
-  };
+const DEFAULT_BUTTON_LAYOUT: Record<ResultStatus, ResultButtonLayout> = {
+  waiting: 'horizontal',
+  fail: 'vertical',
+  warning: 'hybrid',
+  success: 'vertical',
+};
 
 export const resultProps = {
   status: makeStringProp<ResultStatus>('success'),
@@ -56,6 +52,7 @@ export const resultProps = {
   mainButtonLoading: Boolean,
   secondaryButtonLoading: Boolean,
   secondaryButtonLoading2: Boolean,
+  singleButtonCenter: Boolean,
   safeAreaInsetBottom: truthProp,
 };
 
@@ -66,11 +63,7 @@ export default defineComponent({
 
   props: resultProps,
 
-  emits: [
-    'clickMainButton',
-    'clickSecondaryButton',
-    'clickSecondaryButton2',
-  ],
+  emits: ['clickMainButton', 'clickSecondaryButton', 'clickSecondaryButton2'],
 
   setup(props, { slots, emit }) {
     const resolvedButtonLayout = computed(
@@ -92,6 +85,21 @@ export default defineComponent({
 
     const hasActions = () =>
       hasMainButton() || hasSecondaryButton() || hasSecondaryButton2();
+
+    const getButtonCount = () => {
+      let count = 0;
+      if (hasMainButton()) count++;
+      if (hasSecondaryButton()) count++;
+      if (hasSecondaryButton2()) count++;
+      return count;
+    };
+
+    const showSingleButtonCenter = computed(
+      () => props.singleButtonCenter && getButtonCount() === 1,
+    );
+
+    const getActionsClass = (layout: ResultButtonLayout) =>
+      bem('actions', [layout, showSingleButtonCenter.value && 'single-center']);
 
     const renderIcon = () => {
       if (slots.icon) {
@@ -170,7 +178,8 @@ export default defineComponent({
         index === 1
           ? props.secondaryButtonLoading
           : props.secondaryButtonLoading2;
-      const hasButton = index === 1 ? hasSecondaryButton() : hasSecondaryButton2();
+      const hasButton =
+        index === 1 ? hasSecondaryButton() : hasSecondaryButton2();
 
       if (!hasButton) {
         return null;
@@ -186,7 +195,7 @@ export default defineComponent({
         <Button
           round
           plain
-          type='primary'
+          type="primary"
           class={bem('action', 'secondary')}
           disabled={disabled}
           loading={loading}
@@ -214,12 +223,12 @@ export default defineComponent({
 
       if (layout === 'horizontal') {
         const buttons = [...secondaryButtons, mainButton].filter(Boolean);
-        return <div class={bem('actions', layout)}>{buttons}</div>;
+        return <div class={getActionsClass(layout)}>{buttons}</div>;
       }
 
       if (layout === 'hybrid') {
         return (
-          <div class={bem('actions', layout)}>
+          <div class={getActionsClass(layout)}>
             {mainButton}
             {secondaryButtons.length > 0 ? (
               <div class={bem('secondary-row')}>{secondaryButtons}</div>
@@ -229,7 +238,7 @@ export default defineComponent({
       }
 
       const buttons = [mainButton, ...secondaryButtons].filter(Boolean);
-      return <div class={bem('actions', layout)}>{buttons}</div>;
+      return <div class={getActionsClass(layout)}>{buttons}</div>;
     };
 
     const renderFooter = () => {

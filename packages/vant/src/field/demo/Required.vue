@@ -10,15 +10,11 @@ const t = useTranslate({
     phone: '手机号',
     required: '必填星号',
     autoRequired: '自动展示星号',
-    phonePlaceholder: '请输入手机号',
-    usernamePlaceholder: '请输入用户名',
   },
   'en-US': {
     phone: 'Phone',
     required: 'Required',
     autoRequired: 'Auto Required',
-    phonePlaceholder: 'Phone',
-    usernamePlaceholder: 'Username',
   },
 });
 
@@ -29,18 +25,8 @@ const username = ref('');
 <template>
   <demo-block :title="t('required')">
     <van-cell-group inset>
-      <van-field
-        v-model="username"
-        required
-        :label="t('username')"
-        :placeholder="t('usernamePlaceholder')"
-      />
-      <van-field
-        v-model="phone"
-        required
-        :label="t('phone')"
-        :placeholder="t('phonePlaceholder')"
-      />
+      <van-field v-model="username" required :label="t('username')" />
+      <van-field v-model="phone" required :label="t('phone')" />
     </van-cell-group>
   </demo-block>
 
@@ -51,13 +37,11 @@ const username = ref('');
           v-model="username"
           :rules="[{ required: true }]"
           :label="t('username')"
-          :placeholder="t('usernamePlaceholder')"
         />
         <van-field
           v-model="phone"
           :rules="[{ required: false }]"
           :label="t('phone')"
-          :placeholder="t('phonePlaceholder')"
         />
       </van-form>
     </van-cell-group>

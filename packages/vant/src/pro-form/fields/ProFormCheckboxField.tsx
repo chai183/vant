@@ -82,6 +82,7 @@ export default defineComponent({
       const checkboxProps = omit(restComponentProps, ['options']);
       const locked = isDisabled() || isReadonly();
       const displayValue = resolveOptionLabels(options, modelValue);
+      const popupBottom = props.popupSlots?.['popup-bottom'];
 
       return (
         <>
@@ -107,6 +108,8 @@ export default defineComponent({
               class={[
                 'van-pro-form-field-popup-body',
                 checkboxProps.isList && 'van-pro-form-field-popup-body--list',
+                checkboxProps.showSearch &&
+                  'van-pro-form-field-popup-body--show-search',
               ]}
             >
               <CheckboxGroup
@@ -117,6 +120,7 @@ export default defineComponent({
                 onUpdate:modelValue={onDraftChange}
               />
             </div>
+            {popupBottom ? popupBottom() : null}
           </Popup>
         </>
       );

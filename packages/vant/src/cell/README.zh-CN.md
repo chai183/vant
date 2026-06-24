@@ -171,11 +171,7 @@ app.use(CellGroup);
 
 ```html
 <van-cell :title="['主标题', '副标题']" value="内容" />
-<van-cell
-  :title="['主标题', '副标题']"
-  value="内容"
-  label="描述信息"
-/>
+<van-cell :title="['主标题', '副标题']" value="内容" label="描述信息" />
 <van-cell
   :title="['主标题', '副标题']"
   value="内容"
@@ -237,15 +233,15 @@ app.use(CellGroup);
 
 ### Cell Slots
 
-| 名称       | 说明                         |
-| ---------- | ---------------------------- |
-| title      | 自定义左侧标题               |
-| value      | 自定义右侧内容               |
-| label      | 自定义标题下方的描述信息     |
-| icon       | 自定义左侧图标               |
-| avatar `new` | 自定义左侧头像             |
-| right-icon | 自定义右侧图标               |
-| extra      | 自定义单元格最右侧的额外内容 |
+| 名称         | 说明                         |
+| ------------ | ---------------------------- |
+| title        | 自定义左侧标题               |
+| value        | 自定义右侧内容               |
+| label        | 自定义标题下方的描述信息     |
+| icon         | 自定义左侧图标               |
+| avatar `new` | 自定义左侧头像               |
+| right-icon   | 自定义右侧图标               |
+| extra        | 自定义单元格最右侧的额外内容 |
 
 ### 类型定义
 
@@ -270,13 +266,13 @@ import type {
 | 名称 | 默认值 | 描述 |
 | --- | --- | --- |
 | --van-cell-font-size | _var(--van-font-size-md)_ | - |
-| --van-cell-line-height | _24px_ | - |
-| --van-cell-vertical-padding | _10px_ | - |
-| --van-cell-horizontal-padding | _var(--van-padding-md)_ | - |
+| --van-cell-line-height | _20px_ | - |
+| --van-cell-vertical-padding | _14px_ | - |
+| --van-cell-horizontal-padding | _12px_ | - |
 | --van-cell-text-color | _var(--van-text-color)_ | - |
 | --van-cell-background | _var(--van-background-2)_ | - |
 | --van-cell-border-color | _var(--van-border-color)_ | - |
-| --van-cell-active-color | _var(--van-active-color)_ | - |
+| --van-cell-active-color | _#f5f5f5_ | - |
 | --van-cell-required-color | _var(--van-danger-color)_ | - |
 | --van-cell-label-color | _var(--van-text-color-2)_ | - |
 | --van-cell-label-font-size | _var(--van-font-size-sm)_ | - |
@@ -286,7 +282,8 @@ import type {
 | --van-cell-value-font-size | _inherit_ | - |
 | --van-cell-highlight-color | _var(--van-primary-color)_ | 高亮文本颜色 |
 | --van-cell-icon-size | _16px_ | - |
-| --van-cell-right-icon-color | _var(--van-gray-6)_ | - |
+| --van-cell-right-icon-size | _12px_ | - |
+| --van-cell-right-icon-color | _#ccc_ | - |
 | --van-cell-large-vertical-padding | _var(--van-padding-sm)_ | - |
 | --van-cell-large-title-font-size | _var(--van-font-size-lg)_ | - |
 | --van-cell-large-label-font-size | _var(--van-font-size-md)_ | - |

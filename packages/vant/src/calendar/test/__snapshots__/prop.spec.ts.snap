@@ -50,9 +50,6 @@ exports[`lazy-render prop 1`] = `
         role="grid"
         class="van-calendar__days"
       >
-        <div class="van-calendar__month-mark">
-          1
-        </div>
         <div
           role="gridcell"
           style="margin-left: 71.42857142857143%;"

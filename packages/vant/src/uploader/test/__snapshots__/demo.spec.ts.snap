@@ -5,8 +5,11 @@ exports[`should render demo and match snapshot 1`] = `
   <div class="van-uploader">
     <div class="van-uploader__wrapper">
       <div class="van-uploader__upload van-hairline--surround">
-        <i class="van-badge__wrapper van-icon van-icon-photograph van-uploader__upload-icon">
-        </i>
+        <span
+          class="van-uploader__upload-icon"
+          style="mask-image: url(http://localhost:3000/src/uploader-file/assets/upload.svg);"
+        >
+        </span>
         <span class="van-uploader__upload-text">
           添加图片
         </span>
@@ -67,8 +70,11 @@ exports[`should render demo and match snapshot 1`] = `
         </div>
       </div>
       <div class="van-uploader__upload van-hairline--surround">
-        <i class="van-badge__wrapper van-icon van-icon-photograph van-uploader__upload-icon">
-        </i>
+        <span
+          class="van-uploader__upload-icon"
+          style="mask-image: url(http://localhost:3000/src/uploader-file/assets/upload.svg);"
+        >
+        </span>
         <span class="van-uploader__upload-text">
           添加图片
         </span>
@@ -153,8 +159,11 @@ exports[`should render demo and match snapshot 1`] = `
         </div>
       </div>
       <div class="van-uploader__upload van-hairline--surround">
-        <i class="van-badge__wrapper van-icon van-icon-photograph van-uploader__upload-icon">
-        </i>
+        <span
+          class="van-uploader__upload-icon"
+          style="mask-image: url(http://localhost:3000/src/uploader-file/assets/upload.svg);"
+        >
+        </span>
         <span class="van-uploader__upload-text">
           添加图片
         </span>
@@ -193,8 +202,11 @@ exports[`should render demo and match snapshot 1`] = `
         </div>
       </div>
       <div class="van-uploader__upload van-hairline--surround">
-        <i class="van-badge__wrapper van-icon van-icon-photograph van-uploader__upload-icon">
-        </i>
+        <span
+          class="van-uploader__upload-icon"
+          style="mask-image: url(http://localhost:3000/src/uploader-file/assets/upload.svg);"
+        >
+        </span>
         <span class="van-uploader__upload-text">
           添加图片
         </span>
@@ -234,8 +246,11 @@ exports[`should render demo and match snapshot 1`] = `
         </div>
       </div>
       <div class="van-uploader__upload van-hairline--surround">
-        <i class="van-badge__wrapper van-icon van-icon-photograph van-uploader__upload-icon">
-        </i>
+        <span
+          class="van-uploader__upload-icon"
+          style="mask-image: url(http://localhost:3000/src/uploader-file/assets/upload.svg);"
+        >
+        </span>
         <span class="van-uploader__upload-text">
           添加图片
         </span>
@@ -278,15 +293,11 @@ exports[`should render demo and match snapshot 1`] = `
   <div class="van-uploader">
     <div class="van-uploader__wrapper">
       <div class="van-uploader__preview">
-        <div class="van-image van-uploader__preview-image">
-          <img
-            src="https://fastly.jsdelivr.net/npm/@vant/assets/leaf.jpeg"
-            class="van-image__img"
-            style="object-fit: cover;"
-          >
-          <div class="van-image__loading">
-            <i class="van-badge__wrapper van-icon van-icon-photo van-image__loading-icon">
-            </i>
+        <div class="van-uploader__file">
+          <i class="van-badge__wrapper van-icon van-icon-description van-uploader__file-icon">
+          </i>
+          <div class="van-uploader__file-name van-ellipsis">
+            Image Name
           </div>
           <div class="van-uploader__preview-cover">
             <div class="preview-cover van-ellipsis">
@@ -305,8 +316,11 @@ exports[`should render demo and match snapshot 1`] = `
         </div>
       </div>
       <div class="van-uploader__upload van-hairline--surround">
-        <i class="van-badge__wrapper van-icon van-icon-photograph van-uploader__upload-icon">
-        </i>
+        <span
+          class="van-uploader__upload-icon"
+          style="mask-image: url(http://localhost:3000/src/uploader-file/assets/upload.svg);"
+        >
+        </span>
         <span class="van-uploader__upload-text">
           添加图片
         </span>
@@ -351,8 +365,11 @@ exports[`should render demo and match snapshot 1`] = `
         class="van-uploader__upload van-hairline--surround"
         style="width: 60px; height: 60px;"
       >
-        <i class="van-badge__wrapper van-icon van-icon-photograph van-uploader__upload-icon">
-        </i>
+        <span
+          class="van-uploader__upload-icon"
+          style="mask-image: url(http://localhost:3000/src/uploader-file/assets/upload.svg);"
+        >
+        </span>
         <span class="van-uploader__upload-text">
           添加图片
         </span>
@@ -369,8 +386,11 @@ exports[`should render demo and match snapshot 1`] = `
   <div class="van-uploader">
     <div class="van-uploader__wrapper">
       <div class="van-uploader__upload van-hairline--surround">
-        <i class="van-badge__wrapper van-icon van-icon-photograph van-uploader__upload-icon">
-        </i>
+        <span
+          class="van-uploader__upload-icon"
+          style="mask-image: url(http://localhost:3000/src/uploader-file/assets/upload.svg);"
+        >
+        </span>
         <span class="van-uploader__upload-text">
           添加图片
         </span>
@@ -387,8 +407,11 @@ exports[`should render demo and match snapshot 1`] = `
   <div class="van-uploader">
     <div class="van-uploader__wrapper van-uploader__wrapper--disabled">
       <div class="van-uploader__upload van-hairline--surround">
-        <i class="van-badge__wrapper van-icon van-icon-photograph van-uploader__upload-icon">
-        </i>
+        <span
+          class="van-uploader__upload-icon"
+          style="mask-image: url(http://localhost:3000/src/uploader-file/assets/upload.svg);"
+        >
+        </span>
         <span class="van-uploader__upload-text">
           添加图片
         </span>
@@ -441,8 +464,11 @@ exports[`should render demo and match snapshot 1`] = `
         </div>
       </div>
       <div class="van-uploader__upload van-hairline--surround">
-        <i class="van-badge__wrapper van-icon van-icon-photograph van-uploader__upload-icon">
-        </i>
+        <span
+          class="van-uploader__upload-icon"
+          style="mask-image: url(http://localhost:3000/src/uploader-file/assets/upload.svg);"
+        >
+        </span>
         <span class="van-uploader__upload-text">
           添加图片
         </span>
@@ -482,8 +508,11 @@ exports[`should render demo and match snapshot 1`] = `
         </div>
       </div>
       <div class="van-uploader__upload van-hairline--surround">
-        <i class="van-badge__wrapper van-icon van-icon-photograph van-uploader__upload-icon">
-        </i>
+        <span
+          class="van-uploader__upload-icon"
+          style="mask-image: url(http://localhost:3000/src/uploader-file/assets/upload.svg);"
+        >
+        </span>
         <span class="van-uploader__upload-text">
           添加图片
         </span>

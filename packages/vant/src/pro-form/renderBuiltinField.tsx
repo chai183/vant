@@ -12,7 +12,7 @@ import ProFormFieldChildrenField from './fields/ProFormFieldChildrenField';
 import ProFormUploaderFileField from './fields/ProFormUploaderFileField';
 import type { ProFormColumn } from './types';
 import type { FieldProps } from '../field/Field';
-import type { ProFormFieldSlots } from './resolveFieldSlots';
+import type { ProFormFieldSlots, ProFormPopupSlots } from './resolveFieldSlots';
 import {
   mergeBuiltinFieldComponentProps,
   resolveFormDisabled,
@@ -25,6 +25,7 @@ export type BuiltinFieldRenderContext = {
   setValue: (value: unknown) => void;
   fieldProps: Partial<FieldProps>;
   fieldSlots?: ProFormFieldSlots;
+  popupSlots?: ProFormPopupSlots;
   formDisabled?: boolean;
   formReadonly?: boolean;
 };
@@ -32,8 +33,16 @@ export type BuiltinFieldRenderContext = {
 export function renderBuiltinField(
   ctx: BuiltinFieldRenderContext,
 ): JSX.Element | null {
-  const { column, value, setValue, fieldProps, fieldSlots, formDisabled, formReadonly } =
-    ctx;
+  const {
+    column,
+    value,
+    setValue,
+    fieldProps,
+    fieldSlots,
+    popupSlots,
+    formDisabled,
+    formReadonly,
+  } = ctx;
   const disabled = resolveFormDisabled(
     formDisabled,
     fieldProps,
@@ -53,6 +62,7 @@ export function renderBuiltinField(
     fieldProps,
     componentProps,
     fieldSlots,
+    popupSlots,
     modelValue: value as string | number,
     'onUpdate:modelValue': setValue,
   };
@@ -75,6 +85,7 @@ export function renderBuiltinField(
         <ProFormCheckboxField
           fieldProps={fieldProps}
           fieldSlots={fieldSlots}
+          popupSlots={popupSlots}
           componentProps={{
             ...componentProps,
             options: column.options ?? componentProps.options,

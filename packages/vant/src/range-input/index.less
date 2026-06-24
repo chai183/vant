@@ -3,16 +3,10 @@
   --van-range-input-separator-color: var(--van-text-color-2);
   --van-range-input-separator-font-size: var(--van-font-size-md);
   --van-range-input-horizontal-line-width: 12px;
-  --van-range-input-horizontal-line-color: var(--van-border-color);
+  --van-range-input-horizontal-line-color: #eee;
   --van-range-input-vertical-line-width: 1px;
-  --van-range-input-vertical-line-color: var(--van-border-color);
+  --van-range-input-vertical-line-color: #eee;
   --van-range-input-vertical-line-min-height: 24px;
-  --van-range-input-shortcut-color: var(--van-text-color);
-  --van-range-input-shortcut-background: #f5f5f5;
-  --van-range-input-shortcut-font-size: var(--van-font-size-sm);
-  --van-range-input-shortcut-gap: 8px;
-  --van-range-input-shortcut-padding-y: 8px;
-  --van-range-input-shortcut-padding-x: 4px;
   --van-range-input-shortcut-margin-bottom: var(--van-padding-xs);
 }
 
@@ -60,7 +54,7 @@
 
   &__body--vertical &__v-sep--label {
     flex-shrink: 0;
-    color: var(--van-range-input-separator-color);
+    color: #333;
     font-size: var(--van-range-input-separator-font-size);
     line-height: 1;
   }
@@ -117,25 +111,6 @@
   }
 
   &__shortcuts {
-    display: flex;
-    flex-direction: row;
-    flex-wrap: nowrap;
-    gap: var(--van-range-input-shortcut-gap);
     margin-bottom: var(--van-range-input-shortcut-margin-bottom);
   }
-
-  &__shortcut {
-    flex: 1 1 0;
-    min-width: 0;
-    height: auto;
-    padding: var(--van-range-input-shortcut-padding-y)
-      var(--van-range-input-shortcut-padding-x);
-    color: var(--van-range-input-shortcut-color);
-    font-size: var(--van-range-input-shortcut-font-size);
-    line-height: 1.4;
-    background: var(--van-range-input-shortcut-background);
-    border: none;
-    border-radius: var(--van-radius-sm);
-  }
-
 }

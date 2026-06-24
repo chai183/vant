@@ -38,7 +38,6 @@ import { useCustomFieldValue } from '@vant/use';
 import { useExpose } from '../composables/use-expose';
 
 // Components
-import { Icon } from '../icon';
 import { showImagePreview, type ImagePreviewOptions } from '../image-preview';
 import UploaderPreviewItem from './UploaderPreviewItem';
 
@@ -52,6 +51,13 @@ import type {
   UploaderResultType,
   UploaderFileListItem,
 } from './types';
+
+const uploadIconSrc = new URL(
+  '../uploader-file/assets/upload.svg',
+  import.meta.url,
+).href;
+
+const isImageIcon = (name: string) => name.includes('/');
 
 export const uploaderProps = {
   name: makeNumericProp(''),
@@ -383,7 +389,21 @@ export default defineComponent({
           style={getSizeStyle(props.previewSize)}
           onClick={onClickUpload}
         >
-          <Icon name={props.uploadIcon} class={bem('upload-icon')} />
+          {isImageIcon(props.uploadIcon) ? (
+            <img
+              class={bem('upload-icon', 'image')}
+              src={props.uploadIcon}
+              alt=""
+            />
+          ) : (
+            <span
+              class={bem('upload-icon')}
+              style={{
+                maskImage: `url(${uploadIconSrc})`,
+                WebkitMaskImage: `url(${uploadIconSrc})`,
+              }}
+            />
+          )}
           {props.uploadText && (
             <span class={bem('upload-text')}>{props.uploadText}</span>
           )}

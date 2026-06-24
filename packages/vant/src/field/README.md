@@ -761,8 +761,9 @@ The component provides the following CSS variables, which can be used to customi
 | --van-field-label-margin-right | _32px_ | - |
 | --van-field-input-text-color | _var(--van-text-color)_ | - |
 | --van-field-input-error-text-color | _var(--van-danger-color)_ | - |
-| --van-field-input-disabled-text-color | _var(--van-text-color-3)_ | - |
-| --van-field-placeholder-text-color | _var(--van-text-color-3)_ | - |
+| --van-field-input-disabled-text-color | _var(--van-text-color-inverse)_ | - |
+| --van-field-placeholder-text-color | _var(--van-text-color-disabled)_ | - |
+| --van-field-cursor-color | _var(--van-primary-color)_ | Input caret color |
 | --van-field-icon-size | _18px_ | - |
 | --van-field-clear-icon-size | _18px_ | - |
 | --van-field-clear-icon-color | _var(--van-gray-5)_ | - |
@@ -773,9 +774,10 @@ The component provides the following CSS variables, which can be used to customi
 | --van-field-error-message-font-size | _12px_ | - |
 | --van-field-bottom-margin-top | _8px_ | Top margin of the full-width bottom content |
 | --van-field-input-comment-color | _#999_ | Input area helper text color |
+| --van-field-label-comment-color | _var(--van-text-color-auxiliary)_ | Label comment text color |
 | --van-field-text-area-min-height | _60px_ | - |
 | --van-field-word-limit-color | _var(--van-gray-7)_ | - |
 | --van-field-word-limit-font-size | _var(--van-font-size-sm)_ | - |
 | --van-field-word-limit-line-height | _16px_ | - |
-| --van-field-disabled-text-color | _var(--van-text-color-3)_ | - |
+| --van-field-disabled-text-color | _var(--van-text-color-inverse)_ | - |
 | --van-field-required-mark-color | _var(--van-red)_ | - |

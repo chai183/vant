@@ -177,7 +177,6 @@ const customFieldColumns = computed<ProFormColumn[]>(() => [
 
 <style lang="less">
 .demo-pro-form__field-slot-comment {
-  color: var(--van-text-color-2);
   font-size: var(--van-font-size-sm);
 }
 </style>

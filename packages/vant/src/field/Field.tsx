@@ -117,7 +117,7 @@ export const fieldSharedProps = {
   autocorrect: String,
   errorMessage: String,
   inputComment: String,
-  enterkeyhint: String as PropType<FieldEnterKeyHint>,
+  enterkeyhint: String as PropType<FieldEnterKeyHint>,  
   clearTrigger: makeStringProp<FieldClearTrigger>('focus'),
   formatTrigger: makeStringProp<FieldFormatTrigger>('onChange'),
   spellcheck: {

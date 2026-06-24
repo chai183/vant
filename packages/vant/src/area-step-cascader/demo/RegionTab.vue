@@ -6,9 +6,8 @@ import VanPopup from '../../popup';
 import VanTabs from '../../tabs';
 import VanTab from '../../tab';
 import VanDivider from '../../divider';
-import VanIcon from '../../icon';
-import VanLoading from '../../loading';
 import VanAreaStepCascader from '..';
+import CurrentLocationCell from './CurrentLocationCell.vue';
 import { closeToast, showLoadingToast, showToast } from '../../toast';
 import type { Numeric } from '../../utils';
 import type { CascaderOption } from '../../cascader';
@@ -213,39 +212,14 @@ const refreshLocation = (type: LocationType) => {
             @finish="onFinish"
           >
             <template #title-extra>
-              <div class="region-tab-current">
-                <div
-                  class="region-tab-current__main"
-                  role="button"
-                  tabindex="0"
-                  @click="selectCurrentLocation('domestic')"
-                >
-                  <van-icon
-                    name="location-o"
-                    class="region-tab-current__icon"
-                    size="12"
-                  />
-                  <span class="region-tab-current__label">{{
-                    t('currentLocation')
-                  }}</span>
-                  <span class="region-tab-current__text">{{
-                    getCurrentLocation('domestic').text
-                  }}</span>
-                </div>
-                <div
-                  class="region-tab-current__refresh"
-                  role="button"
-                  tabindex="0"
-                  @click.stop="refreshLocation('domestic')"
-                >
-                  <van-loading
-                    v-if="locationRefreshing.domestic"
-                    size="16"
-                  />
-                  <van-icon v-else name="aim" size="14" />
-                  <span>{{ t('refreshLocation') }}</span>
-                </div>
-              </div>
+              <current-location-cell
+                :label="t('currentLocation')"
+                :text="getCurrentLocation('domestic').text"
+                :refresh-text="t('refreshLocation')"
+                :refreshing="locationRefreshing.domestic"
+                @click="selectCurrentLocation('domestic')"
+                @refresh="refreshLocation('domestic')"
+              />
               <van-divider class="region-tab-divider" />
             </template>
           </van-area-step-cascader>
@@ -259,39 +233,14 @@ const refreshLocation = (type: LocationType) => {
             @finish="onFinish"
           >
             <template #title-extra>
-              <div class="region-tab-current">
-                <div
-                  class="region-tab-current__main"
-                  role="button"
-                  tabindex="0"
-                  @click="selectCurrentLocation('foreign')"
-                >
-                  <van-icon
-                    name="location-o"
-                    class="region-tab-current__icon"
-                    size="12"
-                  />
-                  <span class="region-tab-current__label">{{
-                    t('currentLocation')
-                  }}</span>
-                  <span class="region-tab-current__text">{{
-                    getCurrentLocation('foreign').text
-                  }}</span>
-                </div>
-                <div
-                  class="region-tab-current__refresh"
-                  role="button"
-                  tabindex="0"
-                  @click.stop="refreshLocation('foreign')"
-                >
-                  <van-loading
-                    v-if="locationRefreshing.foreign"
-                    size="16"
-                  />
-                  <van-icon v-else name="aim" size="14"/>
-                  <span>{{ t('refreshLocation') }}</span>
-                </div>
-              </div>
+              <current-location-cell
+                :label="t('currentLocation')"
+                :text="getCurrentLocation('foreign').text"
+                :refresh-text="t('refreshLocation')"
+                :refreshing="locationRefreshing.foreign"
+                @click="selectCurrentLocation('foreign')"
+                @refresh="refreshLocation('foreign')"
+              />
               <van-divider class="region-tab-divider" />
             </template>
           </van-area-step-cascader>
@@ -306,64 +255,12 @@ const refreshLocation = (type: LocationType) => {
   --van-divider-line-height: 8px;
   height: 8px;
   margin: 0;
-  background: #fafafa;
+  background: var(--van-background);
   border: none;
 
   &::before,
   &::after {
     display: none;
-  }
-}
-
-.region-tab-current {
-  display: flex;
-  align-items: center;
-  padding: 10px var(--van-padding-md);
-  font-size: var(--van-font-size-md);
-  line-height: var(--van-line-height-md);
-  color: var(--van-text-color);
-  background: var(--van-background-2);
-
-  &__main {
-    display: flex;
-    flex: 1;
-    align-items: center;
-    min-width: 0;
-    cursor: pointer;
-  }
-
-  &__icon {
-    margin-right: 12px;
-    color: #999;
-    font-size: 16px;
-  }
-
-  &__label {
-    flex: none;
-    // margin-right: 8px;
-    color: #333;
-  }
-
-  &__text {
-    flex: 1;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    color: #333;
-  }
-
-  &__refresh {
-    display: flex;
-    flex: none;
-    align-items: center;
-    margin-left: 12px;
-    color: var(--van-primary-color);
-    cursor: pointer;
-
-    .van-icon {
-      margin-right: 6px;
-      font-size: 16px;
-    }
   }
 }
 </style>

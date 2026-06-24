@@ -424,7 +424,7 @@ calendarRef.value?.reset();
 | --van-calendar-day-margin-bottom | _4px_ | - |
 | --van-calendar-padding-horizontal | _24px_ | - |
 | --van-calendar-month-gap | _24px_ | - |
-| --van-calendar-day-disabled-color | _var(--van-text-color-3)_ | - |
+| --van-calendar-day-disabled-color | _var(--van-text-color-disabled)_ | - |
 | --van-calendar-range-edge-color | _var(--van-white)_ | - |
 | --van-calendar-range-edge-background | _var(--van-primary-color)_ | - |
 | --van-calendar-range-middle-color | _var(--van-primary-color)_ | - |

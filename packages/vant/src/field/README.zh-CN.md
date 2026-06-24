@@ -506,6 +506,23 @@ export default {
 };
 ```
 
+### 标签说明
+
+设置 `label` 后，可在标签右侧展示说明图标，点击后以 Popover 展示补充提示。
+
+- 通过 `label-tooltip` 属性传入纯文本说明。
+- 通过 `label-tooltip` 插槽自定义 Popover 内容（插槽优先级高于属性）。
+- 通过 `label-tooltip-popover-props` 透传 [Popover](#/zh-CN/popover) 属性，如 `placement`、`theme`。内置默认 `placement="top"`、`theme="dark"`，且 `icon-prefix` 跟随 Field 的 `icon-prefix`。
+
+```html
+<van-field label="转账金额" label-tooltip="单笔转账上限 ¥50,000" />
+<van-field label="备注" placeholder="请输入">
+  <template #label-tooltip>
+    <div>插槽：可自定义 Popover 内容</div>
+  </template>
+</van-field>
+```
+
 ### 标签备注
 
 通过 `label-comment` 属性或 `label-comment` 插槽可在标签下方展示备注（插槽优先级高于属性）。
@@ -784,8 +801,9 @@ fieldRef.value?.focus();
 | --van-field-label-margin-right        | _32px_                    | -    |
 | --van-field-input-text-color          | _var(--van-text-color)_   | -    |
 | --van-field-input-error-text-color    | _var(--van-danger-color)_ | -    |
-| --van-field-input-disabled-text-color | _var(--van-text-color-3)_ | -    |
-| --van-field-placeholder-text-color    | _var(--van-text-color-3)_ | -    |
+| --van-field-input-disabled-text-color | _var(--van-text-color-inverse)_ | -    |
+| --van-field-placeholder-text-color    | _var(--van-text-color-disabled)_ | -    |
+| --van-field-cursor-color              | _var(--van-primary-color)_ | 输入光标颜色 |
 | --van-field-icon-size                 | _18px_                    | -    |
 | --van-field-clear-icon-size           | _18px_                    | -    |
 | --van-field-clear-icon-color          | _var(--van-gray-5)_       | -    |
@@ -797,6 +815,7 @@ fieldRef.value?.focus();
 | --van-field-extra-margin-top          | _2px_                     | 输入区下方辅助内容的上边距 |
 | --van-field-bottom-margin-top         | _8px_                     | 整行底部内容的上边距 |
 | --van-field-input-comment-color       | _#999_                    | 输入区域下方辅助说明文字颜色 |
+| --van-field-label-comment-color       | _var(--van-text-color-auxiliary)_ | 标签下方备注文字颜色 |
 | --van-field-error-message-info-background | _#fff2f0_             | -    |
 | --van-field-error-message-info-padding    | _6px 20px_            | -    |
 | --van-field-error-message-info-margin-top | _8px_ | -    |
@@ -805,7 +824,7 @@ fieldRef.value?.focus();
 | --van-field-word-limit-color          | _var(--van-gray-7)_       | -    |
 | --van-field-word-limit-font-size      | _var(--van-font-size-sm)_ | -    |
 | --van-field-word-limit-line-height    | _16px_                    | -    |
-| --van-field-disabled-text-color       | _var(--van-text-color-3)_ | -    |
+| --van-field-disabled-text-color       | _var(--van-text-color-inverse)_ | -    |
 | --van-field-required-mark-color       | _var(--van-red)_          | -    |
 | --van-field-label-action-color        | _var(--van-primary-color)_ | -    |
 | --van-field-label-action-font-size    | _var(--van-font-size-md)_ | -    |

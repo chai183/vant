@@ -374,3 +374,21 @@ test('should update modelValue correctly after clicking the reversed vertical sl
   trigger(wrapper, 'click', 0, 100);
   expect(wrapper.emitted('update:modelValue')!.pop()).toEqual([0]);
 });
+
+test('should render range inputs with RangeInput when show-inputs is true', () => {
+  const wrapper = mount(Slider, {
+    props: {
+      type: 'range',
+      showInputs: true,
+      inputLayout: 'horizontal',
+      modelValue: [20, 80],
+      min: 0,
+      max: 100,
+    },
+  });
+
+  expect(wrapper.find('.van-slider__range-input').exists()).toBeTruthy();
+  expect(
+    wrapper.find('.van-range-input__body--horizontal').exists(),
+  ).toBeTruthy();
+});

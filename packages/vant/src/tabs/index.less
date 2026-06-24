@@ -8,10 +8,10 @@
   --van-tabs-default-color: var(--van-primary-color);
   --van-tabs-line-height: 44px;
   --van-tabs-card-height: 30px;
-  --van-tabs-rounded-inactive-background: #f5f5f5;
+  --van-tabs-rounded-inactive-background: var(--van-gray-block-background);
   --van-tabs-rounded-font-size: 14px;
   --van-tabs-rounded-line-height: 14px;
-  --van-tabs-rounded-disabled-text-color: #cccccc;
+  --van-tabs-rounded-disabled-text-color: var(--van-text-color-disabled);
   --van-tabs-rounded-padding-vertical: 6px;
   --van-tabs-rounded-padding-horizontal: 12px;
   --van-tabs-rounded-gap: 12px;
@@ -26,15 +26,15 @@
   --van-tabs-underline-height: 48px;
   --van-tabs-underline-bar-width: 20px;
   --van-tabs-underline-bar-height: 2px;
-  --van-tabs-underline-inactive-text-color: #333333;
+  --van-tabs-underline-inactive-text-color: var(--van-text-color);
   --van-tabs-divider-nav-padding-vertical: 16px;
   --van-tabs-divider-tab-padding-horizontal: 12px;
   --van-tabs-divider-nav-background: var(--van-white);
-  --van-tabs-divider-inactive-text-color: #666666;
+  --van-tabs-divider-inactive-text-color: var(--van-text-color-secondary);
   --van-tabs-divider-line-width: 0.5px;
   --van-tabs-divider-line-height: 12px;
-  --van-tabs-divider-line-color: #dddddd;
-  --van-tabs-nav-menu-icon-color: #333333;
+  --van-tabs-divider-line-color: var(--van-gray-9);
+  --van-tabs-nav-menu-icon-color: var(--van-text-color);
   --van-tabs-nav-menu-icon-active-color: var(--van-primary-color);
   --van-tabs-nav-menu-background: var(--van-white);
   --van-tabs-nav-menu-padding: 0 12px;
@@ -42,6 +42,10 @@
   --van-tabs-nav-menu-z-index: 100;
   --van-tabs-scroll-shadow-width: 12px;
   --van-tabs-scroll-shadow-color: rgba(0, 0, 0, 0.08);
+  --van-tab-badge-gap: 4px;
+  --van-tab-badge-background: #ff3333;
+  --van-tab-badge-font-size: 10px;
+  --van-tab-badge-dot-color: #ff3333;
 }
 
 .van-tab {
@@ -186,6 +190,38 @@
       overflow: hidden;
       -webkit-line-clamp: 1;
       -webkit-box-orient: vertical;
+    }
+  }
+
+  &__title-wrap {
+    display: inline-flex;
+    align-items: center;
+    max-width: 100%;
+    gap: var(--van-tab-badge-gap);
+
+    .van-tab__text {
+      min-width: 0;
+    }
+
+    > .van-badge {
+      position: static;
+      transform: none;
+      flex-shrink: 0;
+      min-width: auto;
+      padding: 0 4px;
+      font-size: var(--van-tab-badge-font-size);
+      font-weight: normal;
+      line-height: 14px;
+      background: var(--van-tab-badge-background);
+      border: none;
+
+      &.van-badge--dot {
+        width: var(--van-badge-dot-size);
+        min-width: 0;
+        height: var(--van-badge-dot-size);
+        padding: 0;
+        background: var(--van-tab-badge-dot-color);
+      }
     }
   }
 }
@@ -437,7 +473,7 @@
 
     .van-dropdown-item__content {
       overflow: hidden;
-      --van-cell-active-color: var(--van-active-color, #f2f3f5);
+      --van-cell-active-color: var(--van-active-color);
 
       .van-radio-group--list {
         width: 100%;

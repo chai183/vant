@@ -2,15 +2,26 @@
 :host {
   --van-notify-padding: 14px 12px;
   --van-notify-width: 351px;
-  --van-notify-top-offset: 10px;
-  --van-notify-shadow: 0 0 6px 0 rgba(0, 0, 0, 0.1);
+  --van-notify-top-offset: 8px;
+  --van-notify-horizontal-margin: 12px;
   --van-notify-font-size: var(--van-font-size-md);
   --van-notify-line-height: var(--van-line-height-md);
   --van-notify-height: auto;
   --van-notify-radius: 8px;
   --van-notify-background: var(--van-white);
-  --van-notify-icon-size: 16px;
+  --van-notify-icon-size: 20px;
+  --van-notify-close-icon-size: 12px;
   --van-notify-icon-gap: var(--van-padding-xs);
+  --van-notify-action-font-size: 12px;
+  --van-notify-action-divider-width: 1px;
+  --van-notify-action-divider-height: 12px;
+  --van-notify-action-divider-color: var(--van-border-color);
+  --van-notify-action-divider-gap: 8px;
+  --van-notify-button-width: 72px;
+  --van-notify-button-height: 28px;
+  --van-notify-button-font-size: 12px;
+  --van-notify-button-color: var(--van-white);
+  --van-notify-button-background: var(--van-primary-color);
   --van-notify-primary-color: var(--van-primary-color);
   --van-notify-success-color: #2bcd79;
   --van-notify-danger-color: #ff3333;
@@ -29,7 +40,7 @@
   align-items: center;
   box-sizing: border-box;
   width: var(--van-notify-width);
-  max-width: calc(100vw - 24px);
+  max-width: calc(100vw - var(--van-notify-horizontal-margin) * 2);
   height: var(--van-notify-height);
   padding: var(--van-notify-padding);
   font-size: var(--van-notify-font-size);
@@ -37,14 +48,13 @@
   text-align: left;
   background: var(--van-notify-background);
   border-radius: var(--van-notify-radius);
-  box-shadow: var(--van-notify-shadow);
 
   &.van-popup--top {
     top: var(--van-notify-top-offset);
     left: 0;
     right: 0;
     width: var(--van-notify-width);
-    max-width: calc(100vw - 24px);
+    max-width: calc(100vw - var(--van-notify-horizontal-margin) * 2);
     margin-right: auto;
     margin-left: auto;
 
@@ -57,7 +67,7 @@
     left: 0;
     right: 0;
     width: var(--van-notify-width);
-    max-width: calc(100vw - 24px);
+    max-width: calc(100vw - var(--van-notify-horizontal-margin) * 2);
     margin-right: auto;
     margin-left: auto;
 
@@ -118,8 +128,13 @@
   }
 
   &__left-icon {
+    display: flex;
     flex-shrink: 0;
+    align-items: center;
     align-self: center;
+    justify-content: center;
+    width: var(--van-notify-icon-size);
+    height: var(--van-notify-icon-size);
     margin-right: var(--van-notify-icon-gap);
     font-size: var(--van-notify-icon-size);
     line-height: 1;
@@ -144,12 +159,17 @@
   }
 
   &__action {
+    position: relative;
     flex-shrink: 0;
     align-self: center;
     margin-left: var(--van-padding-sm);
     padding: 0;
+    padding-left: calc(
+      var(--van-notify-action-divider-gap) +
+        var(--van-notify-action-divider-width)
+    );
     color: inherit;
-    font-size: var(--van-notify-font-size);
+    font-size: var(--van-notify-action-font-size);
     line-height: var(--van-notify-line-height);
     white-space: nowrap;
     cursor: pointer;
@@ -157,6 +177,17 @@
     border: none;
     outline: none;
     appearance: none;
+
+    &::before {
+      position: absolute;
+      top: 50%;
+      left: 0;
+      width: var(--van-notify-action-divider-width);
+      height: var(--van-notify-action-divider-height);
+      background: var(--van-notify-action-divider-color);
+      transform: translateY(-50%);
+      content: '';
+    }
 
     &:active {
       opacity: var(--van-active-opacity);
@@ -169,18 +200,36 @@
     margin-left: var(--van-padding-sm);
     overflow: hidden;
 
+    &.van-button {
+      width: var(--van-notify-button-width);
+      min-width: var(--van-notify-button-width);
+      height: var(--van-notify-button-height);
+      padding: 0;
+      color: var(--van-notify-button-color);
+      font-size: var(--van-notify-button-font-size);
+      line-height: var(--van-notify-button-height);
+      background: var(--van-notify-button-background);
+      border-color: var(--van-notify-button-background);
+    }
+
     .van-button__text {
       overflow: hidden;
+      font-size: var(--van-notify-button-font-size);
       text-overflow: clip;
       white-space: nowrap;
     }
   }
 
   &__close {
+    display: flex;
     flex-shrink: 0;
+    align-items: center;
     align-self: center;
+    justify-content: center;
+    width: var(--van-notify-close-icon-size);
+    height: var(--van-notify-close-icon-size);
     margin-left: var(--van-padding-xs);
-    font-size: var(--van-notify-icon-size);
+    font-size: var(--van-notify-close-icon-size);
     line-height: 1;
     cursor: pointer;
 

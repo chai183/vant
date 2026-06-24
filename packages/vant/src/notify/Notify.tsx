@@ -223,7 +223,7 @@ export default defineComponent({
         return (
           <VanButton
             class={bem('button')}
-            type={props.type === 'primary' ? 'primary' : props.type}
+            type="primary"
             size="small"
             round
             onClick={onButtonClick}

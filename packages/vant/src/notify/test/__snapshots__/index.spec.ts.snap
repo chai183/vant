@@ -7,8 +7,27 @@ exports[`should render Notify correctly 1`] = `
   style="z-index: 2001; transition-duration: 0.2s;"
   tabindex="0"
 >
+  <!---->
   
-  test
+  <div
+    class="van-notify__body"
+  >
+    <i
+      class="van-badge__wrapper van-icon van-icon-cross van-notify__left-icon"
+    >
+      
+      <!---->
+      <!---->
+      
+      <!---->
+    </i>
+    <div
+      class="van-notify__message van-multi-ellipsis--l2"
+    >
+      test
+    </div>
+  </div>
+  <!---->
   
   <!---->
 </div>

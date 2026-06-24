@@ -9,8 +9,9 @@
   --van-popup-close-icon-z-index: 1;
   --van-popup-title-font-size: 16px;
   --van-popup-title-color: #333333;
-  --van-popup-title-line-height: 22px;
-  --van-popup-title-padding-top: var(--van-popup-close-icon-margin);
+  --van-popup-title-line-height: 16px;
+  --van-popup-header-padding-vertical: 16px;
+  --van-popup-header-padding-horizontal: 12px;
   --van-popup-action-font-size: 16px;
   --van-popup-cancel-color: #999999;
   --van-popup-confirm-color: var(--van-primary-color);
@@ -128,14 +129,15 @@
       align-items: center;
       box-sizing: border-box;
       min-height: calc(
-        var(--van-popup-title-padding-top) + var(--van-popup-title-line-height)
+        var(--van-popup-header-padding-vertical) * 2 +
+          var(--van-popup-title-line-height)
       );
-      padding: var(--van-popup-title-padding-top)
-        var(--van-popup-close-icon-margin) 0;
+      padding: var(--van-popup-header-padding-vertical)
+        var(--van-popup-header-padding-horizontal);
 
       &--has-close {
         padding-right: calc(
-          var(--van-popup-close-icon-margin) * 2 +
+          var(--van-popup-header-padding-horizontal) * 2 +
             var(--van-popup-close-icon-size)
         );
       }
@@ -172,6 +174,7 @@
       overflow: hidden;
       text-overflow: ellipsis;
       white-space: nowrap;
+      font-weight: 500;
     }
 
     &__close-icon {

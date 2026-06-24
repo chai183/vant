@@ -1,14 +1,17 @@
 :root,
 :host {
-  --van-tab-text-color: var(--van-gray-7);
+  --van-tab-text-color: var(--van-gray-10);
   --van-tab-active-text-color: var(--van-text-color);
   --van-tab-disabled-text-color: var(--van-text-color-3);
-  --van-tab-font-size: var(--van-font-size-md);
+  --van-tab-font-size: var(--van-font-size-lg);
   --van-tab-line-height: var(--van-line-height-md);
   --van-tabs-default-color: var(--van-primary-color);
   --van-tabs-line-height: 44px;
   --van-tabs-card-height: 30px;
   --van-tabs-rounded-inactive-background: #f5f5f5;
+  --van-tabs-rounded-font-size: 14px;
+  --van-tabs-rounded-line-height: 14px;
+  --van-tabs-rounded-disabled-text-color: #cccccc;
   --van-tabs-rounded-padding-vertical: 6px;
   --van-tabs-rounded-padding-horizontal: 12px;
   --van-tabs-rounded-gap: 12px;
@@ -99,7 +102,8 @@
     border-radius: var(--van-radius-max);
     background-color: var(--van-tabs-rounded-inactive-background);
     color: var(--van-tab-text-color);
-    line-height: var(--van-line-height-sm);
+    font-size: var(--van-tabs-rounded-font-size);
+    line-height: var(--van-tabs-rounded-line-height);
 
     &.van-tab--shrink,
     &.van-tab--grow {
@@ -115,7 +119,7 @@
     }
 
     &.van-tab--disabled {
-      color: var(--van-tab-disabled-text-color);
+      color: var(--van-tabs-rounded-disabled-text-color);
     }
   }
 
@@ -269,7 +273,7 @@
       gap: var(--van-tabs-rounded-gap);
       align-items: center;
       justify-content: flex-start;
-      height: auto;
+      height: 48px;
       margin: 0;
       padding: var(--van-tabs-rounded-nav-padding-vertical)
         var(--van-tabs-rounded-nav-padding-horizontal);

@@ -3,7 +3,7 @@
 exports[`should render demo and match snapshot 1`] = `
 <div>
   <div
-    class="van-cell van-cell--clickable"
+    class="van-cell van-cell--center van-cell--clickable"
     role="button"
     tabindex="0"
   >
@@ -156,7 +156,225 @@ exports[`should render demo and match snapshot 1`] = `
 </div>
 <div>
   <div
-    class="van-cell van-cell--clickable"
+    class="van-cell van-cell--center van-cell--clickable"
+    role="button"
+    tabindex="0"
+  >
+    <div class="van-cell__title">
+      <span>
+        Basic Title
+      </span>
+    </div>
+    <i class="van-badge__wrapper van-icon van-icon-arrow van-cell__right-icon">
+    </i>
+  </div>
+  <div
+    class="van-cell van-cell--center van-cell--clickable"
+    role="button"
+    tabindex="0"
+  >
+    <div class="van-cell__title">
+      <span>
+        Custom Title
+      </span>
+    </div>
+    <i class="van-badge__wrapper van-icon van-icon-arrow van-cell__right-icon">
+    </i>
+  </div>
+  <div
+    class="van-cell van-cell--center van-cell--clickable"
+    role="button"
+    tabindex="0"
+  >
+    <div class="van-cell__title">
+      <span>
+        From Bottom (with title)
+      </span>
+    </div>
+    <i class="van-badge__wrapper van-icon van-icon-arrow van-cell__right-icon">
+    </i>
+  </div>
+  <div
+    class="van-cell van-cell--center van-cell--clickable"
+    role="button"
+    tabindex="0"
+  >
+    <div class="van-cell__title">
+      <span>
+        Right Drawer (with title)
+      </span>
+    </div>
+    <i class="van-badge__wrapper van-icon van-icon-arrow van-cell__right-icon">
+    </i>
+  </div>
+  <div
+    class="van-cell van-cell--center van-cell--clickable"
+    role="button"
+    tabindex="0"
+  >
+    <div class="van-cell__title">
+      <span>
+        Left Drawer (with title)
+      </span>
+    </div>
+    <i class="van-badge__wrapper van-icon van-icon-arrow van-cell__right-icon">
+    </i>
+  </div>
+  <div
+    class="van-cell van-cell--center van-cell--clickable"
+    role="button"
+    tabindex="0"
+  >
+    <div class="van-cell__title">
+      <span>
+        Cancel and Confirm
+      </span>
+    </div>
+    <i class="van-badge__wrapper van-icon van-icon-arrow van-cell__right-icon">
+    </i>
+  </div>
+  <div
+    class="van-cell van-cell--center van-cell--clickable"
+    role="button"
+    tabindex="0"
+  >
+    <div class="van-cell__title">
+      <span>
+        Drawer (cancel and confirm)
+      </span>
+    </div>
+    <i class="van-badge__wrapper van-icon van-icon-arrow van-cell__right-icon">
+    </i>
+  </div>
+  <div
+    class="van-cell van-cell--center van-cell--clickable"
+    role="button"
+    tabindex="0"
+  >
+    <div class="van-cell__title">
+      <span>
+        Confirm over Close Icon
+      </span>
+    </div>
+    <i class="van-badge__wrapper van-icon van-icon-arrow van-cell__right-icon">
+    </i>
+  </div>
+  <transition-stub
+    name="van-fade"
+    appear="true"
+    persisted="false"
+    css="true"
+  >
+  </transition-stub>
+  <transition-stub
+    name="van-popup-slide-bottom"
+    appear="false"
+    persisted="false"
+    css="true"
+  >
+  </transition-stub>
+  <transition-stub
+    name="van-fade"
+    appear="true"
+    persisted="false"
+    css="true"
+  >
+  </transition-stub>
+  <transition-stub
+    name="van-popup-slide-right"
+    appear="false"
+    persisted="false"
+    css="true"
+  >
+  </transition-stub>
+  <transition-stub
+    name="van-fade"
+    appear="true"
+    persisted="false"
+    css="true"
+  >
+  </transition-stub>
+  <transition-stub
+    name="van-popup-slide-bottom"
+    appear="false"
+    persisted="false"
+    css="true"
+  >
+  </transition-stub>
+  <transition-stub
+    name="van-fade"
+    appear="true"
+    persisted="false"
+    css="true"
+  >
+  </transition-stub>
+  <transition-stub
+    name="van-popup-slide-right"
+    appear="false"
+    persisted="false"
+    css="true"
+  >
+  </transition-stub>
+  <transition-stub
+    name="van-fade"
+    appear="true"
+    persisted="false"
+    css="true"
+  >
+  </transition-stub>
+  <transition-stub
+    name="van-popup-slide-left"
+    appear="false"
+    persisted="false"
+    css="true"
+  >
+  </transition-stub>
+  <transition-stub
+    name="van-fade"
+    appear="true"
+    persisted="false"
+    css="true"
+  >
+  </transition-stub>
+  <transition-stub
+    name="van-popup-slide-bottom"
+    appear="false"
+    persisted="false"
+    css="true"
+  >
+  </transition-stub>
+  <transition-stub
+    name="van-fade"
+    appear="true"
+    persisted="false"
+    css="true"
+  >
+  </transition-stub>
+  <transition-stub
+    name="van-popup-slide-right"
+    appear="false"
+    persisted="false"
+    css="true"
+  >
+  </transition-stub>
+  <transition-stub
+    name="van-fade"
+    appear="true"
+    persisted="false"
+    css="true"
+  >
+  </transition-stub>
+  <transition-stub
+    name="van-popup-slide-right"
+    appear="false"
+    persisted="false"
+    css="true"
+  >
+  </transition-stub>
+</div>
+<div>
+  <div
+    class="van-cell van-cell--center van-cell--clickable"
     role="button"
     tabindex="0"
   >
@@ -169,7 +387,7 @@ exports[`should render demo and match snapshot 1`] = `
     </i>
   </div>
   <div
-    class="van-cell van-cell--clickable"
+    class="van-cell van-cell--center van-cell--clickable"
     role="button"
     tabindex="0"
   >
@@ -182,7 +400,7 @@ exports[`should render demo and match snapshot 1`] = `
     </i>
   </div>
   <div
-    class="van-cell van-cell--clickable"
+    class="van-cell van-cell--center van-cell--clickable"
     role="button"
     tabindex="0"
   >
@@ -239,7 +457,7 @@ exports[`should render demo and match snapshot 1`] = `
 </div>
 <div>
   <div
-    class="van-cell van-cell--clickable"
+    class="van-cell van-cell--center van-cell--clickable"
     role="button"
     tabindex="0"
   >
@@ -266,7 +484,7 @@ exports[`should render demo and match snapshot 1`] = `
   >
   </transition-stub>
   <div
-    class="van-cell van-cell--clickable"
+    class="van-cell van-cell--center van-cell--clickable"
     role="button"
     tabindex="0"
   >
@@ -295,7 +513,7 @@ exports[`should render demo and match snapshot 1`] = `
 </div>
 <div>
   <div
-    class="van-cell van-cell--clickable"
+    class="van-cell van-cell--center van-cell--clickable"
     role="button"
     tabindex="0"
   >
@@ -322,7 +540,7 @@ exports[`should render demo and match snapshot 1`] = `
   >
   </transition-stub>
   <div
-    class="van-cell van-cell--clickable"
+    class="van-cell van-cell--center van-cell--clickable"
     role="button"
     tabindex="0"
   >
@@ -351,7 +569,7 @@ exports[`should render demo and match snapshot 1`] = `
 </div>
 <div>
   <div
-    class="van-cell van-cell--clickable"
+    class="van-cell van-cell--center van-cell--clickable"
     role="button"
     tabindex="0"
   >

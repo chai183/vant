@@ -1,0 +1,18 @@
+.van-cascade-tabs {
+  background: var(--van-white);
+}
+.van-cascade-tabs__content {
+  background: var(--van-background-2);
+}
+.van-cascade-tabs > .van-tabs > .van-tabs__content {
+  display: none;
+}
+.van-cascade-tabs__level .van-tabs__nav {
+  flex-wrap: nowrap;
+}
+.van-cascade-tabs__level--underline .van-tab,
+.van-cascade-tabs__level--rounded .van-tab,
+.van-cascade-tabs__level--divider .van-tab {
+  flex-shrink: 0;
+  white-space: nowrap;
+}

@@ -72,6 +72,7 @@ const showTopToast = () => {
   showToast({
     message: t('positionTop'),
     position: 'top',
+    duration: 10000000,
   });
 };
 

@@ -30,7 +30,7 @@ const t = useTranslate({
 });
 
 const checked = ref(true);
-const checked2 = ref(true);
+const checked2 = ref(false);
 const checked3 = ref(true);
 const checked4 = ref(true);
 const checked5 = ref(true);
@@ -52,6 +52,7 @@ const onUpdateValue = (checked: boolean) => {
 
   <demo-block :title="t('disabled')">
     <van-switch v-model="checked" disabled />
+    <van-switch v-model="checked2" disabled />
   </demo-block>
 
   <demo-block :title="t('loadingStatus')">

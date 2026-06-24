@@ -5,16 +5,16 @@
   --van-toast-text-color: var(--van-white);
   --van-toast-loading-icon-color: var(--van-white);
   --van-toast-line-height: var(--van-line-height-md);
-  --van-toast-radius: var(--van-radius-lg);
-  --van-toast-background: rgba(0, 0, 0, 0.7);
+  --van-toast-radius: var(--van-radius-md);
+  --van-toast-background: rgba(0, 0, 0, 0.6);
   --van-toast-icon-size: 36px;
   --van-toast-text-min-width: 96px;
-  --van-toast-text-padding: var(--van-padding-xs) var(--van-padding-sm);
+  --van-toast-text-padding: var(--van-padding-sm) var(--van-padding-md);
   --van-toast-default-padding: var(--van-padding-md);
   --van-toast-default-width: 88px;
   --van-toast-default-min-height: 88px;
-  --van-toast-position-top-distance: 20%;
-  --van-toast-position-bottom-distance: 20%;
+  --van-toast-position-top-distance: 120px;
+  --van-toast-position-bottom-distance: 68px;
 }
 
 .van-toast {
@@ -68,7 +68,6 @@
   &--text,
   &--html {
     width: fit-content;
-    min-width: var(--van-toast-text-min-width);
     min-height: 0;
     padding: var(--van-toast-text-padding);
 
@@ -87,7 +86,7 @@
   }
 
   &__icon {
-    font-size: var(--van-toast-icon-size);
+    font-size: 40px;
   }
 
   &__loading {
@@ -96,6 +95,6 @@
   }
 
   &__text {
-    margin-top: var(--van-padding-xs);
+    margin-top: var(--van-padding-md);
   }
 }

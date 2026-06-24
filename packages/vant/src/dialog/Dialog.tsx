@@ -55,8 +55,8 @@ import type {
 const [name, bem] = createNamespace('dialog');
 
 // 提示弹窗默认只有一个确认按钮，确认弹窗默认显示主确认和取消。
-const DEFAULT_ALERT_CONFIRM_BUTTON_TEXT = '确认';
-const DEFAULT_CONFIRM_BUTTON_TEXT = '确认';
+const DEFAULT_ALERT_CONFIRM_BUTTON_TEXT = '确定';
+const DEFAULT_CONFIRM_BUTTON_TEXT = '确定';
 const DEFAULT_CANCEL_BUTTON_TEXT = '取消';
 
 // 默认情况下，确认文案长度超过 5 个字符时切换为上下布局，可通过 props / options 覆盖。

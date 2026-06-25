@@ -72,6 +72,7 @@ export default defineComponent({
     let expandTimer: ReturnType<typeof setTimeout> | null = null; // auto 模式延时展开
     let scrollingToTop = false; // 点击回到顶部后，滚动过程中保持圆球展开
     let lastScrollTop = 0; // 判断上滑 / 下滑
+    let expandedAtScrollTop: number | null = null; // auto 圆球展开时的 scrollTop 基准
 
     const visible = ref(props.type === 'terms'); // 是否显示控件（terms 恒 true）
     const expanded = ref(props.type === 'terms'); // 是否圆球/条款展开态（false 为左侧胶囊）
@@ -141,6 +142,18 @@ export default defineComponent({
       }
     };
 
+    const markExpanded = (scrollTop: number) => {
+      expanded.value = true;
+      expandedAtScrollTop = scrollTop;
+      clearExpandTimer();
+    };
+
+    const collapseExpanded = () => {
+      expanded.value = false;
+      expandedAtScrollTop = null;
+      clearExpandTimer();
+    };
+
     // 下滑且已 visible 时启动计时，到时 expanded=true 播放展开动画
     const scheduleExpand = () => {
       clearExpandTimer();
@@ -148,7 +161,9 @@ export default defineComponent({
         return;
       }
       expandTimer = setTimeout(() => {
-        expanded.value = true;
+        if (scrollParent.value) {
+          markExpanded(getScrollTop(scrollParent.value));
+        }
       }, resolvedExpandDelay.value);
     };
     // 获取屏幕高度
@@ -157,6 +172,25 @@ export default defineComponent({
         return window.innerHeight;
       }
       return (scrollParent.value as Element).clientHeight;
+    };
+
+    // auto 圆球态：自展开位起再滚过 1 屏则收回复胶囊
+    const tryCollapseOnScroll = (scrollTop: number) => {
+      if (
+        !isAutoMode() ||
+        !expanded.value ||
+        scrollingToTop ||
+        popupShow.value
+      ) {
+        return;
+      }
+      if (expandedAtScrollTop == null) {
+        expandedAtScrollTop = scrollTop;
+        return;
+      }
+      if (scrollTop - expandedAtScrollTop >= getViewportHeight()) {
+        collapseExpanded();
+      }
     };
 
     // 控件何时该「出现」的 scrollTop 下限
@@ -314,9 +348,8 @@ export default defineComponent({
 
         // auto：未达阈值则隐藏并清计时
         if (!show) {
-          expanded.value = false;
+          collapseExpanded();
           scrollingToTop = false;
-          clearExpandTimer();
           return;
         }
 
@@ -326,7 +359,9 @@ export default defineComponent({
           return;
         }
 
-        // auto：下滑且仍胶囊 → 延时展开；上滑在 catalog 分支处理
+        tryCollapseOnScroll(scrollTop);
+
+        // auto：下滑且仍胶囊 → 延时展开
         if (!scrollingUp && !expanded.value) {
           scheduleExpand();
         }
@@ -347,19 +382,22 @@ export default defineComponent({
       }
 
       if (!passedThreshold) {
-        expanded.value = false;
-        clearExpandTimer();
+        collapseExpanded();
         return;
       }
 
       // auto：上滑立即展开圆球（方便点目录）；下滑且胶囊则 scheduleExpand
       if (scrollingUp) {
-        expanded.value = true;
-        clearExpandTimer();
+        if (!expanded.value) {
+          markExpanded(scrollTop);
+        } else {
+          clearExpandTimer();
+        }
       } else if (!expanded.value) {
         scheduleExpand();
       }
 
+      tryCollapseOnScroll(scrollTop);
       updateActiveIndex();
     };
 
@@ -375,8 +413,9 @@ export default defineComponent({
     // 点击左侧胶囊：立即展开为圆球，不触发业务 click
     const onCollapsedClick = (event: MouseEvent) => {
       event.stopPropagation();
-      expanded.value = true;
-      clearExpandTimer();
+      if (scrollParent.value) {
+        markExpanded(getScrollTop(scrollParent.value));
+      }
     };
 
     // 点击圆球 / 条款条：catalog 开弹层，terms 滚到条款，back-top 回顶

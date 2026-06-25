@@ -8,3 +8,4 @@ export * from './interceptor';
 export * from './with-install';
 export * from './closest';
 export * from './vnode';
+export * from './search';

@@ -5,7 +5,12 @@ export const Avatar = withInstall(_Avatar);
 export default Avatar;
 export { avatarProps } from './Avatar';
 export type { AvatarProps } from './Avatar';
-export type { AvatarSize, AvatarType, AvatarThemeVars } from './types';
+export type {
+  AvatarSize,
+  AvatarSizeProp,
+  AvatarType,
+  AvatarThemeVars,
+} from './types';
 
 declare module 'vue' {
   export interface GlobalComponents {

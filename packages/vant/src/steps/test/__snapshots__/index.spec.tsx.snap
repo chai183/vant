@@ -1,4 +1,4 @@
-// Rstest Snapshot v1
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
 exports[`should change finish icon when using finish-icon prop 1`] = `
 <div class="van-hairline van-step van-step--horizontal van-step--finish">

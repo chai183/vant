@@ -2,11 +2,13 @@
 :host {
   --van-index-anchor-z-index: 1;
   --van-index-anchor-padding: 0 var(--van-padding-md);
-  --van-index-anchor-text-color: var(--van-text-color);
+  --van-index-anchor-height: 30px;
+  --van-index-anchor-text-color: #999999;
   --van-index-anchor-font-weight: var(--van-font-bold);
   --van-index-anchor-font-size: var(--van-font-size-md);
-  --van-index-anchor-line-height: 32px;
-  --van-index-anchor-background: transparent;
+  --van-index-anchor-line-height: 30px;
+  --van-index-anchor-background: #f5f5f5;
+  --van-index-anchor-opacity: 1;
   --van-index-anchor-sticky-text-color: var(--van-primary-color);
   --van-index-anchor-sticky-background: var(--van-background-2);
 }
@@ -14,12 +16,14 @@
 .van-index-anchor {
   z-index: var(--van-index-anchor-z-index);
   box-sizing: border-box;
+  height: var(--van-index-anchor-height);
   padding: var(--van-index-anchor-padding);
   color: var(--van-index-anchor-text-color);
   font-weight: var(--van-index-anchor-font-weight);
   font-size: var(--van-index-anchor-font-size);
   line-height: var(--van-index-anchor-line-height);
   background: var(--van-index-anchor-background);
+  opacity: var(--van-index-anchor-opacity);
 
   &--sticky {
     position: fixed;

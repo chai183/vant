@@ -354,31 +354,80 @@ test('should apply text color only for text footer buttons', () => {
   expect(style).not.toContain('border-color');
 });
 
-test('should wrap text footer buttons to three per row', () => {
+test('should show text footer overflow trigger when more than four buttons', () => {
   const wrapper = mount(Card, {
     props: {
       showFooterButtons: true,
       footerButtonType: 'text',
       footerButtons: [
-        { text: '1' },
-        { text: '2' },
-        { text: '3' },
-        { text: '4' },
+        { text: '按钮一', name: '1' },
+        { text: '按钮二', name: '2' },
+        { text: '按钮三', name: '3' },
+        { text: '按钮四', name: '4' },
+        { text: '按钮五', name: '5' },
       ],
     },
   });
 
-  expect(wrapper.findAll('.van-card__footer-button-row')).toHaveLength(2);
-  expect(
-    wrapper
-      .findAll('.van-card__footer-button-row')[0]
-      .findAll('.van-card__footer-btn'),
-  ).toHaveLength(3);
-  expect(
-    wrapper
-      .findAll('.van-card__footer-button-row')[1]
-      .findAll('.van-card__footer-btn'),
-  ).toHaveLength(1);
+  expect(wrapper.findAll('.van-card__footer-button-row')).toHaveLength(1);
+  expect(wrapper.findAll('.van-card__footer-btn')).toHaveLength(4);
+  expect(wrapper.find('.van-card__footer-overflow').exists()).toBe(true);
+  expect(wrapper.find('.van-card__footer-button-row--overflow').exists()).toBe(
+    true,
+  );
+  expect(wrapper.find('.van-card__footer-btn').text()).toBe('按钮一');
+});
+
+test('should truncate text footer button label to four characters', () => {
+  const wrapper = mount(Card, {
+    props: {
+      showFooterButtons: true,
+      footerButtonType: 'text',
+      footerButtons: [{ text: '一二三四五', name: 'long' }],
+    },
+  });
+
+  expect(wrapper.find('.van-card__footer-btn').text()).toBe('一二三四');
+});
+
+test('should show outline footer more trigger when more than outline max buttons', () => {
+  const wrapper = mount(Card, {
+    props: {
+      showFooterButtons: true,
+      footerButtonType: 'outline',
+      footerButtons: [
+        { text: '按钮一', name: '1' },
+        { text: '按钮二', name: '2' },
+        { text: '按钮三', name: '3' },
+        { text: '按钮四', name: '4' },
+      ],
+    },
+  });
+
+  expect(wrapper.findAll('.van-card__footer-btn')).toHaveLength(3);
+  expect(wrapper.find('.van-card__footer-more').exists()).toBe(true);
+  expect(wrapper.find('.van-card__footer-more').text()).toBe('更多');
+  expect(wrapper.find('.van-card__footer-buttons--outline').exists()).toBe(
+    true,
+  );
+});
+
+test('should respect footer-outline-max for outline footer buttons', () => {
+  const wrapper = mount(Card, {
+    props: {
+      showFooterButtons: true,
+      footerButtonType: 'outline',
+      footerOutlineMax: 2,
+      footerButtons: [
+        { text: '按钮一', name: '1' },
+        { text: '按钮二', name: '2' },
+        { text: '按钮三', name: '3' },
+      ],
+    },
+  });
+
+  expect(wrapper.findAll('.van-card__footer-btn')).toHaveLength(2);
+  expect(wrapper.find('.van-card__footer-more').exists()).toBe(true);
 });
 
 test('should render image-large card', () => {

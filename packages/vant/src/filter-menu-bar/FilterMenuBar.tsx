@@ -26,7 +26,7 @@ import { useExpose } from '../composables/use-expose';
 import { Icon } from '../icon';
 import { Popup } from '../popup';
 import { Field } from '../field';
-import { Button } from '../button';
+import { BottomActionBar } from '../bottom-action-bar';
 import { ProForm } from '../pro-form';
 import { getDefaultValueByComponent } from '../pro-form/getDefaultValue';
 import {
@@ -57,6 +57,8 @@ import {
 } from './utils';
 
 const [name, bem] = createNamespace('filter-menu-bar');
+
+const funnelSvg = new URL('./assets/funnel.svg', import.meta.url).href;
 
 // 内部漏斗入口 key，用于区分真实筛选项 key，事件对外会统一转换成 'funnel'。
 const FUNNEL_KEY = '__filter_menu_bar_funnel__';
@@ -138,6 +140,10 @@ export const filterMenuBarProps = extend({}, filterMenuBarSharedProps, {
   },
   confirmText: makeStringProp('确定'),
   resetText: makeStringProp('重置'),
+  showResetButton: {
+    type: Boolean,
+    default: true,
+  },
 });
 
 export type FilterMenuBarProps = ExtractPropTypes<typeof filterMenuBarProps>;
@@ -246,6 +252,12 @@ export default defineComponent({
 
     // 只有一个筛选项时使用单项布局样式。
     const singleBarItem = computed(() => renderedBarItems.value.length === 1);
+
+    // 3、4 个筛选项时，首尾项文本区域分别左对齐、右对齐。
+    const edgeAlignBarItem = computed(() => {
+      const count = renderedBarItems.value.length;
+      return count === 3 || count === 4;
+    });
     // wrapper 或 popup 任一存在时，都认为组件处于打开态。
     const opened = computed(() => showWrapper.value || showPopup.value);
 
@@ -358,7 +370,7 @@ export default defineComponent({
         return text;
       }
 
-      return `${text}(${getPanelSelectedCount(item)})`;
+      return `${text} (${getPanelSelectedCount(item)})`;
     };
 
     // 单选类且无需底部按钮的面板：选中即提交并关闭。
@@ -946,21 +958,27 @@ export default defineComponent({
       validate: validateFunnelForms,
     });
 
-    // 渲染内置确认/重置按钮。
+    // 渲染内置确认/重置按钮（BottomActionBar）。
     const renderDefaultFooter = (options: {
       onReset: () => void;
       confirmText?: string;
       resetText?: string;
+      showResetButton?: boolean;
     }) => (
       <div class={bem('footer')}>
-        <Button type="primary" plain round onClick={options.onReset}>
-          {options.resetText ?? props.resetText}
-        </Button>
-        <Button type="primary" round onClick={handleConfirm}>
-          {options.confirmText ?? props.confirmText}
-        </Button>
+        <BottomActionBar
+          secondaryButtonText={options.resetText ?? props.resetText}
+          primaryButtonText={options.confirmText ?? props.confirmText}
+          showSecondaryButton={options.showResetButton ?? props.showResetButton}
+          safeAreaInsetBottom={false}
+          onClick-secondary={options.onReset}
+          onClick-primary={handleConfirm}
+        />
       </div>
     );
+
+    const getShowResetButton = (item: FilterMenuBarItem) =>
+      item.showResetButton ?? props.showResetButton;
 
     // 根据 item 配置渲染 ProForm，普通面板和漏斗面板共用。
     const renderProForm = (
@@ -1016,6 +1034,7 @@ export default defineComponent({
           onReset: () => resetPanel(item),
           confirmText: getFormattedConfirmText(item),
           resetText: item.resetText,
+          showResetButton: getShowResetButton(item),
         });
       }
 
@@ -1135,7 +1154,15 @@ export default defineComponent({
 
       if (item.funnel) {
         return (
-          <Icon name="filter-o" class={bem('funnel-icon')} style={{ color }} />
+          <span
+            class={bem('funnel-icon')}
+            style={{
+              backgroundColor: color,
+              WebkitMaskImage: `url(${funnelSvg})`,
+              maskImage: `url(${funnelSvg})`,
+            }}
+            aria-hidden="true"
+          />
         );
       }
 
@@ -1158,15 +1185,15 @@ export default defineComponent({
             })}
           >
             <Icon
-              name="arrow-down"
+              name="arrow-up"
               class={bem('sort-icon-up')}
-              size={8}
+              size={6}
               style={{ color: upColor }}
             />
             <Icon
               name="arrow-down"
               class={bem('sort-icon-down')}
-              size={8}
+              size={6}
               style={{ color: downColor }}
             />
           </span>
@@ -1206,6 +1233,8 @@ export default defineComponent({
         item: slotItem,
       });
 
+      const itemCount = renderedBarItems.value.length;
+
       return (
         <div
           key={item.key}
@@ -1216,6 +1245,8 @@ export default defineComponent({
             bem('item', {
               disabled: item.disabled,
               funnel: item.funnel,
+              'align-start': edgeAlignBarItem.value && index === 0,
+              'align-end': edgeAlignBarItem.value && index === itemCount - 1,
             }),
             { [HAPTICS_FEEDBACK]: !item.disabled },
           ]}

@@ -1,17 +1,19 @@
+@import '../style/mixins/hairline';
+
 :root,
 :host {
   --van-filter-menu-bar-z-index: 10;
   --van-filter-menu-bar-height: 48px;
   --van-filter-menu-bar-background: var(--van-background-2);
-  --van-filter-menu-bar-shadow: 0 2px 12px rgba(100, 101, 102, 0.12);
+  --van-filter-menu-bar-shadow: none;
   --van-filter-menu-bar-bar-padding-x: var(--van-padding-sm);
   --van-filter-menu-bar-bar-gap: var(--van-padding-lg);
   --van-filter-menu-bar-bar-single-padding-right: 42px;
+  --van-filter-menu-bar-bar-divider-color: var(--van-border-color);
   --van-filter-menu-bar-color: var(--van-text-color);
   --van-filter-menu-bar-title-font-size: var(--van-font-size-md);
   --van-filter-menu-bar-title-active-color: var(--van-primary-color);
   --van-filter-menu-bar-content-max-height: 70vh;
-  --van-filter-menu-bar-content-gap: var(--van-padding-md);
   --van-filter-menu-bar-content-padding-x: var(--van-padding-sm);
   --van-filter-menu-bar-bar-icon-color: var(--van-text-color-3);
   --van-filter-menu-bar-list-option-icon-gap: var(--van-padding-lg);
@@ -69,6 +71,22 @@
       opacity: var(--van-disabled-opacity);
       pointer-events: none;
     }
+
+    &--align-start {
+      justify-content: flex-start;
+
+      .van-filter-menu-bar__title {
+        text-align: left;
+      }
+    }
+
+    &--align-end {
+      justify-content: flex-end;
+
+      .van-filter-menu-bar__title {
+        text-align: right;
+      }
+    }
   }
 
   &__title {
@@ -90,7 +108,7 @@
 
   &__title-icon {
     flex-shrink: 0;
-    font-size: var(--van-font-size-sm);
+    font-size: var(--van-font-size-xs);
     transition: transform var(--van-duration-fast);
 
     &--up {
@@ -99,8 +117,17 @@
   }
 
   &__funnel-icon {
+    display: block;
     flex-shrink: 0;
+    width: 1em;
+    height: 1em;
     font-size: var(--van-font-size-lg);
+    mask-repeat: no-repeat;
+    mask-position: center;
+    mask-size: contain;
+    -webkit-mask-repeat: no-repeat;
+    -webkit-mask-position: center;
+    -webkit-mask-size: contain;
   }
 
   &__sort-icon {
@@ -109,18 +136,16 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    gap: 1px;
     line-height: 1;
   }
 
   &__sort-icon-up,
   &__sort-icon-down {
-    display: block;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     line-height: 1;
-  }
-
-  &__sort-icon-up {
-    margin-bottom: -2px;
-    transform: rotate(180deg);
   }
 
   &__popup {
@@ -155,6 +180,18 @@
     }
   }
 
+  &__popup--down &__content.van-popup::before {
+    .hairline-top(var(--van-filter-menu-bar-bar-divider-color), 0, 0);
+    z-index: 1;
+    pointer-events: none;
+  }
+
+  &__popup--up &__content.van-popup::after {
+    .hairline-bottom(var(--van-filter-menu-bar-bar-divider-color), 0, 0);
+    z-index: 1;
+    pointer-events: none;
+  }
+
   &__panel,
   &__funnel {
     color: var(--van-filter-menu-bar-color);
@@ -172,34 +209,24 @@
     }
   }
 
-  &__popup--down &__panel {
-    padding-top: var(--van-filter-menu-bar-content-gap);
-  }
-
-  &__popup--down &__panel:has(> .van-cascade-tree-select) {
-    padding-top: 0;
-  }
-
-  &__popup--up &__panel {
-    padding-bottom: var(--van-filter-menu-bar-content-gap);
-  }
-
-  &__popup--up &__panel:has(> .van-cascade-tree-select) {
-    padding-bottom: 0;
-  }
-
   &__footer {
     position: sticky;
     bottom: 0;
-    display: flex;
-    gap: var(--van-filter-menu-bar-footer-gap);
-    padding: var(--van-filter-menu-bar-footer-padding);
     background: var(--van-background-2);
 
-    .van-button {
-      flex: 1;
-      min-width: 0;
-      width: auto;
+    .van-bottom-action-bar {
+      position: relative;
+      right: auto;
+      bottom: auto;
+      left: auto;
+      z-index: auto;
+      width: 100%;
+      background: var(--van-background-2);
+      --van-bottom-action-bar-background: var(--van-background-2);
+      --van-bottom-action-bar-bar-padding: var(
+        --van-filter-menu-bar-footer-padding
+      );
+      --van-bottom-action-bar-action-gap: var(--van-filter-menu-bar-footer-gap);
     }
   }
 
@@ -219,7 +246,7 @@
     cursor: pointer;
   }
 
-  &__funnel-section:not(:first-child) {
+  &__funnel-section {
     > .van-pro-form .van-cell-group > .van-field,
     > .van-field {
       padding-top: 0;
@@ -235,6 +262,20 @@
 
   &__panel > .van-pro-form .van-cell-group > .van-field {
     padding-top: 0;
+
+    &.van-field--label-top .van-field__label--top {
+      margin-bottom: 0;
+      padding: var(--van-filter-menu-bar-funnel-section-title-padding-y) 0;
+      color: var(--van-filter-menu-bar-funnel-section-title-color);
+      font-size: var(--van-filter-menu-bar-funnel-section-title-font-size);
+      font-weight: var(--van-filter-menu-bar-funnel-section-title-font-weight);
+      line-height: var(--van-filter-menu-bar-funnel-section-title-height);
+
+      .van-field__label-top-row {
+        min-height: var(--van-filter-menu-bar-funnel-section-title-height);
+        line-height: var(--van-filter-menu-bar-funnel-section-title-height);
+      }
+    }
   }
 
   &__panel,
@@ -257,11 +298,40 @@
     padding-right: var(--van-filter-menu-bar-content-padding-x);
     padding-left: var(--van-filter-menu-bar-content-padding-x);
 
+    &:has(.van-radio-group--list),
+    &:has(.van-checkbox-group--list) {
+      overflow: visible;
+
+      .van-cell__value.van-field__value,
+      .van-field__body {
+        overflow: visible;
+      }
+    }
+
     .van-radio-group--list,
     .van-checkbox-group--list {
+      // 搜索框与选项列表同步抵消 Field 水平内边距，保持原生 list 左对齐
+      > .van-search {
+        max-width: none;
+        width: calc(100% + 2 * var(--van-filter-menu-bar-content-padding-x));
+        margin-right: calc(-1 * var(--van-filter-menu-bar-content-padding-x));
+        margin-left: calc(-1 * var(--van-filter-menu-bar-content-padding-x));
+      }
+
+      .van-cell-group {
+        // 仅选项列表抵消 Field 水平内边距，不影响搜索框
+        max-width: none;
+        width: calc(100% + 2 * var(--van-filter-menu-bar-content-padding-x));
+        margin-right: calc(-1 * var(--van-filter-menu-bar-content-padding-x));
+        margin-left: calc(-1 * var(--van-filter-menu-bar-content-padding-x));
+      }
+
       .van-cell {
-        padding-right: 0;
-        padding-left: 0;
+        overflow: visible;
+
+        &::after {
+          right: 0;
+        }
 
         .van-cell__title {
           min-width: 0;
@@ -309,7 +379,7 @@
       }
     }
 
-    .van-search {
+    .van-search--filter-inner {
       flex: 1;
       width: 100%;
       min-width: 0;
@@ -318,7 +388,7 @@
       background: transparent;
     }
 
-    .van-search__content {
+    .van-search--filter-inner .van-search__content {
       min-width: 0;
     }
 

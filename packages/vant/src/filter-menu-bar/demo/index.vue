@@ -984,145 +984,162 @@ const contentPanelMenuListMultipleItems: FilterMenuBarItem[] = [
 </script>
 
 <template>
-  <!-- 带漏斗的 -->
-  <demo-block :title="t('filterFunnel')">
-    <van-filter-menu-bar
-      ref="funnelRef"
-      v-model="funnelModel"
-      :columns="funnelItems"
-      :overflow-threshold="4"
-      :funnel-title="t('itemTitle')"
-    />
-    <van-cell title="model" :label="JSON.stringify(funnelModel)" />
-  </demo-block>
+  <div class="demo-filter-menu-bar">
+    <!-- 带漏斗的 -->
+    <demo-block :title="t('filterFunnel')">
+      <van-filter-menu-bar
+        ref="funnelRef"
+        v-model="funnelModel"
+        :columns="funnelItems"
+        :overflow-threshold="4"
+        :funnel-title="t('itemTitle')"
+      />
+      <van-cell title="model" :label="JSON.stringify(funnelModel)" />
+    </demo-block>
 
-  <!-- 面板类型 -->
-  <demo-block :title="t('filterPanelTypes')">
-    <van-filter-menu-bar
-      v-model="panelTypesModel"
-      :columns="panelTypesItems"
-      :overflow-threshold="10"
-    >
-      <template #panel-area="{ model, updateModel }">
-        <van-cascade-tree-select
-          :model-value="model.area"
-          v-model:expand-path="panelTypesAreaExpandPath"
-          :items="panelTypesAreaItems"
-          active-color="#ff8125"
-          height="260"
-          multiple
-          @update:model-value="updateModel({ area: $event })"
-        />
-      </template>
-    </van-filter-menu-bar>
-    <van-cell title="model" :label="JSON.stringify(panelTypesModel)" />
-  </demo-block>
+    <!-- 面板类型 -->
+    <demo-block :title="t('filterPanelTypes')">
+      <van-filter-menu-bar
+        v-model="panelTypesModel"
+        :columns="panelTypesItems"
+        :overflow-threshold="10"
+      >
+        <template #panel-area="{ model, updateModel }">
+          <van-cascade-tree-select
+            :model-value="model.area"
+            v-model:expand-path="panelTypesAreaExpandPath"
+            :items="panelTypesAreaItems"
+            active-color="#ff8125"
+            height="260"
+            multiple
+            @update:model-value="updateModel({ area: $event })"
+          />
+        </template>
+      </van-filter-menu-bar>
+      <van-cell title="model" :label="JSON.stringify(panelTypesModel)" />
+    </demo-block>
 
-  <!-- 禁用和排序 -->
-  <demo-block :title="t('filterStateTypes')">
-    <van-filter-menu-bar
-      v-model="stateTypesModel"
-      :columns="stateTypesItems"
-      :overflow-threshold="10"
-      @sort="stateTypesSortEvent = $event"
-    />
-    <van-cell title="sort event" :label="JSON.stringify(stateTypesSortEvent)" />
-  </demo-block>
+    <!-- 禁用和排序 -->
+    <demo-block :title="t('filterStateTypes')">
+      <van-filter-menu-bar
+        v-model="stateTypesModel"
+        :columns="stateTypesItems"
+        :overflow-threshold="10"
+        @sort="stateTypesSortEvent = $event"
+      />
+      <van-cell
+        title="sort event"
+        :label="JSON.stringify(stateTypesSortEvent)"
+      />
+    </demo-block>
 
-  <!-- 单个筛选项 -->
-  <demo-block :title="t('filterSingleItem')">
-    <van-filter-menu-bar
-      v-model="singleItemModel"
-      :columns="singleItemItems"
-      :overflow-threshold="10"
-    />
-  </demo-block>
+    <!-- 单个筛选项 -->
+    <demo-block :title="t('filterSingleItem')">
+      <van-filter-menu-bar
+        v-model="singleItemModel"
+        :columns="singleItemItems"
+        :overflow-threshold="10"
+      />
+    </demo-block>
 
-  <!-- 两个筛选项 -->
-  <demo-block :title="t('filterDoubleItem')">
-    <van-filter-menu-bar
-      v-model="doubleItemModel"
-      :columns="doubleItemItems"
-      :overflow-threshold="10"
-    />
-  </demo-block>
+    <!-- 两个筛选项 -->
+    <demo-block :title="t('filterDoubleItem')">
+      <van-filter-menu-bar
+        v-model="doubleItemModel"
+        :columns="doubleItemItems"
+        :overflow-threshold="10"
+      />
+    </demo-block>
 
-  <!-- 空 options -->
-  <demo-block :title="t('filterEmptyOptions')">
-    <van-filter-menu-bar
-      v-model="emptyOptionsModel"
-      :columns="emptyOptionsItems"
-      :overflow-threshold="10"
-    >
-      <template #panel-empty>
-        <van-empty image="default" :description="t('filterEmptyText')" />
-      </template>
-    </van-filter-menu-bar>
-  </demo-block>
+    <!-- 空 options -->
+    <demo-block :title="t('filterEmptyOptions')">
+      <van-filter-menu-bar
+        v-model="emptyOptionsModel"
+        :columns="emptyOptionsItems"
+        :overflow-threshold="10"
+      >
+        <template #panel-empty>
+          <van-empty image="default" :description="t('filterEmptyText')" />
+        </template>
+      </van-filter-menu-bar>
+    </demo-block>
 
-  <!-- 选择菜单（单选） -->
-  <demo-block :title="t('filterContentPanelMenuList')">
-    <van-filter-menu-bar
-      v-model="menuListSingleModel"
-      :columns="menuListSingleItems"
-      :overflow-threshold="10"
-    />
-    <van-cell title="model" :label="JSON.stringify(menuListSingleModel)" />
-  </demo-block>
+    <!-- 选择菜单（单选） -->
+    <demo-block :title="t('filterContentPanelMenuList')">
+      <van-filter-menu-bar
+        v-model="menuListSingleModel"
+        :columns="menuListSingleItems"
+        :overflow-threshold="10"
+      />
+      <van-cell title="model" :label="JSON.stringify(menuListSingleModel)" />
+    </demo-block>
 
-  <demo-block :title="t('filterContentPanel')">
-    <van-filter-menu-bar
-      v-model="contentPanelTagModel"
-      :columns="contentPanelTagItems"
-      :overflow-threshold="10"
-    />
-    <van-cell title="model" :label="JSON.stringify(contentPanelTagModel)" />
-  </demo-block>
+    <demo-block :title="t('filterContentPanel')">
+      <van-filter-menu-bar
+        v-model="contentPanelTagModel"
+        :columns="contentPanelTagItems"
+        :overflow-threshold="10"
+      />
+      <van-cell title="model" :label="JSON.stringify(contentPanelTagModel)" />
+    </demo-block>
 
-  <demo-block :title="t('filterContentPanelMultiple')">
-    <van-filter-menu-bar
-      v-model="contentPanelTagMultipleModel"
-      :columns="contentPanelTagMultipleItems"
-      :overflow-threshold="10"
-    />
-    <van-cell
-      title="model"
-      :label="JSON.stringify(contentPanelTagMultipleModel)"
-    />
-  </demo-block>
+    <demo-block :title="t('filterContentPanelMultiple')">
+      <van-filter-menu-bar
+        v-model="contentPanelTagMultipleModel"
+        :columns="contentPanelTagMultipleItems"
+        :overflow-threshold="10"
+      />
+      <van-cell
+        title="model"
+        :label="JSON.stringify(contentPanelTagMultipleModel)"
+      />
+    </demo-block>
 
-  <demo-block :title="t('filterContentPanelRadio')">
-    <van-filter-menu-bar
-      v-model="contentPanelRadioModel"
-      :columns="contentPanelRadioItems"
-      :overflow-threshold="10"
-    />
-    <van-cell title="model" :label="JSON.stringify(contentPanelRadioModel)" />
-  </demo-block>
+    <demo-block :title="t('filterContentPanelRadio')">
+      <van-filter-menu-bar
+        v-model="contentPanelRadioModel"
+        :columns="contentPanelRadioItems"
+        :overflow-threshold="10"
+      />
+      <van-cell title="model" :label="JSON.stringify(contentPanelRadioModel)" />
+    </demo-block>
 
-  <demo-block :title="t('filterContentPanelCheckbox')">
-    <van-filter-menu-bar
-      v-model="contentPanelCheckboxModel"
-      :columns="contentPanelCheckboxItems"
-      :overflow-threshold="10"
-    />
-    <van-cell
-      title="model"
-      :label="JSON.stringify(contentPanelCheckboxModel)"
-    />
-  </demo-block>
+    <demo-block :title="t('filterContentPanelCheckbox')">
+      <van-filter-menu-bar
+        v-model="contentPanelCheckboxModel"
+        :columns="contentPanelCheckboxItems"
+        :overflow-threshold="10"
+      />
+      <van-cell
+        title="model"
+        :label="JSON.stringify(contentPanelCheckboxModel)"
+      />
+    </demo-block>
 
-  <demo-block :title="t('filterContentPanelMenuListMultiple')">
-    <van-filter-menu-bar
-      v-model="contentPanelMenuListMultipleModel"
-      :columns="contentPanelMenuListMultipleItems"
-      :overflow-threshold="10"
-    />
-    <van-cell
-      title="model"
-      :label="JSON.stringify(contentPanelMenuListMultipleModel)"
-    />
-  </demo-block>
-  <van-empty image="default" description="占位" />
-  <van-empty image="default" description="占位" />
+    <demo-block :title="t('filterContentPanelMenuListMultiple')">
+      <van-filter-menu-bar
+        v-model="contentPanelMenuListMultipleModel"
+        :columns="contentPanelMenuListMultipleItems"
+        :overflow-threshold="10"
+      />
+      <van-cell
+        title="model"
+        :label="JSON.stringify(contentPanelMenuListMultipleModel)"
+      />
+    </demo-block>
+    <van-empty image="default" description="占位" />
+    <van-empty image="default" description="占位" />
+  </div>
 </template>
+
+<style lang="less">
+.demo-filter-menu-bar {
+  .van-cell__title {
+    min-width: 0;
+  }
+
+  .van-cell__label {
+    word-break: break-all;
+  }
+}
+</style>

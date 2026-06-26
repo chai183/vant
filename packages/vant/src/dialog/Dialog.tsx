@@ -809,6 +809,7 @@ export default defineComponent({
         <div class={[BORDER_TOP, bem('footer', { vertical })]}>
           {buttons.map((button, index) => (
             <Button
+              type="default"
               key={button.action}
               size="large"
               text={getRenderedButtonText(button.text)}
@@ -824,6 +825,7 @@ export default defineComponent({
               loading={loading[button.action]}
               disabled={button.disabled}
               onClick={button.onClick}
+              borderless
             />
           ))}
         </div>

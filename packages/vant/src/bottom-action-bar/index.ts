@@ -7,7 +7,6 @@ export { bottomActionBarProps } from './BottomActionBar';
 export type { BottomActionBarProps } from './BottomActionBar';
 export type {
   BottomActionBarMoreIconPosition,
-  BottomActionBarMoreOptions,
   BottomActionBarThemeVars,
 } from './types';
 

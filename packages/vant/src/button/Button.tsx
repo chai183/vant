@@ -8,6 +8,8 @@ import {
 // Utils
 import {
   extend,
+  isDef,
+  addUnit,
   numericProp,
   preventDefault,
   makeStringProp,
@@ -40,7 +42,7 @@ export const buttonProps = extend({}, routeProps, {
   plain: Boolean,
   round: Boolean,
   square: Boolean,
-  hairline: Boolean,
+  borderless: Boolean,
   textButton: Boolean,
   textSecondary: Boolean,
   loading: Boolean,
@@ -51,7 +53,13 @@ export const buttonProps = extend({}, routeProps, {
   loadingText: String,
   loadingType: String as PropType<LoadingType>,
   iconPosition: makeStringProp<ButtonIconPosition>('left'),
-  width: String,
+  width: numericProp,
+  height: numericProp,
+  radius: numericProp,
+  fontSize: numericProp,
+  textColor: String,
+  paddingLeft: numericProp,
+  paddingRight: numericProp,
 });
 
 export type ButtonProps = ExtractPropTypes<typeof buttonProps>;
@@ -114,43 +122,77 @@ export default defineComponent({
     };
 
     const getStyle = () => {
-      const { color, plain, textButton } = props;
+      const {
+        color,
+        plain,
+        textButton,
+        width,
+        height,
+        radius,
+        fontSize,
+        textColor,
+        paddingLeft,
+        paddingRight,
+      } = props;
+      const style: CSSProperties = {};
+      const styleRecord = style as Record<string, string | undefined>;
+
+      if (isDef(width)) {
+        style.width = addUnit(width);
+      }
+      if (isDef(height)) {
+        const value = addUnit(height);
+        styleRecord['--van-button-custom-height'] = value;
+        style.height = value;
+        if (props.size === 'large') {
+          style.maxHeight = value;
+        }
+      }
+      if (isDef(radius) && !textButton) {
+        const value = addUnit(radius);
+        styleRecord['--van-button-custom-radius'] = value;
+        style.borderRadius = value;
+      }
+      if (isDef(fontSize)) {
+        const value = addUnit(fontSize);
+        styleRecord['--van-button-custom-font-size'] = value;
+        style.fontSize = value;
+      }
+      if (textColor) {
+        styleRecord['--van-button-custom-content-color'] = textColor;
+      }
+      if (isDef(paddingLeft)) {
+        style.paddingLeft = addUnit(paddingLeft);
+      }
+      if (isDef(paddingRight)) {
+        style.paddingRight = addUnit(paddingRight);
+      }
+
       if (color) {
         if (textButton) {
-          const style: CSSProperties = {};
-          const styleRecord = style as Record<string, string>;
-
           if (plain) {
             styleRecord['--van-button-text-plain-color'] = color;
           } else {
             styleRecord['--van-button-text-color'] = color;
           }
-
-          return style;
-        }
-
-        const style: CSSProperties = {
-          color: plain ? color : 'white',
-        };
-
-        if (!plain) {
-          // Use background instead of backgroundColor to make linear-gradient work
-          style.background = color;
-        }
-
-        // hide border when color is linear-gradient
-        if (color.includes('gradient')) {
-          (style as Record<string, string>)[
-            '--van-button-custom-border-color'
-          ] = 'transparent';
         } else {
-          (style as Record<string, string>)[
-            '--van-button-custom-border-color'
-          ] = color;
-        }
+          style.color = plain ? color : 'white';
 
-        return style;
+          if (!plain) {
+            // Use background instead of backgroundColor to make linear-gradient work
+            style.background = color;
+          }
+
+          // hide border when color is linear-gradient
+          styleRecord['--van-button-custom-border-color'] = color.includes(
+            'gradient',
+          )
+            ? 'transparent'
+            : color;
+        }
       }
+
+      return Object.keys(style).length ? style : undefined;
     };
 
     const onClick = (event: MouseEvent) => {
@@ -181,6 +223,7 @@ export default defineComponent({
         disabled,
         nativeType,
         iconPosition,
+        borderless,
       } = props;
 
       const hasIcon = !!(props.icon || slots.icon);
@@ -197,6 +240,7 @@ export default defineComponent({
             block,
             loading,
             disabled,
+            borderless,
             'with-icon': size === 'small' && hasIcon,
             'with-extra': hasExtra,
           },

@@ -54,6 +54,13 @@
 
     &-wrapper {
       position: relative;
+
+      // Let clicks pass through custom slot content (e.g. van-button) to the
+      // transparent file input overlay. van-button__content uses z-index: 2,
+      // which would otherwise intercept clicks before they reach the input.
+      > :not(.van-uploader__input) {
+        pointer-events: none;
+      }
     }
 
     &:disabled {

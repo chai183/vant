@@ -103,6 +103,35 @@ app.use(Button);
 <van-button plain text-button color="#FF3333">单色按钮</van-button>
 ```
 
+### 无边框
+
+通过 `borderless` 属性可以隐藏按钮边框，保留背景色。
+
+```html
+<van-button borderless>无边框强按钮</van-button>
+<van-button borderless plain>无边框弱按钮</van-button>
+```
+
+### 自定义尺寸
+
+通过 `height`、`radius`、`font-size`、`text-color`、`padding-left`、`padding-right` 属性可以自定义按钮的高度、圆角、字号、内容文字颜色和左右内边距。
+
+```html
+<van-button
+  plain
+  type="default"
+  size="normal"
+  :height="36"
+  :radius="8"
+  :font-size="12"
+  text-color="var(--van-text-color-secondary)"
+  :padding-left="12"
+  :padding-right="12"
+>
+  上传附件
+</van-button>
+```
+
 ### 补充说明按钮
 
 当 `size` 为 `large` 时，可通过 `extra` 插槽在 `van-button__content` 下方添加附加内容，与 `van-button__content` 同级。按钮总高度不超过对应尺寸的最大高度，超出部分将被裁剪。
@@ -133,6 +162,7 @@ app.use(Button);
 | native-type | 原生 button 标签的 type 属性 | _string_ | `button` |
 | block | 是否为块级元素 | _boolean_ | `false` |
 | plain | 是否为朴素按钮 | _boolean_ | `false` |
+| borderless `new` | 是否隐藏按钮边框 | _boolean_ | `false` |
 | text-button `new` | 是否为文本按钮，仅展示内容区域 | _boolean_ | `false` |
 | text-secondary `new` | 是否为次要文本色，需配合 `plain` 和 `text-button` 使用，文字颜色为 `#666` | _boolean_ | `false` |
 | disabled | 是否禁用按钮 | _boolean_ | `false` |
@@ -140,6 +170,13 @@ app.use(Button);
 | loading-text | 加载状态提示文字 | _string_ | - |
 | loading-type | [加载图标类型](#/zh-CN/loading)，可选值为 `spinner` | _string_ | `circular` |
 | loading-size | 加载图标大小，默认单位为 `px` | _number \| string_ | `20px` |
+| width `new` | 按钮宽度，默认单位为 `px` | _number \| string_ | - |
+| height `new` | 按钮高度，默认单位为 `px` | _number \| string_ | - |
+| radius `new` | 按钮圆角，默认单位为 `px` | _number \| string_ | - |
+| font-size `new` | 按钮字号，默认单位为 `px` | _number \| string_ | - |
+| text-color `new` | 按钮内容文字颜色 | _string_ | - |
+| padding-left `new` | 按钮左内边距，默认单位为 `px` | _number \| string_ | - |
+| padding-right `new` | 按钮右内边距，默认单位为 `px` | _number \| string_ | - |
 | url | 点击后跳转的链接地址 | _string_ | - |
 | to | 点击后跳转的目标路由对象，等同于 Vue Router 的 [to 属性](https://router.vuejs.org/zh/api/interfaces/RouterLinkProps.html#Properties-to) | _string \| object_ | - |
 | replace | 是否在跳转时替换当前页面历史 | _boolean_ | `false` |
@@ -188,7 +225,7 @@ import type {
 | --van-button-small-height | _28px_ | - |
 | --van-button-small-padding | _0 16px_ | - |
 | --van-button-small-icon-padding | _0 12px_ | - |
-| --van-button-small-font-size | _12px_ | - |
+| --van-button-small-font-size | _14px_ | - |
 | --van-button-normal-font-size | _16px_ | - |
 | --van-button-normal-height | _40px_ | - |
 | --van-button-normal-padding | _0 16px_ | - |

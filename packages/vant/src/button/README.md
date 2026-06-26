@@ -107,6 +107,35 @@ Customize the button color using the `color` prop.
 <van-button plain text-button color="#FF3333">Pure</van-button>
 ```
 
+### Borderless
+
+Use the `borderless` prop to hide the button border while keeping the background color.
+
+```html
+<van-button borderless>Borderless Primary</van-button>
+<van-button borderless plain>Borderless Plain</van-button>
+```
+
+### Custom Size
+
+Use the `height`, `radius`, `font-size`, `text-color`, `padding-left`, and `padding-right` props to customize the button height, border radius, font size, content text color, and horizontal padding.
+
+```html
+<van-button
+  plain
+  type="default"
+  size="normal"
+  :height="36"
+  :radius="8"
+  :font-size="12"
+  text-color="var(--van-text-color-secondary)"
+  :padding-left="12"
+  :padding-right="12"
+>
+  Upload File
+</van-button>
+```
+
 ### Supplementary Button
 
 When `size` is `large`, use the `extra` slot to add content below `van-button__content` as a sibling element. The total button height will not exceed the maximum height of the corresponding size; overflow content will be clipped.
@@ -138,6 +167,7 @@ When `size` is `large`, use the `extra` slot to add content below `van-button__c
 | tag | HTML Tag | _string_ | `button` |
 | native-type | Native Type Attribute | _string_ | `button` |
 | plain | Whether to be plain button | _boolean_ | `false` |
+| borderless `new` | Whether to hide button border | _boolean_ | `false` |
 | text-button `new` | Whether to be text button, only show content area | _boolean_ | `false` |
 | text-secondary `new` | Whether to use secondary text color, use with `plain` and `text-button`, text color is `#666` | _boolean_ | `false` |
 | block | Whether to set display block | _boolean_ | `false` |
@@ -146,6 +176,13 @@ When `size` is `large`, use the `extra` slot to add content below `van-button__c
 | loading-text | Loading text | _string_ | - |
 | loading-type | Loading type, can be set to `spinner` | _string_ | `circular` |
 | loading-size | Loading icon size | _number \| string_ | `20px` |
+| width `new` | Button width, default unit is `px` | _number \| string_ | - |
+| height `new` | Button height, default unit is `px` | _number \| string_ | - |
+| radius `new` | Button border radius, default unit is `px` | _number \| string_ | - |
+| font-size `new` | Button font size, default unit is `px` | _number \| string_ | - |
+| text-color `new` | Button content text color | _string_ | - |
+| padding-left `new` | Button left padding, default unit is `px` | _number \| string_ | - |
+| padding-right `new` | Button right padding, default unit is `px` | _number \| string_ | - |
 | url | Link URL | _string_ | - |
 | to | The target route should navigate to when clicked on, same as the [to prop](https://router.vuejs.org/api/interfaces/RouterLinkProps.html#Properties-to) of Vue Router | _string \| object_ | - |
 | replace | If true, the navigation will not leave a history record | _boolean_ | `false` |
@@ -194,7 +231,7 @@ The component provides the following CSS variables, which can be used to customi
 | --van-button-small-height | _28px_ | - |
 | --van-button-small-padding | _0 16px_ | - |
 | --van-button-small-icon-padding | _0 12px_ | - |
-| --van-button-small-font-size | _12px_ | - |
+| --van-button-small-font-size | _14px_ | - |
 | --van-button-normal-font-size | _16px_ | - |
 | --van-button-normal-height | _40px_ | - |
 | --van-button-normal-padding | _0 16px_ | - |

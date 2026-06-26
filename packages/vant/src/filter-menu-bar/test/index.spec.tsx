@@ -340,12 +340,9 @@ test('should hide reset button when showResetButton is false', async () => {
   await wrapper.find('.van-filter-menu-bar__item').trigger('click');
   await nextTick();
 
-  expect(
-    wrapper.find('.van-bottom-action-bar__button--secondary').exists(),
-  ).toBe(false);
-  expect(wrapper.find('.van-bottom-action-bar__button--primary').exists()).toBe(
-    true,
-  );
+  expect(wrapper.findAll('.van-bottom-action-bar .van-button')).toHaveLength(1);
+  expect(wrapper.text()).toContain('确定');
+  expect(wrapper.text()).not.toContain('重置');
 });
 
 test('should allow item showResetButton to override component prop', async () => {
@@ -369,16 +366,12 @@ test('should allow item showResetButton to override component prop', async () =>
   await wrapper.findAll('.van-filter-menu-bar__item')[0].trigger('click');
   await nextTick();
 
-  expect(
-    wrapper.find('.van-bottom-action-bar__button--secondary').exists(),
-  ).toBe(false);
+  expect(wrapper.findAll('.van-bottom-action-bar .van-button')).toHaveLength(1);
 
   await wrapper.findAll('.van-filter-menu-bar__item')[1].trigger('click');
   await nextTick();
 
-  expect(
-    wrapper.find('.van-bottom-action-bar__button--secondary').exists(),
-  ).toBe(true);
+  expect(wrapper.findAll('.van-bottom-action-bar .van-button')).toHaveLength(2);
 });
 
 test('should show selected count on confirm button for single field multi select panel', async () => {

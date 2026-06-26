@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import VanUploader from '..';
-import VanButton from '../../button';
 import { ref } from 'vue';
 import { cdnURL, useTranslate } from '../../../docs/site';
 import { UploaderFileListItem } from '../types';
@@ -172,14 +171,6 @@ const fileList6 = ref([{ url: cdnURL('leaf.jpeg') }]);
       :max-size="500 * 1024"
       @oversize="onOversize"
     />
-  </demo-block>
-
-  <demo-block :title="t('customUpload')">
-    <van-uploader>
-      <van-button type="primary" icon="plus">
-        {{ t('upload') }}
-      </van-button>
-    </van-uploader>
   </demo-block>
 
   <demo-block :title="t('previewCover')">

@@ -39,6 +39,11 @@ const t = useTranslate({
     extraContent: '辅助补充说明文字信息',
     doTask: '做任务',
     lottery: '抽大奖',
+    customSize: '自定义尺寸',
+    customSizeButton: '上传附件',
+    borderless: '无边框',
+    borderlessPrimary: '无边框强按钮',
+    borderlessPlain: '无边框弱按钮',
   },
   'en-US': {
     type: 'Type',
@@ -76,6 +81,11 @@ const t = useTranslate({
     extraContent: 'Auxiliary supplementary description text',
     doTask: 'Do Task',
     lottery: 'Lottery',
+    customSize: 'Custom Size',
+    customSizeButton: 'Upload File',
+    borderless: 'Borderless',
+    borderlessPrimary: 'Borderless Primary',
+    borderlessPlain: 'Borderless Plain',
   },
 });
 </script>

@@ -27,6 +27,7 @@ import { Icon } from '../icon';
 import { Popup } from '../popup';
 import { Field } from '../field';
 import { BottomActionBar } from '../bottom-action-bar';
+import { Button } from '../button';
 import { ProForm } from '../pro-form';
 import { getDefaultValueByComponent } from '../pro-form/getDefaultValue';
 import {
@@ -964,18 +965,36 @@ export default defineComponent({
       confirmText?: string;
       resetText?: string;
       showResetButton?: boolean;
-    }) => (
-      <div class={bem('footer')}>
-        <BottomActionBar
-          secondaryButtonText={options.resetText ?? props.resetText}
-          primaryButtonText={options.confirmText ?? props.confirmText}
-          showSecondaryButton={options.showResetButton ?? props.showResetButton}
-          safeAreaInsetBottom={false}
-          onClick-secondary={options.onReset}
-          onClick-primary={handleConfirm}
-        />
-      </div>
-    );
+    }) => {
+      const showReset = options.showResetButton ?? props.showResetButton;
+
+      return (
+        <div class={bem('footer')}>
+          <BottomActionBar
+            safeAreaInsetBottom={false}
+            v-slots={{
+              actions: () => (
+                <>
+                  <Button round type="primary" onClick={handleConfirm}>
+                    {options.confirmText ?? props.confirmText}
+                  </Button>
+                  {showReset ? (
+                    <Button
+                      round
+                      plain
+                      type="primary"
+                      onClick={options.onReset}
+                    >
+                      {options.resetText ?? props.resetText}
+                    </Button>
+                  ) : null}
+                </>
+              ),
+            }}
+          />
+        </div>
+      );
+    };
 
     const getShowResetButton = (item: FilterMenuBarItem) =>
       item.showResetButton ?? props.showResetButton;

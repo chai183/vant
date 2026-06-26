@@ -26,7 +26,6 @@ const columns = computed<ProFormColumn[]>(() => [
     component: 'fieldMoney',
     defaultValue: '1000',
     fieldProps: {
-      placeholder: t('fieldMoneyPlaceholder'),
       labelTooltip: t('fieldMoneyLabelTooltip'),
       rules: [{ required: true, message: t('fieldMoneyPlaceholder') }],
       errorMessageInfo: true,

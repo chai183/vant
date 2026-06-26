@@ -42,6 +42,17 @@ test('should hide border when color is gradient', () => {
   ).toBe('transparent');
 });
 
+test('should hide border when borderless prop is true', () => {
+  const wrapper = mount(Button, {
+    props: {
+      borderless: true,
+      text: 'Borderless',
+    },
+  });
+
+  expect(wrapper.classes()).toContain('van-button--borderless');
+});
+
 test('should render text button correctly', () => {
   const wrapper = mount(Button, {
     props: {
@@ -144,6 +155,49 @@ test('should render plain text button with text-secondary correctly', () => {
 
   expect(wrapper.classes()).toContain('van-button--text-secondary');
   expect(wrapper.html()).toMatchSnapshot();
+});
+
+test('should apply custom size props correctly', () => {
+  const wrapper = mount(Button, {
+    props: {
+      type: 'default',
+      plain: true,
+      size: 'normal',
+      height: 36,
+      radius: 8,
+      fontSize: 12,
+      textColor: '#666',
+      text: 'Upload',
+    },
+  });
+
+  expect(wrapper.element.style.getPropertyValue('--van-button-custom-height')).toBe(
+    '36px',
+  );
+  expect(wrapper.element.style.getPropertyValue('--van-button-custom-radius')).toBe(
+    '8px',
+  );
+  expect(
+    wrapper.element.style.getPropertyValue('--van-button-custom-font-size'),
+  ).toBe('12px');
+  expect(wrapper.element.style.fontSize).toBe('12px');
+  expect(
+    wrapper.element.style.getPropertyValue('--van-button-custom-content-color'),
+  ).toBe('#666');
+});
+
+test('should apply custom padding props correctly', () => {
+  const wrapper = mount(Button, {
+    props: {
+      size: 'normal',
+      text: 'Button',
+      paddingLeft: 12,
+      paddingRight: 20,
+    },
+  });
+
+  expect(wrapper.element.style.paddingLeft).toBe('12px');
+  expect(wrapper.element.style.paddingRight).toBe('20px');
 });
 
 test('should render icon slot correctly', () => {

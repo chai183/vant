@@ -2,7 +2,7 @@
 
 ### 介绍
 
-固定在底部的通用操作栏，样式接近订单提交栏：顶部可放协议/提示，中间可放筛选等内容，底部 **64px** 按钮区支持多种 `van-button` 组合（单主按钮、主次双按钮、三个按钮、「更多操作」+ 按钮等）。按钮宽度默认自适应均分，可通过 `*-button-width` 传入固定宽度。
+固定在底部的通用操作栏，样式接近订单提交栏：顶部可放协议/提示，中间可放筛选等内容，底部 **64px** 按钮区通过 `#actions` 插槽传入多个 `van-button`。**插槽中第一个按钮展示在最右侧**，其余依次向左排列。传入 `max-visible-actions` 后，超出数量的按钮会以 Popover 菜单收起。
 
 ### 引入
 
@@ -18,80 +18,120 @@ app.use(BottomActionBar);
 
 ### 单个主按钮
 
-仅展示一个圆角主按钮，默认占满按钮区域宽度。
-
 ```html
-<van-bottom-action-bar primary-button-text="确定" @click-primary="onConfirm" />
+<van-bottom-action-bar>
+  <template #actions>
+    <van-button block type="primary" @click="onConfirm">确定</van-button>
+  </template>
+</van-bottom-action-bar>
 ```
 
 ### 主次双按钮
 
-常用于筛选面板：左侧 `plain` 重置，右侧实心确定。
+常用于筛选面板：右侧实心确定，左侧 `plain` 重置。请将主要操作写在 `#actions` 插槽最前面，它会展示在最右侧。
 
 ```html
-<van-bottom-action-bar
-  secondary-button-text="重置"
-  primary-button-text="确定"
-  @click-secondary="onReset"
-  @click-primary="onConfirm"
-/>
+<van-bottom-action-bar>
+  <template #actions>
+    <van-button type="primary" @click="onConfirm">确定</van-button>
+    <van-button plain type="primary" @click="onReset">重置</van-button>
+  </template>
+</van-bottom-action-bar>
 ```
 
-### 三个按钮
+### 两个次按钮 / 三个次按钮
+
+多个 `plain` 次按钮组合。主要操作写在 `#actions` 插槽最前面，展示在最右侧。
 
 ```html
-<van-bottom-action-bar
-  secondary-button-text="次要操作"
-  tertiary-button-text="次要操作2"
-  show-tertiary-button
-  primary-button-text="确定"
-  @click-secondary="onSecondary"
-  @click-tertiary="onTertiary"
-  @click-primary="onConfirm"
-/>
+<!-- 两个次按钮 -->
+<van-bottom-action-bar>
+  <template #actions>
+    <van-button plain type="primary" @click="onConfirm">确定</van-button>
+    <van-button plain type="primary" @click="onTertiary">次要操作2</van-button>
+  </template>
+</van-bottom-action-bar>
+
+<!-- 三个次按钮 -->
+<van-bottom-action-bar>
+  <template #actions>
+    <van-button plain type="primary" @click="onConfirm">确定</van-button>
+    <van-button plain type="primary" @click="onExtra1">选项一</van-button>
+    <van-button plain type="primary" @click="onExtra2">选项二</van-button>
+  </template>
+</van-bottom-action-bar>
 ```
 
 ### 更多操作 + 按钮
 
-左侧「更多操作」使用内置 `Popover` 气泡菜单（与 `Popover` 浅色主题文档示例一致：`placement="bottom-start"`、`actions` 垂直列表）。底部固定栏若易被遮挡，可将 `more-popover-placement` 设为 `top-start`。未展开时箭头向下，展开后箭头向上。使用 `more-actions` 配置菜单项，或使用 `#more-panel` 自定义气泡内容。
+传入 `max-visible-actions` 且 `#actions` 中的按钮数量超过该值时，左侧会自动出现「更多操作」触发器，**按插槽顺序保留前 N 个按钮**在底部展示（第一个子节点始终在最右侧），其余按钮以 [Popover](#/zh-CN/popover) 垂直菜单收起；选中菜单项后会触发对应 `van-button` 的点击事件并关闭气泡。
 
 ```html
 <van-bottom-action-bar
-  v-model:more-expanded="moreExpanded"
-  show-more
+  :max-visible-actions="2"
+  more-popover-placement="top-start"
   more-text="更多操作"
-  :more-actions="[
-    { text: '选项一', value: 'action1' },
-    { text: '选项二', value: 'action2' },
-    { text: '选项三', value: 'action3' },
-  ]"
-  secondary-button-text="次要操作"
-  primary-button-text="确定"
-  @select-more="onMoreAction"
+>
+  <template #actions>
+    <van-button type="primary" @click="onConfirm">确定</van-button>
+    <van-button plain type="primary" @click="onSecondary">次要操作</van-button>
+    <van-button plain type="primary" @click="onExtra1">选项一</van-button>
+    <van-button plain type="primary" @click="onExtra2">选项二</van-button>
+  </template>
+</van-bottom-action-bar>
 ```
 
-```js
-const onMoreAction = (action) => {
-  console.log(action.text); // 展示文案
-  console.log(action.value); // 业务值 action1 | action2 | action3
-};
+上例中底部展示「次要操作」「确定」（确定在最右侧），「选项一」「选项二」收进 Popover 菜单。
+
+通过 `more-icon-position="left"` 可将箭头图标置于文案左侧：
+
+```html
+<van-bottom-action-bar
+  :max-visible-actions="2"
+  more-icon-position="left"
+  more-text="图标在左"
+>
+  <template #actions>
+    <van-button type="primary" @click="onApprove">通过</van-button>
+    <van-button plain type="primary" @click="onReject">拒绝</van-button>
+    <van-button plain type="primary" @click="onSendBack">打回</van-button>
+    <van-button plain type="primary" @click="onVeto">否决</van-button>
+  </template>
+</van-bottom-action-bar>
+```
+
+### 自定义溢出 Popover 触发器
+
+通过 `#more-reference` 插槽自定义溢出 Popover 的触发器，插槽参数为 `{ expanded: boolean }` 表示气泡是否展开；未传入时使用内置「更多操作」样式。
+
+```html
+<van-bottom-action-bar
+  :max-visible-actions="3"
+  :start-gap="16"
+  more-popover-placement="top-start"
+>
+  <template #more-reference>
+    <span>更多</span>
+  </template>
+  <template #actions>
+    <van-button plain @click="onApprove">通过</van-button>
+    <van-button plain @click="onReject">拒绝</van-button>
+    <van-button plain @click="onExtra2">选项二</van-button>
+    <van-button @click="onExtra1">选项一</van-button>
+  </template>
+</van-bottom-action-bar>
 ```
 
 ### 更多操作自定义插槽
 
-通过 `#more` 插槽可完全自定义左侧区域，例如放置全选复选框；配合 `#top` 插槽展示已选数量。
+通过 `#more` 插槽可完全自定义左侧区域，例如放置全选复选框；配合 `#top` 插槽展示已选数量。可通过 `start-gap` 调整左侧区域与按钮区间距。
 
 ```html
-<van-bottom-action-bar
-  secondary-button-text="次要操作"
-  primary-button-text="确定"
->
+<van-bottom-action-bar :start-gap="67">
   <template #top>
-    <div class="demo-bottom-action-bar__selected-count">
-      已选<strong>9,999</strong>笔<span
-        class="demo-bottom-action-bar__selected-amount"
-        >总金额<strong>10,000,000,000,000,000</strong>元</span
-      >
+    <div class="selected-count">
+      已选<strong>9,999</strong>笔
+      <span class="selected-amount">总金额<strong>10,000,000,000</strong>元</span>
     </div>
   </template>
   <template #more>
@@ -99,102 +139,46 @@ const onMoreAction = (action) => {
       <van-checkbox name="a">全选</van-checkbox>
     </van-checkbox-group>
   </template>
+  <template #actions>
+    <van-button type="primary" @click="onApprove">通过</van-button>
+    <van-button plain type="primary" @click="onReject">拒绝</van-button>
+  </template>
 </van-bottom-action-bar>
-```
-
-```css
-.demo-bottom-action-bar__selected-count {
-  padding: 12px;
-  font-size: var(--van-font-size-md);
-  color: var(--van-text-color-auxiliary);
-  border-bottom: 1px solid var(--van-border-color);
-}
-
-.demo-bottom-action-bar__selected-count strong {
-  margin: 0 4px;
-  font-size: var(--van-font-size-lg);
-  font-weight: 400;
-  line-height: var(--van-font-size-lg);
-  color: var(--van-black);
-}
-
-.demo-bottom-action-bar__selected-amount {
-  margin-left: var(--van-padding-md);
-}
-```
-
-```js
-import { ref } from 'vue';
-
-const selectAllItems = ref([]);
 ```
 
 ### 收藏与分享
 
-通过 `#more` 插槽放置收藏、分享等图标操作。收藏后图标切换为实心 `star`，颜色使用主题主色 `--van-primary-color`。可通过 `start-gap` 调整左侧区域与按钮区间距。
+通过 `#more` 插槽放置收藏、分享等图标操作。
 
 ```html
-<van-bottom-action-bar
-  :start-gap="32"
-  secondary-button-text="次要操作"
-  primary-button-text="确定"
->
+<van-bottom-action-bar :start-gap="34">
   <template #more>
-    <div class="demo-bottom-action-bar__icons">
-      <button
-        type="button"
-        class="demo-bottom-action-bar__icon-item"
-        :class="{ 'demo-bottom-action-bar__icon-item--active': collected }"
-        @click="onToggleCollect"
-      >
-        <van-icon :name="collected ? 'star' : 'star-o'" />
+    <div class="icons">
+      <button type="button" @click="onToggleCollect">
+        <van-icon :name="collected ? 'like' : 'like-o'" />
         <span>收藏</span>
       </button>
-      <button
-        type="button"
-        class="demo-bottom-action-bar__icon-item"
-        @click="onShare"
-      >
+      <button type="button" @click="onShare">
         <van-icon name="share-o" />
         <span>分享</span>
       </button>
     </div>
   </template>
+  <template #actions>
+    <van-button type="primary" @click="onConfirm">确定</van-button>
+    <van-button plain type="primary" @click="onSecondary">次要操作</van-button>
+  </template>
 </van-bottom-action-bar>
 ```
 
-```js
-import { ref } from 'vue';
+### 协议提示 + 操作
 
-const collected = ref(false);
-
-const onToggleCollect = () => {
-  collected.value = !collected.value;
-};
-
-const onShare = () => {
-  // share logic
-};
-```
-
-```css
-.demo-bottom-action-bar__icon-item--active {
-  color: var(--van-primary-color);
-}
-
-.demo-bottom-action-bar__icon-item--active .van-icon {
-  color: var(--van-primary-color);
-}
-```
-
-### 顶部协议区 + 操作
-
-顶部 `#top` 插槽默认白底、`12px` 内边距，可放协议勾选、说明文案等。多条协议可使用 `CheckboxGroup` 多选，配合 [Highlight](#/zh-CN/highlight) 高亮协议链接文案。
+顶部 `#top` 插槽可放协议勾选、说明文案等，配合 [Highlight](#/zh-CN/highlight) 高亮协议链接文案。
 
 ```html
-<van-bottom-action-bar primary-button-text="操作" @click-primary="onAction">
+<van-bottom-action-bar>
   <template #top>
-    <van-checkbox-group v-model="agreed" shape="square">
+    <van-checkbox-group v-model="agreedItems" shape="square">
       <van-checkbox name="clause1">
         <van-highlight
           tag="span"
@@ -211,20 +195,18 @@ const onShare = () => {
       </van-checkbox>
     </van-checkbox-group>
   </template>
+  <template #actions>
+    <van-button block type="primary" @click="onAction">操作</van-button>
+  </template>
 </van-bottom-action-bar>
 ```
 
-### 内容区 + 底部按钮
+### 下拉筛选 + 主次按钮
 
-顶部 `#top` 插槽可放筛选表单等内容，搭配 [ProForm](#/zh-CN/pro-form) 通过 `columns` 配置字段；底部按钮区触发 `formRef.submit()` 提交，隐藏 ProForm 自带提交按钮。
+顶部 `#top` 插槽可放筛选表单等内容，搭配 [ProForm](#/zh-CN/pro-form) 通过 `columns` 配置字段；底部按钮区触发 `formRef.submit()` 提交。可通过 `bar-padding` 调整按钮区内边距。
 
 ```html
-<van-bottom-action-bar
-  secondary-button-text="重置"
-  primary-button-text="确定"
-  @click-secondary="onReset"
-  @click-primary="formRef?.submit()"
->
+<van-bottom-action-bar bar-padding="12px 12px">
   <template #top>
     <van-pro-form
       v-model="model"
@@ -232,64 +214,63 @@ const onShare = () => {
       :columns="columns"
       :show-submit="false"
       @submit="onSubmit"
-      @failed="onFailed"
     />
+  </template>
+  <template #actions>
+    <van-button type="primary" @click="formRef?.submit()">确定</van-button>
+    <van-button plain type="primary" @click="onReset">重置</van-button>
   </template>
 </van-bottom-action-bar>
 ```
 
-```js
-import { ref } from 'vue';
-
-const model = ref({});
-const formRef = ref();
-
-const columns = [
-  {
-    name: 'tag',
-    label: '标签列表-常规',
-    component: 'radioGroup',
-    defaultValue: '0',
-    fieldProps: { labelAlign: 'top' },
-    componentProps: {
-      shape: 'block',
-      columns: 3,
-      options: [
-        { label: '选项 1', value: '0' },
-        { label: '未选', value: '1' },
-      ],
-    },
-  },
-  {
-    name: 'dateRange',
-    label: '选择日期',
-    component: 'rangeInput',
-    defaultValue: ['', ''],
-    componentProps: {
-      layout: 'horizontal',
-      showDateShortcuts: true,
-      start: {
-        component: 'datePicker',
-        fieldProps: { inputBorder: true, placeholder: '起始日期' },
-      },
-      end: {
-        component: 'datePicker',
-        fieldProps: { inputBorder: true, placeholder: '终止日期' },
-      },
-    },
-  },
-];
-```
-
-### 完全自定义按钮区
-
-使用 `#actions` 插槽覆盖预设按钮组合。
+单个主按钮提交时，可将确定按钮设为 `block`：
 
 ```html
-<van-bottom-action-bar>
+<van-bottom-action-bar bar-padding="12px 12px">
+  <template #top>
+    <van-pro-form
+      v-model="model"
+      ref="formRef"
+      :columns="columns"
+      :show-submit="false"
+      @submit="onSubmit"
+    />
+  </template>
   <template #actions>
-    <van-button round plain type="primary">重置</van-button>
-    <van-button round type="primary">确定</van-button>
+    <van-button block type="primary" @click="formRef?.submit()">确定</van-button>
+  </template>
+</van-bottom-action-bar>
+```
+
+### 文本按钮
+
+`#actions` 中搭配 [Button](#/zh-CN/button) 的 `text-button` 属性使用文本按钮。由于文本按钮会隐藏 `::after`，按钮间分隔线需通过外层元素添加 `van-hairline--left` 实现；除最后一个按钮外，其余按钮均可添加左侧分隔线。
+
+配合 `max-visible-actions` 超出收起时，可通过 `#more-reference` 自定义触发器，例如省略号图标：
+
+```html
+<van-bottom-action-bar
+  bar-padding="13px 0"
+  :start-gap="0"
+  :max-visible-actions="4"
+>
+  <template #more-reference>
+    <van-icon name="ellipsis" />
+  </template>
+  <template #actions>
+    <div class="text-action van-hairline--left">
+      <van-button size="small" text-button type="primary" @click="onConfirm">
+        确定
+      </van-button>
+    </div>
+    <div class="text-action van-hairline--left">
+      <van-button size="small" text-button plain type="primary" @click="onSecondary">
+        确定
+      </van-button>
+    </div>
+    <van-button size="small" text-button plain type="primary" @click="onExtra">
+      确定
+    </van-button>
   </template>
 </van-bottom-action-bar>
 ```
@@ -300,36 +281,16 @@ const columns = [
 
 | 参数 | 说明 | 类型 | 默认值 |
 | --- | --- | --- | --- |
-| secondary-button-text | 次要按钮文案 | _string_ | - |
-| tertiary-button-text | 第二个次要按钮文案 | _string_ | - |
-| primary-button-text | 主按钮文案 | _string_ | `确定` |
-| secondary-button-type | 次要按钮类型 | _string_ | `primary` |
-| tertiary-button-type | 第二个次要按钮类型 | _string_ | `primary` |
-| primary-button-type | 主按钮类型 | _string_ | `primary` |
-| show-secondary-button | 是否展示次要按钮；未传时根据 `secondary-button-text` 判断 | _boolean_ | - |
-| show-tertiary-button | 是否展示第二个次要按钮 | _boolean_ | `false` |
-| show-primary-button | 是否展示主按钮 | _boolean_ | `true` |
-| secondary-button-width | 次要按钮宽度，传入后不再均分 | _number \| string_ | - |
-| tertiary-button-width | 第二个次要按钮宽度 | _number \| string_ | - |
-| primary-button-width | 主按钮宽度 | _number \| string_ | - |
-| primary-block | 主按钮是否占满按钮区（单按钮场景可省略） | _boolean_ | `false` |
-| start-gap `new` | 左侧区域与按钮区间距 | _number \| string_ | - |
-| round | 按钮是否圆角 | _boolean_ | `true` |
-| more-text | 「更多操作」文案 | _string_ | `更多操作` |
-| more-icon | 气泡关闭时箭头图标 | _string_ | `arrow-down` |
-| more-expanded-icon | 气泡打开时箭头图标 | _string_ | `arrow-up` |
+| start-gap | 左侧区域与按钮区间距 | _number \| string_ | - |
+| bar-padding `new` | 底部按钮区内边距，对应 `--van-bottom-action-bar-bar-padding` | _number \| string_ | - |
+| max-visible-actions | 底部直接展示的按钮数量（按 `#actions` 顺序取前 N 个，第一个子节点在最右侧），超出部分收起到 Popover；不传则展示全部按钮 | _number \| string_ | - |
+| more-text | 溢出时「更多操作」触发器文案 | _string_ | `更多操作` |
+| more-icon | 气泡关闭时箭头图标 | _string_ | `arrow-double-left` |
+| more-expanded-icon | 气泡打开时箭头图标 | _string_ | `arrow-double-right` |
 | more-icon-position | 箭头图标相对文案的位置，可选值为 `left` `right` | _string_ | `right` |
-| show-more | 是否展示「更多操作」 | _boolean_ | `false` |
-| more-expandable | 是否使用气泡菜单（`false` 时为纯文字按钮，点击仅触发 `click-more`） | _boolean_ | `true` |
-| more-expanded | 气泡是否展示，支持 `v-model` | _boolean_ | `false` |
-| more-actions | 气泡菜单项，格式同 `Popover` 的 `actions`（支持 `text`、`value` 等） | _PopoverAction[]_ | `[]` |
-| more-popover-placement | 气泡位置，同 `Popover` 的 `placement` | _string_ | `bottom-start` |
-| secondary-disabled | 次要按钮是否禁用 | _boolean_ | `false` |
-| tertiary-disabled | 第二个次要按钮是否禁用 | _boolean_ | `false` |
-| primary-disabled | 主按钮是否禁用 | _boolean_ | `false` |
-| secondary-loading | 次要按钮是否加载中 | _boolean_ | `false` |
-| tertiary-loading | 第二个次要按钮是否加载中 | _boolean_ | `false` |
-| primary-loading | 主按钮是否加载中 | _boolean_ | `false` |
+| more-expanded | 溢出 Popover 是否展示，支持 `v-model` | _boolean_ | `false` |
+| more-popover-placement | 溢出 Popover 位置，同 `Popover` 的 `placement` | _string_ | `bottom-start` |
+| more-theme | 溢出 Popover 主题，可选值为 `light` `dark` | _string_ | `light` |
 | safe-area-inset-bottom | 是否开启底部安全区适配 | _boolean_ | `true` |
 | placeholder | 是否生成等高占位 | _boolean_ | `false` |
 
@@ -337,26 +298,19 @@ const columns = [
 
 | 事件名 | 说明 | 回调参数 |
 | --- | --- | --- |
-| click-secondary | 点击次要按钮 | - |
-| click-tertiary | 点击第二个次要按钮 | - |
-| click-primary | 点击主按钮 | - |
-| click-more | 展开气泡时触发（首次展开） | - |
-| update:more-expanded | 气泡显隐变化 | _expanded: boolean_ |
-| select-more | 选中气泡菜单项时触发 | _action: PopoverAction, index: number_（`action` 含 `text`、`value`） |
+| click-more | 溢出 Popover 首次展开时触发 | - |
+| update:more-expanded | 溢出 Popover 显隐变化 | _expanded: boolean_ |
 
 ### Slots
 
-| 名称             | 说明                                                     |
-| ---------------- | -------------------------------------------------------- |
-| top              | 顶部内容区（协议、筛选表单等，白底、12px 内边距）        |
-| default          | 中间内容区（位于顶部区与按钮区之间）                     |
-| before           | 按钮区左侧扩展（与 `more` 二选一，优先级低于 `more`）    |
-| more             | 自定义「更多操作」区域                                   |
-| more-panel       | 自定义气泡内容（与 `more-actions` 二选一，优先展示插槽） |
-| actions          | 完全自定义底部按钮组合                                   |
-| secondary-button | 自定义次要按钮                                           |
-| tertiary-button  | 自定义第二个次要按钮                                     |
-| primary-button   | 自定义主按钮                                             |
+| 名称 | 说明 |
+| --- | --- |
+| top | 顶部内容区（协议、筛选表单等） |
+| default | 中间内容区（位于顶部区与按钮区之间） |
+| before | 按钮区左侧扩展（与 `more` 二选一，优先级低于 `more`） |
+| more | 自定义左侧区域（如全选、收藏分享）；可与溢出 Popover 并存 |
+| more-reference `new` | 自定义溢出 Popover 触发器；参数为 `{ expanded: boolean }`，未传入时使用内置「更多操作」 |
+| actions | 底部按钮区，传入多个 `van-button` |
 
 ### 类型定义
 

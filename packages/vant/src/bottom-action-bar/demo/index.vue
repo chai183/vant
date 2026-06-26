@@ -488,7 +488,7 @@ const onDateSubmit = (values: Record<string, unknown>) => {
               <span>{{ t('collect') }}</span>
             </button>
             <button type="button" class="demo-bottom-action-bar__icon-item" @click="onShare">
-              <van-icon name="share-o" />
+              <van-icon name="share" image color="#666"/>
               <span>{{ t('share') }}</span>
             </button>
           </div>

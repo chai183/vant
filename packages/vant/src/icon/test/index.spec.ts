@@ -29,6 +29,29 @@ test('should render icon with local image correctly', () => {
   expect(wrapper.html()).toMatchSnapshot();
 });
 
+test('should render icon with builtin svg image correctly', () => {
+  const wrapper = mount(Icon, {
+    props: {
+      name: 'share',
+      image: true,
+    },
+  });
+  expect(wrapper.html()).toMatchSnapshot();
+});
+
+test('should apply color to builtin svg image correctly', () => {
+  const wrapper = mount(Icon, {
+    props: {
+      name: 'share',
+      image: true,
+      color: '#666',
+    },
+  });
+
+  expect(wrapper.style.color).toEqual('rgb(102, 102, 102)');
+  expect(wrapper.find('.van-icon__svg').exists()).toBe(true);
+});
+
 test('should render default slot correctly', () => {
   const wrapper = mount(Icon, {
     props: {

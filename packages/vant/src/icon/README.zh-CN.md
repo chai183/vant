@@ -34,6 +34,14 @@ app.use(Icon);
 <van-icon name="https://fastly.jsdelivr.net/npm/@vant/assets/icon-demo.png" />
 ```
 
+### 使用内置 SVG 图标
+
+设置 `image` 属性后，将通过 `name` 指定 `img` 目录中的 SVG 图标。
+
+```html
+<van-icon name="share" image />
+```
+
 ### 徽标提示
 
 设置 `dot` 属性后，会在图标右上角展示一个小红点；设置 `badge` 属性后，会在图标右上角展示相应的徽标。
@@ -96,6 +104,7 @@ app.use(Icon);
 | 参数 | 说明 | 类型 | 默认值 |
 | --- | --- | --- | --- |
 | name | 图标名称或图片链接 | _string_ | - |
+| image `new` | 是否使用 img 目录下的内置 SVG 图标，需配合 `name` 使用 | _boolean_ | `false` |
 | dot | 是否显示图标右上角小红点 | _boolean_ | `false` |
 | badge | 图标右上角徽标的内容 | _number \| string_ | - |
 | badge-props | 自定义徽标的属性，传入的对象会被透传给 [Badge 组件的 props](#/zh-CN/badge#props) | _BadgeProps_ | - |

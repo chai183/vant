@@ -69,9 +69,7 @@ const columns = computed<ProFormColumn[]>(() => [
     fieldProps: { placeholder: t('checkboxPickerPlaceholder') },
     fieldSlots: {
       'input-comment': () => (
-        <div
-          class="demo-pro-form__field-slot-comment"
-        >
+        <div class="demo-pro-form__field-slot-comment">
           {t('checkboxPickerComment')}
         </div>
       ),

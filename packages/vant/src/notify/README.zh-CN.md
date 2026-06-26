@@ -276,8 +276,7 @@ import type {
 | --- | --- | --- |
 | --van-notify-padding | _14px 12px_ | 内边距 |
 | --van-notify-width | _351px_ | 通知栏宽度 |
-| --van-notify-top-offset | _10px_ | 距离顶部偏移 |
-| --van-notify-shadow | _0 0 6px 0 rgba(0, 0, 0, 0.1)_ | 阴影 |
+| --van-notify-top-offset | _8px_ | 距离顶部偏移 |
 | --van-notify-font-size | _var(--van-font-size-md)_ | - |
 | --van-notify-line-height | _var(--van-line-height-md)_ | - |
 | --van-notify-height | _auto_ | 通知栏高度 |

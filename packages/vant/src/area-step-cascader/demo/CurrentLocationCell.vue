@@ -45,7 +45,6 @@ const emit = defineEmits<{
 
 <style lang="less">
 .current-location-cell {
-
   .van-cell__left-icon {
     margin-right: 10px;
     color: var(--van-text-color-auxiliary);

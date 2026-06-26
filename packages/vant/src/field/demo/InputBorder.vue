@@ -24,15 +24,8 @@ const value = ref('');
 
 <template>
   <demo-block :title="t('inputBorder')">
-    <van-cell-group
-      inset
-      :style="{ '--van-cell-group-inset-radius': '0' }"
-    >
-      <van-field
-        v-model="value"
-        :placeholder="t('placeholder')"
-        input-border
-      />
+    <van-cell-group inset :style="{ '--van-cell-group-inset-radius': '0' }">
+      <van-field v-model="value" :placeholder="t('placeholder')" input-border />
     </van-cell-group>
   </demo-block>
 </template>

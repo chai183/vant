@@ -171,11 +171,7 @@ app.use(CellGroup);
 
 ```html
 <van-cell :title="['主标题', '副标题']" value="内容" />
-<van-cell
-  :title="['主标题', '副标题']"
-  value="内容"
-  label="描述信息"
-/>
+<van-cell :title="['主标题', '副标题']" value="内容" label="描述信息" />
 <van-cell
   :title="['主标题', '副标题']"
   value="内容"
@@ -237,15 +233,15 @@ app.use(CellGroup);
 
 ### Cell Slots
 
-| 名称       | 说明                         |
-| ---------- | ---------------------------- |
-| title      | 自定义左侧标题               |
-| value      | 自定义右侧内容               |
-| label      | 自定义标题下方的描述信息     |
-| icon       | 自定义左侧图标               |
-| avatar `new` | 自定义左侧头像             |
-| right-icon | 自定义右侧图标               |
-| extra      | 自定义单元格最右侧的额外内容 |
+| 名称         | 说明                         |
+| ------------ | ---------------------------- |
+| title        | 自定义左侧标题               |
+| value        | 自定义右侧内容               |
+| label        | 自定义标题下方的描述信息     |
+| icon         | 自定义左侧图标               |
+| avatar `new` | 自定义左侧头像               |
+| right-icon   | 自定义右侧图标               |
+| extra        | 自定义单元格最右侧的额外内容 |
 
 ### 类型定义
 

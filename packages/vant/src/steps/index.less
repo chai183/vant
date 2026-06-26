@@ -2,6 +2,9 @@
 :host {
   --van-steps-background: var(--van-background-2);
   --van-steps-padding-top: var(--van-padding-lg);
+  --van-steps-horizontal-padding-top: 24px;
+  --van-steps-horizontal-padding-bottom: 24px;
+  --van-steps-horizontal-padding-bottom-with-desc: 16px;
   --van-steps-collapse-height: 40px;
   --van-steps-collapse-font-size: var(--van-font-size-md);
   --van-steps-collapse-color: var(--van-text-color-2);
@@ -16,20 +19,24 @@
     overflow: visible;
     box-sizing: border-box;
     width: 100%;
-    padding-right: var(--van-padding-sm);
-    padding-left: var(--van-padding-sm);
+    padding: var(--van-steps-horizontal-padding-top) 6px
+      var(--van-steps-horizontal-padding-bottom);
+
+    &:has(.van-step__description) {
+      padding-bottom: var(--van-steps-horizontal-padding-bottom-with-desc);
+    }
 
     .van-steps__items {
       position: relative;
       display: flex;
       width: 100%;
-      margin: 0 0 10px;
+      margin: 0;
     }
   }
 
   &--vertical {
     overflow: hidden;
-    padding-left: var(--van-padding-xl);
+    padding-left: 0;
 
     &.van-steps--collapsible {
       overflow: visible;
@@ -64,7 +71,7 @@
         box-sizing: border-box;
         width: 100%;
         overflow: visible;
-        padding: 0 0 0 var(--van-padding-xl);
+        padding: 0;
         background-color: var(--van-steps-background);
       }
 
@@ -97,6 +104,7 @@
 
   // 底部展开/收起按钮（非折叠连线）
   &__collapse {
+    box-sizing: border-box;
     display: flex;
     flex: none;
     align-items: center;

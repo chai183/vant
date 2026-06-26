@@ -5,7 +5,7 @@ exports[`should render demo and match snapshot 1`] = `
 <div>
   <!--[-->
   <div
-    class="van-cell van-cell--clickable"
+    class="van-cell van-cell--center van-cell--clickable"
     role="button"
     tabindex="0"
   >
@@ -130,7 +130,178 @@ exports[`should render demo and match snapshot 1`] = `
 <div>
   <!--[-->
   <div
-    class="van-cell van-cell--clickable"
+    class="van-cell van-cell--center van-cell--clickable"
+    role="button"
+    tabindex="0"
+  >
+    <div
+      class="van-cell__title"
+      style
+    >
+      <span>
+        Basic Title
+      </span>
+    </div>
+    <i
+      class="van-badge__wrapper van-icon van-icon-arrow van-cell__right-icon"
+      style
+    >
+      <!--[-->
+    </i>
+  </div>
+  <div
+    class="van-cell van-cell--center van-cell--clickable"
+    role="button"
+    tabindex="0"
+  >
+    <div
+      class="van-cell__title"
+      style
+    >
+      <span>
+        Custom Title
+      </span>
+    </div>
+    <i
+      class="van-badge__wrapper van-icon van-icon-arrow van-cell__right-icon"
+      style
+    >
+      <!--[-->
+    </i>
+  </div>
+  <div
+    class="van-cell van-cell--center van-cell--clickable"
+    role="button"
+    tabindex="0"
+  >
+    <div
+      class="van-cell__title"
+      style
+    >
+      <span>
+        From Bottom (with title)
+      </span>
+    </div>
+    <i
+      class="van-badge__wrapper van-icon van-icon-arrow van-cell__right-icon"
+      style
+    >
+      <!--[-->
+    </i>
+  </div>
+  <div
+    class="van-cell van-cell--center van-cell--clickable"
+    role="button"
+    tabindex="0"
+  >
+    <div
+      class="van-cell__title"
+      style
+    >
+      <span>
+        Right Drawer (with title)
+      </span>
+    </div>
+    <i
+      class="van-badge__wrapper van-icon van-icon-arrow van-cell__right-icon"
+      style
+    >
+      <!--[-->
+    </i>
+  </div>
+  <div
+    class="van-cell van-cell--center van-cell--clickable"
+    role="button"
+    tabindex="0"
+  >
+    <div
+      class="van-cell__title"
+      style
+    >
+      <span>
+        Left Drawer (with title)
+      </span>
+    </div>
+    <i
+      class="van-badge__wrapper van-icon van-icon-arrow van-cell__right-icon"
+      style
+    >
+      <!--[-->
+    </i>
+  </div>
+  <div
+    class="van-cell van-cell--center van-cell--clickable"
+    role="button"
+    tabindex="0"
+  >
+    <div
+      class="van-cell__title"
+      style
+    >
+      <span>
+        Cancel and Confirm
+      </span>
+    </div>
+    <i
+      class="van-badge__wrapper van-icon van-icon-arrow van-cell__right-icon"
+      style
+    >
+      <!--[-->
+    </i>
+  </div>
+  <div
+    class="van-cell van-cell--center van-cell--clickable"
+    role="button"
+    tabindex="0"
+  >
+    <div
+      class="van-cell__title"
+      style
+    >
+      <span>
+        Drawer (cancel and confirm)
+      </span>
+    </div>
+    <i
+      class="van-badge__wrapper van-icon van-icon-arrow van-cell__right-icon"
+      style
+    >
+      <!--[-->
+    </i>
+  </div>
+  <div
+    class="van-cell van-cell--center van-cell--clickable"
+    role="button"
+    tabindex="0"
+  >
+    <div
+      class="van-cell__title"
+      style
+    >
+      <span>
+        Confirm over Close Icon
+      </span>
+    </div>
+    <i
+      class="van-badge__wrapper van-icon van-icon-arrow van-cell__right-icon"
+      style
+    >
+      <!--[-->
+    </i>
+  </div>
+  <!--[-->
+  <!--[-->
+  <!--[-->
+  <!--[-->
+  <!--[-->
+  <!--[-->
+  <!--[-->
+  <!--[-->
+</div>
+<div>
+  <!--[-->
+  <div
+    class="van-cell van-cell--center van-cell--clickable"
     role="button"
     tabindex="0"
   >
@@ -150,7 +321,7 @@ exports[`should render demo and match snapshot 1`] = `
     </i>
   </div>
   <div
-    class="van-cell van-cell--clickable"
+    class="van-cell van-cell--center van-cell--clickable"
     role="button"
     tabindex="0"
   >
@@ -170,7 +341,7 @@ exports[`should render demo and match snapshot 1`] = `
     </i>
   </div>
   <div
-    class="van-cell van-cell--clickable"
+    class="van-cell van-cell--center van-cell--clickable"
     role="button"
     tabindex="0"
   >
@@ -196,7 +367,7 @@ exports[`should render demo and match snapshot 1`] = `
 <div>
   <!--[-->
   <div
-    class="van-cell van-cell--clickable"
+    class="van-cell van-cell--center van-cell--clickable"
     role="button"
     tabindex="0"
   >
@@ -217,7 +388,7 @@ exports[`should render demo and match snapshot 1`] = `
   </div>
   <!--[-->
   <div
-    class="van-cell van-cell--clickable"
+    class="van-cell van-cell--center van-cell--clickable"
     role="button"
     tabindex="0"
   >
@@ -241,7 +412,7 @@ exports[`should render demo and match snapshot 1`] = `
 <div>
   <!--[-->
   <div
-    class="van-cell van-cell--clickable"
+    class="van-cell van-cell--center van-cell--clickable"
     role="button"
     tabindex="0"
   >
@@ -262,7 +433,7 @@ exports[`should render demo and match snapshot 1`] = `
   </div>
   <!--[-->
   <div
-    class="van-cell van-cell--clickable"
+    class="van-cell van-cell--center van-cell--clickable"
     role="button"
     tabindex="0"
   >
@@ -286,7 +457,7 @@ exports[`should render demo and match snapshot 1`] = `
 <div>
   <!--[-->
   <div
-    class="van-cell van-cell--clickable"
+    class="van-cell van-cell--center van-cell--clickable"
     role="button"
     tabindex="0"
   >

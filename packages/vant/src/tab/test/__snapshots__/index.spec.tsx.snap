@@ -166,10 +166,10 @@ exports[`should render badge prop correctly 1`] = `
   aria-controls="van-tab"
   data-allow-mismatch="attribute"
 >
-  <div class="van-badge__wrapper">
+  <div class="van-tab__title-wrap">
     <span class="van-tab__text van-tab__text--ellipsis">
     </span>
-    <div class="van-badge van-badge--top-right van-badge--fixed">
+    <div class="van-badge van-badge--top-right">
       10
     </div>
   </div>

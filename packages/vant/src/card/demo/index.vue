@@ -35,6 +35,14 @@ const t = useTranslate({
     noteRightAlign: '注释信息右对齐',
     btn1: '按钮一',
     btn2: '按钮二',
+    btn3: '按钮三',
+    btn4: '按钮四',
+    btn5: '按钮五',
+    outlineBtn1: '立即购买',
+    outlineBtn2: '查看详情',
+    outlineBtn3: '取消订单',
+    outlineBtn4: '确认提交',
+    outlineBtn5: '申请退款',
     action: '操作',
     titleActionBtn: '管理',
     selectable: '可选卡片',
@@ -79,6 +87,14 @@ const t = useTranslate({
     noteRightAlign: 'Right note',
     btn1: 'Action 1',
     btn2: 'Action 2',
+    btn3: 'Action 3',
+    btn4: 'Action 4',
+    btn5: 'Action 5',
+    outlineBtn1: 'Buy Now',
+    outlineBtn2: 'View Info',
+    outlineBtn3: 'Cancel',
+    outlineBtn4: 'Confirm',
+    outlineBtn5: 'Refund',
     action: 'Action',
     titleActionBtn: 'Manage',
     selectable: 'Selectable',
@@ -300,10 +316,9 @@ const fullSelected = ref(false);
       :footer-buttons="[
         { text: t('btn1'), name: 'a', color: 'var(--van-primary-color)' },
         { text: t('btn2'), name: 'b' },
-        { text: t('btn2'), name: 'b' },
-        { text: t('btn2'), name: 'b' },
-        { text: t('btn2'), name: 'b' },
-        { text: t('btn2'), name: 'b' },
+        { text: t('btn3'), name: 'c' },
+        { text: t('btn4'), name: 'd' },
+        { text: t('btn5'), name: 'e' },
       ]"
       footer-note-layout="center"
       :footer-note="t('subtitle')"
@@ -312,14 +327,24 @@ const fullSelected = ref(false);
     <van-card
       type="default"
       :title="t('title')"
+      content-type="text-list"
+      :content-items="[
+        { label: t('label'), value: t('value') },
+        { label: t('label'), value: t('value') },
+        { label: t('label'), value: t('value') },
+      ]"
       show-footer-buttons
       footer-button-type="outline"
       :footer-buttons="[
-        { text: t('btn1'), name: 'a', color: 'var(--van-success-color)' },
-        { text: t('btn2'), name: 'b' },
-        { text: t('btn1') },
-        { text: t('btn2'), color: 'var(--van-danger-color)' },
-        { text: t('btn1'), color: 'var(--van-success-color)' },
+        {
+          text: t('outlineBtn1'),
+          name: 'a',
+          color: 'var(--van-primary-color)',
+        },
+        { text: t('outlineBtn2'), name: 'b' },
+        { text: t('outlineBtn3'), name: 'c' },
+        { text: t('outlineBtn4'), name: 'd' },
+        { text: t('outlineBtn5'), name: 'e', color: 'var(--van-danger-color)' },
       ]"
       footer-note-layout="split"
       :footer-note-left="t('noteLeft')"
@@ -513,7 +538,7 @@ const fullSelected = ref(false);
   display: inline-flex;
   align-items: center;
   color: var(--van-danger-color);
-  font-size: var(--van-font-size-xs);
+  font-size: var(--van-font-size-sm);
   line-height: var(--van-line-height-sm);
   cursor: pointer;
 }
@@ -551,7 +576,7 @@ const fullSelected = ref(false);
 
   &__label {
     margin-top: var(--van-padding-base);
-    font-size: var(--van-font-size-xs);
+    font-size: var(--van-font-size-sm);
     line-height: var(--van-line-height-sm);
     color: var(--van-text-color-2);
   }
@@ -592,7 +617,7 @@ const fullSelected = ref(false);
   display: inline-flex;
   align-items: center;
   max-width: 100%;
-  font-size: var(--van-font-size-xs);
+  font-size: var(--van-font-size-sm);
   line-height: var(--van-line-height-sm);
   color: var(--van-text-color-2);
 
@@ -643,7 +668,7 @@ const fullSelected = ref(false);
 
   &__label {
     margin-top: var(--van-padding-base);
-    font-size: var(--van-font-size-xs);
+    font-size: var(--van-font-size-sm);
     line-height: var(--van-line-height-sm);
     color: var(--van-text-color-2);
   }

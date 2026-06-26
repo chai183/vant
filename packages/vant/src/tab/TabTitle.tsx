@@ -89,26 +89,27 @@ export const TabTitle = defineComponent({
         props.type !== 'divider',
     );
 
-    const renderText = () => {
-      const Text = (
-        <span class={bem('text', { ellipsis: shouldEllipsis.value })}>
-          {slots.title ? slots.title() : props.title}
-        </span>
-      );
+    const renderText = () => (
+      <span class={bem('text', { ellipsis: shouldEllipsis.value })}>
+        {slots.title ? slots.title() : props.title}
+      </span>
+    );
 
+    const renderTitle = () => {
       if (props.dot || (isDef(props.badge) && props.badge !== '')) {
         return (
-          <Badge
-            dot={props.dot}
-            content={props.badge}
-            showZero={props.showZeroBadge}
-          >
-            {Text}
-          </Badge>
+          <div class={bem('title-wrap')}>
+            {renderText()}
+            <Badge
+              dot={props.dot}
+              content={props.badge}
+              showZero={props.showZeroBadge}
+            />
+          </div>
         );
       }
 
-      return Text;
+      return renderText();
     };
 
     return () => (
@@ -133,7 +134,7 @@ export const TabTitle = defineComponent({
         aria-controls={props.controls}
         data-allow-mismatch="attribute"
       >
-        {renderText()}
+        {renderTitle()}
       </div>
     );
   },

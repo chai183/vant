@@ -1,10 +1,7 @@
 ---
 name: vant-theme-colors
 description: >-
-  Vant 颜色修改规范：使用 packages/vant/src/style/css-variables.less 中的
-  --van-* 主题变量，禁止硬编码语义色值。Use when modifying colors in .less,
-  .vue, .tsx, adding CSS variables, styling components, or replacing hex/rgb
-  color literals.
+  Vant 颜色修改规范：使用 packages/vant/src/style/css-variables.less 中的 --van-* 主题变量，禁止硬编码语义色值。Use when modifying colors in .less, .vue, .tsx, adding CSS variables, styling components, or replacing hex/rgb color literals.
 ---
 
 # Vant 主题色变量
@@ -15,19 +12,19 @@ description: >-
 
 ## 文字色映射（优先使用）
 
-| 语义 | CSS 变量 | 默认值 | 常见误用 |
-| --- | --- | --- | --- |
-| 主要文字 | `--van-text-color` | `#333` | `#333`、`#333333` |
+| 语义     | CSS 变量                     | 默认值 | 常见误用          |
+| -------- | ---------------------------- | ------ | ----------------- |
+| 主要文字 | `--van-text-color`           | `#333` | `#333`、`#333333` |
 | 次要文字 | `--van-text-color-secondary` | `#666` | `#666`、`#666666` |
-| 反显 | `--van-text-color-inverse` | `#777` | `#777`、`#777777` |
-| 辅助 | `--van-text-color-auxiliary` | `#999` | `#999`、`#999999` |
-| 禁用 | `--van-text-color-disabled` | `#ccc` | `#ccc`、`#cccccc` |
+| 反显     | `--van-text-color-inverse`   | `#777` | `#777`、`#777777` |
+| 辅助     | `--van-text-color-auxiliary` | `#999` | `#999`、`#999999` |
+| 禁用     | `--van-text-color-disabled`  | `#ccc` | `#ccc`、`#cccccc` |
 
 兼容旧写法（已有代码可保留，新代码优先用语义变量）：
 
-| 变量 | 说明 |
-| --- | --- |
-| `--van-text-color-2` | 次要文字（旧） |
+| 变量                 | 说明                            |
+| -------------------- | ------------------------------- |
+| `--van-text-color-2` | 次要文字（旧）                  |
 | `--van-text-color-3` | 更浅文字（旧，常用于 disabled） |
 
 ## 其它常用全局变量

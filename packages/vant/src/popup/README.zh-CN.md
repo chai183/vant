@@ -444,19 +444,20 @@ import type {
 
 组件提供了下列 CSS 变量，可用于自定义样式，使用方法请参考 [ConfigProvider 组件](#/zh-CN/config-provider)。
 
-| 名称                           | 默认值                               | 描述 |
-| ------------------------------ | ------------------------------------ | ---- |
-| --van-popup-background         | _var(--van-background-2)_            | -    |
-| --van-popup-transition         | _transform var(--van-duration-base)_ | -    |
-| --van-popup-round-radius       | _16px_                               | -    |
-| --van-popup-close-icon-size    | _22px_                               | -    |
-| --van-popup-close-icon-color   | _var(--van-gray-5)_                  | -    |
-| --van-popup-close-icon-margin  | _16px_                               | -    |
-| --van-popup-close-icon-z-index | _1_                                  | -    |
-| --van-popup-title-font-size    | _16px_                               | -    |
-| --van-popup-title-color        | _#333333_                            | -    |
-| --van-popup-title-line-height  | _22px_                               | -    |
-| --van-popup-title-padding-top  | _var(--van-popup-close-icon-margin)_ | -    |
-| --van-popup-action-font-size   | _16px_                               | -    |
-| --van-popup-cancel-color       | _#999999_                            | -    |
-| --van-popup-confirm-color      | _var(--van-primary-color)_           | -    |
+| 名称 | 默认值 | 描述 |
+| --- | --- | --- |
+| --van-popup-background | _var(--van-background-2)_ | - |
+| --van-popup-transition | _transform var(--van-duration-base)_ | - |
+| --van-popup-round-radius | _16px_ | - |
+| --van-popup-close-icon-size | _22px_ | - |
+| --van-popup-close-icon-color | _var(--van-gray-5)_ | - |
+| --van-popup-close-icon-margin | _16px_ | - |
+| --van-popup-close-icon-z-index | _1_ | - |
+| --van-popup-title-font-size | _16px_ | - |
+| --van-popup-title-color | _#333333_ | - |
+| --van-popup-title-line-height | _16px_ | - |
+| --van-popup-header-padding-vertical | _16px_ | 标题栏上下内边距 |
+| --van-popup-header-padding-horizontal | _12px_ | 标题栏左右内边距 |
+| --van-popup-action-font-size | _16px_ | - |
+| --van-popup-cancel-color | _#999999_ | - |
+| --van-popup-confirm-color | _var(--van-primary-color)_ | - |

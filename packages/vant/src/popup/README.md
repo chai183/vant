@@ -453,8 +453,9 @@ The component provides the following CSS variables, which can be used to customi
 | --van-popup-close-icon-z-index | _1_ | - |
 | --van-popup-title-font-size | _16px_ | - |
 | --van-popup-title-color | _#333333_ | - |
-| --van-popup-title-line-height | _22px_ | - |
-| --van-popup-title-padding-top | _var(--van-popup-close-icon-margin)_ | - |
+| --van-popup-title-line-height | _16px_ | - |
+| --van-popup-header-padding-vertical | _16px_ | Title bar vertical padding |
+| --van-popup-header-padding-horizontal | _12px_ | Title bar horizontal padding |
 | --van-popup-action-font-size | _16px_ | - |
 | --van-popup-cancel-color | _#999999_ | - |
 | --van-popup-confirm-color | _var(--van-primary-color)_ | - |

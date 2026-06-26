@@ -183,7 +183,9 @@ const columns = computed(() => [
       'popup-bottom': () => (
         <div class="demo-pro-form__popup-bottom van-hairline--top">
           <Button block>次要操作</Button>
-          <Button block type="primary">主要操作</Button>
+          <Button block type="primary">
+            主要操作
+          </Button>
         </div>
       ),
     },
@@ -252,7 +254,9 @@ const columns = computed(() => [
       'popup-bottom': () => (
         <div class="demo-pro-form__popup-bottom van-hairline--top">
           <Button block>次要操作</Button>
-          <Button block type="primary">主要操作</Button>
+          <Button block type="primary">
+            主要操作
+          </Button>
         </div>
       ),
     },
@@ -335,11 +339,13 @@ const columns = computed(() => [
     component: 'rangeInput',
     defaultValue: ['', ''],
     fieldProps: {
-      rules: [{
-        required: true,
-        message: '请输入',
-        validator: (value) => value[0] !== '' && value[1] !== '',
-      }],
+      rules: [
+        {
+          required: true,
+          message: '请输入',
+          validator: (value) => value[0] !== '' && value[1] !== '',
+        },
+      ],
     },
     componentProps: {
       layout: 'vertical',
@@ -451,9 +457,7 @@ const columns = computed(() => [
     fieldProps: { labelAlign: 'top' },
     componentProps: { maxCount: 2 },
     fieldSlots: {
-      'label-comment': () => (
-        <div>支持 jpg、png 格式，单张不超过 2MB</div>
-      ),
+      'label-comment': () => <div>支持 jpg、png 格式，单张不超过 2MB</div>,
     },
   },
   {
@@ -477,8 +481,8 @@ const columns = computed(() => [
     fieldSlots: {
       'label-comment': () => (
         <div>
-          所上传格式支持 DOC/PPT/XLS/VSD/POT 等
-          所上传文件大小控制在 20M 以内，支持批量上传
+          所上传格式支持 DOC/PPT/XLS/VSD/POT 等 所上传文件大小控制在 20M
+          以内，支持批量上传
         </div>
       ),
     },
@@ -606,10 +610,10 @@ const columns = computed(() => [
 
 与 [Form](/#/zh-CN/form) 一致：
 
-| 事件名 | 说明 | 回调参数 |
-| --- | --- | --- |
+| 事件名 | 说明           | 回调参数                            |
+| ------ | -------------- | ----------------------------------- |
 | submit | 校验通过并提交 | _values: Record\<string, unknown\>_ |
-| failed | 校验失败 | _{ values, errors }_ |
+| failed | 校验失败       | _{ values, errors }_                |
 
 ### Slots
 
@@ -632,7 +636,7 @@ const columns = computed(() => [
 
 组件提供了下列 CSS 变量，可用于自定义样式，使用方法请参考 [ConfigProvider 组件](#/zh-CN/config-provider)。
 
-| 名称 | 默认值 | 描述 |
-| --- | --- | --- |
-| --van-pro-form-footer-padding | _0_ | 表单底部区域内边距 |
+| 名称                                       | 默认值 | 描述               |
+| ------------------------------------------ | ------ | ------------------ |
+| --van-pro-form-footer-padding              | _0_    | 表单底部区域内边距 |
 | --van-pro-form-field-popup-body-max-height | _70vh_ | 弹窗内容区最大高度 |

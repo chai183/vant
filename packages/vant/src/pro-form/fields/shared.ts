@@ -14,10 +14,7 @@ export function getFormFieldOptions(
   return options ?? [];
 }
 
-export function resolveOptionLabel(
-  options: ProFormOption[],
-  value: unknown,
-) {
+export function resolveOptionLabel(options: ProFormOption[], value: unknown) {
   return options.find((opt) => opt.value === value)?.label ?? String(value);
 }
 
@@ -151,11 +148,9 @@ export function resolveFieldPopupProps(
     }
   } else if (options.confirmable) {
     popupHeaderProps.cancelButtonText =
-      (componentProps.cancelText as string | undefined) ??
-      popupT('cancel');
+      (componentProps.cancelText as string | undefined) ?? popupT('cancel');
     popupHeaderProps.confirmButtonText =
-      (componentProps.confirmText as string | undefined) ??
-      popupT('confirm');
+      (componentProps.confirmText as string | undefined) ?? popupT('confirm');
   } else if (enableClear && options.showClear) {
     popupHeaderProps.cancelButtonText =
       (componentProps.deleteText as string | undefined) ??

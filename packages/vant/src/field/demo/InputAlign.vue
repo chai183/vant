@@ -21,11 +21,7 @@ const value = ref('');
 <template>
   <demo-block :title="t('inputAlign')">
     <van-cell-group inset>
-      <van-field
-        v-model="value"
-        :label="t('text')"
-        input-align="right"
-      />
+      <van-field v-model="value" :label="t('text')" input-align="right" />
     </van-cell-group>
   </demo-block>
 </template>

@@ -70,7 +70,7 @@ export default {
 ```html
 <van-field-money v-model="value" label="转账金额" placeholder="请输入转账金额">
   <template #input-comment>
-  <span>插槽：可放费率、到账时间等说明</span>
+    <span>插槽：可放费率、到账时间等说明</span>
   </template>
 </van-field-money>
 ```
@@ -97,8 +97,8 @@ export default {
 
 ### Events
 
-| 事件名 | 说明 | 回调参数 |
-| --- | --- | --- |
+| 事件名             | 说明               | 回调参数                  |
+| ------------------ | ------------------ | ------------------------- |
 | update:model-value | 输入内容变化时触发 | _value: number \| string_ |
 
 > 其余 [Field 事件](#/zh-CN/field#events)（如 `focus`、`blur`）可通过在组件上监听同名事件使用。

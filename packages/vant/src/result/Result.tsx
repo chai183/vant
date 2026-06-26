@@ -18,10 +18,7 @@ import { Icon } from '../icon';
 import { Button } from '../button';
 
 // Types
-import type {
-  ResultStatus,
-  ResultButtonLayout,
-} from './types';
+import type { ResultStatus, ResultButtonLayout } from './types';
 
 const [name, bem] = createNamespace('result');
 
@@ -32,13 +29,12 @@ const STATUS_ICON_MAP: Record<ResultStatus, string> = {
   success: 'checked',
 };
 
-const DEFAULT_BUTTON_LAYOUT: Record<ResultStatus, ResultButtonLayout> =
-  {
-    waiting: 'horizontal',
-    fail: 'vertical',
-    warning: 'hybrid',
-    success: 'vertical',
-  };
+const DEFAULT_BUTTON_LAYOUT: Record<ResultStatus, ResultButtonLayout> = {
+  waiting: 'horizontal',
+  fail: 'vertical',
+  warning: 'hybrid',
+  success: 'vertical',
+};
 
 export const resultProps = {
   status: makeStringProp<ResultStatus>('success'),
@@ -67,11 +63,7 @@ export default defineComponent({
 
   props: resultProps,
 
-  emits: [
-    'clickMainButton',
-    'clickSecondaryButton',
-    'clickSecondaryButton2',
-  ],
+  emits: ['clickMainButton', 'clickSecondaryButton', 'clickSecondaryButton2'],
 
   setup(props, { slots, emit }) {
     const resolvedButtonLayout = computed(
@@ -107,10 +99,7 @@ export default defineComponent({
     );
 
     const getActionsClass = (layout: ResultButtonLayout) =>
-      bem('actions', [
-        layout,
-        showSingleButtonCenter.value && 'single-center',
-      ]);
+      bem('actions', [layout, showSingleButtonCenter.value && 'single-center']);
 
     const renderIcon = () => {
       if (slots.icon) {
@@ -189,7 +178,8 @@ export default defineComponent({
         index === 1
           ? props.secondaryButtonLoading
           : props.secondaryButtonLoading2;
-      const hasButton = index === 1 ? hasSecondaryButton() : hasSecondaryButton2();
+      const hasButton =
+        index === 1 ? hasSecondaryButton() : hasSecondaryButton2();
 
       if (!hasButton) {
         return null;
@@ -205,7 +195,7 @@ export default defineComponent({
         <Button
           round
           plain
-          type='primary'
+          type="primary"
           class={bem('action', 'secondary')}
           disabled={disabled}
           loading={loading}

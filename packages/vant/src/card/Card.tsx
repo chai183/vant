@@ -74,6 +74,9 @@ export const cardProps = {
   showFooterButtons: Boolean,
   footerButtonType: makeStringProp<CardFooterButtonType>('text'), // text | outline
   footerButtons: Array as PropType<CardFooterButton[]>,
+  footerOutlineMax: makeNumberProp(3),
+  footerOutlineMoreText: makeStringProp('更多'),
+  footerOutlineCollapseText: makeStringProp('收起'),
   footerNoteLayout: String as PropType<CardFooterNoteLayout>, // center | split | left
   footerNoteLeft: String,
   footerNoteRight: String,
@@ -256,6 +259,9 @@ export default defineComponent({
         showButtons={props.showFooterButtons}
         buttonType={props.footerButtonType}
         buttons={props.footerButtons}
+        outlineMax={props.footerOutlineMax}
+        outlineMoreText={props.footerOutlineMoreText}
+        outlineCollapseText={props.footerOutlineCollapseText}
         noteLayout={props.footerNoteLayout}
         noteLeft={props.footerNoteLeft}
         noteRight={props.footerNoteRight}

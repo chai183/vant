@@ -25,16 +25,8 @@ const username = ref('');
 <template>
   <demo-block :title="t('required')">
     <van-cell-group inset>
-      <van-field
-        v-model="username"
-        required
-        :label="t('username')"
-      />
-      <van-field
-        v-model="phone"
-        required
-        :label="t('phone')"
-      />
+      <van-field v-model="username" required :label="t('username')" />
+      <van-field v-model="phone" required :label="t('phone')" />
     </van-cell-group>
   </demo-block>
 

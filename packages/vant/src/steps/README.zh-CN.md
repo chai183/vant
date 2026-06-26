@@ -189,22 +189,28 @@ import type { StepStatus } from 'vant';
 
 | 名称 | 默认值 | 描述 |
 | --- | --- | --- |
-| --van-step-text-color | _var(--van-text-color)_ | 步骤文字颜色 |
-| --van-step-description-color | _var(--van-gray-7)_ | 辅助文字颜色 |
+| --van-step-text-color | _#333333_ | 步骤文字颜色 |
+| --van-step-description-color | _#666666_ | 辅助文字颜色 |
 | --van-step-active-color | _var(--van-primary-color)_ | 激活/完成颜色 |
 | --van-step-process-text-color | _var(--van-primary-color)_ | 当前步骤文字颜色 |
 | --van-step-font-size | _var(--van-font-size-sm)_ | 步骤字号 |
 | --van-step-line-color | _var(--van-border-color)_ | 连接线颜色 |
 | --van-step-finish-line-color | _var(--van-primary-color)_ | 已完成连接线颜色 |
-| --van-step-finish-text-color | _var(--van-text-color)_ | 已完成文字颜色 |
+| --van-step-finish-text-color | _#333333_ | 已完成文字颜色 |
 | --van-step-icon-size | _12px_ | 图标大小 |
 | --van-step-circle-number-size | _16px_ | 数字圆圈大小 |
 | --van-step-waiting-circle-bg | _#dddddd_ | 等待状态圆圈背景 |
 | --van-step-waiting-circle-color | _#999999_ | 等待状态数字颜色 |
 | --van-step-error-color | _#ff3333_ | 异常状态颜色 |
 | --van-step-horizontal-title-font-size | _var(--van-font-size-sm)_ | 横向步骤字号 |
+| --van-step-horizontal-title-line-height | _12px_ | 横向步骤标题行高 |
 | --van-step-vertical-title-font-size | _var(--van-font-size-md)_ | 竖向步骤字号 |
+| --van-step-vertical-strip-width | _36px_ | 竖向步骤条条形区域宽度（内容文字距左侧） |
+| --van-step-vertical-content-gap | _8px_ | 竖向步骤文字与圆形图标间距 |
 | --van-steps-background | _var(--van-background-2)_ | 步骤条背景 |
+| --van-steps-horizontal-padding-top | _24px_ | 横向步骤条上内边距 |
+| --van-steps-horizontal-padding-bottom | _24px_ | 横向步骤条下内边距（无辅助文字） |
+| --van-steps-horizontal-padding-bottom-with-desc | _16px_ | 横向步骤条下内边距（有辅助文字） |
 | --van-steps-collapse-height | _40px_ | 折叠栏高度 |
 | --van-steps-collapse-font-size | _var(--van-font-size-md)_ | 折叠栏字号 |
 

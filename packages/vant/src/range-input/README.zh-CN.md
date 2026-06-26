@@ -148,11 +148,7 @@ TSX 写法：
 
 ```html
 <van-cell-group inset>
-  <van-range-input
-    v-model="range"
-    layout="vertical"
-    show-date-shortcuts
-  >
+  <van-range-input v-model="range" layout="vertical" show-date-shortcuts>
     <template #start>
       <van-field input-border is-link readonly placeholder="点击选择时间" />
     </template>

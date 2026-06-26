@@ -176,7 +176,9 @@ const columns = computed(() => [
       'popup-bottom': () => (
         <div class="demo-pro-form__popup-bottom van-hairline--top">
           <Button block>Secondary Action</Button>
-          <Button block type="primary">Primary Action</Button>
+          <Button block type="primary">
+            Primary Action
+          </Button>
         </div>
       ),
     },
@@ -245,7 +247,9 @@ const columns = computed(() => [
       'popup-bottom': () => (
         <div class="demo-pro-form__popup-bottom van-hairline--top">
           <Button block>Secondary Action</Button>
-          <Button block type="primary">Primary Action</Button>
+          <Button block type="primary">
+            Primary Action
+          </Button>
         </div>
       ),
     },
@@ -324,11 +328,13 @@ const columns = computed(() => [
     component: 'rangeInput',
     defaultValue: ['', ''],
     fieldProps: {
-      rules: [{
-        required: true,
-        message: 'Please enter',
-        validator: (value) => value[0] !== '' && value[1] !== '',
-      }],
+      rules: [
+        {
+          required: true,
+          message: 'Please enter',
+          validator: (value) => value[0] !== '' && value[1] !== '',
+        },
+      ],
     },
     componentProps: {
       layout: 'vertical',
@@ -464,8 +470,8 @@ const columns = computed(() => [
     fieldSlots: {
       'label-comment': () => (
         <div>
-          Supported formats: DOC, PPT, XLS, VSD, POT, etc.
-          Max file size 20MB. Batch upload supported.
+          Supported formats: DOC, PPT, XLS, VSD, POT, etc. Max file size 20MB.
+          Batch upload supported.
         </div>
       ),
     },
@@ -522,14 +528,14 @@ const columns = computed(() => [
 
 Inherits [Form](/#/en-US/form) props, events, and methods.
 
-| Prop | Description | Type | Default |
-| --- | --- | --- | --- |
-| columns | Field schema | _ProFormColumn[]_ | `[]` |
-| model-value | Form data (`v-model`) | _Record<string, unknown>_ | - |
-| components | Custom component map | _ProFormComponentMap_ | `{}` |
-| inset | Inset CellGroup style | _boolean_ | `false` |
-| show-submit | Show submit button | _boolean_ | `true` |
-| submit-text | Submit button text | _string_ | `Submit` |
+| Prop        | Description           | Type                      | Default  |
+| ----------- | --------------------- | ------------------------- | -------- |
+| columns     | Field schema          | _ProFormColumn[]_         | `[]`     |
+| model-value | Form data (`v-model`) | _Record<string, unknown>_ | -        |
+| components  | Custom component map  | _ProFormComponentMap_     | `{}`     |
+| inset       | Inset CellGroup style | _boolean_                 | `false`  |
+| show-submit | Show submit button    | _boolean_                 | `true`   |
+| submit-text | Submit button text    | _string_                  | `Submit` |
 
 ### Built-in `component` values
 
@@ -539,9 +545,9 @@ See [Chinese documentation](./README.zh-CN.md) for default values per component 
 
 ### Events
 
-| Event | Description | Arguments |
-| --- | --- | --- |
-| submit | Validation passed | _values_ |
+| Event  | Description       | Arguments            |
+| ------ | ----------------- | -------------------- |
+| submit | Validation passed | _values_             |
 | failed | Validation failed | _{ values, errors }_ |
 
 ### Slots

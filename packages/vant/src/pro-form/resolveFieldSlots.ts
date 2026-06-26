@@ -36,9 +36,7 @@ export type ProFormPopupSlots = Partial<
   Record<ProFormPopupSlotName, ProFormFieldSlot>
 >;
 
-type ProFormColumnFieldSlotRender = (
-  ctx: ProFormRenderContext,
-) => VNodeChild;
+type ProFormColumnFieldSlotRender = (ctx: ProFormRenderContext) => VNodeChild;
 
 function normalizeColumnFieldSlot(
   slot: ProFormColumnFieldSlot,

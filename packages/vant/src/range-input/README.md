@@ -123,8 +123,7 @@ export default {
     const range = ref(['', '']);
     const renderStart = () =>
       h(Field, { inputBorder: true, placeholder: 'Start' });
-    const renderEnd = () =>
-      h(Field, { inputBorder: true, placeholder: 'End' });
+    const renderEnd = () => h(Field, { inputBorder: true, placeholder: 'End' });
 
     return { range, renderStart, renderEnd };
   },
@@ -148,11 +147,7 @@ Set `show-date-shortcuts` to show built-in options (last week / last month / las
 
 ```html
 <van-cell-group inset>
-  <van-range-input
-    v-model="range"
-    layout="vertical"
-    show-date-shortcuts
-  >
+  <van-range-input v-model="range" layout="vertical" show-date-shortcuts>
     <template #start>
       <van-field input-border is-link readonly placeholder="Select time" />
     </template>

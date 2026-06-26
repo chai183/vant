@@ -80,17 +80,13 @@ function buildDefaultModel(columns: ProFormColumn[]) {
       return model;
     }
     model[column.name] =
-      column.defaultValue ??
-      getDefaultValueByComponent(column.component ?? '');
+      column.defaultValue ?? getDefaultValueByComponent(column.component ?? '');
     return model;
   }, {});
 }
 
 /** hidden 支持布尔值或函数，函数形式可基于当前 model 做联动显隐 */
-function isColumnHidden(
-  column: ProFormColumn,
-  model: Record<string, unknown>,
-) {
+function isColumnHidden(column: ProFormColumn, model: Record<string, unknown>) {
   const { hidden } = column;
   if (typeof hidden === 'function') {
     return hidden(model);
@@ -345,14 +341,12 @@ export default defineComponent({
 
     useExpose<FormExpose>({
       submit: () => formRef.value?.submit(),
-      validate: (name) =>
-        formRef.value?.validate(name) ?? Promise.resolve(),
+      validate: (name) => formRef.value?.validate(name) ?? Promise.resolve(),
       getValues: () => mergeFormValues(formRef.value?.getValues() ?? {}),
       scrollToField: (name, options) =>
         formRef.value?.scrollToField(name, options),
       resetValidation: (name) => formRef.value?.resetValidation(name),
-      getValidationStatus: () =>
-        formRef.value?.getValidationStatus() ?? {},
+      getValidationStatus: () => formRef.value?.getValidationStatus() ?? {},
     });
 
     return () => {

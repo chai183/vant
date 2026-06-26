@@ -263,8 +263,7 @@ const onSelect = (action: { text: string }) => showToast(action.text);
   <demo-block :title="t('textMode')">
     <van-popover
       v-model:show="show.textMode"
-      width="100"
-      background="#000000"
+      background="rgba(0, 0, 0, 0.8)"
       :message="t('textMessage')"
       placement="top"
       text-mode

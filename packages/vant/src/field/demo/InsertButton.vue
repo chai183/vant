@@ -24,12 +24,7 @@ const sms = ref('');
 <template>
   <demo-block :title="t('insertButton')">
     <van-cell-group inset>
-      <van-field
-        v-model="sms"
-        center
-        clearable
-        :label="t('sms')"
-      >
+      <van-field v-model="sms" center clearable :label="t('sms')">
         <template #button>
           <van-button size="small" type="primary">
             {{ t('sendSMS') }}

@@ -12,10 +12,7 @@ import ProFormFieldChildrenField from './fields/ProFormFieldChildrenField';
 import ProFormUploaderFileField from './fields/ProFormUploaderFileField';
 import type { ProFormColumn } from './types';
 import type { FieldProps } from '../field/Field';
-import type {
-  ProFormFieldSlots,
-  ProFormPopupSlots,
-} from './resolveFieldSlots';
+import type { ProFormFieldSlots, ProFormPopupSlots } from './resolveFieldSlots';
 import {
   mergeBuiltinFieldComponentProps,
   resolveFormDisabled,
@@ -36,8 +33,16 @@ export type BuiltinFieldRenderContext = {
 export function renderBuiltinField(
   ctx: BuiltinFieldRenderContext,
 ): JSX.Element | null {
-  const { column, value, setValue, fieldProps, fieldSlots, popupSlots, formDisabled, formReadonly } =
-    ctx;
+  const {
+    column,
+    value,
+    setValue,
+    fieldProps,
+    fieldSlots,
+    popupSlots,
+    formDisabled,
+    formReadonly,
+  } = ctx;
   const disabled = resolveFormDisabled(
     formDisabled,
     fieldProps,

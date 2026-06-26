@@ -52,31 +52,11 @@ const ukey = ref('');
   <demo-block :title="t('customType')">
     <van-cell-group inset>
       <van-form>
-        <van-field
-          v-model="text"
-          :label="t('text')"
-          autocomplete="off"
-        />
-        <van-field
-          v-model="phone"
-          type="tel"
-          :label="t('phone')"
-        />
-        <van-field
-          v-model="digit"
-          type="digit"
-          :label="t('digit')"
-        />
-        <van-field
-          v-model="number"
-          type="number"
-          :label="t('number')"
-        />
-        <van-field
-          v-model="money"
-          type="money"
-          :label="t('money')"
-        />
+        <van-field v-model="text" :label="t('text')" autocomplete="off" />
+        <van-field v-model="phone" type="tel" :label="t('phone')" />
+        <van-field v-model="digit" type="digit" :label="t('digit')" />
+        <van-field v-model="number" type="number" :label="t('number')" />
+        <van-field v-model="money" type="money" :label="t('money')" />
         <van-field
           v-model="moneyNoCurrency"
           type="money"

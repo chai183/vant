@@ -27,11 +27,7 @@ const formatter = (value: string) => value.replace(/\d/g, '');
 <template>
   <demo-block :title="t('formatValue')">
     <van-cell-group inset>
-      <van-field
-        v-model="value1"
-        :label="t('text')"
-        :formatter="formatter"
-      />
+      <van-field v-model="value1" :label="t('text')" :formatter="formatter" />
       <van-field
         v-model="value2"
         :label="t('text')"

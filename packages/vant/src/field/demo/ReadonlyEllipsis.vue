@@ -8,11 +8,14 @@ const t = useTranslate({
     readonlyEllipsisOverflow: '超出省略',
     readonlyEllipsisNoOverflow: '未超出',
     readonlyLabel: '收货地址',
-    readonlyValue:
-      '上海市浦东新区张江高科技园区科苑路88号张江大厦12层1201室',
+    readonlyValue: '上海市浦东新区张江高科技园区科苑路88号张江大厦12层1201室',
     readonlyShortValue: '上海市浦东新区',
     readonlyTagsLabel: '已选标签',
-    readonlyTagsValue: ['设计设计设计设计设计设设计设计设计设计设计设', '交互', '前端'],
+    readonlyTagsValue: [
+      '设计设计设计设计设计设设计设计设计设计设计设',
+      '交互',
+      '前端',
+    ],
     readonlyTagsSeparatorLabel: '分隔符展示',
     readonlyTagsSeparatorValue: ['设计', '交互', '前端'],
     readonlyShortTagsValue: ['设计', '交互', '前端'],

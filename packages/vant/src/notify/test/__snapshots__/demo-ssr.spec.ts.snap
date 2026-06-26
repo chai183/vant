@@ -5,7 +5,7 @@ exports[`should render demo and match snapshot 1`] = `
 <div>
   <!--[-->
   <div
-    class="van-cell van-cell--clickable"
+    class="van-cell van-cell--center van-cell--clickable"
     role="button"
     tabindex="0"
   >
@@ -14,7 +14,27 @@ exports[`should render demo and match snapshot 1`] = `
       style
     >
       <span>
-        Basic Usage
+        Auto dismiss (3s)
+      </span>
+    </div>
+    <i
+      class="van-badge__wrapper van-icon van-icon-arrow van-cell__right-icon"
+      style
+    >
+      <!--[-->
+    </i>
+  </div>
+  <div
+    class="van-cell van-cell--center van-cell--clickable"
+    role="button"
+    tabindex="0"
+  >
+    <div
+      class="van-cell__title"
+      style
+    >
+      <span>
+        Persistent
       </span>
     </div>
     <i
@@ -28,7 +48,7 @@ exports[`should render demo and match snapshot 1`] = `
 <div>
   <!--[-->
   <div
-    class="van-cell van-cell--clickable"
+    class="van-cell van-cell--center van-cell--clickable"
     role="button"
     tabindex="0"
   >
@@ -37,7 +57,30 @@ exports[`should render demo and match snapshot 1`] = `
       style
     >
       <span>
-        Primary
+        Scroll
+      </span>
+    </div>
+    <i
+      class="van-badge__wrapper van-icon van-icon-arrow van-cell__right-icon"
+      style
+    >
+      <!--[-->
+    </i>
+  </div>
+</div>
+<div>
+  <!--[-->
+  <div
+    class="van-cell van-cell--center van-cell--clickable"
+    role="button"
+    tabindex="0"
+  >
+    <div
+      class="van-cell__title"
+      style
+    >
+      <span>
+        Text button
       </span>
     </div>
     <i
@@ -48,7 +91,136 @@ exports[`should render demo and match snapshot 1`] = `
     </i>
   </div>
   <div
-    class="van-cell van-cell--clickable"
+    class="van-cell van-cell--center van-cell--clickable"
+    role="button"
+    tabindex="0"
+  >
+    <div
+      class="van-cell__title"
+      style
+    >
+      <span>
+        Text button（多行）
+      </span>
+    </div>
+    <i
+      class="van-badge__wrapper van-icon van-icon-arrow van-cell__right-icon"
+      style
+    >
+      <!--[-->
+    </i>
+  </div>
+</div>
+<div>
+  <!--[-->
+  <div
+    class="van-cell van-cell--center van-cell--clickable"
+    role="button"
+    tabindex="0"
+  >
+    <div
+      class="van-cell__title"
+      style
+    >
+      <span>
+        With icon
+      </span>
+    </div>
+    <i
+      class="van-badge__wrapper van-icon van-icon-arrow van-cell__right-icon"
+      style
+    >
+      <!--[-->
+    </i>
+  </div>
+</div>
+<div>
+  <!--[-->
+  <div
+    class="van-cell van-cell--center van-cell--clickable"
+    role="button"
+    tabindex="0"
+  >
+    <div
+      class="van-cell__title"
+      style
+    >
+      <span>
+        Strong button
+      </span>
+    </div>
+    <i
+      class="van-badge__wrapper van-icon van-icon-arrow van-cell__right-icon"
+      style
+    >
+      <!--[-->
+    </i>
+  </div>
+  <div
+    class="van-cell van-cell--center van-cell--clickable"
+    role="button"
+    tabindex="0"
+  >
+    <div
+      class="van-cell__title"
+      style
+    >
+      <span>
+        Strong button（多行）
+      </span>
+    </div>
+    <i
+      class="van-badge__wrapper van-icon van-icon-arrow van-cell__right-icon"
+      style
+    >
+      <!--[-->
+    </i>
+  </div>
+  <div
+    class="van-cell van-cell--center van-cell--clickable"
+    role="button"
+    tabindex="0"
+  >
+    <div
+      class="van-cell__title"
+      style
+    >
+      <span>
+        Button 4-char limit
+      </span>
+    </div>
+    <i
+      class="van-badge__wrapper van-icon van-icon-arrow van-cell__right-icon"
+      style
+    >
+      <!--[-->
+    </i>
+  </div>
+</div>
+<div>
+  <!--[-->
+  <div
+    class="van-cell van-cell--center van-cell--clickable"
+    role="button"
+    tabindex="0"
+  >
+    <div
+      class="van-cell__title"
+      style
+    >
+      <span>
+        Warning
+      </span>
+    </div>
+    <i
+      class="van-badge__wrapper van-icon van-icon-arrow van-cell__right-icon"
+      style
+    >
+      <!--[-->
+    </i>
+  </div>
+  <div
+    class="van-cell van-cell--center van-cell--clickable"
     role="button"
     tabindex="0"
   >
@@ -68,7 +240,7 @@ exports[`should render demo and match snapshot 1`] = `
     </i>
   </div>
   <div
-    class="van-cell van-cell--clickable"
+    class="van-cell van-cell--center van-cell--clickable"
     role="button"
     tabindex="0"
   >
@@ -88,7 +260,7 @@ exports[`should render demo and match snapshot 1`] = `
     </i>
   </div>
   <div
-    class="van-cell van-cell--clickable"
+    class="van-cell van-cell--center van-cell--clickable"
     role="button"
     tabindex="0"
   >
@@ -97,7 +269,7 @@ exports[`should render demo and match snapshot 1`] = `
       style
     >
       <span>
-        Warning
+        Primary
       </span>
     </div>
     <i
@@ -111,7 +283,7 @@ exports[`should render demo and match snapshot 1`] = `
 <div>
   <!--[-->
   <div
-    class="van-cell van-cell--clickable"
+    class="van-cell van-cell--center van-cell--clickable"
     role="button"
     tabindex="0"
   >
@@ -120,7 +292,30 @@ exports[`should render demo and match snapshot 1`] = `
       style
     >
       <span>
-        Custom Color
+        Plain text
+      </span>
+    </div>
+    <i
+      class="van-badge__wrapper van-icon van-icon-arrow van-cell__right-icon"
+      style
+    >
+      <!--[-->
+    </i>
+  </div>
+</div>
+<div>
+  <!--[-->
+  <div
+    class="van-cell van-cell--center van-cell--clickable"
+    role="button"
+    tabindex="0"
+  >
+    <div
+      class="van-cell__title"
+      style
+    >
+      <span>
+        Closeable
       </span>
     </div>
     <i
@@ -131,7 +326,50 @@ exports[`should render demo and match snapshot 1`] = `
     </i>
   </div>
   <div
-    class="van-cell van-cell--clickable"
+    class="van-cell van-cell--center van-cell--clickable"
+    role="button"
+    tabindex="0"
+  >
+    <div
+      class="van-cell__title"
+      style
+    >
+      <span>
+        Closeable（多行）
+      </span>
+    </div>
+    <i
+      class="van-badge__wrapper van-icon van-icon-arrow van-cell__right-icon"
+      style
+    >
+      <!--[-->
+    </i>
+  </div>
+</div>
+<div>
+  <!--[-->
+  <div
+    class="van-cell van-cell--center van-cell--clickable"
+    role="button"
+    tabindex="0"
+  >
+    <div
+      class="van-cell__title"
+      style
+    >
+      <span>
+        Custom
+      </span>
+    </div>
+    <i
+      class="van-badge__wrapper van-icon van-icon-arrow van-cell__right-icon"
+      style
+    >
+      <!--[-->
+    </i>
+  </div>
+  <div
+    class="van-cell van-cell--center van-cell--clickable"
     role="button"
     tabindex="0"
   >
@@ -151,7 +389,7 @@ exports[`should render demo and match snapshot 1`] = `
     </i>
   </div>
   <div
-    class="van-cell van-cell--clickable"
+    class="van-cell van-cell--center van-cell--clickable"
     role="button"
     tabindex="0"
   >
@@ -174,7 +412,7 @@ exports[`should render demo and match snapshot 1`] = `
 <div>
   <!--[-->
   <div
-    class="van-cell van-cell--clickable"
+    class="van-cell van-cell--center van-cell--clickable"
     role="button"
     tabindex="0"
   >

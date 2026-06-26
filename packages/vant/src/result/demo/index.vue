@@ -181,7 +181,11 @@ const onSecondary2 = () => {
   </demo-block>
 
   <demo-block :title="t('success')">
-    <van-result status="success" :title="t('successTitle')" :description="t('note')">
+    <van-result
+      status="success"
+      :title="t('successTitle')"
+      :description="t('note')"
+    >
       <div class="result-demo__amount">
         <div class="result-demo__amount-value">{{ t('amount') }}</div>
         <div class="result-demo__amount-caption">

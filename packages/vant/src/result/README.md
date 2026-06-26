@@ -195,25 +195,25 @@ The success state usually hides buttons. You can add amount, detail list, and ot
 
 ### Slots
 
-| Name | Description |
-| --- | --- |
-| default | Custom content below the icon and title |
-| icon | Custom result icon |
-| title | Custom title |
-| description | Custom remark |
-| main-button | Custom primary button |
-| secondary-button | Custom first secondary button |
-| secondary-button-2 | Custom second secondary button |
-| footer | Bottom extension area, such as a detail list |
+| Name               | Description                                  |
+| ------------------ | -------------------------------------------- |
+| default            | Custom content below the icon and title      |
+| icon               | Custom result icon                           |
+| title              | Custom title                                 |
+| description        | Custom remark                                |
+| main-button        | Custom primary button                        |
+| secondary-button   | Custom first secondary button                |
+| secondary-button-2 | Custom second secondary button               |
+| footer             | Bottom extension area, such as a detail list |
 
 ### Default Button Layout
 
-| status | Default button-layout |
-| --- | --- |
-| waiting | horizontal |
-| fail | vertical |
-| warning | hybrid |
-| success | vertical |
+| status  | Default button-layout |
+| ------- | --------------------- |
+| waiting | horizontal            |
+| fail    | vertical              |
+| warning | hybrid                |
+| success | vertical              |
 
 ### Types
 

@@ -179,7 +179,11 @@ Use `column-separator` to display characters between columns. Pass a string to u
 
 ```html
 <van-picker title="Title" :columns="columns" column-separator=":" />
-<van-picker title="Title" :columns="dateColumns" :column-separator="['/', '/']" />
+<van-picker
+  title="Title"
+  :columns="dateColumns"
+  :column-separator="['/', '/']"
+/>
 ```
 
 ```js

@@ -102,3 +102,17 @@ test('should render message slot correctly', async () => {
   await later();
   expect(wrapper.html()).toMatchSnapshot();
 });
+
+test('should change max width when using max-width prop', async () => {
+  const wrapper = mount(Toast, {
+    props: {
+      show: true,
+      maxWidth: 200,
+    },
+  });
+
+  await later();
+  expect(
+    wrapper.find('.van-toast').style.getPropertyValue('--van-toast-max-width'),
+  ).toEqual('200px');
+});

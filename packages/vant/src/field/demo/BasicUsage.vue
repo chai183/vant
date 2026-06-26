@@ -27,14 +27,8 @@ const tooltipValue = ref('');
 <template>
   <demo-block :title="t('basicUsage')">
     <van-cell-group inset>
-      <van-field
-        v-model="value"
-        :label="t('label')"
-      />
-      <van-field
-        v-model="longLabelValue"
-        :label="t('longLabel')"
-      />
+      <van-field v-model="value" :label="t('label')" />
+      <van-field v-model="longLabelValue" :label="t('longLabel')" />
       <van-field
         v-model="tooltipValue"
         :label="t('amountLabel')"

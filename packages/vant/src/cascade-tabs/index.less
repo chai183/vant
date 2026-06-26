@@ -1,3 +1,9 @@
+:root,
+:host {
+  --van-cascade-tabs-level-divider-height: 0.5px;
+  --van-cascade-tabs-level-divider-color: #eeeeee;
+}
+
 .van-cascade-tabs {
   background: var(--van-white);
 
@@ -10,6 +16,9 @@
   }
 
   &__level {
+    border-bottom: var(--van-cascade-tabs-level-divider-height) solid
+      var(--van-cascade-tabs-level-divider-color);
+
     // Level 1/2 use standalone underline/rounded styles without overrides.
 
     .van-tabs__nav {

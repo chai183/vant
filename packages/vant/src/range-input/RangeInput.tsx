@@ -35,9 +35,7 @@ export const rangeInputProps = {
   },
   shortcuts: makeArrayProp<RangeInputShortcut>(),
   showDateShortcuts: {
-    type: [Boolean, Array] as PropType<
-      boolean | RangeInputDateShortcutType[]
-    >,
+    type: [Boolean, Array] as PropType<boolean | RangeInputDateShortcutType[]>,
     default: false,
   },
   /** 起始输入，渲染函数形式，需与 end 同时传入 */
@@ -102,9 +100,7 @@ export default defineComponent({
           aria-label={String(props.verticalSeparator)}
         >
           <div class={bem('v-sep', 'segment')} />
-          <span class={bem('v-sep', 'label')}>
-            {props.verticalSeparator}
-          </span>
+          <span class={bem('v-sep', 'label')}>{props.verticalSeparator}</span>
           <div class={bem('v-sep', 'segment')} />
         </div>
       );

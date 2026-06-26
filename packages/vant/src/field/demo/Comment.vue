@@ -48,10 +48,7 @@ const value5 = ref('');
         :label="t('label')"
         :label-comment="t('labelComment')"
       />
-      <van-field
-        v-model="value5"
-        :label="t('label')"
-      >
+      <van-field v-model="value5" :label="t('label')">
         <template #label-comment>
           <span>{{ t('slotLabelComment') }}</span>
         </template>
@@ -61,12 +58,9 @@ const value5 = ref('');
         :label="t('label')"
         :input-comment="t('inputComment')"
       />
-      <van-field
-        v-model="value2"
-        :label="t('label')"
-      >
+      <van-field v-model="value2" :label="t('label')">
         <template #input-comment>
-          <div style="margin-bottom: 2px;">
+          <div style="margin-bottom: 2px">
             <van-highlight
               tag="span"
               :source-string="t('slotComment')"
@@ -76,10 +70,7 @@ const value5 = ref('');
           <van-tag currency currency-code="USD" />
         </template>
       </van-field>
-      <van-field
-        v-model="value3"
-        :label="t('label')"
-      >
+      <van-field v-model="value3" :label="t('label')">
         <template #bottom>
           <div class="van-gray-block">
             <van-highlight

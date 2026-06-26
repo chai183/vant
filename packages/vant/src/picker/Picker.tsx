@@ -203,10 +203,7 @@ export default defineComponent({
     const cancel = () => emit('cancel', getEventParams());
 
     const renderSeparator = (columnIndex: number) => {
-      const separator = getColumnSeparator(
-        props.columnSeparator,
-        columnIndex,
-      );
+      const separator = getColumnSeparator(props.columnSeparator, columnIndex);
 
       if (!separator) {
         return null;

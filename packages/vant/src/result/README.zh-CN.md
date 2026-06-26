@@ -187,33 +187,33 @@ app.use(Result);
 
 ### Events
 
-| 事件名 | 说明 | 回调参数 |
-| --- | --- | --- |
-| click-main-button | 点击主按钮时触发 | - |
-| click-secondary-button | 点击第一个次按钮时触发 | - |
-| click-secondary-button2 | 点击第二个次按钮时触发 | - |
+| 事件名                  | 说明                   | 回调参数 |
+| ----------------------- | ---------------------- | -------- |
+| click-main-button       | 点击主按钮时触发       | -        |
+| click-secondary-button  | 点击第一个次按钮时触发 | -        |
+| click-secondary-button2 | 点击第二个次按钮时触发 | -        |
 
 ### Slots
 
-| 名称 | 说明 |
-| --- | --- |
-| default | 图标与标题下方的自定义内容 |
-| icon | 自定义结果图标 |
-| title | 自定义标题 |
-| description | 自定义备注 |
-| main-button | 自定义主按钮 |
-| secondary-button | 自定义第一个次按钮 |
-| secondary-button-2 | 自定义第二个次按钮 |
-| footer | 底部扩展区域，如详情列表 |
+| 名称               | 说明                       |
+| ------------------ | -------------------------- |
+| default            | 图标与标题下方的自定义内容 |
+| icon               | 自定义结果图标             |
+| title              | 自定义标题                 |
+| description        | 自定义备注                 |
+| main-button        | 自定义主按钮               |
+| secondary-button   | 自定义第一个次按钮         |
+| secondary-button-2 | 自定义第二个次按钮         |
+| footer             | 底部扩展区域，如详情列表   |
 
 ### 默认按钮布局
 
-| status | 默认 button-layout |
-| --- | --- |
-| waiting | horizontal |
-| fail | vertical |
-| warning | hybrid |
-| success | vertical |
+| status  | 默认 button-layout |
+| ------- | ------------------ |
+| waiting | horizontal         |
+| fail    | vertical           |
+| warning | hybrid             |
+| success | vertical           |
 
 ### 类型定义
 

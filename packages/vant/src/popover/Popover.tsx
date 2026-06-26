@@ -256,6 +256,7 @@ export default defineComponent({
 
       return {
         '--van-popover-content-background': props.background,
+        '--van-popover-light-background': props.background,
       } as CSSProperties;
     };
 

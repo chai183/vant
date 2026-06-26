@@ -15,7 +15,9 @@ test('should render vertical layout with separator column', () => {
       ],
     },
   });
-  expect(wrapper.find('.van-range-input__body--vertical').exists()).toBeTruthy();
+  expect(
+    wrapper.find('.van-range-input__body--vertical').exists(),
+  ).toBeTruthy();
   expect(wrapper.find('.van-range-input__v-sep--default').exists()).toBe(true);
   expect(wrapper.find('.van-range-input__v-sep--label').text()).toBe('至');
 });
@@ -29,7 +31,9 @@ test('should render horizontal layout with line separator', () => {
       default: () => [h('span', 'a'), h('span', 'b')],
     },
   });
-  expect(wrapper.find('.van-range-input__body--horizontal').exists()).toBeTruthy();
+  expect(
+    wrapper.find('.van-range-input__body--horizontal').exists(),
+  ).toBeTruthy();
   expect(wrapper.find('.van-range-input__h-sep--line').exists()).toBeTruthy();
 });
 
@@ -64,7 +68,9 @@ test('should render body when start and end props are provided', () => {
       end: () => h('span', { class: 'end' }, 'b'),
     },
   });
-  expect(wrapper.find('.van-range-input__body--horizontal').exists()).toBeTruthy();
+  expect(
+    wrapper.find('.van-range-input__body--horizontal').exists(),
+  ).toBeTruthy();
   expect(wrapper.find('.start').exists()).toBeTruthy();
   expect(wrapper.find('.end').exists()).toBeTruthy();
 });
@@ -77,7 +83,9 @@ test('should render body when start and end slots are provided', () => {
       end: () => h('span', { class: 'end' }, 'b'),
     },
   });
-  expect(wrapper.find('.van-range-input__body--vertical').exists()).toBeTruthy();
+  expect(
+    wrapper.find('.van-range-input__body--vertical').exists(),
+  ).toBeTruthy();
 });
 
 test('should prefer start and end props over default slot', () => {

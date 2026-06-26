@@ -707,8 +707,12 @@ test('should emit clickReUpload event when props reupload true', async () => {
 });
 
 test('should only pick the first file when multiple is false', async () => {
-  const file1 = new File([new ArrayBuffer(100)], '1.jpg', { type: 'image/jpeg' });
-  const file2 = new File([new ArrayBuffer(100)], '2.jpg', { type: 'image/jpeg' });
+  const file1 = new File([new ArrayBuffer(100)], '1.jpg', {
+    type: 'image/jpeg',
+  });
+  const file2 = new File([new ArrayBuffer(100)], '2.jpg', {
+    type: 'image/jpeg',
+  });
   const onUpdate = vi.fn();
 
   const wrapper = mount(Uploader, {
@@ -740,7 +744,7 @@ test('expose reuploadFile method', async () => {
     },
   });
 
-  const {reuploadFile} = (wrapper.vm as UploaderInstance);
+  const { reuploadFile } = wrapper.vm as UploaderInstance;
   expect(reuploadFile).toBeTypeOf('function');
 
   const input = wrapper.find<HTMLInputElement>('.van-uploader__input');

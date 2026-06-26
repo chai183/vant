@@ -208,15 +208,15 @@ Use the `highlight` prop to set the text that needs to be highlighted.
 
 ### Cell Slots
 
-| Name       | Description                       |
-| ---------- | --------------------------------- |
-| title      | Custom title                      |
-| value      | Custom value                      |
-| label      | Custom label                      |
-| icon       | Custom left icon                  |
-| avatar `new` | Custom left avatar              |
-| right-icon | Custom right icon                 |
-| extra      | Custom extra content on the right |
+| Name         | Description                       |
+| ------------ | --------------------------------- |
+| title        | Custom title                      |
+| value        | Custom value                      |
+| label        | Custom label                      |
+| icon         | Custom left icon                  |
+| avatar `new` | Custom left avatar                |
+| right-icon   | Custom right icon                 |
+| extra        | Custom extra content on the right |
 
 ### Types
 

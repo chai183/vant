@@ -272,9 +272,7 @@ export default defineComponent({
           {renderValue()}
           {renderRightIcon()}
           {slots.extra?.()}
-          {slots.bottom && (
-            <div class={bem('bottom')}>{slots.bottom()}</div>
-          )}
+          {slots.bottom && <div class={bem('bottom')}>{slots.bottom()}</div>}
         </tag>
       );
     };

@@ -4,25 +4,25 @@
   --van-card-radius: var(--van-radius-lg);
   --van-card-background: var(--van-background-2);
   --van-card-title-color: var(--van-text-color);
-  --van-card-title-font-size: var(--van-font-size-md);
-  --van-card-subtitle-color: var(--van-text-color-2);
-  --van-card-subtitle-font-size: var(--van-font-size-xs);
+  --van-card-title-font-size: var(--van-font-size-lg);
+  --van-card-subtitle-color: var(--van-text-color-auxiliary);
+  --van-card-subtitle-font-size: var(--van-font-size-sm);
   --van-card-divider-color: var(--van-border-color);
   --van-card-footer-height: 40px;
   --van-card-footer-line-height: var(--van-line-height-md);
-  --van-card-footer-button-font-size: var(--van-font-size-sm);
-  --van-card-footer-note-font-size: var(--van-font-size-xs);
-  --van-card-footer-note-line-height: var(--van-line-height-sm);
+  --van-card-footer-button-font-size: 14px;
+  --van-card-footer-note-font-size: var(--van-font-size-sm);
+  --van-card-footer-note-line-height: 1;
+  --van-card-footer-note-color: var(--van-text-color-secondary);
   --van-card-footer-padding-y: calc(
     (var(--van-card-footer-height) - var(--van-card-footer-line-height)) / 2
   );
   --van-card-footer-note-padding-y: calc(
-    (var(--van-card-footer-height) - var(--van-card-footer-note-line-height)) /
-      2
+    (var(--van-card-footer-height) - var(--van-card-footer-note-font-size)) / 2
   );
-  --van-card-text-list-label-color: var(--van-text-color-2);
+  --van-card-text-list-label-color: var(--van-text-color-secondary);
   --van-card-text-list-value-color: var(--van-text-color);
-  --van-card-text-list-font-size: var(--van-font-size-sm);
+  --van-card-text-list-font-size: var(--van-font-size-md);
   --van-card-text-list-line-height: var(--van-line-height-md);
   --van-card-text-list-label-width: 7em;
   --van-card-image-background: #d8d8d8;
@@ -35,7 +35,7 @@
   --van-card-title-link-font-size: var(--van-font-size-md);
   --van-card-title-link-width: 16px;
   --van-card-title-link-hit-width: 20px;
-  --van-card-title-link-color: var(--van-text-color-3);
+  --van-card-title-link-color: var(--van-text-color-auxiliary);
   --van-card-badge-color: var(--van-white);
   --van-card-badge-background: var(--van-danger-color);
   --van-card-badge-size: 14px;
@@ -54,10 +54,22 @@
   );
   --van-card-text-list-row-padding-y: 6px;
   --van-card-collapse-icon-font-size: var(--van-font-size-xs);
-  --van-card-button-divider-color: var(--van-border-color);
+  --van-card-button-divider-color: var(--van-gray-9);
+  --van-card-footer-overflow-width: 48px;
+  --van-card-footer-overflow-dot-size: 3px;
+  --van-card-footer-overflow-dot-gap: 4px;
+  --van-card-footer-overflow-dot-color: var(--van-text-color);
   --van-card-outline-button-background: var(--van-background-2);
-  --van-card-outline-button-border-color: var(--van-border-color);
+  --van-card-outline-button-border-color: var(--van-gray-9);
   --van-card-outline-button-radius: var(--van-radius-max);
+  --van-card-outline-button-height: 30px;
+  --van-card-footer-more-font-size: var(--van-card-footer-button-font-size);
+  --van-card-footer-more-color: var(--van-card-title-color);
+  --van-card-footer-more-width: 28px;
+  --van-card-footer-outline-gap: var(--van-padding-md);
+  --van-card-footer-popover-action-height: 48px;
+  --van-card-footer-popover-divider-padding-x: var(--van-padding-md);
+  --van-card-footer-popover-width: 88px;
 }
 
 .van-card {
@@ -276,7 +288,7 @@
   &__subtitle {
     margin-top: 2px;
     font-size: var(--van-card-subtitle-font-size);
-    line-height: var(--van-card-footer-note-line-height);
+    line-height: var(--van-line-height-sm);
     color: var(--van-card-subtitle-color);
     word-break: break-all;
   }
@@ -541,16 +553,13 @@
     &--text {
       .van-card__footer-button-row {
         display: flex;
+        flex-direction: row-reverse;
         align-items: center;
         min-height: var(--van-card-footer-height);
 
-        & + & {
-          border-top: 0.5px solid var(--van-card-divider-color);
-        }
-
         .van-card__footer-btn {
-          // 固定为「一行 3 个」时的单格宽度，少于 3 个时不拉伸
-          flex: 0 0 calc((100% - 1px) / 3);
+          flex: 1;
+          min-width: 0;
           box-sizing: border-box;
           padding: var(--van-card-footer-padding-y) 0;
           font-size: var(--van-card-footer-button-font-size);
@@ -560,6 +569,57 @@
           background: transparent;
           border: none;
           cursor: pointer;
+        }
+
+        &--overflow {
+          .van-card__footer-overflow-wrap {
+            flex: none;
+            width: var(--van-card-footer-overflow-width);
+
+            .van-popover__wrapper {
+              display: block;
+              width: 100%;
+            }
+          }
+
+          .van-card__footer-overflow {
+            width: 100%;
+          }
+        }
+
+        .van-card__footer-overflow-wrap {
+          box-sizing: border-box;
+        }
+
+        .van-card__footer-overflow {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          width: 100%;
+          box-sizing: border-box;
+          padding: var(--van-card-footer-padding-y) 0;
+          font-size: var(--van-card-footer-button-font-size);
+          line-height: var(--van-card-footer-line-height);
+          color: var(--van-card-title-color);
+          text-align: center;
+          background: transparent;
+          border: none;
+          cursor: pointer;
+        }
+
+        .van-card__footer-overflow-dots {
+          display: inline-flex;
+          align-items: center;
+          justify-content: center;
+          gap: var(--van-card-footer-overflow-dot-gap);
+        }
+
+        .van-card__footer-overflow-dot {
+          flex: none;
+          width: var(--van-card-footer-overflow-dot-size);
+          height: var(--van-card-footer-overflow-dot-size);
+          background: var(--van-card-footer-overflow-dot-color);
+          border-radius: var(--van-radius-max);
         }
 
         .van-card__button-divider {
@@ -572,33 +632,62 @@
     }
 
     &--outline {
-      padding: 5px var(--van-padding-sm);
+      padding: 0 var(--van-padding-sm) var(--van-padding-sm);
+      border-top: none;
       border-radius: 0 0 var(--van-card-radius) var(--van-card-radius);
 
       .van-card__footer-button-row {
         display: flex;
+        flex-direction: row-reverse;
         align-items: center;
-        gap: var(--van-padding-xs);
-        min-height: var(--van-card-footer-height);
+        justify-content: flex-start;
+        gap: var(--van-card-footer-outline-gap);
+        width: 100%;
+        min-width: 0;
+        overflow: hidden;
 
-        & + & {
-          margin-top: var(--van-padding-xs);
-          min-height: auto;
+        .van-popover__wrapper {
+          flex: none;
         }
 
         .van-card__footer-btn {
-          // 固定为「一行 3 个」时的单格宽度，少于 3 个时不拉伸
-          flex: 0 0
-            calc((100% - var(--van-padding-xs) - var(--van-padding-xs)) / 3);
+          display: inline-flex;
+          flex: 0 0 auto;
+          align-items: center;
+          justify-content: center;
+          min-width: 0;
+          max-width: var(--van-card-outline-btn-max-width, 100%);
           box-sizing: border-box;
-          padding: 5px var(--van-padding-sm);
+          height: var(--van-card-outline-button-height);
+          padding: 0 var(--van-padding-sm);
+          overflow: hidden;
           font-size: var(--van-card-footer-button-font-size);
           line-height: var(--van-card-footer-line-height);
           color: var(--van-card-title-color);
           text-align: center;
           background: var(--van-card-outline-button-background);
-          border: 0.5px solid var(--van-card-outline-button-border-color);
+          border: var(--van-border-width) solid
+            var(--van-card-outline-button-border-color);
           border-radius: var(--van-card-outline-button-radius);
+          cursor: pointer;
+        }
+
+        .van-card__footer-btn-text {
+          min-width: 0;
+          overflow: hidden;
+          white-space: nowrap;
+          text-overflow: ellipsis;
+        }
+
+        .van-card__footer-more {
+          flex: none;
+          padding: 0;
+          font-size: var(--van-card-footer-more-font-size);
+          line-height: var(--van-card-footer-line-height);
+          color: var(--van-card-footer-more-color);
+          white-space: nowrap;
+          background: transparent;
+          border: none;
           cursor: pointer;
         }
       }
@@ -631,7 +720,7 @@
       justify-content: space-between;
       font-size: var(--van-card-footer-note-font-size);
       line-height: var(--van-card-footer-note-line-height);
-      color: var(--van-card-subtitle-color);
+      color: var(--van-card-footer-note-color);
     }
   }
 
@@ -650,7 +739,7 @@
   &__note-center {
     font-size: var(--van-card-footer-note-font-size);
     line-height: var(--van-card-footer-note-line-height);
-    color: var(--van-card-subtitle-color);
+    color: var(--van-card-footer-note-color);
   }
 
   // --- 图文卡 ---
@@ -758,6 +847,46 @@
 
       .van-card__image-right-header {
         padding-bottom: 0;
+      }
+    }
+  }
+}
+
+// 底部溢出 Popover（teleport 到 body，样式不可嵌套在 .van-card 内）
+.van-popover.van-card__footer-popover {
+  .van-popover__content {
+    width: var(--van-card-footer-popover-width);
+    min-width: var(--van-card-footer-popover-width);
+  }
+
+  .van-popover__action {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    height: var(--van-card-footer-popover-action-height);
+    padding: 0 var(--van-card-footer-popover-divider-padding-x);
+    box-sizing: border-box;
+
+    &-text {
+      display: flex;
+      flex: 1;
+      align-items: center;
+      justify-content: flex-start;
+      min-width: 0;
+      height: 100%;
+      overflow: hidden;
+      text-align: left;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+
+      &::after {
+        top: auto;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        border: none;
+        border-bottom: 1px solid var(--van-card-divider-color);
+        transform: scaleY(0.5);
       }
     }
   }

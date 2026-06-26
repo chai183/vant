@@ -1,25 +1,55 @@
 import { computed, defineComponent, type ExtractPropTypes } from 'vue';
-import { makeStringProp, createNamespace } from '../utils';
+import {
+  addUnit,
+  createNamespace,
+  getSizeStyle,
+  makeNumericProp,
+  makeStringProp,
+  numericProp,
+} from '../utils';
 import { PRESET_AVATAR } from './presets';
-import type { AvatarSize, AvatarType } from './types';
+import type { AvatarSize, AvatarSizeProp, AvatarType } from './types';
 
 const [name, bem] = createNamespace('avatar');
 
+const PRESET_SIZES: AvatarSize[] = [
+  'large',
+  'medium_l',
+  'medium',
+  'small',
+  'mini',
+];
+
 const SIZE_PX: Record<AvatarSize, number> = {
   large: 60,
+  medium_l: 48,
   medium: 44,
   small: 32,
   mini: 20,
 };
 
+const TEXT_FONT_SIZE_PX: Record<AvatarSize, number> = {
+  large: 28,
+  medium_l: 22,
+  medium: 20,
+  small: 14.5,
+  mini: 10,
+};
+
+function isPresetSize(size: AvatarSizeProp): size is AvatarSize {
+  return PRESET_SIZES.includes(size as AvatarSize);
+}
+
 export const avatarProps = {
-  size: makeStringProp<AvatarSize>('medium'),
+  size: makeNumericProp<AvatarSizeProp>('large'),
   type: makeStringProp<AvatarType>('default'),
   /** 自定义图片或 SVG 地址；设置后优先于 type 占位图 */
   src: String,
   alt: String,
-  /** 文字头像内容，最多展示 3 个字符 */
+  /** 文字头像内容，仅展示第一个字符 */
   text: String,
+  /** 文字头像字号，默认单位为 px；未设置时按 size 预设字号 */
+  fontSize: numericProp,
 };
 
 export type AvatarProps = ExtractPropTypes<typeof avatarProps>;
@@ -30,18 +60,36 @@ export default defineComponent({
   props: avatarProps,
 
   setup(props, { slots }) {
-    const px = computed(() => SIZE_PX[props.size]);
+    const sizeStyle = computed(() => {
+      if (isPresetSize(props.size)) {
+        const px = SIZE_PX[props.size];
+        return {
+          width: `${px}px`,
+          height: `${px}px`,
+        };
+      }
+      return getSizeStyle(props.size) || {};
+    });
+
+    const sizeClass = computed(() =>
+      isPresetSize(props.size) ? props.size : undefined,
+    );
 
     const isTextMode = computed(
       () =>
-        !slots.default &&
-        !props.src &&
-        (props.type === 'text' || !!props.text),
+        !slots.default && !props.src && (props.type === 'text' || !!props.text),
     );
 
-    const displayText = computed(() => {
-      const t = props.text || '';
-      return t.length > 3 ? t.slice(0, 3) : t;
+    const displayText = computed(() => (props.text || '').slice(0, 1));
+
+    const textStyle = computed(() => {
+      if (props.fontSize) {
+        return { fontSize: addUnit(props.fontSize) };
+      }
+      if (isPresetSize(props.size)) {
+        return { fontSize: `${TEXT_FONT_SIZE_PX[props.size]}px` };
+      }
+      return undefined;
     });
 
     const renderInner = () => {
@@ -50,13 +98,15 @@ export default defineComponent({
       }
 
       if (props.src) {
-        return (
-          <img class={bem('img')} src={props.src} alt={props.alt || ''} />
-        );
+        return <img class={bem('img')} src={props.src} alt={props.alt || ''} />;
       }
 
       if (props.type === 'text' || props.text) {
-        return <span class={bem('text')}>{displayText.value}</span>;
+        return (
+          <span class={bem('text')} style={textStyle.value}>
+            {displayText.value}
+          </span>
+        );
       }
 
       const key = props.type as Exclude<AvatarType, 'text'>;
@@ -66,11 +116,8 @@ export default defineComponent({
 
     return () => (
       <div
-        class={bem([props.size, { text: isTextMode.value }])}
-        style={{
-          width: `${px.value}px`,
-          height: `${px.value}px`,
-        }}
+        class={bem([sizeClass.value, { text: isTextMode.value }])}
+        style={sizeStyle.value}
       >
         {renderInner()}
       </div>

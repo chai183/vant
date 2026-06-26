@@ -1,4 +1,4 @@
-// Rstest Snapshot v1
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
 exports[`should render demo and match snapshot 1`] = `
 <div>
@@ -441,18 +441,17 @@ exports[`should render demo and match snapshot 1`] = `
   <div class="van-steps van-steps--vertical van-steps--count-3 van-steps--reverse van-steps--collapsible">
     <div class="van-steps__content">
       <div class="van-steps__items">
-        <div class="van-step van-step--vertical van-step--finish van-step--reverse">
+        <div class="van-step van-step--vertical van-step--process van-step--reverse">
           <div class="van-step__circle-container">
-            <div class="van-step__circle-num van-step__circle-num--finish">
-              <i class="van-badge__wrapper van-icon van-icon-success van-step__circle-check">
-              </i>
+            <div class="van-step__circle-num van-step__circle-num--process">
+              1
             </div>
           </div>
           <div class="van-step__line">
           </div>
           <div class="van-step__content">
             <div class="van-step__left">
-              <div class="van-step__title">
+              <div class="van-step__title van-step__title--active">
                 【City】Status1
               </div>
               <div class="van-step__description">
@@ -464,9 +463,9 @@ exports[`should render demo and match snapshot 1`] = `
             </div>
           </div>
         </div>
-        <div class="van-step van-step--vertical van-step--process van-step--reverse">
+        <div class="van-step van-step--vertical van-step--waiting van-step--reverse">
           <div class="van-step__circle-container">
-            <div class="van-step__circle-num van-step__circle-num--process">
+            <div class="van-step__circle-num van-step__circle-num--waiting">
               2
             </div>
           </div>
@@ -474,7 +473,7 @@ exports[`should render demo and match snapshot 1`] = `
           </div>
           <div class="van-step__content">
             <div class="van-step__left">
-              <div class="van-step__title van-step__title--active">
+              <div class="van-step__title">
                 【City】Status2
               </div>
               <div class="van-step__description">

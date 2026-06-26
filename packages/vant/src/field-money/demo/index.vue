@@ -72,10 +72,7 @@ const valueSlotComment = ref('');
 
   <demo-block :title="t('slotComment')">
     <van-cell-group inset>
-      <van-field-money
-        v-model="valueSlotComment"
-        :label="t('label')"
-      >
+      <van-field-money v-model="valueSlotComment" :label="t('label')">
         <template #input-comment>
           <span style="color: var(--van-text-color-2)">{{
             t('slotCommentText')

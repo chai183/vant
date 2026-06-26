@@ -87,6 +87,9 @@ export default {
     searchPlaceholder: 'Enter filter keyword',
     searchEmpty: 'No search results',
   },
+  vanPopup: {
+    confirm: 'Confirm',
+  },
   vanPicker: {
     noData: 'No data',
   },

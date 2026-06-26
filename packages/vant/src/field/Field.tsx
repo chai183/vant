@@ -117,7 +117,7 @@ export const fieldSharedProps = {
   autocorrect: String,
   errorMessage: String,
   inputComment: String,
-  enterkeyhint: String as PropType<FieldEnterKeyHint>,  
+  enterkeyhint: String as PropType<FieldEnterKeyHint>,
   clearTrigger: makeStringProp<FieldClearTrigger>('focus'),
   formatTrigger: makeStringProp<FieldFormatTrigger>('onChange'),
   spellcheck: {
@@ -428,20 +428,15 @@ export default defineComponent({
       const gd = resolvedGroupedDisplay.value;
       // console.log('value', value);
       // 聚焦时把「展示串上的选区」映射为 v-model 字符下标，便于插入分组符后还原光标
-      let groupedDisplayRawSel:
-        | { start: number; end: number }
-        | undefined;
+      let groupedDisplayRawSel: { start: number; end: number } | undefined;
       if (gd && inputRef.value && state.focused) {
         const { selectionStart, selectionEnd } = inputRef.value;
         if (isDef(selectionStart) && isDef(selectionEnd)) {
           groupedDisplayRawSel = {
             start: value
               .slice(0, selectionStart)
-              .replace(gd.stripDisplayRegex, '')
-              .length,
-            end: value
-              .slice(0, selectionEnd)
-              .replace(gd.stripDisplayRegex, '')
+              .replace(gd.stripDisplayRegex, '').length,
+            end: value.slice(0, selectionEnd).replace(gd.stripDisplayRegex, '')
               .length,
           };
         }
@@ -482,7 +477,11 @@ export default defineComponent({
 
       // 数字类：过滤非法字符；失焦时再按 min/max 钳位，避免输入过程中被强行改写
       // https://github.com/youzan/vant/issues/13058
-      if (props.type === 'number' || props.type === 'digit' || props.type === 'money') {
+      if (
+        props.type === 'number' ||
+        props.type === 'digit' ||
+        props.type === 'money'
+      ) {
         const allowDot = props.type !== 'digit';
         const allowMinus = props.type === 'number';
         value = formatNumber(value, allowDot, allowMinus);
@@ -539,11 +538,7 @@ export default defineComponent({
           if (isDef(selectionStart) && isDef(selectionEnd)) {
             const rangeLen = gd ? displayValue.length : value.length;
 
-            if (
-              gd &&
-              displayValue !== value &&
-              groupedDisplayRawSel
-            ) {
+            if (gd && displayValue !== value && groupedDisplayRawSel) {
               const cs = Math.min(groupedDisplayRawSel.start, value.length);
               const ce = Math.min(groupedDisplayRawSel.end, value.length);
               selectionStart = gd.rawOffsetToDisplayIndex(displayValue, cs);
@@ -754,7 +749,10 @@ export default defineComponent({
 
       return (
         <div {...wrapperProps}>
-          <TextEllipsis rows={getReadonlyEllipsisRows()} content={displayContent} />
+          <TextEllipsis
+            rows={getReadonlyEllipsisRows()}
+            content={displayContent}
+          />
         </div>
       );
     };
@@ -816,7 +814,7 @@ export default defineComponent({
       if (props.type === 'textarea') {
         return <textarea {...inputAttrs} inputmode={props.inputmode} />;
       }
-      
+
       return (
         <input {...mapInputType(props.type, props.inputmode)} {...inputAttrs} />
       );
@@ -843,7 +841,11 @@ export default defineComponent({
 
       if (props.rightIcon || rightIconSlot) {
         const icon = (
-          <div key="right-icon" class={bem('right-icon')} onClick={onClickRightIcon}>
+          <div
+            key="right-icon"
+            class={bem('right-icon')}
+            onClick={onClickRightIcon}
+          >
             {rightIconSlot ? (
               rightIconSlot()
             ) : (
@@ -1136,24 +1138,16 @@ export default defineComponent({
       if (!slot) {
         return;
       }
-      return (
-        <div class={bem('input-bottom')}>
-          {slot()}
-        </div>
-      );
+      return <div class={bem('input-bottom')}>{slot()}</div>;
     };
 
     const renderInputComment = () => {
       const commentSlot = slots['input-comment'];
       if (commentSlot) {
-        return (
-          <div class={bem('input-comment')}>{commentSlot()}</div>
-        );
+        return <div class={bem('input-comment')}>{commentSlot()}</div>;
       }
       if (props.inputComment) {
-        return (
-          <div class={bem('input-comment')}>{props.inputComment}</div>
-        );
+        return <div class={bem('input-comment')}>{props.inputComment}</div>;
       }
     };
 
@@ -1167,9 +1161,7 @@ export default defineComponent({
 
     const renderInputLeft = () => {
       if (slots['input-left']) {
-        return (
-          <div class={bem('input-left')}>{slots['input-left']()}</div>
-        );
+        return <div class={bem('input-left')}>{slots['input-left']()}</div>;
       }
 
       if (!props.showMoneyCurrency || props.type !== 'money') {
@@ -1285,9 +1277,7 @@ export default defineComponent({
                     expanded: collapsible ? labelExpanded.value : undefined,
                   })}
                   role={collapsible ? 'button' : undefined}
-                  aria-expanded={
-                    collapsible ? labelExpanded.value : undefined
-                  }
+                  aria-expanded={collapsible ? labelExpanded.value : undefined}
                   onClick={collapsible ? toggleLabelExpanded : undefined}
                 >
                   {collapsible ? (
@@ -1340,8 +1330,7 @@ export default defineComponent({
             'money-uppercase':
               props.showMoneyUppercase && props.type === 'money',
             'input-border': props.inputBorder,
-            'label-collapsed':
-              isLabelCollapsible() && !labelExpanded.value,
+            'label-collapsed': isLabelCollapsible() && !labelExpanded.value,
             [`label-${labelAlign}`]: labelAlign,
           })}
           center={props.center}

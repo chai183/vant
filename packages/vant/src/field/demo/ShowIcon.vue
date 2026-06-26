@@ -47,11 +47,7 @@ const onSelect = (action: { text: string }) => showToast(action.text);
         right-icon="warning-o"
         :style="{ '--van-field-right-icon-color': 'var(--van-primary-color)' }"
       />
-      <van-field
-        v-model="icon1"
-        :label="t('text')"
-        left-icon="smile-o"
-      >
+      <van-field v-model="icon1" :label="t('text')" left-icon="smile-o">
         <template #right-icon>
           <a>{{ t('measurementUnit') }}</a>
         </template>

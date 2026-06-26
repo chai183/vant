@@ -60,29 +60,16 @@ test('should change inactive color when using inactive-color prop', () => {
   expect(wrapper.style.backgroundColor).toEqual('black');
 });
 
-test('should apply active color to loading icon', () => {
+test('should render loading icon when loading', () => {
   const wrapper = mount(Switch, {
     props: {
       loading: true,
       modelValue: true,
-      activeColor: 'red',
     },
   });
 
-  const loading = wrapper.find('.van-switch__loading');
-  expect(loading.html()).toMatchSnapshot();
-});
-
-test('should apply inactive color to loading icon', () => {
-  const wrapper = mount(Switch, {
-    props: {
-      loading: true,
-      inactiveColor: 'black',
-    },
-  });
-
-  const loading = wrapper.find('.van-switch__loading');
-  expect(loading.html()).toMatchSnapshot();
+  expect(wrapper.find('.van-switch__loading').exists()).toBeTruthy();
+  expect(wrapper.find('.van-loading__spinner').exists()).toBeTruthy();
 });
 
 test('should change size when using size prop', () => {
@@ -92,7 +79,15 @@ test('should change size when using size prop', () => {
     },
   });
 
-  expect(wrapper.style.fontSize).toEqual('20px');
+  expect(wrapper.style.getPropertyValue('--van-switch-node-size')).toEqual(
+    '20px',
+  );
+  expect(wrapper.style.getPropertyValue('--van-switch-width')).toEqual(
+    `${(20 * 40) / 18}px`,
+  );
+  expect(wrapper.style.getPropertyValue('--van-switch-height')).toEqual(
+    `${(20 * 22) / 18}px`,
+  );
 });
 
 test('should allow to custom active-value and inactive-value', () => {

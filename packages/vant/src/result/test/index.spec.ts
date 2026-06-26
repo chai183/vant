@@ -12,9 +12,7 @@ test('should render status icon and title', async () => {
   await later();
   expect(wrapper.find('.van-result__icon--success').exists()).toBe(true);
   expect(wrapper.find('.van-icon-checked').exists()).toBe(true);
-  expect(wrapper.find('.van-result__title--success').text()).toBe(
-    'Success',
-  );
+  expect(wrapper.find('.van-result__title--success').text()).toBe('Success');
 });
 
 test('should render icon with custom size', async () => {
@@ -39,12 +37,8 @@ test('should render description and content slot', async () => {
   });
 
   await later();
-  expect(wrapper.find('.van-result__description').text()).toBe(
-    'Note text',
-  );
-  expect(wrapper.find('.van-result__content').text()).toBe(
-    'Custom content',
-  );
+  expect(wrapper.find('.van-result__description').text()).toBe('Note text');
+  expect(wrapper.find('.van-result__content').text()).toBe('Custom content');
 });
 
 test('should render horizontal actions for waiting status', async () => {
@@ -57,9 +51,7 @@ test('should render horizontal actions for waiting status', async () => {
   });
 
   await later();
-  expect(wrapper.find('.van-result__actions--horizontal').exists()).toBe(
-    true,
-  );
+  expect(wrapper.find('.van-result__actions--horizontal').exists()).toBe(true);
   expect(wrapper.findAll('.van-button')).toHaveLength(2);
 });
 
@@ -90,9 +82,7 @@ test('should render actions by button-layout prop', async () => {
   });
 
   await later();
-  expect(wrapper.find('.van-result__actions--vertical').exists()).toBe(
-    true,
-  );
+  expect(wrapper.find('.van-result__actions--vertical').exists()).toBe(true);
 });
 
 test('should render hybrid layout with one secondary button', async () => {

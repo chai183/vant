@@ -209,11 +209,6 @@ const t = useTranslate({
     <van-button plain text-button color="#FF3333" :text="t('pure')" />
   </demo-block>
 
-  <demo-block :title="t('customBorderColor')">
-    <van-button color="#FF8125" border-color="#FF3333" :text="t('pure')" />
-    <van-button plain color="#FF8125" border-color="#FF3333" :text="t('pure')" />
-  </demo-block>
-
   <demo-block :title="t('extra')">
     <van-button>
       {{ t('primary') }}

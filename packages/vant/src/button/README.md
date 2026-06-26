@@ -239,9 +239,9 @@ The component provides the following CSS variables, which can be used to customi
 | --van-button-mini-padding | _0 8px_ | - |
 | --van-button-mini-font-size | _12px_ | - |
 | --van-button-small-height | _28px_ | - |
-| --van-button-small-padding | _0 16px_ | - |
+| --van-button-small-padding | _0 15px_ | - |
 | --van-button-small-icon-padding | _0 12px_ | - |
-| --van-button-small-font-size | _14px_ | - |
+| --van-button-small-font-size | _12px_ | - |
 | --van-button-normal-font-size | _16px_ | - |
 | --van-button-normal-height | _40px_ | - |
 | --van-button-normal-padding | _0 16px_ | - |
@@ -264,6 +264,7 @@ The component provides the following CSS variables, which can be used to customi
 | --van-button-text-large-icon-margin | _9px_ | - |
 | --van-button-text-normal-icon-margin | _5px_ | - |
 | --van-button-text-small-icon-margin | _5px_ | - |
+| --van-button-text-small-font-size | _14px_ | - |
 | --van-button-text-mini-icon-margin | _4px_ | - |
 | --van-button-text-large-icon-size | _14px_ | - |
 | --van-button-text-normal-icon-size | _14px_ | - |

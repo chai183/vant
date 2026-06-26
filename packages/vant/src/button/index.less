@@ -4,9 +4,10 @@
   --van-button-mini-padding: 0 8px;
   --van-button-mini-font-size: 12px;
   --van-button-small-height: 28px;
-  --van-button-small-padding: 0 16px;
+  --van-button-small-padding: 0 15px;
   --van-button-small-icon-padding: 0 12px;
-  --van-button-small-font-size: 14px;
+  --van-button-small-font-size: 12px;
+  --van-button-text-small-font-size: 14px;
   --van-button-normal-padding: 0 16px;
   --van-button-normal-font-size: 16px;
   --van-button-normal-height: 40px;
@@ -278,16 +279,19 @@
 
   &--small {
     height: var(--van-button-custom-height, var(--van-button-small-height));
-    padding: var(--van-button-small-padding);
-    font-size: var(
-      --van-button-custom-font-size,
-      var(--van-button-small-font-size)
-    );
     --van-button-icon-size: var(--van-button-small-icon-size);
-  }
 
-  &--with-icon {
-    padding: var(--van-button-small-icon-padding);
+    &:not(&--text) {
+      padding: var(--van-button-small-padding);
+      font-size: var(
+        --van-button-custom-font-size,
+        var(--van-button-small-font-size)
+      );
+
+      &.van-button--with-icon {
+        padding: var(--van-button-small-icon-padding);
+      }
+    }
   }
 
   &__loading {
@@ -496,6 +500,10 @@
     }
 
     &.van-button--small {
+      font-size: var(
+        --van-button-custom-font-size,
+        var(--van-button-text-small-font-size)
+      );
       --van-button-icon-margin: var(--van-button-text-small-icon-margin);
       --van-button-icon-size: var(--van-button-text-small-icon-size);
     }

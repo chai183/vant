@@ -389,7 +389,7 @@ const onDateSubmit = (values: Record<string, unknown>) => {
 
   <demo-block :title="t('moreCustomSlot')">
     <div class="demo-bottom-action-bar">
-      <van-bottom-action-bar :start-gap="67">
+      <van-bottom-action-bar :start-gap="73">
         <template #more>
           <van-checkbox-group v-model="selectAllItems" shape="square">
             <van-checkbox name="a">{{ t('selectAllA') }}</van-checkbox>
@@ -406,7 +406,7 @@ const onDateSubmit = (values: Record<string, unknown>) => {
       </van-bottom-action-bar>
     </div>
     <div class="demo-bottom-action-bar">
-      <van-bottom-action-bar :start-gap="67">
+      <van-bottom-action-bar :start-gap="73">
         <template #top>
           <div class="demo-bottom-action-bar__selected-count van-hairline--bottom">
             {{ t('selectedCountPrefix')
@@ -435,7 +435,7 @@ const onDateSubmit = (values: Record<string, unknown>) => {
       </van-bottom-action-bar>
     </div>
     <div class="demo-bottom-action-bar">
-      <van-bottom-action-bar :start-gap="67">
+      <van-bottom-action-bar :start-gap="43">
         <template #more>
           <van-checkbox-group v-model="selectAllItems" shape="square">
             <van-checkbox name="a">{{ t('selectAllA') }}</van-checkbox>
@@ -455,7 +455,7 @@ const onDateSubmit = (values: Record<string, unknown>) => {
       </van-bottom-action-bar>
     </div>
     <div class="demo-bottom-action-bar">
-      <van-bottom-action-bar :start-gap="67">
+      <van-bottom-action-bar :start-gap="43">
         <template #more>
           <van-checkbox-group v-model="selectAllItems" shape="square">
             <van-checkbox name="a">{{ t('selectAllA') }}</van-checkbox>
@@ -478,7 +478,7 @@ const onDateSubmit = (values: Record<string, unknown>) => {
 
   <demo-block :title="t('favoriteShare')">
     <div class="demo-bottom-action-bar">
-      <van-bottom-action-bar :start-gap="34">
+      <van-bottom-action-bar :start-gap="47">
         <template #more>
           <div class="demo-bottom-action-bar__icons">
             <button type="button" class="demo-bottom-action-bar__icon-item" :class="{

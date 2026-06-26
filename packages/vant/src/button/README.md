@@ -20,60 +20,48 @@ app.use(Button);
 
 ### Type
 
-The Button supports five types: `default`, `primary`, `success`, `warning`, and `danger`. The default type is `default`.
+The Button type is `primary`, and the default type is `primary`. Buttons are round by default and this cannot be changed.
 
 ```html
-<van-button type="primary">Primary</van-button>
-<van-button type="success">Success</van-button>
-<van-button type="default">Default</van-button>
-<van-button type="danger">Danger</van-button>
-<van-button type="warning">Warning</van-button>
+<van-button>Primary</van-button> <van-button plain>Plain</van-button>
 ```
 
-### Plain
+### Text Button
 
-Use the `plain` prop to set the button as a plain button. The text color of a plain button is the same as the button color, and the background is white.
+Use the `text-button` prop to render a text button that only displays the content inside `van-button__content`, without background or border.
 
 ```html
-<van-button plain type="primary">Plain</van-button>
-<van-button plain type="success">Plain</van-button>
+<van-button text-button>Text Button</van-button>
+<van-button text-button size="normal">Text Button</van-button>
+<van-button text-button size="small">Text Button</van-button>
+<van-button text-button size="mini">Text Button</van-button>
 ```
 
-### Hairline
-
-Setting the `hairline` prop to display a border with a thickness of 0.5px.
+Use with `plain` for plain text buttons; use with `text-secondary` to set text color to `#666`.
 
 ```html
-<van-button plain hairline type="primary">Hairline</van-button>
-<van-button plain hairline type="success">Hairline</van-button>
+<van-button plain text-button>Text Button</van-button>
+<van-button plain text-button text-secondary>Secondary Text</van-button>
 ```
 
-### Disabled
-
-Use the `disabled` prop to disable the button. In the disabled state, the button cannot be clicked.
+Icon and icon position are supported:
 
 ```html
-<van-button disabled type="primary">Disabled</van-button>
-<van-button disabled type="success">Disabled</van-button>
+<van-button icon="add-o" text-button>Text Button</van-button>
+<van-button icon="add-o" icon-position="right" text-button
+  >Text Button</van-button
+>
 ```
 
-### Loading
+### Size
 
-Set the button as a loading state using the `loading` prop. In the loading state, the button text is hidden by default. You can set the text for the loading state using the `loading-text` property.
-
-```html
-<van-button loading type="primary" />
-<van-button loading type="primary" loading-type="spinner" />
-<van-button loading type="success" loading-text="Loading..." />
-```
-
-### Shape
-
-Use the `square` prop to set the button as square-shaped and the `round` prop to set it as round-shaped.
+Four sizes are supported: `large`, `normal`, `small`, and `mini`. The default size is `large`.
 
 ```html
-<van-button square type="primary">Square</van-button>
-<van-button round type="success">Round</van-button>
+<van-button>Primary</van-button>
+<van-button size="normal">Primary</van-button>
+<van-button size="small">Primary</van-button>
+<van-button size="mini">Primary</van-button>
 ```
 
 ### Icon
@@ -81,43 +69,32 @@ Use the `square` prop to set the button as square-shaped and the `round` prop to
 Use the `icon` prop to set the button icon. It supports all icons from the Icon component or you can pass a custom icon URL.
 
 ```html
-<van-button icon="plus" type="primary" />
-<van-button icon="plus" type="primary">Button</van-button>
-<van-button
-  plain
-  icon="https://fastly.jsdelivr.net/npm/@vant/assets/user-active.png"
-  type="primary"
+<van-button icon="add-o">Icon Style</van-button>
+<van-button icon="add-o" size="normal">With Icon</van-button>
+<van-button icon="add-o" size="small">With Icon</van-button>
+<van-button icon="add-o" size="mini">With Icon</van-button>
+```
+
+### Disabled
+
+Use the `disabled` prop to disable the button. In the disabled state, the button cannot be clicked.
+
+```html
+<van-button disabled>Primary Disabled</van-button>
+<van-button icon="add-o" disabled>Icon Style</van-button>
+<van-button plain disabled>Plain Disabled</van-button>
+<van-button text-button disabled>Plain Disabled</van-button>
+<van-button plain text-button disabled>Plain Disabled</van-button>
+```
+
+### Countdown
+
+```html
+<van-button size="normal" disabled>Countdown (3s)</van-button>
+<van-button size="normal">Countdown Done</van-button>
+<van-button size="normal"
+  >Countdown Done Limit Limit Limit Limit Limit (3s)</van-button
 >
-  Button
-</van-button>
-```
-
-### Size
-
-Four sizes are supported: `large`, `normal`, `small`, and `mini`. The default size is `normal`.
-
-```html
-<van-button type="primary" size="large">Large</van-button>
-<van-button type="primary" size="normal">Normal</van-button>
-<van-button type="primary" size="small">Small</van-button>
-<van-button type="primary" size="mini">Mini</van-button>
-```
-
-### Block Element
-
-By default, the button is an inline-block element. Use the `block` prop to change the button element type to a block-level element.
-
-```html
-<van-button type="primary" block>Block Element</van-button>
-```
-
-### Route
-
-You can use the `url` prop for URL redirection or the `to` prop for route navigation.
-
-```html
-<van-button type="primary" url="https://github.com">URL</van-button>
-<van-button type="primary" to="index">Vue Router</van-button>
 ```
 
 ### Custom Color
@@ -125,37 +102,24 @@ You can use the `url` prop for URL redirection or the `to` prop for route naviga
 Customize the button color using the `color` prop.
 
 ```html
-<van-button color="#7232dd">Pure</van-button>
-<van-button color="#7232dd" plain>Pure</van-button>
-<van-button color="linear-gradient(to right, #ff6034, #ee0a24)">
-  Gradient
-</van-button>
+<van-button color="#FF8125">Pure</van-button>
+<van-button plain color="#FF3333">Pure</van-button>
+<van-button plain text-button color="#FF3333">Pure</van-button>
 ```
 
-### Animated Button
+### Supplementary Button
 
-With the combination of the Button and [Swipe component](<(/#/en-US/swipe)>), you can create an animated button effect with vertical scrolling.
+When `size` is `large`, use the `extra` slot to add content below `van-button__content` as a sibling element. The total button height will not exceed the maximum height of the corresponding size; overflow content will be clipped.
 
 ```html
-<van-button type="danger" round>
-  <van-swipe
-    vertical
-    class="notice-swipe"
-    :autoplay="2000"
-    :touchable="false"
-    :show-indicators="false"
-  >
-    <van-swipe-item>Do Task</van-swipe-item>
-    <van-swipe-item>Lottery</van-swipe-item>
-  </van-swipe>
+<van-button>
+  Primary
+  <template #extra>
+    <div style="font-size: 12px; margin-top: 4px;">
+      Auxiliary supplementary description text
+    </div>
+  </template>
 </van-button>
-
-<style>
-  .notice-swipe {
-    height: 40px;
-    line-height: 40px;
-  }
-</style>
 ```
 
 ## API
@@ -164,19 +128,19 @@ With the combination of the Button and [Swipe component](<(/#/en-US/swipe)>), yo
 
 | Attribute | Description | Type | Default |
 | --- | --- | --- | --- |
-| type | Can be set to `primary` `success` `warning` `danger` | _string_ | `default` |
-| size | Can be set to `large` `small` `mini` | _string_ | `normal` |
+| type | Can be set to `primary` | _string_ | `primary` |
+| size | Can be set to `normal` `small` `mini` | _string_ | `large` |
 | text | Text | _string_ | - |
 | color | Color, support linear-gradient | _string_ | - |
 | icon | Left Icon | _string_ | - |
 | icon-prefix | Icon className prefix | _string_ | `van-icon` |
-| icon-position | Icon position, can be set to `right` | _string_ | `left` |
+| icon-position | Icon position, can be set to `left` `right` | _string_ | `left` |
 | tag | HTML Tag | _string_ | `button` |
 | native-type | Native Type Attribute | _string_ | `button` |
 | plain | Whether to be plain button | _boolean_ | `false` |
+| text-button `new` | Whether to be text button, only show content area | _boolean_ | `false` |
+| text-secondary `new` | Whether to use secondary text color, use with `plain` and `text-button`, text color is `#666` | _boolean_ | `false` |
 | block | Whether to set display block | _boolean_ | `false` |
-| round | Whether to be round button | _boolean_ | `false` |
-| square | Whether to be square button | _boolean_ | `false` |
 | disabled | Whether to disable button | _boolean_ | `false` |
 | loading | Whether to show loading status | _boolean_ | `false` |
 | loading-text | Loading text | _string_ | - |
@@ -195,11 +159,12 @@ With the combination of the Button and [Swipe component](<(/#/en-US/swipe)>), yo
 
 ### Slots
 
-| Name    | Description         |
-| ------- | ------------------- |
-| default | Default slot        |
-| icon    | Custom icon         |
+| Name | Description |
+| --- | --- |
+| default | Default slot |
+| icon | Custom icon |
 | loading | Custom loading icon |
+| extra `new` | Extra content, only works when `size` is `large`, rendered below `van-button__content`, total height will not exceed the button max height |
 
 ### Types
 
@@ -224,36 +189,46 @@ The component provides the following CSS variables, which can be used to customi
 | Name | Default Value | Description |
 | --- | --- | --- |
 | --van-button-mini-height | _24px_ | - |
-| --van-button-mini-padding | _0 var(--van-padding-base)_ | - |
-| --van-button-mini-font-size | _var(--van-font-size-xs)_ | - |
-| --van-button-small-height | _32px_ | - |
-| --van-button-small-padding | _0 var(--van-padding-xs)_ | - |
-| --van-button-small-font-size | _var(--van-font-size-sm)_ | - |
-| --van-button-normal-font-size | _var(--van-font-size-md)_ | - |
-| --van-button-normal-padding | _0 15px_ | - |
-| --van-button-large-height | _50px_ | - |
-| --van-button-default-height | _44px_ | - |
+| --van-button-mini-padding | _0 8px_ | - |
+| --van-button-mini-font-size | _12px_ | - |
+| --van-button-small-height | _28px_ | - |
+| --van-button-small-padding | _0 16px_ | - |
+| --van-button-small-icon-padding | _0 12px_ | - |
+| --van-button-small-font-size | _12px_ | - |
+| --van-button-normal-font-size | _16px_ | - |
+| --van-button-normal-height | _40px_ | - |
+| --van-button-normal-padding | _0 16px_ | - |
+| --van-button-large-height | _48px_ | - |
+| --van-button-large-font-size | _18px_ | - |
+| --van-button-default-height | _40px_ | - |
 | --van-button-default-line-height | _1.2_ | - |
-| --van-button-default-font-size | _var(--van-font-size-lg)_ | - |
-| --van-button-default-color | _var(--van-text-color)_ | - |
-| --van-button-default-background | _var(--van-background-2)_ | - |
-| --van-button-default-border-color | _var(--van-gray-4)_ | - |
+| --van-button-default-font-size | _16px_ | - |
 | --van-button-primary-color | _var(--van-white)_ | - |
 | --van-button-primary-background | _var(--van-primary-color)_ | - |
 | --van-button-primary-border-color | _var(--van-primary-color)_ | - |
-| --van-button-success-color | _var(--van-white)_ | - |
-| --van-button-success-background | _var(--van-success-color)_ | - |
-| --van-button-success-border-color | _var(--van-success-color)_ | - |
-| --van-button-danger-color | _var(--van-white)_ | - |
-| --van-button-danger-background | _var(--van-danger-color)_ | - |
-| --van-button-danger-border-color | _var(--van-danger-color)_ | - |
-| --van-button-warning-color | _var(--van-white)_ | - |
-| --van-button-warning-background | _var(--van-warning-color)_ | - |
-| --van-button-warning-border-color | _var(--van-warning-color)_ | - |
 | --van-button-border-width | _var(--van-border-width)_ | - |
-| --van-button-radius | _var(--van-radius-md)_ | - |
 | --van-button-round-radius | _var(--van-radius-max)_ | - |
 | --van-button-plain-background | _var(--van-white)_ | - |
-| --van-button-disabled-opacity | _var(--van-disabled-opacity)_ | - |
-| --van-button-icon-size | _1.2em_ | - |
+| --van-button-text-color | _var(--van-primary-color)_ | - |
+| --van-button-text-plain-color | _var(--van-text-color)_ | - |
+| --van-button-text-plain-secondary-color | _var(--van-text-color-secondary)_ | - |
+| --van-button-text-active-color | _#e67421_ | - |
+| --van-button-plain-active-color | _#e67421_ | - |
+| --van-button-text-large-icon-margin | _9px_ | - |
+| --van-button-text-normal-icon-margin | _5px_ | - |
+| --van-button-text-small-icon-margin | _5px_ | - |
+| --van-button-text-mini-icon-margin | _4px_ | - |
+| --van-button-text-large-icon-size | _14px_ | - |
+| --van-button-text-normal-icon-size | _14px_ | - |
+| --van-button-text-small-icon-size | _14px_ | - |
+| --van-button-text-mini-icon-size | _12px_ | - |
+| --van-button-disabled-opacity | _0.4_ | - |
+| --van-button-disabled-background | _#ffcda8_ | - |
+| --van-button-text-disabled-color | _var(--van-button-disabled-background)_ | - |
+| --van-button-text-plain-disabled-color | _var(--van-text-color-disabled)_ | - |
+| --van-button-large-icon-size | _16px_ | - |
+| --van-button-normal-icon-size | _14px_ | - |
+| --van-button-small-icon-size | _12px_ | - |
+| --van-button-mini-icon-size | _12px_ | - |
+| --van-button-icon-size | _var(--van-button-large-icon-size)_ | - |
 | --van-button-loading-icon-size | _20px_ | - |

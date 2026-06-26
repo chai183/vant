@@ -3,7 +3,7 @@
 exports[`should change icon class prefix when using icon-prefix prop 1`] = `
 <button
   type="button"
-  class="van-button van-button--default van-button--normal"
+  class="van-button van-button--primary van-button--large"
 >
   <div class="van-button__content">
     <i class="van-badge__wrapper my-icon my-icon-success van-button__icon">
@@ -12,10 +12,26 @@ exports[`should change icon class prefix when using icon-prefix prop 1`] = `
 </button>
 `;
 
+exports[`should render extra slot when size is large 1`] = `
+<button
+  type="button"
+  class="van-button van-button--primary van-button--large van-button--with-extra"
+>
+  <div class="van-button__content">
+    <span class="van-button__text">
+      Button
+    </span>
+  </div>
+  <div class="van-button__extra">
+    Extra Content
+  </div>
+</button>
+`;
+
 exports[`should render icon in the right side when setting icon-position to right 1`] = `
 <button
   type="button"
-  class="van-button van-button--default van-button--normal"
+  class="van-button van-button--primary van-button--large"
 >
   <div class="van-button__content">
     <i class="van-badge__wrapper van-icon van-icon-plus van-button__icon">
@@ -27,7 +43,7 @@ exports[`should render icon in the right side when setting icon-position to righ
 exports[`should render icon slot correctly 1`] = `
 <button
   type="button"
-  class="van-button van-button--default van-button--normal"
+  class="van-button van-button--primary van-button--large"
 >
   <div class="van-button__content">
     <div class="van-button__icon">
@@ -43,10 +59,38 @@ exports[`should render icon slot correctly 1`] = `
 exports[`should render loading slot correctly 1`] = `
 <button
   type="button"
-  class="van-button van-button--default van-button--normal van-button--loading"
+  class="van-button van-button--primary van-button--large van-button--loading"
 >
   <div class="van-button__content">
     Custom Loading
+  </div>
+</button>
+`;
+
+exports[`should render plain text button with text-secondary correctly 1`] = `
+<button
+  type="button"
+  class="van-button van-button--primary van-button--large van-button--plain van-button--text van-button--text-secondary"
+>
+  <div class="van-button__content">
+    <span class="van-button__text">
+      Secondary
+    </span>
+  </div>
+</button>
+`;
+
+exports[`should render text button correctly 1`] = `
+<button
+  type="button"
+  class="van-button van-button--primary van-button--large van-button--text"
+>
+  <div class="van-button__content">
+    <i class="van-badge__wrapper van-icon van-icon-plus van-button__icon">
+    </i>
+    <span class="van-button__text">
+      Text Button
+    </span>
   </div>
 </button>
 `;

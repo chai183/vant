@@ -74,14 +74,138 @@ const onMoreAction = (action) => {
 };
 ```
 
+### Custom more slot
+
+Use the `#more` slot to fully customize the left area, e.g. a select-all checkbox. Combine with the `#top` slot to show the selected count.
+
+```html
+<van-bottom-action-bar
+  secondary-button-text="Secondary"
+  primary-button-text="Confirm"
+>
+  <template #top>
+    <div class="demo-bottom-action-bar__selected-count">
+      Selected <strong>9,999</strong> items<span
+        class="demo-bottom-action-bar__selected-amount"
+        >total amount <strong>10,000,000,000,000,000</strong></span
+      >
+    </div>
+  </template>
+  <template #more>
+    <van-checkbox-group v-model="selectAllItems" shape="square">
+      <van-checkbox name="a">Select all</van-checkbox>
+    </van-checkbox-group>
+  </template>
+</van-bottom-action-bar>
+```
+
+```css
+.demo-bottom-action-bar__selected-count {
+  padding: 12px;
+  font-size: var(--van-font-size-md);
+  color: var(--van-text-color-auxiliary);
+  border-bottom: 1px solid var(--van-border-color);
+}
+
+.demo-bottom-action-bar__selected-count strong {
+  margin: 0 4px;
+  font-size: var(--van-font-size-lg);
+  font-weight: 400;
+  line-height: var(--van-font-size-lg);
+  color: var(--van-black);
+}
+
+.demo-bottom-action-bar__selected-amount {
+  margin-left: var(--van-padding-md);
+}
+```
+
+```js
+import { ref } from 'vue';
+
+const selectAllItems = ref([]);
+```
+
+### Favorite & share
+
+Use the `#more` slot for icon actions such as favorite and share. When favorited, the icon switches to filled `star` and uses `--van-primary-color`. Use `start-gap` to adjust spacing between the left area and buttons.
+
+```html
+<van-bottom-action-bar
+  :start-gap="32"
+  secondary-button-text="Secondary"
+  primary-button-text="Confirm"
+>
+  <template #more>
+    <div class="demo-bottom-action-bar__icons">
+      <button
+        type="button"
+        class="demo-bottom-action-bar__icon-item"
+        :class="{ 'demo-bottom-action-bar__icon-item--active': collected }"
+        @click="onToggleCollect"
+      >
+        <van-icon :name="collected ? 'star' : 'star-o'" />
+        <span>Favorite</span>
+      </button>
+      <button
+        type="button"
+        class="demo-bottom-action-bar__icon-item"
+        @click="onShare"
+      >
+        <van-icon name="share-o" />
+        <span>Share</span>
+      </button>
+    </div>
+  </template>
+</van-bottom-action-bar>
+```
+
+```js
+import { ref } from 'vue';
+
+const collected = ref(false);
+
+const onToggleCollect = () => {
+  collected.value = !collected.value;
+};
+
+const onShare = () => {
+  // share logic
+};
+```
+
+```css
+.demo-bottom-action-bar__icon-item--active {
+  color: var(--van-primary-color);
+}
+
+.demo-bottom-action-bar__icon-item--active .van-icon {
+  color: var(--van-primary-color);
+}
+```
+
 ### Agreement top slot
+
+Use [Highlight](#/en-US/highlight) inside checkboxes to emphasize agreement links.
 
 ```html
 <van-bottom-action-bar primary-button-text="Action" @click-primary="onAction">
   <template #top>
     <van-checkbox-group v-model="agreed" shape="square">
-      <van-checkbox name="a">Clause 1</van-checkbox>
-      <van-checkbox name="b">Clause 2</van-checkbox>
+      <van-checkbox name="clause1">
+        <van-highlight
+          tag="span"
+          source-string="I have read and agree to the terms above."
+          keywords="terms above"
+        />
+      </van-checkbox>
+      <van-checkbox name="clause2">
+        <van-highlight
+          tag="span"
+          source-string="I agree to the Privacy Policy."
+          keywords="Privacy Policy"
+        />
+      </van-checkbox>
     </van-checkbox-group>
   </template>
 </van-bottom-action-bar>
@@ -117,6 +241,7 @@ const onMoreAction = (action) => {
 | tertiary-button-width | Second secondary button width | _number \| string_ | - |
 | primary-button-width | Primary button width | _number \| string_ | - |
 | primary-block | Primary button fills the action area | _boolean_ | `false` |
+| start-gap `new` | Gap between the left area and buttons | _number \| string_ | - |
 | round | Round buttons | _boolean_ | `true` |
 | more-text | More action label | _string_ | `更多操作` |
 | more-icon | Icon when popover closed | _string_ | `arrow-down` |
@@ -181,7 +306,10 @@ import type { BottomActionBarProps } from 'vant';
 | --van-bottom-action-bar-top-line-height | _1.5_ | Top area line height |
 | --van-bottom-action-bar-top-color | _var(--van-text-color-2)_ | Top area text color |
 | --van-bottom-action-bar-bar-height | _64px_ | Button row height |
-| --van-bottom-action-bar-bar-padding | _12px_ | Button row padding |
-| --van-bottom-action-bar-action-gap | _var(--van-padding-sm)_ | Gap between buttons |
-| --van-bottom-action-bar-more-color | _var(--van-text-color-2)_ | More label color |
+| --van-bottom-action-bar-bar-padding | _8px 12px_ | Button row padding |
+| --van-bottom-action-bar-start-gap | _35px_ | Gap between left area and buttons |
+| --van-bottom-action-bar-action-gap | _var(--van-padding-xs)_ | Gap between buttons |
+| --van-bottom-action-bar-more-color | _var(--van-text-color)_ | More label color |
+| --van-bottom-action-bar-more-font-size | _var(--van-font-size-lg)_ | More label font size |
+| --van-bottom-action-bar-more-gap | _var(--van-padding-base)_ | Gap between more label and icon |
 | --van-bottom-action-bar-more-icon-size | _14px_ | More arrow icon size |

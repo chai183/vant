@@ -37,7 +37,22 @@ test('should hide border when color is gradient', () => {
     },
   });
 
-  expect(wrapper.style.border).toEqual('0px');
+  expect(
+    wrapper.element.style.getPropertyValue('--van-button-custom-border-color'),
+  ).toBe('transparent');
+});
+
+test('should render text button correctly', () => {
+  const wrapper = mount(Button, {
+    props: {
+      textButton: true,
+      text: 'Text Button',
+      icon: 'plus',
+    },
+  });
+
+  expect(wrapper.classes()).toContain('van-button--text');
+  expect(wrapper.html()).toMatchSnapshot();
 });
 
 test('should change icon class prefix when using icon-prefix prop', () => {
@@ -84,6 +99,50 @@ test('should render icon in the right side when setting icon-position to right',
       iconPosition: 'right',
     },
   });
+  expect(wrapper.html()).toMatchSnapshot();
+});
+
+test('should render extra slot when size is large', () => {
+  const wrapper = mount(Button, {
+    props: {
+      size: 'large',
+      text: 'Button',
+    },
+    slots: {
+      extra: () => 'Extra Content',
+    },
+  });
+
+  expect(wrapper.find('.van-button__extra').exists()).toBe(true);
+  expect(wrapper.classes()).toContain('van-button--with-extra');
+  expect(wrapper.html()).toMatchSnapshot();
+});
+
+test('should not render extra slot when size is not large', () => {
+  const wrapper = mount(Button, {
+    props: {
+      size: 'normal',
+      text: 'Button',
+    },
+    slots: {
+      extra: () => 'Extra Content',
+    },
+  });
+
+  expect(wrapper.find('.van-button__extra').exists()).toBe(false);
+});
+
+test('should render plain text button with text-secondary correctly', () => {
+  const wrapper = mount(Button, {
+    props: {
+      textButton: true,
+      plain: true,
+      textSecondary: true,
+      text: 'Secondary',
+    },
+  });
+
+  expect(wrapper.classes()).toContain('van-button--text-secondary');
   expect(wrapper.html()).toMatchSnapshot();
 });
 

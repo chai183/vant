@@ -8,9 +8,12 @@
   --van-bottom-action-bar-top-line-height: 1.5;
   --van-bottom-action-bar-top-color: var(--van-text-color-2);
   --van-bottom-action-bar-bar-height: 64px;
-  --van-bottom-action-bar-bar-padding: 12px;
-  --van-bottom-action-bar-action-gap: var(--van-padding-sm);
-  --van-bottom-action-bar-more-color: var(--van-text-color-2);
+  --van-bottom-action-bar-bar-padding: 8px 12px;
+  --van-bottom-action-bar-start-gap: 35px;
+  --van-bottom-action-bar-action-gap: var(--van-padding-xs);
+  --van-bottom-action-bar-more-color: var(--van-text-color);
+  --van-bottom-action-bar-more-font-size: var(--van-font-size-lg);
+  --van-bottom-action-bar-more-gap: var(--van-padding-base);
   --van-bottom-action-bar-more-icon-size: 14px;
 }
 
@@ -49,7 +52,7 @@
     display: flex;
     flex-shrink: 0;
     align-items: center;
-    margin-right: var(--van-padding-sm);
+    margin-right: var(--van-bottom-action-bar-start-gap);
   }
 
   &__more {
@@ -57,7 +60,7 @@
     align-items: center;
     padding: 0;
     color: var(--van-bottom-action-bar-more-color);
-    font-size: var(--van-font-size-sm);
+    font-size: var(--van-bottom-action-bar-more-font-size);
     line-height: var(--van-line-height-sm);
     white-space: nowrap;
     cursor: pointer;
@@ -77,17 +80,18 @@
     &-icon {
       font-size: var(--van-bottom-action-bar-more-icon-size);
       line-height: 1;
+      transform: rotate(90deg);
     }
 
     &--icon-left {
       .van-bottom-action-bar__more-icon {
-        margin-right: 2px;
+        margin-right: var(--van-bottom-action-bar-more-gap);
       }
     }
 
     &:not(&--icon-left) {
       .van-bottom-action-bar__more-text {
-        margin-right: 2px;
+        margin-right: var(--van-bottom-action-bar-more-gap);
       }
     }
   }

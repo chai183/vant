@@ -71,11 +71,7 @@ export default {
 ```html
 <van-cell-group inset>
   <van-form>
-    <van-field
-      v-model="text"
-      label="文本"
-      autocomplete="off"
-    />
+    <van-field v-model="text" label="文本" autocomplete="off" />
     <van-field v-model="phone" type="tel" label="手机号" />
     <van-field v-model="digit" type="digit" label="整数" />
     <van-field v-model="number" type="number" label="数字" />
@@ -104,12 +100,7 @@ export default {
       label="身份证"
       autocomplete="off"
     />
-    <van-field
-      v-model="ukey"
-      type="ukey"
-      label="UKey"
-      autocomplete="off"
-    />
+    <van-field v-model="ukey" type="ukey" label="UKey" autocomplete="off" />
     <van-field
       v-model="text"
       label-align="top"
@@ -195,11 +186,7 @@ export default {
 
 ```html
 <van-cell-group inset>
-  <van-field
-    label="收货地址"
-    model-value="上海市浦东新区"
-    readonly
-  />
+  <van-field label="收货地址" model-value="上海市浦东新区" readonly />
   <van-field
     label="已选标签"
     :model-value="['设计', '交互', '前端']"
@@ -222,11 +209,7 @@ export default {
     right-icon="warning-o"
     :style="{ '--van-field-right-icon-color': 'var(--van-primary-color)' }"
   />
-  <van-field
-    v-model="value1"
-    label="文本"
-    left-icon="smile-o"
-  >
+  <van-field v-model="value1" label="文本" left-icon="smile-o">
     <template #right-icon>
       <a>计量单位</a>
     </template>
@@ -343,11 +326,7 @@ export default {
       :rules="[{ required: true }]"
       label="用户名"
     />
-    <van-field
-      v-model="phone"
-      :rules="[{ required: false }]"
-      label="手机号"
-    />
+    <van-field v-model="phone" :rules="[{ required: false }]" label="手机号" />
   </van-form>
 </van-cell-group>
 ```
@@ -359,11 +338,7 @@ export default {
 ```html
 <van-cell-group inset>
   <van-field v-model="username" error label="用户名" />
-  <van-field
-    v-model="phone"
-    label="手机号"
-    error-message="手机号格式错误"
-  />
+  <van-field v-model="phone" label="手机号" error-message="手机号格式错误" />
 </van-cell-group>
 ```
 
@@ -434,13 +409,7 @@ export default {
 
 ```html
 <van-cell-group inset>
-  <van-field
-    v-model="message"
-    autosize
-    rows="1"
-    label="留言"
-    type="textarea"
-  />
+  <van-field v-model="message" autosize rows="1" label="留言" type="textarea" />
 </van-cell-group>
 ```
 
@@ -542,21 +511,13 @@ export default {
 
 ```html
 <van-cell-group inset>
-  <van-field
-    v-model="value4"
-    label="文本"
-    label-comment="标签下方的备注说明"
-  />
+  <van-field v-model="value4" label="文本" label-comment="标签下方的备注说明" />
   <van-field v-model="value5" label="文本">
     <template #label-comment>
       <span>插槽：标签备注可自定义样式</span>
     </template>
   </van-field>
-  <van-field
-    v-model="value1"
-    label="文本"
-    input-comment="这是一段辅助说明"
-  />
+  <van-field v-model="value1" label="文本" input-comment="这是一段辅助说明" />
   <van-field v-model="value2" label="文本">
     <template #input-comment>
       <van-highlight
@@ -794,47 +755,48 @@ fieldRef.value?.focus();
 
 组件提供了下列 CSS 变量，可用于自定义样式，使用方法请参考 [ConfigProvider 组件](#/zh-CN/config-provider)。
 
-| 名称                                  | 默认值                    | 描述 |
-| ------------------------------------- | ------------------------- | ---- |
-| --van-field-label-width               | _6.2em_                   | -    |
-| --van-field-label-color               | _var(--van-text-color)_   | -    |
-| --van-field-label-margin-right        | _32px_                    | -    |
-| --van-field-input-text-color          | _var(--van-text-color)_   | -    |
-| --van-field-input-error-text-color    | _var(--van-danger-color)_ | -    |
-| --van-field-input-disabled-text-color | _var(--van-text-color-inverse)_ | -    |
-| --van-field-placeholder-text-color    | _var(--van-text-color-disabled)_ | -    |
-| --van-field-cursor-color              | _var(--van-primary-color)_ | 输入光标颜色 |
-| --van-field-icon-size                 | _18px_                    | -    |
-| --van-field-clear-icon-size           | _18px_                    | -    |
-| --van-field-clear-icon-color          | _var(--van-gray-5)_       | -    |
-| --van-field-right-icon-color          | _#666_                    | -    |
-| --van-field-right-icon-divider-height | _14px_                    | -    |
-| --van-field-right-icon-divider-color  | _var(--van-border-color)_ | -    |
-| --van-field-error-message-color       | _var(--van-danger-color)_ | -    |
-| --van-field-error-message-font-size   | _12px_                    | -    |
-| --van-field-extra-margin-top          | _2px_                     | 输入区下方辅助内容的上边距 |
-| --van-field-bottom-margin-top         | _8px_                     | 整行底部内容的上边距 |
-| --van-field-input-comment-color       | _#999_                    | 输入区域下方辅助说明文字颜色 |
-| --van-field-label-comment-color       | _var(--van-text-color-auxiliary)_ | 标签下方备注文字颜色 |
-| --van-field-error-message-info-background | _#fff2f0_             | -    |
-| --van-field-error-message-info-padding    | _6px 20px_            | -    |
-| --van-field-error-message-info-margin-top | _8px_ | -    |
-| --van-field-error-message-info-radius     | _var(--van-radius-md)_ | -    |
-| --van-field-text-area-min-height      | _60px_                    | -    |
-| --van-field-word-limit-color          | _var(--van-gray-7)_       | -    |
-| --van-field-word-limit-font-size      | _var(--van-font-size-sm)_ | -    |
-| --van-field-word-limit-line-height    | _16px_                    | -    |
-| --van-field-disabled-text-color       | _var(--van-text-color-inverse)_ | -    |
-| --van-field-required-mark-color       | _var(--van-red)_          | -    |
-| --van-field-label-action-color        | _var(--van-primary-color)_ | -    |
-| --van-field-label-action-font-size    | _var(--van-font-size-md)_ | -    |
-| --van-field-label-collapse-color      | _var(--van-text-color-2)_ | -    |
-| --van-field-label-collapse-font-size  | _var(--van-font-size-sm)_ | -    |
-| --van-field-input-border-color        | _var(--van-border-color)_ | 输入框边框颜色 |
-| --van-field-input-border-radius       | _var(--van-radius-md)_ | 输入框边框圆角 |
-| --van-field-input-border-padding-y    | _8px_ | 输入框边框垂直内边距 |
-| --van-field-input-border-padding-x    | _12px_ | 输入框边框水平内边距 |
-| --van-field-input-border-background   | _var(--van-cell-background)_ | 输入框边框背景色 |
+| 名称 | 默认值 | 描述 |
+| --- | --- | --- |
+| --van-field-label-width | _6.2em_ | - |
+| --van-field-label-color | _var(--van-text-color)_ | - |
+| --van-field-label-margin-right | _32px_ | - |
+| --van-field-label-top-margin-bottom | _var(--van-padding-xs)_ | 顶部对齐标签的下边距 |
+| --van-field-input-text-color | _var(--van-text-color)_ | - |
+| --van-field-input-error-text-color | _var(--van-danger-color)_ | - |
+| --van-field-input-disabled-text-color | _var(--van-text-color-inverse)_ | - |
+| --van-field-placeholder-text-color | _var(--van-text-color-disabled)_ | - |
+| --van-field-cursor-color | _var(--van-primary-color)_ | 输入光标颜色 |
+| --van-field-icon-size | _18px_ | - |
+| --van-field-clear-icon-size | _18px_ | - |
+| --van-field-clear-icon-color | _var(--van-gray-5)_ | - |
+| --van-field-right-icon-color | _#666_ | - |
+| --van-field-right-icon-divider-height | _14px_ | - |
+| --van-field-right-icon-divider-color | _var(--van-border-color)_ | - |
+| --van-field-error-message-color | _var(--van-danger-color)_ | - |
+| --van-field-error-message-font-size | _12px_ | - |
+| --van-field-extra-margin-top | _2px_ | 输入区下方辅助内容的上边距 |
+| --van-field-bottom-margin-top | _8px_ | 整行底部内容的上边距 |
+| --van-field-input-comment-color | _#999_ | 输入区域下方辅助说明文字颜色 |
+| --van-field-label-comment-color | _var(--van-text-color-auxiliary)_ | 标签下方备注文字颜色 |
+| --van-field-error-message-info-background | _#fff2f0_ | - |
+| --van-field-error-message-info-padding | _6px 20px_ | - |
+| --van-field-error-message-info-margin-top | _8px_ | - |
+| --van-field-error-message-info-radius | _var(--van-radius-md)_ | - |
+| --van-field-text-area-min-height | _60px_ | - |
+| --van-field-word-limit-color | _var(--van-gray-7)_ | - |
+| --van-field-word-limit-font-size | _var(--van-font-size-sm)_ | - |
+| --van-field-word-limit-line-height | _16px_ | - |
+| --van-field-disabled-text-color | _var(--van-text-color-inverse)_ | - |
+| --van-field-required-mark-color | _var(--van-red)_ | - |
+| --van-field-label-action-color | _var(--van-primary-color)_ | - |
+| --van-field-label-action-font-size | _var(--van-font-size-md)_ | - |
+| --van-field-label-collapse-color | _var(--van-text-color-2)_ | - |
+| --van-field-label-collapse-font-size | _var(--van-font-size-sm)_ | - |
+| --van-field-input-border-color | _var(--van-border-color)_ | 输入框边框颜色 |
+| --van-field-input-border-radius | _var(--van-radius-md)_ | 输入框边框圆角 |
+| --van-field-input-border-padding-y | _8px_ | 输入框边框垂直内边距 |
+| --van-field-input-border-padding-x | _12px_ | 输入框边框水平内边距 |
+| --van-field-input-border-background | _var(--van-cell-background)_ | 输入框边框背景色 |
 | --van-field-money-currency-font-size | _inherit_ | 货币符号字号 |
 | --van-field-money-currency-font-weight | _var(--van-font-bold)_ | 货币符号字重 |
 | --van-field-money-currency-color | _var(--van-field-placeholder-text-color)_ | 未输入时货币符号颜色 |

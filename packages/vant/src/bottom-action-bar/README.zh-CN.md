@@ -77,16 +77,138 @@ const onMoreAction = (action) => {
 };
 ```
 
+### 更多操作自定义插槽
+
+通过 `#more` 插槽可完全自定义左侧区域，例如放置全选复选框；配合 `#top` 插槽展示已选数量。
+
+```html
+<van-bottom-action-bar
+  secondary-button-text="次要操作"
+  primary-button-text="确定"
+>
+  <template #top>
+    <div class="demo-bottom-action-bar__selected-count">
+      已选<strong>9,999</strong>笔<span
+        class="demo-bottom-action-bar__selected-amount"
+        >总金额<strong>10,000,000,000,000,000</strong>元</span
+      >
+    </div>
+  </template>
+  <template #more>
+    <van-checkbox-group v-model="selectAllItems" shape="square">
+      <van-checkbox name="a">全选</van-checkbox>
+    </van-checkbox-group>
+  </template>
+</van-bottom-action-bar>
+```
+
+```css
+.demo-bottom-action-bar__selected-count {
+  padding: 12px;
+  font-size: var(--van-font-size-md);
+  color: var(--van-text-color-auxiliary);
+  border-bottom: 1px solid var(--van-border-color);
+}
+
+.demo-bottom-action-bar__selected-count strong {
+  margin: 0 4px;
+  font-size: var(--van-font-size-lg);
+  font-weight: 400;
+  line-height: var(--van-font-size-lg);
+  color: var(--van-black);
+}
+
+.demo-bottom-action-bar__selected-amount {
+  margin-left: var(--van-padding-md);
+}
+```
+
+```js
+import { ref } from 'vue';
+
+const selectAllItems = ref([]);
+```
+
+### 收藏与分享
+
+通过 `#more` 插槽放置收藏、分享等图标操作。收藏后图标切换为实心 `star`，颜色使用主题主色 `--van-primary-color`。可通过 `start-gap` 调整左侧区域与按钮区间距。
+
+```html
+<van-bottom-action-bar
+  :start-gap="32"
+  secondary-button-text="次要操作"
+  primary-button-text="确定"
+>
+  <template #more>
+    <div class="demo-bottom-action-bar__icons">
+      <button
+        type="button"
+        class="demo-bottom-action-bar__icon-item"
+        :class="{ 'demo-bottom-action-bar__icon-item--active': collected }"
+        @click="onToggleCollect"
+      >
+        <van-icon :name="collected ? 'star' : 'star-o'" />
+        <span>收藏</span>
+      </button>
+      <button
+        type="button"
+        class="demo-bottom-action-bar__icon-item"
+        @click="onShare"
+      >
+        <van-icon name="share-o" />
+        <span>分享</span>
+      </button>
+    </div>
+  </template>
+</van-bottom-action-bar>
+```
+
+```js
+import { ref } from 'vue';
+
+const collected = ref(false);
+
+const onToggleCollect = () => {
+  collected.value = !collected.value;
+};
+
+const onShare = () => {
+  // share logic
+};
+```
+
+```css
+.demo-bottom-action-bar__icon-item--active {
+  color: var(--van-primary-color);
+}
+
+.demo-bottom-action-bar__icon-item--active .van-icon {
+  color: var(--van-primary-color);
+}
+```
+
 ### 顶部协议区 + 操作
 
-顶部 `#top` 插槽默认白底、`12px` 内边距，可放协议勾选、说明文案等。多条协议可使用 `CheckboxGroup` 多选。
+顶部 `#top` 插槽默认白底、`12px` 内边距，可放协议勾选、说明文案等。多条协议可使用 `CheckboxGroup` 多选，配合 [Highlight](#/zh-CN/highlight) 高亮协议链接文案。
 
 ```html
 <van-bottom-action-bar primary-button-text="操作" @click-primary="onAction">
   <template #top>
     <van-checkbox-group v-model="agreed" shape="square">
-      <van-checkbox name="a">条款一</van-checkbox>
-      <van-checkbox name="b">条款二</van-checkbox>
+      <van-checkbox name="clause1">
+        <van-highlight
+          tag="span"
+          source-string="本人已仔细阅读并同意以上所有条款"
+          keywords="以上所有条款"
+        />
+      </van-checkbox>
+      <van-checkbox name="clause2">
+        <van-highlight
+          tag="span"
+          source-string="并同意《宁波银行APP隐私协议》"
+          keywords="《宁波银行APP隐私协议》"
+        />
+      </van-checkbox>
     </van-checkbox-group>
   </template>
 </van-bottom-action-bar>
@@ -191,6 +313,7 @@ const columns = [
 | tertiary-button-width | 第二个次要按钮宽度 | _number \| string_ | - |
 | primary-button-width | 主按钮宽度 | _number \| string_ | - |
 | primary-block | 主按钮是否占满按钮区（单按钮场景可省略） | _boolean_ | `false` |
+| start-gap `new` | 左侧区域与按钮区间距 | _number \| string_ | - |
 | round | 按钮是否圆角 | _boolean_ | `true` |
 | more-text | 「更多操作」文案 | _string_ | `更多操作` |
 | more-icon | 气泡关闭时箭头图标 | _string_ | `arrow-down` |
@@ -255,7 +378,10 @@ import type { BottomActionBarProps } from 'vant';
 | --van-bottom-action-bar-top-line-height | _1.5_ | 顶部区行高 |
 | --van-bottom-action-bar-top-color | _var(--van-text-color-2)_ | 顶部区文字色 |
 | --van-bottom-action-bar-bar-height | _64px_ | 底部按钮区高度 |
-| --van-bottom-action-bar-bar-padding | _12px_ | 底部按钮区内边距 |
-| --van-bottom-action-bar-action-gap | _var(--van-padding-sm)_ | 按钮间距 |
-| --van-bottom-action-bar-more-color | _var(--van-text-color-2)_ | 「更多操作」文字色 |
+| --van-bottom-action-bar-bar-padding | _8px 12px_ | 底部按钮区内边距 |
+| --van-bottom-action-bar-start-gap | _35px_ | 左侧区域与按钮区间距 |
+| --van-bottom-action-bar-action-gap | _var(--van-padding-xs)_ | 按钮间距 |
+| --van-bottom-action-bar-more-color | _var(--van-text-color)_ | 「更多操作」文字色 |
+| --van-bottom-action-bar-more-font-size | _var(--van-font-size-lg)_ | 「更多操作」字号 |
+| --van-bottom-action-bar-more-gap | _var(--van-padding-base)_ | 「更多操作」文字与图标间距 |
 | --van-bottom-action-bar-more-icon-size | _14px_ | 「更多操作」图标大小 |

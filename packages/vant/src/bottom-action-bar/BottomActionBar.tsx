@@ -52,10 +52,11 @@ export const bottomActionBarProps = {
   tertiaryButtonWidth: numericProp,
   primaryButtonWidth: numericProp,
   primaryBlock: Boolean,
+  startGap: numericProp,
   round: truthProp,
   moreText: makeStringProp('更多操作'),
-  moreIcon: makeStringProp('arrow-down'),
-  moreExpandedIcon: makeStringProp('arrow-up'),
+  moreIcon: makeStringProp('arrow-double-left'),
+  moreExpandedIcon: makeStringProp('arrow-double-right'),
   moreIconPosition: makeStringProp<BottomActionBarMoreIconPosition>('right'),
   showMore: Boolean,
   moreExpandable: {
@@ -87,6 +88,15 @@ function getButtonStyle(width?: Numeric): CSSProperties | undefined {
       width: addUnit(width),
       flex: 'none',
     };
+  }
+}
+
+// 根据 startGap 生成底部按钮行样式
+function getBarStyle(startGap?: Numeric): CSSProperties | undefined {
+  if (startGap != null && startGap !== '') {
+    return {
+      '--van-bottom-action-bar-start-gap': addUnit(startGap),
+    } as CSSProperties;
   }
 }
 
@@ -190,6 +200,7 @@ export default defineComponent({
 
       return (
         <Icon
+          size={16}
           class={bem('more-icon')}
           name={expanded ? more.expandedIcon : more.icon}
         />
@@ -381,7 +392,7 @@ export default defineComponent({
           {slots.default ? (
             <div class={bem('content')}>{slots.default()}</div>
           ) : null}
-          <div class={bem('bar')}>
+          <div class={bem('bar')} style={getBarStyle(props.startGap)}>
             {start ? <div class={bem('start')}>{start}</div> : null}
             <div class={bem('actions')}>{renderActions()}</div>
           </div>

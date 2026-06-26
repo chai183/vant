@@ -102,12 +102,7 @@ Use `type` prop to custom different type fields. For `money` type, see [FieldMon
       label="ID Card"
       autocomplete="off"
     />
-    <van-field
-      v-model="ukey"
-      type="ukey"
-      label="UKey"
-      autocomplete="off"
-    />
+    <van-field v-model="ukey" type="ukey" label="UKey" autocomplete="off" />
     <van-field
       v-model="text"
       label-align="top"
@@ -191,11 +186,7 @@ No overflow:
 
 ```html
 <van-cell-group inset>
-  <van-field
-    label="Address"
-    model-value="Pudong, Shanghai"
-    readonly
-  />
+  <van-field label="Address" model-value="Pudong, Shanghai" readonly />
   <van-field
     label="Tags"
     :model-value="['Design', 'Interaction', 'Frontend']"
@@ -218,11 +209,7 @@ Use `left-icon` and `right-icon` for icons on both sides. Set `clearable` to sho
     right-icon="warning-o"
     :style="{ '--van-field-right-icon-color': 'var(--van-primary-color)' }"
   />
-  <van-field
-    v-model="value1"
-    label="Text"
-    left-icon="smile-o"
-  >
+  <van-field v-model="value1" label="Text" left-icon="smile-o">
     <template #right-icon>
       <a>Unit</a>
     </template>
@@ -327,11 +314,7 @@ You can set `required="auto"` on the Form component, and all the fields inside t
       :rules="[{ required: true }]"
       label="Username"
     />
-    <van-field
-      v-model="phone"
-      :rules="[{ required: false }]"
-      label="Phone"
-    />
+    <van-field v-model="phone" :rules="[{ required: false }]" label="Phone" />
   </van-form>
 </van-cell-group>
 ```
@@ -343,11 +326,7 @@ Use `error` or `error-message` to show error info.
 ```html
 <van-cell-group inset>
   <van-field v-model="username" error label="Username" />
-  <van-field
-    v-model="phone"
-    label="Phone"
-    error-message="Invalid phone"
-  />
+  <van-field v-model="phone" label="Phone" error-message="Invalid phone" />
 </van-cell-group>
 ```
 
@@ -535,11 +514,7 @@ Use the `input-comment` prop or `input-comment` slot to show helper text below t
       <span>Slot: custom label note</span>
     </template>
   </van-field>
-  <van-field
-    v-model="value1"
-    label="Label"
-    input-comment="Helper text"
-  />
+  <van-field v-model="value1" label="Label" input-comment="Helper text" />
   <van-field v-model="value2" label="Label">
     <template #input-comment>
       <van-highlight
@@ -737,16 +712,16 @@ fieldRef.value?.focus();
 
 ### Slots
 
-| Name          | Description                 | SlotProps             |
-| ------------- | --------------------------- | --------------------- |
-| label         | Custom label                | -                     |
+| Name | Description | SlotProps |
+| --- | --- | --- |
+| label | Custom label | - |
 | label-comment `new` | Custom note below the label, passed through to Cell's `label`; takes precedence over the `label-comment` prop | - |
-| input         | Custom input                | -                     |
-| left-icon     | Custom left icon            | -                     |
-| right-icon    | Custom right icon           | -                     |
-| button        | Insert button               | -                     |
-| error-message | Custom error message        | _{ message: string }_ |
-| extra         | Custom content on the right | -                     |
+| input | Custom input | - |
+| left-icon | Custom left icon | - |
+| right-icon | Custom right icon | - |
+| button | Insert button | - |
+| error-message | Custom error message | _{ message: string }_ |
+| extra | Custom content on the right | - |
 
 ## Theming
 
@@ -759,6 +734,7 @@ The component provides the following CSS variables, which can be used to customi
 | --van-field-label-width | _6.2em_ | - |
 | --van-field-label-color | _var(--van-text-color)_ | - |
 | --van-field-label-margin-right | _32px_ | - |
+| --van-field-label-top-margin-bottom | _var(--van-padding-xs)_ | Bottom margin of top-aligned label |
 | --van-field-input-text-color | _var(--van-text-color)_ | - |
 | --van-field-input-error-text-color | _var(--van-danger-color)_ | - |
 | --van-field-input-disabled-text-color | _var(--van-text-color-inverse)_ | - |

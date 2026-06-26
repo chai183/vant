@@ -539,6 +539,7 @@ export default defineComponent({
           radius="var(--van-uploader-file-upload-radius)"
           fontSize="var(--van-uploader-file-upload-font-size)"
           textColor="var(--van-uploader-file-upload-color)"
+          borderColor="#ccc"
           paddingLeft={12}
           paddingRight={12}
           v-slots={{

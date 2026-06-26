@@ -31,6 +31,7 @@ const t = useTranslate({
     urlRoute: 'URL 跳转',
     vueRoute: '路由跳转',
     customColor: '自定义颜色',
+    customBorderColor: '自定义边框颜色',
     pure: '单色按钮',
     gradient: '渐变色按钮',
     blockElement: '块级元素',
@@ -73,6 +74,7 @@ const t = useTranslate({
     urlRoute: 'URL',
     vueRoute: 'Vue Router',
     customColor: 'Custom Color',
+    customBorderColor: 'Custom Border Color',
     pure: 'Pure',
     gradient: 'Gradient',
     blockElement: 'Block Element',
@@ -205,6 +207,11 @@ const t = useTranslate({
     <van-button color="#FF8125" :text="t('pure')" />
     <van-button plain color="#FF3333" :text="t('pure')" />
     <van-button plain text-button color="#FF3333" :text="t('pure')" />
+  </demo-block>
+
+  <demo-block :title="t('customBorderColor')">
+    <van-button color="#FF8125" border-color="#FF3333" :text="t('pure')" />
+    <van-button plain color="#FF8125" border-color="#FF3333" :text="t('pure')" />
   </demo-block>
 
   <demo-block :title="t('extra')">

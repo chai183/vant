@@ -107,6 +107,15 @@ Customize the button color using the `color` prop.
 <van-button plain text-button color="#FF3333">Pure</van-button>
 ```
 
+### Custom Border Color
+
+Use the `border-color` prop to customize the button border color. It takes precedence over the `color` prop.
+
+```html
+<van-button color="#FF8125" border-color="#FF3333">Pure</van-button>
+<van-button plain color="#FF8125" border-color="#FF3333">Pure</van-button>
+```
+
 ### Borderless
 
 Use the `borderless` prop to hide the button border while keeping the background color.
@@ -161,6 +170,7 @@ When `size` is `large`, use the `extra` slot to add content below `van-button__c
 | size | Can be set to `normal` `small` `mini` | _string_ | `large` |
 | text | Text | _string_ | - |
 | color | Color, support linear-gradient | _string_ | - |
+| border-color `new` | Button border color, takes precedence over `color` | _string_ | - |
 | icon | Left Icon | _string_ | - |
 | icon-prefix | Icon className prefix | _string_ | `van-icon` |
 | icon-position | Icon position, can be set to `left` `right` | _string_ | `left` |

@@ -42,6 +42,33 @@ test('should hide border when color is gradient', () => {
   ).toBe('transparent');
 });
 
+test('should apply borderColor prop correctly', () => {
+  const wrapper = mount(Button, {
+    props: {
+      color: 'linear-gradient(#000, #fff)',
+      borderColor: '#FF3333',
+      text: 'Button',
+    },
+  });
+
+  expect(
+    wrapper.element.style.getPropertyValue('--van-button-custom-border-color'),
+  ).toBe('#FF3333');
+});
+
+test('should apply borderColor prop without color', () => {
+  const wrapper = mount(Button, {
+    props: {
+      borderColor: '#FF3333',
+      text: 'Button',
+    },
+  });
+
+  expect(
+    wrapper.element.style.getPropertyValue('--van-button-custom-border-color'),
+  ).toBe('#FF3333');
+});
+
 test('should hide border when borderless prop is true', () => {
   const wrapper = mount(Button, {
     props: {

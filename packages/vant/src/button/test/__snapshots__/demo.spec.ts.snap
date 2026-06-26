@@ -22,6 +22,27 @@ exports[`should render demo and match snapshot 1`] = `
       </span>
     </div>
   </button>
+  <button
+    type="button"
+    class="van-button van-button--default van-button--large"
+  >
+    <div class="van-button__content">
+      <span class="van-button__text">
+        Primary
+      </span>
+    </div>
+  </button>
+  <button
+    type="button"
+    class="van-button van-button--default van-button--large van-button--disabled"
+    disabled
+  >
+    <div class="van-button__content">
+      <span class="van-button__text">
+        Primary
+      </span>
+    </div>
+  </button>
 </div>
 <div>
   <div style="display: inline-flex; flex-wrap: wrap;">
@@ -508,6 +529,30 @@ exports[`should render demo and match snapshot 1`] = `
     type="button"
     class="van-button van-button--primary van-button--large van-button--plain van-button--text"
     style="--van-button-text-plain-color: #FF3333;"
+  >
+    <div class="van-button__content">
+      <span class="van-button__text">
+        Pure
+      </span>
+    </div>
+  </button>
+</div>
+<div>
+  <button
+    type="button"
+    class="van-button van-button--primary van-button--large"
+    style="--van-button-custom-border-color: #FF3333; color: white; background: rgb(255, 129, 37);"
+  >
+    <div class="van-button__content">
+      <span class="van-button__text">
+        Pure
+      </span>
+    </div>
+  </button>
+  <button
+    type="button"
+    class="van-button van-button--primary van-button--large van-button--plain"
+    style="--van-button-custom-border-color: #FF3333; color: rgb(255, 129, 37);"
   >
     <div class="van-button__content">
       <span class="van-button__text">

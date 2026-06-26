@@ -103,6 +103,15 @@ app.use(Button);
 <van-button plain text-button color="#FF3333">单色按钮</van-button>
 ```
 
+### 自定义边框颜色
+
+通过 `border-color` 属性可以自定义按钮边框颜色，优先级高于 `color` 属性。
+
+```html
+<van-button color="#FF8125" border-color="#FF3333">单色按钮</van-button>
+<van-button plain color="#FF8125" border-color="#FF3333">单色按钮</van-button>
+```
+
 ### 无边框
 
 通过 `borderless` 属性可以隐藏按钮边框，保留背景色。
@@ -155,6 +164,7 @@ app.use(Button);
 | size | 尺寸，可选值为 `normal` `small` `mini` | _string_ | `large` |
 | text | 按钮文字 | _string_ | - |
 | color | 按钮颜色，支持传入 `linear-gradient` 渐变色 | _string_ | - |
+| border-color `new` | 按钮边框颜色，优先级高于 `color` | _string_ | - |
 | icon | 图标名称或图片链接，等同于 Icon 组件的 [name 属性](#/zh-CN/icon#props) | _string_ | - |
 | icon-prefix | 图标类名前缀，等同于 Icon 组件的 [class-prefix 属性](#/zh-CN/icon#props) | _string_ | `van-icon` |
 | icon-position | 图标展示位置，可选值为 `left` `right` | _string_ | `left` |

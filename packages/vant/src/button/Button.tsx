@@ -58,6 +58,7 @@ export const buttonProps = extend({}, routeProps, {
   radius: numericProp,
   fontSize: numericProp,
   textColor: String,
+  borderColor: String,
   paddingLeft: numericProp,
   paddingRight: numericProp,
 });
@@ -131,6 +132,7 @@ export default defineComponent({
         radius,
         fontSize,
         textColor,
+        borderColor,
         paddingLeft,
         paddingRight,
       } = props;
@@ -161,6 +163,9 @@ export default defineComponent({
       if (textColor) {
         styleRecord['--van-button-custom-content-color'] = textColor;
       }
+      if (borderColor) {
+        styleRecord['--van-button-custom-border-color'] = borderColor;
+      }
       if (isDef(paddingLeft)) {
         style.paddingLeft = addUnit(paddingLeft);
       }
@@ -183,12 +188,14 @@ export default defineComponent({
             style.background = color;
           }
 
-          // hide border when color is linear-gradient
-          styleRecord['--van-button-custom-border-color'] = color.includes(
-            'gradient',
-          )
-            ? 'transparent'
-            : color;
+          if (!borderColor) {
+            // hide border when color is linear-gradient
+            styleRecord['--van-button-custom-border-color'] = color.includes(
+              'gradient',
+            )
+              ? 'transparent'
+              : color;
+          }
         }
       }
 

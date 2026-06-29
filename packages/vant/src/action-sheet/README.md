@@ -370,7 +370,7 @@ The component provides the following CSS variables, which can be used to customi
 | --van-action-sheet-grid-padding-top | _16px_ | Distance from top to icon |
 | --van-action-sheet-grid-padding-bottom | _16px_ | Distance from last row text to bottom |
 | --van-action-sheet-grid-row-gap | _32px_ | Distance between rows |
-| --van-action-sheet-grid-icon-gap | _6px_ | Distance between icon and text |
+| --van-action-sheet-grid-icon-gap | _12px_ | Distance between icon and text |
 | --van-action-sheet-grid-item-padding-x | _var(--van-padding-xs)_ | - |
 | --van-action-sheet-grid-item-name-font-size | _var(--van-font-size-sm)_ | - |
-| --van-action-sheet-grid-item-name-line-height | _var(--van-line-height-sm)_ | - |
+| --van-action-sheet-grid-item-name-line-height | _12px_ | Grid item text line height |

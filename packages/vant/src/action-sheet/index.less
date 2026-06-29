@@ -21,19 +21,19 @@
   --van-action-sheet-close-icon-size: 22px;
   --van-action-sheet-close-icon-color: var(--van-gray-5);
   --van-action-sheet-close-icon-padding: 0 var(--van-padding-md);
-  --van-action-sheet-cancel-text-color: var(--van-gray-7);
-  --van-action-sheet-cancel-padding-top: var(--van-padding-xs);
+  --van-action-sheet-cancel-text-color: var(--van-gray-12)
+    --van-action-sheet-cancel-padding-top: var(--van-padding-xs);
   --van-action-sheet-cancel-padding-color: var(--van-background);
   --van-action-sheet-loading-icon-size: 22px;
-  --van-action-sheet-grid-icon-size: 28px;
-  --van-action-sheet-grid-image-size: 28px;
+  --van-action-sheet-grid-icon-size: 48px;
+  --van-action-sheet-grid-image-size: 48px;
   --van-action-sheet-grid-padding-top: 16px;
   --van-action-sheet-grid-padding-bottom: 16px;
   --van-action-sheet-grid-row-gap: 32px;
-  --van-action-sheet-grid-icon-gap: 6px;
+  --van-action-sheet-grid-icon-gap: 12px;
   --van-action-sheet-grid-item-padding-x: var(--van-padding-xs);
   --van-action-sheet-grid-item-name-font-size: var(--van-font-size-sm);
-  --van-action-sheet-grid-item-name-line-height: var(--van-line-height-sm);
+  --van-action-sheet-grid-item-name-line-height: 12px;
 }
 
 .van-action-sheet {
@@ -236,8 +236,10 @@
   &__grid-item-name {
     width: 100%;
     overflow: hidden;
+    line-height: var(--van-action-sheet-grid-item-name-line-height);
     text-overflow: ellipsis;
     white-space: nowrap;
     text-align: center;
+    color: var(--van-gray-14);
   }
 }

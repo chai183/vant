@@ -1,7 +1,18 @@
+:root,
+:host {
+  --van-radio-group-gap: var(--van-padding-md);
+}
+
 .van-radio-group {
   box-sizing: border-box;
   max-width: 100%;
   min-width: 0;
+
+  &:not(&--horizontal):not(&--list) {
+    display: flex;
+    flex-direction: column;
+    gap: var(--van-radio-group-gap);
+  }
 
   &--list {
     width: 100%;

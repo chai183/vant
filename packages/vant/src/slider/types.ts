@@ -16,11 +16,13 @@ export type SliderThemeVars = {
   sliderButtonGripColor?: string;
   sliderButtonGripGap?: string;
   sliderMarkLabelColor?: string;
+  sliderMarkLabelFontSize?: string;
   sliderMarkLabelActiveColor?: string;
   sliderMarkDotColor?: string;
   sliderMarkDotActiveColor?: string;
   sliderMarkDotActiveBorderColor?: string;
   sliderValueMarginTop?: string;
+  sliderUnselectedTextColor?: string;
   sliderValueColor?: string;
   sliderValueFontSize?: string;
   sliderValueLineHeight?: string;

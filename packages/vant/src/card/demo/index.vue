@@ -538,7 +538,7 @@ const fullSelected = ref(false);
   display: inline-flex;
   align-items: center;
   color: var(--van-danger-color);
-  font-size: var(--van-font-size-sm);
+  font-size: var(--van-font-size-md);
   line-height: var(--van-line-height-sm);
   cursor: pointer;
 }

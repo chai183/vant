@@ -453,6 +453,10 @@ location.href = location.href.replace('youzan.github.io', 'vant-ui.github.io');
                 path: 'tree-select',
                 title: 'TreeSelect 分类选择',
               },
+              {
+                path: 'cascade-tree-select',
+                title: 'CascadeTreeSelect级联分类选择',
+              },
             ],
           },
           {

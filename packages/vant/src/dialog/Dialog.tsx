@@ -831,6 +831,7 @@ export default defineComponent({
               disabled={button.disabled}
               onClick={button.onClick}
               borderless
+              plain
             />
           ))}
         </div>

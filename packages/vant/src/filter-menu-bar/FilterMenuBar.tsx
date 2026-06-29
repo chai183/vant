@@ -340,6 +340,32 @@ export default defineComponent({
     const isMultiSelectColumn = (column: ProFormColumn) =>
       MULTI_SELECT_COMPONENTS.has(column.component ?? '');
 
+    const isListPanelColumn = (column: ProFormColumn) => {
+      const componentProps = column.componentProps as
+        | { isList?: boolean }
+        | undefined;
+
+      return (
+        (column.component === 'radioGroup' ||
+          column.component === 'checkboxGroup') &&
+        componentProps?.isList === true
+      );
+    };
+
+    // 普通单面板是否为 list 选项列表（radio/checkbox isList）。
+    const isListPanelItem = (item: FilterMenuBarItem) =>
+      getItemColumns(item).some(isListPanelColumn);
+
+    // 普通单面板是否展示 Field 标题（label-top）。
+    const hasPanelFieldLabel = (item: FilterMenuBarItem) => {
+      if (item.showFieldLabel) {
+        return true;
+      }
+
+      const columns = getItemColumns(item);
+      return columns.length !== 1 && columns.some((column) => column.label);
+    };
+
     // 普通单字段面板且字段为多选类型。
     const isSingleFieldMultiSelectPanel = (item: FilterMenuBarItem) => {
       const column = getSingleColumn(item);
@@ -1064,11 +1090,26 @@ export default defineComponent({
     const renderItemPanel = (item: FilterMenuBarItem) => {
       const scope = createItemFooterScope(item);
       const panelSlot = slots[`panel-${item.key}`];
+      const withFooter = shouldShowItemFooter(item);
+      const content =
+        panelSlot?.(scope) ?? renderProForm(item, undefined, scope);
 
       return (
-        <div class={bem('panel')}>
-          {panelSlot?.(scope) ?? renderProForm(item, undefined, scope)}
-          {renderItemFooter(item)}
+        <div
+          class={bem('panel', {
+            'with-footer': withFooter,
+            list: isListPanelItem(item),
+            'field-label': hasPanelFieldLabel(item),
+          })}
+        >
+          {withFooter ? (
+            <>
+              <div class={bem('panel-body')}>{content}</div>
+              {renderItemFooter(item)}
+            </>
+          ) : (
+            content
+          )}
         </div>
       );
     };
@@ -1145,16 +1186,27 @@ export default defineComponent({
     };
 
     // 渲染漏斗聚合面板，包含 section 列表和底部按钮。
-    const renderFunnelPanel = () => (
-      <div class={bem('funnel')}>
-        {funnelItems.value.length ? (
-          funnelItems.value.map(renderFunnelSection)
-        ) : (
-          <div class={bem('placeholder')}>暂无筛选项</div>
-        )}
-        {renderFunnelFooter()}
-      </div>
-    );
+    const renderFunnelPanel = () => {
+      const sections = funnelItems.value.length ? (
+        funnelItems.value.map(renderFunnelSection)
+      ) : (
+        <div class={bem('placeholder')}>暂无筛选项</div>
+      );
+      const showFooter = shouldShowFunnelFooter();
+
+      return (
+        <div class={bem('funnel', { 'with-footer': showFooter })}>
+          {showFooter ? (
+            <>
+              <div class={bem('funnel-body')}>{sections}</div>
+              {renderFunnelFooter()}
+            </>
+          ) : (
+            sections
+          )}
+        </div>
+      );
+    };
 
     // 普通筛选项存在有效值时，标题和图标进入已选中态。
     const isItemSelected = (item: BarItem) =>

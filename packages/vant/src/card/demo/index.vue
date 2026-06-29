@@ -315,7 +315,7 @@ const fullSelected = ref(false);
       footer-button-type="text"
       :footer-buttons="[
         { text: t('btn1'), name: 'a', color: 'var(--van-primary-color)' },
-        { text: t('btn2'), name: 'b' },
+        { text: t('btn2'), name: 'b', disabled: true },
         { text: t('btn3'), name: 'c' },
         { text: t('btn4'), name: 'd' },
         { text: t('btn5'), name: 'e' },
@@ -341,10 +341,10 @@ const fullSelected = ref(false);
           name: 'a',
           color: 'var(--van-primary-color)',
         },
-        { text: t('outlineBtn2'), name: 'b' },
+        { text: t('outlineBtn2'), name: 'b', disabled: true },
         { text: t('outlineBtn3'), name: 'c' },
         { text: t('outlineBtn4'), name: 'd' },
-        { text: t('outlineBtn5'), name: 'e', color: 'var(--van-danger-color)' },
+        { text: t('outlineBtn5'), name: 'e' },
       ]"
       footer-note-layout="split"
       :footer-note-left="t('noteLeft')"

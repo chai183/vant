@@ -65,7 +65,7 @@ exports[`should render demo and match snapshot 1`] = `
   </div>
   <button
     type="button"
-    class="van-button van-button--default van-button--normal"
+    class="van-button van-button--primary van-button--large"
   >
     <div class="van-button__content">
       <span class="van-button__text">
@@ -75,7 +75,7 @@ exports[`should render demo and match snapshot 1`] = `
   </button>
 </div>
 <div>
-  <div class="van-steps van-steps--horizontal van-steps--count-4">
+  <div class="van-steps van-steps--horizontal van-steps--count-4 van-steps--has-description">
     <div class="van-steps__items">
       <div class="van-hairline van-step van-step--horizontal van-step--finish">
         <div class="van-step__circle-container">

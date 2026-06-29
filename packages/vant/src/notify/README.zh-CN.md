@@ -285,8 +285,8 @@ import type {
 | --van-notify-primary-color | _var(--van-primary-color)_ | 主要通知文字色 |
 | --van-notify-success-color | _#2bcd79_ | 成功通知文字色 |
 | --van-notify-danger-color | _#ff3333_ | 危险/错误通知文字色 |
-| --van-notify-warning-color | _var(--van-orange-dark)_ | 警告通知文字色 |
-| --van-notify-plain-color | _var(--van-orange-dark)_ | 纯文字通知颜色 |
+| --van-notify-warning-color | _var(--van-primary-color)_ | 警告通知文字色 |
+| --van-notify-plain-color | _var(--van-primary-color)_ | 纯文字通知颜色 |
 | --van-notify-max-lines | _2_ | 非滚动模式最大行数 |
 | --van-notify-scroll-lines | _1_ | 滚动模式可视行数 |
 | --van-notify-scroll-height | _calc(line-height × scroll-lines)_ | 滚动区域可视高度 |

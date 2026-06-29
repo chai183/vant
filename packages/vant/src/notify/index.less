@@ -4,6 +4,7 @@
   --van-notify-width: 351px;
   --van-notify-top-offset: 8px;
   --van-notify-horizontal-margin: 12px;
+  --van-notify-shadow: 0 0 6px 0 rgba(0, 0, 0, 0.1);
   --van-notify-font-size: var(--van-font-size-md);
   --van-notify-line-height: var(--van-line-height-md);
   --van-notify-height: auto;
@@ -25,9 +26,9 @@
   --van-notify-primary-color: var(--van-primary-color);
   --van-notify-success-color: #2bcd79;
   --van-notify-danger-color: #ff3333;
-  --van-notify-warning-color: var(--van-orange-dark);
-  --van-notify-action-color: var(--van-orange-dark);
-  --van-notify-plain-color: var(--van-orange-dark);
+  --van-notify-warning-color: var(--van-primary-color);
+  --van-notify-action-color: var(--van-primary-color);
+  --van-notify-plain-color: var(--van-primary-color);
   --van-notify-max-lines: 2;
   --van-notify-scroll-lines: 1;
   --van-notify-scroll-height: calc(
@@ -48,6 +49,7 @@
   text-align: left;
   background: var(--van-notify-background);
   border-radius: var(--van-notify-radius);
+  box-shadow: var(--van-notify-shadow);
 
   &.van-popup--top {
     top: var(--van-notify-top-offset);

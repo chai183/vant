@@ -11,6 +11,7 @@
   --van-card-footer-height: 40px;
   --van-card-footer-line-height: var(--van-line-height-md);
   --van-card-footer-button-font-size: 14px;
+  --van-card-footer-button-disabled-color: var(--van-gray-11);
   --van-card-footer-note-font-size: var(--van-font-size-sm);
   --van-card-footer-note-line-height: 1;
   --van-card-footer-note-color: var(--van-text-color-secondary);
@@ -41,10 +42,9 @@
   --van-card-badge-size: 14px;
   --van-card-badge-font-size: 10px;
   --van-card-badge-dot-size: 8px;
-  --van-card-select-size: 15px;
   --van-card-select-gap: 8px;
   --van-card-select-title-offset: calc(
-    (var(--van-card-title-line-height) - var(--van-card-select-size)) / 2
+    (var(--van-card-title-line-height) - var(--van-checkbox-size)) / 2
   );
   --van-card-avatar-small-size: 20px;
   --van-card-avatar-large-size: 44px;
@@ -63,13 +63,11 @@
   --van-card-outline-button-border-color: var(--van-gray-9);
   --van-card-outline-button-radius: var(--van-radius-max);
   --van-card-outline-button-height: 30px;
+  --van-card-footer-outline-height: 42px;
+  --van-card-footer-outline-gap: 16px;
   --van-card-footer-more-font-size: var(--van-card-footer-button-font-size);
   --van-card-footer-more-color: var(--van-card-title-color);
   --van-card-footer-more-width: 28px;
-  --van-card-footer-outline-gap: var(--van-padding-md);
-  --van-card-footer-popover-action-height: 48px;
-  --van-card-footer-popover-divider-padding-x: var(--van-padding-md);
-  --van-card-footer-popover-width: 88px;
 }
 
 .van-card {
@@ -93,6 +91,12 @@
     &:not(:first-child) {
       margin-top: 0;
     }
+
+    .van-card__footer-note {
+      min-height: auto;
+      padding-top: var(--van-padding-md);
+      padding-bottom: var(--van-padding-md);
+    }
   }
 
   // 无内容区时不保留标题底部 4px 预留间距
@@ -104,38 +108,6 @@
 
   &--selectable {
     cursor: pointer;
-
-    .van-card__select {
-      .van-checkbox {
-        overflow: visible;
-      }
-
-      .van-checkbox__icon {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        flex: none;
-        height: 1em;
-        font-size: var(--van-card-select-size);
-        line-height: 1em;
-
-        .van-icon {
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          box-sizing: border-box;
-          width: 1.25em;
-          height: 1.25em;
-          font-size: 0.8em;
-          line-height: 1;
-          text-align: center;
-
-          &::before {
-            line-height: 1;
-          }
-        }
-      }
-    }
   }
 
   // --- 标题区 ---
@@ -198,8 +170,8 @@
         display: flex;
         align-items: center;
         justify-content: center;
-        width: var(--van-card-select-size);
-        height: var(--van-card-select-size);
+        width: var(--van-checkbox-size);
+        height: var(--van-checkbox-size);
         margin-top: var(--van-card-select-title-offset);
         margin-right: var(--van-card-select-gap);
         margin-bottom: var(--van-padding-base);
@@ -407,20 +379,17 @@
 
       .van-card__select-col {
         flex: none;
-        width: calc(var(--van-card-select-size) + var(--van-card-select-gap));
+        width: calc(var(--van-checkbox-size) + var(--van-card-select-gap));
       }
 
       // 与 text-list 首行 label 水平对齐
       .van-card__select--body {
         display: flex;
         align-items: center;
-        height: var(--van-card-select-size);
+        height: var(--van-checkbox-size);
         margin-top: calc(
           var(--van-card-text-list-row-padding-y) +
-            (
-              var(--van-card-text-list-line-height) -
-                var(--van-card-select-size)
-            ) /
+            (var(--van-card-text-list-line-height) - var(--van-checkbox-size)) /
             2
         );
       }
@@ -545,151 +514,176 @@
     }
   }
 
-  // --- 底部区：padding + 单行内容 = 40px ---
+  // --- 底部区：基于 bottom-action-bar，padding + 单行内容 = 40px ---
+  &__footer-action-bar.van-bottom-action-bar {
+    position: relative;
+    right: auto;
+    bottom: auto;
+    left: auto;
+    z-index: auto;
+    width: 100%;
+    --van-bottom-action-bar-bar-padding: var(--van-card-footer-padding-y) 0;
+    --van-bottom-action-bar-action-gap: 0;
+    --van-bottom-action-bar-start-gap: var(--van-card-footer-overflow-width);
+
+    .van-bottom-action-bar__bar {
+      box-sizing: border-box;
+    }
+
+    .van-bottom-action-bar__start {
+      flex: none;
+      min-width: 0;
+    }
+
+    .van-bottom-action-bar__actions {
+      flex: 1;
+      min-width: 0;
+    }
+  }
+
   &__footer-buttons {
     box-sizing: border-box;
     border-top: 0.5px solid var(--van-card-divider-color);
 
     &--text {
-      .van-card__footer-button-row {
-        display: flex;
-        flex-direction: row-reverse;
-        align-items: center;
+      --van-bottom-action-bar-start-gap: 0;
+      --van-bottom-action-bar-action-gap: 0;
+
+      .van-bottom-action-bar__start {
+        margin-right: 0;
+      }
+
+      .van-bottom-action-bar__actions {
+        gap: 0;
+      }
+
+      .van-bottom-action-bar__bar {
         min-height: var(--van-card-footer-height);
+      }
 
-        .van-card__footer-btn {
-          flex: 1;
-          min-width: 0;
-          box-sizing: border-box;
-          padding: var(--van-card-footer-padding-y) 0;
-          font-size: var(--van-card-footer-button-font-size);
-          line-height: var(--van-card-footer-line-height);
-          color: var(--van-card-title-color);
-          text-align: center;
-          background: transparent;
-          border: none;
-          cursor: pointer;
+      .van-card__text-action {
+        display: flex;
+        flex: 1;
+        align-items: center;
+        justify-content: center;
+        min-width: 0;
+      }
+
+      .van-bottom-action-bar__button {
+        flex: 1;
+        min-width: 0;
+      }
+
+      .van-card__footer-btn.van-button {
+        width: 100%;
+        font-size: var(--van-card-footer-button-font-size);
+        line-height: var(--van-card-footer-line-height);
+        color: var(--van-card-title-color);
+
+        &.van-button--disabled {
+          color: var(--van-card-footer-button-disabled-color);
         }
+      }
 
-        &--overflow {
-          .van-card__footer-overflow-wrap {
-            flex: none;
-            width: var(--van-card-footer-overflow-width);
-
-            .van-popover__wrapper {
-              display: block;
-              width: 100%;
-            }
-          }
-
-          .van-card__footer-overflow {
-            width: 100%;
-          }
-        }
-
-        .van-card__footer-overflow-wrap {
-          box-sizing: border-box;
-        }
-
-        .van-card__footer-overflow {
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          width: 100%;
-          box-sizing: border-box;
-          padding: var(--van-card-footer-padding-y) 0;
-          font-size: var(--van-card-footer-button-font-size);
-          line-height: var(--van-card-footer-line-height);
-          color: var(--van-card-title-color);
-          text-align: center;
-          background: transparent;
-          border: none;
-          cursor: pointer;
-        }
-
-        .van-card__footer-overflow-dots {
-          display: inline-flex;
-          align-items: center;
-          justify-content: center;
-          gap: var(--van-card-footer-overflow-dot-gap);
-        }
-
-        .van-card__footer-overflow-dot {
-          flex: none;
-          width: var(--van-card-footer-overflow-dot-size);
-          height: var(--van-card-footer-overflow-dot-size);
-          background: var(--van-card-footer-overflow-dot-color);
-          border-radius: var(--van-radius-max);
-        }
-
-        .van-card__button-divider {
-          flex: none;
-          width: 0.5px;
-          height: var(--van-padding-sm);
-          background: var(--van-card-button-divider-color);
-        }
+      .van-card__footer-overflow-icon {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: var(--van-card-footer-overflow-width);
+        font-size: var(--van-card-footer-button-font-size);
+        color: var(--van-card-title-color);
+        cursor: pointer;
       }
     }
 
     &--outline {
+      --van-bottom-action-bar-bar-padding: 0;
+      --van-bottom-action-bar-start-gap: var(--van-card-footer-outline-gap);
+      --van-bottom-action-bar-action-gap: var(--van-card-footer-outline-gap);
+      box-sizing: border-box;
+      height: var(--van-card-footer-outline-height);
       padding: 0 var(--van-padding-sm) var(--van-padding-sm);
       border-top: none;
       border-radius: 0 0 var(--van-card-radius) var(--van-card-radius);
 
-      .van-card__footer-button-row {
-        display: flex;
-        flex-direction: row-reverse;
-        align-items: center;
-        justify-content: flex-start;
-        gap: var(--van-card-footer-outline-gap);
-        width: 100%;
-        min-width: 0;
-        overflow: hidden;
+      &.van-card__footer-action-bar.van-bottom-action-bar {
+        .van-bottom-action-bar__bar {
+          align-items: flex-start;
+          justify-content: flex-end;
+          min-height: 0;
+          height: var(--van-card-outline-button-height);
+          padding: 0;
+        }
+
+        .van-bottom-action-bar__start {
+          flex: none;
+          margin-right: var(--van-card-footer-outline-gap);
+        }
 
         .van-popover__wrapper {
+          display: flex;
           flex: none;
         }
 
-        .van-card__footer-btn {
-          display: inline-flex;
-          flex: 0 0 auto;
-          align-items: center;
-          justify-content: center;
-          min-width: 0;
-          max-width: var(--van-card-outline-btn-max-width, 100%);
-          box-sizing: border-box;
-          height: var(--van-card-outline-button-height);
-          padding: 0 var(--van-padding-sm);
-          overflow: hidden;
-          font-size: var(--van-card-footer-button-font-size);
-          line-height: var(--van-card-footer-line-height);
-          color: var(--van-card-title-color);
-          text-align: center;
-          background: var(--van-card-outline-button-background);
-          border: var(--van-border-width) solid
-            var(--van-card-outline-button-border-color);
-          border-radius: var(--van-card-outline-button-radius);
-          cursor: pointer;
-        }
-
-        .van-card__footer-btn-text {
+        .van-bottom-action-bar__actions {
+          flex: 0 1 auto;
+          flex-wrap: nowrap;
+          justify-content: flex-end;
+          gap: var(--van-card-footer-outline-gap);
           min-width: 0;
           overflow: hidden;
-          white-space: nowrap;
-          text-overflow: ellipsis;
+        }
+      }
+
+      .van-bottom-action-bar__button {
+        flex: 0 0 auto;
+        min-width: 0;
+      }
+
+      .van-card__footer-btn.van-button {
+        height: var(--van-card-outline-button-height);
+        min-height: var(--van-card-outline-button-height);
+        padding: 0 var(--van-padding-sm);
+        overflow: hidden;
+        font-size: var(--van-card-footer-button-font-size);
+        line-height: var(--van-card-outline-button-height);
+        color: var(--van-card-title-color);
+        background: var(--van-card-outline-button-background);
+        border-radius: var(--van-card-outline-button-radius);
+
+        &::after {
+          border-width: 1px;
+          border-color: var(
+            --van-button-custom-border-color,
+            var(--van-card-outline-button-border-color)
+          );
         }
 
-        .van-card__footer-more {
-          flex: none;
-          padding: 0;
-          font-size: var(--van-card-footer-more-font-size);
-          line-height: var(--van-card-footer-line-height);
-          color: var(--van-card-footer-more-color);
-          white-space: nowrap;
-          background: transparent;
-          border: none;
-          cursor: pointer;
+        &.van-button--disabled {
+          color: var(--van-card-footer-button-disabled-color);
+
+          &::after {
+            border-color: var(--van-card-footer-button-disabled-color);
+          }
         }
+      }
+
+      .van-card__footer-btn-text {
+        min-width: 0;
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+      }
+
+      .van-card__footer-more {
+        flex: none;
+        height: var(--van-card-outline-button-height);
+        padding: 0;
+        font-size: var(--van-card-footer-more-font-size);
+        line-height: var(--van-card-outline-button-height);
+        color: var(--van-card-footer-more-color);
+        white-space: nowrap;
+        cursor: pointer;
       }
     }
   }
@@ -798,8 +792,8 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      width: var(--van-card-select-size);
-      height: var(--van-card-select-size);
+      width: var(--van-checkbox-size);
+      height: var(--van-checkbox-size);
       margin-top: var(--van-card-select-title-offset);
       margin-right: var(--van-card-select-gap);
       margin-bottom: var(--van-padding-base);
@@ -840,53 +834,13 @@
     }
 
     // 有底部注释时，标题区去掉底部 padding，与注释区更贴近
-    &:has(.van-card__footer-note) {
+    &.van-card--has-footer-note {
       .van-card__image-title {
         padding-bottom: 0;
       }
 
       .van-card__image-right-header {
         padding-bottom: 0;
-      }
-    }
-  }
-}
-
-// 底部溢出 Popover（teleport 到 body，样式不可嵌套在 .van-card 内）
-.van-popover.van-card__footer-popover {
-  .van-popover__content {
-    width: var(--van-card-footer-popover-width);
-    min-width: var(--van-card-footer-popover-width);
-  }
-
-  .van-popover__action {
-    display: flex;
-    align-items: center;
-    width: 100%;
-    height: var(--van-card-footer-popover-action-height);
-    padding: 0 var(--van-card-footer-popover-divider-padding-x);
-    box-sizing: border-box;
-
-    &-text {
-      display: flex;
-      flex: 1;
-      align-items: center;
-      justify-content: flex-start;
-      min-width: 0;
-      height: 100%;
-      overflow: hidden;
-      text-align: left;
-      white-space: nowrap;
-      text-overflow: ellipsis;
-
-      &::after {
-        top: auto;
-        right: 0;
-        bottom: 0;
-        left: 0;
-        border: none;
-        border-bottom: 1px solid var(--van-card-divider-color);
-        transform: scaleY(0.5);
       }
     }
   }

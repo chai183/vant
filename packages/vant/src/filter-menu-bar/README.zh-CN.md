@@ -1355,16 +1355,16 @@ import type {
 | --van-filter-menu-bar-title-font-size | _var(--van-font-size-md)_ | 筛选条标题字号 |
 | --van-filter-menu-bar-title-active-color | _var(--van-primary-color)_ | 筛选条标题激活色 |
 | --van-filter-menu-bar-content-max-height | _70vh_ | 下拉面板最大高度 |
-| --van-filter-menu-bar-bar-divider-color | _var(--van-border-color)_ | 筛选条与下拉面板之间的分隔线颜色 |
+| --van-filter-menu-bar-bar-divider-color | _var(--van-border-color)_ | 筛选条与下拉面板、漏斗分组之间的分隔线颜色 |
 | --van-filter-menu-bar-content-padding-x | _var(--van-padding-sm)_ | 面板内容左右内边距 |
 | --van-filter-menu-bar-bar-icon-color | _var(--van-text-color-3)_ | 筛选条图标默认色 |
 | --van-filter-menu-bar-list-option-icon-gap | _var(--van-padding-lg)_ | 选择菜单列表中选项与右侧图标间距 |
 | --van-filter-menu-bar-footer-padding | _12px_ | 内置底部操作栏（BottomActionBar）按钮区内边距 |
 | --van-filter-menu-bar-footer-gap | _8px_ | 内置底部操作栏按钮间距 |
+| --van-filter-menu-bar-footer-z-index | _10_ | 底部操作栏层级，避免滚动内容（分隔线、滑块等）透出 |
 | --van-filter-menu-bar-funnel-section-title-height | _16px_ | 漏斗分组标题行高 |
-| --van-filter-menu-bar-funnel-section-title-padding-y | _var(--van-padding-md)_ | 漏斗分组标题上下内边距 |
+| --van-filter-menu-bar-funnel-section-title-padding-y | _16px_ | 漏斗分组标题上下内边距（相邻 section 间距为 2 倍，即 32px） |
 | --van-filter-menu-bar-funnel-section-title-font-size | _var(--van-font-size-md)_ | 漏斗分组标题字号 |
 | --van-filter-menu-bar-funnel-section-title-font-weight | _500_ | 漏斗分组标题字重 |
 | --van-filter-menu-bar-funnel-section-title-color | _#333333_ | 漏斗分组标题颜色 |
-| --van-filter-menu-bar-slider-side-padding | _calc(var(--van-slider-button-width) / 2)_ | 漏斗内 Slider 左右安全间距 |
 | --van-filter-menu-bar-slider-field-padding-y | _var(--van-padding-md)_ | 漏斗内 Slider 内容上下间距 |

@@ -19,6 +19,7 @@ import { Checkbox } from '../checkbox';
 import CardTitle from './components/CardTitle';
 import CardTextList from './components/CardTextList';
 import CardFooter from './components/CardFooter';
+import type { BottomActionBarProps } from '../bottom-action-bar';
 import type {
   CardType,
   CardContentType,
@@ -77,6 +78,7 @@ export const cardProps = {
   footerOutlineMax: makeNumberProp(3),
   footerOutlineMoreText: makeStringProp('更多'),
   footerOutlineCollapseText: makeStringProp('收起'),
+  footerActionBarProps: Object as PropType<Partial<BottomActionBarProps>>,
   footerNoteLayout: String as PropType<CardFooterNoteLayout>, // center | split | left
   footerNoteLeft: String,
   footerNoteRight: String,
@@ -108,6 +110,20 @@ export default defineComponent({
     const isImageType = computed(() =>
       ['image-large', 'image-double', 'image-right'].includes(props.type),
     );
+
+    const hasFooterNote = computed(() => {
+      if (slots['footer-note']?.()) {
+        return true;
+      }
+
+      const layout = props.footerNoteLayout || 'center';
+
+      if (layout === 'split') {
+        return Boolean(props.footerNoteLeft || props.footerNoteRight);
+      }
+
+      return Boolean(props.footerNote);
+    });
 
     // 标题 props 聚合，供 CardTitle 复用
     const titleProps = computed(() => ({
@@ -262,6 +278,7 @@ export default defineComponent({
         outlineMax={props.footerOutlineMax}
         outlineMoreText={props.footerOutlineMoreText}
         outlineCollapseText={props.footerOutlineCollapseText}
+        actionBarProps={props.footerActionBarProps}
         noteLayout={props.footerNoteLayout}
         noteLeft={props.footerNoteLeft}
         noteRight={props.footerNoteRight}
@@ -294,6 +311,7 @@ export default defineComponent({
           <div
             class={bem('image-right-header', {
               selectable: props.selectable && props.showTitle,
+              'no-bottom-padding': hasFooterNote.value,
             })}
           >
             <div class={bem('image-right-text-wrap')}>
@@ -408,6 +426,7 @@ export default defineComponent({
             [props.type]: true,
             'no-body': !hasBody,
             selectable: props.selectable,
+            'has-footer-note': hasFooterNote.value,
           })}
           onClick={onClickCard}
         >

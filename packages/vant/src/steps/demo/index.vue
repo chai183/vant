@@ -176,6 +176,7 @@ const nextStep = () => {
 .demo-steps {
   .van-button {
     margin: var(--van-padding-md) 0 0 var(--van-padding-md);
+    width: 50%;
   }
 
   p,

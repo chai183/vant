@@ -13,6 +13,7 @@ import {
 } from '../utils';
 import { Badge, type BadgeProps } from '../badge';
 import { CONFIG_PROVIDER_KEY } from '../config-provider/ConfigProvider';
+import { ICON_IMAGES } from './presets';
 
 const [name, bem] = createNamespace('icon');
 
@@ -22,6 +23,7 @@ export const iconProps = {
   dot: Boolean,
   tag: makeStringProp<keyof HTMLElementTagNameMap>('i'),
   name: String,
+  image: Boolean,
   size: numericProp,
   badge: numericProp,
   color: String,
@@ -44,8 +46,9 @@ export default defineComponent({
     );
 
     return () => {
-      const { tag, dot, name, size, badge, color } = props;
-      const isImageIcon = isImage(name);
+      const { tag, dot, name, size, badge, color, image } = props;
+      const imageSrc = image ? ICON_IMAGES[name!] : isImage(name) ? name : '';
+      const isImageIcon = !!imageSrc;
 
       return (
         <Badge
@@ -53,7 +56,12 @@ export default defineComponent({
           tag={tag}
           class={[
             classPrefix.value,
-            isImageIcon ? '' : `${classPrefix.value}-${name}`,
+            name?.startsWith('icon-')
+              ? ['iconfont', name]
+              : isImageIcon
+                ? ''
+                : `${classPrefix.value}-${name}`,
+            // isImageIcon ? '' : `${classPrefix.value}-${name}`,
           ]}
           style={{
             color,
@@ -63,7 +71,17 @@ export default defineComponent({
           {...props.badgeProps}
         >
           {slots.default?.()}
-          {isImageIcon && <img class={bem('image')} src={name} />}
+          {image && imageSrc ? (
+            <span
+              class={bem('svg')}
+              style={{
+                maskImage: `url(${imageSrc})`,
+                WebkitMaskImage: `url(${imageSrc})`,
+              }}
+            />
+          ) : (
+            isImageIcon && <img class={bem('image')} src={imageSrc} />
+          )}
         </Badge>
       );
     };

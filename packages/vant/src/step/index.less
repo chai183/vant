@@ -1,22 +1,30 @@
 :root,
 :host {
-  --van-step-text-color: var(--van-text-color);
-  --van-step-description-color: var(--van-gray-7);
+  --van-step-text-color: #333333;
+  --van-step-description-color: #666666;
   --van-step-active-color: var(--van-primary-color);
   --van-step-process-text-color: var(--van-primary-color);
   --van-step-font-size: var(--van-font-size-sm);
   --van-step-line-color: var(--van-border-color);
   --van-step-finish-line-color: var(--van-primary-color);
-  --van-step-finish-text-color: var(--van-text-color);
+  --van-step-finish-text-color: #333333;
   --van-step-icon-size: var(--van-font-size-sm);
   --van-step-circle-size: 5px;
   --van-step-circle-color: var(--van-gray-6);
   --van-step-circle-number-size: var(--van-font-size-lg);
-  --van-step-waiting-circle-bg: var(--van-gray-4);
-  --van-step-waiting-circle-color: var(--van-text-color-2);
+  --van-step-waiting-circle-bg: #dddddd;
+  --van-step-waiting-circle-color: #999999;
   --van-step-error-color: #ff3333;
   --van-step-horizontal-title-font-size: var(--van-font-size-sm);
+  --van-step-horizontal-title-line-height: 12px;
   --van-step-vertical-title-font-size: var(--van-font-size-md);
+  --van-step-vertical-strip-width: 36px;
+  --van-step-vertical-content-gap: 8px;
+  --van-step-vertical-circle-center: calc(
+    var(--van-step-vertical-strip-width) -
+      var(--van-step-vertical-content-gap) -
+      var(--van-step-circle-number-size) / 2
+  );
   --van-step-vertical-content-padding: var(--van-padding-base);
   --van-step-vertical-padding-right: var(--van-padding-sm);
   --van-step-vertical-padding-bottom: 10px;
@@ -37,7 +45,7 @@
   --van-step-horizontal-node-center: calc(
     var(--van-step-circle-number-size) / 2
   );
-  --van-step-horizontal-text-height: calc(var(--van-line-height-sm) * 3 + 2px);
+  --van-step-horizontal-content-gap: var(--van-padding-xs);
 }
 
 .van-step {
@@ -117,8 +125,7 @@
       justify-content: flex-start;
       width: 100%;
       max-width: var(--van-step-horizontal-content-max-width, 100%);
-      min-height: var(--van-step-horizontal-text-height);
-      margin-top: var(--van-padding-xs);
+      margin-top: var(--van-step-horizontal-content-gap);
       text-align: center;
     }
 
@@ -127,7 +134,7 @@
       max-width: 100%;
       overflow: hidden;
       font-size: var(--van-step-horizontal-title-font-size);
-      line-height: var(--van-line-height-sm);
+      line-height: var(--van-step-horizontal-title-line-height);
       white-space: nowrap;
       text-overflow: ellipsis;
     }
@@ -169,8 +176,9 @@
       display: flex;
       gap: var(--van-padding-sm);
       align-items: flex-start;
-      padding: var(--van-step-vertical-content-padding);
-      padding-right: 0;
+      padding: var(--van-step-vertical-content-padding) 0
+        var(--van-step-vertical-content-padding)
+        var(--van-step-vertical-strip-width);
     }
 
     .van-step__left {
@@ -202,7 +210,7 @@
     .van-step__circle-container {
       position: absolute;
       top: var(--van-step-vertical-circle-top);
-      left: -15px;
+      left: var(--van-step-vertical-circle-center);
       z-index: 1;
       font-size: var(--van-step-icon-size);
       line-height: 1;
@@ -211,9 +219,10 @@
 
     .van-step__line {
       top: var(--van-step-vertical-circle-top);
-      left: -15px;
+      left: var(--van-step-vertical-circle-center);
       width: 1px;
       height: 100%;
+      transform: translateX(-50%);
     }
 
     // 折叠态当前步骤：独立绘制 prev/next 渐变连线（替代原 van-step__line）
@@ -232,7 +241,7 @@
       // 折叠连线公共定位（与节点圆心对齐）
       .van-step__collapsed-line {
         position: absolute;
-        left: -15px;
+        left: var(--van-step-vertical-circle-center);
         z-index: 0;
         width: 1px;
         transform: translateX(-50%);

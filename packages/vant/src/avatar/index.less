@@ -1,6 +1,7 @@
 :root,
 :host {
   --van-avatar-large-size: 60px;
+  --van-avatar-medium-l-size: 48px;
   --van-avatar-medium-size: 44px;
   --van-avatar-small-size: 32px;
   --van-avatar-mini-size: 20px;
@@ -28,6 +29,11 @@
     height: var(--van-avatar-large-size);
   }
 
+  &--medium_l {
+    width: var(--van-avatar-medium-l-size);
+    height: var(--van-avatar-medium-l-size);
+  }
+
   &--medium {
     width: var(--van-avatar-medium-size);
     height: var(--van-avatar-medium-size);
@@ -51,7 +57,7 @@
   }
 
   &__text {
-    max-width: 3em;
+    max-width: 1em;
     font-size: var(--van-avatar-text-font-size);
     font-weight: var(--van-avatar-text-font-weight);
     color: var(--van-avatar-text-color);

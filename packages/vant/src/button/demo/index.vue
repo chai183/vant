@@ -1,8 +1,6 @@
 <script setup lang="ts">
 import VanButton from '..';
-import VanSwipe from '../../swipe';
-import VanSwipeItem from '../../swipe-item';
-import { cdnURL, useTranslate } from '../../../docs/site';
+import { useTranslate } from '../../../docs/site';
 
 const t = useTranslate({
   'zh-CN': {
@@ -10,157 +8,215 @@ const t = useTranslate({
     size: '按钮尺寸',
     icon: '图标按钮',
     loading: '加载状态',
-    shape: '按钮形状',
-    default: '默认按钮',
-    primary: '主要按钮',
-    success: '成功按钮',
-    danger: '危险按钮',
-    warning: '警告按钮',
+    primary: '强按钮',
     large: '大号按钮',
     normal: '普通按钮',
     small: '小型按钮',
     mini: '迷你按钮',
-    plain: '朴素按钮',
-    square: '方形按钮',
-    round: '圆形按钮',
-    hairline: '细边框',
-    hairlineButton: '细边框按钮',
+    plain: '弱按钮',
+    textButton: '文本按钮',
+    textPlainSecondary: '次要文本',
+    addIcon: '加图标',
+    addIconStyle: '加图标样式',
+    iconRight: '图标在右',
+    primaryDisabled: '强按钮禁用态',
+    plainDisabled: '弱按钮禁用态',
+    disabled: '禁用状态',
+    countdown: '倒计时',
+    countdown3s: '倒计时（3s）',
+    countdownDone: '倒计时完成',
+    countdownDoneLong: '倒计时完成极限极限极限极限极限（3s）',
     loadingText: '加载中...',
     router: '页面导航',
     urlRoute: 'URL 跳转',
     vueRoute: '路由跳转',
     customColor: '自定义颜色',
+    customBorderColor: '自定义边框颜色',
     pure: '单色按钮',
     gradient: '渐变色按钮',
     blockElement: '块级元素',
     animatedButton: '动画按钮',
+    extra: '补充说明按钮',
+    extraContent: '辅助补充说明文字信息',
     doTask: '做任务',
     lottery: '抽大奖',
+    customSize: '自定义尺寸',
+    customSizeButton: '上传附件',
+    borderless: '无边框',
+    borderlessPrimary: '无边框强按钮',
+    borderlessPlain: '无边框弱按钮',
   },
   'en-US': {
     type: 'Type',
     size: 'Size',
     icon: 'Icon',
     loading: 'Loading',
-    shape: 'Shape',
-    default: 'Default',
     primary: 'Primary',
-    success: 'Success',
-    danger: 'Danger',
-    warning: 'Warning',
     large: 'Large',
     normal: 'Normal',
     small: 'Small',
     mini: 'Mini',
     plain: 'Plain',
-    square: 'Square',
-    round: 'Round',
-    hairline: 'Hairline',
-    hairlineButton: 'Hairline',
+    textButton: 'Text Button',
+    textPlainSecondary: 'Secondary Text',
+    addIcon: 'With Icon',
+    addIconStyle: 'Icon Style',
+    iconRight: 'Icon Right',
+    primaryDisabled: 'Primary Disabled',
+    plainDisabled: 'Plain Disabled',
+    disabled: 'Disabled',
+    countdown: 'Countdown',
+    countdown3s: 'Countdown (3s)',
+    countdownDone: 'Countdown Done',
+    countdownDoneLong: 'Countdown Done Limit Limit Limit Limit Limit (3s)',
     loadingText: 'Loading...',
     router: 'Router',
     urlRoute: 'URL',
     vueRoute: 'Vue Router',
     customColor: 'Custom Color',
+    customBorderColor: 'Custom Border Color',
     pure: 'Pure',
     gradient: 'Gradient',
     blockElement: 'Block Element',
     animatedButton: 'Animated Button',
+    extra: 'Supplementary Button',
+    extraContent: 'Auxiliary supplementary description text',
     doTask: 'Do Task',
     lottery: 'Lottery',
+    customSize: 'Custom Size',
+    customSizeButton: 'Upload File',
+    borderless: 'Borderless',
+    borderlessPrimary: 'Borderless Primary',
+    borderlessPlain: 'Borderless Plain',
   },
 });
 </script>
 
 <template>
   <demo-block :title="t('type')">
-    <div class="demo-button-row">
-      <van-button type="primary">{{ t('primary') }}</van-button>
-      <van-button type="success">{{ t('success') }}</van-button>
-      <van-button type="default">{{ t('default') }}</van-button>
+    <van-button>{{ t('primary') }}</van-button>
+    <van-button plain :text="t('plain')" />
+  </demo-block>
+
+  <demo-block :title="t('textButton')">
+    <div style="display: inline-flex; flex-wrap: wrap">
+      <van-button text-button>{{ t('textButton') }}</van-button>
+      <van-button text-button size="normal">{{ t('textButton') }}</van-button>
+      <van-button text-button size="small">{{ t('textButton') }}</van-button>
+      <van-button text-button size="mini">{{ t('textButton') }}</van-button>
     </div>
-    <van-button type="danger">{{ t('danger') }}</van-button>
-    <van-button type="warning">{{ t('warning') }}</van-button>
-  </demo-block>
-
-  <demo-block :title="t('plain')">
-    <van-button plain type="primary" :text="t('plain')" />
-    <van-button plain type="success" :text="t('plain')" />
-  </demo-block>
-
-  <demo-block :title="t('hairline')">
-    <van-button plain hairline type="primary" :text="t('hairlineButton')" />
-    <van-button plain hairline type="success" :text="t('hairlineButton')" />
-  </demo-block>
-
-  <demo-block :title="t('disabled')">
-    <van-button disabled type="primary" :text="t('disabled')" />
-    <van-button disabled type="success" :text="t('disabled')" />
-  </demo-block>
-
-  <demo-block :title="t('loadingStatus')">
-    <van-button loading type="primary" />
-    <van-button loading type="primary" loading-type="spinner" />
-    <van-button loading :loading-text="t('loadingText')" type="success" />
-  </demo-block>
-
-  <demo-block :title="t('shape')">
-    <van-button type="primary" square :text="t('square')" />
-    <van-button type="success" round :text="t('round')" />
-  </demo-block>
-
-  <demo-block :title="t('icon')">
-    <van-button type="primary" icon="plus" />
-    <van-button type="primary" icon="plus" :text="t('button')" />
-    <van-button
-      plain
-      type="primary"
-      :icon="cdnURL('user-active.png')"
-      :text="t('button')"
-    />
+    <div style="display: inline-flex; flex-wrap: wrap">
+      <van-button text-button disabled>{{ t('textButton') }}</van-button>
+      <van-button text-button size="normal" disabled>{{
+        t('textButton')
+      }}</van-button>
+      <van-button text-button size="small" disabled>{{
+        t('textButton')
+      }}</van-button>
+      <van-button text-button size="mini" disabled>{{
+        t('textButton')
+      }}</van-button>
+    </div>
+    <div style="display: inline-flex; flex-wrap: wrap">
+      <van-button plain text-button>{{ t('textButton') }}</van-button>
+      <van-button plain text-button size="normal">{{
+        t('textButton')
+      }}</van-button>
+      <van-button plain text-button size="small">{{
+        t('textButton')
+      }}</van-button>
+      <van-button plain text-button size="mini">{{
+        t('textButton')
+      }}</van-button>
+    </div>
+    <div style="display: inline-flex; flex-wrap: wrap">
+      <van-button plain text-button text-secondary>{{
+        t('textPlainSecondary')
+      }}</van-button>
+      <van-button plain text-button text-secondary size="normal">{{
+        t('textPlainSecondary')
+      }}</van-button>
+      <van-button plain text-button text-secondary size="small">{{
+        t('textPlainSecondary')
+      }}</van-button>
+      <van-button plain text-button text-secondary size="mini">{{
+        t('textPlainSecondary')
+      }}</van-button>
+    </div>
+    <div style="display: inline-flex; flex-wrap: wrap">
+      <van-button icon="add-o" text-button>{{ t('textButton') }}</van-button>
+      <van-button icon="add-o" text-button size="normal">{{
+        t('textButton')
+      }}</van-button>
+      <van-button icon="add-o" text-button size="small">{{
+        t('textButton')
+      }}</van-button>
+      <van-button icon="add-o" text-button size="mini">{{
+        t('textButton')
+      }}</van-button>
+    </div>
+    <div style="display: inline-flex; flex-wrap: wrap">
+      <van-button icon="add-o" icon-position="right" text-button>{{
+        t('textButton')
+      }}</van-button>
+      <van-button
+        icon="add-o"
+        icon-position="right"
+        text-button
+        size="normal"
+        >{{ t('textButton') }}</van-button
+      >
+      <van-button icon="add-o" icon-position="right" text-button size="small">{{
+        t('textButton')
+      }}</van-button>
+      <van-button icon="add-o" icon-position="right" text-button size="mini">{{
+        t('textButton')
+      }}</van-button>
+    </div>
   </demo-block>
 
   <demo-block :title="t('size')">
-    <van-button type="primary" size="large">{{ t('large') }}</van-button>
-    <van-button type="primary" size="normal">{{ t('normal') }}</van-button>
-    <van-button type="primary" size="small">{{ t('small') }}</van-button>
-    <van-button type="primary" size="mini">{{ t('mini') }}</van-button>
+    <van-button>{{ t('primary') }}</van-button>
+    <van-button size="normal">{{ t('primary') }}</van-button>
+    <van-button size="small">{{ t('primary') }}</van-button>
+    <van-button size="mini">{{ t('primary') }}</van-button>
   </demo-block>
 
-  <demo-block :title="t('blockElement')">
-    <van-button type="primary" block>{{ t('blockElement') }}</van-button>
+  <demo-block :title="t('icon')">
+    <van-button icon="add-o">{{ t('addIconStyle') }}</van-button>
+    <van-button icon="add-o" size="normal">{{ t('addIcon') }}</van-button>
+    <van-button icon="add-o" size="small">{{ t('addIcon') }}</van-button>
+    <van-button icon="add-o" size="mini">{{ t('addIcon') }}</van-button>
   </demo-block>
 
-  <demo-block :title="t('router')">
-    <van-button
-      :text="t('urlRoute')"
-      type="primary"
-      url="https://github.com/vant-ui/vant"
-    />
-    <van-button :text="t('vueRoute')" type="primary" to="index" />
+  <demo-block :title="t('disabled')">
+    <van-button disabled :text="t('primaryDisabled')" />
+    <van-button icon="add-o" disabled :text="t('addIconStyle')" />
+    <van-button plain disabled :text="t('plainDisabled')" />
+    <van-button text-button disabled :text="t('plainDisabled')" />
+    <van-button plain text-button disabled :text="t('plainDisabled')" />
+  </demo-block>
+
+  <demo-block :title="t('countdown')">
+    <van-button size="normal" disabled :text="t('countdown3s')" />
+    <van-button size="normal" :text="t('countdownDone')" />
+    <van-button size="normal" :text="t('countdownDoneLong')" />
   </demo-block>
 
   <demo-block :title="t('customColor')">
-    <van-button color="#7232dd" :text="t('pure')" />
-    <van-button plain color="#7232dd" :text="t('pure')" />
-    <van-button
-      color="linear-gradient(to right, #ff6034, #ee0a24)"
-      :text="t('gradient')"
-    />
+    <van-button color="#FF8125" :text="t('pure')" />
+    <van-button plain color="#FF3333" :text="t('pure')" />
+    <van-button plain text-button color="#FF3333" :text="t('pure')" />
   </demo-block>
 
-  <demo-block :title="t('animatedButton')">
-    <van-button type="danger" round>
-      <van-swipe
-        vertical
-        class="notice-swipe"
-        :autoplay="2000"
-        :touchable="false"
-        :show-indicators="false"
-      >
-        <van-swipe-item>{{ t('doTask') }}</van-swipe-item>
-        <van-swipe-item>{{ t('lottery') }}</van-swipe-item>
-      </van-swipe>
+  <demo-block :title="t('extra')">
+    <van-button>
+      {{ t('primary') }}
+      <template #extra>
+        <div style="font-size: 12px; margin-top: 4px">
+          {{ t('extraContent') }}
+        </div>
+      </template>
     </van-button>
   </demo-block>
 </template>
@@ -168,13 +224,16 @@ const t = useTranslate({
 <style lang="less">
 .demo-button {
   .van-button {
-    &--large {
-      margin-bottom: var(--van-padding-md);
+    margin-bottom: 12px;
+
+    &:not(:last-child) {
+      margin-right: var(--van-padding-md);
     }
 
-    &--small,
-    &--normal:not(:last-child) {
-      margin-right: var(--van-padding-md);
+    &--normal:not(&--text) {
+      .van-button__content {
+        min-width: 140px;
+      }
     }
   }
 
@@ -190,9 +249,25 @@ const t = useTranslate({
     margin-bottom: var(--van-padding-sm);
   }
 
+  &-text-row {
+    display: flex;
+    gap: 20px;
+    margin-bottom: var(--van-padding-md);
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+
   .notice-swipe {
     height: 40px;
     line-height: 40px;
+  }
+
+  &-extra {
+    font-size: 12px;
+    line-height: 1.2;
+    color: var(--van-text-color-secondary);
   }
 }
 </style>

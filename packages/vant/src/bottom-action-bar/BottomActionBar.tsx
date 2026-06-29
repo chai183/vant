@@ -1,109 +1,161 @@
 import {
   ref,
+  cloneVNode,
+  mergeProps,
   defineComponent,
   type CSSProperties,
   type ExtractPropTypes,
-  type PropType,
+  type VNode,
 } from 'vue';
 import {
   addUnit,
   truthProp,
   numericProp,
   makeStringProp,
-  makeArrayProp,
   createNamespace,
   type Numeric,
 } from '../utils';
+import { filterEmpty } from '../utils/vnode';
 
-import VanButton, { type ButtonType } from '../button';
 import VanPopover from '../popover';
 import { Icon } from '../icon';
 import { usePlaceholder } from '../composables/use-placeholder';
 import { useSyncPropRef } from '../composables/use-sync-prop-ref';
-import type {
-  PopoverAction,
-  PopoverPlacement,
-  PopoverTheme,
-} from '../popover/types';
-import type {
-  BottomActionBarMoreIconPosition,
-  BottomActionBarMoreOptions,
-} from './types';
+import type { PopoverAction, PopoverPlacement, PopoverTheme } from '../popover/types';
+import type { BottomActionBarMoreIconPosition } from './types';
 
 const [name, bem] = createNamespace('bottom-action-bar');
 
 export const bottomActionBarProps = {
-  secondaryButtonText: makeStringProp(''),
-  tertiaryButtonText: makeStringProp(''),
-  primaryButtonText: makeStringProp('确定'),
-  secondaryButtonType: makeStringProp<ButtonType>('primary'),
-  tertiaryButtonType: makeStringProp<ButtonType>('primary'),
-  primaryButtonType: makeStringProp<ButtonType>('primary'),
-  showSecondaryButton: {
-    type: Boolean,
-    default: undefined,
-  },
-  showTertiaryButton: {
-    type: Boolean,
-    default: false,
-  },
-  showPrimaryButton: truthProp,
-  secondaryButtonWidth: numericProp,
-  tertiaryButtonWidth: numericProp,
-  primaryButtonWidth: numericProp,
-  primaryBlock: Boolean,
-  round: truthProp,
+  startGap: numericProp,
+  barPadding: numericProp,
   moreText: makeStringProp('更多操作'),
-  moreIcon: makeStringProp('arrow-down'),
-  moreExpandedIcon: makeStringProp('arrow-up'),
+  moreIcon: makeStringProp('arrow-double-left'),
+  moreExpandedIcon: makeStringProp('arrow-double-right'),
   moreIconPosition: makeStringProp<BottomActionBarMoreIconPosition>('right'),
-  showMore: Boolean,
-  moreExpandable: {
-    type: Boolean,
-    default: true,
-  },
   moreExpanded: Boolean,
-  moreActions: makeArrayProp<PopoverAction>(),
   morePopoverPlacement: makeStringProp<PopoverPlacement>('bottom-start'),
-  moreOptions: Object as PropType<BottomActionBarMoreOptions | undefined>,
-  secondaryDisabled: Boolean,
-  tertiaryDisabled: Boolean,
-  primaryDisabled: Boolean,
-  secondaryLoading: Boolean,
-  tertiaryLoading: Boolean,
-  primaryLoading: Boolean,
+  moreTheme: makeStringProp<PopoverTheme>('light'),
   placeholder: Boolean,
   safeAreaInsetBottom: truthProp,
+  maxVisibleActions: numericProp,
 };
 
 export type BottomActionBarProps = ExtractPropTypes<
   typeof bottomActionBarProps
 >;
 
-// 根据宽度生成按钮内联样式
-function getButtonStyle(width?: Numeric): CSSProperties | undefined {
-  if (width != null && width !== '') {
-    return {
-      width: addUnit(width),
-      flex: 'none',
-    };
+function getBarStyle(
+  startGap?: Numeric,
+  barPadding?: Numeric,
+): CSSProperties | undefined {
+  const style: Record<string, string | undefined> = {};
+
+  if (startGap != null && startGap !== '') {
+    style['--van-bottom-action-bar-start-gap'] = addUnit(startGap);
   }
+  if (barPadding != null && barPadding !== '') {
+    style['--van-bottom-action-bar-bar-padding'] = addUnit(barPadding);
+  }
+
+  return Object.keys(style).length ? (style as CSSProperties) : undefined;
 }
 
-// 根据角色与布局生成按钮类名
-function getButtonClass(
-  bemFn: ReturnType<typeof createNamespace>[1],
-  role: string,
-  options: {
-    width?: Numeric;
-    block?: boolean;
-  },
-) {
-  return bemFn('button', {
-    [role]: true,
-    fixed: options.width != null && options.width !== '',
-    block: options.block,
+function resolveMaxVisibleActions(value?: Numeric) {
+  if (value == null || value === '') {
+    return undefined;
+  }
+
+  const max = Number(value);
+  return Number.isFinite(max) && max > 0 ? max : undefined;
+}
+
+function splitActionChildren(children: VNode[], maxVisible?: number) {
+  if (maxVisible == null || children.length <= maxVisible) {
+    return { visible: children, overflow: [] as VNode[] };
+  }
+
+  return {
+    visible: children.slice(0, maxVisible),
+    overflow: children.slice(maxVisible),
+  };
+}
+
+function getSlotText(content: unknown): string {
+  if (content == null || typeof content === 'boolean') {
+    return '';
+  }
+  if (typeof content === 'string' || typeof content === 'number') {
+    return String(content);
+  }
+  if (Array.isArray(content)) {
+    return content.map(getSlotText).join('');
+  }
+  if (typeof content === 'object') {
+    const node = content as { children?: unknown };
+    if (node.children != null) {
+      return getSlotText(node.children);
+    }
+  }
+  return '';
+}
+
+function getActionButtonText(node: VNode): string {
+  const text = node.props?.text;
+  if (text != null && text !== '') {
+    return String(text);
+  }
+
+  const { children } = node;
+  if (
+    children &&
+    typeof children === 'object' &&
+    !Array.isArray(children) &&
+    'default' in children &&
+    typeof (children as { default?: unknown }).default === 'function'
+  ) {
+    return getSlotText((children as { default: () => unknown }).default()).trim();
+  }
+
+  return getSlotText(children).trim();
+}
+
+function toOverflowPopoverActions(overflow: VNode[]): PopoverAction[] {
+  return overflow.map((node) => {
+    const props = node.props ?? {};
+    return {
+      text: getActionButtonText(node),
+      disabled: props.disabled,
+      icon: props.icon,
+      color: props.color,
+    };
   });
+}
+
+function invokeActionButtonClick(node: VNode, event?: MouseEvent) {
+  const onClick = node.props?.onClick;
+
+  if (Array.isArray(onClick)) {
+    onClick.forEach((handler) => handler?.(event));
+    return;
+  }
+
+  onClick?.(event);
+}
+
+function enhanceActionButton(
+  bemFn: ReturnType<typeof createNamespace>[1],
+  node: VNode,
+) {
+  const existingClass = node.props?.class;
+
+  return cloneVNode(
+    node,
+    mergeProps(node.props ?? {}, {
+      class: [bemFn('button'), existingClass],
+    }),
+    true,
+  );
 }
 
 export default defineComponent({
@@ -111,16 +163,8 @@ export default defineComponent({
 
   props: bottomActionBarProps,
 
-  emits: [
-    'click-secondary',
-    'click-tertiary',
-    'click-primary',
-    'click-more',
-    'update:moreExpanded',
-    'select-more',
-  ],
+  emits: ['click-more', 'update:moreExpanded'],
 
-  // 组件 setup 入口
   setup(props, { emit, slots }) {
     const root = ref<HTMLElement>();
     const renderPlaceholder = usePlaceholder(root, bem);
@@ -129,79 +173,26 @@ export default defineComponent({
       (value) => emit('update:moreExpanded', value),
     );
 
-    // 判断是否展示次要按钮
-    const shouldShowSecondary = () => {
-      if (slots['secondary-button']) {
-        return true;
-      }
-      if (props.showSecondaryButton === false) {
-        return false;
-      }
-      if (props.showSecondaryButton === true) {
-        return true;
-      }
-      return !!props.secondaryButtonText;
-    };
-
-    // 判断是否展示第三按钮
-    const shouldShowTertiary = () => {
-      if (slots['tertiary-button']) {
-        return true;
-      }
-      return props.showTertiaryButton && !!props.tertiaryButtonText;
-    };
-
-    // 判断主按钮是否占满剩余宽度
-    const isPrimaryBlock = () => {
-      if (props.primaryBlock) {
-        return true;
-      }
-      return (
-        props.showPrimaryButton &&
-        !shouldShowSecondary() &&
-        !shouldShowTertiary() &&
-        !props.primaryButtonWidth
-      );
-    };
-
-    // 合并更多操作相关配置
-    const resolveMore = () => {
-      const o = props.moreOptions;
-      return {
-        text: o?.text ?? props.moreText,
-        icon: o?.icon ?? props.moreIcon,
-        expandedIcon: o?.expandedIcon ?? props.moreExpandedIcon,
-        actions: o?.actions ?? props.moreActions,
-        placement: o?.placement ?? props.morePopoverPlacement,
-        expandable: o?.expandable ?? props.moreExpandable,
-        theme: (o?.theme ?? 'light') as PopoverTheme,
-        iconPosition: o?.iconPosition ?? props.moreIconPosition,
-      };
-    };
-
-    // 渲染更多操作展开/收起图标
-    const renderMoreIcon = (
-      expanded: boolean,
-      more: ReturnType<typeof resolveMore>,
-    ) => {
-      if (!more.icon && !more.expandedIcon) {
+    const renderMoreIcon = (expanded: boolean) => {
+      if (!props.moreIcon && !props.moreExpandedIcon) {
         return null;
       }
 
       return (
         <Icon
+          size={16}
           class={bem('more-icon')}
-          name={expanded ? more.expandedIcon : more.icon}
+          name={expanded ? props.moreExpandedIcon : props.moreIcon}
         />
       );
     };
 
-    // 渲染 Popover 触发器（更多操作按钮）
-    const renderMoreReference = (
-      expanded: boolean,
-      more: ReturnType<typeof resolveMore>,
-    ) => {
-      const iconLeft = more.iconPosition === 'left';
+    const renderMoreReference = (expanded: boolean) => {
+      if (slots['more-reference']) {
+        return slots['more-reference']({ expanded });
+      }
+
+      const iconLeft = props.moreIconPosition === 'left';
 
       return (
         <button
@@ -211,167 +202,76 @@ export default defineComponent({
             bem('more', { expanded, 'icon-left': iconLeft }),
           ]}
         >
-          {iconLeft ? renderMoreIcon(expanded, more) : null}
-          <span class={bem('more-text')}>{more.text}</span>
-          {!iconLeft ? renderMoreIcon(expanded, more) : null}
+          {iconLeft ? renderMoreIcon(expanded) : null}
+          <span class={bem('more-text')}>{props.moreText}</span>
+          {!iconLeft ? renderMoreIcon(expanded) : null}
         </button>
       );
     };
 
-    // 渲染更多操作区域
-    const renderMore = () => {
-      if (slots.more) {
-        return slots.more();
-      }
-      if (slots.before) {
-        return slots.before();
-      }
-      if (!props.showMore) {
+    const renderOverflowPopover = (overflow: VNode[]) => {
+      if (!overflow.length) {
         return null;
       }
 
-      const more = resolveMore();
-
-      if (more.expandable) {
-        const hasPanel = !!slots['more-panel'];
-        return (
-          <VanPopover
-            show={moreExpanded.value}
-            placement={more.placement}
-            actions={hasPanel ? undefined : more.actions}
-            theme={more.theme}
-            onUpdate:show={(val: boolean) => {
-              const wasOpen = moreExpanded.value;
-              moreExpanded.value = val;
-              if (val && !wasOpen) {
-                emit('click-more');
-              }
-            }}
-            onSelect={(action: PopoverAction, index: number) =>
-              emit('select-more', action, index)
+      return (
+        <VanPopover
+          show={moreExpanded.value}
+          placement={props.morePopoverPlacement}
+          actions={toOverflowPopoverActions(overflow)}
+          theme={props.moreTheme}
+          onUpdate:show={(val: boolean) => {
+            const wasOpen = moreExpanded.value;
+            moreExpanded.value = val;
+            if (val && !wasOpen) {
+              emit('click-more');
             }
-          >
-            {{
-              reference: () => renderMoreReference(moreExpanded.value, more),
-              default: hasPanel ? () => slots['more-panel']!() : undefined,
-            }}
-          </VanPopover>
-        );
-      }
-
-      const iconLeft = more.iconPosition === 'left';
-
-      return (
-        <button
-          type="button"
-          class={bem('more', { 'icon-left': iconLeft })}
-          onClick={() => emit('click-more')}
+          }}
+          onSelect={(_action: PopoverAction, index: number) => {
+            invokeActionButtonClick(overflow[index]);
+          }}
         >
-          {iconLeft && more.icon ? (
-            <Icon class={bem('more-icon')} name={more.icon} />
-          ) : null}
-          <span class={bem('more-text')}>{more.text}</span>
-          {!iconLeft && more.icon ? (
-            <Icon class={bem('more-icon')} name={more.icon} />
-          ) : null}
-        </button>
+          {{
+            reference: () => renderMoreReference(moreExpanded.value),
+          }}
+        </VanPopover>
       );
     };
 
-    // 渲染次要按钮
-    const renderSecondary = () => {
-      if (slots['secondary-button']) {
-        return slots['secondary-button']();
-      }
-      if (!shouldShowSecondary() || !props.secondaryButtonText) {
+    const renderStart = (overflow: VNode[]) => {
+      const custom = slots.more?.() ?? slots.before?.();
+      const overflowPopover = renderOverflowPopover(overflow);
+
+      if (!custom && !overflowPopover) {
         return null;
       }
-      return (
-        <VanButton
-          round={props.round}
-          plain
-          type={props.secondaryButtonType}
-          text={props.secondaryButtonText}
-          disabled={props.secondaryDisabled}
-          loading={props.secondaryLoading}
-          class={getButtonClass(bem, 'secondary', {
-            width: props.secondaryButtonWidth,
-          })}
-          style={getButtonStyle(props.secondaryButtonWidth)}
-          onClick={() => emit('click-secondary')}
-        />
-      );
-    };
 
-    // 渲染第三按钮
-    const renderTertiary = () => {
-      if (slots['tertiary-button']) {
-        return slots['tertiary-button']();
-      }
-      if (!shouldShowTertiary() || !props.tertiaryButtonText) {
-        return null;
-      }
-      return (
-        <VanButton
-          round={props.round}
-          plain
-          type={props.tertiaryButtonType}
-          text={props.tertiaryButtonText}
-          disabled={props.tertiaryDisabled}
-          loading={props.tertiaryLoading}
-          class={getButtonClass(bem, 'tertiary', {
-            width: props.tertiaryButtonWidth,
-          })}
-          style={getButtonStyle(props.tertiaryButtonWidth)}
-          onClick={() => emit('click-tertiary')}
-        />
-      );
-    };
-
-    // 渲染主按钮
-    const renderPrimary = () => {
-      if (slots['primary-button']) {
-        return slots['primary-button']();
-      }
-      if (!props.showPrimaryButton) {
-        return null;
-      }
-      const block = isPrimaryBlock();
-      return (
-        <VanButton
-          round={props.round}
-          type={props.primaryButtonType}
-          text={props.primaryButtonText}
-          disabled={props.primaryDisabled}
-          loading={props.primaryLoading}
-          class={getButtonClass(bem, 'primary', {
-            width: props.primaryButtonWidth,
-            block,
-          })}
-          style={getButtonStyle(props.primaryButtonWidth)}
-          block={block}
-          onClick={() => emit('click-primary')}
-        />
-      );
-    };
-
-    // 渲染右侧按钮组
-    const renderActions = () => {
-      if (slots.actions) {
-        return slots.actions();
-      }
       return (
         <>
-          {renderSecondary()}
-          {renderTertiary()}
-          {renderPrimary()}
+          {custom}
+          {overflowPopover}
         </>
       );
     };
 
-    // 渲染底部操作栏主体
+    const getActionChildren = (): VNode[] => {
+      const raw = slots.actions?.();
+      if (!raw) {
+        return [];
+      }
+      return filterEmpty(Array.isArray(raw) ? raw : [raw]);
+    };
+
+    const renderActions = (visible: VNode[]) =>
+      [...visible].reverse().map((node) => enhanceActionButton(bem, node));
+
     const renderBar = () => {
-      const start = renderMore();
+      const { visible, overflow } = splitActionChildren(
+        getActionChildren(),
+        resolveMaxVisibleActions(props.maxVisibleActions),
+      );
+      const start = renderStart(overflow);
+
       return (
         <div
           ref={root}
@@ -381,15 +281,17 @@ export default defineComponent({
           {slots.default ? (
             <div class={bem('content')}>{slots.default()}</div>
           ) : null}
-          <div class={bem('bar')}>
+          <div
+            class={bem('bar')}
+            style={getBarStyle(props.startGap, props.barPadding)}
+          >
             {start ? <div class={bem('start')}>{start}</div> : null}
-            <div class={bem('actions')}>{renderActions()}</div>
+            <div class={bem('actions')}>{renderActions(visible)}</div>
           </div>
         </div>
       );
     };
 
-    // 渲染组件根节点（支持占位高度）
     return () => {
       if (props.placeholder) {
         return renderPlaceholder(renderBar);

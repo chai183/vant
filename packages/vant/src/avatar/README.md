@@ -44,12 +44,34 @@ Four sizes: `large`, `medium`, `small`, `mini` — approximately **60px, 44px, 3
 <van-avatar type="default" size="mini" />
 ```
 
+### Custom Size
+
+Besides preset sizes, `size` also accepts a numeric value such as `48` or `36px`. The default unit is `px`.
+
+```html
+<van-avatar type="default" :size="48" />
+<van-avatar type="default" size="36px" />
+```
+
+### Text Avatar
+
+Text avatars show at most 3 characters. When the text exceeds 3 characters, the first 2 characters are kept and the third position shows `...`. Use `font-size` to customize the font size.
+
+```html
+<van-avatar type="text" text="ABC" />
+<van-avatar type="text" text="ABCDE" />
+<van-avatar type="text" text="V" :font-size="12" />
+```
+
 ### Custom Image
 
 Use the `src` prop for an image or SVG URL. It can be combined with `size`.
 
 ```html
-<van-avatar src="https://fastly.jsdelivr.net/npm/@vant/assets/logo.png" size="large" />
+<van-avatar
+  src="https://fastly.jsdelivr.net/npm/@vant/assets/logo.png"
+  size="large"
+/>
 ```
 
 ### With Badge
@@ -72,10 +94,11 @@ Use with the [Badge](#/en-US/badge) component. When `van-badge` wraps `van-avata
 | Attribute | Description | Type | Default |
 | --- | --- | --- | --- |
 | type | Avatar type, can be set to `default` `text` `group` `male` `female` | _string_ | `default` |
-| size | Size, can be set to `large` `medium` `small` `mini` | _string_ | `medium` |
+| size | Size, can be set to `large` `medium` `small` `mini`, or a numeric value such as `48` or `36px`. The default unit is `px` | _number \| string_ | `large` |
 | src | Custom image or SVG URL; takes precedence over built-in `type` artwork | _string_ | - |
 | alt | Image `alt` text | _string_ | - |
-| text | Text avatar content, up to 3 characters | _string_ | - |
+| text | Text avatar content, up to 3 characters; when longer, keeps the first 2 characters and ends with `...` | _string_ | - |
+| font-size `new` | Text avatar font size. The default unit is `px` | _number \| string_ | - |
 
 ### Slots
 

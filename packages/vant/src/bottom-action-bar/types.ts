@@ -1,9 +1,3 @@
-import type {
-  PopoverAction,
-  PopoverPlacement,
-  PopoverTheme,
-} from '../popover/types';
-
 export type BottomActionBarThemeVars = {
   bottomActionBarZIndex?: number | string;
   bottomActionBarBackground?: string;
@@ -14,21 +8,12 @@ export type BottomActionBarThemeVars = {
   bottomActionBarTopColor?: string;
   bottomActionBarBarHeight?: string;
   bottomActionBarBarPadding?: string;
+  bottomActionBarStartGap?: string;
   bottomActionBarActionGap?: string;
   bottomActionBarMoreColor?: string;
+  bottomActionBarMoreFontSize?: string;
+  bottomActionBarMoreGap?: string;
   bottomActionBarMoreIconSize?: number | string;
 };
 
 export type BottomActionBarMoreIconPosition = 'left' | 'right';
-
-/** 「更多操作」相关配置，传入后与同名扁平 props 合并（对象字段优先） */
-export type BottomActionBarMoreOptions = {
-  text?: string;
-  icon?: string;
-  expandedIcon?: string;
-  iconPosition?: BottomActionBarMoreIconPosition;
-  actions?: PopoverAction[];
-  placement?: PopoverPlacement;
-  expandable?: boolean;
-  theme?: PopoverTheme;
-};

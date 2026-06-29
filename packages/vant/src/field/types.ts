@@ -152,6 +152,7 @@ export type FieldThemeVars = {
   fieldLabelWidth?: string;
   fieldLabelColor?: string;
   fieldLabelMarginRight?: string;
+  fieldLabelTopMarginBottom?: string;
   fieldInputTextColor?: string;
   fieldInputErrorTextColor?: string;
   fieldInputDisabledTextColor?: string;

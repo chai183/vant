@@ -13,6 +13,7 @@ export type CardThemeVars = {
   cardFooterButtonFontSize?: string;
   cardFooterNoteFontSize?: string;
   cardFooterNoteLineHeight?: string;
+  cardFooterNoteColor?: string;
   cardFooterPaddingY?: string;
   cardFooterNotePaddingY?: string;
   cardTextListLabelColor?: string;
@@ -45,7 +46,19 @@ export type CardThemeVars = {
   cardAvatarSmallOffset?: string;
   cardCollapseIconFontSize?: string;
   cardButtonDividerColor?: string;
+  cardFooterOverflowWidth?: string;
+  cardFooterOverflowDotSize?: string;
+  cardFooterOverflowDotGap?: string;
+  cardFooterOverflowDotColor?: string;
   cardOutlineButtonBackground?: string;
   cardOutlineButtonBorderColor?: string;
   cardOutlineButtonRadius?: string;
+  cardOutlineButtonHeight?: string;
+  cardFooterMoreFontSize?: string;
+  cardFooterMoreColor?: string;
+  cardFooterMoreWidth?: string;
+  cardFooterOutlineGap?: string;
+  cardFooterPopoverActionHeight?: string;
+  cardFooterPopoverDividerPaddingX?: string;
+  cardFooterPopoverWidth?: string;
 };

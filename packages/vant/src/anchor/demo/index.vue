@@ -31,7 +31,7 @@ const t = useTranslate({
 });
 
 const activeTab = ref(0);
-const list = [...Array(50).keys()];
+const list = [...Array(100).keys()];
 const catalogItems = [
   { id: 'anchor-section-1', title: t('section1') },
   { id: 'anchor-section-2', title: t('section2') },

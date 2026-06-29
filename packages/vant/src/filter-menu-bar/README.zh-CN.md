@@ -1221,6 +1221,7 @@ const contentPanelMenuListMultipleItems = [
 | funnel-show-footer | 漏斗面板是否展示底部确认/重置区域 | _boolean_ | `true` |
 | confirm-text | 面板底部确认按钮文案 | _string_ | `确定` |
 | reset-text | 面板底部重置按钮文案 | _string_ | `重置` |
+| show-reset-button | 是否展示面板底部重置按钮 | _boolean_ | `true` |
 | overlay | 是否显示遮罩层 | _boolean_ | `true` |
 | z-index | 菜单栏 z-index 层级 | _number \| string_ | - |
 | duration | 动画时长，单位秒 | _number \| string_ | `0.2` |
@@ -1244,6 +1245,7 @@ const contentPanelMenuListMultipleItems = [
 | showFooter | 是否展示面板底部确认/重置区域；单 section 普通面板默认 `false`，漏斗内多选等需确认场景可设为 `true` | _boolean_ |
 | confirmText | 面板底部确认按钮文案，覆盖组件级 `confirm-text` | _string_ |
 | resetText | 面板底部重置按钮文案，覆盖组件级 `reset-text` | _string_ |
+| showResetButton | 是否展示面板底部重置按钮，覆盖组件级 `show-reset-button` | _boolean_ |
 | searchable | 搜索能力预留字段，具体搜索由内部表单组件或自定义面板实现 | _boolean_ |
 | searchPlaceholder | 搜索占位文案预留字段 | _string_ |
 | collapsible | 漏斗面板中当前分组是否可折叠 | _boolean_ |
@@ -1345,7 +1347,7 @@ import type {
 | --van-filter-menu-bar-z-index | _10_ | 筛选栏默认层级 |
 | --van-filter-menu-bar-height | _48px_ | 筛选条高度 |
 | --van-filter-menu-bar-background | _var(--van-background-2)_ | 筛选条背景色 |
-| --van-filter-menu-bar-shadow | _0 2px 12px rgba(100, 101, 102, 0.12)_ | 筛选条阴影 |
+| --van-filter-menu-bar-shadow | _none_ | 筛选条阴影 |
 | --van-filter-menu-bar-bar-padding-x | _var(--van-padding-sm)_ | 筛选条左右内边距 |
 | --van-filter-menu-bar-bar-gap | _var(--van-padding-lg)_ | 筛选条项目间距 |
 | --van-filter-menu-bar-bar-single-padding-right | _42px_ | 单个筛选项右侧预留间距 |
@@ -1353,12 +1355,12 @@ import type {
 | --van-filter-menu-bar-title-font-size | _var(--van-font-size-md)_ | 筛选条标题字号 |
 | --van-filter-menu-bar-title-active-color | _var(--van-primary-color)_ | 筛选条标题激活色 |
 | --van-filter-menu-bar-content-max-height | _70vh_ | 下拉面板最大高度 |
-| --van-filter-menu-bar-content-gap | _var(--van-padding-md)_ | 普通面板内容与筛选条的间距 |
+| --van-filter-menu-bar-bar-divider-color | _var(--van-border-color)_ | 筛选条与下拉面板之间的分隔线颜色 |
 | --van-filter-menu-bar-content-padding-x | _var(--van-padding-sm)_ | 面板内容左右内边距 |
 | --van-filter-menu-bar-bar-icon-color | _var(--van-text-color-3)_ | 筛选条图标默认色 |
 | --van-filter-menu-bar-list-option-icon-gap | _var(--van-padding-lg)_ | 选择菜单列表中选项与右侧图标间距 |
-| --van-filter-menu-bar-footer-padding | _12px_ | 底部按钮区域内边距 |
-| --van-filter-menu-bar-footer-gap | _8px_ | 底部按钮间距 |
+| --van-filter-menu-bar-footer-padding | _12px_ | 内置底部操作栏（BottomActionBar）按钮区内边距 |
+| --van-filter-menu-bar-footer-gap | _8px_ | 内置底部操作栏按钮间距 |
 | --van-filter-menu-bar-funnel-section-title-height | _16px_ | 漏斗分组标题行高 |
 | --van-filter-menu-bar-funnel-section-title-padding-y | _var(--van-padding-md)_ | 漏斗分组标题上下内边距 |
 | --van-filter-menu-bar-funnel-section-title-font-size | _var(--van-font-size-md)_ | 漏斗分组标题字号 |

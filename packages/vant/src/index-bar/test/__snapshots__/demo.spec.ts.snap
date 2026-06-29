@@ -1,4 +1,4 @@
-// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+// Rstest Snapshot v1
 
 exports[`should render demo and match snapshot 1`] = `
 <div class="van-tabs van-tabs--line">
@@ -35,6 +35,45 @@ exports[`should render demo and match snapshot 1`] = `
         </span>
       </div>
       <div
+        id="van-tabs-2"
+        role="tab"
+        class="van-tab van-tab--line"
+        tabindex="-1"
+        aria-selected="false"
+        aria-controls="van-tab"
+        data-allow-mismatch="attribute"
+      >
+        <span class="van-tab__text van-tab__text--ellipsis">
+          Traditional
+        </span>
+      </div>
+      <div
+        id="van-tabs-3"
+        role="tab"
+        class="van-tab van-tab--line"
+        tabindex="-1"
+        aria-selected="false"
+        aria-controls="van-tab"
+        data-allow-mismatch="attribute"
+      >
+        <span class="van-tab__text van-tab__text--ellipsis">
+          Auto Render
+        </span>
+      </div>
+      <div
+        id="van-tabs-4"
+        role="tab"
+        class="van-tab van-tab--line"
+        tabindex="-1"
+        aria-selected="false"
+        aria-controls="van-tab"
+        data-allow-mismatch="attribute"
+      >
+        <span class="van-tab__text van-tab__text--ellipsis">
+          Custom List Item
+        </span>
+      </div>
+      <div
         class="van-tabs__line"
         style="transform: translateX(50px) translateX(-50%);"
       >
@@ -57,884 +96,1016 @@ exports[`should render demo and match snapshot 1`] = `
             class="van-index-bar__index"
             data-index="A"
           >
-            A
+            <span class="van-index-bar__bubble">
+              A
+            </span>
+            <span class="van-index-bar__label">
+              A
+            </span>
           </span>
           <span
             class="van-index-bar__index"
             data-index="B"
           >
-            B
+            <span class="van-index-bar__bubble">
+              B
+            </span>
+            <span class="van-index-bar__label">
+              B
+            </span>
           </span>
           <span
             class="van-index-bar__index"
             data-index="C"
           >
-            C
+            <span class="van-index-bar__bubble">
+              C
+            </span>
+            <span class="van-index-bar__label">
+              C
+            </span>
           </span>
           <span
             class="van-index-bar__index"
             data-index="D"
           >
-            D
+            <span class="van-index-bar__bubble">
+              D
+            </span>
+            <span class="van-index-bar__label">
+              D
+            </span>
           </span>
           <span
             class="van-index-bar__index"
             data-index="E"
           >
-            E
+            <span class="van-index-bar__bubble">
+              E
+            </span>
+            <span class="van-index-bar__label">
+              E
+            </span>
           </span>
           <span
             class="van-index-bar__index"
             data-index="F"
           >
-            F
+            <span class="van-index-bar__bubble">
+              F
+            </span>
+            <span class="van-index-bar__label">
+              F
+            </span>
           </span>
           <span
             class="van-index-bar__index"
             data-index="G"
           >
-            G
+            <span class="van-index-bar__bubble">
+              G
+            </span>
+            <span class="van-index-bar__label">
+              G
+            </span>
           </span>
           <span
             class="van-index-bar__index"
             data-index="H"
           >
-            H
+            <span class="van-index-bar__bubble">
+              H
+            </span>
+            <span class="van-index-bar__label">
+              H
+            </span>
           </span>
           <span
             class="van-index-bar__index"
             data-index="I"
           >
-            I
+            <span class="van-index-bar__bubble">
+              I
+            </span>
+            <span class="van-index-bar__label">
+              I
+            </span>
           </span>
           <span
             class="van-index-bar__index"
             data-index="J"
           >
-            J
+            <span class="van-index-bar__bubble">
+              J
+            </span>
+            <span class="van-index-bar__label">
+              J
+            </span>
           </span>
           <span
             class="van-index-bar__index"
             data-index="K"
           >
-            K
+            <span class="van-index-bar__bubble">
+              K
+            </span>
+            <span class="van-index-bar__label">
+              K
+            </span>
           </span>
           <span
             class="van-index-bar__index"
             data-index="L"
           >
-            L
+            <span class="van-index-bar__bubble">
+              L
+            </span>
+            <span class="van-index-bar__label">
+              L
+            </span>
           </span>
           <span
             class="van-index-bar__index"
             data-index="M"
           >
-            M
+            <span class="van-index-bar__bubble">
+              M
+            </span>
+            <span class="van-index-bar__label">
+              M
+            </span>
           </span>
           <span
             class="van-index-bar__index"
             data-index="N"
           >
-            N
+            <span class="van-index-bar__bubble">
+              N
+            </span>
+            <span class="van-index-bar__label">
+              N
+            </span>
           </span>
           <span
             class="van-index-bar__index"
             data-index="O"
           >
-            O
+            <span class="van-index-bar__bubble">
+              O
+            </span>
+            <span class="van-index-bar__label">
+              O
+            </span>
           </span>
           <span
             class="van-index-bar__index"
             data-index="P"
           >
-            P
+            <span class="van-index-bar__bubble">
+              P
+            </span>
+            <span class="van-index-bar__label">
+              P
+            </span>
           </span>
           <span
             class="van-index-bar__index"
             data-index="Q"
           >
-            Q
+            <span class="van-index-bar__bubble">
+              Q
+            </span>
+            <span class="van-index-bar__label">
+              Q
+            </span>
           </span>
           <span
             class="van-index-bar__index"
             data-index="R"
           >
-            R
+            <span class="van-index-bar__bubble">
+              R
+            </span>
+            <span class="van-index-bar__label">
+              R
+            </span>
           </span>
           <span
             class="van-index-bar__index"
             data-index="S"
           >
-            S
+            <span class="van-index-bar__bubble">
+              S
+            </span>
+            <span class="van-index-bar__label">
+              S
+            </span>
           </span>
           <span
             class="van-index-bar__index"
             data-index="T"
           >
-            T
+            <span class="van-index-bar__bubble">
+              T
+            </span>
+            <span class="van-index-bar__label">
+              T
+            </span>
           </span>
           <span
             class="van-index-bar__index"
             data-index="U"
           >
-            U
+            <span class="van-index-bar__bubble">
+              U
+            </span>
+            <span class="van-index-bar__label">
+              U
+            </span>
           </span>
           <span
             class="van-index-bar__index"
             data-index="V"
           >
-            V
+            <span class="van-index-bar__bubble">
+              V
+            </span>
+            <span class="van-index-bar__label">
+              V
+            </span>
           </span>
           <span
             class="van-index-bar__index"
             data-index="W"
           >
-            W
+            <span class="van-index-bar__bubble">
+              W
+            </span>
+            <span class="van-index-bar__label">
+              W
+            </span>
           </span>
           <span
             class="van-index-bar__index"
             data-index="X"
           >
-            X
+            <span class="van-index-bar__bubble">
+              X
+            </span>
+            <span class="van-index-bar__label">
+              X
+            </span>
           </span>
           <span
             class="van-index-bar__index"
             data-index="Y"
           >
-            Y
+            <span class="van-index-bar__bubble">
+              Y
+            </span>
+            <span class="van-index-bar__label">
+              Y
+            </span>
           </span>
           <span
             class="van-index-bar__index"
             data-index="Z"
           >
-            Z
+            <span class="van-index-bar__bubble">
+              Z
+            </span>
+            <span class="van-index-bar__label">
+              Z
+            </span>
           </span>
         </div>
         <div>
           <div>
-            <div class="van-index-anchor">
-              A
+            <div>
+              <div class="van-index-anchor">
+                A
+              </div>
+            </div>
+            <div class="van-cell">
+              <div class="van-cell__title">
+                <span>
+                  Text
+                </span>
+              </div>
+            </div>
+            <div class="van-cell">
+              <div class="van-cell__title">
+                <span>
+                  Text
+                </span>
+              </div>
+            </div>
+            <div class="van-cell">
+              <div class="van-cell__title">
+                <span>
+                  Text
+                </span>
+              </div>
             </div>
           </div>
-          <div class="van-cell">
-            <div class="van-cell__title">
-              <span>
-                Text
-              </span>
-            </div>
-          </div>
-          <div class="van-cell">
-            <div class="van-cell__title">
-              <span>
-                Text
-              </span>
-            </div>
-          </div>
-          <div class="van-cell">
-            <div class="van-cell__title">
-              <span>
-                Text
-              </span>
-            </div>
-          </div>
-        </div>
-        <div>
           <div>
-            <div class="van-index-anchor">
-              B
+            <div>
+              <div class="van-index-anchor">
+                B
+              </div>
+            </div>
+            <div class="van-cell">
+              <div class="van-cell__title">
+                <span>
+                  Text
+                </span>
+              </div>
+            </div>
+            <div class="van-cell">
+              <div class="van-cell__title">
+                <span>
+                  Text
+                </span>
+              </div>
+            </div>
+            <div class="van-cell">
+              <div class="van-cell__title">
+                <span>
+                  Text
+                </span>
+              </div>
             </div>
           </div>
-          <div class="van-cell">
-            <div class="van-cell__title">
-              <span>
-                Text
-              </span>
-            </div>
-          </div>
-          <div class="van-cell">
-            <div class="van-cell__title">
-              <span>
-                Text
-              </span>
-            </div>
-          </div>
-          <div class="van-cell">
-            <div class="van-cell__title">
-              <span>
-                Text
-              </span>
-            </div>
-          </div>
-        </div>
-        <div>
           <div>
-            <div class="van-index-anchor">
-              C
+            <div>
+              <div class="van-index-anchor">
+                C
+              </div>
+            </div>
+            <div class="van-cell">
+              <div class="van-cell__title">
+                <span>
+                  Text
+                </span>
+              </div>
+            </div>
+            <div class="van-cell">
+              <div class="van-cell__title">
+                <span>
+                  Text
+                </span>
+              </div>
+            </div>
+            <div class="van-cell">
+              <div class="van-cell__title">
+                <span>
+                  Text
+                </span>
+              </div>
             </div>
           </div>
-          <div class="van-cell">
-            <div class="van-cell__title">
-              <span>
-                Text
-              </span>
-            </div>
-          </div>
-          <div class="van-cell">
-            <div class="van-cell__title">
-              <span>
-                Text
-              </span>
-            </div>
-          </div>
-          <div class="van-cell">
-            <div class="van-cell__title">
-              <span>
-                Text
-              </span>
-            </div>
-          </div>
-        </div>
-        <div>
           <div>
-            <div class="van-index-anchor">
-              D
+            <div>
+              <div class="van-index-anchor">
+                D
+              </div>
+            </div>
+            <div class="van-cell">
+              <div class="van-cell__title">
+                <span>
+                  Text
+                </span>
+              </div>
+            </div>
+            <div class="van-cell">
+              <div class="van-cell__title">
+                <span>
+                  Text
+                </span>
+              </div>
+            </div>
+            <div class="van-cell">
+              <div class="van-cell__title">
+                <span>
+                  Text
+                </span>
+              </div>
             </div>
           </div>
-          <div class="van-cell">
-            <div class="van-cell__title">
-              <span>
-                Text
-              </span>
-            </div>
-          </div>
-          <div class="van-cell">
-            <div class="van-cell__title">
-              <span>
-                Text
-              </span>
-            </div>
-          </div>
-          <div class="van-cell">
-            <div class="van-cell__title">
-              <span>
-                Text
-              </span>
-            </div>
-          </div>
-        </div>
-        <div>
           <div>
-            <div class="van-index-anchor">
-              E
+            <div>
+              <div class="van-index-anchor">
+                E
+              </div>
+            </div>
+            <div class="van-cell">
+              <div class="van-cell__title">
+                <span>
+                  Text
+                </span>
+              </div>
+            </div>
+            <div class="van-cell">
+              <div class="van-cell__title">
+                <span>
+                  Text
+                </span>
+              </div>
+            </div>
+            <div class="van-cell">
+              <div class="van-cell__title">
+                <span>
+                  Text
+                </span>
+              </div>
             </div>
           </div>
-          <div class="van-cell">
-            <div class="van-cell__title">
-              <span>
-                Text
-              </span>
-            </div>
-          </div>
-          <div class="van-cell">
-            <div class="van-cell__title">
-              <span>
-                Text
-              </span>
-            </div>
-          </div>
-          <div class="van-cell">
-            <div class="van-cell__title">
-              <span>
-                Text
-              </span>
-            </div>
-          </div>
-        </div>
-        <div>
           <div>
-            <div class="van-index-anchor">
-              F
+            <div>
+              <div class="van-index-anchor">
+                F
+              </div>
+            </div>
+            <div class="van-cell">
+              <div class="van-cell__title">
+                <span>
+                  Text
+                </span>
+              </div>
+            </div>
+            <div class="van-cell">
+              <div class="van-cell__title">
+                <span>
+                  Text
+                </span>
+              </div>
+            </div>
+            <div class="van-cell">
+              <div class="van-cell__title">
+                <span>
+                  Text
+                </span>
+              </div>
             </div>
           </div>
-          <div class="van-cell">
-            <div class="van-cell__title">
-              <span>
-                Text
-              </span>
-            </div>
-          </div>
-          <div class="van-cell">
-            <div class="van-cell__title">
-              <span>
-                Text
-              </span>
-            </div>
-          </div>
-          <div class="van-cell">
-            <div class="van-cell__title">
-              <span>
-                Text
-              </span>
-            </div>
-          </div>
-        </div>
-        <div>
           <div>
-            <div class="van-index-anchor">
-              G
+            <div>
+              <div class="van-index-anchor">
+                G
+              </div>
+            </div>
+            <div class="van-cell">
+              <div class="van-cell__title">
+                <span>
+                  Text
+                </span>
+              </div>
+            </div>
+            <div class="van-cell">
+              <div class="van-cell__title">
+                <span>
+                  Text
+                </span>
+              </div>
+            </div>
+            <div class="van-cell">
+              <div class="van-cell__title">
+                <span>
+                  Text
+                </span>
+              </div>
             </div>
           </div>
-          <div class="van-cell">
-            <div class="van-cell__title">
-              <span>
-                Text
-              </span>
-            </div>
-          </div>
-          <div class="van-cell">
-            <div class="van-cell__title">
-              <span>
-                Text
-              </span>
-            </div>
-          </div>
-          <div class="van-cell">
-            <div class="van-cell__title">
-              <span>
-                Text
-              </span>
-            </div>
-          </div>
-        </div>
-        <div>
           <div>
-            <div class="van-index-anchor">
-              H
+            <div>
+              <div class="van-index-anchor">
+                H
+              </div>
+            </div>
+            <div class="van-cell">
+              <div class="van-cell__title">
+                <span>
+                  Text
+                </span>
+              </div>
+            </div>
+            <div class="van-cell">
+              <div class="van-cell__title">
+                <span>
+                  Text
+                </span>
+              </div>
+            </div>
+            <div class="van-cell">
+              <div class="van-cell__title">
+                <span>
+                  Text
+                </span>
+              </div>
             </div>
           </div>
-          <div class="van-cell">
-            <div class="van-cell__title">
-              <span>
-                Text
-              </span>
-            </div>
-          </div>
-          <div class="van-cell">
-            <div class="van-cell__title">
-              <span>
-                Text
-              </span>
-            </div>
-          </div>
-          <div class="van-cell">
-            <div class="van-cell__title">
-              <span>
-                Text
-              </span>
-            </div>
-          </div>
-        </div>
-        <div>
           <div>
-            <div class="van-index-anchor">
-              I
+            <div>
+              <div class="van-index-anchor">
+                I
+              </div>
+            </div>
+            <div class="van-cell">
+              <div class="van-cell__title">
+                <span>
+                  Text
+                </span>
+              </div>
+            </div>
+            <div class="van-cell">
+              <div class="van-cell__title">
+                <span>
+                  Text
+                </span>
+              </div>
+            </div>
+            <div class="van-cell">
+              <div class="van-cell__title">
+                <span>
+                  Text
+                </span>
+              </div>
             </div>
           </div>
-          <div class="van-cell">
-            <div class="van-cell__title">
-              <span>
-                Text
-              </span>
-            </div>
-          </div>
-          <div class="van-cell">
-            <div class="van-cell__title">
-              <span>
-                Text
-              </span>
-            </div>
-          </div>
-          <div class="van-cell">
-            <div class="van-cell__title">
-              <span>
-                Text
-              </span>
-            </div>
-          </div>
-        </div>
-        <div>
           <div>
-            <div class="van-index-anchor">
-              J
+            <div>
+              <div class="van-index-anchor">
+                J
+              </div>
+            </div>
+            <div class="van-cell">
+              <div class="van-cell__title">
+                <span>
+                  Text
+                </span>
+              </div>
+            </div>
+            <div class="van-cell">
+              <div class="van-cell__title">
+                <span>
+                  Text
+                </span>
+              </div>
+            </div>
+            <div class="van-cell">
+              <div class="van-cell__title">
+                <span>
+                  Text
+                </span>
+              </div>
             </div>
           </div>
-          <div class="van-cell">
-            <div class="van-cell__title">
-              <span>
-                Text
-              </span>
-            </div>
-          </div>
-          <div class="van-cell">
-            <div class="van-cell__title">
-              <span>
-                Text
-              </span>
-            </div>
-          </div>
-          <div class="van-cell">
-            <div class="van-cell__title">
-              <span>
-                Text
-              </span>
-            </div>
-          </div>
-        </div>
-        <div>
           <div>
-            <div class="van-index-anchor">
-              K
+            <div>
+              <div class="van-index-anchor">
+                K
+              </div>
+            </div>
+            <div class="van-cell">
+              <div class="van-cell__title">
+                <span>
+                  Text
+                </span>
+              </div>
+            </div>
+            <div class="van-cell">
+              <div class="van-cell__title">
+                <span>
+                  Text
+                </span>
+              </div>
+            </div>
+            <div class="van-cell">
+              <div class="van-cell__title">
+                <span>
+                  Text
+                </span>
+              </div>
             </div>
           </div>
-          <div class="van-cell">
-            <div class="van-cell__title">
-              <span>
-                Text
-              </span>
-            </div>
-          </div>
-          <div class="van-cell">
-            <div class="van-cell__title">
-              <span>
-                Text
-              </span>
-            </div>
-          </div>
-          <div class="van-cell">
-            <div class="van-cell__title">
-              <span>
-                Text
-              </span>
-            </div>
-          </div>
-        </div>
-        <div>
           <div>
-            <div class="van-index-anchor">
-              L
+            <div>
+              <div class="van-index-anchor">
+                L
+              </div>
+            </div>
+            <div class="van-cell">
+              <div class="van-cell__title">
+                <span>
+                  Text
+                </span>
+              </div>
+            </div>
+            <div class="van-cell">
+              <div class="van-cell__title">
+                <span>
+                  Text
+                </span>
+              </div>
+            </div>
+            <div class="van-cell">
+              <div class="van-cell__title">
+                <span>
+                  Text
+                </span>
+              </div>
             </div>
           </div>
-          <div class="van-cell">
-            <div class="van-cell__title">
-              <span>
-                Text
-              </span>
-            </div>
-          </div>
-          <div class="van-cell">
-            <div class="van-cell__title">
-              <span>
-                Text
-              </span>
-            </div>
-          </div>
-          <div class="van-cell">
-            <div class="van-cell__title">
-              <span>
-                Text
-              </span>
-            </div>
-          </div>
-        </div>
-        <div>
           <div>
-            <div class="van-index-anchor">
-              M
+            <div>
+              <div class="van-index-anchor">
+                M
+              </div>
+            </div>
+            <div class="van-cell">
+              <div class="van-cell__title">
+                <span>
+                  Text
+                </span>
+              </div>
+            </div>
+            <div class="van-cell">
+              <div class="van-cell__title">
+                <span>
+                  Text
+                </span>
+              </div>
+            </div>
+            <div class="van-cell">
+              <div class="van-cell__title">
+                <span>
+                  Text
+                </span>
+              </div>
             </div>
           </div>
-          <div class="van-cell">
-            <div class="van-cell__title">
-              <span>
-                Text
-              </span>
-            </div>
-          </div>
-          <div class="van-cell">
-            <div class="van-cell__title">
-              <span>
-                Text
-              </span>
-            </div>
-          </div>
-          <div class="van-cell">
-            <div class="van-cell__title">
-              <span>
-                Text
-              </span>
-            </div>
-          </div>
-        </div>
-        <div>
           <div>
-            <div class="van-index-anchor">
-              N
+            <div>
+              <div class="van-index-anchor">
+                N
+              </div>
+            </div>
+            <div class="van-cell">
+              <div class="van-cell__title">
+                <span>
+                  Text
+                </span>
+              </div>
+            </div>
+            <div class="van-cell">
+              <div class="van-cell__title">
+                <span>
+                  Text
+                </span>
+              </div>
+            </div>
+            <div class="van-cell">
+              <div class="van-cell__title">
+                <span>
+                  Text
+                </span>
+              </div>
             </div>
           </div>
-          <div class="van-cell">
-            <div class="van-cell__title">
-              <span>
-                Text
-              </span>
-            </div>
-          </div>
-          <div class="van-cell">
-            <div class="van-cell__title">
-              <span>
-                Text
-              </span>
-            </div>
-          </div>
-          <div class="van-cell">
-            <div class="van-cell__title">
-              <span>
-                Text
-              </span>
-            </div>
-          </div>
-        </div>
-        <div>
           <div>
-            <div class="van-index-anchor">
-              O
+            <div>
+              <div class="van-index-anchor">
+                O
+              </div>
+            </div>
+            <div class="van-cell">
+              <div class="van-cell__title">
+                <span>
+                  Text
+                </span>
+              </div>
+            </div>
+            <div class="van-cell">
+              <div class="van-cell__title">
+                <span>
+                  Text
+                </span>
+              </div>
+            </div>
+            <div class="van-cell">
+              <div class="van-cell__title">
+                <span>
+                  Text
+                </span>
+              </div>
             </div>
           </div>
-          <div class="van-cell">
-            <div class="van-cell__title">
-              <span>
-                Text
-              </span>
-            </div>
-          </div>
-          <div class="van-cell">
-            <div class="van-cell__title">
-              <span>
-                Text
-              </span>
-            </div>
-          </div>
-          <div class="van-cell">
-            <div class="van-cell__title">
-              <span>
-                Text
-              </span>
-            </div>
-          </div>
-        </div>
-        <div>
           <div>
-            <div class="van-index-anchor">
-              P
+            <div>
+              <div class="van-index-anchor">
+                P
+              </div>
+            </div>
+            <div class="van-cell">
+              <div class="van-cell__title">
+                <span>
+                  Text
+                </span>
+              </div>
+            </div>
+            <div class="van-cell">
+              <div class="van-cell__title">
+                <span>
+                  Text
+                </span>
+              </div>
+            </div>
+            <div class="van-cell">
+              <div class="van-cell__title">
+                <span>
+                  Text
+                </span>
+              </div>
             </div>
           </div>
-          <div class="van-cell">
-            <div class="van-cell__title">
-              <span>
-                Text
-              </span>
-            </div>
-          </div>
-          <div class="van-cell">
-            <div class="van-cell__title">
-              <span>
-                Text
-              </span>
-            </div>
-          </div>
-          <div class="van-cell">
-            <div class="van-cell__title">
-              <span>
-                Text
-              </span>
-            </div>
-          </div>
-        </div>
-        <div>
           <div>
-            <div class="van-index-anchor">
-              Q
+            <div>
+              <div class="van-index-anchor">
+                Q
+              </div>
+            </div>
+            <div class="van-cell">
+              <div class="van-cell__title">
+                <span>
+                  Text
+                </span>
+              </div>
+            </div>
+            <div class="van-cell">
+              <div class="van-cell__title">
+                <span>
+                  Text
+                </span>
+              </div>
+            </div>
+            <div class="van-cell">
+              <div class="van-cell__title">
+                <span>
+                  Text
+                </span>
+              </div>
             </div>
           </div>
-          <div class="van-cell">
-            <div class="van-cell__title">
-              <span>
-                Text
-              </span>
-            </div>
-          </div>
-          <div class="van-cell">
-            <div class="van-cell__title">
-              <span>
-                Text
-              </span>
-            </div>
-          </div>
-          <div class="van-cell">
-            <div class="van-cell__title">
-              <span>
-                Text
-              </span>
-            </div>
-          </div>
-        </div>
-        <div>
           <div>
-            <div class="van-index-anchor">
-              R
+            <div>
+              <div class="van-index-anchor">
+                R
+              </div>
+            </div>
+            <div class="van-cell">
+              <div class="van-cell__title">
+                <span>
+                  Text
+                </span>
+              </div>
+            </div>
+            <div class="van-cell">
+              <div class="van-cell__title">
+                <span>
+                  Text
+                </span>
+              </div>
+            </div>
+            <div class="van-cell">
+              <div class="van-cell__title">
+                <span>
+                  Text
+                </span>
+              </div>
             </div>
           </div>
-          <div class="van-cell">
-            <div class="van-cell__title">
-              <span>
-                Text
-              </span>
-            </div>
-          </div>
-          <div class="van-cell">
-            <div class="van-cell__title">
-              <span>
-                Text
-              </span>
-            </div>
-          </div>
-          <div class="van-cell">
-            <div class="van-cell__title">
-              <span>
-                Text
-              </span>
-            </div>
-          </div>
-        </div>
-        <div>
           <div>
-            <div class="van-index-anchor">
-              S
+            <div>
+              <div class="van-index-anchor">
+                S
+              </div>
+            </div>
+            <div class="van-cell">
+              <div class="van-cell__title">
+                <span>
+                  Text
+                </span>
+              </div>
+            </div>
+            <div class="van-cell">
+              <div class="van-cell__title">
+                <span>
+                  Text
+                </span>
+              </div>
+            </div>
+            <div class="van-cell">
+              <div class="van-cell__title">
+                <span>
+                  Text
+                </span>
+              </div>
             </div>
           </div>
-          <div class="van-cell">
-            <div class="van-cell__title">
-              <span>
-                Text
-              </span>
-            </div>
-          </div>
-          <div class="van-cell">
-            <div class="van-cell__title">
-              <span>
-                Text
-              </span>
-            </div>
-          </div>
-          <div class="van-cell">
-            <div class="van-cell__title">
-              <span>
-                Text
-              </span>
-            </div>
-          </div>
-        </div>
-        <div>
           <div>
-            <div class="van-index-anchor">
-              T
+            <div>
+              <div class="van-index-anchor">
+                T
+              </div>
+            </div>
+            <div class="van-cell">
+              <div class="van-cell__title">
+                <span>
+                  Text
+                </span>
+              </div>
+            </div>
+            <div class="van-cell">
+              <div class="van-cell__title">
+                <span>
+                  Text
+                </span>
+              </div>
+            </div>
+            <div class="van-cell">
+              <div class="van-cell__title">
+                <span>
+                  Text
+                </span>
+              </div>
             </div>
           </div>
-          <div class="van-cell">
-            <div class="van-cell__title">
-              <span>
-                Text
-              </span>
-            </div>
-          </div>
-          <div class="van-cell">
-            <div class="van-cell__title">
-              <span>
-                Text
-              </span>
-            </div>
-          </div>
-          <div class="van-cell">
-            <div class="van-cell__title">
-              <span>
-                Text
-              </span>
-            </div>
-          </div>
-        </div>
-        <div>
           <div>
-            <div class="van-index-anchor">
-              U
+            <div>
+              <div class="van-index-anchor">
+                U
+              </div>
+            </div>
+            <div class="van-cell">
+              <div class="van-cell__title">
+                <span>
+                  Text
+                </span>
+              </div>
+            </div>
+            <div class="van-cell">
+              <div class="van-cell__title">
+                <span>
+                  Text
+                </span>
+              </div>
+            </div>
+            <div class="van-cell">
+              <div class="van-cell__title">
+                <span>
+                  Text
+                </span>
+              </div>
             </div>
           </div>
-          <div class="van-cell">
-            <div class="van-cell__title">
-              <span>
-                Text
-              </span>
-            </div>
-          </div>
-          <div class="van-cell">
-            <div class="van-cell__title">
-              <span>
-                Text
-              </span>
-            </div>
-          </div>
-          <div class="van-cell">
-            <div class="van-cell__title">
-              <span>
-                Text
-              </span>
-            </div>
-          </div>
-        </div>
-        <div>
           <div>
-            <div class="van-index-anchor">
-              V
+            <div>
+              <div class="van-index-anchor">
+                V
+              </div>
+            </div>
+            <div class="van-cell">
+              <div class="van-cell__title">
+                <span>
+                  Text
+                </span>
+              </div>
+            </div>
+            <div class="van-cell">
+              <div class="van-cell__title">
+                <span>
+                  Text
+                </span>
+              </div>
+            </div>
+            <div class="van-cell">
+              <div class="van-cell__title">
+                <span>
+                  Text
+                </span>
+              </div>
             </div>
           </div>
-          <div class="van-cell">
-            <div class="van-cell__title">
-              <span>
-                Text
-              </span>
-            </div>
-          </div>
-          <div class="van-cell">
-            <div class="van-cell__title">
-              <span>
-                Text
-              </span>
-            </div>
-          </div>
-          <div class="van-cell">
-            <div class="van-cell__title">
-              <span>
-                Text
-              </span>
-            </div>
-          </div>
-        </div>
-        <div>
           <div>
-            <div class="van-index-anchor">
-              W
+            <div>
+              <div class="van-index-anchor">
+                W
+              </div>
+            </div>
+            <div class="van-cell">
+              <div class="van-cell__title">
+                <span>
+                  Text
+                </span>
+              </div>
+            </div>
+            <div class="van-cell">
+              <div class="van-cell__title">
+                <span>
+                  Text
+                </span>
+              </div>
+            </div>
+            <div class="van-cell">
+              <div class="van-cell__title">
+                <span>
+                  Text
+                </span>
+              </div>
             </div>
           </div>
-          <div class="van-cell">
-            <div class="van-cell__title">
-              <span>
-                Text
-              </span>
-            </div>
-          </div>
-          <div class="van-cell">
-            <div class="van-cell__title">
-              <span>
-                Text
-              </span>
-            </div>
-          </div>
-          <div class="van-cell">
-            <div class="van-cell__title">
-              <span>
-                Text
-              </span>
-            </div>
-          </div>
-        </div>
-        <div>
           <div>
-            <div class="van-index-anchor">
-              X
+            <div>
+              <div class="van-index-anchor">
+                X
+              </div>
+            </div>
+            <div class="van-cell">
+              <div class="van-cell__title">
+                <span>
+                  Text
+                </span>
+              </div>
+            </div>
+            <div class="van-cell">
+              <div class="van-cell__title">
+                <span>
+                  Text
+                </span>
+              </div>
+            </div>
+            <div class="van-cell">
+              <div class="van-cell__title">
+                <span>
+                  Text
+                </span>
+              </div>
             </div>
           </div>
-          <div class="van-cell">
-            <div class="van-cell__title">
-              <span>
-                Text
-              </span>
-            </div>
-          </div>
-          <div class="van-cell">
-            <div class="van-cell__title">
-              <span>
-                Text
-              </span>
-            </div>
-          </div>
-          <div class="van-cell">
-            <div class="van-cell__title">
-              <span>
-                Text
-              </span>
-            </div>
-          </div>
-        </div>
-        <div>
           <div>
-            <div class="van-index-anchor">
-              Y
+            <div>
+              <div class="van-index-anchor">
+                Y
+              </div>
+            </div>
+            <div class="van-cell">
+              <div class="van-cell__title">
+                <span>
+                  Text
+                </span>
+              </div>
+            </div>
+            <div class="van-cell">
+              <div class="van-cell__title">
+                <span>
+                  Text
+                </span>
+              </div>
+            </div>
+            <div class="van-cell">
+              <div class="van-cell__title">
+                <span>
+                  Text
+                </span>
+              </div>
             </div>
           </div>
-          <div class="van-cell">
-            <div class="van-cell__title">
-              <span>
-                Text
-              </span>
-            </div>
-          </div>
-          <div class="van-cell">
-            <div class="van-cell__title">
-              <span>
-                Text
-              </span>
-            </div>
-          </div>
-          <div class="van-cell">
-            <div class="van-cell__title">
-              <span>
-                Text
-              </span>
-            </div>
-          </div>
-        </div>
-        <div>
           <div>
-            <div class="van-index-anchor">
-              Z
+            <div>
+              <div class="van-index-anchor">
+                Z
+              </div>
             </div>
-          </div>
-          <div class="van-cell">
-            <div class="van-cell__title">
-              <span>
-                Text
-              </span>
+            <div class="van-cell">
+              <div class="van-cell__title">
+                <span>
+                  Text
+                </span>
+              </div>
             </div>
-          </div>
-          <div class="van-cell">
-            <div class="van-cell__title">
-              <span>
-                Text
-              </span>
+            <div class="van-cell">
+              <div class="van-cell__title">
+                <span>
+                  Text
+                </span>
+              </div>
             </div>
-          </div>
-          <div class="van-cell">
-            <div class="van-cell__title">
-              <span>
-                Text
-              </span>
+            <div class="van-cell">
+              <div class="van-cell__title">
+                <span>
+                  Text
+                </span>
+              </div>
             </div>
           </div>
         </div>
@@ -946,6 +1117,36 @@ exports[`should render demo and match snapshot 1`] = `
       class="van-tab__panel"
       tabindex="-1"
       aria-labelledby="van-tabs-1"
+      data-allow-mismatch="attribute"
+      style="display: none;"
+    >
+    </div>
+    <div
+      id="van-tab"
+      role="tabpanel"
+      class="van-tab__panel"
+      tabindex="-1"
+      aria-labelledby="van-tabs-2"
+      data-allow-mismatch="attribute"
+      style="display: none;"
+    >
+    </div>
+    <div
+      id="van-tab"
+      role="tabpanel"
+      class="van-tab__panel"
+      tabindex="-1"
+      aria-labelledby="van-tabs-3"
+      data-allow-mismatch="attribute"
+      style="display: none;"
+    >
+    </div>
+    <div
+      id="van-tab"
+      role="tabpanel"
+      class="van-tab__panel"
+      tabindex="-1"
+      aria-labelledby="van-tabs-4"
       data-allow-mismatch="attribute"
       style="display: none;"
     >

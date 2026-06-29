@@ -533,14 +533,23 @@ export default defineComponent({
 
       return (
         <Button
-          class={bem('upload')}
+          size="normal"
           type="default"
+          height="var(--van-uploader-file-upload-height)"
+          radius="var(--van-uploader-file-upload-radius)"
+          fontSize="var(--van-uploader-file-upload-font-size)"
+          textColor="var(--van-uploader-file-upload-color)"
+          borderColor="#ccc"
+          paddingLeft={12}
+          paddingRight={12}
           v-slots={{
             icon: () => (
-              <img
+              <span
                 class={bem('upload-icon')}
-                src={uploadIcon}
-                alt=""
+                style={{
+                  maskImage: `url(${uploadIcon})`,
+                  WebkitMaskImage: `url(${uploadIcon})`,
+                }}
               />
             ),
             default: () => props.uploadText,
@@ -619,13 +628,17 @@ export default defineComponent({
       </Dialog>
     );
 
-    /** 点击上传区域：达上限时 Toast，否则透传 clickUpload */
+    /** 点击上传区域：达上限时 Toast，否则透传 clickUpload 并调起选文件 */
     const onClickUpload = (event: MouseEvent) => {
       if (isMaxCountReached.value) {
         showMaxCountToast();
         return;
       }
       emit('clickUpload', event);
+
+      if ((event.target as HTMLElement).tagName !== 'INPUT') {
+        uploaderRef.value?.chooseFile();
+      }
     };
 
     // ---------- 对外暴露实例方法 ----------

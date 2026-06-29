@@ -34,6 +34,14 @@ You can directly passing an image URL to the `name` props.
 <van-icon name="https://fastly.jsdelivr.net/npm/@vant/assets/icon-demo.png" />
 ```
 
+### Using SVG Icon
+
+When `image` prop is set, the `name` prop refers to a built-in SVG icon in the `img` directory.
+
+```html
+<van-icon name="share" image />
+```
+
 ### Show Badge
 
 Use `dot` prop, a small red dot will be displayed in the upper right corner of the icon.
@@ -94,6 +102,7 @@ Use `size` prop to set icon size.
 | Attribute | Description | Type | Default |
 | --- | --- | --- | --- |
 | name | Icon name or URL | _string_ | `''` |
+| image `new` | Whether to use built-in SVG icon in the `img` directory, used with `name` | _boolean_ | `false` |
 | dot | Whether to show red dot | _boolean_ | `false` |
 | badge | Content of the badge | _number \| string_ | `''` |
 | badge-props | Props of Badge, see [Badge - props](#/en-US/badge#props) | _BadgeProps_ | - |

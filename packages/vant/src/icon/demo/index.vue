@@ -47,6 +47,7 @@ const t = useTranslate({
     demo: '用法示例',
     color: '图标颜色',
     size: '图标大小',
+    usingSvg: '使用内置 SVG 图标',
   },
   'en-US': {
     title: 'Icon List',
@@ -58,6 +59,7 @@ const t = useTranslate({
     demo: 'Demo',
     color: 'Icon Color',
     size: 'Icon Size',
+    usingSvg: 'Using SVG Icon',
   },
 });
 
@@ -78,6 +80,9 @@ const copy = (icon: string, option: Record<string, unknown> = {}) => {
   }
   if ('size' in option) {
     tag = `${tag} size="${option.size}"`;
+  }
+  if ('image' in option) {
+    tag = `${tag} ${option.image ? 'image' : ''}`;
   }
   tag = `${tag} />`;
   copyToClipboard(tag);
@@ -106,6 +111,14 @@ const copy = (icon: string, option: Record<string, unknown> = {}) => {
         <van-row>
           <van-col span="6" @click="copy(demoImage)">
             <van-icon :name="demoImage" />
+          </van-col>
+        </van-row>
+      </demo-block>
+
+      <demo-block :title="t('usingSvg')">
+        <van-row>
+          <van-col span="6" @click="copy('share', { image: true })">
+            <van-icon name="share" image />
           </van-col>
         </van-row>
       </demo-block>

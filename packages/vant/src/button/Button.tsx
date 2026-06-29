@@ -8,11 +8,12 @@ import {
 // Utils
 import {
   extend,
+  isDef,
+  addUnit,
   numericProp,
   preventDefault,
   makeStringProp,
   createNamespace,
-  BORDER_SURROUND,
 } from '../utils';
 import { useRoute, routeProps } from '../composables/use-route';
 
@@ -34,15 +35,17 @@ export const buttonProps = extend({}, routeProps, {
   tag: makeStringProp<keyof HTMLElementTagNameMap>('button'),
   text: String,
   icon: String,
-  type: makeStringProp<ButtonType>('default'),
-  size: makeStringProp<ButtonSize>('normal'),
+  type: makeStringProp<ButtonType>('primary'),
+  size: makeStringProp<ButtonSize>('large'),
   color: String,
   block: Boolean,
   plain: Boolean,
   round: Boolean,
   square: Boolean,
+  borderless: Boolean,
+  textButton: Boolean,
+  textSecondary: Boolean,
   loading: Boolean,
-  hairline: Boolean,
   disabled: Boolean,
   iconPrefix: String,
   nativeType: makeStringProp<ButtonNativeType>('button'),
@@ -50,6 +53,14 @@ export const buttonProps = extend({}, routeProps, {
   loadingText: String,
   loadingType: String as PropType<LoadingType>,
   iconPosition: makeStringProp<ButtonIconPosition>('left'),
+  width: numericProp,
+  height: numericProp,
+  radius: numericProp,
+  fontSize: numericProp,
+  textColor: String,
+  borderColor: String,
+  paddingLeft: numericProp,
+  paddingRight: numericProp,
 });
 
 export type ButtonProps = ExtractPropTypes<typeof buttonProps>;
@@ -112,26 +123,83 @@ export default defineComponent({
     };
 
     const getStyle = () => {
-      const { color, plain } = props;
-      if (color) {
-        const style: CSSProperties = {
-          color: plain ? color : 'white',
-        };
+      const {
+        color,
+        plain,
+        textButton,
+        width,
+        height,
+        radius,
+        fontSize,
+        textColor,
+        borderColor,
+        paddingLeft,
+        paddingRight,
+      } = props;
+      const style: CSSProperties = {};
+      const styleRecord = style as Record<string, string | undefined>;
 
-        if (!plain) {
-          // Use background instead of backgroundColor to make linear-gradient work
-          style.background = color;
-        }
-
-        // hide border when color is linear-gradient
-        if (color.includes('gradient')) {
-          style.border = 0;
-        } else {
-          style.borderColor = color;
-        }
-
-        return style;
+      if (isDef(width)) {
+        style.width = addUnit(width);
       }
+      if (isDef(height)) {
+        const value = addUnit(height);
+        styleRecord['--van-button-custom-height'] = value;
+        style.height = value;
+        if (props.size === 'large') {
+          style.maxHeight = value;
+        }
+      }
+      if (isDef(radius) && !textButton) {
+        const value = addUnit(radius);
+        styleRecord['--van-button-custom-radius'] = value;
+        style.borderRadius = value;
+      }
+      if (isDef(fontSize)) {
+        const value = addUnit(fontSize);
+        styleRecord['--van-button-custom-font-size'] = value;
+        style.fontSize = value;
+      }
+      if (textColor) {
+        styleRecord['--van-button-custom-content-color'] = textColor;
+      }
+      if (borderColor) {
+        styleRecord['--van-button-custom-border-color'] = borderColor;
+      }
+      if (isDef(paddingLeft)) {
+        style.paddingLeft = addUnit(paddingLeft);
+      }
+      if (isDef(paddingRight)) {
+        style.paddingRight = addUnit(paddingRight);
+      }
+
+      if (color) {
+        if (textButton) {
+          if (plain) {
+            styleRecord['--van-button-text-plain-color'] = color;
+          } else {
+            styleRecord['--van-button-text-color'] = color;
+          }
+        } else {
+          style.color = plain ? color : 'white';
+
+          if (!plain) {
+            // Use background instead of backgroundColor to make linear-gradient work
+            style.background = color;
+          }
+
+          if (!borderColor) {
+            // hide border when color is linear-gradient
+            styleRecord['--van-button-custom-border-color'] = color.includes(
+              'gradient',
+            )
+              ? 'transparent'
+              : color;
+          }
+        }
+      }
+
+      return Object.keys(style).length ? style : undefined;
     };
 
     const onClick = (event: MouseEvent) => {
@@ -143,21 +211,30 @@ export default defineComponent({
       }
     };
 
+    const renderExtra = () => {
+      if (props.size === 'large' && slots.extra) {
+        return <div class={bem('extra')}>{slots.extra()}</div>;
+      }
+    };
+
     return () => {
       const {
         tag,
         type,
         size,
         block,
-        round,
         plain,
-        square,
+        textButton,
+        textSecondary,
         loading,
         disabled,
-        hairline,
         nativeType,
         iconPosition,
+        borderless,
       } = props;
+
+      const hasIcon = !!(props.icon || slots.icon);
+      const hasExtra = size === 'large' && !!slots.extra;
 
       const classes = [
         bem([
@@ -165,15 +242,16 @@ export default defineComponent({
           size,
           {
             plain,
+            text: textButton,
+            'text-secondary': textSecondary,
             block,
-            round,
-            square,
             loading,
             disabled,
-            hairline,
+            borderless,
+            'with-icon': size === 'small' && hasIcon,
+            'with-extra': hasExtra,
           },
         ]),
-        { [BORDER_SURROUND]: hairline },
       ];
 
       return (
@@ -189,6 +267,7 @@ export default defineComponent({
             {renderText()}
             {iconPosition === 'right' && renderIcon()}
           </div>
+          {renderExtra()}
         </tag>
       );
     };

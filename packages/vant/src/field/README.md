@@ -734,6 +734,7 @@ The component provides the following CSS variables, which can be used to customi
 | --van-field-label-width | _6.2em_ | - |
 | --van-field-label-color | _var(--van-text-color)_ | - |
 | --van-field-label-margin-right | _32px_ | - |
+| --van-field-label-top-margin-bottom | _var(--van-padding-xs)_ | Bottom margin of top-aligned label |
 | --van-field-input-text-color | _var(--van-text-color)_ | - |
 | --van-field-input-error-text-color | _var(--van-danger-color)_ | - |
 | --van-field-input-disabled-text-color | _var(--van-text-color-inverse)_ | - |

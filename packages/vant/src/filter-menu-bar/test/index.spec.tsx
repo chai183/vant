@@ -203,6 +203,51 @@ test('should control single field label by showFieldLabel', async () => {
   expect(wrapper.text()).toContain('查找关键字名称');
 });
 
+test('should align edge bar item text when item count is 3 or 4', async () => {
+  const wrapper3 = mount(FilterMenuBar, {
+    props: {
+      columns: [
+        createColumn('a', 'A'),
+        createColumn('b', 'B'),
+        createColumn('c', 'C'),
+      ],
+    },
+  });
+
+  await nextTick();
+
+  const items3 = wrapper3.findAll('.van-filter-menu-bar__item');
+  expect(items3[0].classes()).toContain(
+    'van-filter-menu-bar__item--align-start',
+  );
+  expect(items3[1].classes()).not.toContain(
+    'van-filter-menu-bar__item--align-start',
+  );
+  expect(items3[1].classes()).not.toContain(
+    'van-filter-menu-bar__item--align-end',
+  );
+  expect(items3[2].classes()).toContain('van-filter-menu-bar__item--align-end');
+
+  const wrapper4 = mount(FilterMenuBar, {
+    props: {
+      columns: [
+        createColumn('a', 'A'),
+        createColumn('b', 'B'),
+        createColumn('c', 'C'),
+        createColumn('d', 'D'),
+      ],
+    },
+  });
+
+  await nextTick();
+
+  const items4 = wrapper4.findAll('.van-filter-menu-bar__item');
+  expect(items4[0].classes()).toContain(
+    'van-filter-menu-bar__item--align-start',
+  );
+  expect(items4[3].classes()).toContain('van-filter-menu-bar__item--align-end');
+});
+
 test('should render overflow items in funnel panel', async () => {
   const wrapper = mount(FilterMenuBar, {
     props: {
@@ -275,6 +320,58 @@ test('should render built-in footer when showFooter is true', async () => {
 
   expect(wrapper.text()).toContain('确定');
   expect(wrapper.text()).toContain('重置');
+  expect(wrapper.find('.van-bottom-action-bar').exists()).toBe(true);
+});
+
+test('should hide reset button when showResetButton is false', async () => {
+  const wrapper = mount(FilterMenuBar, {
+    props: {
+      columns: [
+        {
+          ...createColumn('status', '状态'),
+          showFooter: true,
+        },
+      ],
+      showResetButton: false,
+    },
+  });
+
+  await nextTick();
+  await wrapper.find('.van-filter-menu-bar__item').trigger('click');
+  await nextTick();
+
+  expect(wrapper.findAll('.van-bottom-action-bar .van-button')).toHaveLength(1);
+  expect(wrapper.text()).toContain('确定');
+  expect(wrapper.text()).not.toContain('重置');
+});
+
+test('should allow item showResetButton to override component prop', async () => {
+  const wrapper = mount(FilterMenuBar, {
+    props: {
+      columns: [
+        {
+          ...createColumn('status', '状态'),
+          showFooter: true,
+          showResetButton: false,
+        },
+        {
+          ...createColumn('category', '品类'),
+          showFooter: true,
+        },
+      ],
+    },
+  });
+
+  await nextTick();
+  await wrapper.findAll('.van-filter-menu-bar__item')[0].trigger('click');
+  await nextTick();
+
+  expect(wrapper.findAll('.van-bottom-action-bar .van-button')).toHaveLength(1);
+
+  await wrapper.findAll('.van-filter-menu-bar__item')[1].trigger('click');
+  await nextTick();
+
+  expect(wrapper.findAll('.van-bottom-action-bar .van-button')).toHaveLength(2);
 });
 
 test('should show selected count on confirm button for single field multi select panel', async () => {

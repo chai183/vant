@@ -1,4 +1,4 @@
-// Rstest Snapshot v1
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
 exports[`should render demo and match snapshot 1`] = `
 <!--[-->
@@ -722,17 +722,12 @@ exports[`should render demo and match snapshot 1`] = `
       <div class="van-steps__items">
         <!--[-->
         <div
-          class="van-step van-step--vertical van-step--finish van-step--reverse"
+          class="van-step van-step--vertical van-step--process van-step--reverse"
           style
         >
           <div class="van-step__circle-container">
-            <div class="van-step__circle-num van-step__circle-num--finish">
-              <i
-                class="van-badge__wrapper van-icon van-icon-success van-step__circle-check"
-                style="color:var(--van-white);"
-              >
-                <!--[-->
-              </i>
+            <div class="van-step__circle-num van-step__circle-num--process">
+              1
             </div>
           </div>
           <div
@@ -743,8 +738,8 @@ exports[`should render demo and match snapshot 1`] = `
           <div class="van-step__content">
             <div class="van-step__left">
               <div
-                class="van-step__title"
-                style
+                class="van-step__title van-step__title--active"
+                style="color:var(--van-primary-color);"
               >
                 <!--[-->
                 【City】Status1
@@ -760,24 +755,24 @@ exports[`should render demo and match snapshot 1`] = `
           </div>
         </div>
         <div
-          class="van-step van-step--vertical van-step--process van-step--reverse"
+          class="van-step van-step--vertical van-step--waiting van-step--reverse"
           style
         >
           <div class="van-step__circle-container">
-            <div class="van-step__circle-num van-step__circle-num--process">
+            <div class="van-step__circle-num van-step__circle-num--waiting">
               2
             </div>
           </div>
           <div
             class="van-step__line"
-            style="background:var(--van-primary-color);"
+            style
           >
           </div>
           <div class="van-step__content">
             <div class="van-step__left">
               <div
-                class="van-step__title van-step__title--active"
-                style="color:var(--van-primary-color);"
+                class="van-step__title"
+                style
               >
                 <!--[-->
                 【City】Status2

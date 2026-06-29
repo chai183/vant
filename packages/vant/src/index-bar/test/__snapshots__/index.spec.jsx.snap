@@ -1,4 +1,4 @@
-// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+// Rstest Snapshot v1
 
 exports[`should allow to custom anchor content 1`] = `
 <div class="van-index-anchor">
@@ -13,182 +13,314 @@ exports[`should render active anchor when stick prop is true and has stickyOffse
       class="van-index-bar__index"
       data-index="A"
     >
-      A
+      <span class="van-index-bar__bubble">
+        A
+      </span>
+      <span class="van-index-bar__label">
+        A
+      </span>
     </span>
     <span
       class="van-index-bar__index"
       data-index="B"
     >
-      B
+      <span class="van-index-bar__bubble">
+        B
+      </span>
+      <span class="van-index-bar__label">
+        B
+      </span>
     </span>
     <span
       class="van-index-bar__index"
       data-index="C"
     >
-      C
+      <span class="van-index-bar__bubble">
+        C
+      </span>
+      <span class="van-index-bar__label">
+        C
+      </span>
     </span>
     <span
       class="van-index-bar__index"
       data-index="D"
     >
-      D
+      <span class="van-index-bar__bubble">
+        D
+      </span>
+      <span class="van-index-bar__label">
+        D
+      </span>
     </span>
     <span
       class="van-index-bar__index"
       data-index="E"
     >
-      E
+      <span class="van-index-bar__bubble">
+        E
+      </span>
+      <span class="van-index-bar__label">
+        E
+      </span>
     </span>
     <span
       class="van-index-bar__index"
       data-index="F"
     >
-      F
+      <span class="van-index-bar__bubble">
+        F
+      </span>
+      <span class="van-index-bar__label">
+        F
+      </span>
     </span>
     <span
       class="van-index-bar__index"
       data-index="G"
     >
-      G
+      <span class="van-index-bar__bubble">
+        G
+      </span>
+      <span class="van-index-bar__label">
+        G
+      </span>
     </span>
     <span
       class="van-index-bar__index"
       data-index="H"
     >
-      H
+      <span class="van-index-bar__bubble">
+        H
+      </span>
+      <span class="van-index-bar__label">
+        H
+      </span>
     </span>
     <span
       class="van-index-bar__index"
       data-index="I"
     >
-      I
+      <span class="van-index-bar__bubble">
+        I
+      </span>
+      <span class="van-index-bar__label">
+        I
+      </span>
     </span>
     <span
       class="van-index-bar__index"
       data-index="J"
     >
-      J
+      <span class="van-index-bar__bubble">
+        J
+      </span>
+      <span class="van-index-bar__label">
+        J
+      </span>
     </span>
     <span
       class="van-index-bar__index"
       data-index="K"
     >
-      K
+      <span class="van-index-bar__bubble">
+        K
+      </span>
+      <span class="van-index-bar__label">
+        K
+      </span>
     </span>
     <span
       class="van-index-bar__index"
       data-index="L"
     >
-      L
+      <span class="van-index-bar__bubble">
+        L
+      </span>
+      <span class="van-index-bar__label">
+        L
+      </span>
     </span>
     <span
       class="van-index-bar__index"
       data-index="M"
     >
-      M
+      <span class="van-index-bar__bubble">
+        M
+      </span>
+      <span class="van-index-bar__label">
+        M
+      </span>
     </span>
     <span
       class="van-index-bar__index"
       data-index="N"
     >
-      N
+      <span class="van-index-bar__bubble">
+        N
+      </span>
+      <span class="van-index-bar__label">
+        N
+      </span>
     </span>
     <span
       class="van-index-bar__index"
       data-index="O"
     >
-      O
+      <span class="van-index-bar__bubble">
+        O
+      </span>
+      <span class="van-index-bar__label">
+        O
+      </span>
     </span>
     <span
       class="van-index-bar__index"
       data-index="P"
     >
-      P
+      <span class="van-index-bar__bubble">
+        P
+      </span>
+      <span class="van-index-bar__label">
+        P
+      </span>
     </span>
     <span
       class="van-index-bar__index"
       data-index="Q"
     >
-      Q
+      <span class="van-index-bar__bubble">
+        Q
+      </span>
+      <span class="van-index-bar__label">
+        Q
+      </span>
     </span>
     <span
       class="van-index-bar__index"
       data-index="R"
     >
-      R
+      <span class="van-index-bar__bubble">
+        R
+      </span>
+      <span class="van-index-bar__label">
+        R
+      </span>
     </span>
     <span
       class="van-index-bar__index"
       data-index="S"
     >
-      S
+      <span class="van-index-bar__bubble">
+        S
+      </span>
+      <span class="van-index-bar__label">
+        S
+      </span>
     </span>
     <span
       class="van-index-bar__index"
       data-index="T"
     >
-      T
+      <span class="van-index-bar__bubble">
+        T
+      </span>
+      <span class="van-index-bar__label">
+        T
+      </span>
     </span>
     <span
       class="van-index-bar__index"
       data-index="U"
     >
-      U
+      <span class="van-index-bar__bubble">
+        U
+      </span>
+      <span class="van-index-bar__label">
+        U
+      </span>
     </span>
     <span
       class="van-index-bar__index"
       data-index="V"
     >
-      V
+      <span class="van-index-bar__bubble">
+        V
+      </span>
+      <span class="van-index-bar__label">
+        V
+      </span>
     </span>
     <span
       class="van-index-bar__index"
       data-index="W"
     >
-      W
+      <span class="van-index-bar__bubble">
+        W
+      </span>
+      <span class="van-index-bar__label">
+        W
+      </span>
     </span>
     <span
       class="van-index-bar__index"
       data-index="X"
     >
-      X
+      <span class="van-index-bar__bubble">
+        X
+      </span>
+      <span class="van-index-bar__label">
+        X
+      </span>
     </span>
     <span
       class="van-index-bar__index"
       data-index="Y"
     >
-      Y
+      <span class="van-index-bar__bubble">
+        Y
+      </span>
+      <span class="van-index-bar__label">
+        Y
+      </span>
     </span>
     <span
       class="van-index-bar__index"
       data-index="Z"
     >
-      Z
+      <span class="van-index-bar__bubble">
+        Z
+      </span>
+      <span class="van-index-bar__label">
+        Z
+      </span>
     </span>
   </div>
-  <div data-index="0">
-    <div class="van-index-anchor">
-      A
+  <div>
+    <div data-index="0">
+      <div class="van-index-anchor">
+        A
+      </div>
     </div>
-  </div>
-  <div style="height: 32px;">
-    A1
-  </div>
-  <div data-index="1">
-    <div class="van-index-anchor">
-      B
+    <div style="height: 32px;">
+      A1
     </div>
-  </div>
-  <div style="height: 32px;">
-    B1
-  </div>
-  <div data-index="2">
-    <div class="van-index-anchor">
-      C
+    <div data-index="1">
+      <div class="van-index-anchor">
+        B
+      </div>
     </div>
-  </div>
-  <div style="height: 32px;">
-    C1
+    <div style="height: 32px;">
+      B1
+    </div>
+    <div data-index="2">
+      <div class="van-index-anchor">
+        C
+      </div>
+    </div>
+    <div style="height: 32px;">
+      C1
+    </div>
   </div>
 </div>
 `;
@@ -200,191 +332,323 @@ exports[`should render active anchor when stick prop is true and has stickyOffse
       class="van-index-bar__index van-index-bar__index--active"
       data-index="A"
     >
-      A
+      <span class="van-index-bar__bubble van-index-bar__bubble--show">
+        A
+      </span>
+      <span class="van-index-bar__label">
+        A
+      </span>
     </span>
     <span
       class="van-index-bar__index"
       data-index="B"
     >
-      B
+      <span class="van-index-bar__bubble">
+        B
+      </span>
+      <span class="van-index-bar__label">
+        B
+      </span>
     </span>
     <span
       class="van-index-bar__index"
       data-index="C"
     >
-      C
+      <span class="van-index-bar__bubble">
+        C
+      </span>
+      <span class="van-index-bar__label">
+        C
+      </span>
     </span>
     <span
       class="van-index-bar__index"
       data-index="D"
     >
-      D
+      <span class="van-index-bar__bubble">
+        D
+      </span>
+      <span class="van-index-bar__label">
+        D
+      </span>
     </span>
     <span
       class="van-index-bar__index"
       data-index="E"
     >
-      E
+      <span class="van-index-bar__bubble">
+        E
+      </span>
+      <span class="van-index-bar__label">
+        E
+      </span>
     </span>
     <span
       class="van-index-bar__index"
       data-index="F"
     >
-      F
+      <span class="van-index-bar__bubble">
+        F
+      </span>
+      <span class="van-index-bar__label">
+        F
+      </span>
     </span>
     <span
       class="van-index-bar__index"
       data-index="G"
     >
-      G
+      <span class="van-index-bar__bubble">
+        G
+      </span>
+      <span class="van-index-bar__label">
+        G
+      </span>
     </span>
     <span
       class="van-index-bar__index"
       data-index="H"
     >
-      H
+      <span class="van-index-bar__bubble">
+        H
+      </span>
+      <span class="van-index-bar__label">
+        H
+      </span>
     </span>
     <span
       class="van-index-bar__index"
       data-index="I"
     >
-      I
+      <span class="van-index-bar__bubble">
+        I
+      </span>
+      <span class="van-index-bar__label">
+        I
+      </span>
     </span>
     <span
       class="van-index-bar__index"
       data-index="J"
     >
-      J
+      <span class="van-index-bar__bubble">
+        J
+      </span>
+      <span class="van-index-bar__label">
+        J
+      </span>
     </span>
     <span
       class="van-index-bar__index"
       data-index="K"
     >
-      K
+      <span class="van-index-bar__bubble">
+        K
+      </span>
+      <span class="van-index-bar__label">
+        K
+      </span>
     </span>
     <span
       class="van-index-bar__index"
       data-index="L"
     >
-      L
+      <span class="van-index-bar__bubble">
+        L
+      </span>
+      <span class="van-index-bar__label">
+        L
+      </span>
     </span>
     <span
       class="van-index-bar__index"
       data-index="M"
     >
-      M
+      <span class="van-index-bar__bubble">
+        M
+      </span>
+      <span class="van-index-bar__label">
+        M
+      </span>
     </span>
     <span
       class="van-index-bar__index"
       data-index="N"
     >
-      N
+      <span class="van-index-bar__bubble">
+        N
+      </span>
+      <span class="van-index-bar__label">
+        N
+      </span>
     </span>
     <span
       class="van-index-bar__index"
       data-index="O"
     >
-      O
+      <span class="van-index-bar__bubble">
+        O
+      </span>
+      <span class="van-index-bar__label">
+        O
+      </span>
     </span>
     <span
       class="van-index-bar__index"
       data-index="P"
     >
-      P
+      <span class="van-index-bar__bubble">
+        P
+      </span>
+      <span class="van-index-bar__label">
+        P
+      </span>
     </span>
     <span
       class="van-index-bar__index"
       data-index="Q"
     >
-      Q
+      <span class="van-index-bar__bubble">
+        Q
+      </span>
+      <span class="van-index-bar__label">
+        Q
+      </span>
     </span>
     <span
       class="van-index-bar__index"
       data-index="R"
     >
-      R
+      <span class="van-index-bar__bubble">
+        R
+      </span>
+      <span class="van-index-bar__label">
+        R
+      </span>
     </span>
     <span
       class="van-index-bar__index"
       data-index="S"
     >
-      S
+      <span class="van-index-bar__bubble">
+        S
+      </span>
+      <span class="van-index-bar__label">
+        S
+      </span>
     </span>
     <span
       class="van-index-bar__index"
       data-index="T"
     >
-      T
+      <span class="van-index-bar__bubble">
+        T
+      </span>
+      <span class="van-index-bar__label">
+        T
+      </span>
     </span>
     <span
       class="van-index-bar__index"
       data-index="U"
     >
-      U
+      <span class="van-index-bar__bubble">
+        U
+      </span>
+      <span class="van-index-bar__label">
+        U
+      </span>
     </span>
     <span
       class="van-index-bar__index"
       data-index="V"
     >
-      V
+      <span class="van-index-bar__bubble">
+        V
+      </span>
+      <span class="van-index-bar__label">
+        V
+      </span>
     </span>
     <span
       class="van-index-bar__index"
       data-index="W"
     >
-      W
+      <span class="van-index-bar__bubble">
+        W
+      </span>
+      <span class="van-index-bar__label">
+        W
+      </span>
     </span>
     <span
       class="van-index-bar__index"
       data-index="X"
     >
-      X
+      <span class="van-index-bar__bubble">
+        X
+      </span>
+      <span class="van-index-bar__label">
+        X
+      </span>
     </span>
     <span
       class="van-index-bar__index"
       data-index="Y"
     >
-      Y
+      <span class="van-index-bar__bubble">
+        Y
+      </span>
+      <span class="van-index-bar__label">
+        Y
+      </span>
     </span>
     <span
       class="van-index-bar__index"
       data-index="Z"
     >
-      Z
+      <span class="van-index-bar__bubble">
+        Z
+      </span>
+      <span class="van-index-bar__label">
+        Z
+      </span>
     </span>
   </div>
-  <div
-    data-index="0"
-    style="height: 10px;"
-  >
+  <div>
     <div
-      class="van-index-anchor van-index-anchor--sticky van-hairline--bottom"
-      style="transform: translate3d(0, 42px, 0);"
+      data-index="0"
+      style="height: 10px;"
     >
-      A
+      <div
+        class="van-index-anchor van-index-anchor--sticky van-hairline--bottom"
+        style="transform: translate3d(0, 42px, 0);"
+      >
+        A
+      </div>
     </div>
-  </div>
-  <div style="height: 32px;">
-    A1
-  </div>
-  <div data-index="1">
-    <div class="van-index-anchor">
-      B
+    <div style="height: 32px;">
+      A1
     </div>
-  </div>
-  <div style="height: 32px;">
-    B1
-  </div>
-  <div
-    data-index="2"
-    style
-  >
-    <div class="van-index-anchor">
-      C
+    <div
+      data-index="1"
+      style
+    >
+      <div class="van-index-anchor">
+        B
+      </div>
     </div>
-  </div>
-  <div style="height: 32px;">
-    C1
+    <div style="height: 32px;">
+      B1
+    </div>
+    <div data-index="2">
+      <div class="van-index-anchor">
+        C
+      </div>
+    </div>
+    <div style="height: 32px;">
+      C1
+    </div>
   </div>
 </div>
 `;
@@ -396,177 +660,309 @@ exports[`should update active anchor after page scroll 1`] = `
       class="van-index-bar__index van-index-bar__index--active"
       data-index="A"
     >
-      A
+      <span class="van-index-bar__bubble van-index-bar__bubble--show">
+        A
+      </span>
+      <span class="van-index-bar__label">
+        A
+      </span>
     </span>
     <span
       class="van-index-bar__index"
       data-index="B"
     >
-      B
+      <span class="van-index-bar__bubble">
+        B
+      </span>
+      <span class="van-index-bar__label">
+        B
+      </span>
     </span>
     <span
       class="van-index-bar__index"
       data-index="C"
     >
-      C
+      <span class="van-index-bar__bubble">
+        C
+      </span>
+      <span class="van-index-bar__label">
+        C
+      </span>
     </span>
     <span
       class="van-index-bar__index"
       data-index="D"
     >
-      D
+      <span class="van-index-bar__bubble">
+        D
+      </span>
+      <span class="van-index-bar__label">
+        D
+      </span>
     </span>
     <span
       class="van-index-bar__index"
       data-index="E"
     >
-      E
+      <span class="van-index-bar__bubble">
+        E
+      </span>
+      <span class="van-index-bar__label">
+        E
+      </span>
     </span>
     <span
       class="van-index-bar__index"
       data-index="F"
     >
-      F
+      <span class="van-index-bar__bubble">
+        F
+      </span>
+      <span class="van-index-bar__label">
+        F
+      </span>
     </span>
     <span
       class="van-index-bar__index"
       data-index="G"
     >
-      G
+      <span class="van-index-bar__bubble">
+        G
+      </span>
+      <span class="van-index-bar__label">
+        G
+      </span>
     </span>
     <span
       class="van-index-bar__index"
       data-index="H"
     >
-      H
+      <span class="van-index-bar__bubble">
+        H
+      </span>
+      <span class="van-index-bar__label">
+        H
+      </span>
     </span>
     <span
       class="van-index-bar__index"
       data-index="I"
     >
-      I
+      <span class="van-index-bar__bubble">
+        I
+      </span>
+      <span class="van-index-bar__label">
+        I
+      </span>
     </span>
     <span
       class="van-index-bar__index"
       data-index="J"
     >
-      J
+      <span class="van-index-bar__bubble">
+        J
+      </span>
+      <span class="van-index-bar__label">
+        J
+      </span>
     </span>
     <span
       class="van-index-bar__index"
       data-index="K"
     >
-      K
+      <span class="van-index-bar__bubble">
+        K
+      </span>
+      <span class="van-index-bar__label">
+        K
+      </span>
     </span>
     <span
       class="van-index-bar__index"
       data-index="L"
     >
-      L
+      <span class="van-index-bar__bubble">
+        L
+      </span>
+      <span class="van-index-bar__label">
+        L
+      </span>
     </span>
     <span
       class="van-index-bar__index"
       data-index="M"
     >
-      M
+      <span class="van-index-bar__bubble">
+        M
+      </span>
+      <span class="van-index-bar__label">
+        M
+      </span>
     </span>
     <span
       class="van-index-bar__index"
       data-index="N"
     >
-      N
+      <span class="van-index-bar__bubble">
+        N
+      </span>
+      <span class="van-index-bar__label">
+        N
+      </span>
     </span>
     <span
       class="van-index-bar__index"
       data-index="O"
     >
-      O
+      <span class="van-index-bar__bubble">
+        O
+      </span>
+      <span class="van-index-bar__label">
+        O
+      </span>
     </span>
     <span
       class="van-index-bar__index"
       data-index="P"
     >
-      P
+      <span class="van-index-bar__bubble">
+        P
+      </span>
+      <span class="van-index-bar__label">
+        P
+      </span>
     </span>
     <span
       class="van-index-bar__index"
       data-index="Q"
     >
-      Q
+      <span class="van-index-bar__bubble">
+        Q
+      </span>
+      <span class="van-index-bar__label">
+        Q
+      </span>
     </span>
     <span
       class="van-index-bar__index"
       data-index="R"
     >
-      R
+      <span class="van-index-bar__bubble">
+        R
+      </span>
+      <span class="van-index-bar__label">
+        R
+      </span>
     </span>
     <span
       class="van-index-bar__index"
       data-index="S"
     >
-      S
+      <span class="van-index-bar__bubble">
+        S
+      </span>
+      <span class="van-index-bar__label">
+        S
+      </span>
     </span>
     <span
       class="van-index-bar__index"
       data-index="T"
     >
-      T
+      <span class="van-index-bar__bubble">
+        T
+      </span>
+      <span class="van-index-bar__label">
+        T
+      </span>
     </span>
     <span
       class="van-index-bar__index"
       data-index="U"
     >
-      U
+      <span class="van-index-bar__bubble">
+        U
+      </span>
+      <span class="van-index-bar__label">
+        U
+      </span>
     </span>
     <span
       class="van-index-bar__index"
       data-index="V"
     >
-      V
+      <span class="van-index-bar__bubble">
+        V
+      </span>
+      <span class="van-index-bar__label">
+        V
+      </span>
     </span>
     <span
       class="van-index-bar__index"
       data-index="W"
     >
-      W
+      <span class="van-index-bar__bubble">
+        W
+      </span>
+      <span class="van-index-bar__label">
+        W
+      </span>
     </span>
     <span
       class="van-index-bar__index"
       data-index="X"
     >
-      X
+      <span class="van-index-bar__bubble">
+        X
+      </span>
+      <span class="van-index-bar__label">
+        X
+      </span>
     </span>
     <span
       class="van-index-bar__index"
       data-index="Y"
     >
-      Y
+      <span class="van-index-bar__bubble">
+        Y
+      </span>
+      <span class="van-index-bar__label">
+        Y
+      </span>
     </span>
     <span
       class="van-index-bar__index"
       data-index="Z"
     >
-      Z
+      <span class="van-index-bar__bubble">
+        Z
+      </span>
+      <span class="van-index-bar__label">
+        Z
+      </span>
     </span>
   </div>
-  <div data-index="0">
-    <div class="van-index-anchor">
-      1
+  <div>
+    <div data-index="0">
+      <div class="van-index-anchor">
+        1
+      </div>
     </div>
-  </div>
-  <div data-index="1">
-    <div class="van-index-anchor">
-      2
+    <div data-index="1">
+      <div class="van-index-anchor">
+        2
+      </div>
     </div>
-  </div>
-  <div data-index="2">
-    <div class="van-index-anchor">
-      3
+    <div data-index="2">
+      <div class="van-index-anchor">
+        3
+      </div>
     </div>
-  </div>
-  <div data-index="3">
-    <div class="van-index-anchor">
-      4
+    <div data-index="3">
+      <div class="van-index-anchor">
+        4
+      </div>
     </div>
   </div>
 </div>
@@ -579,186 +975,318 @@ exports[`should update active anchor after page scroll 2`] = `
       class="van-index-bar__index"
       data-index="A"
     >
-      A
+      <span class="van-index-bar__bubble">
+        A
+      </span>
+      <span class="van-index-bar__label">
+        A
+      </span>
     </span>
     <span
       class="van-index-bar__index van-index-bar__index--active"
       data-index="B"
     >
-      B
+      <span class="van-index-bar__bubble van-index-bar__bubble--show">
+        B
+      </span>
+      <span class="van-index-bar__label">
+        B
+      </span>
     </span>
     <span
       class="van-index-bar__index"
       data-index="C"
     >
-      C
+      <span class="van-index-bar__bubble">
+        C
+      </span>
+      <span class="van-index-bar__label">
+        C
+      </span>
     </span>
     <span
       class="van-index-bar__index"
       data-index="D"
     >
-      D
+      <span class="van-index-bar__bubble">
+        D
+      </span>
+      <span class="van-index-bar__label">
+        D
+      </span>
     </span>
     <span
       class="van-index-bar__index"
       data-index="E"
     >
-      E
+      <span class="van-index-bar__bubble">
+        E
+      </span>
+      <span class="van-index-bar__label">
+        E
+      </span>
     </span>
     <span
       class="van-index-bar__index"
       data-index="F"
     >
-      F
+      <span class="van-index-bar__bubble">
+        F
+      </span>
+      <span class="van-index-bar__label">
+        F
+      </span>
     </span>
     <span
       class="van-index-bar__index"
       data-index="G"
     >
-      G
+      <span class="van-index-bar__bubble">
+        G
+      </span>
+      <span class="van-index-bar__label">
+        G
+      </span>
     </span>
     <span
       class="van-index-bar__index"
       data-index="H"
     >
-      H
+      <span class="van-index-bar__bubble">
+        H
+      </span>
+      <span class="van-index-bar__label">
+        H
+      </span>
     </span>
     <span
       class="van-index-bar__index"
       data-index="I"
     >
-      I
+      <span class="van-index-bar__bubble">
+        I
+      </span>
+      <span class="van-index-bar__label">
+        I
+      </span>
     </span>
     <span
       class="van-index-bar__index"
       data-index="J"
     >
-      J
+      <span class="van-index-bar__bubble">
+        J
+      </span>
+      <span class="van-index-bar__label">
+        J
+      </span>
     </span>
     <span
       class="van-index-bar__index"
       data-index="K"
     >
-      K
+      <span class="van-index-bar__bubble">
+        K
+      </span>
+      <span class="van-index-bar__label">
+        K
+      </span>
     </span>
     <span
       class="van-index-bar__index"
       data-index="L"
     >
-      L
+      <span class="van-index-bar__bubble">
+        L
+      </span>
+      <span class="van-index-bar__label">
+        L
+      </span>
     </span>
     <span
       class="van-index-bar__index"
       data-index="M"
     >
-      M
+      <span class="van-index-bar__bubble">
+        M
+      </span>
+      <span class="van-index-bar__label">
+        M
+      </span>
     </span>
     <span
       class="van-index-bar__index"
       data-index="N"
     >
-      N
+      <span class="van-index-bar__bubble">
+        N
+      </span>
+      <span class="van-index-bar__label">
+        N
+      </span>
     </span>
     <span
       class="van-index-bar__index"
       data-index="O"
     >
-      O
+      <span class="van-index-bar__bubble">
+        O
+      </span>
+      <span class="van-index-bar__label">
+        O
+      </span>
     </span>
     <span
       class="van-index-bar__index"
       data-index="P"
     >
-      P
+      <span class="van-index-bar__bubble">
+        P
+      </span>
+      <span class="van-index-bar__label">
+        P
+      </span>
     </span>
     <span
       class="van-index-bar__index"
       data-index="Q"
     >
-      Q
+      <span class="van-index-bar__bubble">
+        Q
+      </span>
+      <span class="van-index-bar__label">
+        Q
+      </span>
     </span>
     <span
       class="van-index-bar__index"
       data-index="R"
     >
-      R
+      <span class="van-index-bar__bubble">
+        R
+      </span>
+      <span class="van-index-bar__label">
+        R
+      </span>
     </span>
     <span
       class="van-index-bar__index"
       data-index="S"
     >
-      S
+      <span class="van-index-bar__bubble">
+        S
+      </span>
+      <span class="van-index-bar__label">
+        S
+      </span>
     </span>
     <span
       class="van-index-bar__index"
       data-index="T"
     >
-      T
+      <span class="van-index-bar__bubble">
+        T
+      </span>
+      <span class="van-index-bar__label">
+        T
+      </span>
     </span>
     <span
       class="van-index-bar__index"
       data-index="U"
     >
-      U
+      <span class="van-index-bar__bubble">
+        U
+      </span>
+      <span class="van-index-bar__label">
+        U
+      </span>
     </span>
     <span
       class="van-index-bar__index"
       data-index="V"
     >
-      V
+      <span class="van-index-bar__bubble">
+        V
+      </span>
+      <span class="van-index-bar__label">
+        V
+      </span>
     </span>
     <span
       class="van-index-bar__index"
       data-index="W"
     >
-      W
+      <span class="van-index-bar__bubble">
+        W
+      </span>
+      <span class="van-index-bar__label">
+        W
+      </span>
     </span>
     <span
       class="van-index-bar__index"
       data-index="X"
     >
-      X
+      <span class="van-index-bar__bubble">
+        X
+      </span>
+      <span class="van-index-bar__label">
+        X
+      </span>
     </span>
     <span
       class="van-index-bar__index"
       data-index="Y"
     >
-      Y
+      <span class="van-index-bar__bubble">
+        Y
+      </span>
+      <span class="van-index-bar__label">
+        Y
+      </span>
     </span>
     <span
       class="van-index-bar__index"
       data-index="Z"
     >
-      Z
+      <span class="van-index-bar__bubble">
+        Z
+      </span>
+      <span class="van-index-bar__label">
+        Z
+      </span>
     </span>
   </div>
-  <div
-    data-index="0"
-    style="height: 10px;"
-  >
-    <div class="van-index-anchor van-index-anchor--sticky van-hairline--bottom">
-      1
-    </div>
-  </div>
-  <div
-    data-index="1"
-    style="height: 10px;"
-  >
+  <div>
     <div
-      class="van-index-anchor van-index-anchor--sticky van-hairline--bottom"
-      style="transform: translate3d(0, 10px, 0);"
+      data-index="0"
+      style="height: 10px;"
     >
-      2
+      <div class="van-index-anchor van-index-anchor--sticky van-hairline--bottom">
+        1
+      </div>
     </div>
-  </div>
-  <div data-index="2">
-    <div class="van-index-anchor">
-      3
+    <div
+      data-index="1"
+      style="height: 10px;"
+    >
+      <div
+        class="van-index-anchor van-index-anchor--sticky van-hairline--bottom"
+        style="transform: translate3d(0, 10px, 0);"
+      >
+        2
+      </div>
     </div>
-  </div>
-  <div data-index="3">
-    <div class="van-index-anchor">
-      4
+    <div data-index="2">
+      <div class="van-index-anchor">
+        3
+      </div>
+    </div>
+    <div data-index="3">
+      <div class="van-index-anchor">
+        4
+      </div>
     </div>
   </div>
 </div>

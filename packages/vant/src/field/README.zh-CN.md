@@ -760,6 +760,7 @@ fieldRef.value?.focus();
 | --van-field-label-width | _6.2em_ | - |
 | --van-field-label-color | _var(--van-text-color)_ | - |
 | --van-field-label-margin-right | _32px_ | - |
+| --van-field-label-top-margin-bottom | _var(--van-padding-xs)_ | 顶部对齐标签的下边距 |
 | --van-field-input-text-color | _var(--van-text-color)_ | - |
 | --van-field-input-error-text-color | _var(--van-danger-color)_ | - |
 | --van-field-input-disabled-text-color | _var(--van-text-color-inverse)_ | - |

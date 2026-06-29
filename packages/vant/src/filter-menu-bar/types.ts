@@ -49,6 +49,8 @@ export type FilterMenuBarItem = {
   confirmText?: string;
   /** 面板底部重置按钮文案，覆盖组件级 resetText */
   resetText?: string;
+  /** 是否展示面板底部重置按钮，覆盖组件级 showResetButton */
+  showResetButton?: boolean;
   /** 搜索能力先预留，后续可在 ProForm 或自定义面板中接入 */
   searchable?: boolean;
   /** 搜索占位文案，当前先预留 */

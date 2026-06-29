@@ -3,7 +3,14 @@
   --van-index-bar-sidebar-z-index: 2;
   --van-index-bar-index-font-size: var(--van-font-size-xs);
   --van-index-bar-index-line-height: var(--van-line-height-xs);
-  --van-index-bar-index-active-color: var(--van-primary-color);
+  --van-index-bar-bubble-width: 48px;
+  --van-index-bar-bubble-height: 40px;
+  --van-index-bar-bubble-gap: 8px;
+  --van-index-bar-bubble-font-size: 20px;
+  --van-index-bar-bubble-background: var(--van-primary-color);
+  --van-index-bar-bubble-image: url('./assets/bubble.svg');
+  --van-index-bar-bubble-color: var(--van-white);
+  --van-index-bar-index-active-size: 20px;
 }
 
 .van-index-bar {
@@ -16,19 +23,120 @@
     flex-direction: column;
     text-align: center;
     transform: translateY(-50%);
-    cursor: pointer;
     user-select: none;
+    // 容器不参与命中，避免 padding / 留白挡住列表点击；交互交给 __index
+    pointer-events: none;
+    // 左侧留白，避免激活 bubble 被裁切（仅布局，不扩大点击热区）
+    padding-left: calc(
+      var(--van-index-bar-bubble-width) + var(--van-index-bar-bubble-gap)
+    );
+    padding-top: 50px;
+    padding-bottom: 50px;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+
+    &::-webkit-scrollbar {
+      display: none;
+    }
+
+    // searchable 时由 JS 设置 top/maxHeight
+    &--layout {
+      transform: none;
+    }
+
+    // 搜索有结果时禁用侧栏交互
+    &--disabled {
+      cursor: default;
+    }
   }
 
   &__index {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
+    pointer-events: auto;
+    cursor: pointer;
+
+    .van-index-bar__sidebar--disabled & {
+      pointer-events: none;
+      cursor: default;
+    }
+    width: calc(
+      var(--van-index-bar-index-active-size) + var(--van-padding-md) +
+        var(--van-padding-xs)
+    );
     padding: 0 var(--van-padding-xs) 0 var(--van-padding-md);
     font-weight: var(--van-font-bold);
     font-size: var(--van-index-bar-index-font-size);
     line-height: var(--van-index-bar-index-line-height);
 
     &--active {
-      color: var(--van-index-bar-index-active-color);
       font-weight: bold;
     }
+  }
+
+  &__label {
+    display: inline-flex;
+    flex-shrink: 0;
+    align-items: center;
+    justify-content: center;
+    width: var(--van-index-bar-index-active-size);
+    height: var(--van-index-bar-index-active-size);
+    line-height: 1;
+    pointer-events: none;
+
+    .van-index-bar__index--active & {
+      color: var(--van-index-bar-bubble-color);
+      background: var(--van-index-bar-bubble-background);
+      border-radius: 50%;
+    }
+  }
+
+  &__bubble {
+    position: absolute;
+    top: 50%;
+    right: calc(
+      var(--van-index-bar-index-active-size) + var(--van-padding-xs) +
+        var(--van-index-bar-bubble-gap)
+    );
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
+    width: var(--van-index-bar-bubble-width);
+    height: var(--van-index-bar-bubble-height);
+    padding-right: 6px;
+    color: var(--van-index-bar-bubble-color);
+    font-weight: var(--van-font-bold);
+    font-size: var(--van-index-bar-bubble-font-size);
+    line-height: 1;
+    background-color: transparent;
+    background-image: var(--van-index-bar-bubble-image);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 100% 100%;
+    opacity: 0;
+    transform: translateY(-50%);
+    transition: opacity var(--van-duration-fast);
+    pointer-events: none;
+    visibility: hidden;
+
+    &--show {
+      opacity: 1;
+      visibility: visible;
+    }
+  }
+
+  // searchable 顶部搜索框
+  &__search {
+    position: sticky;
+    top: 0;
+  }
+
+  &__empty {
+    padding-top: 80px;
   }
 }

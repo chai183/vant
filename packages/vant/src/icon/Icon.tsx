@@ -56,7 +56,12 @@ export default defineComponent({
           tag={tag}
           class={[
             classPrefix.value,
-            isImageIcon ? '' : `${classPrefix.value}-${name}`,
+            name?.startsWith('icon-')
+              ? ['iconfont', name]
+              : isImageIcon
+                ? ''
+                : `${classPrefix.value}-${name}`,
+            // isImageIcon ? '' : `${classPrefix.value}-${name}`,
           ]}
           style={{
             color,

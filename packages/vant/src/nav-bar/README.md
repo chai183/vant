@@ -143,6 +143,7 @@ When no title is set, you can use the `search` prop to render the title area as 
 | Attribute | Description | Type | Default |
 | --- | --- | --- | --- |
 | title | Title | _string_ | `''` |
+| subtitle | Subtitle | _string_ | `''` |
 | background | Background color of nav bar | _string_ | - |
 | left-text | Left Text | _string_ | `''` |
 | right-text | Right Text, up to four characters are displayed | _string_ | `''` |
@@ -167,6 +168,7 @@ When no title is set, you can use the `search` prop to render the title area as 
 | Name               | Description                       |
 | ------------------ | --------------------------------- |
 | title              | Custom title                      |
+| subtitle           | Custom subtitle                   |
 | left               | Custom left side content          |
 | right              | Custom right side content         |
 | left-action        | Custom first left action button   |
@@ -241,6 +243,8 @@ The component provides the following CSS variables, which can be used to customi
 | --van-nav-bar-title-min-font-size | _14px_                     | -           |
 | --van-nav-bar-title-gap           | _6px_                      | -           |
 | --van-nav-bar-title-text-color    | _var(--van-text-color)_    | -           |
+| --van-nav-bar-subtitle-font-size  | _10px_                     | -           |
+| --van-nav-bar-subtitle-text-color | _#999_                     | -           |
 | --van-nav-bar-z-index             | _1_                        | -           |
 | --van-nav-bar-horizontal-padding  | _8px_                      | -           |
 | --van-nav-bar-button-gap          | _12px_                     | -           |

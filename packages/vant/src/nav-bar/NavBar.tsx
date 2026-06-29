@@ -48,6 +48,7 @@ const actionSlotNames = {
 /* ----组件属性配置start---- */
 export const navBarProps = {
   title: String,
+  subtitle: String,
   fixed: Boolean,
   zIndex: numericProp,
   background: String,
@@ -92,8 +93,8 @@ export default defineComponent({
     const leftRef = ref<HTMLElement>();
     const rightRef = ref<HTMLElement>();
     const titleRef = ref<HTMLElement>();
-
     const titleFontSize = ref<number>();
+    const titleMaxWidth = ref<string>();
     const searchLeft = ref<string>();
     const searchRight = ref<string>();
     const activeRightMenu = ref<number>();
@@ -158,12 +159,38 @@ export default defineComponent({
             .getPropertyValue('--van-nav-bar-horizontal-padding'),
         );
       const horizontalPadding = edgeGap || 8;
-      const leftWidth = leftRef.value?.getBoundingClientRect().width || 0;
-      const rightWidth = rightRef.value?.getBoundingClientRect().width || 0;
-
+      const buttonWidth =
+        navBar &&
+        parseFloat(
+          window
+            .getComputedStyle(navBar)
+            .getPropertyValue('--van-nav-bar-button-width'),
+        );
+      const actionWidth = buttonWidth || 28;
+      const getFallbackWidth = (count: number) =>
+        count ? count * actionWidth + horizontalPadding * 2 : 0;
+      // 初次渲染或 SSR 无真实宽度时，用展示位数量兜底估算。
+      const leftPositionCount =
+        (props.leftArrow || props.leftText ? 1 : 0) + getLeftButtons().length;
+      const rightPositionCount =
+        (props.rightText ? 1 : 0) + getRightButtons().length;
+      const leftWidth =
+        leftRef.value?.getBoundingClientRect().width ||
+        getFallbackWidth(slots.left ? 2 : leftPositionCount);
+      const rightWidth =
+        rightRef.value?.getBoundingClientRect().width ||
+        getFallbackWidth(slots.right ? 2 : rightPositionCount);
+      // 标题保持居中时，需要按较宽的一侧做对称避让。
+      const maxSideWidth = Math.max(leftWidth, rightWidth);
+      const nextTitleMaxWidth = maxSideWidth
+        ? `calc(100% - ${maxSideWidth * 2 + titleGap * 2}px)`
+        : undefined;
       const nextSearchLeft = `${leftWidth ? leftWidth + titleGap : horizontalPadding}px`;
       const nextSearchRight = `${rightWidth ? rightWidth + titleGap : horizontalPadding}px`;
 
+      if (titleMaxWidth.value !== nextTitleMaxWidth) {
+        titleMaxWidth.value = nextTitleMaxWidth;
+      }
       if (searchLeft.value !== nextSearchLeft) {
         searchLeft.value = nextSearchLeft;
       }
@@ -530,6 +557,22 @@ export default defineComponent({
       );
     };
 
+    const renderTitleContent = () => {
+      const title = slots.title ? slots.title() : props.title;
+      const subtitle = slots.subtitle ? slots.subtitle() : props.subtitle;
+
+      if (subtitle) {
+        return (
+          <div class={bem('title-content')}>
+            <div class={[bem('titlemain'), 'van-ellipsis']}>{title}</div>
+            <div class={[bem('subtitle'), 'van-ellipsis']}>{subtitle}</div>
+          </div>
+        );
+      }
+
+      return title;
+    };
+
     const renderTitle = (hasLeft: boolean, hasRight: boolean) => {
       const isSearch = shouldRenderSearch();
       const style: CSSProperties = {};
@@ -542,6 +585,8 @@ export default defineComponent({
         // 搜索态通过左右偏移吃满可用宽度；标题态通过 max-width 做居中避让。
         style.left = searchLeft.value;
         style.right = searchRight.value;
+      } else if (titleMaxWidth.value) {
+        style.maxWidth = titleMaxWidth.value;
       }
 
       return (
@@ -557,11 +602,7 @@ export default defineComponent({
             !isSearch ? 'van-ellipsis' : '',
           ]}
         >
-          {isSearch
-            ? renderSearch()
-            : slots.title
-              ? slots.title()
-              : props.title}
+          {isSearch ? renderSearch() : renderTitleContent()}
         </div>
       );
     };
@@ -664,9 +705,8 @@ export default defineComponent({
         props.search,
       ],
       // 标题、按钮或搜索态变化后，需要等 DOM 更新完成再重算左右避让宽度。
-      async () => {
-        await nextTick();
-        updateTitleFontSize();
+      () => {
+        nextTick(() => updateTitleFontSize());
       },
       { deep: true },
     );

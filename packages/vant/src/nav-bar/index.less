@@ -2,13 +2,15 @@
 :host {
   --van-nav-bar-height: 44px;
   --van-nav-bar-background: var(--van-background-2);
-  --van-nav-bar-arrow-size: 28px;
+  --van-nav-bar-arrow-size: 16px;
   --van-nav-bar-icon-color: var(--van-primary-color);
   --van-nav-bar-text-color: var(--van-primary-color);
   --van-nav-bar-title-font-size: var(--van-font-size-lg);
   --van-nav-bar-title-min-font-size: 14px;
   --van-nav-bar-title-gap: 6px;
   --van-nav-bar-title-text-color: var(--van-text-color);
+  --van-nav-bar-subtitle-font-size: 10px;
+  --van-nav-bar-subtitle-text-color: #999;
   --van-nav-bar-z-index: 1;
   --van-nav-bar-disabled-opacity: var(--van-disabled-opacity);
   --van-nav-bar-horizontal-padding: 8px;
@@ -105,6 +107,32 @@
     }
   }
 
+  &__title__content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 2px;
+    min-width: 0;
+    max-width: 199px;
+    height: 100%;
+  }
+
+  &__titlemain,
+  &__subtitle {
+    min-width: 0;
+    max-width: 199px;
+  }
+  &__titlemain {
+    font-size: var(--van-font-size-lg);
+    line-height: 16px;
+  }
+  &__subtitle {
+    color: var(--van-nav-bar-subtitle-text-color);
+    font-weight: var(--van-font-normal);
+    font-size: var(--van-nav-bar-subtitle-font-size);
+    line-height: 10px;
+  }
+
   &__left,
   &__right {
     position: absolute;
@@ -192,6 +220,7 @@
       100vw - var(--van-nav-bar-menu-edge-gap) -
         var(--van-nav-bar-menu-edge-gap)
     );
+    box-shadow: 0px 0px 6px 0px rgba(0, 0, 0, 0.1);
   }
 
   &__menu-arrow {

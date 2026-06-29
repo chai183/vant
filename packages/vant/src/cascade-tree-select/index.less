@@ -1,21 +1,25 @@
 :root,
 :host {
-  --van-cascade-tree-select-font-size: 14px;
-  --van-cascade-tree-select-text-color: #333;
+  --van-cascade-tree-select-font-size: var(--van-font-size-md);
+  --van-cascade-tree-select-text-color: var(--van-text-color);
   --van-cascade-tree-select-active-color: var(--van-primary-orange);
-  --van-cascade-tree-select-disabled-color: #ddd;
-  --van-cascade-tree-select-active-background: #fff;
-  --van-cascade-tree-select-item-background: #f5f5f5;
-  --van-cascade-tree-select-selected-background: #fff;
+  --van-cascade-tree-select-disabled-color: var(--van-gray-11);
+  --van-cascade-tree-select-active-background: var(--van-white);
+  --van-cascade-tree-select-item-background: var(--van-gray-9);
+  --van-cascade-tree-select-selected-background: var(--van-white);
   --van-cascade-tree-select-outer-active-background: #fafafa;
-  --van-cascade-tree-select-nav-background: #f5f5f5;
-  --van-cascade-tree-select-column-background: #f5f5f5;
-  --van-cascade-tree-select-content-background: #fff;
+  --van-cascade-tree-select-nav-background: var(--van-gray-9);
+  --van-cascade-tree-select-column-background: var(--van-gray-9);
+  --van-cascade-tree-select-content-background: var(--van-white);
+  /* 单列单选宽度 */
   --van-cascade-tree-select-single-column-width: 136px;
+  /* 双列单选宽度 */
   --van-cascade-tree-select-double-column-width: 108px;
+  /* 单列多选宽度 */
   --van-cascade-tree-select-multiple-single-column-width: 148px;
+  /* 双列多选宽度 */
   --van-cascade-tree-select-multiple-double-outer-column-width: 108px;
-  --van-cascade-tree-select-multiple-double-inner-column-width: 118px;
+  --van-cascade-tree-select-multiple-double-inner-column-width: 120px;
   --van-cascade-tree-select-item-height: 48px;
   --van-cascade-tree-select-item-padding-left: 8px;
   --van-cascade-tree-select-item-padding-right: 8px;
@@ -30,9 +34,9 @@
   --van-cascade-tree-select-dot-size: 6px;
   --van-cascade-tree-select-dot-color: var(--van-primary-orange);
   --van-cascade-tree-select-badge-gap: 4px;
-  --van-cascade-tree-select-badge-color: #666;
-  --van-cascade-tree-select-badge-background: #ddd;
-  --van-cascade-tree-select-badge-font-size: 10px;
+  --van-cascade-tree-select-badge-color: var(--van-gray-10);
+  --van-cascade-tree-select-badge-background: var(--van-gray-13);
+  --van-cascade-tree-select-badge-font-size: var(--van-font-size-xs);
   --van-cascade-tree-select-badge-height: 14px;
   --van-cascade-tree-select-badge-padding: 0 4px;
 }
@@ -43,7 +47,6 @@
   color: var(--van-cascade-tree-select-text-color);
   font-size: var(--van-cascade-tree-select-font-size);
 
-  // /-----整体布局 start-----/
   &__nav {
     display: flex;
     flex: none;
@@ -131,9 +134,7 @@
     background: var(--van-cascade-tree-select-content-background);
     -webkit-overflow-scrolling: touch;
   }
-  // /-----整体布局 end-----/
 
-  // /-----选项样式 start-----/
   &__item {
     position: relative;
     box-sizing: border-box;
@@ -195,18 +196,18 @@
     min-width: 0;
     max-width: 100%;
   }
-  // /-----选项样式 end-----/
 
-  // /-----徽标样式 start-----/
   &__dot {
     flex: none;
     width: var(--van-cascade-tree-select-dot-size);
     height: var(--van-cascade-tree-select-dot-size);
     background: var(--van-cascade-tree-select-dot-color);
     border-radius: 50%;
-    position: absolute;
-    right: -8px;
-    top: -2px;
+    margin-left: 2px;
+    margin-top: -1px;
+    // position: absolute;
+    // top:-1px;
+    // left: -8px;
   }
 
   &__badge {
@@ -223,5 +224,4 @@
     border: none;
     transform: none;
   }
-  // /-----徽标样式 end-----/
 }

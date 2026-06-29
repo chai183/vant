@@ -1,21 +1,22 @@
 :root,
 :host {
-  --van-dialog-width: 320px;
+  --van-dialog-width: 311px;
   --van-dialog-small-screen-width: 90%;
   --van-dialog-font-size: var(--van-font-size-lg);
   --van-dialog-transition: var(--van-duration-base);
-  --van-dialog-radius: 16px;
+  --van-dialog-radius: 8px;
   --van-dialog-background: var(--van-background-2);
-  --van-dialog-header-font-weight: var(--van-font-bold);
-  --van-dialog-header-line-height: 24px;
-  --van-dialog-header-padding-top: 26px;
+  --van-dialog-header-font-weight: var(--van-font-bold-Medium);
+  --van-dialog-header-line-height: 16px;
+  --van-dialog-header-padding-top: 24px;
   --van-dialog-header-isolated-padding: var(--van-padding-lg) 0;
   --van-dialog-message-padding: var(--van-padding-lg);
-  --van-dialog-message-font-size: var(--van-font-size-md);
-  --van-dialog-message-line-height: var(--van-line-height-md);
-  --van-dialog-message-max-height: 60vh;
-  --van-dialog-has-title-message-text-color: var(--van-gray-7);
-  --van-dialog-has-title-message-padding-top: var(--van-padding-xs);
+  --van-dialog-message-font-size: var(--van-font-size-lg);
+  --van-dialog-message-line-height: var(--van-line-height-xl);
+  --van-dialog-message-max-height: 488px;
+  --van-dialog-has-title-message-text-color: var(--van-gray-10);
+  --van-dialog-has-title-message-padding-top: var(--van-padding-md);
+  --van-dialog-has-title-message-padding-bottom: var(--van-padding-md);
   --van-dialog-button-height: 48px;
   --van-dialog-round-button-height: 36px;
   --van-dialog-confirm-button-text-color: var(--van-primary-color);
@@ -32,7 +33,7 @@
   transition: var(--van-dialog-transition);
   transition-property: transform, opacity;
 
-  @media (max-width: 321px) {
+  @media (max-width: 312px) {
     width: var(--van-dialog-small-screen-width);
   }
 
@@ -49,19 +50,19 @@
   }
 
   &__content {
+    max-height: var(--van-dialog-message-max-height);
+    overflow-y: auto;
     &--isolated {
       display: flex;
       align-items: center;
-      min-height: 104px;
+      // min-height: 104px;
     }
   }
 
   &__message {
     color: var(--van-text-color);
     flex: 1;
-    max-height: var(--van-dialog-message-max-height);
     padding: 26px var(--van-dialog-message-padding);
-    overflow-y: auto;
     font-size: var(--van-dialog-message-font-size);
     line-height: var(--van-dialog-message-line-height);
 
@@ -94,10 +95,11 @@
 
     &--has-title {
       padding-top: var(--van-dialog-has-title-message-padding-top);
+      color: var(--van-dialog-has-title-message-text-color);
     }
 
     &--isolated {
-      padding-top: 26px;
+      padding: var(--van-dialog-header-isolated-padding);
     }
 
     .van-cell {
@@ -107,6 +109,7 @@
         position: absolute;
         right: 12px;
         bottom: 12px;
+        color: var(--van-gray-11);
       }
     }
     .van-field__error {
@@ -123,10 +126,19 @@
       border: var(--van-border-width) solid var(--van-border-color);
       border-radius: var(--van-radius-md);
       transition: border-color var(--van-duration-fast);
-    }
-
-    .van-field__body:focus-within {
-      border-color: var(--van-primary-color);
+      &:focus-within {
+        border-color: var(--van-primary-color);
+      }
+      .van-field__control {
+        font-size: var(--van-font-size-lg);
+        line-height: 16px;
+        color: #333;
+        &::placeholder {
+          font-size: var(--van-font-size-lg);
+          line-height: 16px;
+          color: var(--van-gray-11);
+        }
+      }
     }
   }
 
@@ -142,19 +154,45 @@
 
   &__confirm,
   &__cancel,
-  &__secondary {
+  &__action {
     flex: 1;
     height: var(--van-dialog-button-height);
     margin: 0;
-    border: 0;
+    // border: 0;
     border-radius: 0;
   }
 
   &__button {
-    &--vertical {
+    &::after {
+      box-sizing: border-box;
+      content: ' ';
+      pointer-events: none;
+      border: 0 solid var(--van-border-color);
+      position: absolute;
+      top: -50%;
+      bottom: -50%;
+      left: -50%;
+      right: -50%;
+      transform: scale(0.5);
+      display: inline-block;
+    }
+    &:not(:last-child) {
+      &::after {
+        border-right-width: var(--van-border-width);
+      }
+    }
+    &--vertical& {
       flex: none;
       width: 100%;
-
+      border-right: 0;
+      border-top: 0.5px solid var(--van-border-color);
+      &:not(:first-child) {
+        &::after {
+          border-right: 0;
+          border-top-width: var(--van-border-width);
+          border-top-color: var(--van-border-color) !important;
+        }
+      }
       .van-button__text {
         display: block;
         overflow: hidden;
@@ -165,7 +203,7 @@
   }
 
   &__confirm,
-  &__secondary {
+  &__action {
     &,
     &:active {
       color: var(--van-dialog-confirm-button-text-color);

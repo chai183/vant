@@ -39,6 +39,7 @@ export const tabbarProps = {
     type: Boolean as PropType<boolean | null>,
     default: null,
   },
+  showShadow: Boolean,
 };
 
 export type TabbarProps = ExtractPropTypes<typeof tabbarProps>;

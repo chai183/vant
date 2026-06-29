@@ -567,6 +567,19 @@
         align-items: center;
         justify-content: center;
         min-width: 0;
+
+        &.van-hairline--left::after {
+          top: 50%;
+          right: auto;
+          bottom: auto;
+          left: 0;
+          width: 1px;
+          height: 12px;
+          background: #ddd;
+          border: none;
+          transform: translateY(-50%) scaleX(0.5);
+          transform-origin: left center;
+        }
       }
 
       .van-bottom-action-bar__button {

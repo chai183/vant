@@ -24,15 +24,6 @@ const TEXT_MAX_CHARS = 4;
 const truncateButtonText = (text: string, max = TEXT_MAX_CHARS) =>
   text.length > max ? text.slice(0, max) : text;
 
-const getActionChildrenOrder = (
-  list: CardFooterButton[],
-  maxVisible: number,
-) => {
-  const visible = list.slice(0, maxVisible).reverse();
-  const overflow = list.slice(maxVisible);
-  return [...visible, ...overflow];
-};
-
 export const cardFooterProps = {
   showButtons: Boolean,
   buttonType: String as PropType<CardFooterButtonType>,
@@ -198,9 +189,8 @@ export default defineComponent({
                 <VanIcon name="ellipsis" class={bem('footer-overflow-icon')} />
               ),
               actions: () =>
-                getActionChildrenOrder(list, TEXT_MAX_VISIBLE).map(
-                  (btn, index, arr) =>
-                    renderTextActionButton(btn, index, arr.length),
+                list.map((btn, index, arr) =>
+                  renderTextActionButton(btn, index, arr.length),
                 ),
             }}
           </VanBottomActionBar>

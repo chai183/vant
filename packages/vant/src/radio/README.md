@@ -102,6 +102,7 @@ When `direction` is set to `horizontal`, you can use the `columns` prop to set t
 
 ### Custom Icon
 
+<!--
 Use icon slot to custom icon
 
 ```html
@@ -143,6 +144,7 @@ export default {
   },
 };
 ```
+-->
 
 ### Left Label
 
@@ -356,9 +358,13 @@ The component provides the following CSS variables, which can be used to customi
 | --van-radio-dot-size | _8px_ | The distance between the dot and the border |
 | --van-radio-border-color | _var(--van-gray-5)_ | - |
 | --van-radio-duration | _var(--van-duration-fast)_ | - |
-| --van-radio-label-margin | _var(--van-padding-xs)_ | - |
-| --van-radio-label-color | _var(--van-text-color)_ | - |
+| --van-radio-label-font-size | _14px_ | Label font size |
+| --van-radio-label-line-height | _20px_ | Label line height |
+| --van-radio-label-margin | _4px_ | Spacing between icon and label |
+| --van-radio-label-color | _var(--van-text-color)_ | Label color |
 | --van-radio-checked-icon-color | _var(--van-primary-color)_ | - |
 | --van-radio-disabled-icon-color | _var(--van-gray-5)_ | - |
-| --van-radio-disabled-label-color | _var(--van-text-color-3)_ | - |
+| --van-radio-disabled-checked-icon-color | _#ffcda8_ | Icon color when checked and disabled |
+| --van-radio-disabled-label-color | _var(--van-text-color-3)_ | Label color when disabled |
 | --van-radio-disabled-background | _var(--van-border-color)_ | - |
+| --van-radio-group-gap | _var(--van-padding-md)_ | Vertical spacing in radio group |

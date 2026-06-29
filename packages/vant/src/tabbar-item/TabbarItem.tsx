@@ -87,13 +87,13 @@ export default defineComponent({
 
     return () => {
       const { dot, badge } = props;
-      const { activeColor, inactiveColor } = parent.props;
+      const { activeColor, inactiveColor, showShadow } = parent.props;
       const color = active.value ? activeColor : inactiveColor;
 
       return (
         <div
           role="tab"
-          class={bem({ active: active.value })}
+          class={bem({ active: active.value, shaow: showShadow })}
           style={{ color }}
           tabindex={0}
           aria-selected={active.value}

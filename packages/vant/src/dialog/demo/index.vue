@@ -3,6 +3,7 @@ import VanCell from '../../cell';
 import { showDialog, showConfirmDialog, Dialog as VanDialog } from '..';
 import { computed, ref } from 'vue';
 import { useTranslate } from '../../../docs/site';
+import type { DialogInputConfig } from '../types';
 
 const t = useTranslate({
   'zh-CN': {
@@ -11,17 +12,17 @@ const t = useTranslate({
     alert2: '提示弹窗（无标题）',
     confirm: '确认弹窗',
     longConfirm: '确认文案超过 5 个字符',
-    multiAction: '三按钮确认弹窗',
-    componentMultiAction: '组件三按钮示例',
+    multiAction: '多按钮确认弹窗',
+    componentMultiAction: '组件多按钮示例',
     content1: '代码是写出来给人看的，附带能在机器上运行。',
     content2: '生命远不止连轴转和忙到极限，人类的体验远比这辽阔、丰富得多。',
     content3:
       '如果解决方法是丑陋的，那就肯定还有更好的解决方法，只是还没有发现而已。',
     primaryAction: '继续执行操作',
-    secondaryAction: '查看详细信息',
+    detailAction: '查看详细信息',
+    retryAction: '重新尝试',
     beforeClose: '异步关闭',
     roundButton: '圆角按钮样式',
-    useComponent: '使用 Dialog 组件',
     messageHighlight: '消息高亮',
     highlightDialog: '函数调用高亮',
     componentHighlight: '组件调用高亮',
@@ -43,8 +44,7 @@ const t = useTranslate({
     textareaRequired: '请输入备注',
     validationRequired: '手机号不能为空',
     validationInvalid: '请输入正确的 11 位手机号',
-    confirmText: '我知道了',
-    confirmText2: '主要操作',
+    defaultName: '张三',
   },
   'en-US': {
     title: 'Title',
@@ -52,8 +52,8 @@ const t = useTranslate({
     alert2: 'Alert without title',
     confirm: 'Confirm dialog',
     longConfirm: 'Confirm Text Longer Than 5',
-    multiAction: 'Three Actions Dialog',
-    componentMultiAction: 'Component Three Actions',
+    multiAction: 'Multiple Actions Dialog',
+    componentMultiAction: 'Component Multiple Actions',
     content1:
       'The frequency of people swearing during code reading is the only measure of code quality.',
     content2:
@@ -61,7 +61,8 @@ const t = useTranslate({
     content3:
       'If the solution is ugly, then there must be a better solution, but it has not been discovered yet.',
     primaryAction: 'Continue Action',
-    secondaryAction: 'Review Details',
+    detailAction: 'Review Details',
+    retryAction: 'Try Again',
     beforeClose: 'Before Close',
     roundButton: 'Round Button Style',
     messageHighlight: 'Message Highlight',
@@ -86,14 +87,17 @@ const t = useTranslate({
     textareaRequired: 'Please enter your remark',
     validationRequired: 'Phone number is required',
     validationInvalid: 'Please enter a valid 11-digit phone number',
-    useComponent: 'Use Dialog Component',
-    confirmText: 'I Know',
-    confirmText2: 'Main Handler',
+    defaultName: 'Taylor',
   },
 });
 
-/* -----高亮start----- */
 const showComponentHighlight = ref(false);
+const showComponentInput = ref(false);
+const showComponentValidation = ref(false);
+const componentInputValue = ref('');
+const componentValidationValue = ref('');
+
+// 函数调用和组件调用都复用同一份高亮配置，便于对比两种接入方式。
 const messageHighlightConfig = computed(() => ({
   keywords: [t('highlightKeyword1'), t('highlightKeyword2')],
   color: '#ee0a24',
@@ -102,57 +106,24 @@ const messageHighlightConfig = computed(() => ({
     fontStyle: 'italic',
   },
 }));
-const onClickHighlight = () => {
-  showDialog({
-    title: t('title'),
-    message: t('highlightContent'),
-    confirmButtonText: t('confirmText'),
-    messageHighlightConfig: messageHighlightConfig.value,
-  });
-};
-/* -----高亮end----- */
 
-/* ----- 输入框start----- */
-const textInputConfig = ref({
+const textInputConfig = computed<DialogInputConfig>(() => ({
   placeholder: t('inputPlaceholder'),
   clearable: true,
   maxlength: 20,
   rules: [{ required: true, message: t('inputRequired') }],
-});
+}));
 
-const textareaInputConfig = ref({
+const textareaInputConfig = computed<DialogInputConfig>(() => ({
   type: 'textarea',
   placeholder: t('textareaPlaceholder'),
   maxlength: 100,
   showWordLimit: true,
   autosize: true,
   rules: [{ required: true, message: t('textareaRequired') }],
-});
-const onClickInputDialog = () => {
-  showConfirmDialog({
-    title: t('title'),
-    message: t('inputMessage'),
-    confirmButtonText: t('confirmText2'),
-    inputConfig: {
-      ...textInputConfig.value,
-    },
-  });
-};
+}));
 
-const onClickTextareaDialog = () => {
-  showConfirmDialog({
-    title: t('title'),
-    message: t('textareaMessage'),
-    confirmButtonText: t('confirmText2'),
-    inputConfig: textareaInputConfig.value,
-  });
-};
-
-const showComponentInput = ref(false);
-const showComponentValidation = ref(false);
-const componentInputValue = ref('');
-const componentValidationValue = ref('');
-const validationInputConfig = ref({
+const validationInputConfig = computed<DialogInputConfig>(() => ({
   placeholder: t('validationPlaceholder'),
   clearable: true,
   maxlength: 11,
@@ -165,22 +136,42 @@ const validationInputConfig = ref({
       trigger: ['onBlur', 'onSubmit'],
     },
   ],
-});
-
-/* ----- 输入框end----- */
+}));
 
 const onClickAlert = () => {
   showDialog({
     title: t('title'),
     message: t('content1'),
-    confirmButtonText: t('confirmText'),
   });
 };
 
 const onClickAlert2 = () => {
   showDialog({
     message: t('content2'),
-    confirmButtonText: t('confirmText'),
+  });
+};
+
+const onClickRound = () => {
+  showDialog({
+    theme: 'round-button',
+    title: t('title'),
+    message: t('content1'),
+  });
+};
+
+const onClickRound2 = () => {
+  showDialog({
+    theme: 'round-button',
+    message: t('content2'),
+  });
+};
+
+// 演示函数调用方式下的消息关键词高亮。
+const onClickHighlight = () => {
+  showDialog({
+    title: t('title'),
+    message: t('highlightContent'),
+    messageHighlightConfig: messageHighlightConfig.value,
   });
 };
 
@@ -188,7 +179,25 @@ const onClickConfirm = () => {
   showConfirmDialog({
     title: t('title'),
     message: t('content3'),
-    confirmButtonText: t('confirmText2'),
+  });
+};
+
+const onClickInputDialog = () => {
+  showConfirmDialog({
+    title: t('title'),
+    message: t('inputMessage'),
+    inputConfig: {
+      ...textInputConfig.value,
+      defaultValue: t('defaultName'),
+    },
+  });
+};
+
+const onClickTextareaDialog = () => {
+  showConfirmDialog({
+    title: t('title'),
+    message: t('textareaMessage'),
+    inputConfig: textareaInputConfig.value,
   });
 };
 
@@ -202,43 +211,58 @@ const onClickLongConfirm = () => {
   });
 };
 
-// 演示：函数调用方式下的三按钮布局。
+// 演示：函数调用方式下的多按钮布局。
 const onClickMultiAction = () => {
   showConfirmDialog({
     title: t('title'),
     message: t('content3'),
     confirmButtonText: t('primaryAction'),
-    secondaryButtonText: t('secondaryAction'),
-    secondaryButtonColor: '#ff0000',
+    actionButtons: [
+      { action: 'detail', text: t('detailAction'), color: '#f00' },
+      {
+        action: 'retry',
+        text: t('retryAction'),
+        disabled: true,
+        color: '#ccc',
+      },
+    ],
     confirmButtonVerticalThreshold: 5,
     verticalButtonMaxTextLength: 15,
+    callback(action) {
+      console.log(action);
+    },
   });
 };
 
-// const onClickBeforeClose = () => {
-//   const beforeClose = (action: DialogAction) =>
-//     new Promise<boolean>((resolve) => {
-//       setTimeout(() => resolve(action === 'confirm'), 1000);
-//     });
+/* const onClickBeforeClose = () => {
+  const beforeClose = (action: DialogAction) =>
+    new Promise<boolean>((resolve) => {
+      setTimeout(() => resolve(action === 'confirm'), 1000);
+    });
 
-//   showConfirmDialog({
-//     title: t('title'),
-//     message: t('content3'),
-//     beforeClose,
-//   });
-// };
+  showConfirmDialog({
+    title: t('title'),
+    message: t('content3'),
+    beforeClose,
+  });
+}; */
 </script>
 
 <template>
   <demo-block card :title="t('basicUsage')">
     <van-cell is-link :title="t('alert1')" @click="onClickAlert" />
     <van-cell is-link :title="t('alert2')" @click="onClickAlert2" />
+    <van-cell is-link :title="t('confirm')" @click="onClickConfirm" />
   </demo-block>
 
   <demo-block card :title="t('multiAction')">
-    <van-cell is-link :title="t('confirm')" @click="onClickConfirm" />
     <van-cell is-link :title="t('longConfirm')" @click="onClickLongConfirm" />
     <van-cell is-link :title="t('multiAction')" @click="onClickMultiAction" />
+  </demo-block>
+
+  <demo-block card :title="t('roundButton')">
+    <van-cell is-link :title="t('alert1')" @click="onClickRound" />
+    <van-cell is-link :title="t('alert2')" @click="onClickRound2" />
   </demo-block>
 
   <demo-block card :title="t('messageHighlight')">
@@ -254,7 +278,6 @@ const onClickMultiAction = () => {
       :title="t('title')"
       :message="t('highlightContent')"
       :message-highlight-config="messageHighlightConfig"
-      :confirm-button-text="t('confirmText2')"
       show-cancel-button
       :lazy-render="false"
     />
@@ -283,7 +306,6 @@ const onClickMultiAction = () => {
       :title="t('title')"
       :message="t('inputMessage')"
       :input-config="textInputConfig"
-      :confirm-button-text="t('confirmText2')"
       show-cancel-button
       :lazy-render="false"
     />
@@ -293,15 +315,10 @@ const onClickMultiAction = () => {
       :title="t('title')"
       :message="t('validationMessage')"
       :input-config="validationInputConfig"
-      :confirm-button-text="t('confirmText2')"
       show-cancel-button
       :lazy-render="false"
     />
   </demo-block>
-
-  <!-- <demo-block card :title="t('beforeClose')">
-    <van-cell is-link :title="t('beforeClose')" @click="onClickBeforeClose" />
-  </demo-block> -->
 </template>
 
 <style lang="less">

@@ -8,12 +8,13 @@
   --van-radio-duration: var(--van-duration-fast);
   --van-radio-label-font-size: 14px;
   --van-radio-label-line-height: 20px;
-  --van-radio-label-margin: 2px;
+  --van-radio-label-margin: 4px;
   --van-radio-label-color: var(--van-text-color);
   --van-radio-checked-icon-color: var(--van-primary-color);
   --van-radio-disabled-icon-color: var(--van-gray-5);
+  --van-radio-disabled-checked-icon-color: #ffcda8;
   --van-radio-disabled-label-color: var(--van-text-color-3);
-  --van-radio-disabled-background: var(--van-border-color);
+  --van-radio-disabled-background: var(--van-gray-13);
   --van-radio-block-height: 36px;
   --van-radio-block-padding: 0 var(--van-padding-sm);
   --van-radio-block-radius: var(--van-radius-md);
@@ -172,8 +173,24 @@
 
     &--disabled&--checked {
       .van-icon {
-        color: var(--van-radio-disabled-icon-color);
+        color: var(--van-white);
+        background-color: var(--van-radio-disabled-checked-icon-color);
+        border-color: var(--van-radio-disabled-checked-icon-color);
       }
+
+      &.van-radio__icon--dot {
+        border-color: var(--van-radio-disabled-checked-icon-color);
+
+        .van-radio__icon--dot__icon {
+          background: var(--van-radio-disabled-checked-icon-color);
+        }
+      }
+    }
+  }
+
+  &--disabled:has(.van-radio__icon--checked) {
+    .van-radio__label--disabled {
+      color: var(--van-radio-label-color);
     }
   }
 

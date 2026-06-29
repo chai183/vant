@@ -41,7 +41,7 @@ const onChange = (index: number) => {
 
 <template>
   <demo-block :title="t('basicUsage')">
-    <van-tabbar v-model="active">
+    <van-tabbar v-model="active" show-shadow>
       <van-tabbar-item icon="home-o">{{ t('tab') }}</van-tabbar-item>
       <van-tabbar-item icon="search">{{ t('tab') }}</van-tabbar-item>
       <van-tabbar-item icon="friends-o">{{ t('tab') }}</van-tabbar-item>
@@ -64,9 +64,6 @@ const onChange = (index: number) => {
       <van-tabbar-item name="setting" icon="setting-o">
         {{ t('tab') }}
       </van-tabbar-item>
-      <van-tabbar-item name="more" icon="setting-o">
-        {{ t('tab') }}
-      </van-tabbar-item>
     </van-tabbar>
   </demo-block>
 
@@ -80,7 +77,6 @@ const onChange = (index: number) => {
       <van-tabbar-item icon="setting-o" badge="20">
         {{ t('tab') }}
       </van-tabbar-item>
-      <van-tabbar-item icon="home-o">{{ t('tab') }}</van-tabbar-item>
     </van-tabbar>
   </demo-block>
 
@@ -94,8 +90,6 @@ const onChange = (index: number) => {
       </van-tabbar-item>
       <van-tabbar-item icon="search">{{ t('tab') }}</van-tabbar-item>
       <van-tabbar-item icon="setting-o">{{ t('tab') }}</van-tabbar-item>
-      <van-tabbar-item icon="setting-o">{{ t('tab') }}</van-tabbar-item>
-      <van-tabbar-item icon="setting-o">{{ t('tab') }}</van-tabbar-item>
     </van-tabbar>
   </demo-block>
 
@@ -104,7 +98,6 @@ const onChange = (index: number) => {
       <van-tabbar-item icon="home-o">{{ t('tab') }}</van-tabbar-item>
       <van-tabbar-item icon="search">{{ t('tab') }}</van-tabbar-item>
       <van-tabbar-item icon="friends-o">{{ t('tab') }}</van-tabbar-item>
-      <van-tabbar-item icon="setting-o">{{ t('tab') }}</van-tabbar-item>
       <van-tabbar-item icon="setting-o">{{ t('tab') }}</van-tabbar-item>
     </van-tabbar>
   </demo-block>

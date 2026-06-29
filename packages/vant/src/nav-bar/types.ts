@@ -34,6 +34,8 @@ export type NavBarThemeVars = {
   navBarTitleMinFontSize?: string;
   navBarTitleGap?: string;
   navBarTitleTextColor?: string;
+  navBarSubtitleFontSize?: string;
+  navBarSubtitleTextColor?: string;
   navBarZIndex?: number | string;
   navBarButtonGap?: string;
   navBarHorizontalPadding?: string;

@@ -260,6 +260,28 @@ test('should render button slot correctly', async () => {
   testSlotReceivedParams(buttonSlot, false);
 });
 
+test('should clamp custom button position within track', () => {
+  const wrapper = mount(Slider, {
+    props: {
+      modelValue: 100,
+      min: 0,
+      max: 100,
+      buttonSize: 26,
+    },
+    slots: {
+      button: () => 'custom',
+    },
+  });
+
+  const button = wrapper.find('.van-slider__button-wrapper');
+  const style = button.attributes('style') || '';
+
+  expect(style).toContain('clamp');
+  expect(style).toContain('26px');
+  expect(style).toContain('calc(100% - 26px)');
+  expect(style).not.toContain('translate3d(-50%');
+});
+
 test('should render left-button、right-button slot correctly', async () => {
   const leftButtonSlot = vi.fn();
   const rightButtonSlot = vi.fn();

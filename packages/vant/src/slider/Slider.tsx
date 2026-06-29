@@ -2,6 +2,9 @@ import {
   ref,
   watch,
   computed,
+  onMounted,
+  nextTick,
+  onBeforeUnmount,
   defineComponent,
   type PropType,
   type CSSProperties,
@@ -59,8 +62,8 @@ export const sliderProps = {
   showInputs: Boolean,
   inputLayout: makeStringProp<SliderInputLayout>('horizontal'),
   unselectedText: makeStringProp('未选择'),
-  minPlaceholder: makeStringProp('¥ 最低金额'),
-  maxPlaceholder: makeStringProp('¥ 最高金额'),
+  minPlaceholder: makeStringProp('最低金额'),
+  maxPlaceholder: makeStringProp('最高金额'),
   formatter: Function as PropType<(value: number) => string>,
   parser: Function as PropType<(text: string) => number | null>,
   modelValue: {
@@ -85,12 +88,23 @@ export default defineComponent({
 
     const root = ref<HTMLElement>();
     const slider = [ref<HTMLElement>(), ref<HTMLElement>()] as const;
+    const buttonLayoutVersion = ref(0);
+    let customButtonResizeObservers: Array<ResizeObserver | undefined> = [];
+    const customButtonMeasuredSizes: [number, number] = [0, 0];
     const dragStatus = ref<'start' | 'dragging' | ''>();
     const valueSelected = ref(false);
     const touch = useTouch();
 
     const minInput = ref('');
     const maxInput = ref('');
+
+    const formatInputValue = (value: number) => {
+      if (props.formatter) {
+        return props.formatter(value);
+      }
+
+      return String(value);
+    };
 
     const formatDisplayValue = (value: number) => {
       if (props.formatter) {
@@ -126,8 +140,8 @@ export default defineComponent({
       }
 
       const [min, max] = getRangeValue();
-      minInput.value = formatDisplayValue(min);
-      maxInput.value = formatDisplayValue(max);
+      minInput.value = formatInputValue(min);
+      maxInput.value = formatInputValue(max);
     };
 
     const markValueSelected = () => {
@@ -340,6 +354,7 @@ export default defineComponent({
       touch.start(event);
       current = props.modelValue;
       updateStartValue();
+      syncCustomButtonSizes();
 
       dragStatus.value = 'start';
     };
@@ -396,18 +411,118 @@ export default defineComponent({
       return bem('button-wrapper', props.reverse ? 'left' : 'right');
     };
 
-    const getButtonPositionStyle = (value: number): CSSProperties => {
+    const hasCustomButton = (index?: 0 | 1) => {
+      if (typeof index === 'number') {
+        return !!slots[index === 0 ? 'left-button' : 'right-button'];
+      }
+
+      return !!slots.button;
+    };
+
+    const getLiveButtonSize = (index: 0 | 1) => {
+      void buttonLayoutVersion.value;
+
+      const el = slider[index].value;
+      if (!el) {
+        return customButtonMeasuredSizes[index];
+      }
+
+      let size = props.vertical ? el.offsetHeight : el.offsetWidth;
+
+      if (!size && el.firstElementChild instanceof HTMLElement) {
+        const inner = el.firstElementChild;
+        size = props.vertical ? inner.offsetHeight : inner.offsetWidth;
+      }
+
+      return size || customButtonMeasuredSizes[index];
+    };
+
+    const getButtonMainSize = (index?: 0 | 1) => {
+      const buttonStyle = getSizeStyle(props.buttonSize);
+      const buttonIndex = index ?? 0;
+
+      if (props.vertical) {
+        if (buttonStyle?.height || buttonStyle?.width) {
+          return buttonStyle.height || buttonStyle.width;
+        }
+      } else if (buttonStyle?.width || buttonStyle?.height) {
+        return buttonStyle.width || buttonStyle.height;
+      }
+
+      if (hasCustomButton(index)) {
+        const measuredSize = getLiveButtonSize(buttonIndex);
+        if (measuredSize) {
+          return addUnit(measuredSize);
+        }
+      }
+
+      return props.vertical
+        ? 'var(--van-slider-button-height)'
+        : 'var(--van-slider-button-width)';
+    };
+
+    const updateCustomButtonSize = (index: 0 | 1) => {
+      const el = slider[index].value;
+      if (!el) {
+        return;
+      }
+
+      const size = props.vertical ? el.offsetHeight : el.offsetWidth;
+      if (!size || customButtonMeasuredSizes[index] === size) {
+        return;
+      }
+
+      customButtonMeasuredSizes[index] = size;
+      buttonLayoutVersion.value += 1;
+    };
+
+    const syncCustomButtonSizes = () => {
+      const buttonCount = isRangeMode.value ? 2 : 1;
+
+      for (let index = 0; index < buttonCount; index += 1) {
+        updateCustomButtonSize(index as 0 | 1);
+      }
+    };
+
+    const setupCustomButtonObservers = () => {
+      customButtonResizeObservers.forEach((observer) => observer?.disconnect());
+      customButtonResizeObservers = [];
+
+      const buttonCount = isRangeMode.value ? 2 : 1;
+      for (let index = 0; index < buttonCount; index += 1) {
+        const buttonIndex = index as 0 | 1;
+        if (!hasCustomButton(buttonIndex) || getSizeStyle(props.buttonSize)) {
+          continue;
+        }
+
+        const el = slider[buttonIndex].value;
+        if (!el) {
+          continue;
+        }
+
+        updateCustomButtonSize(buttonIndex);
+
+        if (typeof ResizeObserver === 'undefined') {
+          continue;
+        }
+
+        const observer = new ResizeObserver(() => {
+          updateCustomButtonSize(buttonIndex);
+        });
+        observer.observe(el);
+        customButtonResizeObservers[buttonIndex] = observer;
+      }
+    };
+
+    const getButtonPositionStyle = (
+      value: number,
+      index?: 0 | 1,
+    ): CSSProperties => {
       const percent = ((value - Number(props.min)) * 100) / scope.value;
       const position = props.reverse ? 100 - percent : percent;
       const mainAxis = props.vertical ? 'top' : 'left';
       const buttonStyle = getSizeStyle(props.buttonSize);
-      const mainSize = props.vertical
-        ? buttonStyle?.height ||
-          buttonStyle?.width ||
-          'var(--van-slider-button-width)'
-        : buttonStyle?.width ||
-          buttonStyle?.height ||
-          'var(--van-slider-button-width)';
+      const mainSize = getButtonMainSize(index);
       const style: CSSProperties = {
         [mainAxis]: `clamp(0px, calc(${position}% - ${mainSize} / 2), calc(100% - ${mainSize}))`,
       };
@@ -536,9 +651,16 @@ export default defineComponent({
       return (
         <div class={bem('track-dots')}>
           {getMarkState().map(
-            ({ mark, positionStyle, isActive, isEndpoint }) => {
-              // 滑块所在节点不展示圆点，避免与滑块重叠
-              if (isEndpoint) {
+            ({
+              mark,
+              positionStyle,
+              isActive,
+              isEndpoint,
+              isStartBoundary,
+              isEndBoundary,
+            }) => {
+              // 滑块所在节点及轨道两端不展示圆点
+              if (isEndpoint || isStartBoundary || isEndBoundary) {
                 return null;
               }
 
@@ -598,8 +720,7 @@ export default defineComponent({
       }
 
       const inputProps = {
-        type: 'text' as const,
-        inputmode: 'decimal' as const,
+        type: 'money' as const,
         disabled: props.disabled || undefined,
         readonly: props.readonly || undefined,
       };
@@ -669,7 +790,7 @@ export default defineComponent({
           ref={slider[index ?? 0]}
           role="slider"
           class={getButtonClassName(index)}
-          style={getButtonPositionStyle(current)}
+          style={getButtonPositionStyle(current, index)}
           tabindex={props.disabled ? undefined : 0}
           aria-valuemin={props.min}
           aria-valuenow={current}
@@ -700,6 +821,17 @@ export default defineComponent({
       useEventListener('touchmove', onTouchMove, {
         target: item,
       });
+    });
+
+    onMounted(() => {
+      nextTick(() => {
+        syncCustomButtonSizes();
+        setupCustomButtonObservers();
+      });
+    });
+
+    onBeforeUnmount(() => {
+      customButtonResizeObservers.forEach((observer) => observer?.disconnect());
     });
 
     return () => (

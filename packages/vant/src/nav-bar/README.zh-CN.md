@@ -141,6 +141,7 @@ const rightButtons = [{ icon: 'search' }, { icon: 'ellipsis' }];
 | 参数 | 说明 | 类型 | 默认值 |
 | --- | --- | --- | --- |
 | title | 标题 | _string_ | `''` |
+| subtitle | 副标题 | _string_ | `''` |
 | background | 导航栏背景色 | _string_ | - |
 | left-text | 左侧文案 | _string_ | `''` |
 | right-text | 右侧文案，最多展示四个字 | _string_ | `''` |
@@ -165,6 +166,7 @@ const rightButtons = [{ icon: 'search' }, { icon: 'ellipsis' }];
 | 名称               | 说明                     |
 | ------------------ | ------------------------ |
 | title              | 自定义标题               |
+| subtitle           | 自定义副标题             |
 | left               | 自定义左侧区域内容       |
 | right              | 自定义右侧区域内容       |
 | left-action        | 自定义左侧第一个操作按钮 |
@@ -239,6 +241,8 @@ import type {
 | --van-nav-bar-title-min-font-size | _14px_                     | -    |
 | --van-nav-bar-title-gap           | _6px_                      | -    |
 | --van-nav-bar-title-text-color    | _var(--van-text-color)_    | -    |
+| --van-nav-bar-subtitle-font-size  | _10px_                     | -    |
+| --van-nav-bar-subtitle-text-color | _#999_                     | -    |
 | --van-nav-bar-z-index             | _1_                        | -    |
 | --van-nav-bar-horizontal-padding  | _8px_                      | -    |
 | --van-nav-bar-button-gap          | _12px_                     | -    |

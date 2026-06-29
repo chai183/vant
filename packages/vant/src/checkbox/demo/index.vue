@@ -71,6 +71,7 @@ const t = useTranslate({
 
 const state = reactive({
   checkbox1: true,
+  checkboxBasicUnchecked: false,
   checkbox2: true,
   checkbox3: true,
   isCheckAll: false,
@@ -165,6 +166,10 @@ const checkedResultChange = (value: string[]) => {
 <template>
   <demo-block :title="t('basicUsage')">
     <van-checkbox v-model="state.checkbox1">{{ t('checkbox') }}</van-checkbox>
+    <van-checkbox v-model="state.checkboxBasicUnchecked">
+      {{ t('checkbox') }}
+    </van-checkbox>
+    <van-checkbox indeterminate>{{ t('indeterminate') }}</van-checkbox>
   </demo-block>
 
   <demo-block :title="t('disabled')">
@@ -180,7 +185,7 @@ const checkedResultChange = (value: string[]) => {
     <van-checkbox-group
       v-model="state.checkboxShape"
       class="demo-checkbox-group"
-      shape="square"
+      shape="round"
     >
       <van-checkbox name="a">{{ t('customShape') }} a</van-checkbox>
       <van-checkbox name="b">{{ t('customShape') }} b</van-checkbox>
@@ -302,7 +307,11 @@ const checkedResultChange = (value: string[]) => {
   </demo-block>
 
   <demo-block :title="t('title4')">
-    <van-checkbox-group v-model="state.result2" class="demo-checkbox-group" :max="2">
+    <van-checkbox-group
+      v-model="state.result2"
+      class="demo-checkbox-group"
+      :max="2"
+    >
       <van-checkbox name="a">{{ t('checkbox') }} a</van-checkbox>
       <van-checkbox name="b">{{ t('checkbox') }} b</van-checkbox>
       <van-checkbox name="c">{{ t('checkbox') }} c</van-checkbox>
@@ -310,7 +319,11 @@ const checkedResultChange = (value: string[]) => {
   </demo-block>
 
   <demo-block :title="t('toggleAll')">
-    <van-checkbox-group v-model="state.checkAllResult" ref="group" class="demo-checkbox-group">
+    <van-checkbox-group
+      v-model="state.checkAllResult"
+      ref="group"
+      class="demo-checkbox-group"
+    >
       <van-checkbox name="a">{{ t('checkbox') }} a</van-checkbox>
       <van-checkbox name="b">{{ t('checkbox') }} b</van-checkbox>
       <van-checkbox name="c">{{ t('checkbox') }} c</van-checkbox>
@@ -393,7 +406,7 @@ const checkedResultChange = (value: string[]) => {
     padding: 0 16px;
 
     .van-checkbox {
-      margin: 0 0 8px 0;
+      margin: 0;
     }
 
     &.van-checkbox-group--horizontal .van-checkbox {

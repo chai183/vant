@@ -118,7 +118,24 @@
     &--double&--inner {
       .van-cascade-tree-select__item {
         background-color: var(--van-cascade-tree-select-item-background);
-
+        &::after {
+          box-sizing: border-box;
+          content: ' ';
+          pointer-events: none;
+          border: 0 solid var(--van-border-color);
+          position: absolute;
+          top: -50%;
+          bottom: -50%;
+          left: -50%;
+          right: -50%;
+          transform: scale(0.5);
+          display: inline-block;
+        }
+        &:not(:last-child) {
+          &::after {
+            border-bottom-width: var(--van-border-width);
+          }
+        }
         &--selected {
           background-color: var(--van-cascade-tree-select-selected-background);
         }

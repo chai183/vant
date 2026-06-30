@@ -198,6 +198,13 @@
         background-color: transparent;
       }
     }
+    &--with-badge {
+      gap: var(--van-cascade-tree-select-badge-gap);
+      .van-cascade-tree-select__label {
+        max-width: auto;
+        flex: 1 1 0%;
+      }
+    }
   }
 
   &__label {
@@ -229,7 +236,7 @@
 
   &__badge {
     flex: none;
-    margin-left: var(--van-cascade-tree-select-badge-gap);
+    // margin-left: var(--van-cascade-tree-select-badge-gap);
     min-width: var(--van-cascade-tree-select-badge-height);
     height: var(--van-cascade-tree-select-badge-height);
     padding: var(--van-cascade-tree-select-badge-padding);

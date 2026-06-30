@@ -804,7 +804,7 @@ const fullSelected = ref(false);
 | --van-card-background | _var(--van-background-2)_ | 卡片背景色 |
 | --van-card-title-color | _var(--van-text-color)_ | 主标题及主要文字颜色 |
 | --van-card-title-font-size | _var(--van-font-size-md)_ | 主标题字号 |
-| --van-card-title-line-height | _var(--van-line-height-lg)_ | 主标题行高 |
+| --van-card-title-line-height | _var(--van-line-height-xl)_ | 主标题行高 |
 | --van-card-subtitle-color | _var(--van-text-color-auxiliary)_ | 标题区辅助文案颜色 |
 | --van-card-subtitle-font-size | _var(--van-font-size-xs)_ | 辅助标题字号 |
 | --van-card-divider-color | _var(--van-border-color)_ | 分割线颜色 |

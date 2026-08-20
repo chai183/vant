@@ -1,26 +1,8 @@
 export type TagCurrencyFlagIconMap = Record<string, string>;
-
-/** 未命中时回退 `currency-presets.json` 顶层 defaultIcon。 */
-type WebpackRequireContext = {
-  keys: () => string[];
-  <T = string>(id: string): T;
-};
-
-declare const require: {
-  context: (
-    directory: string,
-    useSubdirectories: boolean,
-    regExp: RegExp,
-  ) => WebpackRequireContext;
-};
+import { currentFlagModules } from './assets/currency-flags/index';
 
 function getFlagSvgModules(): Array<[string, string]> {
-  const context = require.context('./assets/currency-flags', false, /\.svg$/i);
-  return context.keys().map((path) => {
-    const mod = context<string | { default?: string }>(path);
-    const iconUrl = typeof mod === 'string' ? mod : (mod.default ?? '');
-    return [path, iconUrl] as [string, string];
-  });
+  return currentFlagModules;
 }
 
 function parseCurrencyCodeFromPath(path: string): string | undefined {

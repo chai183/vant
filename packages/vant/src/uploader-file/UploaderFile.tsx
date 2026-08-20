@@ -30,7 +30,9 @@ import {
 import Uploader, { uploaderProps } from '../uploader/Uploader';
 import Button from '../button/Button';
 import UploaderFileItem from './UploaderFileItem';
-import ActionSheet, { type ActionSheetAction } from '../action-sheet/ActionSheet';
+import ActionSheet, {
+  type ActionSheetAction,
+} from '../action-sheet/ActionSheet';
 import Dialog from '../dialog/Dialog';
 import Field from '../field/Field';
 import { showConfirmDialog } from '../dialog/function-call';
@@ -59,8 +61,7 @@ import type {
   UploaderFileUpload,
   UploaderFileUploadResult,
 } from './types';
-
-const uploadIcon = new URL('./assets/upload.svg', import.meta.url).href;
+import uploadIcon from './assets/upload.svg';
 
 // 生成组件名与 BEM 前缀：van-uploader-file
 const [name] = createNamespace('uploader-file');
@@ -92,18 +93,23 @@ const uploaderFileOwnProps = {
 };
 
 /** 合并 Uploader 与自有 props，并覆盖部分默认值以适配附件场景 */
-export const uploaderFileProps = extend({}, uploaderProps, uploaderFileOwnProps, {
-  accept: makeStringProp('*'),
-  previewImage: {
-    type: Boolean,
-    default: false,
+export const uploaderFileProps = extend(
+  {},
+  uploaderProps,
+  uploaderFileOwnProps,
+  {
+    accept: makeStringProp('*'),
+    previewImage: {
+      type: Boolean,
+      default: false,
+    },
+    resultType: makeStringProp<'dataUrl' | 'text' | 'file'>('file'),
+    multiple: {
+      type: Boolean,
+      default: true,
+    },
   },
-  resultType: makeStringProp<'dataUrl' | 'text' | 'file'>('file'),
-  multiple: {
-    type: Boolean,
-    default: true,
-  },
-});
+);
 
 export type UploaderFileProps = ExtractPropTypes<typeof uploaderFileProps>;
 
@@ -217,16 +223,12 @@ export default defineComponent({
     /** 是否已达到 maxCount 上限（用于禁用选文件与样式） */
     const isMaxCountReached = computed(() => {
       const maxCount = +props.maxCount;
-      return (
-        Number.isFinite(maxCount) && innerList.value.length >= maxCount
-      );
+      return Number.isFinite(maxCount) && innerList.value.length >= maxCount;
     });
 
     // ---------- 列表与上传相关方法 ----------
     const showMaxCountToast = () => {
-      showToast(
-        UPLOADER_FILE_ACTION_TEXTS.maxCountExceeded(+props.maxCount),
-      );
+      showToast(UPLOADER_FILE_ACTION_TEXTS.maxCountExceeded(+props.maxCount));
     };
 
     /** 在 Uploader beforeRead 链路上拦截：校验 maxCount 并裁剪多选结果 */
@@ -272,8 +274,7 @@ export default defineComponent({
     const actionSheetActions = computed<ActionSheetAction[]>(() =>
       props.actions.map((action) => ({
         name: ACTION_KEY_TO_TEXT[action],
-        color:
-          action === 'delete' ? 'var(--van-danger-color)' : undefined,
+        color: action === 'delete' ? 'var(--van-danger-color)' : undefined,
       })),
     );
 
@@ -651,8 +652,7 @@ export default defineComponent({
         uploaderRef.value?.chooseFile();
       },
       closeImagePreview,
-      reuploadFile: (index: number) =>
-        uploaderRef.value?.reuploadFile(index),
+      reuploadFile: (index: number) => uploaderRef.value?.reuploadFile(index),
     });
 
     // ---------- 根渲染：Uploader 负责选文件，列表与弹层由本组件渲染 ----------

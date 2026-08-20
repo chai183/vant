@@ -56,10 +56,9 @@ import {
   hasValue,
   toNumber,
 } from './utils';
+import funnelSvg from './assets/funnel.svg';
 
 const [name, bem] = createNamespace('filter-menu-bar');
-
-const funnelSvg = new URL('./assets/funnel.svg', import.meta.url).href;
 
 // 内部漏斗入口 key，用于区分真实筛选项 key，事件对外会统一转换成 'funnel'。
 const FUNNEL_KEY = '__filter_menu_bar_funnel__';

@@ -5,8 +5,7 @@ import VanIcon from '../../icon';
 import { ref } from 'vue';
 import { useTranslate } from '../../../docs/site';
 
-const imageURL = new URL('../../tag/assets/stamp-frame1.svg', import.meta.url)
-  .href;
+import imageURL from '../../tag/assets/stamp-frame1.svg';
 
 const t = useTranslate({
   'zh-CN': {

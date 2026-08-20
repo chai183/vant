@@ -2,7 +2,7 @@
 :host {
   --van-ad-dialog-width: 320px;
   --van-ad-dialog-checkbox-padding: 0;
-  --van-ad-dialog-checkbox-font-size: var(--van-font-size-md);
+  --van-ad-dialog-checkbox-font-size: var(--van-font-size-lg);
   --van-ad-dialog-checkbox-text-color: var(--van-white);
   --van-ad-dialog-close-icon-margin: var(--van-padding-md);
   --van-ad-dialog-close-button-size: 32px;
@@ -45,7 +45,7 @@
     display: flex;
     justify-content: center;
     width: 100%;
-    margin-top: 12px;
+    margin-top: 16px;
     padding: var(--van-ad-dialog-checkbox-padding);
 
     .van-checkbox {
@@ -95,7 +95,6 @@
     &--outside&--bottom-right {
       margin-top: var(--van-ad-dialog-close-icon-margin);
     }
-
     &--custom {
       position: absolute;
       z-index: 1;
@@ -147,12 +146,11 @@
       padding: 0 var(--van-ad-dialog-close-icon-margin)
         var(--van-ad-dialog-close-icon-margin) 0;
     }
-
     &--custom {
-      inset: auto;
-      display: block;
-      padding: 0;
+      position: absolute;
       z-index: 1;
+      width: auto;
+      margin: 0;
     }
   }
 
@@ -172,6 +170,12 @@
     outline: none;
 
     &--plain {
+      width: auto;
+      height: auto;
+      background: transparent;
+      border: 0;
+    }
+    &--default {
       width: auto;
       height: auto;
       background: transparent;

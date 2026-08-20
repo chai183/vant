@@ -44,6 +44,10 @@ const onChange = (index: number) => {
     <van-tabbar v-model="active" show-shadow>
       <van-tabbar-item icon="home-o">{{ t('tab') }}</van-tabbar-item>
       <van-tabbar-item icon="search">{{ t('tab') }}</van-tabbar-item>
+    </van-tabbar>
+    <van-tabbar v-model="active">
+      <van-tabbar-item icon="home-o">{{ t('tab') }}</van-tabbar-item>
+      <van-tabbar-item icon="search">{{ t('tab') }}</van-tabbar-item>
       <van-tabbar-item icon="friends-o">{{ t('tab') }}</van-tabbar-item>
       <van-tabbar-item icon="setting-o">{{ t('tab') }}</van-tabbar-item>
       <van-tabbar-item icon="setting-o">{{ t('tab') }}</van-tabbar-item>

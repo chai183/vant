@@ -60,10 +60,11 @@ export default defineComponent({
 
   setup(props, { emit, slots }) {
     const root = ref<HTMLElement>();
+    // 注意此方法是vant内置，基于provide inject实现，给予子组件通信传值的
     const { linkChildren } = useChildren(TABBAR_KEY);
     const renderPlaceholder = usePlaceholder(root, bem);
 
-    // enable safe-area-inset-bottom by default when fixed
+    // 安全区域设置
     const enableSafeArea = () => props.safeAreaInsetBottom ?? props.fixed;
 
     const renderTabbar = () => {
@@ -87,8 +88,9 @@ export default defineComponent({
     };
 
     const setActive = (active: Numeric, afterChange: () => void) => {
+      // 此函数内部执行顺序：点击tabbar-item --> 调用beforeChange --> done()执行
       callInterceptor(props.beforeChange, {
-        args: [active],
+        args: [active], //args里面传递的参数是给beforeChange使用的
         done() {
           emit('update:modelValue', active);
           emit('change', active);

@@ -20,7 +20,9 @@ app.use(PullRefresh);
 
 ### 基础用法
 
-下拉刷新时会触发 `refresh` 事件，在事件的回调函数中可以进行同步或异步操作，操作完成后将 `v-model` 设置为 `false`，表示加载完成。
+下拉刷新时会触发 `refresh` 事件，在事件的回调函数中可以进行同步或异步操作
+
+操作完成后将 `v-model` 设置为 `false`，表示加载完成。
 
 ```html
 <van-pull-refresh v-model="loading" @refresh="onRefresh">
@@ -55,7 +57,13 @@ export default {
 
 ### 成功提示
 
-通过 `success-text` 可以设置刷新成功后的顶部提示文案。
+**涉及props**
+
+`success-text` 刷新成功时的提示文案
+
+`success-icon` 刷新成功时的图标
+
+注意：想要开启胶囊形式的成功提示,必须传递 `success-text` 或插槽 `success`
 
 ```html
 <van-pull-refresh
@@ -67,9 +75,41 @@ export default {
 </van-pull-refresh>
 ```
 
+```js
+import { ref } from 'vue';
+import { showToast } from 'vant';
+
+export default {
+  setup() {
+    const count = ref(0);
+    const loading = ref(false);
+    const onRefresh = () => {
+      setTimeout(() => {
+        loading.value = false;
+        count.value++;
+      }, 1000);
+    };
+
+    return {
+      count,
+      loading,
+      onRefresh,
+    };
+  },
+};
+```
+
 ### 失败提示
 
-如果刷新过程中因为网络原因请求失败，可以调用 `refresh` 事件参数中的 `error` 方法。组件会默认通过 Toast 提示 `网络不可用，请检查网络设置`，并触发 `error` 事件，方便业务层接收失败回调。
+**涉及props**
+
+`error-text` 失败时,提示的文本
+
+**涉及事件**
+
+`refresh({error})` error参数,可用于传递报错
+
+`error` 处理具体的报错逻辑
 
 ```html
 <van-pull-refresh v-model="isLoading" @refresh="onRefresh" @error="onError">
@@ -123,7 +163,7 @@ const onRefresh = async ({ error }) => {
 
 ### 自定义提示
 
-通过插槽可以自定义下拉刷新过程中的提示内容。下面的示例将最大拖拽高度设置为 `100px`，图片会在下拉过程中跟随 `distance` 从中心逐步放大，进入加载态后保持 `100%` 大小，刷新成功后再从 `100%` 缩放到 `0%`。
+通过插槽可以自定义下拉刷新过程中的提示内容。下面的示例将最大拖拽高度设置为 `100px`，图片会在下拉过程中跟随 `distance` 从中心逐步放大、进入加载态后保持 `100%` 大小，刷新成功后从 `100%` 缩放到 `0%`。
 
 ```js
 const maxPullDistance = 100;
@@ -212,11 +252,11 @@ const getPullingStyle = (distance) => ({
 | loosing-text | 释放过程提示文案 | _string_ | `松开刷新` |
 | loading-text | 加载过程提示文案 | _string_ | `刷新中` |
 | success-text | 刷新成功提示文案 | _string_ | - |
-| error-text | 刷新失败默认 Toast 提示文案 | _string_ | `网络不可用，请检查网络设置` |
-| pulling-icon | 下拉过程提示图标，支持图标名称或图片链接 | _string_ | `down` |
-| loosing-icon | 释放过程提示图标，支持图标名称或图片链接 | _string_ | `down` |
-| loading-icon | 加载过程提示图标，支持图标名称或图片链接 | _string_ | `replay` |
-| success-icon | 刷新成功提示图标，支持图标名称或图片链接 | _string_ | `passed` |
+| error-text `new` | 刷新失败默认 Toast 提示文案 | _string_ | `请求错误` |
+| pulling-icon `new` | 下拉过程提示图标，支持图标名称或图片链接 | _string_ | `down` |
+| loosing-icon `new` | 释放过程提示图标，支持图标名称或图片链接 | _string_ | `down` |
+| loading-icon `new` | 加载过程提示图标，支持图标名称或图片链接 | _string_ | `replay` |
+| success-icon `new` | 刷新成功提示图标，支持图标名称或图片链接 | _string_ | `passed` |
 | success-duration | 刷新成功提示展示时长(ms) | _number \| string_ | `500` |
 | animation-duration | 动画时长 | _number \| string_ | `300` |
 | head-height | 顶部内容高度 | _number \| string_ | `88` |
@@ -228,7 +268,7 @@ const getPullingStyle = (distance) => ({
 | 事件名 | 说明 | 回调参数 |
 | --- | --- | --- |
 | refresh | 下拉刷新时触发 | _{ error: (error?: unknown) => void }_ |
-| error | 调用 `refresh` 参数中的 `error` 方法时触发 | _unknown_ |
+| error `new` | 调用 `refresh` 参数中的 `error` 方法时触发 | _unknown_ |
 | change | 拖动时或状态改变时触发 | _{ status: string, distance: number }_ |
 
 ### Slots

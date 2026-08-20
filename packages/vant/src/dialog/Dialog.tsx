@@ -1,7 +1,7 @@
 import {
   ref,
-  watch,
   reactive,
+  watch,
   nextTick,
   withKeys,
   onMounted,
@@ -48,13 +48,12 @@ import type {
   DialogButton,
   DialogMessage,
   DialogMessageAlign,
+  DialogMessageHighlightConfig,
   DialogInputConfig,
   DialogInputValidateTrigger,
-  DialogMessageHighlightConfig,
 } from './types';
 
 const [name, bem] = createNamespace('dialog');
-
 /*-------默认文本配置start---------*/
 
 // 定义提示弹窗默认文本
@@ -81,19 +80,15 @@ const getValidNumericValue = (
   min = 0,
 ) => {
   const numericValue = Number(value);
-
   return Number.isFinite(numericValue)
     ? Math.max(numericValue, min)
     : defaultValue;
 };
+
 // 处理一行显示的按钮文本
 const truncateVerticalButtonText = (value: string, maxTextLength: number) => {
   const chars = Array.from(value);
-
-  if (chars.length <= maxTextLength) {
-    return value;
-  }
-
+  if (chars.length <= maxTextLength) return value;
   return `${chars.slice(0, maxTextLength - 1).join('')}…`;
 };
 
@@ -110,9 +105,9 @@ export const dialogProps = extend({}, popupSharedProps, {
   allowHtml: Boolean,
   className: unknownProp,
   transition: makeStringProp('van-dialog-bounce'),
-  messageAlign: String as PropType<DialogMessageAlign>,
   // 高亮类型设置
   messageHighlightConfig: Object as PropType<DialogMessageHighlightConfig>,
+  messageAlign: String as PropType<DialogMessageAlign>,
   // 输入框设置
   inputValue: String,
   inputConfig: Object as PropType<DialogInputConfig>,
@@ -169,16 +164,11 @@ const hasHighlightKeywords = (keywords: string | string[]) =>
   Array.isArray(keywords) ? keywords.some(Boolean) : !!keywords;
 
 // 高亮样式传递处理展示处理--加入颜色
-const getMessageHighlightStyle = (
-  messageHighlightConfig?: DialogMessageHighlightConfig,
-) => {
-  if (!messageHighlightConfig) {
-    return;
-  }
-  const { color, style } = messageHighlightConfig;
+const getMessageHighlightStyle = (config?: DialogMessageHighlightConfig) => {
+  if (!config) return;
+  const { color, style } = config;
   // 没传color和style,只想使用组件能力，无额外扩展样式
   if (!color && !style) return;
-
   return { ...style, ...(color ? { color } : {}) };
 };
 
@@ -246,7 +236,6 @@ const getDialogInputRules = (
     if (rule.trigger) {
       return toArray(rule.trigger).includes(normalizedTrigger);
     }
-
     return defaultTriggers.includes(trigger);
   });
 };
@@ -286,7 +275,7 @@ export default defineComponent({
       const popupRef = root.value?.popupRef?.value as HTMLElement | undefined;
       if (!popupRef) return;
 
-      // 只处理 message消息 区域内的高亮标签
+      // 只处理消息区域内的高亮标签
       const highlightTags = popupRef.querySelectorAll<HTMLElement>(
         '.van-dialog__message .van-highlight__tag',
       );
@@ -315,7 +304,6 @@ export default defineComponent({
       }
       return !result;
     };
-
     // blur规则
     const onInputBlur = () => {
       void validateInput('onBlur');
@@ -328,13 +316,12 @@ export default defineComponent({
         validateInput('onChange');
       });
     };
-
     // 监听传递值
     watch(
       () => props.inputValue,
-      (value) => {
-        if (value !== undefined && value !== currentInputValue.value) {
-          currentInputValue.value = value;
+      (val) => {
+        if (val !== undefined && val !== currentInputValue.value) {
+          currentInputValue.value = val;
         }
       },
     );
@@ -594,7 +581,6 @@ export default defineComponent({
             onClick: onCancel,
           });
         }
-
         return buttons;
       }
 
@@ -629,7 +615,6 @@ export default defineComponent({
         if (!props.keyboardEnabled) {
           return;
         }
-
         // 只响应弹窗根节点自己的键盘事件。
         // 如果焦点在输入框等子元素上，就交给子元素自己处理，避免误触发 confirm / cancel。
         if (event.target !== root.value?.popupRef?.value) {
@@ -662,21 +647,20 @@ export default defineComponent({
       }
     };
 
-    const renderMessage = (hasTitle: boolean) => {
+    const renderMessage = (hasTitle: boolean, hasInput: boolean) => {
       const { message, allowHtml, messageAlign, messageHighlightConfig } =
         props;
       const classNames = bem('message', {
         'has-title': hasTitle,
+        'has-input': hasInput,
         [messageAlign as string]: messageAlign,
       });
-
       // message 支持字符串和函数两种形式
       const content = isFunction(message) ? message() : message;
       // 外部要求使用html时会直接走innerHTML，此时设置了高亮也没用
       if (allowHtml && typeof content === 'string') {
         return <div class={classNames} innerHTML={content} />;
       }
-
       // message文字消息，设置高亮配置，走高亮逻辑
       if (
         typeof content === 'string' &&
@@ -692,9 +676,8 @@ export default defineComponent({
           unhighlightClass, //未命中class
           unhighlightTag, //未命中tag
         } = messageHighlightConfig;
-
         return (
-          //保留原本的容器结构
+          //保留原本的message容器结构
           <Highlight
             tag="div"
             class={classNames}
@@ -782,11 +765,7 @@ export default defineComponent({
       const hasTitle = !!(title || slots.title);
       const hasMessage = !hasCustomContent && !!message;
       const hasInput = !!inputConfig;
-
-      if (!hasCustomContent && !hasMessage && !hasInput) {
-        return;
-      }
-
+      if (!hasCustomContent && !hasMessage && !hasInput) return;
       return (
         <div
           key={allowHtml ? 1 : 0}
@@ -802,7 +781,7 @@ export default defineComponent({
           */}
           {hasCustomContent
             ? slots.default?.()
-            : hasMessage && renderMessage(hasTitle)}
+            : hasMessage && renderMessage(hasTitle, hasInput)}
           {hasInput && renderInput(hasTitle, hasMessage)}
         </div>
       );
@@ -817,6 +796,7 @@ export default defineComponent({
             <Button
               key={button.key}
               size="large"
+              type="default"
               text={getRenderedButtonText(button.text)}
               class={[
                 button.className,
@@ -831,7 +811,6 @@ export default defineComponent({
               disabled={button.disabled}
               onClick={button.onClick}
               borderless
-              plain
             />
           ))}
         </div>
@@ -869,7 +848,6 @@ export default defineComponent({
       if (slots.footer) {
         return slots.footer();
       }
-
       // 如果上下布局，进项判断渲染
       if (shouldUseVerticalButtonLayout()) return renderButtons(true);
       return props.theme === 'round-button'
@@ -880,7 +858,6 @@ export default defineComponent({
     return () => {
       const { width, title, theme, message, className } = props;
       const resolvedTheme = shouldUseVerticalButtonLayout() ? undefined : theme;
-
       return (
         <Popup
           ref={root}

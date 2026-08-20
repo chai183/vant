@@ -40,6 +40,7 @@ export default defineComponent({
 
   setup(props, { emit, slots }) {
     const route = useRoute();
+    // 组件实例
     const vm = getCurrentInstance()!.proxy!;
     const { parent, index } = useParent(TABBAR_KEY);
 
@@ -54,7 +55,7 @@ export default defineComponent({
 
     const active = computed(() => {
       const { route, modelValue } = parent.props;
-
+      // 路由模式匹配
       if (route && '$route' in vm) {
         const { $route } = vm;
         const { to } = props;
@@ -65,10 +66,11 @@ export default defineComponent({
           return pathMatched || nameMatched;
         });
       }
-
+      // 判断name或index和当前值的对比
       return (props.name ?? index.value) === modelValue;
     });
 
+    // 点击的时候 触发tabbar回调更新值
     const onClick = (event: MouseEvent) => {
       if (!active.value) {
         parent.setActive(props.name ?? index.value, route);
@@ -86,7 +88,9 @@ export default defineComponent({
     };
 
     return () => {
+      // 红点，徽标值
       const { dot, badge } = props;
+      // 选中/未选中 颜色
       const { activeColor, inactiveColor, showShadow } = parent.props;
       const color = active.value ? activeColor : inactiveColor;
 

@@ -166,6 +166,18 @@ const onClickCustomContent = () => {
       :title="t('carouselDialog')"
       @click="openCarouselDialog"
     />
+    <van-cell
+      is-link
+      :title="t('basicComponent')"
+      @click="showBasicComponent = true"
+    />
+
+    <van-ad-dialog
+      v-model:show="showBasicComponent"
+      v-model:checked="basicComponentChecked"
+      :image="carouselImages"
+      :checkbox-text="t('checkboxText')"
+    />
   </demo-block>
 
   <demo-block card :title="t('closePosition')">
@@ -218,21 +230,6 @@ const onClickCustomContent = () => {
         <img :src="closeIconImage" class="custom-ad-dialog-close-icon" />
       </template>
     </van-ad-dialog>
-  </demo-block>
-
-  <demo-block card :title="t('componentUsage')">
-    <van-cell
-      is-link
-      :title="t('basicComponent')"
-      @click="showBasicComponent = true"
-    />
-
-    <van-ad-dialog
-      v-model:show="showBasicComponent"
-      v-model:checked="basicComponentChecked"
-      :image="carouselImages"
-      :checkbox-text="t('checkboxText')"
-    />
   </demo-block>
 
   <demo-block card :title="t('customContentUsage')">

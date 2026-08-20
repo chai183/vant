@@ -28,11 +28,12 @@ import { SwipeItem } from '../swipe-item';
 
 import type {
   AdDialogCloseIconMode,
-  AdDialogCloseIconCustomPosition,
   AdDialogCloseIconPosition,
   AdDialogSwipeProps,
 } from './types';
 
+// 默认关闭图标文本
+import CloseIcon from './assets/close-circle.png';
 const [name, bem] = createNamespace('ad-dialog');
 
 // 默认选择框文本
@@ -54,17 +55,16 @@ type PopupInheritedAttrs = Partial<
   Pick<PopupProps, (typeof popupInheritAttrKeys)[number]>
 >;
 
+/* ----自定义四角position---- */
 const closeIconPositionKeys = ['top', 'right', 'bottom', 'left'] as const;
-
-const isCustomCloseIconPosition = (
-  position: AdDialogCloseIconPosition,
-): position is AdDialogCloseIconCustomPosition =>
-  typeof position === 'object' && position !== null;
-
+const isCustomCloseIconPosition = (position: AdDialogCloseIconPosition) => {
+  return typeof position === 'object' && position !== null;
+};
 // 是否顶部定位
 const isTopPosition = (position: AdDialogCloseIconPosition) =>
-  typeof position === 'string' &&
-  (position === 'top-left' || position === 'top-right');
+  (typeof position === 'string' && position === 'top-left') ||
+  position === 'top-right';
+
 // 是否图片路径
 const isImageUrl = (value?: string) => !!value && value.includes('/');
 
@@ -73,10 +73,8 @@ const normalizeImageList = (value?: string | string[]) => {
   if (Array.isArray(value)) {
     return value.filter(Boolean);
   }
-
   return value ? [value] : [];
 };
-
 export const adDialogProps = {
   show: Boolean,
   overlay: truthProp,
@@ -91,7 +89,7 @@ export const adDialogProps = {
   showCheckbox: truthProp,
   checkboxText: makeStringProp(DEFAULT_CHECKBOX_TEXT),
   checkboxDisabled: Boolean,
-  closeIcon: makeStringProp('cross'),
+  closeIcon: makeStringProp(''),
   closeIconPosition: {
     type: [String, Object] as PropType<AdDialogCloseIconPosition>,
     default: 'bottom-center',
@@ -125,28 +123,14 @@ export default defineComponent({
     const hasMultipleImages = computed(() => imageList.value.length > 1);
     const showInsideClose = computed(() => props.closeIconMode === 'inside');
     const showTopClose = computed(() => isTopPosition(props.closeIconPosition));
-    const closeIconPositionName = computed(() =>
-      isCustomCloseIconPosition(props.closeIconPosition)
+    const closeIconPositionName = computed<string>(() => {
+      return isCustomCloseIconPosition(props.closeIconPosition)
         ? 'custom'
-        : props.closeIconPosition,
-    );
+        : props.closeIconPosition;
+    });
     const hasCustomCloseVisual = computed(
       () => !!slots['close-icon'] || isImageUrl(props.closeIcon),
     );
-
-    // Popup 本身保持透明，只负责弹层定位；真正的宽度主要交给内容区域控制。
-    const popupStyle = computed<CSSProperties>(() => {
-      const style: CSSProperties = {
-        background: 'transparent',
-        overflow: 'visible',
-      };
-
-      if (props.width != null) {
-        style.width = addUnit(props.width);
-      }
-
-      return style;
-    });
 
     // 图片容器单独继承宽度，避免外部模式的关闭按钮被裁剪。
     const imageWrapperStyle = computed<CSSProperties>(() => {
@@ -159,6 +143,7 @@ export default defineComponent({
       return style;
     });
 
+    //关闭图标的样式处理
     const closeIconPositionStyle = computed<CSSProperties | undefined>(() => {
       const position = props.closeIconPosition;
 
@@ -179,13 +164,32 @@ export default defineComponent({
       return style;
     });
 
-    // 根节点类名--样式
-    const popupClass = computed(() => [bem(), props.className, attrs.class]);
-    const popupMergedStyle = computed(() => [popupStyle.value, attrs.style]);
+    /*-----popup样式/类名/属性处理start-----*/
 
-    // 此处需要显式地列出所有要透传的属性
+    // Popup 本身保持透明，只负责弹层定位，真正的宽度主要交给内容区域控制。
+    const popupStyle = computed<CSSProperties>(() => {
+      const style: CSSProperties = {
+        background: 'transparent',
+        overflow: 'visible',
+      };
+
+      if (props.width != null) {
+        style.width = addUnit(props.width);
+      }
+
+      return style;
+    });
+    // popup合并的类
+    const popupClass = computed(() => [bem(), props.className, attrs.class]);
+    // popup合并的样式
+    const popupMergedStyle = computed(() => [popupStyle.value, attrs.style]);
+    // 透传给popup的属性
     const getPopupInheritedAttrs = () =>
       pick(attrs as PopupInheritedAttrs, popupInheritAttrKeys, true);
+
+    /*-----popup样式/类名处理end-----*/
+
+    /*-----监听处理start-----*/
 
     watch(
       () => props.checked,
@@ -205,6 +209,9 @@ export default defineComponent({
         }
       },
     );
+    /*-----监听处理end-----*/
+
+    /*-----emit事件集合start-----*/
     // 勾选框变化时，同时同步内部状态和外部的 v-model:checked。
     const updateChecked = (value: boolean) => {
       currentChecked.value = value;
@@ -220,6 +227,8 @@ export default defineComponent({
       emit('clickCloseIcon', currentChecked.value, event);
       updateShow(false);
     };
+    /*-----emit事件集合end-----*/
+
     /* ----广告内容渲染start---- */
     // 图片处理渲染
     const renderBuiltInImages = () => {
@@ -289,13 +298,27 @@ export default defineComponent({
         return slots['close-icon']({ checked: currentChecked.value });
       }
 
-      return <Icon name={props.closeIcon} class={bem('close-icon')} />;
+      if (!props.closeIcon) {
+        return (
+          <Image
+            src={CloseIcon}
+            width="32px"
+            height="32px"
+            class={[bem('close-default-icon')]}
+            style={props.imageStyle}
+          ></Image>
+        );
+      }
+      return <Icon name={props.closeIcon} class={[bem('close-icon')]} />;
     };
     const renderCloseButton = () => (
       <button
         type="button"
         class={[
-          bem('close-button', { plain: hasCustomCloseVisual.value }),
+          bem('close-button', {
+            plain: hasCustomCloseVisual.value,
+            default: !props.closeIcon,
+          }),
           HAPTICS_FEEDBACK,
         ]}
         onClick={onClickCloseIcon}
@@ -385,6 +408,7 @@ export default defineComponent({
         {...getPopupInheritedAttrs()}
       >
         <div class={bem('wrapper')}>
+          {/* 渲染-关闭图标：外部-顶部 */}
           {!showInsideClose.value && showTopClose.value && renderOutsideClose()}
 
           <div
@@ -393,11 +417,13 @@ export default defineComponent({
             onClick={onClickImage}
           >
             {renderAdContent()}
+            {/* 渲染-关闭图标：内部 */}
             {renderInsideClose()}
           </div>
 
           {renderCheckbox()}
 
+          {/* 渲染-关闭图标：外部-底部 */}
           {!showInsideClose.value &&
             !showTopClose.value &&
             renderOutsideClose()}

@@ -9,6 +9,7 @@ import {
 import { getNotifyAutoCloseDuration } from './duration';
 import {
   pick,
+  omit,
   extend,
   numericProp,
   unknownProp,
@@ -47,7 +48,9 @@ const popupInheritProps = [
   'zIndex',
 ] as const;
 
-export const notifyProps = extend({}, popupSharedProps, {
+const notifyPopupProps = omit(popupSharedProps, ['duration']);
+
+export const notifyProps = extend({}, notifyPopupProps, {
   type: makeStringProp<NotifyType>('warning'),
   color: String,
   message: numericProp,
@@ -115,7 +118,7 @@ export default defineComponent({
       clearAutoCloseTimer();
       const autoCloseDuration = getNotifyAutoCloseDuration({
         persistent: props.persistent,
-        duration: props.duration,
+        duration: props.duration as number,
       });
       if (props.show && autoCloseDuration > 0) {
         autoCloseTimer = setTimeout(() => {

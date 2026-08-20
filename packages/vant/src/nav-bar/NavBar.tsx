@@ -17,8 +17,6 @@ import {
   numericProp,
   BORDER_BOTTOM,
   inBrowser,
-  addUnit,
-  isDef,
   getZIndexStyle,
   makeArrayProp,
   createNamespace,
@@ -38,7 +36,7 @@ import type { NavBarButton, NavBarMenuItem } from './types';
 const [name, bem] = createNamespace('nav-bar');
 
 /* ----按钮配置start---- */
-const defaultLeftButtonIcons = ['arrow-left', 'cross'];
+// 插槽名称
 const actionSlotNames = {
   left: ['left-action', 'left-extra-action'],
   right: ['right-action', 'right-extra-action'],
@@ -55,6 +53,7 @@ export const navBarProps = {
   border: truthProp,
   leftText: String,
   rightText: String,
+  // 按钮数组配置
   leftButtons: makeArrayProp<NavBarButton>(),
   rightButtons: makeArrayProp<NavBarButton>(),
   leftDisabled: Boolean,
@@ -89,21 +88,25 @@ export default defineComponent({
 
   setup(props, { emit, slots }) {
     /* ----基础状态start---- */
+
+    // 组件/元素的节点ref
     const navBarRef = ref<HTMLElement>();
     const leftRef = ref<HTMLElement>();
     const rightRef = ref<HTMLElement>();
     const titleRef = ref<HTMLElement>();
-    const titleFontSize = ref<number>();
-    const titleMaxWidth = ref<string>();
-    const searchLeft = ref<string>();
-    const searchRight = ref<string>();
-    const activeRightMenu = ref<number>();
+
+    const titleFontSize = ref<number>(); // 标题字体大小
+    const searchLeft = ref<string>(); // search模式下左侧宽度
+    const searchRight = ref<string>(); // search模式右侧宽度
+    const activeRightMenu = ref<number>(); // 按钮菜单索引
     const renderPlaceholder = usePlaceholder(navBarRef, bem);
 
     let rafId = 0;
     /* ----基础状态end---- */
 
-    /* ----基础点击事件start---- */
+    /* ----交互事件处理start---- */
+
+    // 基础按钮 -点击事件
     const onClickLeft = (event: MouseEvent) => {
       if (!props.leftDisabled) {
         emit('clickLeft', event);
@@ -114,148 +117,10 @@ export default defineComponent({
         emit('clickRight', event);
       }
     };
-    /* ----基础点击事件end---- */
-
-    /* ----按钮数据处理start---- */
-    const getLeftButtons = () => {
-      const hasText = props.leftArrow || props.leftText;
-      // 左侧文本/箭头本身占一个展示位，避免再叠加出第三个位置。
-      const maxCount = hasText ? 1 : 2;
-
-      // 未传 icon 时，按位置补齐返回/关闭默认图标。
-      return props.leftButtons.slice(0, maxCount).map((button, index) => ({
-        icon: defaultLeftButtonIcons[hasText ? index + 1 : index],
-        ...button,
-      }));
-    };
-
-    const getRightButtons = () => {
-      // 右侧文本占一个展示位，因此按钮最多保留一个。
-      const maxCount = props.rightText ? 1 : 2;
-      return props.rightButtons.slice(0, maxCount);
-    };
-    /* ----按钮数据处理end---- */
-
-    /* ----标题和搜索布局start---- */
-    // 搜索框只在没有标题和 title 插槽时接管中间区域。
-    const shouldRenderSearch = () =>
-      props.search && !props.title && !slots.title;
-
-    const updateTitleLayout = () => {
-      const navBar = navBarRef.value;
-      const gap =
-        navBar &&
-        parseFloat(
-          window
-            .getComputedStyle(navBar)
-            .getPropertyValue('--van-nav-bar-title-gap'),
-        );
-      const titleGap = gap || 6;
-      const edgeGap =
-        navBar &&
-        parseFloat(
-          window
-            .getComputedStyle(navBar)
-            .getPropertyValue('--van-nav-bar-horizontal-padding'),
-        );
-      const horizontalPadding = edgeGap || 8;
-      const buttonWidth =
-        navBar &&
-        parseFloat(
-          window
-            .getComputedStyle(navBar)
-            .getPropertyValue('--van-nav-bar-button-width'),
-        );
-      const actionWidth = buttonWidth || 28;
-      const getFallbackWidth = (count: number) =>
-        count ? count * actionWidth + horizontalPadding * 2 : 0;
-      // 初次渲染或 SSR 无真实宽度时，用展示位数量兜底估算。
-      const leftPositionCount =
-        (props.leftArrow || props.leftText ? 1 : 0) + getLeftButtons().length;
-      const rightPositionCount =
-        (props.rightText ? 1 : 0) + getRightButtons().length;
-      const leftWidth =
-        leftRef.value?.getBoundingClientRect().width ||
-        getFallbackWidth(slots.left ? 2 : leftPositionCount);
-      const rightWidth =
-        rightRef.value?.getBoundingClientRect().width ||
-        getFallbackWidth(slots.right ? 2 : rightPositionCount);
-      // 标题保持居中时，需要按较宽的一侧做对称避让。
-      const maxSideWidth = Math.max(leftWidth, rightWidth);
-      const nextTitleMaxWidth = maxSideWidth
-        ? `calc(100% - ${maxSideWidth * 2 + titleGap * 2}px)`
-        : undefined;
-      const nextSearchLeft = `${leftWidth ? leftWidth + titleGap : horizontalPadding}px`;
-      const nextSearchRight = `${rightWidth ? rightWidth + titleGap : horizontalPadding}px`;
-
-      if (titleMaxWidth.value !== nextTitleMaxWidth) {
-        titleMaxWidth.value = nextTitleMaxWidth;
-      }
-      if (searchLeft.value !== nextSearchLeft) {
-        searchLeft.value = nextSearchLeft;
-      }
-      if (searchRight.value !== nextSearchRight) {
-        searchRight.value = nextSearchRight;
-      }
-    };
-
-    const updateTitleFontSize = () => {
-      if (!inBrowser) {
-        return;
-      }
-
-      updateTitleLayout();
-
-      if (shouldRenderSearch()) {
-        titleFontSize.value = undefined;
-        return;
-      }
-
-      cancelAnimationFrame(rafId);
-      rafId = requestAnimationFrame(() => {
-        const title = titleRef.value;
-        if (!title) {
-          return;
-        }
-
-        // 先清空内联字号，避免上一次缩放影响本次默认字号计算。
-        const previousFontSize = title.style.fontSize;
-        title.style.fontSize = '';
-
-        const { fontSize } = window.getComputedStyle(title);
-        const minFontSize =
-          parseFloat(
-            window
-              .getComputedStyle(title)
-              .getPropertyValue('--van-nav-bar-title-min-font-size'),
-          ) || 14;
-        const maxFontSize = parseFloat(fontSize);
-
-        // 标题先按比例缩小，仍超出时交给省略样式截断。
-        const nextFontSize =
-          title.scrollWidth > title.clientWidth && title.clientWidth > 0
-            ? Math.max(
-                minFontSize,
-                Math.floor(
-                  (maxFontSize * title.clientWidth) / title.scrollWidth,
-                ),
-              )
-            : undefined;
-
-        title.style.fontSize = previousFontSize;
-
-        if (titleFontSize.value !== nextFontSize) {
-          titleFontSize.value = nextFontSize;
-        }
-      });
-    };
-    /* ----标题和搜索布局end---- */
-
-    /* ----交互事件处理start---- */
+    // 右侧菜单按钮交互事件处理
     const closeRightMenu = () => {
       activeRightMenu.value = undefined;
     };
-
     const onClickDocument = (event: MouseEvent) => {
       // 菜单打开后点击外部关闭，内部点击会被按钮/菜单事件拦截。
       if (
@@ -267,6 +132,7 @@ export default defineComponent({
       }
     };
 
+    // 左侧多按钮多按钮点击事件
     const onClickLeftButton = (
       button: NavBarButton,
       index: number,
@@ -277,7 +143,7 @@ export default defineComponent({
       if (props.leftDisabled || button.disabled) {
         return;
       }
-
+      // 返回按钮信息，索引，event元素
       emit('clickLeftButton', button, index, event);
 
       // 左侧第一个按钮默认承担返回语义，同时兼容原 click-left 事件。
@@ -285,7 +151,7 @@ export default defineComponent({
         emit('clickLeft', event);
       }
     };
-
+    // 右侧多按钮点击事件
     const onClickRightButton = (
       button: NavBarButton,
       index: number,
@@ -297,17 +163,16 @@ export default defineComponent({
         return;
       }
 
-      emit('clickRightButton', button, index, event);
-
-      // 有菜单时切换当前菜单；普通按钮点击后收起其它菜单。
+      // 有菜单时展示当前菜单；普通按钮点击后收起
       if (button.menu?.length) {
         activeRightMenu.value =
           activeRightMenu.value === index ? undefined : index;
       } else {
+        emit('clickRightButton', button, index, event);
         closeRightMenu();
       }
     };
-
+    // 右侧菜单按钮点击事件
     const onSelectRightMenu = (
       item: NavBarMenuItem,
       itemIndex: number,
@@ -325,22 +190,143 @@ export default defineComponent({
       emit('selectRightMenu', item, itemIndex, button, buttonIndex, event);
       closeRightMenu();
     };
-
+    // 更新搜索值的事件
     const onUpdateSearchValue = (value: string) => {
       emit('update:searchValue', value);
     };
-
+    // 点击搜索框左侧搜索按钮的事件
     const onClickSearchIcon = (event: MouseEvent) => {
       emit('search', props.searchValue ?? props.searchProps?.modelValue, event);
     };
     /* ----交互事件处理end---- */
 
+    /* ----多按钮输出处理start---- */
+
+    // 此处处理只是为了能获取到有效的buttons里的占位空间数据
+    const getLeftButtons = () => {
+      const hasText = props.leftArrow || props.leftText;
+      // 左侧文本/箭头本身占一个展示位，避免再叠加出第三个位置。
+      const maxCount = hasText ? 1 : 2;
+      // 返回按钮列表
+      return props.leftButtons.slice(0, maxCount);
+    };
+
+    const getRightButtons = () => {
+      // 右侧文本占一个展示位，因此按钮最多保留一个。
+      const maxCount = props.rightText ? 1 : 2;
+      return props.rightButtons.slice(0, maxCount);
+    };
+    /* ----按钮输出处理end---- */
+
+    /* ----动态计算布局大小----start */
+
+    // 搜索框只在没有标题和 title 插槽时接管中间区域。
+    const shouldRenderSearch = () =>
+      props.search && !props.title && !slots.title;
+
+    // 动态计算左右/标题宽度
+    // 根据左右两侧的宽度，来获取左右宽度
+    const updateTitleLayout = () => {
+      const navBar = navBarRef.value;
+      // 标题左右2侧预留的gap宽度
+      const gap =
+        navBar &&
+        parseFloat(
+          window
+            .getComputedStyle(navBar)
+            .getPropertyValue('--van-nav-bar-title-gap'),
+        );
+      const titleGap = gap || 6;
+      // 左侧右侧的左右距离
+      const edgeGap =
+        navBar &&
+        parseFloat(
+          window
+            .getComputedStyle(navBar)
+            .getPropertyValue('--van-nav-bar-horizontal-padding'),
+        );
+      const horizontalPadding = edgeGap || 8;
+
+      // 左右的具体宽度；实际宽度->插槽默认数量2->实际数量
+      const leftWidth = leftRef.value?.getBoundingClientRect().width || 0;
+      const rightWidth = rightRef.value?.getBoundingClientRect().width || 0;
+
+      // search情况下判断出left/right的宽度
+      const nextSearchLeft = `${leftWidth ? leftWidth + titleGap : horizontalPadding}px`;
+      const nextSearchRight = `${rightWidth ? rightWidth + titleGap : horizontalPadding}px`;
+
+      // 左侧search宽度
+      if (searchLeft.value !== nextSearchLeft) {
+        searchLeft.value = nextSearchLeft;
+      }
+      // 右侧search宽度
+      if (searchRight.value !== nextSearchRight) {
+        searchRight.value = nextSearchRight;
+      }
+    };
+
+    // 动态计算标题文字大小
+    const updateTitleFontSize = () => {
+      if (!inBrowser) {
+        return;
+      }
+
+      updateTitleLayout();
+      // 开启搜索模式后，没有标题了
+      if (shouldRenderSearch()) {
+        titleFontSize.value = undefined;
+        return;
+      }
+
+      cancelAnimationFrame(rafId);
+      rafId = requestAnimationFrame(() => {
+        const title = titleRef.value;
+        if (!title) {
+          return;
+        }
+
+        // 先清空内联字号，避免上一次缩放影响本次默认字号计算。
+        const previousFontSize = title.style.fontSize;
+        title.style.fontSize = '';
+        // 获取文字大小
+        const { fontSize } = window.getComputedStyle(title);
+        const minFontSize =
+          parseFloat(
+            window
+              .getComputedStyle(title)
+              .getPropertyValue('--van-nav-bar-title-min-font-size'),
+          ) || 14;
+        const maxFontSize = parseFloat(fontSize);
+
+        // 标题先滚动宽度和元素宽度 按比例缩小，仍超出时交给省略样式截断。
+        const nextFontSize =
+          title.scrollWidth > title.clientWidth && title.clientWidth > 0
+            ? Math.max(
+                minFontSize,
+                Math.floor(
+                  (maxFontSize * title.clientWidth) / title.scrollWidth,
+                ),
+              )
+            : undefined;
+
+        title.style.fontSize = previousFontSize;
+        // 字体赋值
+        if (titleFontSize.value !== nextFontSize) {
+          titleFontSize.value = nextFontSize;
+        }
+      });
+    };
+    /* ----动态计算布局大小----end */
+
     /* ----按钮和菜单渲染start---- */
+
+    // 左侧根据left-arrow left-text渲染指定内容
     const renderLegacyLeftContent = () => [
       props.leftArrow && <Icon class={bem('arrow')} name="arrow-left" />,
       props.leftText && <span class={bem('text')}>{props.leftText}</span>,
     ];
 
+    // 普通按钮渲染逻辑
     const renderButtonContent = (
       button: NavBarButton,
       index: number,
@@ -369,6 +355,7 @@ export default defineComponent({
       ];
     };
 
+    // 右侧菜单按钮渲染的逻辑
     const renderRightMenu = (button: NavBarButton, buttonIndex: number) => {
       // 菜单挂在按钮内部，配合 NavBar 提层避免被后续内容遮挡。
       const { menu } = button;
@@ -379,17 +366,15 @@ export default defineComponent({
 
       return (
         <div class={bem('menu-wrapper')}>
-          <div class={bem('menu-arrow')} />
+          <div class={bem('menu-arrow')}></div>
           <div class={bem('menu')} role="menu">
             {menu.map((item, itemIndex) => (
               <div
                 role="menuitem"
                 class={[
                   bem('menu-item', { disabled: item.disabled }),
-                  itemIndex !== menu.length - 1 ? BORDER_BOTTOM : '',
                   item.className,
                 ]}
-                style={{ color: item.color }}
                 tabindex={item.disabled ? undefined : 0}
                 aria-disabled={item.disabled || undefined}
                 onClick={(event) =>
@@ -401,9 +386,18 @@ export default defineComponent({
                     name={item.icon}
                     classPrefix={item.iconPrefix}
                     class={bem('menu-icon')}
+                    size={16}
+                    color={item.color}
                   />
                 )}
-                <span class={bem('menu-text')}>{item.text}</span>
+                <span
+                  class={[
+                    bem('menu-text'),
+                    { [BORDER_BOTTOM]: itemIndex < menu.length - 1 },
+                  ]}
+                >
+                  {item.text}
+                </span>
               </div>
             ))}
           </div>
@@ -411,6 +405,7 @@ export default defineComponent({
       );
     };
 
+    // 按钮渲染动作 --调用上方按钮渲染逻辑
     const renderAction = (
       button: NavBarButton,
       index: number,
@@ -420,13 +415,6 @@ export default defineComponent({
         button.disabled ||
         (side === 'left' ? props.leftDisabled : props.rightDisabled);
       const hasMenu = side === 'right' && !!button.menu?.length;
-      // size 同时控制按钮盒子和 Icon 字号；未设置时走 CSS 变量默认值。
-      const sizeStyle = isDef(button.size)
-        ? {
-            width: addUnit(button.size),
-            height: addUnit(button.size),
-          }
-        : {};
 
       return (
         <div
@@ -441,7 +429,6 @@ export default defineComponent({
           ]}
           style={{
             color: button.color,
-            ...sizeStyle,
           }}
           tabindex={disabled ? undefined : 0}
           aria-disabled={disabled || undefined}
@@ -452,6 +439,7 @@ export default defineComponent({
           }
         >
           {renderButtonContent(button, index, side)}
+          {/* 检测是否有右侧菜单 */}
           {side === 'right' && renderRightMenu(button, index)}
         </div>
       );
@@ -469,6 +457,7 @@ export default defineComponent({
       if (leftButtons.length) {
         return (
           <div class={bem('actions')}>
+            {/* 渲染左侧原本支持的arrow和text */}
             {(props.leftArrow || props.leftText) && (
               <div
                 class={[
@@ -484,9 +473,11 @@ export default defineComponent({
                   onClickLeft(event);
                 }}
               >
+                {/* 左侧箭头和文本 */}
                 {renderLegacyLeftContent()}
               </div>
             )}
+            {/* 渲染按钮 */}
             {leftButtons.map((button, index) =>
               renderAction(button, index, 'left'),
             )}
@@ -507,6 +498,7 @@ export default defineComponent({
       if (rightButtons.length) {
         return (
           <div class={bem('actions')}>
+            {/* 右侧通过rightText文本传递的 */}
             {props.rightText && (
               <span
                 class={[
@@ -523,6 +515,7 @@ export default defineComponent({
                 {props.rightText}
               </span>
             )}
+            {/* 渲染右侧按钮 */}
             {rightButtons.map((button, index) =>
               renderAction(button, index, 'right'),
             )}
@@ -560,7 +553,6 @@ export default defineComponent({
     const renderTitleContent = () => {
       const title = slots.title ? slots.title() : props.title;
       const subtitle = slots.subtitle ? slots.subtitle() : props.subtitle;
-
       if (subtitle) {
         return (
           <div class={bem('title-content')}>
@@ -569,24 +561,23 @@ export default defineComponent({
           </div>
         );
       }
-
       return title;
     };
 
+    // 渲染标题区域（标题/搜索）
     const renderTitle = (hasLeft: boolean, hasRight: boolean) => {
       const isSearch = shouldRenderSearch();
       const style: CSSProperties = {};
 
       if (titleFontSize.value) {
         style.fontSize = `${titleFontSize.value}px`;
+        style.lineHeight = `${titleFontSize.value}px`;
       }
 
+      // 左右两侧定制search定位
       if (isSearch) {
-        // 搜索态通过左右偏移吃满可用宽度；标题态通过 max-width 做居中避让。
         style.left = searchLeft.value;
         style.right = searchRight.value;
-      } else if (titleMaxWidth.value) {
-        style.maxWidth = titleMaxWidth.value;
       }
 
       return (
@@ -679,6 +670,7 @@ export default defineComponent({
 
     /* ----生命周期和布局监听start---- */
     onMounted(() => {
+      // 初始化计算font-size
       updateTitleFontSize();
 
       if (inBrowser) {

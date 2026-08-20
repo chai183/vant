@@ -20,94 +20,72 @@ app.use(NavBar);
 
 ### Basic Usage
 
+Set the nav bar title with the `title` prop.
+
 ```html
 <van-nav-bar title="Title" />
 ```
 
-### Back
+### Subtitle
+
+Set the nav bar subtitle with the `subtitle` prop.
+
+```html
+<van-nav-bar title="Title" subtitle="this is subtitle content message" />
+```
+
+### Custom Background
+
+Set the nav bar background with the `background` prop.
 
 ```html
 <van-nav-bar
   title="Title"
-  left-text="Back"
-  left-arrow
-  @click-left="onClickLeft"
+  background="linear-gradient(90deg, #e8f3ff, #ffffff)"
 />
 ```
 
-```js
-export default {
-  setup() {
-    const onClickLeft = () => history.back();
-    return {
-      onClickLeft,
-    };
-  },
-};
-```
+### Left and Right Content
 
-### Right Button
+Use text or buttons on the left and right sides. Up to two positions are displayed on each side, and right text displays up to four characters.
 
 ```html
 <van-nav-bar
   title="Title"
   left-text="Back"
-  right-text="Button"
+  right-text="four button"
   left-arrow
   @click-left="onClickLeft"
+  @click-right="onClickRight"
+/>
+
+<van-nav-bar
+  title="Title"
+  :left-buttons="leftButtons"
+  right-text="four button"
+  :right-buttons="rightButtons"
+  @click-left-button="onClickLeftButton"
+  @click-right-button="onClickRightButton"
   @click-right="onClickRight"
 />
 ```
 
 ```js
-import { showToast } from 'vant';
-
-export default {
-  setup() {
-    const onClickLeft = () => history.back();
-    const onClickRight = () => showToast('Button');
-    return {
-      onClickLeft,
-      onClickRight,
-    };
-  },
-};
+const leftButtons = [{ icon: 'arrow-left' }, { icon: 'cross' }];
+const rightButtons = [
+  { icon: 'search', size: 22 },
+  { icon: 'ellipsis', size: 22 },
+];
 ```
 
-### Use Slot
+### Dropdown Menu
 
-```html
-<van-nav-bar title="Title" left-text="Back" left-arrow>
-  <template #right>
-    <van-icon name="search" />
-  </template>
-</van-nav-bar>
-```
-
-### Disable Button
-
-Use the `left-disabled` or `right-disabled` props to disable the buttons on either side. The prop reduces the opacity of the button and makes it unclickable.
+Right buttons can configure a dropdown menu via `menu`. The menu width is `112px`, menu items are displayed vertically with a height of `48px`, and icons and text are supported.
 
 ```html
 <van-nav-bar
   title="Title"
-  left-text="Back"
-  right-text="Button"
-  left-arrow
-  left-disabled
-  right-disabled
-/>
-```
-
-### Multiple Buttons and Dropdown Menu
-
-Use `left-buttons` and `right-buttons` to place multiple buttons on both sides of the nav bar. Up to two buttons are displayed. When the left button icon is not set, the first button uses the back icon by default, and the second button uses the close icon by default. Right buttons can configure a dropdown menu via `menu`.
-
-```html
-<van-nav-bar
-  title="Title"
-  :left-buttons="leftButtons"
-  :right-buttons="rightButtons"
+  :right-buttons="menuButtons"
   @click-left-button="onClickLeftButton"
   @click-right-button="onClickRightButton"
   @select-right-menu="onSelectRightMenu"
@@ -115,17 +93,24 @@ Use `left-buttons` and `right-buttons` to place multiple buttons on both sides o
 ```
 
 ```js
-const leftButtons = [{}, {}];
-
-const rightButtons = [
+const menuButtons = [
+  { icon: 'search' },
   {
     icon: 'ellipsis',
     menu: [
-      { icon: 'search', text: 'Search' },
-      { icon: 'cross', text: 'Close' },
+      { icon: 'icon-xiangce', color: '#333', text: 'Customer Service' },
+      { icon: 'icon-xiangce', color: '#333', text: 'Following' },
     ],
   },
 ];
+```
+
+### Long Title
+
+When the title is too long, it first shrinks the font size. The minimum font size is `14px`; if it still overflows, it will be truncated.
+
+```html
+<van-nav-bar title="This is a very long title for NavBar display" />
 ```
 
 ### Search
@@ -134,6 +119,35 @@ When no title is set, you can use the `search` prop to render the title area as 
 
 ```html
 <van-nav-bar search search-placeholder="Search" @search="onSearch" />
+
+<van-nav-bar
+  search
+  :left-buttons="leftButtons2"
+  right-text="four button"
+  search-placeholder="Search"
+  @click-left-button="onClickLeftButton"
+  @click-right="onClickRight"
+  @search="onSearch"
+/>
+
+<van-nav-bar
+  search
+  :left-buttons="leftButtons"
+  :right-buttons="rightButtons"
+  search-placeholder="Search"
+  @click-left-button="onClickLeftButton"
+  @click-right-button="onClickRightButton"
+  @search="onSearch"
+/>
+```
+
+```js
+const leftButtons = [{ icon: 'arrow-left' }, { icon: 'cross' }];
+const leftButtons2 = [{ icon: 'diamond-o', size: 16, text: 'userHome' }];
+const rightButtons = [
+  { icon: 'search', size: 22 },
+  { icon: 'ellipsis', size: 22 },
+];
 ```
 
 ## API
@@ -204,16 +218,16 @@ import type {
 
 ### NavBarButton
 
-| Name | Description | Type |
-| --- | --- | --- |
-| icon | Icon name | _string_ |
-| iconPrefix | Icon class prefix | _string_ |
-| size | Icon size, also used as button width and height. Defaults to `28px` | _number \| string_ |
-| text | Button text | _string_ |
-| color | Button color | _string_ |
-| disabled | Whether to disable the button | _boolean_ |
-| className | Custom button class name | _string_ |
-| menu | Right button dropdown menu options | _NavBarMenuItem[]_ |
+| Name       | Description                        | Type               |
+| ---------- | ---------------------------------- | ------------------ |
+| icon       | Icon name                          | _string_           |
+| iconPrefix | Icon class prefix                  | _string_           |
+| size       | Icon size. Defaults to `28px`      | _number \| string_ |
+| text       | Button text                        | _string_           |
+| color      | Button color                       | _string_           |
+| disabled   | Whether to disable the button      | _boolean_          |
+| className  | Custom button class name           | _string_           |
+| menu       | Right button dropdown menu options | _NavBarMenuItem[]_ |
 
 ### NavBarMenuItem
 
@@ -232,34 +246,37 @@ import type {
 
 The component provides the following CSS variables, which can be used to customize styles. Please refer to [ConfigProvider component](#/en-US/config-provider).
 
-| Name                              | Default Value              | Description |
-| --------------------------------- | -------------------------- | ----------- |
-| --van-nav-bar-height              | _44px_                     | -           |
-| --van-nav-bar-background          | _var(--van-background-2)_  | -           |
-| --van-nav-bar-arrow-size          | _16px_                     | -           |
-| --van-nav-bar-icon-color          | _var(--van-primary-color)_ | -           |
-| --van-nav-bar-text-color          | _var(--van-primary-color)_ | -           |
-| --van-nav-bar-title-font-size     | _var(--van-font-size-lg)_  | -           |
-| --van-nav-bar-title-min-font-size | _14px_                     | -           |
-| --van-nav-bar-title-gap           | _6px_                      | -           |
-| --van-nav-bar-title-text-color    | _var(--van-text-color)_    | -           |
-| --van-nav-bar-subtitle-font-size  | _10px_                     | -           |
-| --van-nav-bar-subtitle-text-color | _#999_                     | -           |
-| --van-nav-bar-z-index             | _1_                        | -           |
-| --van-nav-bar-horizontal-padding  | _8px_                      | -           |
-| --van-nav-bar-button-gap          | _12px_                     | -           |
-| --van-nav-bar-button-width        | _28px_                     | -           |
-| --van-nav-bar-button-height       | _28px_                     | -           |
-| --van-nav-bar-button-icon-size    | _28px_                     | -           |
-| --van-nav-bar-menu-z-index        | _2000_                     | -           |
-| --van-nav-bar-menu-width          | _112px_                    | -           |
-| --van-nav-bar-menu-edge-gap       | _8px_                      | -           |
-| --van-nav-bar-menu-arrow-gap      | _2px_                      | -           |
-| --van-nav-bar-menu-arrow-width    | _10px_                     | -           |
-| --van-nav-bar-menu-arrow-height   | _4px_                      | -           |
-| --van-nav-bar-menu-arrow-color    | _#fff_                     | -           |
-| --van-nav-bar-menu-item-height    | _48px_                     | -           |
-| --van-nav-bar-menu-background     | _var(--van-background-2)_  | -           |
-| --van-nav-bar-search-height       | _32px_                     | -           |
-| --van-nav-bar-search-background   | _var(--van-background)_    | -           |
-| --van-nav-bar-search-radius       | _var(--van-radius-md)_     | -           |
+| Name | Default Value | Description |
+| --- | --- | --- |
+| --van-nav-bar-height | _44px_ | - |
+| --van-nav-bar-background | _var(--van-background-2)_ | - |
+| --van-nav-bar-arrow-size | _28px_ | - |
+| --van-nav-bar-icon-color | _var(--van-primary-color)_ | - |
+| --van-nav-bar-text-color | _var(--van-primary-color)_ | - |
+| --van-nav-bar-title-font-size | _18px_ | - |
+| --van-nav-bar-title-min-font-size | _14px_ | - |
+| --van-nav-bar-title-gap | _6px_ | - |
+| --van-nav-bar-title-text-color | _var(--van-text-color)_ | - |
+| --van-nav-bar-subtitle-font-size | _10px_ | - |
+| --van-nav-bar-subtitle-text-color | _#999_ | - |
+| --van-nav-bar-z-index | _1_ | - |
+| --van-nav-bar-disabled-opacity | _var(--van-disabled-opacity)_ | - |
+| --van-nav-bar-horizontal-padding | _8px_ | - |
+| --van-nav-bar-button-gap | _12px_ | - |
+| --van-nav-bar-button-width | _28px_ | - |
+| --van-nav-bar-button-height | _28px_ | - |
+| --van-nav-bar-button-icon-size | _28px_ | - |
+| --van-nav-bar-menu-z-index | _2000_ | - |
+| --van-nav-bar-menu-width | _112px_ | - |
+| --van-nav-bar-menu-item-height | _48px_ | - |
+| --van-nav-bar-menu-background | _var(--van-background-2)_ | - |
+| --van-nav-bar-search-height | _32px_ | - |
+| --van-nav-bar-search-background | _var(--van-background)_ | - |
+| --van-nav-bar-search-radius | _100px_ | - |
+| --van-title-max-width | _199px_ | - |
+| --van-nav-bar-menu-edge-gap | _8px_ | - |
+| --van-nav-bar-menu-arrow-gap | _2px_ | - |
+| --van-nav-bar-menu-arrow-width | _10px_ | - |
+| --van-nav-bar-menu-arrow-height | _4px_ | - |
+| --van-nav-bar-menu-arrow-color | _#ffffff_ | - |
+| --van-nav-bar-menu-radius | _4px_ | - |

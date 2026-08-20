@@ -39,13 +39,13 @@ import { showDialog } from 'vant';
 
 showDialog({
   title: '标题',
-  message: '代码是写出来给人看的，附带能在机器上运行。',
+  message: '告知当前状态、信息和解决方法，等内容。描述文案尽可能控制在2行内',
 }).then(() => {
   // on close
 });
 
 showDialog({
-  message: '生命远不止连轴转和忙到极限，人类的体验远比这辽阔、丰富得多。',
+  message: '告知当前状态、信息和解决方法，等内容。描述文案尽可能控制在2行内',
 }).then(() => {
   // on close
 });
@@ -60,8 +60,7 @@ import { showConfirmDialog } from 'vant';
 
 showConfirmDialog({
   title: '标题',
-  message:
-    '如果解决方法是丑陋的，那就肯定还有更好的解决方法，只是还没有发现而已。',
+  message: '描述文案多行展示样式，文字字数不宜过长，描述文案尽可能控制在2行内',
 })
   .then(() => {
     // on confirm
@@ -71,62 +70,250 @@ showConfirmDialog({
   });
 ```
 
-### 确认文案超过 5 个字符
+### 上下布局及多按钮
 
-当 `showCancelButton` 为 `true` 且 `confirmButtonText` 文案长度大于 `confirmButtonVerticalThreshold`（默认值为 `5`）时，底部按钮会自动切换为上下布局。
+#### 上下布局
+
+**涉及props**
+
+`confirmButtonText` 确认文案
+
+`confirmButtonVerticalThreshold` 按钮限制文本长度(超出开启上下布局)
+
+`actionButtons` 多按钮列表
+
+**开启条件**
+
+1. `showCancelButton`(展示取消按钮) 为 `true` 或使用 `showConfirmDialog`
+2. `confirmButtonText` 的文案长度大于 `confirmButtonVerticalThreshold`（默认值为 `6`）或传入 `actionButtons` 时，底部按钮会自动切换为上下布局
 
 ```js
 import { showConfirmDialog } from 'vant';
-
 showConfirmDialog({
   title: '标题',
-  message:
-    '如果解决方法是丑陋的，那就肯定还有更好的解决方法，只是还没有发现而已。',
+  message: '描述文案多行展示样式，文字字数不宜过长，描述文案尽可能控制在2行内',
+  confirmButtonText: '确认文本内容过长',
+  confirmButtonVerticalThreshold: 6,
+});
+```
+
+#### 多按钮
+
+确认按钮-多个操作按钮+1个取消按钮
+
+**按钮文本控制**
+
+最多显示 `verticalButtonMaxTextLength` 指定的字符数（默认 `15`）
+
+actionButtons[参考配置](#/zh-CN/dialog#lei-xing-ding-yi)多按钮配置
+
+注意:
+
+action为空时，会自动生成action名称
+
+当外层通过confirmButtonText或者cancelButtonText或使用ShowConfirmDialog等方式开启了确认按钮和取消按钮，actionButtons传递action为confirm、cancel无效，以外层为准（外部优先级更高）
+
+```js
+import { showConfirmDialog } from 'vant';
+showConfirmDialog({
+  title: '标题',
+  message: '描述文案多行展示样式，文字字数不宜过长，描述文案尽可能控制在2行内',
   confirmButtonText: '继续执行操作',
-  confirmButtonVerticalThreshold: 5,
-})
-  .then(() => {
-    // 点击了主确认按钮
-  })
-  .catch(() => {
-    // 点击了取消按钮
-  });
+  actionButtons: [
+    { action: 'detail', text: '查看详情', color: '#F00' },
+    { action: 'retry', text: '重新尝试', disabled: true },
+  ],
+}).then((action) => {
+  if (action == 'detail') {
+  }
+});
 ```
 
-### 多按钮与上下布局
+### 自定义颜色
 
-当传入 `actionButtons` 配置列表，或 `showCancelButton` 为 `true` 且 `confirmButtonText` 文案长度大于 `confirmButtonVerticalThreshold`（默认值为 `5`）时，底部按钮会自动切换为上下布局。`actionButtons` 用于配置确认按钮和取消按钮之间的操作按钮。内置确认、取消按钮优先级更高：当内置确认或取消按钮展示时，同名 `action` 的操作按钮会被忽略；当对应内置按钮未展示时，`actionButtons` 可以使用 `confirm` 或 `cancel` 作为 action。若存在重复 `action`，只保留最后一个有效项。单个按钮文案按单行展示，最多显示 `verticalButtonMaxTextLength` 指定的字符数（默认值为 `15`）。
+用于自定义按钮颜色。
+
+```js
+import { showConfirmDialog } from 'vant';
+
+showConfirmDialog({
+  message: '描述文案多行展示样式，文字字数不宜过长，描述文案尽可能控制在2行内',
+  title: '标题',
+  confirmButtonText: '警示操作', //确认按钮文本
+  confirmButtonColor: '#FF3333', //确认按钮颜色
+  showCancelButton: true,
+});
+```
+
+### 高亮支持
+
+**开启条件**
+
+1. 不使用 `allowHtml` 传输message
+2. 开启涉及高亮配置
+
+**涉及props**
+
+`messageHighlightConfig` 高亮配置
+
+**messageHighlightConfig**
+
+1. 复用van-highlight组件，参考[highlight 组件文档](#/zh-CN/highlight#props)能力
+2. 新增 `color` `style` 自定义颜色样式
+
+**函数使用**
+
+```ts
+import { showDialog } from 'vant';
+
+showDialog({
+  title: '标题',
+  message: '请先阅读《服务协议》，并确认“风险提示”内容。',
+  messageHighlightConfig: {
+    keywords: ['服务协议', '风险提示'],
+    color: '#ee0a24',
+    style: {
+      fontWeight: 600,
+      // fontStyle:'italic'
+    },
+  },
+});
+```
+
+**组件使用**
+
+```html
+<van-dialog
+  v-model:show="showHighlight"
+  title="标题"
+  message="highContent"
+  :message-highlight-config="messageHighlightConfig"
+  show-cancel-button
+></van-dialog>
+```
+
+```ts
+import { ref } from 'vue';
+const showHighlight = ref(false);
+const highContent = ref('请先阅读《服务协议》，并确认“风险提示”内容。');
+const messageHighlightConfig = {
+  keywords: ['服务协议', '风险提示'],
+  color: '#ee0a24',
+  style: {
+    fontWeight: 600,
+    fontStyle: 'italic',
+  },
+};
+```
+
+### 内置输入框
+
+在保留 `title` `message` 的基础上，内容区追加一个内置输入框
+
+**涉及props**
+
+`inputValue` 输入框内容
+
+`inputConfig` 输入框配置
+
+**inputConfig**
+
+1. 内置van-field的部分能力，参考[field 组件文档](#/zh-CN/field#props)能力
+2. 新增默认校验触发时机 `validateTrigger`
+3. `type`: `text` 文本 `textarea` 文本域
+
+**函数调用**
 
 ```js
 import { showConfirmDialog } from 'vant';
 
 showConfirmDialog({
   title: '标题',
-  message:
-    '如果解决方法是丑陋的，那就肯定还有更好的解决方法，只是还没有发现而已。',
-  actionButtons: [
-    { action: 'detail', text: '查看详细信息' },
-    { action: 'retry', text: '重新尝试' },
-  ],
-  confirmButtonVerticalThreshold: 5,
-  verticalButtonMaxTextLength: 15,
-})
-  .then((action) => {
-    if (action === 'detail') {
-      // 点击了查看详细信息按钮
-      return;
-    }
+  message: '这是一段对话框信息',
+  inputValue: '',
+  inputConfig: {
+    type: 'text',
+    placeholder: '请输入内容',
+    clearable: true,
+    maxlength: 20,
+    rules: [{ required: true, message: '这是必填项' }],
+    validateTrigger: 'onBlur',
+  },
+});
 
-    // 点击了主确认按钮
-  })
-  .catch(() => {
-    // 点击了取消按钮
-  });
+showConfirmDialog({
+  title: '标题',
+  message: '这是一段对话框信息',
+  inputValue: '',
+  inputConfig: {
+    type: 'textarea',
+    placeholder: '请输入内容',
+    maxlength: 100,
+    showWordLimit: true,
+    autoSize: true,
+    rules: [{ required: true, message: '这是必填项' }],
+    validateTrigger: ['onBlur'],
+  },
+});
 ```
 
+**组件调用**
+
+```html
+<van-dialog
+  v-model:show="showComponentInput"
+  v-model:input-value="componentInputValue"
+  title="标题"
+  message="这是一段输入信息"
+  :input-config="textInputConfig"
+  show-cancel-button
+/>
+<van-dialog
+  v-model:show="showComponentValidation"
+  v-model:input-value="componentValidationValue"
+  title="标题"
+  message="这是一段验证的手机号"
+  :input-config="validationInputConfig"
+  show-cancel-button
+/>
+```
+
+```js
+import { ref } from 'vue';
+// 组件短文本
+const showComponentInput = ref(false);
+const componentInputValue = ref('');
+const textInputConfig = ref({
+  type: 'text',
+  placeholder: '请输入内容',
+  clearable: true,
+  maxlength: 20,
+  rules: [{ required: true, message: '这是必填项' }],
+  validateTrigger: 'onBlur',
+});
+// 组件验证
+const showComponentValidation = ref(false);
+const componentValidationValue = ref('');
+const validationInputConfig = ref({
+  placeholder: '请输入内容',
+  clearable: true,
+  maxlength: 11,
+  validateTrigger: ['onBlur', 'onConfirm'],
+  rules: [
+    { required: true, message: '这是必填项' },
+    {
+      pattern: /^1[3-9]\d{9}$/,
+      message: '请输入正确的11位手机号',
+      trigger: ['onBlur', 'onSubmit'],
+    },
+  ],
+});
+```
+
+<!--
 ### 圆角按钮风格
 
-将 theme 选项设置为 `round-button` 可以展示圆角按钮风格的弹窗。
+将 `theme` 选项设置为 `round-button` 可以展示圆角按钮风格的弹窗。
 
 ```js
 import { showDialog } from 'vant';
@@ -157,7 +344,7 @@ import { showConfirmDialog } from 'vant';
 const beforeClose = (action) =>
   new Promise((resolve) => {
     setTimeout(() => {
-      // action !== 'confirm'  拦截取消操作
+      // action !== 'confirm' 拦截取消操作
       resolve(action === 'confirm');
     }, 1000);
   });
@@ -170,45 +357,27 @@ showConfirmDialog({
 });
 ```
 
-### 内置输入框
+### 使用 Dialog 组件
 
-通过 `inputConfig` 可以在保留 `title` 和 `message` 的同时，在内容区追加一个内置输入框。该输入框基于 `Field` 组件实现，支持短文本、长文本、校验、字数限制等能力。
-
-```js
-import { showConfirmDialog } from 'vant';
-
-showConfirmDialog({
-  title: '标题',
-  message: '请输入备注内容',
-  inputConfig: {
-    type: 'textarea',
-    placeholder: '请输入备注',
-    maxlength: 100,
-    showWordLimit: true,
-    autosize: true,
-    rules: [{ required: true, message: '请输入备注' }],
-  },
-  callback(action, inputValue) {
-    if (action === 'confirm') {
-      console.log(inputValue);
-    }
-  },
-});
-```
+如果你需要在 Dialog 内嵌入组件或其他自定义内容，可以直接使用 Dialog 组件，并使用默认插槽进行定制。使用前需要通过 `app.use` 等方式注册组件。
 
 ```html
-<van-dialog
-  v-model:show="show"
-  v-model:input-value="inputValue"
-  title="标题"
-  message="请输入姓名"
-  :input-config="{
-    placeholder: '请输入姓名',
-    rules: [{ required: true, message: '请输入姓名' }],
-  }"
-  show-cancel-button
-/>
+<van-dialog v-model:show="show" title="标题" show-cancel-button>
+  <img src="https://fastly.jsdelivr.net/npm/@vant/assets/apple-3.jpeg" />
+</van-dialog>
 ```
+
+```js
+import { ref } from 'vue';
+
+export default {
+  setup() {
+    const show = ref(false);
+    return { show };
+  },
+};
+```
+-->
 
 ## API
 
@@ -234,20 +403,20 @@ Vant 中导出了以下 Dialog 相关的辅助函数：
 | width | 弹窗宽度，默认单位为 `px` | _number \| string_ | `320px` |
 | message | 文本内容，支持通过 `\n` 换行 | _string \| () => JSX.Element_ | - |
 | messageAlign | 内容对齐方式，可选值为 `left` `right` `justify` | _string_ | `center` |
-| messageHighlightConfig | 字符串消息的高亮配置，开启 `allowHtml` 时不生效 | _DialogMessageHighlightConfig_ | - |
-| inputValue | 内置输入框的当前值，可配合 `onUpdate:inputValue` 使用 | _string_ | - |
-| inputConfig | 内置输入框配置，保留 `title` 和 `message` 的同时，在内容区追加一个基于 `Field` 的输入框 | _DialogInputConfig_ | - |
+| messageHighlightConfig `new` | 字符串高亮配置，开启 `allowHtml` 时不生效 | _DialogMessageHighlightConfig_ | - |
+| inputValue `new` | 内置输入框的当前值 | _string_ | - |
+| inputConfig `new` | 内置输入框配置 | _DialogInputConfig_ | - |
 | theme | 样式风格，可选值为 `round-button` | _string_ | `default` |
 | className | 自定义类名 | _string \| Array \| object_ | - |
-| callback | 关闭时的回调函数，使用 `inputConfig` 时第二个参数为当前输入值 | _(action?: string, inputValue?: string) => void_ | - |
+| callback | 关闭时的回调函数，使用 `inputConfig` 时第二个参数为输入值 | _(action: string, inputValue?: string) => void_ | - |
 | showConfirmButton | 是否展示确认按钮 | _boolean_ | `true` |
 | showCancelButton | 是否展示取消按钮 | _boolean_ | `false` |
 | confirmButtonText | 确认按钮文案 | _string_ | `我知道了`（提示弹窗） / `主要操作`（确认弹窗） |
 | confirmButtonColor | 确认按钮颜色 | _string_ | `#ee0a24` |
 | confirmButtonDisabled | 是否禁用确认按钮 | _boolean_ | `false` |
-| actionButtons `new` | 确认按钮和取消按钮之间的自定义操作按钮配置列表 | _DialogButton[]_ | - |
-| confirmButtonVerticalThreshold | 开启 `showCancelButton` 时，触发底部按钮切换为上下布局的确认文案长度阈值 | _number \| string_ | `5` |
-| verticalButtonMaxTextLength | 上下布局下单个按钮文案最多显示的字符数 | _number \| string_ | `15` |
+| confirmButtonVerticalThreshold `new` | 限制确认按钮文本的长度最大值，大于此值，开启按钮上下布局 | _number \| string_ | `6` |
+| actionButtons `new` | 操作按钮集合（会开启上下布局） | _DialogButton[]_ | - |
+| verticalButtonMaxTextLength `new` | 按钮上下布局中单个按钮最多显示的字符数 | _number \| string_ | `15` |
 | cancelButtonText | 取消按钮文案 | _string_ | `取消` |
 | cancelButtonColor | 取消按钮颜色 | _string_ | `black` |
 | cancelButtonDisabled | 是否禁用取消按钮 | _boolean_ | `false` |
@@ -259,15 +428,10 @@ Vant 中导出了以下 Dialog 相关的辅助函数：
 | closeOnClickOverlay | 是否在点击遮罩层后关闭弹窗 | _boolean_ | `false` |
 | lockScroll | 是否锁定背景滚动 | _boolean_ | `true` |
 | allowHtml | 是否允许 message 内容中渲染 HTML | _boolean_ | `false` |
-| beforeClose | 关闭前的回调函数，返回 `false` 可阻止关闭，支持返回 Promise。使用 `inputConfig` 时第二个参数为当前输入值 | _(action: string, inputValue?: string) => boolean \| Promise\<boolean\>_ | - |
-| onUpdate:inputValue | 内置输入框值变化时触发 | _(value: string) => void_ | - |
+| beforeClose | 关闭前的回调函数，返回 `false` 可阻止关闭，支持返回 Promise，开启内置输入框，第二参数为输入值 | _(action: string, inputValue?: string) => boolean \| Promise\<boolean\>_ | - |
 | transition | 动画类名，等价于 [transition](https://cn.vuejs.org/api/built-in-components.html#transition) 的 `name` 属性 | _string_ | - |
 | teleport | 指定挂载的节点，等同于 Teleport 组件的 [to 属性](https://cn.vuejs.org/api/built-in-components.html#teleport) | _string \| Element_ | `body` |
 | keyboardEnabled | 是否启用键盘能力，在展示确认和取消按钮的时候，默认情况下键盘的 `Enter` 和 `Esc` 会执行 `confirm` 和 `cancel` 函数 | _boolean_ | `true` |
-
-当 `message` 为字符串且 `allowHtml` 为 `false` 时，可以通过 `messageHighlightConfig` 配置消息中的高亮关键词。该配置基于 `Highlight` 组件做适配，并额外支持 `color` 与 `style`。
-
-当你希望保留 `message`，同时在其下方追加一个输入框时，可以使用 `inputConfig`。它会直接复用 `Field` 的输入、校验和字数统计能力。
 
 ### Props
 
@@ -280,18 +444,18 @@ Vant 中导出了以下 Dialog 相关的辅助函数：
 | width | 弹窗宽度，默认单位为 `px` | _number \| string_ | `320px` |
 | message | 文本内容，支持通过 `\n` 换行 | _string \| () => JSX.Element_ | - |
 | message-align | 内容水平对齐方式，可选值为 `left` `right` `justify` | _string_ | `center` |
-| message-highlight-config | 字符串消息的高亮配置，开启 `allowHtml` 时不生效 | _[DialogMessageHighlightConfig](#类型定义)_ | - |
-| v-model:input-value | 内置输入框的当前值 | _string_ | - |
-| input-config | 内置输入框配置，保留 `title` 和 `message` 的同时，在内容区追加一个基于 `Field` 的输入框 | _[DialogInputConfig](#类型定义)_ | - |
+| message-highlight-config `new` | 字符串高亮配置，开启 `allowHtml` 时不生效 | _[DialogMessageHighlightConfig](#类型定义)_ | - |
+| v-model:input-value `new` | 内置输入框的当前值 | _string_ | - |
+| input-config `new` | 内置输入框配置 | _[DialogInputConfig](#类型定义)_ | - |
 | theme | 样式风格，可选值为 `round-button` | _string_ | `default` |
 | show-confirm-button | 是否展示确认按钮 | _boolean_ | `true` |
 | show-cancel-button | 是否展示取消按钮 | _boolean_ | `false` |
 | confirm-button-text | 确认按钮文案 | _string_ | `我知道了`（提示弹窗） / `主要操作`（确认弹窗） |
 | confirm-button-color | 确认按钮颜色 | _string_ | `#ee0a24` |
 | confirm-button-disabled | 是否禁用确认按钮 | _boolean_ | `false` |
-| action-buttons | 确认按钮和取消按钮之间的自定义操作按钮配置列表 | _[DialogButton[]](#类型定义)_ | - |
-| confirm-button-vertical-threshold | 开启 `showCancelButton` 时，触发底部按钮切换为上下布局的确认文案长度阈值 | _number \| string_ | `5` |
-| vertical-button-max-text-length | 上下布局下单个按钮文案最多显示的字符数 | _number \| string_ | `15` |
+| confirm-button-vertical-threshold `new` | 限制确认按钮文本的长度最大值，大于此值，开启按钮上下布局 | _number \| string_ | `6` |
+| vertical-button-max-text-length `new` | 按钮上下布局中单个按钮最多显示的字符数 | _number \| string_ | `15` |
+| action-buttons `new` | 操作按钮集合（会开启上下布局） | _[DialogButton[]](#类型定义)_ | - |
 | cancel-button-text | 取消按钮文案 | _string_ | `取消` |
 | cancel-button-color | 取消按钮颜色 | _string_ | `black` |
 | cancel-button-disabled | 是否禁用取消按钮 | _boolean_ | `false` |
@@ -305,7 +469,7 @@ Vant 中导出了以下 Dialog 相关的辅助函数：
 | lazy-render | 是否在显示弹层时才渲染节点 | _boolean_ | `true` |
 | lock-scroll | 是否锁定背景滚动 | _boolean_ | `true` |
 | allow-html | 是否允许 message 内容中渲染 HTML | _boolean_ | `false` |
-| before-close | 关闭前的回调函数，返回 `false` 可阻止关闭，支持返回 Promise。使用 `inputConfig` 时第二个参数为当前输入值 | _(action: string, inputValue?: string) => boolean \| Promise\<boolean\>_ | - |
+| before-close | 关闭前的回调函数，返回 `false` 可阻止关闭，支持返回 Promise，开启内置输入框，第二参数为输入值 | _(action: string, inputValue?: string) => boolean \| Promise\<boolean\>_ | - |
 | transition | 动画类名，等价于 [transition](https://cn.vuejs.org/api/built-in-components.html#transition) 的 `name` 属性 | _string_ | - |
 | teleport | 指定挂载的节点，等同于 Teleport 组件的 [to 属性](https://cn.vuejs.org/api/built-in-components.html#teleport) | _string \| Element_ | - |
 | keyboard-enabled | 是否启用键盘能力，在展示确认和取消按钮的时候，默认情况下键盘的 `Enter` 和 `Esc` 会执行 `confirm` 和 `cancel` 函数 | _boolean_ | `true` |
@@ -316,10 +480,9 @@ Vant 中导出了以下 Dialog 相关的辅助函数：
 
 | 事件名 | 说明 | 回调参数 |
 | --- | --- | --- |
-| confirm | 点击确认按钮时触发 | _inputValue?: string_ |
-| cancel | 点击取消按钮时触发 | _inputValue?: string_ |
-| click-button | 点击 action-buttons 中的按钮时触发 | _action: string, button: DialogButton, inputValue?: string_ |
-| update:input-value | 内置输入框值变化时触发 | _value: string_ |
+| confirm | 点击确认按钮时触发，含有内置输入框时具有返回值 | _inputValue?: string_ |
+| cancel | 点击取消按钮时触发，含有内置输入框时具有返回值 | _inputValue?: string_ |
+| click-button `new` | 点击 actionButtons 中的按钮时触发 | _action: string, button: DialogButton, inputValue?: string_ |
 | open | 打开弹窗时触发 | - |
 | close | 关闭弹窗时触发 | - |
 | opened | 打开弹窗且动画结束后触发 | - |
@@ -343,22 +506,54 @@ Vant 中导出了以下 Dialog 相关的辅助函数：
 import type {
   DialogProps,
   DialogAction,
-  DialogButton,
   DialogTheme,
+  DialogButton,
   DialogMessage,
   DialogOptions,
+  DialogMessageAlign,
+  DialogMessageHighlightConfig,
   DialogInputType,
   DialogInputConfig,
-  DialogMessageAlign,
   DialogInputValidateTrigger,
-  DialogMessageHighlightConfig,
 } from 'vant';
 ```
 
+**多按钮配置**
+
+```ts
+type DialogButton = {
+  action: DialogAction;
+  text: string;
+  color?: string;
+  disabled?: boolean;
+  className?: string;
+  [key: PropertyKey]: any;
+};
+```
+
+**高亮配置类型**
+
 ```ts
 import type { CSSProperties } from 'vue';
-import type {
+type DialogMessageHighlightConfig = {
+  keywords: string | string[];
+  color?: string;
+  style?: CSSProperties;
+  autoEscape?: boolean;
+  caseSensitive?: boolean;
+  highlightTag?: keyof HTMLElementTagNameMap;
+  highlightClass?: string;
+  unhighlightClass?: string;
+  unhighlightTag?: keyof HTMLElementTagNameMap;
+};
+```
+
+**内置输入框配置类型**
+
+```ts
+import {
   FieldRule,
+  FieldType,
   FieldTextAlign,
   FieldClearTrigger,
   FieldFormatTrigger,
@@ -366,27 +561,18 @@ import type {
   FieldEnterKeyHint,
 } from 'vant';
 
-type DialogMessageHighlightConfig = {
-  keywords: string | string[];
-  color?: string;
-  style?: CSSProperties;
-  autoEscape?: boolean;
-  caseSensitive?: boolean;
-  highlightClass?: string;
-  highlightTag?: keyof HTMLElementTagNameMap;
-  unhighlightClass?: string;
-  unhighlightTag?: keyof HTMLElementTagNameMap;
-};
-
+// 输入框类型
 type DialogInputType = 'text' | 'textarea';
+// 验证事件类型
 type DialogInputValidateTrigger = 'onBlur' | 'onChange' | 'onConfirm';
 
+// inputConfig配置
 type DialogInputConfig = {
   type?: DialogInputType;
   defaultValue?: string;
   placeholder?: string;
-  maxlength?: number | string;
-  rows?: number | string;
+  maxlength?: Numeric;
+  rows?: Numeric;
   clearable?: boolean;
   clearIcon?: string;
   readonly?: boolean;
@@ -414,22 +600,22 @@ type DialogInputConfig = {
 
 | 名称 | 默认值 | 描述 |
 | --- | --- | --- |
-| --van-dialog-width | _320px_ | - |
+| --van-dialog-width | _311px_ | - |
 | --van-dialog-small-screen-width | _90%_ | - |
-| --van-dialog-font-size | _var(--van-font-size-lg)_ | - |
+| --van-dialog-font-size | _var(--van-font-size-md)_ | - |
 | --van-dialog-transition | _var(--van-duration-base)_ | - |
-| --van-dialog-radius | _16px_ | - |
+| --van-dialog-radius | _8px_ | - |
 | --van-dialog-background | _var(--van-background-2)_ | - |
-| --van-dialog-header-font-weight | _var(--van-font-bold)_ | - |
-| --van-dialog-header-line-height | _24px_ | - |
-| --van-dialog-header-padding-top | _26px_ | - |
+| --van-dialog-header-font-weight | _var(--van-font-Medium)_ | - |
+| --van-dialog-header-line-height | _16px_ | - |
+| --van-dialog-header-padding-top | _24px_ | - |
 | --van-dialog-header-isolated-padding | _var(--van-padding-lg) 0_ | - |
 | --van-dialog-message-padding | _var(--van-padding-lg)_ | - |
 | --van-dialog-message-font-size | _var(--van-font-size-md)_ | - |
-| --van-dialog-message-line-height | _var(--van-line-height-md)_ | - |
-| --van-dialog-message-max-height | _60vh_ | - |
-| --van-dialog-has-title-message-text-color | _var(--van-gray-7)_ | - |
-| --van-dialog-has-title-message-padding-top | _var(--van-padding-xs)_ | - |
+| --van-dialog-message-line-height | _var(--van-line-height-xl)_ | - |
+| --van-dialog-message-max-height | _488px_ | - |
+| --van-dialog-has-title-message-text-color | _var(--van-gray-11)_ | - |
+| --van-dialog-has-title-message-padding-top | _var(--van-padding-md)_ | - |
 | --van-dialog-button-height | _48px_ | - |
 | --van-dialog-round-button-height | _36px_ | - |
 | --van-dialog-confirm-button-text-color | _var(--van-primary-color)_ | - |

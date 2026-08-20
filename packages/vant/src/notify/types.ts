@@ -25,8 +25,10 @@ export type NotifyOptions = {
   buttonText?: string;
   closeable?: boolean;
   wrapable?: boolean;
+
   /** 为 true 时文案超出一行将自动向上滚动；为 false 时最多展示两行，超出省略 */
   scrollable?: boolean;
+  plain?: boolean;
   speed?: Numeric;
   scrollDelay?: number;
   onClick?: (event: MouseEvent) => void;

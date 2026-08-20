@@ -16,7 +16,7 @@
   --van-dialog-message-max-height: 488px;
   --van-dialog-has-title-message-text-color: var(--van-gray-10);
   --van-dialog-has-title-message-padding-top: var(--van-padding-md);
-  --van-dialog-has-title-message-padding-bottom: var(--van-padding-md);
+  --van-dialog-has-form-message-padding-bottom: var(--van-padding-md);
   --van-dialog-button-height: 48px;
   --van-dialog-round-button-height: 36px;
   --van-dialog-confirm-button-text-color: var(--van-primary-color);
@@ -62,7 +62,7 @@
   &__message {
     color: var(--van-text-color);
     flex: 1;
-    padding: 26px var(--van-dialog-message-padding);
+    padding: 24px var(--van-dialog-message-padding);
     font-size: var(--van-dialog-message-font-size);
     line-height: var(--van-dialog-message-line-height);
 
@@ -132,7 +132,7 @@
       .van-field__control {
         font-size: var(--van-font-size-lg);
         line-height: 16px;
-        color: #333;
+        color: var(--van-text-color);
         &::placeholder {
           font-size: var(--van-font-size-lg);
           line-height: 16px;
@@ -158,7 +158,6 @@
     flex: 1;
     height: var(--van-dialog-button-height);
     margin: 0;
-    // border: 0;
     border-radius: 0;
   }
 
@@ -184,8 +183,6 @@
     &--vertical& {
       flex: none;
       width: 100%;
-      border-right: 0;
-      border-top: 0.5px solid var(--van-border-color);
       &:not(:first-child) {
         &::after {
           border-right: 0;

@@ -1,5 +1,6 @@
 import type { CSSProperties, TeleportProps } from 'vue';
 import type { HighlightProps } from '../highlight';
+import type { Interceptor, Numeric } from '../utils';
 import type {
   FieldRule,
   FieldType,
@@ -9,8 +10,6 @@ import type {
   FieldAutosizeConfig,
   FieldEnterKeyHint,
 } from '../field';
-import type { Interceptor, Numeric } from '../utils';
-
 export type DialogTheme = 'default' | 'round-button';
 export type DialogAction =
   | 'confirm'
@@ -18,6 +17,7 @@ export type DialogAction =
   | (string & Record<never, never>);
 export type DialogMessage = string | (() => JSX.Element);
 export type DialogMessageAlign = 'left' | 'center' | 'right' | 'justify';
+// 输入框类型
 export type DialogInputType = Extract<FieldType, 'text' | 'textarea'>;
 export type DialogInputValidateTrigger = 'onBlur' | 'onChange' | 'onConfirm';
 
@@ -47,8 +47,7 @@ export type DialogMessageHighlightConfig = Partial<
   style?: CSSProperties;
 };
 
-// Dialog 内置输入框配置：在保留 title 和 message 的同时，
-// 复用 Field 的文本输入、长文本、字数限制和校验能力。
+// 输入框配置
 export type DialogInputConfig = {
   type?: DialogInputType;
   defaultValue?: string;

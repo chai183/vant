@@ -25,7 +25,7 @@ const DEFAULT_OPTIONS = {
   inputValue: undefined,
   inputConfig: undefined,
   cancelButtonText: '',
-  cancelButtonColor: null,
+  cancelButtonColor: '#333333',
   cancelButtonDisabled: false,
   confirmButtonText: '',
   confirmButtonColor: null,
@@ -47,7 +47,8 @@ function initInstance() {
     setup() {
       const { state, toggle } = usePopupState();
       const onUpdateInputValue = (value: string) => {
-        state.inputValue = value;
+        const nextValue = value ?? '';
+        state.inputValue = nextValue;
         state['onUpdate:inputValue']?.(value);
       };
       return () => (
@@ -88,7 +89,7 @@ export function showDialog(
           if (action && action !== 'cancel') {
             resolve(action);
           } else {
-            reject(action);
+            reject('action');
           }
         },
       }),

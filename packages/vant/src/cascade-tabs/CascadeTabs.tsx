@@ -65,7 +65,7 @@ export default defineComponent({
       let options = props.options;
 
       for (let i = 0; i < level; i++) {
-        const index = activePath.value[i] ?? 0;
+        const index = +(activePath.value[i] ?? 0);
         options = options[index]?.children ?? [];
       }
 
@@ -77,7 +77,7 @@ export default defineComponent({
       let options = props.options;
 
       for (let level = 0; level < levelCount.value; level++) {
-        const index = path[level] ?? 0;
+        const index = +(path[level] ?? 0);
         const current = options[index];
         if (!current) {
           break;
@@ -115,11 +115,12 @@ export default defineComponent({
 
         for (let level = 0; level < levelCount.value; level++) {
           const maxIndex = Math.max(options.length - 1, 0);
-          if ((path[level] ?? 0) > maxIndex) {
+          let index = +(path[level] ?? 0);
+          if (index > maxIndex) {
+            index = maxIndex;
             path[level] = maxIndex;
             changed = true;
           }
-          const index = path[level] ?? 0;
           options = options[index]?.children ?? [];
         }
 

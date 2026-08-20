@@ -37,6 +37,7 @@ export type NavBarThemeVars = {
   navBarSubtitleFontSize?: string;
   navBarSubtitleTextColor?: string;
   navBarZIndex?: number | string;
+  navBarDisabledOpacity?: string;
   navBarButtonGap?: string;
   navBarHorizontalPadding?: string;
   navBarButtonWidth?: string;
@@ -51,7 +52,9 @@ export type NavBarThemeVars = {
   navBarMenuArrowColor?: string;
   navBarMenuItemHeight?: string;
   navBarMenuBackground?: string;
+  navBarMenuRadius?: string;
   navBarSearchHeight?: string;
   navBarSearchBackground?: string;
   navBarSearchRadius?: string;
+  titleMaxWidth?: string;
 };

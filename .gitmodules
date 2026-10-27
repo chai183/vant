@@ -1,0 +1,3 @@
+[submodule "packages/digital-workforce"]
+	path = packages/digital-workforce
+	url = https://gitee.com/chai826/digital-workforce.git

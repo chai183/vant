@@ -1,0 +1,10 @@
+node_modules/
+output/
+restored/
+restored-ocr/
+restored-ocr-*/
+restored-phone/
+.bin/
+.tmp-ocr/
+.tmp-ocr-cols/
+.DS_Store

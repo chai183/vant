@@ -107,10 +107,12 @@ export default defineComponent({
     });
 
     const shape = computed(() => {
+      const fallback = props.role === 'radio' ? 'round' : 'square';
+
       if (isListMode.value) {
-        return props.shape || 'round';
+        return props.shape || fallback;
       }
-      return props.shape || getParentProp('shape') || 'round';
+      return props.shape || getParentProp('shape') || fallback;
     });
 
     const isBlockShape = computed(() => shape.value === 'block');
@@ -173,10 +175,13 @@ export default defineComponent({
           {slots.icon ? (
             slots.icon({ checked, disabled: disabled.value })
           ) : shape.value !== 'dot' ? (
-            <Icon
-              name={indeterminate ? 'minus' : 'success'}
-              style={iconStyle.value}
-            />
+            indeterminate ? (
+              <span class="van-icon" style={iconStyle.value}>
+                <span class={bem('icon-line')} />
+              </span>
+            ) : (
+              <Icon name="success" style={iconStyle.value} />
+            )
           ) : (
             <div
               class={bem('icon--dot__icon')}
@@ -229,8 +234,7 @@ export default defineComponent({
               'label-disabled': props.labelDisabled,
               block: isBlockShape.value,
               checked: isBlockShape.value && props.checked,
-              indeterminate:
-                isBlockShape.value && props.indeterminate === true,
+              indeterminate: isBlockShape.value && props.indeterminate === true,
             },
             direction.value,
           ])}

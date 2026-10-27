@@ -39,6 +39,7 @@ export type CardFooterButton = {
   text: string;
   name?: string | number; // click-button 回调标识
   color?: string; // 自定义颜色：text 仅文字；outline 文字 + 边框
+  disabled?: boolean;
 };
 
 export type CardTagOption = Partial<

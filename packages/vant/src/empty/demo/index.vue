@@ -44,8 +44,8 @@ const active = ref('error');
 
     <!-- 插图 + 文字型 + 按钮型 -->
     <van-empty :description="t('description')">
-      <van-button round type="primary" class="bottom-button">
-        {{ t('button') }}
+      <van-button :width="96" round type="primary" class="bottom-button">
+        去添加
       </van-button>
     </van-empty>
 
@@ -54,8 +54,8 @@ const active = ref('error');
       :description="t('description')"
       :secondary-description="t('secondaryDescription')"
     >
-      <van-button round type="primary" class="bottom-button">
-        {{ t('button') }}
+      <van-button :width="96" round type="primary" class="bottom-button">
+        去添加
       </van-button>
     </van-empty>
   </demo-block>
@@ -88,8 +88,8 @@ const active = ref('error');
 
   <demo-block :title="t('bottomContent')">
     <van-empty :description="t('description')">
-      <van-button round type="primary" class="bottom-button">
-        {{ t('button') }}
+      <van-button :width="96" round type="primary" class="bottom-button">
+        去添加
       </van-button>
     </van-empty>
   </demo-block>

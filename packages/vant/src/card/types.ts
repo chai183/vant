@@ -11,6 +11,7 @@ export type CardThemeVars = {
   cardFooterHeight?: string;
   cardFooterLineHeight?: string;
   cardFooterButtonFontSize?: string;
+  cardFooterButtonDisabledColor?: string;
   cardFooterNoteFontSize?: string;
   cardFooterNoteLineHeight?: string;
   cardFooterNoteColor?: string;
@@ -37,7 +38,6 @@ export type CardThemeVars = {
   cardBadgeSize?: string;
   cardBadgeFontSize?: string;
   cardBadgeDotSize?: string;
-  cardSelectSize?: string;
   cardSelectGap?: string;
   cardSelectTitleOffset?: string;
   cardAvatarSmallSize?: string;
@@ -54,11 +54,9 @@ export type CardThemeVars = {
   cardOutlineButtonBorderColor?: string;
   cardOutlineButtonRadius?: string;
   cardOutlineButtonHeight?: string;
+  cardFooterOutlineHeight?: string;
   cardFooterMoreFontSize?: string;
   cardFooterMoreColor?: string;
   cardFooterMoreWidth?: string;
   cardFooterOutlineGap?: string;
-  cardFooterPopoverActionHeight?: string;
-  cardFooterPopoverDividerPaddingX?: string;
-  cardFooterPopoverWidth?: string;
 };

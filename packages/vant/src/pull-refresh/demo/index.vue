@@ -40,7 +40,7 @@ const tips = computed(() => {
   return t('try');
 });
 
-// setTimeout 仅用于模拟异步刷新，真实场景中一般为接口请求。
+// 基础用法
 const onRefresh = (isShowToast: boolean) => {
   setTimeout(() => {
     if (isShowToast) {
@@ -51,16 +51,15 @@ const onRefresh = (isShowToast: boolean) => {
   }, 1000);
 };
 
+// 错误提示
 const onRefreshError = ({ error }: PullRefreshRefreshParams) => {
   setTimeout(() => {
-    // 请求失败后调用组件提供的 error 方法，组件会默认 Toast 并结束 loading。
     error(new Error(t('networkError')));
   }, 1000);
 };
 
 const onError = (error: unknown) => {
-  // error 事件用于业务层接收失败回调，不额外 Toast，避免覆盖组件默认错误提示。
-  void error;
+  console.log(error);
 };
 
 // distance / maxPullDistance 会得到 0~1 的缩放比例，Math.min 用于限制最大 100%。

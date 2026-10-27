@@ -25,15 +25,13 @@ const DEFAULT_OPTIONS = {
   inputValue: undefined,
   inputConfig: undefined,
   cancelButtonText: '',
-  cancelButtonColor: null,
+  cancelButtonColor: '#333333',
   cancelButtonDisabled: false,
   confirmButtonText: '',
   confirmButtonColor: null,
   confirmButtonDisabled: false,
-  secondaryButtonText: '',
-  secondaryButtonColor: null,
-  secondaryButtonDisabled: false,
-  confirmButtonVerticalThreshold: 5,
+  actionButtons: undefined,
+  confirmButtonVerticalThreshold: 6,
   verticalButtonMaxTextLength: 15,
   showConfirmButton: true,
   showCancelButton: false,
@@ -48,12 +46,11 @@ function initInstance() {
   const Wrapper = {
     setup() {
       const { state, toggle } = usePopupState();
-
       const onUpdateInputValue = (value: string) => {
-        state.inputValue = value;
+        const nextValue = value ?? '';
+        state.inputValue = nextValue;
         state['onUpdate:inputValue']?.(value);
       };
-
       return () => (
         <Dialog
           {...state}
@@ -89,11 +86,10 @@ export function showDialog(
       extend({}, currentOptions, options, {
         callback: (action?: DialogAction, inputValue?: string) => {
           userCallback?.(action, inputValue);
-
-          if (action === 'confirm' || action === 'secondary') {
+          if (action && action !== 'cancel') {
             resolve(action);
           } else {
-            reject(action);
+            reject('action');
           }
         },
       }),

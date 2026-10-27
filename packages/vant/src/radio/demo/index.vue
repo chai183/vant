@@ -4,7 +4,7 @@ import VanRadio from '..';
 import VanCellGroup from '../../cell-group';
 import VanCell from '../../cell';
 import { computed, ref } from 'vue';
-import { cdnURL, useTranslate } from '../../../docs/site';
+import { useTranslate } from '../../../docs/site';
 
 const t = useTranslate({
   'zh-CN': {
@@ -60,7 +60,6 @@ const t = useTranslate({
 const radio1 = ref('1');
 const radio2 = ref('2');
 const radio3 = ref('1');
-const radio4 = ref('1');
 const radio5 = ref('1');
 const radioLabel = ref('1');
 const radioSquare = ref('1');
@@ -73,8 +72,6 @@ const radioOptions = ref('1');
 const radioListOptions = ref('1');
 const radioListSearch = ref('1');
 const radioOptionIcon = ref('1');
-const activeIcon = cdnURL('user-active.png');
-const inactiveIcon = cdnURL('user-inactive.png');
 
 const options = computed(() => [
   { label: t('option1'), value: '1' },
@@ -241,6 +238,7 @@ const listOptions = computed(() => [
     </van-radio-group>
   </demo-block>
 
+  <!--
   <demo-block :title="t('customIcon')">
     <van-radio-group v-model="radio4" class="demo-radio-group">
       <van-radio name="1">
@@ -257,6 +255,7 @@ const listOptions = computed(() => [
       </van-radio>
     </van-radio-group>
   </demo-block>
+  -->
 
   <demo-block :title="t('leftLabel')">
     <van-radio-group v-model="radioLeftLabel" class="demo-radio-group">
@@ -300,7 +299,7 @@ const listOptions = computed(() => [
     padding: 0 16px;
 
     .van-radio {
-      margin: 0 0 8px 0;
+      margin: 0;
     }
 
     &.van-radio-group--horizontal .van-radio {

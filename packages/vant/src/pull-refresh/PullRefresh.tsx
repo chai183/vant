@@ -27,19 +27,20 @@ import { showToast } from '../toast';
 
 const [name, bem, t] = createNamespace('pull-refresh');
 
-// 默认拖拽高度，默认触发刷新距离也会跟随该值。
-const DEFAULT_HEAD_HEIGHT = 88;
-const DEFAULT_LOADING_ICON = 'replay';
-const DEFAULT_LOOSING_ICON = 'down';
-
+/* ----------默认配置----------- */
+const DEFAULT_HEAD_HEIGHT = 88; //拖拽高度
+const DEFAULT_LOADING_ICON = 'replay'; //加载图标
+const DEFAULT_LOOSING_ICON = 'down'; //下拉和松开图标
+// 下拉的三种状态文本
 type PullRefreshTextStatus = 'pulling' | 'loosing' | 'loading';
-
+// 报错事件的类型
 export type PullRefreshErrorHandler = (error?: unknown) => void;
 
 export type PullRefreshRefreshParams = {
   error: PullRefreshErrorHandler;
 };
 
+// 五种状态
 type PullRefreshStatus =
   | 'normal'
   | 'loading'
@@ -52,7 +53,7 @@ export const pullRefreshProps = {
   modelValue: Boolean,
   headHeight: makeNumericProp(DEFAULT_HEAD_HEIGHT),
   successText: String,
-  errorText: makeStringProp('网络不可用，请检查网络设置'),
+  errorText: makeStringProp('请求错误'),
   pullingText: makeStringProp('下拉刷新'),
   loosingText: makeStringProp('松开刷新'),
   loadingText: makeStringProp('刷新中'),
@@ -75,12 +76,15 @@ export default defineComponent({
   emits: ['change', 'error', 'refresh', 'update:modelValue'],
 
   setup(props, { emit, slots }) {
+    // 是否在顶部
     let reachTop: boolean;
-    let refreshFailed = false;
+    let refreshFailed = false; //是否刷新失败
 
-    // 节点与内部状态
+    // 根节点
     const root = ref<HTMLElement>();
+    // 滑动区域节点
     const track = ref<HTMLElement>();
+    // 寻找滚动容器
     const scrollParent = useScrollParent(root);
 
     const state = reactive({
@@ -91,6 +95,7 @@ export default defineComponent({
 
     const touch = useTouch();
 
+    // 获取头部高度
     // 头部高度等于默认值时走 CSS 变量，只有自定义高度才写入内联样式。
     const getHeadStyle = () => {
       if (props.headHeight !== DEFAULT_HEAD_HEIGHT) {
@@ -99,12 +104,7 @@ export default defineComponent({
         };
       }
     };
-
-    const isTouchable = () =>
-      state.status !== 'loading' &&
-      state.status !== 'success' &&
-      !props.disabled;
-
+    // 获取设置的下拉距离
     const getPullDistance = () => +(props.pullDistance || props.headHeight);
 
     // 下拉超过触发距离后进入阻尼区，避免拖拽距离无限制增长。
@@ -142,24 +142,27 @@ export default defineComponent({
         distance,
       });
     };
-
+    // 获取对应的状态文本
     const getStatusText = () => {
       const { status } = state;
-      if (status === 'normal') {
-        return '';
-      }
-      const textKey =
-        `${status}Text` as `${Exclude<PullRefreshStatus, 'normal'>}Text`;
-      return props[textKey] || t(status);
+      const map = {
+        loading: props.loadingText,
+        loosing: props.loosingText,
+        pulling: props.pullingText,
+        success: props.successText,
+      };
+      return status === 'normal' ? '' : map[status] || t(status);
     };
 
     // pulling 阶段图标随下拉距离从 0 缩放到 100%，自定义插槽也可以复用 distance 做同样效果。
     const getIconScale = () =>
       Math.min(state.distance / getPullDistance(), 1).toFixed(2);
 
-    // 默认提示内容：图标 + 文案。图片链接会由 Icon 组件自动渲染成 img。
+    /* -----渲染顶部状态文本start----- */
+    // 普通形式：图标 + 文案
     const renderTextStatus = (status: PullRefreshTextStatus) => {
       const iconKey = `${status}Icon` as `${PullRefreshTextStatus}Icon`;
+      // 默认的Icon
       const isDefaultLoosingIcon =
         status === 'loosing' && props.loosingIcon === DEFAULT_LOOSING_ICON;
       const isDefaultLoadingIcon =
@@ -185,14 +188,14 @@ export default defineComponent({
       );
     };
 
-    // 成功提示固定使用胶囊样式，success-icon 支持内置图标或图片链接。
+    // 成功提示:特殊样式处理-胶囊形式
     const renderSuccessStatus = () => (
       <div class={bem('success')}>
         <Icon name={props.successIcon} size={16} class={bem('success-icon')} />
         <span class={bem('success-text')}>{getStatusText()}</span>
       </div>
     );
-
+    // 针对状态进行渲染
     const renderStatus = () => {
       const { status, distance } = state;
 
@@ -216,19 +219,9 @@ export default defineComponent({
       return null;
     };
 
-    // 成功提示会先停留在头部区域，等待 success-duration 后再回到顶部。
-    const showSuccessTip = () => {
-      if (!state.distance) {
-        state.distance = +props.headHeight;
-      }
-      state.status = 'success';
+    /* -----渲染顶部状态文本end----- */
 
-      setTimeout(() => {
-        setStatus(0);
-      }, +props.successDuration);
-    };
-
-    // refresh 回调中调用该方法时，组件会默认 Toast 提示，并通过 error 事件把错误对象抛给业务层。
+    // 刷新报错事件处理
     const onRefreshError: PullRefreshErrorHandler = (error) => {
       refreshFailed = true;
       showToast(props.errorText);
@@ -236,7 +229,14 @@ export default defineComponent({
       emit('update:modelValue', false);
     };
 
-    // 只有滚动父元素在顶部时才允许触发下拉刷新。
+    /*------ 拖动逻辑start------ */
+    // 是否拖动支持
+    const isTouchable = () =>
+      state.status !== 'loading' &&
+      state.status !== 'success' &&
+      !props.disabled;
+
+    // 检测滚动容器-是否在顶部
     const checkPosition = (event: TouchEvent) => {
       reachTop = getScrollTop(scrollParent.value!) === 0;
 
@@ -254,7 +254,6 @@ export default defineComponent({
 
     const onTouchMove = (event: TouchEvent) => {
       if (isTouchable()) {
-        // 首次 touchstart 不在顶部时，移动过程中仍需要重新检查是否已经到顶。
         if (!reachTop) {
           checkPosition(event);
         }
@@ -262,6 +261,7 @@ export default defineComponent({
         const { deltaY } = touch;
         touch.move(event);
 
+        // 根据移动距离-设置对应的状态
         if (reachTop && deltaY.value >= 0 && touch.isVertical()) {
           preventDefault(event);
           setStatus(ease(deltaY.value));
@@ -273,8 +273,8 @@ export default defineComponent({
       if (reachTop && touch.deltaY.value && isTouchable()) {
         state.duration = +props.animationDuration;
 
+        // 达到触发距离后进入loosing(松手刷新)状态,进行回调操作
         if (state.status === 'loosing') {
-          // 达到触发距离后进入 loading，并通知外部开始刷新。
           refreshFailed = false;
           setStatus(+props.headHeight, true);
           emit('update:modelValue', true);
@@ -287,6 +287,18 @@ export default defineComponent({
       }
     };
 
+    // 成功提示会先停留在头部区域，等待 success-duration 后再回到顶部。
+    const showSuccessTip = () => {
+      if (!state.distance) {
+        state.distance = +props.headHeight;
+      }
+      state.status = 'success';
+      // 固定时间后,回退高度
+      setTimeout(() => {
+        setStatus(0);
+      }, +props.successDuration);
+    };
+
     // 外部通过 v-model 控制刷新状态；刷新结束后根据配置展示成功提示或回到初始位置。
     watch(
       () => props.modelValue,
@@ -294,12 +306,14 @@ export default defineComponent({
         state.duration = +props.animationDuration;
 
         if (value) {
+          // 监听 true时,保持固定设置的高度,进行加载状态
           refreshFailed = false;
           setStatus(+props.headHeight, true);
         } else if (refreshFailed) {
           refreshFailed = false;
           setStatus(0, false);
         } else if (slots.success || props.successText) {
+          // 当refresh执行完毕,设置false,配置了 successText ,会进入保持高度的同时,进行对应提示
           showSuccessTip();
         } else {
           setStatus(0, false);
@@ -307,12 +321,12 @@ export default defineComponent({
       },
     );
 
-    // useEventListener will set passive to `false` to eliminate the warning of Chrome
     useEventListener('touchmove', onTouchMove, {
       target: track,
     });
 
     return () => {
+      // 滑块的样式
       const trackStyle = {
         transitionDuration: `${state.duration}ms`,
         transform: state.distance

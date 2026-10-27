@@ -21,8 +21,12 @@ app.use(CheckboxGroup);
 
 ### Basic Usage
 
+Checkboxes are square by default. Use `indeterminate` for the half-checked state.
+
 ```html
 <van-checkbox v-model="checked">Checkbox</van-checkbox>
+<van-checkbox v-model="unchecked">Checkbox</van-checkbox>
+<van-checkbox indeterminate>Indeterminate</van-checkbox>
 ```
 
 ```js
@@ -31,8 +35,10 @@ import { ref } from 'vue';
 export default {
   setup() {
     const checked = ref(true);
+    const unchecked = ref(false);
     return {
       checked,
+      unchecked,
     };
   },
 };
@@ -41,13 +47,14 @@ export default {
 ### Disabled
 
 ```html
-<van-checkbox v-model="checked" disabled>Checkbox</van-checkbox>
+<van-checkbox :model-value="false" disabled>Checkbox</van-checkbox>
+<van-checkbox :model-value="true" disabled>Checkbox</van-checkbox>
 ```
 
 ### Custom Shape
 
 ```html
-<van-checkbox-group v-model="checked" shape="square">
+<van-checkbox-group v-model="checked" shape="round">
   <van-checkbox name="a">Checkbox a</van-checkbox>
   <van-checkbox name="b">Checkbox b</van-checkbox>
 </van-checkbox-group>
@@ -69,11 +76,7 @@ export default {
 Set `shape` to `block` with `direction="horizontal"` for block-style checkboxes.
 
 ```html
-<van-checkbox-group
-  v-model="checked"
-  shape="block"
-  direction="horizontal"
->
+<van-checkbox-group v-model="checked" shape="block" direction="horizontal">
   <van-checkbox name="a">Checkbox a</van-checkbox>
   <van-checkbox name="b">Checkbox b</van-checkbox>
   <van-checkbox name="c">Checkbox c</van-checkbox>
@@ -487,7 +490,7 @@ export default {
 | --- | --- | --- | --- |
 | v-model | Check status | _boolean_ | `false` |
 | name | Checkbox name, usually a unique string or number | _any_ | - |
-| shape | Can be set to `square` `block` | _string_ | `round` |
+| shape | Can be set to `round` `block` | _string_ | `square` |
 | disabled | Disable checkbox | _boolean_ | `false` |
 | label-disabled | Whether to disable label click | _boolean_ | `false` |
 | label-position | Can be set to `left` | _string_ | `right` |
@@ -511,7 +514,7 @@ export default {
 | options `new` | Render options from config, each item is `{ label, value, disabled?, icon?, cellProps? }`, `icon` is the icon name, `cellProps` are [Cell](#/en-US/cell) props; when both `icon` and `cellProps.icon` are set, `cellProps.icon` takes precedence | _CheckboxGroupOption[]_ | `[]` |
 | icon-size | Icon size of all checkboxes | _number \| string_ | `20px` |
 | checked-color | Checked color of all checkboxes | _string_ | `#1989fa` |
-| shape `v4.6.3` | Can be set to `square` `block` | _string_ | `round` |
+| shape `v4.6.3` | Can be set to `round` `block` | _string_ | `square` |
 
 ### Checkbox Events
 
@@ -620,12 +623,21 @@ The component provides the following CSS variables, which can be used to customi
 
 | Name | Default Value | Description |
 | --- | --- | --- |
-| --van-checkbox-size | _20px_ | - |
+| --van-checkbox-size | _16px_ | Icon size |
+| --van-checkbox-label-font-size | _14px_ | Label font size |
+| --van-checkbox-label-line-height | _20px_ | Label line height |
 | --van-checkbox-border-color | _var(--van-gray-5)_ | - |
+| --van-checkbox-radius | _2px_ | Border radius of square checkbox |
 | --van-checkbox-duration | _var(--van-duration-fast)_ | - |
-| --van-checkbox-label-margin | _var(--van-padding-xs)_ | - |
+| --van-checkbox-label-margin | _4px_ | Spacing between icon and label |
 | --van-checkbox-label-color | _var(--van-text-color)_ | - |
 | --van-checkbox-checked-icon-color | _var(--van-primary-color)_ | - |
 | --van-checkbox-disabled-icon-color | _var(--van-gray-5)_ | - |
+| --van-checkbox-disabled-checked-icon-color | _#ffcda8_ | Icon color when checked and disabled |
+| --van-checkbox-disabled-unchecked-background | _var(--van-gray-9)_ | Icon background when unchecked and disabled |
+| --van-checkbox-disabled-border-color | _var(--van-gray-11)_ | Icon border color when unchecked and disabled |
 | --van-checkbox-disabled-label-color | _var(--van-text-color-3)_ | - |
 | --van-checkbox-disabled-background | _var(--van-border-color)_ | - |
+| --van-checkbox-indeterminate-line-width | _10px_ | Indeterminate line width |
+| --van-checkbox-indeterminate-line-height | _2px_ | Indeterminate line height |
+| --van-checkbox-group-gap | _var(--van-padding-md)_ | Vertical spacing in checkbox group |

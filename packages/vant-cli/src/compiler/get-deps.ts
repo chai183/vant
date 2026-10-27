@@ -1,5 +1,6 @@
 import { join } from 'node:path';
 import { SCRIPT_EXTS, STYLE_EXTS } from '../common/constant.js';
+import { isAsset } from '../common/index.js';
 import { readFileSync, existsSync } from 'node:fs';
 
 let depsMap: Record<string, string[]> = {};
@@ -67,6 +68,10 @@ export function fillExt(filePath: string) {
 function getImportRelativePath(code: string) {
   const divider = code.includes('"') ? '"' : "'";
   return code.split(divider)[1];
+}
+
+function isAssetImport(code: string) {
+  return isAsset(getImportRelativePath(code));
 }
 
 function getPathByImport(code: string, filePath: string) {
@@ -137,7 +142,7 @@ export function replaceScriptImportExt(
   if (ext === '.mjs' || ext === '.cjs') {
     imports.forEach((line, index) => {
       const isStyleImport = STYLE_EXTS.some((ext) => line.includes(ext));
-      if (isStyleImport) {
+      if (isStyleImport || isAssetImport(line)) {
         return;
       }
 

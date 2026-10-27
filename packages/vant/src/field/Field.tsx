@@ -66,6 +66,7 @@ import { Popover } from '../popover';
 import { showToast } from '../toast';
 import TextEllipsis from '../text-ellipsis/TextEllipsis';
 import FieldReadonlyTags from './FieldReadonlyTags';
+import infoIcon from './assets/info.svg';
 
 // Types
 import type {
@@ -84,8 +85,6 @@ import type {
   FieldGroupedDisplayConfig,
 } from './types';
 import type { PopoverProps } from '../popover';
-
-const infoIcon = new URL('./assets/info.svg', import.meta.url).href;
 
 const [name, bem, t] = createNamespace('field');
 

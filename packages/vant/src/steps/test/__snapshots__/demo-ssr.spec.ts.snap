@@ -112,7 +112,7 @@ exports[`should render demo and match snapshot 1`] = `
   </div>
   <button
     type="button"
-    class="van-button van-button--default van-button--normal"
+    class="van-button van-button--primary van-button--large"
     style
   >
     <div class="van-button__content">

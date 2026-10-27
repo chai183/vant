@@ -71,8 +71,8 @@ Use `type="range"` with `show-inputs` to display min/max amount inputs below the
   input-layout="horizontal"
   :min="0"
   :max="100000000000"
-  min-placeholder="¥ Min amount"
-  max-placeholder="¥ Max amount"
+  min-placeholder="Min amount"
+  max-placeholder="Max amount"
 />
 ```
 
@@ -190,8 +190,8 @@ export default {
 | show-inputs | Whether to display range inputs below slider (range mode) | _boolean_ | `false` |
 | input-layout `new` | Range input layout, can be set to `horizontal` `vertical`, use with `show-inputs` | _string_ | `horizontal` |
 | unselected-text | Text when unselected, use with `show-value` | _string_ | `未选择` |
-| min-placeholder | Min amount input placeholder, use with `show-inputs` | _string_ | `¥ 最低金额` |
-| max-placeholder | Max amount input placeholder, use with `show-inputs` | _string_ | `¥ 最高金额` |
+| min-placeholder | Min amount input placeholder, use with `show-inputs` | _string_ | `最低金额` |
+| max-placeholder | Max amount input placeholder, use with `show-inputs` | _string_ | `最高金额` |
 | formatter | Custom value formatter | _(value: number) => string_ | - |
 | parser | Custom input parser | _(text: string) => number \| null_ | - |
 | range | Whether to enable dual thumb mode, prefer `type="range"` | _boolean_ | `false` |
@@ -247,13 +247,15 @@ The component provides the following CSS variables, which can be used to customi
 | --van-slider-button-border-color | _#dddddd_ | - |
 | --van-slider-button-grip-color | _#999999_ | - |
 | --van-slider-button-grip-gap | _4px_ | - |
-| --van-slider-mark-label-color | _var(--van-gray-9)_ | - |
+| --van-slider-mark-label-color | _var(--van-gray-9)_ | Unselected mark label color |
+| --van-slider-mark-label-font-size | _14px_ | Mark label font size |
 | --van-slider-mark-label-active-color | _#ff6b00_ | - |
 | --van-slider-mark-dot-color | _#dddddd_ | - |
 | --van-slider-mark-dot-active-color | _#ff6b00_ | - |
 | --van-slider-mark-dot-active-border-color | _var(--van-white)_ | - |
 | --van-slider-value-margin-top | _22px_ | - |
-| --van-slider-value-color | _var(--van-gray-9)_ | - |
+| --van-slider-unselected-text-color | _var(--van-gray-9)_ | Unselected text color |
+| --van-slider-value-color | _var(--van-slider-unselected-text-color)_ | - |
 | --van-slider-value-font-size | _14px_ | - |
 | --van-slider-value-line-height | _20px_ | - |
 | --van-slider-value-active-color | _#ff6b00_ | - |

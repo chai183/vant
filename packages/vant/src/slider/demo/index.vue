@@ -22,8 +22,8 @@ const t = useTranslate({
     vertical: '垂直方向',
     customStyle: '自定义样式',
     customButton: '自定义按钮',
-    minPlaceholder: '¥ 最低金额',
-    maxPlaceholder: '¥ 最高金额',
+    minPlaceholder: '最低金额',
+    maxPlaceholder: '最高金额',
   },
   'en-US': {
     text: 'Current value: ',
@@ -39,8 +39,8 @@ const t = useTranslate({
     vertical: 'Vertical',
     customStyle: 'Custom Style',
     customButton: 'Custom Button',
-    minPlaceholder: '¥ Min amount',
-    maxPlaceholder: '¥ Max amount',
+    minPlaceholder: 'Min amount',
+    maxPlaceholder: 'Max amount',
   },
 });
 
@@ -171,6 +171,7 @@ const onChange = (value: string | number | [number, number]) =>
   }
 
   .custom-button {
+    box-sizing: border-box;
     width: 26px;
     color: #fff;
     font-size: 10px;

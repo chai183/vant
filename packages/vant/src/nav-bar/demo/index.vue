@@ -14,7 +14,11 @@ const t = useTranslate({
     longTitle: '标题长度展示',
     rightButton: '右侧按钮',
     searchScenarios: '搜索框组合',
-    searchPlaceholder: '请输入搜索关键词',
+    searchPlaceholder: '搜索关键词',
+    button: '四字按钮',
+    userHome: '会员中心',
+    subText: '副标题',
+    subtitle: '辅助说明文字内容',
   },
   'en-US': {
     background: 'Custom Background',
@@ -25,6 +29,10 @@ const t = useTranslate({
     rightButton: 'Right Button',
     searchScenarios: 'Search Scenarios',
     searchPlaceholder: 'Search',
+    button: 'four button',
+    userHome: 'userHome',
+    subText: 'subText',
+    subtitle: 'this is subtitle content message',
   },
 });
 
@@ -32,22 +40,26 @@ const t = useTranslate({
 const searchValue = ref('');
 const searchValueWithText = ref('');
 const searchValueWithButtons = ref('');
-const searchProps = { shape: 'round' } as const;
 /* ----搜索状态end---- */
 
 /* ----按钮数据配置start---- */
-const leftButtons: NavBarButton[] = [{ icon: 'arrow-left', text: t('back') }];
-const allLeftButtons: NavBarButton[] = [{}, {}];
-const rightButtons: NavBarButton[] = [{ icon: 'search' }, { icon: 'ellipsis' }];
+const leftButtons: NavBarButton[] = [{ icon: 'arrow-left' }, { icon: 'cross' }];
+const leftButtons2: NavBarButton[] = [
+  { icon: 'diamond-o', size: 16, text: t('userHome') },
+];
+const rightButtons: NavBarButton[] = [
+  { icon: 'search', size: 22 },
+  { icon: 'ellipsis', size: 22 },
+];
 const menuButtons: NavBarButton[] = [
+  { icon: 'search' },
   {
     icon: 'ellipsis',
     menu: [
-      { icon: 'search', text: 'Search' },
-      { icon: 'cross', text: 'Close' },
+      { icon: 'icon-xiangce', color: '#333', text: '我的客服' },
+      { icon: 'icon-xiangce', color: '#333', text: '我的关注' },
     ],
   },
-  { icon: 'search' },
 ];
 const longTitle = 'This is a very long title for NavBar display';
 /* ----按钮数据配置end---- */
@@ -55,8 +67,9 @@ const longTitle = 'This is a very long title for NavBar display';
 /* ----交互事件处理start---- */
 const onClickLeft = () => showToast(t('back'));
 const onClickRight = () => showToast(t('button'));
-const onClickLeftButton = (_button: NavBarButton, index: number) =>
+const onClickLeftButton = (_button: NavBarButton, index: number) => {
   showToast(`${t('leftButton')} ${index + 1}`);
+};
 const onClickRightButton = (_button: NavBarButton, index: number) =>
   showToast(`${t('rightButton')} ${index + 1}`);
 const onSelectRightMenu = (item: NavBarMenuItem) => showToast(item.text || '');
@@ -70,6 +83,12 @@ const onSearch = (value?: string) => showToast(value || t('searchPlaceholder'));
     <van-nav-bar :title="t('title')" />
   </demo-block>
   <!-- ----基础使用end---- -->
+
+  <!-- ----副标题start---- -->
+  <demo-block class="demo-nav-bar" :title="t('subText')">
+    <van-nav-bar :title="t('title')" :subtitle="t('subtitle')" />
+  </demo-block>
+  <!-- ----副标题end---- -->
 
   <!-- ----自定义背景start---- -->
   <demo-block class="demo-nav-bar" :title="t('background')">
@@ -107,7 +126,6 @@ const onSearch = (value?: string) => showToast(value || t('searchPlaceholder'));
   <demo-block class="demo-nav-bar" :title="t('dropdownMenu')">
     <van-nav-bar
       :title="t('title')"
-      :left-buttons="allLeftButtons"
       :right-buttons="menuButtons"
       @click-left-button="onClickLeftButton"
       @click-right-button="onClickRightButton"
@@ -118,7 +136,7 @@ const onSearch = (value?: string) => showToast(value || t('searchPlaceholder'));
 
   <!-- ----标题长度展示start---- -->
   <demo-block class="demo-nav-bar" :title="t('longTitle')">
-    <van-nav-bar :title="longTitle" :right-buttons="rightButtons" />
+    <van-nav-bar :title="longTitle" />
   </demo-block>
   <!-- ----标题长度展示end---- -->
 
@@ -127,7 +145,6 @@ const onSearch = (value?: string) => showToast(value || t('searchPlaceholder'));
     <van-nav-bar
       v-model:search-value="searchValue"
       search
-      :search-props="searchProps"
       :search-placeholder="t('searchPlaceholder')"
       @search="onSearch"
     />
@@ -135,18 +152,18 @@ const onSearch = (value?: string) => showToast(value || t('searchPlaceholder'));
     <van-nav-bar
       v-model:search-value="searchValueWithText"
       search
-      :left-buttons="leftButtons"
-      :right-buttons="rightButtons"
+      :left-buttons="leftButtons2"
+      :right-text="t('button')"
       :search-placeholder="t('searchPlaceholder')"
       @click-left-button="onClickLeftButton"
-      @click-right-button="onClickRightButton"
+      @click-right="onClickRight"
       @search="onSearch"
     />
 
     <van-nav-bar
       v-model:search-value="searchValueWithButtons"
       search
-      :left-buttons="allLeftButtons"
+      :left-buttons="leftButtons"
       :right-buttons="rightButtons"
       :search-placeholder="t('searchPlaceholder')"
       @click-left-button="onClickLeftButton"

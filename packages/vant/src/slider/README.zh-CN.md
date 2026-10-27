@@ -103,8 +103,8 @@ export default {
   input-layout="horizontal"
   :min="0"
   :max="100000000000"
-  min-placeholder="¥ 最低金额"
-  max-placeholder="¥ 最高金额"
+  min-placeholder="最低金额"
+  max-placeholder="最高金额"
 />
 ```
 
@@ -224,8 +224,8 @@ export default {
 | show-inputs | 是否在滑块下方展示区间输入框（区间模式） | _boolean_ | `false` |
 | input-layout `new` | 区间输入框布局，可选值为 `horizontal` `vertical`，需配合 `show-inputs` | _string_ | `horizontal` |
 | unselected-text | 未选择时的展示文案，需配合 `show-value` | _string_ | `未选择` |
-| min-placeholder | 最低金额输入框占位符，需配合 `show-inputs` | _string_ | `¥ 最低金额` |
-| max-placeholder | 最高金额输入框占位符，需配合 `show-inputs` | _string_ | `¥ 最高金额` |
+| min-placeholder | 最低金额输入框占位符，需配合 `show-inputs` | _string_ | `最低金额` |
+| max-placeholder | 最高金额输入框占位符，需配合 `show-inputs` | _string_ | `最高金额` |
 | formatter | 自定义数值格式化函数 | _(value: number) => string_ | - |
 | parser | 自定义输入解析函数 | _(text: string) => number \| null_ | - |
 | range | 是否开启双滑块模式，推荐使用 `type="range"` | _boolean_ | `false` |
@@ -281,13 +281,15 @@ import type { SliderProps, SliderType, SliderInputLayout } from 'vant';
 | --van-slider-button-border-color | _#dddddd_ | 滑块边框色 |
 | --van-slider-button-grip-color | _#999999_ | 握把线条颜色 |
 | --van-slider-button-grip-gap | _4px_ | 握把线条间距 |
-| --van-slider-mark-label-color | _var(--van-gray-9)_ | 节点标签颜色 |
+| --van-slider-mark-label-color | _var(--van-gray-9)_ | 未选中节点标签颜色 |
+| --van-slider-mark-label-font-size | _14px_ | 节点标签字号 |
 | --van-slider-mark-label-active-color | _#ff6b00_ | 节点标签激活颜色 |
 | --van-slider-mark-dot-color | _#dddddd_ | 节点圆点颜色 |
 | --van-slider-mark-dot-active-color | _#ff6b00_ | 节点圆点激活颜色 |
 | --van-slider-mark-dot-active-border-color | _var(--van-white)_ | 节点圆点激活边框颜色 |
 | --van-slider-value-margin-top | _22px_ | 数值展示距滑块距离 |
-| --van-slider-value-color | _var(--van-gray-9)_ | 未选择数值颜色 |
+| --van-slider-unselected-text-color | _var(--van-gray-9)_ | 未选择文案颜色 |
+| --van-slider-value-color | _var(--van-slider-unselected-text-color)_ | 未选择数值颜色 |
 | --van-slider-value-font-size | _14px_ | 数值字号 |
 | --van-slider-value-line-height | _20px_ | 数值行高 |
 | --van-slider-value-active-color | _#ff6b00_ | 已选择数值颜色 |

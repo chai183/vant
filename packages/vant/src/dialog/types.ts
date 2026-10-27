@@ -1,5 +1,6 @@
 import type { CSSProperties, TeleportProps } from 'vue';
 import type { HighlightProps } from '../highlight';
+import type { Interceptor, Numeric } from '../utils';
 import type {
   FieldRule,
   FieldType,
@@ -9,14 +10,25 @@ import type {
   FieldAutosizeConfig,
   FieldEnterKeyHint,
 } from '../field';
-import type { Interceptor, Numeric } from '../utils';
-
 export type DialogTheme = 'default' | 'round-button';
-export type DialogAction = 'confirm' | 'secondary' | 'cancel';
+export type DialogAction =
+  | 'confirm'
+  | 'cancel'
+  | (string & Record<never, never>);
 export type DialogMessage = string | (() => JSX.Element);
 export type DialogMessageAlign = 'left' | 'center' | 'right' | 'justify';
+// 输入框类型
 export type DialogInputType = Extract<FieldType, 'text' | 'textarea'>;
 export type DialogInputValidateTrigger = 'onBlur' | 'onChange' | 'onConfirm';
+
+export type DialogButton = {
+  action: DialogAction;
+  text: string;
+  color?: string;
+  disabled?: boolean;
+  className?: string;
+  [key: PropertyKey]: any;
+};
 
 // Dialog 消息高亮配置：复用 Highlight 的匹配能力，并补充便捷样式设置。
 export type DialogMessageHighlightConfig = Partial<
@@ -35,8 +47,7 @@ export type DialogMessageHighlightConfig = Partial<
   style?: CSSProperties;
 };
 
-// Dialog 内置输入框配置：在保留 title 和 message 的同时，
-// 复用 Field 的文本输入、长文本、字数限制和校验能力。
+// 输入框配置
 export type DialogInputConfig = {
   type?: DialogInputType;
   defaultValue?: string;
@@ -90,9 +101,7 @@ export type DialogOptions = {
   confirmButtonText?: string;
   confirmButtonColor?: string;
   confirmButtonDisabled?: boolean;
-  secondaryButtonText?: string;
-  secondaryButtonColor?: string;
-  secondaryButtonDisabled?: boolean;
+  actionButtons?: DialogButton[];
   confirmButtonVerticalThreshold?: Numeric;
   verticalButtonMaxTextLength?: Numeric;
   closeOnClickOverlay?: boolean;

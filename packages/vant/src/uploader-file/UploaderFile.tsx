@@ -61,8 +61,7 @@ import type {
   UploaderFileUpload,
   UploaderFileUploadResult,
 } from './types';
-
-const uploadIcon = new URL('./assets/upload.svg', import.meta.url).href;
+import uploadIcon from './assets/upload.svg';
 
 // 生成组件名与 BEM 前缀：van-uploader-file
 const [name] = createNamespace('uploader-file');

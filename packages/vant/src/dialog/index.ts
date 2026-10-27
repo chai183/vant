@@ -16,6 +16,7 @@ export type { DialogProps } from './Dialog';
 export type {
   DialogAction,
   DialogTheme,
+  DialogButton,
   DialogMessage,
   DialogOptions,
   DialogThemeVars,

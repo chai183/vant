@@ -12,13 +12,15 @@
   --van-slider-button-border-color: #dddddd;
   --van-slider-button-grip-color: #999999;
   --van-slider-button-grip-gap: 4px;
-  --van-slider-mark-label-color: var(--van-gray-9);
+  --van-slider-mark-label-color: var(--van-slider-unselected-text-color);
+  --van-slider-mark-label-font-size: 14px;
   --van-slider-mark-label-active-color: #ff6b00;
   --van-slider-mark-dot-color: #dddddd;
   --van-slider-mark-dot-active-color: var(--van-slider-active-background);
   --van-slider-mark-dot-active-border-color: var(--van-white);
   --van-slider-value-margin-top: 22px;
-  --van-slider-value-color: var(--van-gray-9);
+  --van-slider-unselected-text-color: var(--van-gray-13);
+  --van-slider-value-color: var(--van-slider-unselected-text-color);
   --van-slider-value-font-size: 14px;
   --van-slider-value-line-height: 20px;
   --van-slider-value-active-color: #ff6b00;
@@ -120,7 +122,7 @@
   &__mark-label {
     display: block;
     color: var(--van-slider-mark-label-color);
-    font-size: var(--van-slider-value-font-size);
+    font-size: var(--van-slider-mark-label-font-size);
     line-height: var(--van-slider-mark-label-height);
     text-align: center;
     white-space: nowrap;

@@ -1,14 +1,15 @@
 import {
   defineComponent,
-  ref,
   type PropType,
   type ExtractPropTypes,
   type CSSProperties,
 } from 'vue';
 
 import { createNamespace, makeNumberProp, makeStringProp } from '../../utils';
-import VanPopover from '../../popover';
-import type { PopoverAction } from '../../popover';
+import VanBottomActionBar from '../../bottom-action-bar';
+import type { BottomActionBarProps } from '../../bottom-action-bar';
+import VanButton from '../../button';
+import VanIcon from '../../icon';
 import type {
   CardFooterButton,
   CardFooterButtonType,
@@ -23,41 +24,6 @@ const TEXT_MAX_CHARS = 4;
 const truncateButtonText = (text: string, max = TEXT_MAX_CHARS) =>
   text.length > max ? text.slice(0, max) : text;
 
-const splitFooterButtons = (list: CardFooterButton[], maxVisible: number) => {
-  if (list.length <= maxVisible) {
-    return { visible: list, overflow: [] as CardFooterButton[] };
-  }
-
-  return {
-    visible: list.slice(0, maxVisible),
-    overflow: list.slice(maxVisible),
-  };
-};
-
-const getOutlineButtonRowStyle = (
-  visibleCount: number,
-  hasMore: boolean,
-): CSSProperties | undefined => {
-  if (visibleCount <= 0) {
-    return undefined;
-  }
-
-  const gap = 'var(--van-card-footer-outline-gap)';
-  const moreWidth = 'var(--van-card-footer-more-width)';
-  let deducted = '';
-
-  if (visibleCount > 1) {
-    deducted += ` - ${visibleCount - 1} * ${gap}`;
-  }
-  if (hasMore) {
-    deducted += ` - ${moreWidth} - ${gap}`;
-  }
-
-  return {
-    '--van-card-outline-btn-max-width': `calc((100%${deducted}) / ${visibleCount})`,
-  } as CSSProperties;
-};
-
 export const cardFooterProps = {
   showButtons: Boolean,
   buttonType: String as PropType<CardFooterButtonType>,
@@ -69,10 +35,11 @@ export const cardFooterProps = {
   noteLeft: String,
   noteRight: String,
   note: String,
-  plainNote: Boolean, // 图文卡注释区去掉顶部分割线
+  plainNote: Boolean,
   outlineMax: makeNumberProp(3),
   outlineMoreText: makeStringProp('更多'),
   outlineCollapseText: makeStringProp('收起'),
+  actionBarProps: Object as PropType<Partial<BottomActionBarProps>>,
 };
 
 export type CardFooterProps = ExtractPropTypes<typeof cardFooterProps>;
@@ -85,9 +52,6 @@ export default defineComponent({
   emits: ['clickButton'],
 
   setup(props, { slots, emit }) {
-    const overflowPopoverShow = ref(false);
-
-    // 注释区样式
     const getFooterNoteClass = (layout: string) =>
       bem('footer-note', [layout, props.plainNote && 'no-border']);
 
@@ -103,52 +67,96 @@ export default defineComponent({
       });
     };
 
-    const getButtonStyle = (
+    const getOutlineButtonStyle = (
       btn: CardFooterButton,
-      type: CardFooterButtonType,
-    ) => {
-      if (!btn.color) return undefined;
-
-      // outline：文字 + 边框；text：仅文字
-      if (type === 'outline') {
-        return { color: btn.color, borderColor: btn.color };
+    ): CSSProperties | undefined => {
+      if (btn.disabled || !btn.color) {
+        return undefined;
       }
-      return { color: btn.color };
+
+      return {
+        color: btn.color,
+        borderColor: btn.color,
+        '--van-button-custom-border-color': btn.color,
+      } as CSSProperties;
     };
 
-    const renderOverflowPopover = (
-      overflow: CardFooterButton[],
-      reference: () => JSX.Element,
+    const handleButtonClick = (
+      btn: CardFooterButton,
+      key: string | number,
+      event: MouseEvent,
     ) => {
-      const actions: PopoverAction[] = overflow.map((btn) => ({
-        text: btn.text,
-      }));
+      if (btn.disabled) {
+        event.preventDefault();
+        return;
+      }
+      emitButtonClick(btn, key, event);
+    };
+
+    const resolveActionBarProps = (
+      type: CardFooterButtonType,
+    ): Partial<BottomActionBarProps> => {
+      const outlineMax = Math.max(1, props.outlineMax);
+      const passthrough = props.actionBarProps ?? {};
+      const defaultMax = type === 'text' ? TEXT_MAX_VISIBLE : outlineMax;
+
+      return {
+        morePopoverPlacement: 'bottom-start',
+        startGap: type === 'text' ? 0 : undefined,
+        ...passthrough,
+        safeAreaInsetBottom: passthrough.safeAreaInsetBottom ?? false,
+        placeholder: passthrough.placeholder ?? false,
+        maxVisibleActions: passthrough.maxVisibleActions ?? defaultMax,
+      };
+    };
+
+    const renderTextActionButton = (
+      btn: CardFooterButton,
+      index: number,
+      total: number,
+    ) => {
+      const button = (
+        <VanButton
+          class={bem('footer-btn')}
+          size="small"
+          textButton
+          plain={index < total - 1}
+          type="primary"
+          disabled={btn.disabled}
+          color={btn.color}
+          onClick={(event: MouseEvent) => handleButtonClick(btn, index, event)}
+        >
+          {truncateButtonText(btn.text)}
+        </VanButton>
+      );
+
+      if (index === total - 1) {
+        return button;
+      }
 
       return (
-        <VanPopover
-          class={bem('footer-popover')}
-          show={overflowPopoverShow.value}
-          actions={actions}
-          placement="bottom-start"
-          onUpdate:show={(value: boolean) => {
-            overflowPopoverShow.value = value;
-          }}
-          onSelect={(_action: PopoverAction, index: number) => {
-            const btn = overflow[index];
-            if (btn) {
-              emitButtonClick(btn, `overflow-${index}`);
-            }
-          }}
-        >
-          {{
-            reference,
-          }}
-        </VanPopover>
+        <div class={[bem('text-action'), 'van-hairline--left']}>{button}</div>
       );
     };
 
-    // 底部按钮。text 单行最多 4 个；outline 单行展示数由 outlineMax 控制。
-    // #buttons 插槽优先。
+    const renderOutlineActionButton = (
+      btn: CardFooterButton,
+      index: number,
+    ) => (
+      <VanButton
+        key={btn.name ?? index}
+        class={bem('footer-btn')}
+        size="small"
+        plain
+        disabled={btn.disabled}
+        color={btn.color}
+        style={getOutlineButtonStyle(btn)}
+        onClick={(event: MouseEvent) => handleButtonClick(btn, index, event)}
+      >
+        <span class={bem('footer-btn-text')}>{btn.text}</span>
+      </VanButton>
+    );
+
     const renderButtons = () => {
       if (!props.showButtons) return null;
 
@@ -160,103 +168,53 @@ export default defineComponent({
 
       const type = props.buttonType || 'text';
 
-      // 插槽优先于 buttons 配置
       if (useSlot) {
-        return <div class={bem('footer-buttons', type)}>{slotContent}</div>;
+        return (
+          <div class={[bem('footer-buttons', type), bem('footer-action-bar')]}>
+            {slotContent}
+          </div>
+        );
       }
 
-      const renderButton = (btn: CardFooterButton, key: string | number) => (
-        <button
-          key={btn.name ?? key}
-          type="button"
-          class={bem('footer-btn')}
-          style={getButtonStyle(btn, type)}
-          onClick={(event: MouseEvent) => emitButtonClick(btn, key, event)}
-        >
-          {type === 'text' ? (
-            truncateButtonText(btn.text)
-          ) : (
-            <span class={bem('footer-btn-text')}>{btn.text}</span>
-          )}
-        </button>
-      );
-
-      const renderDivider = (key: string) => (
-        <div key={key} class={bem('button-divider')} />
-      );
+      const actionBarProps = resolveActionBarProps(type);
 
       if (type === 'text') {
-        const { visible, overflow } = splitFooterButtons(
-          list,
-          TEXT_MAX_VISIBLE,
-        );
-
-        const renderOverflowTrigger = () => (
-          <button type="button" class={bem('footer-overflow')}>
-            <span class={bem('footer-overflow-dots')} aria-hidden="true">
-              <i class={bem('footer-overflow-dot')} />
-              <i class={bem('footer-overflow-dot')} />
-              <i class={bem('footer-overflow-dot')} />
-            </span>
-          </button>
-        );
-
         return (
-          <div class={bem('footer-buttons', type)}>
-            <div
-              class={bem('footer-button-row', {
-                overflow: overflow.length > 0,
-              })}
-            >
-              {visible.map((btn, index) => [
-                index > 0 ? renderDivider(`d-${index}`) : null,
-                renderButton(btn, index),
-              ])}
-              {overflow.length
-                ? [
-                    renderDivider('d-overflow'),
-                    <div key="overflow" class={bem('footer-overflow-wrap')}>
-                      {renderOverflowPopover(overflow, renderOverflowTrigger)}
-                    </div>,
-                  ]
-                : null}
-            </div>
-          </div>
+          <VanBottomActionBar
+            class={[bem('footer-buttons', type), bem('footer-action-bar')]}
+            {...actionBarProps}
+          >
+            {{
+              'more-reference': () => (
+                <VanIcon name="ellipsis" class={bem('footer-overflow-icon')} />
+              ),
+              actions: () =>
+                list.map((btn, index, arr) =>
+                  renderTextActionButton(btn, index, arr.length),
+                ),
+            }}
+          </VanBottomActionBar>
         );
       }
 
-      const outlineMax = Math.max(1, props.outlineMax);
-      const { visible, overflow } = splitFooterButtons(list, outlineMax);
-
-      const renderMoreTrigger = () => (
-        <button type="button" class={bem('footer-more')}>
-          {overflowPopoverShow.value
-            ? props.outlineCollapseText
-            : props.outlineMoreText}
-        </button>
-      );
-
       return (
-        <div class={bem('footer-buttons', type)}>
-          <div
-            class={bem('footer-button-row')}
-            style={getOutlineButtonRowStyle(
-              visible.length,
-              overflow.length > 0,
-            )}
-          >
-            {visible.map((btn, index) => renderButton(btn, index))}
-            {overflow.length
-              ? renderOverflowPopover(overflow, renderMoreTrigger)
-              : null}
-          </div>
-        </div>
+        <VanBottomActionBar
+          class={[bem('footer-buttons', type), bem('footer-action-bar')]}
+          {...actionBarProps}
+        >
+          {{
+            'more-reference': ({ expanded }: { expanded: boolean }) => (
+              <span class={bem('footer-more')}>
+                {expanded ? props.outlineCollapseText : props.outlineMoreText}
+              </span>
+            ),
+            actions: () =>
+              list.map((btn, index) => renderOutlineActionButton(btn, index)),
+          }}
+        </VanBottomActionBar>
       );
     };
 
-    // 底部注释区
-    // 支持 center / split / left
-    // #footer-note 插槽优先
     const renderNote = () => {
       const slotNote = slots['footer-note']?.();
       if (slotNote) {
@@ -269,7 +227,6 @@ export default defineComponent({
 
       const layout = props.noteLayout || 'center';
 
-      // split: 左右文案分两侧
       if (layout === 'split') {
         if (!props.noteLeft && !props.noteRight) return null;
         return (
@@ -292,7 +249,6 @@ export default defineComponent({
       const buttons = renderButtons();
       const note = renderNote();
 
-      // 底部都为空时不渲染
       if (!buttons && !note) return null;
 
       return (

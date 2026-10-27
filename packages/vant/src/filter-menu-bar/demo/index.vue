@@ -8,10 +8,7 @@ import Search from '../../search';
 import VanCascadeTreeSelect, {
   type CascadeTreeSelectOption,
 } from '../../cascade-tree-select';
-const stampFrameIcon = new URL(
-  '../../tag/assets/stamp-frame1.svg',
-  import.meta.url,
-).href;
+import stampFrameIcon from '../../tag/assets/stamp-frame1.svg';
 import type { FilterMenuBarExpose } from '..';
 import type { FilterMenuBarItem, FilterMenuBarModel } from '../types';
 

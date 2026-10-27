@@ -50,7 +50,7 @@ const [name, bem, t] = createNamespace('checkbox-group');
 
 export const checkboxGroupProps = {
   max: numericProp,
-  shape: makeStringProp<CheckerShape>('round'),
+  shape: makeStringProp<CheckerShape>('square'),
   disabled: Boolean,
   iconSize: numericProp,
   direction: String as PropType<CheckerDirection>,

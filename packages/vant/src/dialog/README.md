@@ -94,9 +94,9 @@ showConfirmDialog({
   });
 ```
 
-### Three actions and vertical footer
+### Multiple actions and vertical footer
 
-When `showCancelButton` is enabled and the confirm button text is longer than `confirmButtonVerticalThreshold` (default `5`), or when `secondaryButtonText` is provided, the footer automatically switches to a vertical layout. In vertical layout, up to 3 buttons are supported: 2 action buttons and 1 cancel button, with the cancel button always rendered at the bottom. Each button text is displayed on a single line with at most `verticalButtonMaxTextLength` visible characters (default `15`).
+When `actionButtons` is provided, or `showCancelButton` is enabled and the confirm button text is longer than `confirmButtonVerticalThreshold` (default `5`), the footer automatically switches to a vertical layout. `actionButtons` configures action buttons between the confirm and cancel buttons. Built-in confirm and cancel buttons have higher priority: if a built-in confirm or cancel button is visible, the action button with the same `action` will be ignored; otherwise, `actionButtons` can use `confirm` or `cancel` as its action. If duplicated `action` values exist, only the last valid item is kept. Each button text is displayed on a single line with at most `verticalButtonMaxTextLength` visible characters (default `15`).
 
 ```js
 import { showConfirmDialog } from 'vant';
@@ -105,14 +105,16 @@ showConfirmDialog({
   title: 'Title',
   message:
     'If the solution is ugly, then there must be a better solution, but it has not been discovered yet.',
-  confirmButtonText: 'Continue Action',
-  secondaryButtonText: 'Review Details',
+  actionButtons: [
+    { action: 'detail', text: 'Review Details' },
+    { action: 'retry', text: 'Try Again' },
+  ],
   confirmButtonVerticalThreshold: 5,
   verticalButtonMaxTextLength: 15,
 })
   .then((action) => {
-    if (action === 'secondary') {
-      // on secondary action
+    if (action === 'detail') {
+      // on review details action
       return;
     }
 
@@ -247,7 +249,7 @@ Vant exports following Dialog utility functions:
 
 ### DialogOptions
 
-When showCancelButton is enabled and the confirm button text is longer than confirmButtonVerticalThreshold (default 5), or when secondaryButtonText is provided, the footer automatically switches to a vertical layout. In vertical layout, up to 3 buttons are supported (2 action buttons + 1 cancel button), the cancel button is always rendered at the bottom, and each button text is displayed on a single line with at most verticalButtonMaxTextLength visible characters (default 15).
+When actionButtons is provided, or showCancelButton is enabled and the confirm button text is longer than confirmButtonVerticalThreshold (default 5), the footer automatically switches to a vertical layout. actionButtons configures action buttons between the confirm and cancel buttons. Built-in confirm and cancel buttons have higher priority: if a built-in confirm or cancel button is visible, the action button with the same action will be ignored; otherwise, actionButtons can use confirm or cancel as its action. If duplicated action values exist, only the last valid item is kept. Each button text is displayed on a single line with at most verticalButtonMaxTextLength visible characters (default 15).
 
 | Attribute | Description | Type | Default |
 | --- | --- | --- | --- |
@@ -269,9 +271,7 @@ When showCancelButton is enabled and the confirm button text is longer than conf
 | confirmButtonText | Confirm button text | _string_ | `我知道了` (alert) / `主要操作` (confirm) |
 | confirmButtonColor | Confirm button color | _string_ | `#ee0a24` |
 | confirmButtonDisabled | Whether to disable confirm button | _boolean_ | `false` |
-| secondaryButtonText | Secondary action button text | _string_ | - |
-| secondaryButtonColor | Secondary action button color | _string_ | `black` |
-| secondaryButtonDisabled | Whether to disable secondary action button | _boolean_ | `false` |
+| actionButtons | Custom action button list between confirm and cancel buttons | _DialogButton[]_ | - |
 | confirmButtonVerticalThreshold | Confirm text length threshold for switching to vertical footer when `showCancelButton` is enabled | _number \| string_ | `5` |
 | verticalButtonMaxTextLength | Maximum visible characters for each button text in vertical footer | _number \| string_ | `15` |
 | destroyOnClose `v4.9.18` | Whether to destroy content when closed | _boolean_ | `false` |
@@ -313,9 +313,7 @@ If you want to keep `message` and append an input area below it, use `inputConfi
 | confirm-button-text | Confirm button text | _string_ | `我知道了` (alert) / `主要操作` (confirm) |
 | confirm-button-color | Confirm button color | _string_ | `#ee0a24` |
 | confirm-button-disabled | Whether to disable confirm button | _boolean_ | `false` |
-| secondary-button-text | Secondary action button text | _string_ | - |
-| secondary-button-color | Secondary action button color | _string_ | `black` |
-| secondary-button-disabled | Whether to disable secondary action button | _boolean_ | `false` |
+| action-buttons | Custom action button list between confirm and cancel buttons | _[DialogButton[]](#types)_ | - |
 | confirm-button-vertical-threshold | Confirm text length threshold for switching to vertical footer when `showCancelButton` is enabled | _number \| string_ | `5` |
 | vertical-button-max-text-length | Maximum visible characters for each button text in vertical footer | _number \| string_ | `15` |
 | destroy-on-close `v4.9.18` | Whether to destroy content when closed | _boolean_ | `false` |
@@ -338,8 +336,8 @@ If you want to keep `message` and append an input area below it, use `inputConfi
 | Event | Description | Parameters |
 | --- | --- | --- |
 | confirm | Emitted when the confirm button is clicked | _inputValue?: string_ |
-| secondary | Emitted when the secondary action button is clicked | _inputValue?: string_ |
 | cancel | Emitted when the cancel button is clicked | _inputValue?: string_ |
+| click-button | Emitted when a button in action-buttons is clicked | _action: string, button: DialogButton, inputValue?: string_ |
 | update:input-value | Emitted when the built-in input value changes | _value: string_ |
 | open | Emitted when opening Dialog | - |
 | close | Emitted when closing Dialog | - |
@@ -362,6 +360,7 @@ The component exports the following type definitions:
 import type {
   DialogProps,
   DialogAction,
+  DialogButton,
   DialogTheme,
   DialogMessage,
   DialogOptions,

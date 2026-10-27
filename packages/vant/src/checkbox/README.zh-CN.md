@@ -21,10 +21,12 @@ app.use(CheckboxGroup);
 
 ### 基础用法
 
-通过 `v-model` 绑定复选框的勾选状态。
+通过 `v-model` 绑定复选框的勾选状态，默认为方形样式。通过 `indeterminate` 设置半选状态。
 
 ```html
 <van-checkbox v-model="checked">复选框</van-checkbox>
+<van-checkbox v-model="unchecked">复选框</van-checkbox>
+<van-checkbox indeterminate>半选</van-checkbox>
 ```
 
 ```js
@@ -33,7 +35,8 @@ import { ref } from 'vue';
 export default {
   setup() {
     const checked = ref(true);
-    return { checked };
+    const unchecked = ref(false);
+    return { checked, unchecked };
   },
 };
 ```
@@ -43,15 +46,16 @@ export default {
 通过设置 `disabled` 属性可以禁用复选框。
 
 ```html
-<van-checkbox v-model="checked" disabled>复选框</van-checkbox>
+<van-checkbox :model-value="false" disabled>复选框</van-checkbox>
+<van-checkbox :model-value="true" disabled>复选框</van-checkbox>
 ```
 
 ### 自定义形状
 
-将 `shape` 属性设置为 `square`，复选框的形状会变成方形。
+将 `shape` 属性设置为 `round`，复选框的形状会变成圆形。
 
 ```html
-<van-checkbox-group v-model="checked" shape="square">
+<van-checkbox-group v-model="checked" shape="round">
   <van-checkbox name="a">复选框 a</van-checkbox>
   <van-checkbox name="b">复选框 b</van-checkbox>
 </van-checkbox-group>
@@ -73,11 +77,7 @@ export default {
 将 `shape` 设置为 `block` 并配合 `direction="horizontal"` 使用块状样式。
 
 ```html
-<van-checkbox-group
-  v-model="checked"
-  shape="block"
-  direction="horizontal"
->
+<van-checkbox-group v-model="checked" shape="block" direction="horizontal">
   <van-checkbox name="a">复选框 a</van-checkbox>
   <van-checkbox name="b">复选框 b</van-checkbox>
   <van-checkbox name="c">复选框 c</van-checkbox>
@@ -504,7 +504,7 @@ export default {
 | --- | --- | --- | --- |
 | v-model | 是否为选中状态 | _boolean_ | `false` |
 | name | 标识符，通常为一个唯一的字符串或数字 | _any_ | - |
-| shape | 形状，可选值为 `square` `block` | _string_ | `round` |
+| shape | 形状，可选值为 `round` `block` | _string_ | `square` |
 | disabled | 是否禁用复选框 | _boolean_ | `false` |
 | label-disabled | 是否禁用复选框文本点击 | _boolean_ | `false` |
 | label-position | 文本位置，可选值为 `left` | _string_ | `right` |
@@ -528,7 +528,7 @@ export default {
 | options `new` | 通过配置渲染选项，项为 `{ label, value, disabled?, icon?, cellProps? }`，`icon` 为图标名称，`cellProps` 为 [Cell 组件](#/zh-CN/cell) 的属性；同时设置 `icon` 与 `cellProps.icon` 时，优先使用 `cellProps.icon` | _CheckboxGroupOption[]_ | `[]` |
 | icon-size | 所有复选框的图标大小，默认单位为 `px` | _number \| string_ | `16px` |
 | checked-color | 所有复选框的选中状态颜色 | _string_ | `#1989fa` |
-| shape `v4.6.3` | 形状，可选值为 `square` `block` | _string_ | `round` |
+| shape `v4.6.3` | 形状，可选值为 `round` `block` | _string_ | `square` |
 
 ### Checkbox Events
 
@@ -635,16 +635,23 @@ checkboxGroupRef.value?.toggleAll();
 
 组件提供了下列 CSS 变量，可用于自定义样式，使用方法请参考 [ConfigProvider 组件](#/zh-CN/config-provider)。
 
-| 名称                                | 默认值                     | 描述 |
-| ----------------------------------- | -------------------------- | ---- |
-| --van-checkbox-size                 | _16px_                     | 图标大小 |
-| --van-checkbox-label-font-size      | _14px_                     | 文本字号 |
-| --van-checkbox-label-line-height    | _20px_                     | 文本行高 |
-| --van-checkbox-border-color         | _var(--van-gray-5)_        | -    |
-| --van-checkbox-duration             | _var(--van-duration-fast)_ | -    |
-| --van-checkbox-label-margin         | _2px_                      | 文本与图标间距 |
-| --van-checkbox-label-color          | _var(--van-text-color)_    | -    |
-| --van-checkbox-checked-icon-color   | _var(--van-primary-color)_ | -    |
-| --van-checkbox-disabled-icon-color  | _var(--van-gray-5)_        | -    |
-| --van-checkbox-disabled-label-color | _var(--van-text-color-3)_  | -    |
-| --van-checkbox-disabled-background  | _var(--van-border-color)_  | -    |
+| 名称 | 默认值 | 描述 |
+| --- | --- | --- |
+| --van-checkbox-size | _16px_ | 图标大小 |
+| --van-checkbox-label-font-size | _14px_ | 文本字号 |
+| --van-checkbox-label-line-height | _20px_ | 文本行高 |
+| --van-checkbox-border-color | _var(--van-gray-5)_ | - |
+| --van-checkbox-radius | _2px_ | 方形复选框圆角 |
+| --van-checkbox-duration | _var(--van-duration-fast)_ | - |
+| --van-checkbox-label-margin | _4px_ | 文本与图标间距 |
+| --van-checkbox-label-color | _var(--van-text-color)_ | - |
+| --van-checkbox-checked-icon-color | _var(--van-primary-color)_ | - |
+| --van-checkbox-disabled-icon-color | _var(--van-gray-5)_ | - |
+| --van-checkbox-disabled-checked-icon-color | _#ffcda8_ | 选中且禁用时的图标颜色 |
+| --van-checkbox-disabled-unchecked-background | _var(--van-gray-9)_ | 未选中且禁用时的图标背景色 |
+| --van-checkbox-disabled-border-color | _var(--van-gray-11)_ | 未选中且禁用时的图标边框颜色 |
+| --van-checkbox-disabled-label-color | _var(--van-text-color-3)_ | - |
+| --van-checkbox-disabled-background | _var(--van-border-color)_ | - |
+| --van-checkbox-indeterminate-line-width | _10px_ | 不确定状态横杠宽度 |
+| --van-checkbox-indeterminate-line-height | _2px_ | 不确定状态横杠高度 |
+| --van-checkbox-group-gap | _var(--van-padding-md)_ | 复选框组垂直间距 |

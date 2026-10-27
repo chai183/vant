@@ -10,7 +10,7 @@
  * 3. JSON 顶层的 `defaultIcon`（如 `gold-coin-o`）
  */
 
-import currencyRaw from './currency-presets.json';
+import { currencyRaw } from './currency-presets-json';
 import {
   TAG_CURRENCY_FLAG_ICON_MAP,
   type TagCurrencyFlagIconMap,

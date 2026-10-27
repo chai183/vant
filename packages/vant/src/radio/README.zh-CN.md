@@ -181,6 +181,7 @@ export default {
 
 ### 自定义图标
 
+<!--
 通过 `icon` 插槽自定义图标，并通过 `slotProps` 判断是否为选中状态。
 
 ```html
@@ -222,6 +223,7 @@ export default {
   },
 };
 ```
+-->
 
 ### 左侧文本
 
@@ -417,9 +419,11 @@ import type {
 | --van-radio-duration | _var(--van-duration-fast)_ | - |
 | --van-radio-label-font-size | _14px_ | 文本字号 |
 | --van-radio-label-line-height | _20px_ | 文本行高 |
-| --van-radio-label-margin | _2px_ | 文本与图标间距 |
-| --van-radio-label-color | _var(--van-text-color)_ | - |
+| --van-radio-label-margin | _4px_ | 文本与图标间距 |
+| --van-radio-label-color | _var(--van-text-color)_ | 文本颜色 |
 | --van-radio-checked-icon-color | _var(--van-primary-color)_ | - |
 | --van-radio-disabled-icon-color | _var(--van-gray-5)_ | - |
-| --van-radio-disabled-label-color | _var(--van-text-color-3)_ | - |
+| --van-radio-disabled-checked-icon-color | _#ffcda8_ | 选中且禁用时的图标颜色 |
+| --van-radio-disabled-label-color | _var(--van-text-color-3)_ | 禁用时的文本颜色 |
 | --van-radio-disabled-background | _var(--van-border-color)_ | - |
+| --van-radio-group-gap | _var(--van-padding-md)_ | 单选框组垂直间距 |

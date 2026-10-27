@@ -1,10 +1,10 @@
-const excelIcon = new URL('./assets/excel.svg', import.meta.url).href;
-const mp4Icon = new URL('./assets/mp4.svg', import.meta.url).href;
-const pictureWrongIcon = new URL('./assets/picture-wrong.svg', import.meta.url).href;
-const txtIcon = new URL('./assets/txt.svg', import.meta.url).href;
-const unknownIcon = new URL('./assets/unknown.svg', import.meta.url).href;
-const wordIcon = new URL('./assets/word.svg', import.meta.url).href;
-const zipIcon = new URL('./assets/zip.svg', import.meta.url).href;
+import excelIcon from './assets/excel.svg';
+import mp4Icon from './assets/mp4.svg';
+import pictureWrongIcon from './assets/picture-wrong.svg';
+import txtIcon from './assets/txt.svg';
+import unknownIcon from './assets/unknown.svg';
+import wordIcon from './assets/word.svg';
+import zipIcon from './assets/zip.svg';
 
 export type FileTypeIcon =
   | 'word'

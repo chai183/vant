@@ -5,8 +5,7 @@ import VanIcon from '../../icon';
 import { ref } from 'vue';
 import { useTranslate } from '../../../docs/site';
 
-const imageURL = new URL('../../tag/assets/stamp-frame1.svg', import.meta.url)
-  .href;
+import imageURL from '../../tag/assets/stamp-frame1.svg';
 
 const t = useTranslate({
   'zh-CN': {
@@ -315,7 +314,7 @@ const fullSelected = ref(false);
       footer-button-type="text"
       :footer-buttons="[
         { text: t('btn1'), name: 'a', color: 'var(--van-primary-color)' },
-        { text: t('btn2'), name: 'b' },
+        { text: t('btn2'), name: 'b', disabled: true },
         { text: t('btn3'), name: 'c' },
         { text: t('btn4'), name: 'd' },
         { text: t('btn5'), name: 'e' },
@@ -341,10 +340,10 @@ const fullSelected = ref(false);
           name: 'a',
           color: 'var(--van-primary-color)',
         },
-        { text: t('outlineBtn2'), name: 'b' },
+        { text: t('outlineBtn2'), name: 'b', disabled: true },
         { text: t('outlineBtn3'), name: 'c' },
         { text: t('outlineBtn4'), name: 'd' },
-        { text: t('outlineBtn5'), name: 'e', color: 'var(--van-danger-color)' },
+        { text: t('outlineBtn5'), name: 'e' },
       ]"
       footer-note-layout="split"
       :footer-note-left="t('noteLeft')"
@@ -538,7 +537,7 @@ const fullSelected = ref(false);
   display: inline-flex;
   align-items: center;
   color: var(--van-danger-color);
-  font-size: var(--van-font-size-sm);
+  font-size: var(--van-font-size-md);
   line-height: var(--van-line-height-sm);
   cursor: pointer;
 }

@@ -369,12 +369,9 @@ test('should show text footer overflow trigger when more than four buttons', () 
     },
   });
 
-  expect(wrapper.findAll('.van-card__footer-button-row')).toHaveLength(1);
+  expect(wrapper.find('.van-bottom-action-bar').exists()).toBe(true);
   expect(wrapper.findAll('.van-card__footer-btn')).toHaveLength(4);
-  expect(wrapper.find('.van-card__footer-overflow').exists()).toBe(true);
-  expect(wrapper.find('.van-card__footer-button-row--overflow').exists()).toBe(
-    true,
-  );
+  expect(wrapper.find('.van-card__footer-overflow-icon').exists()).toBe(true);
   expect(wrapper.find('.van-card__footer-btn').text()).toBe('按钮一');
 });
 
@@ -410,6 +407,7 @@ test('should show outline footer more trigger when more than outline max buttons
   expect(wrapper.find('.van-card__footer-buttons--outline').exists()).toBe(
     true,
   );
+  expect(wrapper.find('.van-bottom-action-bar').exists()).toBe(true);
 });
 
 test('should respect footer-outline-max for outline footer buttons', () => {

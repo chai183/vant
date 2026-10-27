@@ -1,0 +1,20 @@
+# Common
+dist
+node_modules
+.eslintcache
+vite.config.*.timestamp*
+
+# MacOS
+.DS_Store
+.history
+
+# Local env files
+*.local
+*.local.json
+
+# Logs
+*.log
+
+# Use the pnpm
+package-lock.json
+yarn.lock

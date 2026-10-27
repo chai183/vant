@@ -3,6 +3,8 @@
   "scripts": {
     "prepare": "husky",
     "dev": "pnpm --dir ./packages/vant dev",
+    "dev:biz": "pnpm --dir ./packages/biz-app dev",
+    "build:biz": "pnpm --dir ./packages/biz-app build",
     "lint": "eslint \"./packages/**/{src,test}/**/*.{vue,ts,tsx,js,mjs,cjs}\"",
     "test": "pnpm --dir ./packages/vant test",
     "test:watch": "pnpm --dir ./packages/vant test:watch",

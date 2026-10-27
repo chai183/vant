@@ -1,2 +1,4 @@
 packages:
   - 'packages/*'
+  # 仅作架构参考，不参与 monorepo 依赖安装
+  - '!packages/digital-workforce'

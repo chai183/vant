@@ -75,6 +75,15 @@ Use the `icon` prop to set the button icon. It supports all icons from the Icon 
 <van-button icon="add-o" size="mini">With Icon</van-button>
 ```
 
+### Icon Gap
+
+Use the `icon-gap` prop to customize the spacing between the icon and text. The default unit is `px`.
+
+```html
+<van-button icon="add-o">Default Gap</van-button>
+<van-button icon="add-o" :icon-gap="16">Custom Gap</van-button>
+```
+
 ### Disabled
 
 Use the `disabled` prop to disable the button. In the disabled state, the button cannot be clicked.
@@ -174,6 +183,7 @@ When `size` is `large`, use the `extra` slot to add content below `van-button__c
 | icon | Left Icon | _string_ | - |
 | icon-prefix | Icon className prefix | _string_ | `van-icon` |
 | icon-position | Icon position, can be set to `left` `right` | _string_ | `left` |
+| icon-gap `new` | Spacing between icon and text, default unit is `px` | _number \| string_ | - |
 | tag | HTML Tag | _string_ | `button` |
 | native-type | Native Type Attribute | _string_ | `button` |
 | plain | Whether to be plain button | _boolean_ | `false` |

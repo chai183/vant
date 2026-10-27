@@ -1333,7 +1333,7 @@ export default defineComponent({
             'label-collapsed': isLabelCollapsible() && !labelExpanded.value,
             [`label-${labelAlign}`]: labelAlign,
           })}
-          center={props.center}
+          center={props.center || props.isLink}
           border={props.inputBorder ? false : props.border}
           isLink={props.isLink}
           clickable={props.clickable}

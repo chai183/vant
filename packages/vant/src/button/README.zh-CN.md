@@ -73,6 +73,15 @@ app.use(Button);
 <van-button icon="add-o" size="mini">加图标</van-button>
 ```
 
+### 图标间距
+
+通过 `icon-gap` 属性可以自定义图标与文字之间的间距，默认单位为 `px`。
+
+```html
+<van-button icon="add-o">默认间距</van-button>
+<van-button icon="add-o" :icon-gap="16">自定义间距</van-button>
+```
+
 ### 禁用状态
 
 通过 `disabled` 属性来禁用按钮，禁用状态下按钮不可点击。
@@ -168,6 +177,7 @@ app.use(Button);
 | icon | 图标名称或图片链接，等同于 Icon 组件的 [name 属性](#/zh-CN/icon#props) | _string_ | - |
 | icon-prefix | 图标类名前缀，等同于 Icon 组件的 [class-prefix 属性](#/zh-CN/icon#props) | _string_ | `van-icon` |
 | icon-position | 图标展示位置，可选值为 `left` `right` | _string_ | `left` |
+| icon-gap `new` | 图标与文字之间的间距，默认单位为 `px` | _number \| string_ | - |
 | tag | 按钮根节点的 HTML 标签 | _string_ | `button` |
 | native-type | 原生 button 标签的 type 属性 | _string_ | `button` |
 | block | 是否为块级元素 | _boolean_ | `false` |

@@ -198,12 +198,12 @@ test('should apply custom size props correctly', () => {
     },
   });
 
-  expect(wrapper.element.style.getPropertyValue('--van-button-custom-height')).toBe(
-    '36px',
-  );
-  expect(wrapper.element.style.getPropertyValue('--van-button-custom-radius')).toBe(
-    '8px',
-  );
+  expect(
+    wrapper.element.style.getPropertyValue('--van-button-custom-height'),
+  ).toBe('36px');
+  expect(
+    wrapper.element.style.getPropertyValue('--van-button-custom-radius'),
+  ).toBe('8px');
   expect(
     wrapper.element.style.getPropertyValue('--van-button-custom-font-size'),
   ).toBe('12px');
@@ -225,6 +225,20 @@ test('should apply custom padding props correctly', () => {
 
   expect(wrapper.element.style.paddingLeft).toBe('12px');
   expect(wrapper.element.style.paddingRight).toBe('20px');
+});
+
+test('should apply custom icon gap correctly', () => {
+  const wrapper = mount(Button, {
+    props: {
+      icon: 'plus',
+      text: 'Button',
+      iconGap: 16,
+    },
+  });
+
+  expect(
+    wrapper.element.style.getPropertyValue('--van-button-icon-margin'),
+  ).toBe('16px');
 });
 
 test('should render icon slot correctly', () => {

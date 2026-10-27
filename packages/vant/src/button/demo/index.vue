@@ -18,6 +18,9 @@ const t = useTranslate({
     textPlainSecondary: '次要文本',
     addIcon: '加图标',
     addIconStyle: '加图标样式',
+    iconGap: '图标间距',
+    iconGapDefault: '默认间距',
+    iconGapCustom: '自定义间距',
     iconRight: '图标在右',
     primaryDisabled: '强按钮禁用态',
     plainDisabled: '弱按钮禁用态',
@@ -61,6 +64,9 @@ const t = useTranslate({
     textPlainSecondary: 'Secondary Text',
     addIcon: 'With Icon',
     addIconStyle: 'Icon Style',
+    iconGap: 'Icon Gap',
+    iconGapDefault: 'Default Gap',
+    iconGapCustom: 'Custom Gap',
     iconRight: 'Icon Right',
     primaryDisabled: 'Primary Disabled',
     plainDisabled: 'Plain Disabled',
@@ -187,6 +193,13 @@ const t = useTranslate({
     <van-button icon="add-o" size="normal">{{ t('addIcon') }}</van-button>
     <van-button icon="add-o" size="small">{{ t('addIcon') }}</van-button>
     <van-button icon="add-o" size="mini">{{ t('addIcon') }}</van-button>
+  </demo-block>
+
+  <demo-block :title="t('iconGap')">
+    <van-button icon="add-o">{{ t('iconGapDefault') }}</van-button>
+    <van-button icon="add-o" :icon-gap="16">{{
+      t('iconGapCustom')
+    }}</van-button>
   </demo-block>
 
   <demo-block :title="t('disabled')">

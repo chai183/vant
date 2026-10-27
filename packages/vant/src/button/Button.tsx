@@ -53,6 +53,7 @@ export const buttonProps = extend({}, routeProps, {
   loadingText: String,
   loadingType: String as PropType<LoadingType>,
   iconPosition: makeStringProp<ButtonIconPosition>('left'),
+  iconGap: numericProp,
   width: numericProp,
   height: numericProp,
   radius: numericProp,
@@ -135,6 +136,7 @@ export default defineComponent({
         borderColor,
         paddingLeft,
         paddingRight,
+        iconGap,
       } = props;
       const style: CSSProperties = {};
       const styleRecord = style as Record<string, string | undefined>;
@@ -171,6 +173,9 @@ export default defineComponent({
       }
       if (isDef(paddingRight)) {
         style.paddingRight = addUnit(paddingRight);
+      }
+      if (isDef(iconGap)) {
+        styleRecord['--van-button-icon-margin'] = addUnit(iconGap);
       }
 
       if (color) {

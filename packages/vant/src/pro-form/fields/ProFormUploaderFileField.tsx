@@ -27,7 +27,7 @@ export default defineComponent({
 
   emits: ['update:modelValue'],
 
-  setup(props, { emit, slots }) {
+  setup(props, { emit }) {
     return () => {
       const { labelAlign = 'top', ...restFieldProps } = props.fieldProps;
       const modelValue = Array.isArray(props.modelValue)
@@ -35,11 +35,7 @@ export default defineComponent({
         : [];
 
       return (
-        <Field
-          {...restFieldProps}
-          labelAlign={labelAlign}
-          class={bem()}
-        >
+        <Field {...restFieldProps} labelAlign={labelAlign} class={bem()}>
           {{
             input: () => (
               <UploaderFile
@@ -48,9 +44,7 @@ export default defineComponent({
                 onUpdate:modelValue={(value: UploaderFileListItem[]) =>
                   emit('update:modelValue', value)
                 }
-              >
-                {slots}
-              </UploaderFile>
+              />
             ),
             ...props.fieldSlots,
           }}

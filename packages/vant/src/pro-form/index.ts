@@ -15,7 +15,16 @@ export type {
   ProFormRenderContext,
   ProFormComponentRender,
   ProFormBuiltinComponent,
+  ProFormStructureKind,
   ProFormThemeVars,
+} from './types';
+export {
+  isProFormStructureColumn,
+  isProFormCollapseGroupColumn,
+  resolveProFormStructureKind,
+  createCollapseGroupDefaultItem,
+  getProFormStructureTitle,
+  getProFormGroupName,
 } from './types';
 
 declare module 'vue' {

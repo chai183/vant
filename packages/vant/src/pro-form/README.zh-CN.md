@@ -88,6 +88,91 @@ const onFailed = ({ values, errors }) => {
 };
 ```
 
+### 区块与折叠分组 `new`
+
+用平铺的 `title` / `name` + `content` 嵌套布局，**无需写 type、无需传 wrapper 组件**。按配置自动识别：
+
+- 配置了 `addText` / `min` / `max` / `defaultItem` → 可增删分组（`model[name]` 为数组；外层 `title` 置顶；每条标题+删除不折叠；条内静态 Collapse；底部添加；新增按 `content` 字段模板）
+- 子级仍含 `content` → 区块标题
+- 有 `title`、子级为字段 → 静态折叠
+- 仅有 `content` → 透传层
+
+容器与样式均写死，不提供主题变量定制。
+
+```js
+const columns = computed(() => [
+  {
+    title: '基本信息',
+    content: [
+      {
+        content: [
+          {
+            title: '企业名称',
+            name: 'name-panel',
+            content: [
+              {
+                name: 'name',
+                label: '企业名称',
+                component: 'field',
+                fieldProps: { placeholder: '请输入企业名称' },
+              },
+            ],
+          },
+        ],
+      },
+    ],
+  },
+  {
+    title: '工作经历',
+    name: 'workExperiences',
+    addText: '新增工作经历',
+    min: 0,
+    max: 5,
+    defaultItem: { companyName: '', position: '', description: '' },
+    content: [
+      {
+        content: [
+          {
+            title: '公司名称',
+            name: 'company-panel',
+            content: [
+              {
+                name: 'companyName',
+                label: '公司名称',
+                component: 'field',
+                fieldProps: { placeholder: '请输入公司名称' },
+              },
+              {
+                name: 'position',
+                label: '担任职位',
+                component: 'field',
+                fieldProps: { placeholder: '请输入职位' },
+              },
+            ],
+          },
+          {
+            title: '职位描述',
+            name: 'description-panel',
+            content: [
+              {
+                name: 'description',
+                label: '职位描述',
+                component: 'field',
+                fieldProps: {
+                  type: 'textarea',
+                  rows: 2,
+                  placeholder: '请输入职位描述',
+                },
+              },
+            ],
+          },
+        ],
+      },
+    ],
+  },
+]);
+```
+
 ### 选择类字段
 
 `picker`、`datePicker`、`area`、`areaStepCascader`、`calendar` 等选择类控件，需在 `componentProps` 传入 `columns`、`areaList` 等数据。
@@ -190,6 +275,21 @@ const columns = computed(() => [
       ),
     },
   },
+  {
+    name: 'radioRemoteListPicker',
+    label: '单选远程分页',
+    component: 'radioPicker',
+    fieldProps: { placeholder: '请选择' },
+    componentProps: {
+      isList: true,
+      showSearch: true,
+      pageSize: 20,
+      loadOptions: async ({ page, pageSize, keyword } = {}) => {
+        // 返回 { list, total }；弹层内上拉加载更多
+        return fetchOptions({ page, pageSize, keyword });
+      },
+    },
+  },
 ]);
 ```
 
@@ -259,6 +359,21 @@ const columns = computed(() => [
           </Button>
         </div>
       ),
+    },
+  },
+  {
+    name: 'checkboxRemoteListPicker',
+    label: '多选远程分页',
+    component: 'checkboxPicker',
+    defaultValue: [],
+    fieldProps: { placeholder: '请选择' },
+    componentProps: {
+      isList: true,
+      showSearch: true,
+      pageSize: 20,
+      loadOptions: async ({ page, pageSize, keyword } = {}) => {
+        return fetchOptions({ page, pageSize, keyword });
+      },
     },
   },
 ]);
@@ -554,8 +669,15 @@ const columns = computed(() => [
 
 | 键名 | 说明 | 类型 |
 | --- | --- | --- |
-| name | 字段名 | _string_ |
-| label | 标签 | _string_ |
+| name | 字段名；可增删分组对应 model 数组字段 | _string_ |
+| label | 字段标签 | _string_ |
+| title `new` | 结构节点标题；可增删分组为「标题+序号」前缀 | _string_ |
+| content `new` | 有 `content` 且无控件配置时视为结构节点，按嵌套自动识别 | _ProFormColumn[]_ |
+| addText `new` | 可增删分组添加按钮文案 | _string_ |
+| min `new` | 可增删分组最少条数 | _number_ |
+| max `new` | 可增删分组最多条数 | _number_ |
+| defaultItem `new` | 可增删分组新增项初始对象 | _object_ |
+| itemTitle `new` | 可增删分组自定义每项标题 `(item, index) => string` | _Function_ |
 | component | 内置或自定义控件类型 | _string_ |
 | defaultValue | 初始值；未传时按 `component` 使用内置默认值 | _unknown_ |
 | fieldProps | 透传 Field | _Partial\<FieldProps\>_ |
@@ -595,6 +717,8 @@ const columns = computed(() => [
 #### 各控件配置说明
 
 `radioGroup` / `radioPicker` / `checkboxGroup` / `checkboxPicker` 的 `shape`、`columns`、`direction`、`isList`、`options` 等通过 `componentProps` 配置；列表模式下 `options` 项可含 `cellProps` 透传 Cell 属性。
+
+`radioPicker` / `checkboxPicker` 在 `isList` + `loadOptions` 时支持上拉分页：`loadOptions({ page, pageSize, keyword })` 可返回 `{ list, total }` 或 `{ list, finished }`；`pageSize`（默认 `20`）与 `showSearch`（远程关键词）通过 `componentProps` 配置。兼容直接返回选项数组（视为一次加载完成）。
 
 `fieldMoney` 的 `currency`、`showMoneyUppercase` 等通过 `componentProps` 配置，`label`、`rules`、`labelTooltip` 等通过 `fieldProps` 配置。
 
@@ -636,7 +760,10 @@ const columns = computed(() => [
 
 组件提供了下列 CSS 变量，可用于自定义样式，使用方法请参考 [ConfigProvider 组件](#/zh-CN/config-provider)。
 
-| 名称                                       | 默认值 | 描述               |
-| ------------------------------------------ | ------ | ------------------ |
-| --van-pro-form-footer-padding              | _0_    | 表单底部区域内边距 |
+| 名称 | 默认值 | 描述 |
+| --- | --- | --- |
+| --van-pro-form-footer-padding | _0_ | 表单底部区域内边距 |
 | --van-pro-form-field-popup-body-max-height | _70vh_ | 弹窗内容区最大高度 |
+| --van-pro-form-field-popup-list-item-height `new` | _calc(var(--van-cell-vertical-padding) \* 2 + var(--van-cell-line-height))_ | 单选/多选列表单行高度 |
+| --van-pro-form-field-popup-list-visible-count `new` | _10_ | 单选/多选列表可视行数 |
+| --van-pro-form-field-popup-list-height `new` | _calc(item-height \* visible-count)_ | 单选/多选列表固定高度 |

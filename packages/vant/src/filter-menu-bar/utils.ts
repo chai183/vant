@@ -14,7 +14,8 @@ export function cloneDefaultValue(value: unknown): unknown {
 // 判断值是否“有效”，用于筛选项标题高亮和是否选中状态判断。
 export function hasValue(value: unknown): boolean {
   if (Array.isArray(value)) {
-    return value.length > 0;
+    // rangeInput 空态为 ['', '']，长度 > 0 但仍视为未选；多选看是否有非空项
+    return value.some((item) => hasValue(item));
   }
   if (value && typeof value === 'object') {
     return Object.values(value as Record<string, unknown>).some(hasValue);

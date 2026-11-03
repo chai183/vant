@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import BasicUsage from './BasicUsage.vue';
+import Wrapper from './Wrapper.vue';
 import PickerFields from './PickerFields.vue';
 import Radio from './Radio.vue';
 import Checkbox from './Checkbox.vue';
@@ -12,6 +13,7 @@ import FieldSlot from './FieldSlot.vue';
 
 <template>
   <basic-usage />
+  <wrapper />
   <picker-fields />
   <radio />
   <checkbox />

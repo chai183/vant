@@ -21,12 +21,15 @@
  * --single 嵌入元数据时：
  *   1) import / import type 的 from "element-plus" / from 'element-plus'
  *      改写为 @nbcb/dthr-component-v3-pc
- *   2) import BusinessTable from '@/_components/BusinessTable/index.vue'
+ *   2) 仅 packages/biz-app 内，将 'vant' / "vant" 改写为 @nbcb/dthr-component-v3-mb
+ *      （含 import、import type、动态 import 与配置中的包名，不含 vant/ 子路径）
+ *   3) import BusinessTable from '@/_components/BusinessTable/index.vue'
  *      改写为 import { ElBusinessTable as BusinessTable } from '@nbcb/dthr-component-v3-pc'
- *   3) import { i18n } from "@/locales" 改写为 import i18n from "@/_plugins/i18n"
- *   4) 相对路径与正文中的目录名 pages 改写为 views（如 @/pages → @/views）
- *   5) 正文中的 @/_assets/images/ 改写为 @/assets/
- *   6) Object.hasOwn(...) 改写为 Object.prototype.hasOwnProperty.call(...)
+ *   4) import { i18n } from "@/locales" 改写为 import i18n from "@/_plugins/i18n"
+ *   5) 相对路径与正文中的目录名 pages 改写为 views（如 @/pages → @/views）
+ *   6) 正文中的 @/_assets/images/ 改写为 @/assets/
+ *   7) 正文中的 @/pinia/stores 改写为 @/stores
+ *   8) Object.hasOwn(...) 改写为 Object.prototype.hasOwnProperty.call(...)
  *
  * 将 Git 文本内容改动导出为可执行的 Node 应用脚本（仅写入有改动的文本文件）:
  *   node export-git-apply.js [输出脚本路径] [路径范围]
@@ -92,6 +95,8 @@ const MAX_BYTES_PER_PAGE = 2 * 1024 * 1024; // 多页模式下按页数放宽读
 
 /** --single 导出时，element-plus / BusinessTable 替换为目标包 */
 const INTRANET_COMPONENT_PKG = '@nbcb/dthr-component-v3-pc';
+/** --single 导出时，packages/biz-app 内的 vant 替换为目标包 */
+const INTRANET_MOBILE_COMPONENT_PKG = '@nbcb/dthr-component-v3-mb';
 
 /**
  * 将 import / import type 的 `from "element-plus"` / `from 'element-plus'`
@@ -108,6 +113,30 @@ function rewriteElementPlusImports(text) {
         return match;
       return `from ${quote}${INTRANET_COMPONENT_PKG}${quote}`;
     },
+  );
+}
+
+/** 路径中含 packages/biz-app 段时，才改写 vant 包名 */
+function isBizAppSource(filePath) {
+  const parts = String(filePath || '')
+    .split(/[/\\]/)
+    .filter(Boolean);
+  return parts.some(
+    (seg, index) => seg === 'packages' && parts[index + 1] === 'biz-app',
+  );
+}
+
+/**
+ * 将 `'vant'` / `"vant"` 改写为 `@nbcb/dthr-component-v3-mb`。
+ * 仅用于 packages/biz-app。覆盖 import、import type、动态 import('vant') 以及配置里的包名；
+ * 不改写 `vant/...` 子路径，避免把样式或局部路径误替换。
+ */
+function rewriteVantImports(text) {
+  if (!text || (!text.includes("'vant'") && !text.includes('"vant"')))
+    return text;
+  return text.replace(
+    /(['"])vant\1/g,
+    (match, quote) => `${quote}${INTRANET_MOBILE_COMPONENT_PKG}${quote}`,
   );
 }
 
@@ -177,6 +206,15 @@ function rewriteAssetsImagesInText(text) {
 }
 
 /**
+ * 正文中的别名 @/pinia/stores 改为 @/stores
+ * （@/pinia/stores/user → @/stores/user）
+ */
+function rewritePiniaStoresInText(text) {
+  if (!text || !text.includes('@/pinia/stores')) return text;
+  return text.replaceAll('@/pinia/stores', '@/stores');
+}
+
+/**
  * 将 Object.hasOwn(...) 改写为 Object.prototype.hasOwnProperty.call(...)，
  * 兼容不支持 Object.hasOwn 的运行环境。
  */
@@ -189,15 +227,19 @@ function rewriteObjectHasOwn(text) {
 }
 
 /** --single 导出时对单条源文件做目标环境路径/导入改写 */
-function rewriteForIntranetExport({ rel, label, text }) {
+function rewriteForIntranetExport({ rel, label, text, abs }) {
+  let rewritten = rewriteElementPlusImports(text);
+  if (isBizAppSource(abs || rel)) {
+    rewritten = rewriteVantImports(rewritten);
+  }
   return {
     rel: rewritePagesDirInRel(rel),
     label: rewritePagesDirInLabel(label),
     text: rewriteObjectHasOwn(
-      rewriteAssetsImagesInText(
-        rewritePagesDirInText(
-          rewriteI18nImports(
-            rewriteBusinessTableImports(rewriteElementPlusImports(text)),
+      rewritePiniaStoresInText(
+        rewriteAssetsImagesInText(
+          rewritePagesDirInText(
+            rewriteI18nImports(rewriteBusinessTableImports(rewritten)),
           ),
         ),
       ),
@@ -1006,7 +1048,7 @@ async function collectFiles(dir, absIn, absOut, sourceLeafPrefix, skipOutPath) {
     const text = await readFileText(resolvedFull);
     if (text === null) continue;
 
-    result.push({ rel, label, text });
+    result.push({ rel, label, text, abs: resolvedFull });
   }
 
   result.sort((a, b) =>
@@ -1043,7 +1085,7 @@ async function collectGitChangedFiles(
       continue;
 
     const label = buildFlatLabel(rel, sourceLeafPrefix);
-    result.push({ rel, label, text: diffText });
+    result.push({ rel, label, text: diffText, abs: resolvedFull });
   }
 
   result.sort((a, b) =>
@@ -1102,7 +1144,7 @@ async function collectSingleFile(
       return { fileEntries: [], sourceLeafPrefix, pageCount: pages };
     }
     return {
-      fileEntries: [{ rel, label, text: entry.diffText }],
+      fileEntries: [{ rel, label, text: entry.diffText, abs: absFile }],
       sourceLeafPrefix,
       pageCount: pages,
     };
@@ -1114,7 +1156,7 @@ async function collectSingleFile(
   }
 
   return {
-    fileEntries: [{ rel, label, text }],
+    fileEntries: [{ rel, label, text, abs: absFile }],
     sourceLeafPrefix,
     pageCount: pages,
   };
@@ -1204,11 +1246,13 @@ async function main() {
         '--git（或 -g）仅处理 Git 有改动的文件，展示相对 HEAD 的 diff。\n' +
         '--single（或 -s）将全部文件元数据嵌入一张小 PNG，不渲染文件正文；\n' +
         '  同时将 import / import type 的 from "element-plus" / from \'element-plus\' 改写为 @nbcb/dthr-component-v3-pc，\n' +
+        '  将 \'vant\' / "vant" 改写为 @nbcb/dthr-component-v3-mb，\n' +
         "  将 import BusinessTable from '@/_components/BusinessTable/index.vue' 改写为\n" +
         "  import { ElBusinessTable as BusinessTable } from '@nbcb/dthr-component-v3-pc'，\n" +
         '  将 import { i18n } from "@/locales" 改写为 import i18n from "@/_plugins/i18n"，\n' +
         '  将目录名 pages 改写为 views（含相对路径与 @/pages），\n' +
         '  将 @/_assets/images/ 改写为 @/assets/，\n' +
+        '  将 @/pinia/stores 改写为 @/stores，\n' +
         '  并将 Object.hasOwn(...) 改写为 Object.prototype.hasOwnProperty.call(...)。\n' +
         '--horizontal（或 -H）固定高度 1080px，内容按列水平排列（超长自动向右续列）。\n' +
         '--embed（或 -e）将源文件元数据写入已有 PNG，不重新渲染图片。\n' +
@@ -1378,8 +1422,8 @@ async function main() {
     let png = renderImage(layout);
     png = embedAllSourcesInPng(
       png,
-      fileEntries.map(({ rel, label, text }) =>
-        rewriteForIntranetExport({ rel, label, text }),
+      fileEntries.map(({ rel, label, text, abs }) =>
+        rewriteForIntranetExport({ rel, label, text, abs }),
       ),
     );
     const outPath = path.join(absOut, `${exportPrefix}_all.png`);

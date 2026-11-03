@@ -953,21 +953,35 @@ export default defineComponent({
       }
     };
 
+    /** label-top 时星号需内联在文案旁（外层 column flex 会把 ::after 顶到下一行） */
+    const renderTopRequiredMark = () => {
+      if (getProp('labelAlign') !== 'top' || !showRequiredMark.value) {
+        return null;
+      }
+      return (
+        <span class={bem('required-mark')} aria-hidden="true">
+          *
+        </span>
+      );
+    };
+
     const renderLabel = () => {
       const labelWidth = getProp('labelWidth');
       const labelAlign = getProp('labelAlign');
       const colon = getProp('colon') ? ':' : '';
       const tooltip = renderLabelTooltip();
       const collapsible = isLabelCollapsible();
+      const topRequiredMark = renderTopRequiredMark();
 
       if (slots.label) {
-        if (!tooltip) {
+        if (!tooltip && !topRequiredMark) {
           return [slots.label(), colon];
         }
         return (
           <span class={bem('label-wrap')}>
             {slots.label()}
             {colon}
+            {topRequiredMark}
             {tooltip}
           </span>
         );

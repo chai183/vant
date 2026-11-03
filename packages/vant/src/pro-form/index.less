@@ -2,6 +2,17 @@
 :host {
   --van-pro-form-footer-padding: 0;
   --van-pro-form-field-popup-body-max-height: 70vh;
+  /* 单选/多选列表：单行高度（Cell 上下 padding + 行高） */
+  --van-pro-form-field-popup-list-item-height: calc(
+    var(--van-cell-vertical-padding, 14px) * 2 +
+      var(--van-cell-line-height, 20px)
+  );
+  /* 列表可视区域固定为 10 项 */
+  --van-pro-form-field-popup-list-visible-count: 10;
+  --van-pro-form-field-popup-list-height: calc(
+    var(--van-pro-form-field-popup-list-item-height) *
+      var(--van-pro-form-field-popup-list-visible-count)
+  );
 }
 
 .van-pro-form {
@@ -9,6 +20,106 @@
     margin: 16px 16px 0;
     padding: var(--van-pro-form-footer-padding);
   }
+
+  /* section / group 样式写死，不提供主题变量定制 */
+  &__section {
+    margin-bottom: 12px;
+  }
+
+  &__section-title {
+    position: relative;
+    padding: 12px 16px 8px 24px;
+    color: var(--van-text-color);
+    font-weight: var(--van-font-bold);
+    font-size: var(--van-font-size-md);
+    line-height: var(--van-line-height-md);
+
+    &::before {
+      position: absolute;
+      top: 50%;
+      left: 16px;
+      width: 3px;
+      height: 14px;
+      background: var(--van-primary-color);
+      border-radius: 2px;
+      transform: translateY(-50%);
+      content: '';
+    }
+  }
+
+  &__group {
+    margin-bottom: 12px;
+
+    .van-collapse-item__title {
+      .van-cell__value {
+        color: var(--van-text-color-auxiliary);
+        font-size: var(--van-font-size-sm);
+      }
+    }
+
+    .van-collapse-item__content {
+      padding: 0;
+      color: inherit;
+      font-size: inherit;
+      line-height: inherit;
+      background: transparent;
+    }
+  }
+
+  &__passthrough {
+    display: contents;
+  }
+
+  &__collapse-group {
+    margin-bottom: 12px;
+  }
+
+  &__collapse-group-item {
+    margin-bottom: 8px;
+  }
+
+  &__collapse-group-item-title {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 12px 16px 8px;
+  }
+
+  &__collapse-group-item-title-text {
+    color: var(--van-text-color);
+    font-weight: var(--van-font-bold);
+    font-size: var(--van-font-size-md);
+    line-height: var(--van-line-height-md);
+  }
+
+  &__collapse-group-delete {
+    padding: 0;
+    color: var(--van-danger-color);
+    font-size: var(--van-font-size-sm);
+    line-height: var(--van-line-height-sm);
+    background: transparent;
+    border: none;
+    cursor: pointer;
+
+    &:disabled {
+      opacity: var(--van-disabled-opacity);
+      cursor: not-allowed;
+    }
+  }
+
+  &__collapse-group-add {
+    display: flex;
+    justify-content: center;
+    margin-top: 12px;
+  }
+}
+
+.van-pro-form-field-popup-loading {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 160px;
+  padding: 24px 0;
 }
 
 .van-pro-form-field-popup-body {
@@ -48,18 +159,86 @@
       .van-cell-group,
       .van-checkbox-group__empty,
       .van-radio-group__empty {
-        flex: 1;
-        min-height: 0;
+        flex: none;
+        height: var(--van-pro-form-field-popup-list-height);
+        max-height: var(--van-pro-form-field-popup-list-height);
         overflow-y: auto;
         -webkit-overflow-scrolling: touch;
       }
     }
   }
 
+  /**
+   * 远程分页：列表单独滚动；Search 在 panel 内固定，不与选项同滚。
+   * 高度固定为 10 项，避免空列表时高度为 0 导致 van-List 不触发请求。
+   */
+  &--remote {
+    box-sizing: border-box;
+    padding-top: 0;
+    height: var(--van-pro-form-field-popup-list-height);
+    min-height: var(--van-pro-form-field-popup-list-height);
+    max-height: var(--van-pro-form-field-popup-list-height);
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+
+    .van-pro-form-field-popup-list {
+      width: 100%;
+    }
+
+    .van-radio-group,
+    .van-checkbox-group {
+      display: block;
+      overflow: visible;
+
+      .van-cell-group,
+      .van-checkbox-group__empty,
+      .van-radio-group__empty {
+        overflow: visible;
+      }
+    }
+  }
+
+  /* 静态 isList（无搜索）：同样固定 10 项高度 */
+  &--list:not(&--show-search):not(&--remote) {
+    height: var(--van-pro-form-field-popup-list-height);
+    max-height: var(--van-pro-form-field-popup-list-height);
+  }
+
   .van-radio-group,
   .van-checkbox-group {
     width: 100%;
     max-width: 100%;
+    min-width: 0;
+  }
+}
+
+/* 远程弹层面板：Search 固定 + 列表滚动（列表高度固定 10 项） */
+.van-pro-form-field-popup-panel {
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+  width: 100%;
+  overflow: hidden;
+}
+
+/* Search 固定在标题下方、列表上方（不在滚动容器内） */
+.van-search.van-pro-form-field-popup-search {
+  flex: none;
+  box-sizing: border-box;
+  width: 100%;
+  min-height: unset;
+  padding-top: 0;
+  background: var(--van-background-2, var(--van-white, #fff));
+
+  .van-search__content {
+    flex: 1;
+    width: 100%;
+    min-width: 0;
+  }
+
+  .van-search__field {
+    flex: 1;
+    width: 100%;
     min-width: 0;
   }
 }

@@ -291,13 +291,34 @@ export default {
 
 ### Required
 
-Use the `required` prop to display a required asterisk.
+Use the `required` prop to display a required asterisk. With `label-align="top"`, the asterisk stays on the same line as the label text.
 
 ```html
 <van-cell-group inset>
   <van-field v-model="username" required label="Username" />
   <van-field v-model="phone" required label="Phone" />
+  <van-field
+    v-model="comment"
+    required
+    label="Comment"
+    label-align="top"
+    type="textarea"
+    rows="2"
+  />
 </van-cell-group>
+```
+
+```js
+import { ref } from 'vue';
+
+export default {
+  setup() {
+    const username = ref('');
+    const phone = ref('123');
+    const comment = ref('');
+    return { username, phone, comment };
+  },
+};
 ```
 
 Please note that the `required` prop is only used for controlling the style. For form validation, you need to use the `rule.required` option to control the validation logic.

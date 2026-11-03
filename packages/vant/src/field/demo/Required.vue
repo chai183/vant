@@ -8,18 +8,23 @@ import { useTranslate } from '../../../docs/site';
 const t = useTranslate({
   'zh-CN': {
     phone: '手机号',
+    comment: '意见',
     required: '必填星号',
     autoRequired: '自动展示星号',
+    requiredTop: '顶部对齐必填星号',
   },
   'en-US': {
     phone: 'Phone',
+    comment: 'Comment',
     required: 'Required',
     autoRequired: 'Auto Required',
+    requiredTop: 'Required with Top Label',
   },
 });
 
 const phone = ref('123');
 const username = ref('');
+const comment = ref('');
 </script>
 
 <template>
@@ -27,6 +32,20 @@ const username = ref('');
     <van-cell-group inset>
       <van-field v-model="username" required :label="t('username')" />
       <van-field v-model="phone" required :label="t('phone')" />
+    </van-cell-group>
+  </demo-block>
+
+  <demo-block :title="t('requiredTop')">
+    <van-cell-group inset>
+      <van-field
+        v-model="comment"
+        required
+        label-align="top"
+        type="textarea"
+        rows="2"
+        :label="t('comment')"
+        :placeholder="t('comment')"
+      />
     </van-cell-group>
   </demo-block>
 

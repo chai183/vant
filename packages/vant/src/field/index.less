@@ -129,15 +129,34 @@
       text-align: left;
       margin-bottom: var(--van-field-label-top-margin-bottom);
       overflow-wrap: break-word;
+
+      // label-top 为 column 布局时，外层 ::after 会被排到下一行；
+      // 改由内部 label / required-mark 与文案同行展示
+      &.van-field__label--required {
+        &::after {
+          content: none;
+        }
+
+        label::after {
+          margin-left: 2px;
+          color: var(--van-field-required-mark-color);
+          content: '*';
+        }
+      }
     }
 
     &--required {
       &::after {
-        margin-right: 2px;
+        margin-left: 2px;
         color: var(--van-field-required-mark-color);
         content: '*';
       }
     }
+  }
+
+  &__required-mark {
+    margin-left: 2px;
+    color: var(--van-field-required-mark-color);
   }
 
   &__label-header {

@@ -12,6 +12,7 @@ const t = useTranslate({
     radioPicker: '单选弹窗',
     radioPickerPlaceholder: '请选择',
     radioListPicker: '单选列表弹窗',
+    radioRemoteListPicker: '单选远程分页',
     option1: '选项 1',
     option2: '选项 2',
     option3: '选项 3',
@@ -24,6 +25,7 @@ const t = useTranslate({
     radioPicker: 'Radio Popup',
     radioPickerPlaceholder: 'Select option',
     radioListPicker: 'Radio List Popup',
+    radioRemoteListPicker: 'Remote Paginated List',
     option1: 'Option 1',
     option2: 'Option 2',
     option3: 'Option 3',
@@ -34,6 +36,34 @@ const t = useTranslate({
 });
 
 const listOptions = computed(() => createListOptions(t));
+
+const remoteAllOptions = Array.from({ length: 45 }, (_, i) => ({
+  label: `Remote ${i + 1}`,
+  value: `r${i + 1}`,
+}));
+
+const loadRemoteOptions = async (query?: {
+  page?: number;
+  pageSize?: number;
+  keyword?: string;
+}) => {
+  const page = Math.max(1, query?.page || 1);
+  const pageSize = Math.max(1, query?.pageSize || 20);
+  const keyword = String(query?.keyword || '')
+    .trim()
+    .toLowerCase();
+  await new Promise((resolve) => setTimeout(resolve, 400));
+  const filtered = keyword
+    ? remoteAllOptions.filter((item) =>
+        item.label.toLowerCase().includes(keyword),
+      )
+    : remoteAllOptions;
+  const start = (page - 1) * pageSize;
+  return {
+    list: filtered.slice(start, start + pageSize),
+    total: filtered.length,
+  };
+};
 
 const model = ref({});
 
@@ -91,6 +121,18 @@ const columns = computed<ProFormColumn[]>(() => [
           </Button>
         </div>
       ),
+    },
+  },
+  {
+    name: 'radioRemoteListPicker',
+    label: t('radioRemoteListPicker'),
+    component: 'radioPicker',
+    fieldProps: { placeholder: t('radioPickerPlaceholder') },
+    componentProps: {
+      isList: true,
+      showSearch: true,
+      pageSize: 20,
+      loadOptions: loadRemoteOptions,
     },
   },
 ]);

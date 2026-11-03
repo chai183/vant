@@ -81,6 +81,91 @@ const onSubmit = (values) => console.log('submit', values);
 const onFailed = ({ values, errors }) => console.log('failed', values, errors);
 ```
 
+### Section & collapse group `new`
+
+Use flat `title` / `name` with nested `content`. **No `type` field, no wrapper component.** Structure is inferred:
+
+- `addText` / `min` / `max` / `defaultItem` → addable group (`model[name]` is an array; fixed top title; each row is title + delete without collapsing; inner static Collapse panels; bottom add; add appends one item from the `content` field template)
+- nested `content` in children → section title
+- has `title` with field children → static collapse
+- `content` only → passthrough
+
+Styles are hardcoded (no theme variables).
+
+```js
+const columns = computed(() => [
+  {
+    title: 'Basic Info',
+    content: [
+      {
+        content: [
+          {
+            title: 'Company',
+            name: 'name-panel',
+            content: [
+              {
+                name: 'name',
+                label: 'Company Name',
+                component: 'field',
+                fieldProps: { placeholder: 'Enter company name' },
+              },
+            ],
+          },
+        ],
+      },
+    ],
+  },
+  {
+    title: 'Work Experience',
+    name: 'workExperiences',
+    addText: 'Add Work Experience',
+    min: 0,
+    max: 5,
+    defaultItem: { companyName: '', position: '', description: '' },
+    content: [
+      {
+        content: [
+          {
+            title: 'Company',
+            name: 'company-panel',
+            content: [
+              {
+                name: 'companyName',
+                label: 'Company',
+                component: 'field',
+                fieldProps: { placeholder: 'Enter company' },
+              },
+              {
+                name: 'position',
+                label: 'Position',
+                component: 'field',
+                fieldProps: { placeholder: 'Enter position' },
+              },
+            ],
+          },
+          {
+            title: 'Description',
+            name: 'description-panel',
+            content: [
+              {
+                name: 'description',
+                label: 'Description',
+                component: 'field',
+                fieldProps: {
+                  type: 'textarea',
+                  rows: 2,
+                  placeholder: 'Enter description',
+                },
+              },
+            ],
+          },
+        ],
+      },
+    ],
+  },
+]);
+```
+
 ### Select fields
 
 Picker-style controls: `picker`, `datePicker`, `area`, `areaStepCascader`, `calendar`. Pass `columns`, `areaList`, etc. via `componentProps`.
@@ -124,7 +209,7 @@ const columns = computed(() => [
 
 ### Radio
 
-`radioGroup` for inline layout, `radioPicker` for popup selection. Set `componentProps.isList` for list-style options with optional `cellProps`.
+`radioGroup` for inline layout, `radioPicker` for popup selection. Set `componentProps.isList` for list-style options with optional `cellProps`. With `isList` + `loadOptions`, the popup supports pull-up pagination: `loadOptions({ page, pageSize, keyword })` may return `{ list, total }` or `{ list, finished }`; configure `pageSize` (default `20`) and `showSearch` (remote keyword) via `componentProps`. Returning a plain options array is treated as a one-shot load.
 
 ```js
 import { Button } from 'vant';
@@ -181,6 +266,21 @@ const columns = computed(() => [
           </Button>
         </div>
       ),
+    },
+  },
+  {
+    name: 'radioRemoteListPicker',
+    label: 'Remote Paginated List',
+    component: 'radioPicker',
+    fieldProps: { placeholder: 'Select option' },
+    componentProps: {
+      isList: true,
+      showSearch: true,
+      pageSize: 20,
+      loadOptions: async ({ page, pageSize, keyword } = {}) => {
+        // return { list, total }; pull up to load more in the popup
+        return fetchOptions({ page, pageSize, keyword });
+      },
     },
   },
 ]);
@@ -252,6 +352,21 @@ const columns = computed(() => [
           </Button>
         </div>
       ),
+    },
+  },
+  {
+    name: 'checkboxRemoteListPicker',
+    label: 'Remote Paginated List',
+    component: 'checkboxPicker',
+    defaultValue: [],
+    fieldProps: { placeholder: 'Select options' },
+    componentProps: {
+      isList: true,
+      showSearch: true,
+      pageSize: 20,
+      loadOptions: async ({ page, pageSize, keyword } = {}) => {
+        return fetchOptions({ page, pageSize, keyword });
+      },
     },
   },
 ]);
@@ -541,6 +656,18 @@ Inherits [Form](/#/en-US/form) props, events, and methods.
 
 `switch`, `checkbox`, `checkboxGroup`, `radio`, `radioGroup`, `radioPicker`, `checkboxPicker`, `stepper`, `rate`, `slider`, `uploader`, `picker`, `datePicker`, `area`, `areaStepCascader`, `calendar`, `fieldMoney`, `fieldChildren`, `rangeInput`, `uploaderFile`, `field`.
 
+### Structure columns `new`
+
+| Key | Description | Type |
+| --- | --- | --- |
+| title `new` | Structure node title; addable group title prefix | _string_ |
+| content `new` | With no control config, treated as structure and inferred by nesting | _ProFormColumn[]_ |
+| addText `new` | Add button text for addable collapse group | _string_ |
+| min `new` | Minimum items | _number_ |
+| max `new` | Maximum items | _number_ |
+| defaultItem `new` | Default object when adding an item | _object_ |
+| itemTitle `new` | Custom item title `(item, index) => string` | _Function_ |
+
 See [Chinese documentation](./README.zh-CN.md) for default values per component and `componentProps` / `fieldProps` details.
 
 ### Events
@@ -571,3 +698,6 @@ The component provides the following CSS variables for custom styling. See [Conf
 | --- | --- | --- |
 | --van-pro-form-footer-padding | _0_ | Footer area padding |
 | --van-pro-form-field-popup-body-max-height | _70vh_ | Max height of popup content area |
+| --van-pro-form-field-popup-list-item-height `new` | _calc(var(--van-cell-vertical-padding) \* 2 + var(--van-cell-line-height))_ | Row height of radio/checkbox list |
+| --van-pro-form-field-popup-list-visible-count `new` | _10_ | Visible row count of radio/checkbox list |
+| --van-pro-form-field-popup-list-height `new` | _calc(item-height \* visible-count)_ | Fixed height of radio/checkbox list |

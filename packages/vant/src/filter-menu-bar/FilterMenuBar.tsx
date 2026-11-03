@@ -315,6 +315,9 @@ export default defineComponent({
       }
 
       return columns.reduce<Record<string, unknown>>((model, column) => {
+        if (!column.name) {
+          return model;
+        }
         model[column.name] = getColumnDefaultValue(column);
         return model;
       }, {});
@@ -378,6 +381,9 @@ export default defineComponent({
         return 0;
       }
 
+      if (!column.name) {
+        return 0;
+      }
       const value = getItemModel(item)[column.name];
       if (!Array.isArray(value)) {
         return 0;
@@ -432,6 +438,9 @@ export default defineComponent({
       }
 
       return columns.reduce<Record<string, unknown>>((model, column) => {
+        if (!column.name) {
+          return model;
+        }
         model[column.name] =
           source[column.name] ?? getColumnDefaultValue(column);
         return model;
@@ -591,6 +600,9 @@ export default defineComponent({
     // 根据 model 当前值解析筛选条标题：单选显示 label，多选显示“多选”。
     const resolveSelectedTitle = (item: FilterMenuBarItem) => {
       for (const column of getItemColumns(item)) {
+        if (!column.name) {
+          continue;
+        }
         const value = props.modelValue[column.name];
         if (!hasValue(value)) {
           continue;

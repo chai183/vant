@@ -291,12 +291,20 @@ export default {
 
 ### 必填星号
 
-设置 `required` 属性来展示必填星号。
+设置 `required` 属性来展示必填星号。`label-align="top"` 时星号与标签文案同一行展示。
 
 ```html
 <van-cell-group inset>
   <van-field v-model="username" required label="用户名" />
   <van-field v-model="phone" required label="手机号" />
+  <van-field
+    v-model="comment"
+    required
+    label="意见"
+    label-align="top"
+    type="textarea"
+    rows="2"
+  />
 </van-cell-group>
 ```
 
@@ -307,7 +315,8 @@ export default {
   setup() {
     const username = ref('');
     const phone = ref('123');
-    return { username, phone };
+    const comment = ref('');
+    return { username, phone, comment };
   },
 };
 ```

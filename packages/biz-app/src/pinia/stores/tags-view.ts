@@ -1,20 +1,12 @@
 import type { RouteLocationNormalizedGeneric } from 'vue-router';
-import {
-  getCachedViews,
-  getVisitedViews,
-  setCachedViews,
-  setVisitedViews,
-} from '@/_utils/_local-storage';
+import { setCachedViews, setVisitedViews } from '@/_utils/_local-storage';
 import { pinia } from '@/pinia';
-import { useSettingsStore } from './settings';
 
 export type TagView = Partial<RouteLocationNormalizedGeneric>;
 
 export const useTagsViewStore = defineStore('tags-view', () => {
-  const { cacheTagsView } = useSettingsStore();
-
-  const visitedViews = ref<TagView[]>(cacheTagsView ? getVisitedViews() : []);
-  const cachedViews = ref<string[]>(cacheTagsView ? getCachedViews() : []);
+  const visitedViews = ref<TagView[]>([]);
+  const cachedViews = ref<string[]>([]);
 
   watchEffect(() => {
     setVisitedViews(visitedViews.value);

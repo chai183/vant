@@ -1,6 +1,6 @@
 import type { Router } from 'vue-router';
 import NProgress from 'nprogress';
-import { showToast } from 'vant/es/toast';
+import { showToast } from 'vant';
 import { setRouteChange } from '@/_composables/_useRouteListener';
 import { useTitle } from '@/_composables/_useTitle';
 import { usePermissionStore } from '@/pinia/stores/permission';

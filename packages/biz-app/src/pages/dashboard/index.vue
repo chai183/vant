@@ -35,7 +35,7 @@
 
 <script lang="ts" setup>
 import { useI18n } from 'vue-i18n';
-import { showToast } from 'vant/es/toast';
+import { showToast } from 'vant';
 import { useTheme } from '@/_composables/_useTheme';
 import { useUserStore } from '@/pinia/stores/user';
 
@@ -54,7 +54,7 @@ function toggleTheme() {
 }
 </script>
 
-<style scoped lang="scss">
+<style scoped lang="less">
 .dashboard {
   padding: 16px 0 24px;
 }

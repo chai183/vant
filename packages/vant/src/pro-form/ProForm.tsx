@@ -28,6 +28,7 @@ import { CellGroup } from '../cell-group';
 import { Button } from '../button';
 import { Collapse } from '../collapse';
 import { CollapseItem } from '../collapse-item';
+import { Icon } from '../icon';
 import { showConfirmDialog } from '../dialog/function-call';
 
 // Types
@@ -566,7 +567,7 @@ export default defineComponent({
     /**
      * 可增删分组（对齐花名册结构）：
      * - 外层 title 固定置顶
-     * - 每条：标题 + 删除（不折叠）
+     * - 每条：标题 + 删除图标（不折叠）
      * - 条内 content 用静态 Collapse 分组
      * - 底部添加；新增 = 按 content 字段模板追加一项
      */
@@ -629,7 +630,7 @@ export default defineComponent({
             const itemTitleText =
               typeof column.itemTitle === 'function'
                 ? column.itemTitle(item, index)
-                : `${titlePrefix}${index + 1}`;
+                : `${titlePrefix}（${index + 1}）`;
             const itemScope: RenderScope = {
               getModel: () => {
                 const current = model.value[listName];
@@ -666,9 +667,10 @@ export default defineComponent({
                       type="button"
                       class={bem('collapse-group-delete')}
                       disabled={props.disabled}
+                      aria-label="删除"
                       onClick={() => removeItem(index)}
                     >
-                      删除
+                      <Icon name="delete-o" />
                     </button>
                   ) : null}
                 </div>
@@ -683,10 +685,11 @@ export default defineComponent({
           {canAdd ? (
             <div class={bem('collapse-group-add')}>
               <Button
-                plain
                 textButton
                 type="primary"
                 icon="plus"
+                fontSize={14}
+                iconGap={8}
                 disabled={props.disabled}
                 onClick={addItem}
               >

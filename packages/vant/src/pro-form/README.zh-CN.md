@@ -92,7 +92,7 @@ const onFailed = ({ values, errors }) => {
 
 用平铺的 `title` / `name` + `content` 嵌套布局，**无需写 type、无需传 wrapper 组件**。按配置自动识别：
 
-- 配置了 `addText` / `min` / `max` / `defaultItem` → 可增删分组（`model[name]` 为数组；外层 `title` 置顶；每条标题+删除不折叠；条内静态 Collapse；底部添加；新增按 `content` 字段模板）
+- 配置了 `addText` / `min` / `max` / `defaultItem` → 可增删分组（`model[name]` 为数组；外层 `title` 置顶；每条标题+删除图标不折叠；条内静态 Collapse；底部添加；新增按 `content` 字段模板）
 - 子级仍含 `content` → 区块标题
 - 有 `title`、子级为字段 → 静态折叠
 - 仅有 `content` → 透传层
@@ -671,7 +671,7 @@ const columns = computed(() => [
 | --- | --- | --- |
 | name | 字段名；可增删分组对应 model 数组字段 | _string_ |
 | label | 字段标签 | _string_ |
-| title `new` | 结构节点标题；可增删分组为「标题+序号」前缀 | _string_ |
+| title `new` | 结构节点标题；可增删分组为「标题（序号）」前缀 | _string_ |
 | content `new` | 有 `content` 且无控件配置时视为结构节点，按嵌套自动识别 | _ProFormColumn[]_ |
 | addText `new` | 可增删分组添加按钮文案 | _string_ |
 | min `new` | 可增删分组最少条数 | _number_ |

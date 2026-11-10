@@ -2,6 +2,7 @@ import type { RouteRecordRaw } from 'vue-router';
 import dashboardRoutes from './dashboard';
 import errorRoutes from './error';
 import loginRoutes from './login';
+import onboardingRoutes from './onboarding';
 import redirectRoutes from './redirect';
 
 /**
@@ -12,7 +13,8 @@ const constantModuleRoutes: RouteRecordRaw[] = [
   redirectRoutes,
   ...errorRoutes,
   loginRoutes,
-  dashboardRoutes,
+  ...dashboardRoutes,
+  ...onboardingRoutes,
 ];
 
 export default constantModuleRoutes;

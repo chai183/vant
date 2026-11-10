@@ -51,7 +51,7 @@ const model = ref({
  * - title + content（子级仍含 content）→ 区块
  * - title + content（字段）→ 静态折叠
  * - title + name + addText / min / max + content（透传 → 多个折叠分组）→ 可增删
- *   外层 title 置顶；每条标题+删除；条内 Collapse；底部添加
+ *   外层 title 置顶；每条标题+删除图标；条内 Collapse；底部添加
  */
 const columns = computed<ProFormColumn[]>(() => [
   {

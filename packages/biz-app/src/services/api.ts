@@ -17,14 +17,15 @@ function createInstance() {
           headers: response.headers,
         };
       }
+      const payload = response.data ?? {};
       return {
-        body: response.data?.data,
-        message: response.data.errorMsg ?? response.data.msg,
+        ...payload,
+        body: payload.body ?? payload.data,
+        message: payload.errorMsg ?? payload.msg,
         success:
-          response.data.errorCode === null ||
-          response.data.errorCode === '000000' ||
-          response.data.success,
-        ...response.data,
+          payload.errorCode === null ||
+          payload.errorCode === '000000' ||
+          Boolean(payload.success),
       };
     },
     (error) => {

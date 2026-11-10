@@ -32,7 +32,7 @@
 import { reactive } from 'vue';
 import { useI18n } from 'vue-i18n';
 import { useRouter } from 'vue-router';
-import { showSuccessToast } from 'vant/es/toast';
+import { showSuccessToast } from 'vant';
 import { useUserStore } from '@/pinia/stores/user';
 import { DASHBOARD_PATH } from '@/router/config';
 
@@ -54,11 +54,11 @@ function onSubmit() {
 }
 </script>
 
-<style scoped lang="scss">
+<style scoped lang="less">
 .login {
   min-height: 100%;
   padding-top: 20vh;
-  background: var(--van-background-2, #f7f8fa);
+  background: var(--van-background, #f5f5f5);
 }
 
 .login__title {

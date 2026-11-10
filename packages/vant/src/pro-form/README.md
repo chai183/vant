@@ -85,7 +85,7 @@ const onFailed = ({ values, errors }) => console.log('failed', values, errors);
 
 Use flat `title` / `name` with nested `content`. **No `type` field, no wrapper component.** Structure is inferred:
 
-- `addText` / `min` / `max` / `defaultItem` → addable group (`model[name]` is an array; fixed top title; each row is title + delete without collapsing; inner static Collapse panels; bottom add; add appends one item from the `content` field template)
+- `addText` / `min` / `max` / `defaultItem` → addable group (`model[name]` is an array; fixed top title; each row is title + delete icon without collapsing; inner static Collapse panels; bottom add; add appends one item from the `content` field template)
 - nested `content` in children → section title
 - has `title` with field children → static collapse
 - `content` only → passthrough
@@ -660,7 +660,7 @@ Inherits [Form](/#/en-US/form) props, events, and methods.
 
 | Key | Description | Type |
 | --- | --- | --- |
-| title `new` | Structure node title; addable group title prefix | _string_ |
+| title `new` | Structure node title; addable group item title as `title（index）` | _string_ |
 | content `new` | With no control config, treated as structure and inferred by nesting | _ProFormColumn[]_ |
 | addText `new` | Add button text for addable collapse group | _string_ |
 | min `new` | Minimum items | _number_ |

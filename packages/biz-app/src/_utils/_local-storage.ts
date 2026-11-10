@@ -1,6 +1,5 @@
 import type { ThemeName } from '@/_composables/_useTheme';
 import type { SidebarClosed, SidebarOpened } from '@/_constants/_app-key';
-import type { LayoutsConfig } from '@/layouts/config';
 import type { LocaleName } from '@/locales';
 import type { TagView } from '@/pinia/stores/tags-view';
 import { CacheKey } from '@/_constants/_cache-key';
@@ -16,21 +15,6 @@ export function setToken(token: string) {
 
 export function removeToken() {
   localStorage.removeItem(CacheKey.TOKEN);
-}
-// #endregion
-
-// #region 系统布局配置
-export function getLayoutsConfig() {
-  const json = localStorage.getItem(CacheKey.CONFIG_LAYOUT);
-  return json ? (JSON.parse(json) as LayoutsConfig) : null;
-}
-
-export function setLayoutsConfig(settings: LayoutsConfig) {
-  localStorage.setItem(CacheKey.CONFIG_LAYOUT, JSON.stringify(settings));
-}
-
-export function removeLayoutsConfig() {
-  localStorage.removeItem(CacheKey.CONFIG_LAYOUT);
 }
 // #endregion
 

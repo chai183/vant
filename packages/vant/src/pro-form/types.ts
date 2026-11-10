@@ -60,7 +60,7 @@ export type ProFormColumn = {
   name?: string;
   /** Field 左侧标签 */
   label?: string;
-  /** 结构节点标题（区块 / 折叠分组）；可增删分组为「标题+序号」前缀 */
+  /** 结构节点标题（区块 / 折叠分组）；可增删分组为「标题（序号）」前缀 */
   title?: string;
   /**
    * 子节点。有 content 且无 component/render/slot 时视为结构节点：

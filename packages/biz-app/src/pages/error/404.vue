@@ -18,7 +18,7 @@ const { t } = useI18n();
 const router = useRouter();
 </script>
 
-<style scoped lang="scss">
+<style scoped lang="less">
 .error-page {
   display: flex;
   align-items: center;

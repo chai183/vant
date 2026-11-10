@@ -23,24 +23,25 @@
 
   /* section / group 样式写死，不提供主题变量定制 */
   &__section {
-    margin-bottom: 12px;
+    margin-bottom: 8px;
   }
 
   &__section-title {
     position: relative;
-    padding: 12px 16px 8px 24px;
-    color: var(--van-text-color);
-    font-weight: var(--van-font-bold);
-    font-size: var(--van-font-size-md);
-    line-height: var(--van-line-height-md);
+    padding: 8px 12px;
+    padding-left: 23px;
+    color: #666;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 16px;
 
     &::before {
       position: absolute;
       top: 50%;
-      left: 16px;
+      left: 12px;
       width: 3px;
       height: 14px;
-      background: var(--van-primary-color);
+      background: linear-gradient(180deg, #ff6a24 9%, #ffc81e 100%);
       border-radius: 2px;
       transform: translateY(-50%);
       content: '';
@@ -48,7 +49,7 @@
   }
 
   &__group {
-    margin-bottom: 12px;
+    margin-bottom: 0;
 
     .van-collapse-item__title {
       .van-cell__value {
@@ -72,31 +73,37 @@
 
   &__collapse-group {
     margin-bottom: 12px;
+
+    .van-pro-form__section {
+      margin-bottom: 0;
+    }
   }
 
   &__collapse-group-item {
-    margin-bottom: 8px;
+    margin-bottom: 0;
   }
 
   &__collapse-group-item-title {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 12px 16px 8px;
+    padding: 8px 12px;
   }
 
   &__collapse-group-item-title-text {
-    color: var(--van-text-color);
-    font-weight: var(--van-font-bold);
-    font-size: var(--van-font-size-md);
-    line-height: var(--van-line-height-md);
+    color: var(--van-text-color-secondary);
+    font-size: var(--van-font-size-lg);
+    line-height: 16px;
   }
 
   &__collapse-group-delete {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
     padding: 0;
-    color: var(--van-danger-color);
-    font-size: var(--van-font-size-sm);
-    line-height: var(--van-line-height-sm);
+    color: var(--van-text-color-secondary);
+    font-size: var(--van-font-size-lg);
+    line-height: 1;
     background: transparent;
     border: none;
     cursor: pointer;
@@ -110,7 +117,7 @@
   &__collapse-group-add {
     display: flex;
     justify-content: center;
-    margin-top: 12px;
+    margin-top: 8px;
   }
 }
 

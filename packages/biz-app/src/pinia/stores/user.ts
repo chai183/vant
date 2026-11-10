@@ -1,7 +1,6 @@
 import { setToken as _setToken, getToken } from '@/_utils/_local-storage';
 import { pinia } from '@/pinia';
 import { resetRouter } from '@/router';
-import { useSettingsStore } from './settings';
 import { useTagsViewStore } from './tags-view';
 
 /** 默认登录 Token（开发环境免登录） */
@@ -41,7 +40,6 @@ export const useUserStore = defineStore('user', () => {
   const isGotUserInfo = ref<boolean>(false);
 
   const tagsViewStore = useTagsViewStore();
-  const settingsStore = useSettingsStore();
 
   const setToken = (value: string) => {
     _setToken(value);
@@ -71,10 +69,8 @@ export const useUserStore = defineStore('user', () => {
   };
 
   const resetTagsView = () => {
-    if (!settingsStore.cacheTagsView) {
-      tagsViewStore.delAllVisitedViews();
-      tagsViewStore.delAllCachedViews();
-    }
+    tagsViewStore.delAllVisitedViews();
+    tagsViewStore.delAllCachedViews();
   };
 
   const logout = () => {

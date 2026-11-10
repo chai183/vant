@@ -1,4 +1,4 @@
-import { Locale } from 'vant/es/locale';
+import { Locale } from 'vant';
 import enUS from 'vant/es/locale/lang/en-US';
 import zhCN from 'vant/es/locale/lang/zh-CN';
 import { setActiveLocale } from '@/_utils/_local-storage';

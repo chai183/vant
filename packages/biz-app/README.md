@@ -14,10 +14,10 @@
 ```text
 src/
   _assets/       # 静态资源、样式、图标
+  _components/   # 全局通用组件（如 SchemaProForm）
   _composables/  # 通用组合式 API
   _constants/    # 常量
   _utils/        # 工具方法
-  layouts/       # 布局（NavBar + Tabbar）
   locales/       # i18n
   mock/          # mock 接口
   pages/         # 页面（与 router/modules 对应）

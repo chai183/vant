@@ -1,4 +1,4 @@
-import type { ConfigProviderThemeVars } from 'vant/es/config-provider/types';
+import type { ConfigProviderThemeVars } from 'vant';
 import {
   getActiveThemeName,
   setActiveThemeName,
@@ -11,7 +11,10 @@ const DEFAULT_THEME: ThemeName = 'light';
 const activeThemeName = ref<ThemeName>(getActiveThemeName() || DEFAULT_THEME);
 
 const themeVars = reactive<ConfigProviderThemeVars>({
-  primaryColor: '#1989fa',
+  /** 对齐 vant 主题变量 --van-primary-orange */
+  primaryColor: '#ff8125',
+  /** 页面背景色 */
+  background: '#f5f5f5',
 });
 
 const vantTheme = computed(() =>

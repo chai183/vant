@@ -14,59 +14,45 @@ import svgLoader from 'vite-svg-loader';
 /** 判断是否为 mock 辅助文件（非路由定义） */
 function isMockHelperFile(fileName: string) {
   return (
-    /(?:^|[/\\])(?:[\w-]+-)?(utils|entity|data|formFields)\.(ts|js)$/i.test(
+    /(?:^|[/\\])(?:[\w-]+-)?(utils|entity|data|formFields|form-fields-data)\.(ts|js)$/i.test(
       fileName,
     ) || /bundled_/i.test(fileName)
   );
 }
 
-function kebabCase(key: string) {
-  return key
-    .replace(/([A-Z])/g, ' $1')
-    .trim()
-    .split(' ')
-    .join('-')
-    .toLowerCase();
-}
-
-/**
- * 本地 workspace vant 的 es/index 会整包导出全部组件源码，开发态极慢。
- * 这里改为按组件目录解析，避免命中桶文件。
- */
+/** 组件与函数式 API 统一从 vant 入口解析 */
 function VantWorkspaceResolver() {
-  const apiMap = new Map<string, string>([
-    ['showToast', 'toast'],
-    ['closeToast', 'toast'],
-    ['showFailToast', 'toast'],
-    ['showLoadingToast', 'toast'],
-    ['showSuccessToast', 'toast'],
-    ['allowMultipleToast', 'toast'],
-    ['setToastDefaultOptions', 'toast'],
-    ['resetToastDefaultOptions', 'toast'],
-    ['showDialog', 'dialog'],
-    ['closeDialog', 'dialog'],
-    ['showConfirmDialog', 'dialog'],
-    ['showNotify', 'notify'],
-    ['closeNotify', 'notify'],
-    ['showImagePreview', 'image-preview'],
+  const apis = new Set([
+    'showToast',
+    'closeToast',
+    'showFailToast',
+    'showLoadingToast',
+    'showSuccessToast',
+    'allowMultipleToast',
+    'setToastDefaultOptions',
+    'resetToastDefaultOptions',
+    'showDialog',
+    'closeDialog',
+    'showConfirmDialog',
+    'showNotify',
+    'closeNotify',
+    'showImagePreview',
   ]);
 
   return {
     type: 'component' as const,
     resolve: (name: string) => {
       if (name.startsWith('Van')) {
-        const partialName = name.slice(3);
         return {
-          name: partialName,
-          from: `vant/es/${kebabCase(partialName)}`,
+          name: name.slice(3),
+          from: 'vant',
         };
       }
 
-      const apiDir = apiMap.get(name);
-      if (apiDir) {
+      if (apis.has(name)) {
         return {
           name,
-          from: `vant/es/${apiDir}`,
+          from: 'vant',
         };
       }
     },
@@ -86,7 +72,7 @@ export default defineConfig(({ mode }) => {
     resolve: {
       alias: {
         '@': resolve(__dirname, 'src'),
-        // 仅映射子路径，禁止把裸 "vant" 指到整包 index
+        // 语言包等子路径仍走本地构建产物；组件与 API 从包入口 vant 引入
         'vant/es': resolve(__dirname, '../vant/es'),
         'vant/lib': resolve(__dirname, '../vant/lib'),
       },
@@ -109,11 +95,7 @@ export default defineConfig(({ mode }) => {
           }),
       cors: true,
       warmup: {
-        clientFiles: [
-          './src/layouts/**/*.*',
-          './src/pinia/**/*.*',
-          './src/router/**/*.*',
-        ],
+        clientFiles: ['./src/pinia/**/*.*', './src/router/**/*.*'],
       },
     },
     build: {
@@ -140,7 +122,6 @@ export default defineConfig(({ mode }) => {
     },
     plugins: [
       vue(),
-      // 本地 workspace 直接消费 vant/es 下的 .tsx 源码时需要
       vueJsx(),
       viteMockServe({
         mockPath: resolve(__dirname, 'src/mock/mockApi'),

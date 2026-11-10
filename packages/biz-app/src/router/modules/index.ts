@@ -4,6 +4,7 @@ import errorRoutes from './error';
 import loginRoutes from './login';
 import onboardingRoutes from './onboarding';
 import redirectRoutes from './redirect';
+import rosterRoutes from './roster';
 
 /**
  * 按 pages 目录结构组织的常驻路由模块
@@ -15,6 +16,7 @@ const constantModuleRoutes: RouteRecordRaw[] = [
   loginRoutes,
   ...dashboardRoutes,
   ...onboardingRoutes,
+  ...rosterRoutes,
 ];
 
 export default constantModuleRoutes;

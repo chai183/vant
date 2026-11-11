@@ -10,23 +10,19 @@ import type {
   RosterDetailGrowthChange,
   RosterDetailGrowthPosition,
   RosterDetailRecord,
-  RosterDetailSet,
   RosterDetailTabItem,
-  RosterStaff,
 } from '@/types/employee/roster';
 import {
-  getRosterContextApi,
-  getRosterDetailAllSetsApi,
   getRosterDetailAttachmentApi,
   getRosterDetailBasicApi,
   getRosterDetailCostApi,
   getRosterDetailGrowthChangeApi,
   getRosterDetailGrowthPositionApi,
   getRosterDetailLeaderApi,
+  getRosterDetailFormColumnsApi,
   getRosterDetailMultiRecordApi,
   getRosterDetailSingleFormApi,
   getRosterDetailTabsApi,
-  getRosterStaffApi,
 } from '@/services/api/employee/roster';
 import {
   ROSTER_DETAIL_BASIC_TAB,
@@ -36,6 +32,47 @@ import {
   buildRosterCascadeOptions,
   getRosterDetailTabKind,
 } from '@/services/api/employee/roster/tab';
+
+/** 银行卡是否默认。只读详情末尾手动补，展示是 / 否。 */
+const BANK_CARD_DEFAULT_FLAG = 'defaultFlag';
+
+function isBankCardGroup(groupCode = '') {
+  return String(groupCode || '').includes('.bank_card');
+}
+
+/** 基础信息、单条、直属领导、多行这些 Tab 才拉字段配置。 */
+function needsFormColumns(kind: string) {
+  return (
+    kind === 'basic' ||
+    kind === 'singleForm' ||
+    kind === 'leader' ||
+    kind === 'multiRecord'
+  );
+}
+
+function appendBankCardDefaultField(groups: RosterDetailGroup[]) {
+  return groups.map((group) => {
+    if (!isBankCardGroup(group.groupCode)) return group;
+    const fields = (group.fields || []).filter(
+      (item) => item.fieldCode !== BANK_CARD_DEFAULT_FLAG,
+    );
+    return {
+      ...group,
+      fields: [
+        ...fields,
+        {
+          fieldCode: BANK_CARD_DEFAULT_FLAG,
+          fieldName: '是否默认',
+          fieldType: 'BOOLEAN',
+          options: [
+            { label: '是', value: 1 },
+            { label: '否', value: 0 },
+          ],
+        },
+      ],
+    };
+  });
+}
 
 const EMPTY_COST = {
   ratioTotal: '',
@@ -47,6 +84,7 @@ const EMPTY_COST = {
 type TabCache = {
   kind: string;
   mode: 'single' | 'multi';
+  groups: RosterDetailGroup[];
   formData: RosterDetailFormData;
   records: RosterDetailRecord[];
   growthChanges?: RosterDetailGrowthChange[];
@@ -55,17 +93,13 @@ type TabCache = {
   attachTabs?: RosterDetailAttachTab[];
 };
 
-/** 员工详情：进页拉页签 + 全量信息集，再按 Tab 取值 */
+/** 员工详情：进页拉页签，切 Tab 时按 setCode 拉这一页字段和详情 */
 export function useRosterDetail() {
   const route = useRoute();
   const router = useRouter();
 
   /** 首屏加载 */
   const loading = ref(true);
-  /** 列表里的当前员工，用来覆盖基础信息身份字段 */
-  const staff = ref<RosterStaff | null>(null);
-  /** 全量信息集，按 setCode 取分组字段 */
-  const setMap = ref<Record<string, RosterDetailSet>>({});
 
   /** 路由员工 id */
   const staffId = computed(() => String(route.params.staffId || ''));
@@ -98,9 +132,7 @@ export function useRosterDetail() {
     },
     applyCache(code: string) {
       const cached = tabPanel.cache[code];
-      const setCode = code.split(':')[0];
-      const set = setMap.value[setCode];
-      tabPanel.groups = set?.groups || [];
+      tabPanel.groups = appendBankCardDefaultField(cached?.groups || []);
       tabPanel.kind = cached?.kind || 'empty';
       tabPanel.mode = cached?.mode || 'single';
       tabPanel.formData = cached?.formData || {};
@@ -132,46 +164,65 @@ export function useRosterDetail() {
       }
       tabPanel.kind = kind;
       tabPanel.loading = true;
+      const groupsPromise = needsFormColumns(kind)
+        ? loadFormGroups(setCode)
+        : Promise.resolve([] as RosterDetailGroup[]);
       if (kind === 'basic') {
-        const response = await getRosterDetailBasicApi({
-          staffId: staffId.value,
-        });
+        const [groups, response] = await Promise.all([
+          groupsPromise,
+          getRosterDetailBasicApi({
+            staffId: staffId.value,
+          }),
+        ]);
         tabPanel.applyResult(key, {
           kind,
           mode: 'single',
-          formData: overlayStaffIdentity(response.body || {}, staff.value),
+          groups,
+          formData: response.body || {},
           records: [],
         });
       } else if (kind === 'singleForm') {
-        const response = await getRosterDetailSingleFormApi({
-          staffId: staffId.value,
-          tabCode: setCode,
-        });
+        const [groups, response] = await Promise.all([
+          groupsPromise,
+          getRosterDetailSingleFormApi({
+            staffId: staffId.value,
+            tabCode: setCode,
+          }),
+        ]);
         tabPanel.applyResult(key, {
           kind,
           mode: 'single',
+          groups,
           formData: response.body || {},
           records: [],
         });
       } else if (kind === 'leader') {
-        const response = await getRosterDetailLeaderApi({
-          staffId: staffId.value,
-        });
+        const [groups, response] = await Promise.all([
+          groupsPromise,
+          getRosterDetailLeaderApi({
+            staffId: staffId.value,
+          }),
+        ]);
         tabPanel.applyResult(key, {
           kind,
           mode: 'single',
+          groups,
           formData: response.body || {},
           records: [],
         });
       } else if (kind === 'multiRecord') {
-        const response = await getRosterDetailMultiRecordApi({
-          staffId: staffId.value,
-          tabCode: setCode,
-          builtin,
-        });
+        const [groups, response] = await Promise.all([
+          groupsPromise,
+          getRosterDetailMultiRecordApi({
+            staffId: staffId.value,
+            tabCode: setCode,
+            builtin,
+          }),
+        ]);
         tabPanel.applyResult(key, {
           kind,
           mode: 'multi',
+          groups,
           formData: {},
           records: response.body || [],
         });
@@ -183,6 +234,7 @@ export function useRosterDetail() {
           tabPanel.applyResult(key, {
             kind,
             mode: 'single',
+            groups: [],
             formData: {},
             records: [],
             growthChanges: response.body || [],
@@ -194,6 +246,7 @@ export function useRosterDetail() {
           tabPanel.applyResult(key, {
             kind,
             mode: 'single',
+            groups: [],
             formData: {},
             records: [],
             growthPositions: response.body || [],
@@ -206,6 +259,7 @@ export function useRosterDetail() {
         tabPanel.applyResult(key, {
           kind,
           mode: 'single',
+          groups: [],
           formData: {},
           records: [],
           costData: response.body || { ...EMPTY_COST },
@@ -217,6 +271,7 @@ export function useRosterDetail() {
         tabPanel.applyResult(key, {
           kind,
           mode: 'single',
+          groups: [],
           formData: {},
           records: [],
           attachTabs: response.body || [],
@@ -225,6 +280,7 @@ export function useRosterDetail() {
         tabPanel.applyResult(key, {
           kind,
           mode: 'single',
+          groups: [],
           formData: {},
           records: [],
         });
@@ -260,32 +316,8 @@ export function useRosterDetail() {
     tabPanel.growthPositions = [];
     tabPanel.attachTabs = [];
     tabPanel.costData = { ...EMPTY_COST };
-    const [contextRes, staffRes, tabsRes, setsRes] = await Promise.all([
-      getRosterContextApi(),
-      getRosterStaffApi(),
-      getRosterDetailTabsApi(),
-      getRosterDetailAllSetsApi(),
-    ]);
-    if (!contextRes.success && !tabsRes.success) {
-      showToast(tabsRes.message || contextRes.message || '加载失败');
-    }
-    /** 列表人员，用来对上当前员工 */
-    const records = staffRes.body?.records || [];
-    staff.value = records.find((item) => item.id === staffId.value) || null;
-    /** 全量信息集 */
-    const sets = setsRes.body || [];
-    const nextMap: Record<string, RosterDetailSet> = {};
-    sets.forEach((item) => {
-      nextMap[item.setCode] = item;
-    });
-    setMap.value = nextMap;
-    tabPanel.list = tabsRes.body?.length
-      ? tabsRes.body
-      : sets.map((item) => ({
-          code: item.setCode,
-          name: item.setName,
-          builtin: item.builtin,
-        }));
+    const tabsRes = await getRosterDetailTabsApi();
+    tabPanel.list = tabsRes.body || [];
     tabPanel.options = buildRosterCascadeOptions(tabPanel.list);
     const basicIndex = tabPanel.options.findIndex(
       (item) => item.setCode === ROSTER_DETAIL_BASIC_TAB,
@@ -300,26 +332,20 @@ export function useRosterDetail() {
 
   watch(staffId, load, { immediate: true });
 
+  /** 当前 Tab 的分组字段。和详情一起拉，查询参数带 setCode。 */
+  async function loadFormGroups(setCode: string) {
+    const response = await getRosterDetailFormColumnsApi({ setCode });
+    if (!response.success) {
+      showToast(response.message || '加载字段失败');
+    }
+    return response.body?.groups || [];
+  }
+
   return {
     loading,
     activeTabName,
     activeSubCode,
     tabPanel,
     back,
-  };
-}
-
-/** 列表点进来的人，覆盖基础信息里的姓名 / 部门 / 工号 / 手机 */
-function overlayStaffIdentity(
-  formData: RosterDetailFormData,
-  staff: RosterStaff | null,
-) {
-  if (!staff) return formData;
-  return {
-    ...formData,
-    name: staff.name || formData.name,
-    orgName: staff.deptName || formData.orgName,
-    staffNo: staff.workNo || formData.staffNo,
-    phone: staff.phone || formData.phone,
   };
 }

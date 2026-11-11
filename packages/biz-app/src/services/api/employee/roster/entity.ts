@@ -183,25 +183,33 @@ function extractGroups(children: unknown[]): RosterDetailGroup[] {
   return groups;
 }
 
-/** 不传 setCode 时的全量信息集。失败兜底 []。 */
-export function adaptRosterDetailAllSets(body: unknown): RosterDetailSet[] {
-  if (!Array.isArray(body)) return [];
-  return body
-    .map((item) => {
-      if (!item || typeof item !== 'object') return null;
-      const row = item as Record<string, unknown>;
-      const setCode = readString(row, 'setCode');
-      if (!setCode) return null;
-      const set: RosterDetailSet = {
-        setCode,
-        setName: readString(row, 'setName') || setCode,
-        groups: extractGroups(readChildList(row)),
-      };
-      const builtin = readFlag01(row.builtin);
-      if (builtin != null) set.builtin = builtin;
-      return set;
-    })
-    .filter(Boolean) as RosterDetailSet[];
+/** 当前 Tab 的字段。接口已按 setCode 裁剪，失败兜底空分组。 */
+export function adaptRosterDetailFormColumns(
+  body: unknown,
+  setCode = '',
+): RosterDetailSet {
+  const empty: RosterDetailSet = { setCode: setCode || '', groups: [] };
+  if (!Array.isArray(body)) return empty;
+  const tabs = body.filter((item) => {
+    if (!item || typeof item !== 'object') return false;
+    const row = item as Record<string, unknown>;
+    const type = readString(row, 'type').toLowerCase();
+    return type === 'tab' || Boolean(readString(row, 'setCode'));
+  }) as Record<string, unknown>[];
+  if (!tabs.length) {
+    return { setCode, groups: extractGroups(body) };
+  }
+  const matched =
+    tabs.find((item) => readString(item, 'setCode') === setCode) || tabs[0];
+  const code = readString(matched, 'setCode') || setCode;
+  const set: RosterDetailSet = {
+    setCode: code,
+    setName: readString(matched, 'setName') || code,
+    groups: extractGroups(readChildList(matched)),
+  };
+  const builtin = readFlag01(matched.builtin);
+  if (builtin != null) set.builtin = builtin;
+  return set;
 }
 
 function flattenCustomFields(source: Record<string, unknown>) {

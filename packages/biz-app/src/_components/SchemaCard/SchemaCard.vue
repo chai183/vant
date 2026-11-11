@@ -114,7 +114,7 @@ const props = withDefaults(
     modelValue?: Record<string, unknown>;
     /** 多行数据，有值时一人一张卡 */
     records?: Record<string, unknown>[];
-    /** 多行卡片标题前缀 */
+    /** 多行卡片标题前缀，展示为 教育经历（1） */
     recordTitle?: string;
     /** 标签垂直对齐，字段未单独设置时用这个；默认顶部 */
     labelAlign?: 'top' | 'center';
@@ -189,18 +189,10 @@ function buildItems(
   });
 }
 
-function recordCardTitle(
-  record: Record<string, unknown>,
-  fields: SchemaCardField[],
-  index: number,
-) {
-  const first = fields[0];
-  if (first) {
-    const text = formatSchemaCardValue(first, record);
-    if (text) return text;
-  }
+/** 多行卡片标题，对齐 PC：教育经历（1） */
+function recordCardTitle(index: number) {
   const prefix = props.recordTitle || '记录';
-  return `${prefix}${index + 1}`;
+  return `${prefix}（${index + 1}）`;
 }
 
 /** schema 转分组 */
@@ -233,7 +225,7 @@ const cards = computed(() => {
     const fields = groups.flatMap((group) => groupFields(group));
     return props.records.map((record, index) => ({
       name: String(record.id ?? index),
-      title: recordCardTitle(record, fields, index),
+      title: recordCardTitle(index),
       items: buildItems(fields, record),
     }));
   }

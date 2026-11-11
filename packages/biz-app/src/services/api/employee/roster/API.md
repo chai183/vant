@@ -20,13 +20,13 @@
 
 ---
 
-## 全量信息集字段
+## 当前 Tab 字段
 
-- **作用**：进入详情时不传 `setCode`，一次拿到所有信息集的分组和字段
+- **作用**：切到某个信息集时，按 `setCode` 取这一页的分组和字段
 - **URL**: `/dthr-employee/v4/staff-info-field/roster-display-form/get`
 - **Method**: `GET`
-- **入参**：无（全量）
-- **返回 body**：三级树 `tab > group > field`
+- **入参**：`setCode` 必填，当前 Tab 的信息集编码
+- **返回 body**：当前信息集，`tab > group > field`
 
 | 字段 | 类型 | 说明 |
 | --- | --- | --- |

@@ -17,7 +17,7 @@ export const ROSTER_DETAIL_TABS_URL = `${API_PREFIX}/staff-info-field/roster-det
 
 /**
  * 信息集表单字段。
- * 不传 setCode 返回全量三级树；详情进入时按全量拉。
+ * 详情按当前 Tab 传 setCode，只返回这一页的分组和字段。
  */
 export const ROSTER_DETAIL_FORM_COLUMNS_URL = `${API_PREFIX}/staff-info-field/roster-display-form/get`;
 

@@ -113,7 +113,7 @@ function tab(
   return { type: 'tab', setCode, setName, builtin, children };
 }
 
-/** 全量信息集字段。Mock 不按 setCode 裁剪 */
+/** 各信息集字段。接口按 setCode 返回其中一项。 */
 export const rosterDetailFormColumns = [
   tab('tab_staff_info', '基础信息', [
     group('tab_staff_info.default', '默认分组', [
@@ -336,6 +336,7 @@ export const rosterDetailBasicFormData = {
     branchName: '鄞州支行',
     bankAccount: '6222****8899',
     accountHolderName: '叶文洁',
+    defaultFlag: 1,
   },
 };
 

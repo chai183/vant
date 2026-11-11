@@ -58,8 +58,15 @@ const rosterMocks: MockMethod[] = [
   {
     url: `/api${ROSTER_DETAIL_FORM_COLUMNS_URL}`,
     method: 'get',
-    // 全量信息集，不按 setCode 裁剪
-    response: () => unifiedSuccess(rosterDetailFormColumns),
+    // 按当前 Tab 的 setCode 返回这一页字段
+    response: ({ query }: { query?: { setCode?: string } }) => {
+      const code = String(query?.setCode || '');
+      if (!code) return unifiedSuccess(rosterDetailFormColumns);
+      const matched = rosterDetailFormColumns.find(
+        (item) => item.setCode === code,
+      );
+      return unifiedSuccess(matched ? [matched] : []);
+    },
   },
   {
     url: `/api${ROSTER_DETAIL_BASIC_URL}`,

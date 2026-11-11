@@ -58,7 +58,7 @@ const formData = {
 
 ### 多行记录（一人一张卡）
 
-传 `records` 时不再按分组出卡，而是每条记录一张卡。标题优先用第一条字段的展示值，没有则用 `recordTitle` + 序号。
+传 `records` 时不再按分组出卡，而是每条记录一张卡。标题为 `recordTitle（序号）`，如「教育经历（1）」。
 
 ```vue
 <SchemaCard :groups="groups" :records="records" record-title="银行卡信息" />
@@ -72,7 +72,7 @@ const formData = {
 | groups | 已拆好的分组；有值时优先于 `schema` | `SchemaCardGroup[]` | `[]` |
 | model-value | 单条数据。可按 `groupCode` 嵌套对象或数组 | `object` | `{}` |
 | records | 多行数据，有值时一人一张卡 | `object[]` | `[]` |
-| record-title | 多行卡片标题前缀（第一条字段无值时使用） | `string` | `''` |
+| record-title | 多行卡片标题前缀，展示为「教育经历（1）」 | `string` | `''` |
 | label-align | 标签垂直对齐，字段未单独设置时用这个 | `'top' \| 'center'` | `'top'` |
 | label-width | 标签列宽。数字按 px，也可传 `'7em'` | `number \| string` | `96` |
 | collapsible | 是否显示展开/收起。关闭后内容始终展开 | `boolean` | `true` |

@@ -29,7 +29,7 @@ import {
 } from './config';
 import {
   adaptRosterContext,
-  adaptRosterDetailAllSets,
+  adaptRosterDetailFormColumns,
   adaptRosterDetailAttachments,
   adaptRosterDetailBasic,
   adaptRosterDetailCost,
@@ -93,16 +93,21 @@ export async function getRosterDetailTabsApi() {
   } as ApiResponse<RosterDetailTabItem[]>;
 }
 
-/** 全量信息集字段。不传 setCode。 */
-export async function getRosterDetailAllSetsApi() {
+/** 当前 Tab 的分组字段。GET，查询参数 setCode。 */
+export async function getRosterDetailFormColumnsApi(params: {
+  setCode: string;
+}) {
   const response = await apiClient<ApiResponse<unknown>>({
     url: ROSTER_DETAIL_FORM_COLUMNS_URL,
     method: 'get',
+    params: { setCode: params.setCode },
   });
   return {
     ...response,
-    body: response.success ? adaptRosterDetailAllSets(response.body) : [],
-  } as ApiResponse<RosterDetailSet[]>;
+    body: response.success
+      ? adaptRosterDetailFormColumns(response.body, params.setCode)
+      : { setCode: params.setCode || '', groups: [] },
+  } as ApiResponse<RosterDetailSet>;
 }
 
 /** 基础信息详情。只传 staffId。 */

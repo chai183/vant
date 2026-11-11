@@ -1,6 +1,8 @@
 <template>
   <van-cell
     center
+    :clickable="!!detailTo"
+    :to="detailTo"
     :title-style="
       variant === 'search' ? { minWidth: 0, overflow: 'hidden' } : undefined
     "
@@ -43,6 +45,9 @@
       />
       <span v-else>{{ subText }}</span>
     </template>
+    <template v-if="arrow" #right-icon>
+      <van-icon class="roster-staff-arrow" name="arrow" size="16" />
+    </template>
   </van-cell>
 </template>
 
@@ -52,16 +57,29 @@ import type { RosterStaff } from '@/types/employee/roster';
 import { staffMeta } from '../utils/org';
 import KeywordText from './KeywordText.vue';
 
-const props = defineProps<{
-  staff: RosterStaff;
-  variant: 'contact' | 'member' | 'search';
-  keyword?: string;
-}>();
+const props = withDefaults(
+  defineProps<{
+    staff: RosterStaff;
+    variant: 'contact' | 'member' | 'search';
+    keyword?: string;
+    /** 右侧箭头。部门员工和未分组员工需要，常用联系人、搜索结果不展示 */
+    arrow?: boolean;
+  }>(),
+  {
+    keyword: '',
+    arrow: false,
+  },
+);
 
 const subText = computed(() => {
   if (props.variant === 'contact') return props.staff.deptName;
   return staffMeta(props.staff);
 });
+
+// 点员工进入详情。没有 id 时不跳转
+const detailTo = computed(() =>
+  props.staff.id ? `/roster/staff/${props.staff.id}` : undefined,
+);
 </script>
 
 <style scoped lang="less">
@@ -126,5 +144,11 @@ const subText = computed(() => {
   line-height: 17px;
   white-space: nowrap;
   text-overflow: ellipsis;
+}
+
+.roster-staff-arrow {
+  margin-left: 24px;
+  flex-shrink: 0;
+  color: #cccccc;
 }
 </style>

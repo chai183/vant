@@ -9,45 +9,35 @@
     <template v-else>
       <!-- /*----入口start----*/ -->
       <van-cell-group>
-        <van-cell
-          is-link
-          center
-          :title="`组织架构 (${orgTotalText})`"
-          @click="openOrg()"
-        >
-          <template #icon>
-            <span class="roster-home-mark roster-home-mark-org" />
-          </template>
-        </van-cell>
-        <van-cell is-link center title="我的部门" @click="openMyDept">
-          <template #icon>
-            <span class="roster-home-mark roster-home-mark-dept" />
-          </template>
-        </van-cell>
+        <OrgRow
+          name="组织架构"
+          :count="orgTotal"
+          color="#EEF1F9"
+          @select="openOrg()"
+        />
+        <OrgRow name="我的部门" color="#FFF1E5" @select="openMyDept" />
       </van-cell-group>
       <!-- /*----入口end----*/ -->
 
       <!-- /*----常用联系人start----*/ -->
-      <section v-if="contacts.length" class="roster-home-contacts">
-        <div class="roster-home-contacts-head">
-          <span>常用联系人</span>
-          <button
-            type="button"
-            class="roster-home-contacts-toggle"
-            @click="contactsOpen = !contactsOpen"
-          >
-            {{ contactsOpen ? '收起' : '展开' }}
-          </button>
-        </div>
-        <van-cell-group v-show="contactsOpen">
+      <van-collapse
+        v-if="contacts.length"
+        v-model="contactNames"
+        class="roster-home-contacts"
+      >
+        <van-collapse-item
+          title="常用联系人"
+          name="contacts"
+          :value="contactsExpanded ? '收起' : '展开'"
+        >
           <StaffRow
             v-for="item in contacts"
             :key="item.id"
             :staff="item"
             variant="contact"
           />
-        </van-cell-group>
-      </section>
+        </van-collapse-item>
+      </van-collapse>
       <!-- /*----常用联系人end----*/ -->
     </template>
   </div>
@@ -59,10 +49,11 @@ import { showToast } from 'vant';
 import type { RosterStaff } from '@/types/employee/roster';
 import { getRosterContextApi } from '@/services/api/employee/roster';
 import { getOrgTreeApi } from '@/services/api/organization/org';
-import { formatCount, sumTotalCount } from './utils/org';
-import { useOpenOrg } from './composables/useOpenOrg';
-import RosterNav from './components/RosterNav.vue';
-import StaffRow from './components/StaffRow.vue';
+import { sumTotalCount } from '../utils/org';
+import { useOpenOrg } from '../composables/useOpenOrg';
+import RosterNav from '../components/RosterNav.vue';
+import OrgRow from '../components/OrgRow.vue';
+import StaffRow from '../components/StaffRow.vue';
 
 defineOptions({ name: 'EmployeeRoster' });
 
@@ -72,9 +63,13 @@ const isOrgLeader = ref(false);
 const myDeptId = ref('');
 const orgTotal = ref(0);
 const contacts = ref<RosterStaff[]>([]);
-const contactsOpen = ref(true);
+// 常用联系人折叠面板，默认展开
+const contactNames = ref(['contacts']);
 
-const orgTotalText = computed(() => formatCount(orgTotal.value));
+// 展开时右侧是收起，收起时是展开
+const contactsExpanded = computed(() =>
+  contactNames.value.includes('contacts'),
+);
 
 function openMyDept() {
   if (!myDeptId.value) {
@@ -118,39 +113,9 @@ onMounted(load);
   padding: 48px 0;
 }
 
-.roster-home-mark {
-  width: 22px;
-  height: 22px;
-  margin-right: 8px;
-  border-radius: 4px;
-}
-
-.roster-home-mark-org {
-  background: #1989fa;
-}
-
-.roster-home-mark-dept {
-  background: #ff976a;
-}
-
 .roster-home-contacts {
   margin-top: 12px;
-}
-
-.roster-home-contacts-head {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 12px 16px 8px;
-  color: #999999;
-  font-size: 12px;
-}
-
-.roster-home-contacts-toggle {
-  border: 0;
-  padding: 0;
-  background: transparent;
-  color: #ff8125;
-  font-size: 12px;
+  --van-collapse-item-content-padding: 0;
+  --van-cell-value-color: #333333;
 }
 </style>

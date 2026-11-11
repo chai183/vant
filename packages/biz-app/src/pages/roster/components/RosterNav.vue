@@ -1,6 +1,6 @@
 <template>
   <van-nav-bar
-    title="员工花名册"
+    :title="title"
     left-arrow
     fixed
     placeholder
@@ -18,9 +18,18 @@
 <script lang="ts" setup>
 import { showToast } from 'vant';
 
-defineProps<{
-  isOrgLeader: boolean;
-}>();
+withDefaults(
+  defineProps<{
+    /** 组织负责人才显示右上角花名册设置；搜索页不传 */
+    isOrgLeader?: boolean;
+    /** 导航标题，详情页传员工详情 */
+    title?: string;
+  }>(),
+  {
+    isOrgLeader: false,
+    title: '员工花名册',
+  },
+);
 
 const emit = defineEmits<{
   back: [];

@@ -7,8 +7,8 @@ import {
   getDeptStaffApi,
   getOrgTreeApi,
 } from '@/services/api/organization/org';
-import { buildOrgCrumb, findOrg } from '../utils/org';
-import { useOpenOrg } from './useOpenOrg';
+import { buildOrgCrumb, findOrg } from '../../utils/org';
+import { useOpenOrg } from '../../composables/useOpenOrg';
 
 /** 部门页：路径、下级部门、本部门员工 */
 export function useRosterOrg() {

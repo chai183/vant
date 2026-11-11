@@ -1,6 +1,6 @@
 <template>
   <div class="roster-search">
-    <RosterNav :is-org-leader="isOrgLeader" @back="back" />
+    <RosterNav @back="back" />
 
     <van-search
       v-model="keyword"
@@ -60,23 +60,19 @@
 import { computed, onMounted, ref } from 'vue';
 import { showToast } from 'vant';
 import type { RosterOrgNode, RosterStaff } from '@/types/employee/roster';
-import {
-  getRosterContextApi,
-  getRosterStaffApi,
-} from '@/services/api/employee/roster';
+import { getRosterStaffApi } from '@/services/api/employee/roster';
 import { getOrgTreeApi } from '@/services/api/organization/org';
-import { flattenOrgs, matchKeyword, orgTone } from './utils/org';
-import { useOpenOrg } from './composables/useOpenOrg';
-import RosterNav from './components/RosterNav.vue';
-import OrgRow from './components/OrgRow.vue';
-import StaffRow from './components/StaffRow.vue';
+import { flattenOrgs, matchKeyword, orgTone } from '../utils/org';
+import { useOpenOrg } from '../composables/useOpenOrg';
+import RosterNav from '../components/RosterNav.vue';
+import OrgRow from '../components/OrgRow.vue';
+import StaffRow from '../components/StaffRow.vue';
 
 defineOptions({ name: 'EmployeeRosterSearch' });
 
 const { openOrg, back } = useOpenOrg();
 const loading = ref(true);
 const keyword = ref('');
-const isOrgLeader = ref(false);
 const allOrgs = ref<RosterOrgNode[]>([]);
 const allStaff = ref<RosterStaff[]>([]);
 
@@ -95,15 +91,13 @@ const staff = computed(() =>
 async function load() {
   loading.value = true;
   try {
-    const [contextRes, treeRes, staffRes] = await Promise.all([
-      getRosterContextApi(),
+    const [treeRes, staffRes] = await Promise.all([
       getOrgTreeApi(),
       getRosterStaffApi(),
     ]);
     if (!treeRes.success && !staffRes.success) {
       showToast('加载失败');
     }
-    isOrgLeader.value = Boolean(contextRes.body?.isOrgLeader);
     allOrgs.value = flattenOrgs(treeRes.body || []);
     allStaff.value = staffRes.body?.records || [];
   } finally {

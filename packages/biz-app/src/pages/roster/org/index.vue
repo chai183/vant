@@ -41,6 +41,7 @@
           :key="item.id"
           :staff="item"
           variant="member"
+          arrow
         />
       </RosterBlock>
       <!-- /*----本部门员工end----*/ -->
@@ -49,13 +50,13 @@
 </template>
 
 <script lang="ts" setup>
-import { orgTone } from './utils/org';
+import { orgTone } from '../utils/org';
 import { useRosterOrg } from './composables/useRosterOrg';
-import RosterNav from './components/RosterNav.vue';
+import RosterNav from '../components/RosterNav.vue';
 import Curmb from '@/_components/curmb/index.vue';
-import RosterBlock from './components/RosterBlock.vue';
-import OrgRow from './components/OrgRow.vue';
-import StaffRow from './components/StaffRow.vue';
+import RosterBlock from './components/rosterBlock.vue';
+import OrgRow from '../components/OrgRow.vue';
+import StaffRow from '../components/StaffRow.vue';
 
 defineOptions({ name: 'EmployeeRosterOrg' });
 

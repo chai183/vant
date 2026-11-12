@@ -32,6 +32,7 @@ import {
   buildRosterCascadeOptions,
   getRosterDetailTabKind,
 } from '@/services/api/employee/roster/tab';
+import { useRosterStore } from '@/pinia/stores/roster';
 
 /** 银行卡是否默认。只读详情末尾手动补，展示是 / 否。 */
 const BANK_CARD_DEFAULT_FLAG = 'defaultFlag';
@@ -75,6 +76,7 @@ function appendBankCardDefaultField(groups: RosterDetailGroup[]) {
 }
 
 const EMPTY_COST = {
+  displayType: 0,
   ratioTotal: '',
   amountTotal: '',
   ratioRows: [],
@@ -100,6 +102,9 @@ export function useRosterDetail() {
 
   /** 首屏加载 */
   const loading = ref(true);
+  const rosterStore = useRosterStore();
+  /** 接口页签原文，授权变化时再裁一次 */
+  const rawTabList = ref<RosterDetailTabItem[]>([]);
 
   /** 路由员工 id */
   const staffId = computed(() => String(route.params.staffId || ''));
@@ -132,7 +137,10 @@ export function useRosterDetail() {
     },
     applyCache(code: string) {
       const cached = tabPanel.cache[code];
-      tabPanel.groups = appendBankCardDefaultField(cached?.groups || []);
+      const setCode = code.split(':')[0];
+      tabPanel.groups = appendBankCardDefaultField(
+        rosterStore.filterGroups(setCode, cached?.groups || []),
+      );
       tabPanel.kind = cached?.kind || 'empty';
       tabPanel.mode = cached?.mode || 'single';
       tabPanel.formData = cached?.formData || {};
@@ -306,6 +314,23 @@ export function useRosterDetail() {
     router.back();
   }
 
+  function applyTabList() {
+    tabPanel.list = rosterStore.filterTabs(rawTabList.value);
+    tabPanel.options = buildRosterCascadeOptions(tabPanel.list);
+    const currentCode = tabPanel.options[tabPanel.active[0]]?.setCode;
+    const nextIndex = tabPanel.options.findIndex(
+      (item) => item.setCode === currentCode,
+    );
+    if (nextIndex >= 0) {
+      tabPanel.active = [nextIndex, tabPanel.active[1] || 0];
+      return;
+    }
+    const basicIndex = tabPanel.options.findIndex(
+      (item) => item.setCode === ROSTER_DETAIL_BASIC_TAB,
+    );
+    tabPanel.active = [basicIndex >= 0 ? basicIndex : 0, 0];
+  }
+
   async function load() {
     loading.value = true;
     tabPanel.cache = {};
@@ -316,13 +341,12 @@ export function useRosterDetail() {
     tabPanel.growthPositions = [];
     tabPanel.attachTabs = [];
     tabPanel.costData = { ...EMPTY_COST };
-    const tabsRes = await getRosterDetailTabsApi();
-    tabPanel.list = tabsRes.body || [];
-    tabPanel.options = buildRosterCascadeOptions(tabPanel.list);
-    const basicIndex = tabPanel.options.findIndex(
-      (item) => item.setCode === ROSTER_DETAIL_BASIC_TAB,
-    );
-    tabPanel.active = [basicIndex >= 0 ? basicIndex : 0, 0];
+    const [tabsRes] = await Promise.all([
+      getRosterDetailTabsApi(),
+      rosterStore.loadTeamAuth(),
+    ]);
+    rawTabList.value = tabsRes.body || [];
+    applyTabList();
     if (!tabsRes.success) {
       showToast(tabsRes.message || '加载信息集失败');
     }
@@ -331,6 +355,26 @@ export function useRosterDetail() {
   }
 
   watch(staffId, load, { immediate: true });
+
+  watch(
+    () => rosterStore.version,
+    () => {
+      if (loading.value) return;
+      applyTabList();
+      const option = tabPanel.currentOption();
+      const setCode = option?.setCode || '';
+      if (!setCode) return;
+      const kind = getRosterDetailTabKind(
+        setCode,
+        tabPanel.list.find((item) => item.code === setCode)?.builtin,
+      );
+      const key =
+        kind === 'attachment'
+          ? setCode
+          : tabPanel.cacheKey(setCode, tabPanel.currentChild()?.subCode || '');
+      if (tabPanel.cache[key]) tabPanel.applyCache(key);
+    },
+  );
 
   /** 当前 Tab 的分组字段。和详情一起拉，查询参数带 setCode。 */
   async function loadFormGroups(setCode: string) {

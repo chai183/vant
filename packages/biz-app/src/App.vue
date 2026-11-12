@@ -1,5 +1,9 @@
 <template>
-  <van-config-provider :theme="vantTheme" :theme-vars="themeVars">
+  <van-config-provider
+    class="app-provider"
+    :theme="vantTheme"
+    :theme-vars="themeVars"
+  >
     <router-view />
   </van-config-provider>
 </template>
@@ -14,3 +18,9 @@ const { initLocale } = useLocale();
 initTheme();
 initLocale();
 </script>
+
+<style scoped>
+.app-provider {
+  height: 100%;
+}
+</style>

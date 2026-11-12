@@ -5,53 +5,39 @@
     </van-loading>
 
     <template v-else>
+      <!-- /*----标题栏start----*/ -->
       <div class="roster-cost-head">
         <span class="roster-cost-title">成本详情</span>
-        <van-button
-          type="text"
-          size="small"
-          class="roster-cost-mode"
-          :class="{ 'roster-cost-mode-active': mode === 'ratio' }"
-          @click="mode = 'ratio'"
-        >
-          按比例
-        </van-button>
-        <van-button
-          type="text"
-          size="small"
-          class="roster-cost-mode"
-          :class="{ 'roster-cost-mode-active': mode === 'amount' }"
-          @click="mode = 'amount'"
-        >
-          按金额
-        </van-button>
         <span class="roster-cost-total">{{ totalText }}</span>
       </div>
+      <!-- /*----标题栏end----*/ -->
 
-      <van-empty v-if="!rows.length" description="暂无成本数据" />
-
-      <van-cell-group
-        v-for="(row, index) in rows"
-        :key="index"
-        class="roster-cost-card"
-      >
-        <van-cell title="成本中心" :value="row.costCenterName" />
-        <van-cell v-if="mode === 'amount'" title="成本项目">
-          <span class="roster-detail-field-value">{{
-            row.costProjectName
-          }}</span>
-        </van-cell>
-        <van-cell
-          :title="mode === 'ratio' ? '分摊比例(%)' : '分摊金额(元)'"
-          :value="row.value"
-        />
-      </van-cell-group>
+      <!-- /*----卡片start----*/ -->
+      <van-empty v-if="!cardList.length" description="暂无成本数据" />
+      <div v-else class="roster-cost-list">
+        <van-card
+          v-for="card in cardList"
+          :key="card.id"
+          class="roster-cost-card"
+          :show-title="false"
+          content-type="text-list"
+          :content-items="card.items"
+        >
+          <template #text-list-row="{ item }">
+            <div class="roster-cost-row">
+              <span class="roster-cost-row-label">{{ item.label }}</span>
+              <span class="roster-cost-row-value">{{ item.value }}</span>
+            </div>
+          </template>
+        </van-card>
+      </div>
+      <!-- /*----卡片end----*/ -->
     </template>
   </div>
 </template>
 
 <script lang="ts" setup>
-import { computed, ref } from 'vue';
+import { computed } from 'vue';
 import type { RosterDetailCostData } from '@/types/employee/roster';
 
 const props = withDefaults(
@@ -62,6 +48,7 @@ const props = withDefaults(
   {
     loading: false,
     data: () => ({
+      displayType: 0,
       ratioTotal: '',
       amountTotal: '',
       ratioRows: [],
@@ -70,8 +57,10 @@ const props = withDefaults(
   },
 );
 
-/** 按比例 / 按金额，页内切换不是二级 Tab */
-const mode = ref('ratio');
+/** 展示形式跟接口：0 比例，1 金额 */
+const mode = computed(() =>
+  Number(props.data.displayType) === 1 ? 'amount' : 'ratio',
+);
 
 /** 当前列表 */
 const rows = computed(() =>
@@ -86,12 +75,26 @@ const totalText = computed(() =>
     ? `总比例：${props.data.ratioTotal || ''}`
     : `总金额：${props.data.amountTotal || ''}`,
 );
+
+/** 每张卡：成本中心 + 按金额时的成本项目 + 比例/金额 */
+const cardList = computed(() =>
+  rows.value.map((row, index) => {
+    const items = [{ label: '成本中心', value: row.costCenterName || '' }];
+    if (mode.value === 'amount') {
+      items.push({ label: '成本项目', value: row.costProjectName || '' });
+    }
+    items.push({
+      label: mode.value === 'ratio' ? '分摊比例 (%)' : '分摊金额 (元)',
+      value: row.value || '',
+    });
+    return { id: index, items };
+  }),
+);
 </script>
 
 <style scoped lang="less">
 .roster-cost {
   min-height: 120px;
-  padding: 8px 0 16px;
 }
 
 .roster-cost-loading {
@@ -103,41 +106,62 @@ const totalText = computed(() =>
 .roster-cost-head {
   display: flex;
   align-items: center;
-  padding: 8px 12px 12px;
-  background: #ffffff;
+  margin-bottom: 8px;
 }
 
 .roster-cost-title {
+  flex: none;
   margin-right: 8px;
   padding-left: 8px;
   border-left: 3px solid var(--van-primary-color);
-  color: #333333;
+  color: var(--van-text-color);
+  font-weight: 500;
   font-size: 14px;
   line-height: 20px;
 }
 
-.roster-cost-mode {
-  color: #969799;
-}
-
-.roster-cost-mode-active {
-  color: var(--van-primary-color);
-}
-
 .roster-cost-total {
   margin-left: auto;
-  color: #333333;
+  color: #666;
+  font-weight: 400;
   font-size: 12px;
-  line-height: 18px;
+  line-height: 14px;
 }
 
-.roster-cost-card {
-  margin-top: 8px;
+.roster-cost-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
 }
 
-.roster-detail-field-value {
-  text-align: right;
-  white-space: pre-wrap;
+.roster-cost-card.van-card {
+  --van-card-background: var(--van-white);
+  --van-padding-base: var(--van-padding-sm);
+  --van-card-text-list-row-padding-y: 4px;
+  margin-top: 0;
+}
+
+.roster-cost-row {
+  display: flex;
+  align-items: flex-start;
+  width: 100%;
+}
+
+.roster-cost-row-label {
+  flex: none;
+  width: 96px;
+  color: var(--van-text-color-secondary);
+  font-size: 14px;
+  line-height: 20px;
+}
+
+.roster-cost-row-value {
+  flex: 1;
+  min-width: 0;
+  margin-left: 12px;
+  color: var(--van-text-color);
+  font-size: 14px;
+  line-height: 20px;
   word-break: break-all;
 }
 </style>

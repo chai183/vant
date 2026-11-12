@@ -19,7 +19,10 @@
           <span v-if="staff.concurrent" class="roster-staff-concurrent"
             >兼</span
           >
-          <span v-if="staff.deptName" class="roster-staff-dept">
+          <span
+            v-if="staff.deptName && rosterStore.isListFieldAllowed('deptName')"
+            class="roster-staff-dept"
+          >
             <KeywordText :text="staff.deptName" :keyword="keyword" />
           </span>
         </span>
@@ -54,7 +57,7 @@
 <script lang="ts" setup>
 import { computed } from 'vue';
 import type { RosterStaff } from '@/types/employee/roster';
-import { staffMeta } from '../utils/org';
+import { useRosterStore } from '@/pinia/stores/roster';
 import KeywordText from './KeywordText.vue';
 
 const props = withDefaults(
@@ -71,9 +74,18 @@ const props = withDefaults(
   },
 );
 
+const rosterStore = useRosterStore();
+
 const subText = computed(() => {
-  if (props.variant === 'contact') return props.staff.deptName;
-  return staffMeta(props.staff);
+  if (props.variant === 'contact') {
+    return rosterStore.isListFieldAllowed('deptName')
+      ? props.staff.deptName
+      : '';
+  }
+  const parts = [];
+  if (rosterStore.isListFieldAllowed('workNo')) parts.push(props.staff.workNo);
+  if (rosterStore.isListFieldAllowed('phone')) parts.push(props.staff.phone);
+  return parts.filter(Boolean).join(' | ');
 });
 
 // 点员工进入详情。没有 id 时不跳转

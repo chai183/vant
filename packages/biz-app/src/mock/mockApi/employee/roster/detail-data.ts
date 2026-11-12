@@ -574,8 +574,9 @@ export const rosterDetailGrowthPositionRecords = [
   },
 ];
 
-/** 员工成本中心。Mock 不按 staffId 过滤 */
+/** 员工成本中心。Mock 不按 staffId 过滤。displayType：0 比例，1 金额 */
 export const rosterDetailCostData = {
+  displayType: 0,
   ratioTotal: '100%',
   amountTotal: '2,233,233,100.00元',
   ratioRows: [

@@ -282,7 +282,6 @@ const utils = {
   flex-direction: column;
   gap: 12px;
   min-height: 120px;
-  padding: 12px;
 }
 
 .schema-card-loading {

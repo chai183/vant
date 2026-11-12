@@ -117,6 +117,8 @@ export type RosterDetailCostRow = {
 
 /** 成本中心详情 */
 export type RosterDetailCostData = {
+  /** 展示形式：0 比例，1 金额 */
+  displayType: number;
   ratioTotal: string;
   amountTotal: string;
   ratioRows: RosterDetailCostRow[];
@@ -144,4 +146,23 @@ export type RosterDetailAttachTab = {
   code: string;
   name: string;
   groups: RosterDetailAttachGroup[];
+};
+
+/** 团队信息授权树节点。module / group / field */
+export type RosterTeamAuthNode = {
+  id: string;
+  name: string;
+  nodeType: 'module' | 'group' | 'field';
+  code?: string;
+  sort?: number;
+  builtin?: boolean;
+  fixed?: boolean;
+  children?: RosterTeamAuthNode[];
+};
+
+/** 手机花名册团队授权。allList 给设置页选项，selectedList 是可展示上限 */
+export type RosterTeamAuthConfig = {
+  isAllowDepartmentManagerView: boolean;
+  allList: RosterTeamAuthNode[];
+  selectedList: RosterTeamAuthNode[];
 };

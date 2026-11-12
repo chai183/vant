@@ -9,6 +9,7 @@ import type {
   RosterDetailSet,
   RosterDetailTabItem,
   RosterStaffPage,
+  RosterTeamAuthConfig,
 } from '@/types/employee/roster';
 import apiClient from '@/services/api';
 import {
@@ -26,6 +27,9 @@ import {
   ROSTER_DETAIL_SINGLE_FORM_PATH,
   ROSTER_DETAIL_TABS_URL,
   ROSTER_STAFF_URL,
+  ROSTER_TEAM_AUTH_BASIC_URL,
+  ROSTER_TEAM_AUTH_LIST_URL,
+  ROSTER_TEAM_AUTH_TYPE,
 } from './config';
 import {
   adaptRosterContext,
@@ -43,8 +47,13 @@ import {
   EMPTY_ROSTER_CONTEXT,
   EMPTY_ROSTER_COST,
   EMPTY_ROSTER_STAFF_PAGE,
+  EMPTY_ROSTER_TEAM_AUTH,
+  adaptRosterTeamAuthBasic,
+  adaptRosterTeamAuthTree,
 } from './entity';
 import { isRosterDetailCustomTab } from './tab';
+
+export { EMPTY_ROSTER_TEAM_AUTH };
 
 interface ApiResponse<T> {
   success?: boolean;
@@ -65,6 +74,46 @@ export async function getRosterContextApi() {
       ? adaptRosterContext(response.body)
       : { ...EMPTY_ROSTER_CONTEXT, contacts: [] },
   } as ApiResponse<RosterContext>;
+}
+
+/**
+ * 团队信息授权。
+ * 基础设置 + 全部可选字段 + 已选字段一次拉齐，给花名册展示和后续设置页共用。
+ */
+export async function getRosterTeamAuthApi() {
+  const [basicRes, allRes, selectedRes] = await Promise.all([
+    apiClient<ApiResponse<unknown>>({
+      url: ROSTER_TEAM_AUTH_BASIC_URL,
+      method: 'get',
+    }),
+    apiClient<ApiResponse<unknown>>({
+      url: ROSTER_TEAM_AUTH_LIST_URL,
+      method: 'get',
+      params: { type: ROSTER_TEAM_AUTH_TYPE.all },
+    }),
+    apiClient<ApiResponse<unknown>>({
+      url: ROSTER_TEAM_AUTH_LIST_URL,
+      method: 'get',
+      params: { type: ROSTER_TEAM_AUTH_TYPE.selected },
+    }),
+  ]);
+  const success = Boolean(
+    basicRes.success || allRes.success || selectedRes.success,
+  );
+  const selectedOk = Boolean(selectedRes.success);
+  const body: RosterTeamAuthConfig = {
+    isAllowDepartmentManagerView: basicRes.success
+      ? adaptRosterTeamAuthBasic(basicRes.body).isAllowDepartmentManagerView
+      : EMPTY_ROSTER_TEAM_AUTH.isAllowDepartmentManagerView,
+    allList: allRes.success ? adaptRosterTeamAuthTree(allRes.body) : [],
+    selectedList: selectedOk ? adaptRosterTeamAuthTree(selectedRes.body) : [],
+  };
+  return {
+    ...selectedRes,
+    success,
+    selectedOk,
+    body,
+  } as ApiResponse<RosterTeamAuthConfig> & { selectedOk: boolean };
 }
 
 /** 搜索用的人员全量。正式搜索接口接上后替换。 */
@@ -222,7 +271,7 @@ export async function getRosterDetailCostApi(params: { staffId: string }) {
     ...response,
     body: response.success
       ? adaptRosterDetailCost(response.body)
-      : { ...EMPTY_ROSTER_COST, ratioRows: [], amountRows: [] },
+      : { ...EMPTY_ROSTER_COST },
   } as ApiResponse<RosterDetailCostData>;
 }
 

@@ -7,7 +7,7 @@
       show-action
       autofocus
       scene="search-page"
-      placeholder="搜索员工姓名"
+      placeholder="搜索姓名和手机号"
       @cancel="back"
     />
 
@@ -61,6 +61,7 @@ import { computed, onMounted, ref } from 'vue';
 import { showToast } from 'vant';
 import type { RosterOrgNode, RosterStaff } from '@/types/employee/roster';
 import { getRosterStaffApi } from '@/services/api/employee/roster';
+import { useRosterStore } from '@/pinia/stores/roster';
 import { getOrgTreeApi } from '@/services/api/organization/org';
 import { flattenOrgs, matchKeyword, orgTone } from '../utils/org';
 import { useOpenOrg } from '../composables/useOpenOrg';
@@ -71,6 +72,7 @@ import StaffRow from '../components/StaffRow.vue';
 defineOptions({ name: 'EmployeeRosterSearch' });
 
 const { openOrg, back } = useOpenOrg();
+const rosterStore = useRosterStore();
 const loading = ref(true);
 const keyword = ref('');
 const allOrgs = ref<RosterOrgNode[]>([]);
@@ -81,11 +83,13 @@ const orgs = computed(() =>
 );
 
 const staff = computed(() =>
-  allStaff.value.filter((item) =>
-    [item.name, item.workNo, item.phone, item.deptName].some((text) =>
-      matchKeyword(text, keyword.value),
-    ),
-  ),
+  allStaff.value.filter((item) => {
+    const texts = [item.name];
+    if (rosterStore.isListFieldAllowed('workNo')) texts.push(item.workNo);
+    if (rosterStore.isListFieldAllowed('phone')) texts.push(item.phone);
+    if (rosterStore.isListFieldAllowed('deptName')) texts.push(item.deptName);
+    return texts.some((text) => matchKeyword(text, keyword.value));
+  }),
 );
 
 async function load() {
@@ -94,6 +98,7 @@ async function load() {
     const [treeRes, staffRes] = await Promise.all([
       getOrgTreeApi(),
       getRosterStaffApi(),
+      rosterStore.loadTeamAuth(),
     ]);
     if (!treeRes.success && !staffRes.success) {
       showToast('加载失败');

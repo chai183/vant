@@ -6,10 +6,9 @@
       加载中
     </van-loading>
 
-    <template v-else>
-      <!-- /*----信息集start----*/ -->
+    <template v-else-if="tabPanel.options.length">
+      <!-- /*----页签start----*/ -->
       <van-cascade-tabs
-        v-if="tabPanel.options.length"
         v-model:active="tabPanel.active"
         class="roster-detail-tabs"
         :levels="2"
@@ -17,7 +16,11 @@
         :show-nav-menu="false"
         color="var(--van-primary-color)"
         @change="tabPanel.change"
-      >
+      />
+      <!-- /*----页签end----*/ -->
+
+      <!-- /*----内容区域start----*/ -->
+      <div class="roster-detail-main">
         <RosterGrowth
           v-if="tabPanel.kind === 'growth'"
           :loading="tabPanel.loading"
@@ -49,11 +52,11 @@
           :form-data="tabPanel.formData"
           :records="tabPanel.records"
         />
-      </van-cascade-tabs>
-      <!-- /*----信息集end----*/ -->
-
-      <van-empty v-else description="暂无信息集" />
+      </div>
+      <!-- /*----内容区域end----*/ -->
     </template>
+
+    <van-empty v-else description="暂无信息集" />
   </div>
 </template>
 
@@ -73,17 +76,43 @@ const { loading, activeTabName, activeSubCode, tabPanel, back } =
 
 <style scoped lang="less">
 .roster-detail {
-  min-height: 100%;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  overflow: hidden;
   background: #f5f5f5;
-}
-
-.roster-detail-tabs {
   --van-background-2: #f5f5f5;
   --van-tabs-nav-background: #ffffff;
   --van-cell-background: #ffffff;
   --van-cell-group-background: #ffffff;
   --van-collapse-item-content-background: #ffffff;
   --van-grid-item-content-background: #ffffff;
+}
+
+.roster-detail-tabs {
+  flex: none;
+}
+
+.roster-detail-main {
+  flex: 1;
+  min-height: 0;
+  overflow: auto;
+  padding: 12px;
+  scrollbar-width: thin;
+  scrollbar-color: var(--van-gray-13) transparent;
+
+  &::-webkit-scrollbar {
+    width: 4px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: var(--van-gray-13);
+    border-radius: 2px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: transparent;
+  }
 }
 
 .roster-detail-loading {

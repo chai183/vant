@@ -39,9 +39,21 @@ export function buildOrgPath(nodes: RosterOrgNode[], id: string) {
   return path;
 }
 
-/** 面包屑不带组织架构第一屏那一层，从下一级部门开始，例如「财务部 > 财务一部」 */
-export function buildOrgCrumb(nodes: RosterOrgNode[], id: string) {
+/**
+ * 面包屑。
+ * 部门负责人从自己的部门起算，例如入口只显示「财务一部」，下钻是「财务一部 > 会计核算室」。
+ * 其他人仍不带组织架构第一屏那一层。
+ */
+export function buildOrgCrumb(
+  nodes: RosterOrgNode[],
+  id: string,
+  rootId?: string,
+) {
   const path = buildOrgPath(nodes, id);
+  if (rootId) {
+    const start = path.findIndex((item) => item.id === rootId);
+    if (start >= 0) return path.slice(start);
+  }
   if (path.length > 1 && !path[0].parentId) return path.slice(1);
   return path;
 }

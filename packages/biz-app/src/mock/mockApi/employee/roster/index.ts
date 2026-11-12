@@ -13,6 +13,9 @@ import {
   ROSTER_DETAIL_SINGLE_FORM_PATH,
   ROSTER_DETAIL_TABS_URL,
   ROSTER_STAFF_URL,
+  ROSTER_TEAM_AUTH_BASIC_URL,
+  ROSTER_TEAM_AUTH_LIST_URL,
+  ROSTER_TEAM_AUTH_TYPE,
 } from '@/services/api/employee/roster/config';
 import { rosterAllStaff, rosterContext } from '../../organization/org/data';
 import {
@@ -27,6 +30,11 @@ import {
   rosterDetailSingleFormByTab,
   rosterDetailTabs,
 } from './detail-data';
+import {
+  rosterTeamAuthAll,
+  rosterTeamAuthBasic,
+  rosterTeamAuthSelected,
+} from './team-auth-data';
 
 function unifiedSuccess<T>(body: T) {
   return {
@@ -118,6 +126,21 @@ const rosterMocks: MockMethod[] = [
     method: 'post',
     // 成本中心：Mock 不按 staffId 过滤
     response: () => unifiedSuccess(rosterDetailCostData),
+  },
+  {
+    url: `/api${ROSTER_TEAM_AUTH_BASIC_URL}`,
+    method: 'get',
+    response: () => unifiedSuccess(rosterTeamAuthBasic),
+  },
+  {
+    url: `/api${ROSTER_TEAM_AUTH_LIST_URL}`,
+    method: 'get',
+    response: ({ query }: { query?: { type?: string } }) => {
+      if (query?.type === ROSTER_TEAM_AUTH_TYPE.selected) {
+        return unifiedSuccess(rosterTeamAuthSelected);
+      }
+      return unifiedSuccess(rosterTeamAuthAll);
+    },
   },
   {
     url: `/api${ROSTER_DETAIL_ATTACHMENT_URL}`,

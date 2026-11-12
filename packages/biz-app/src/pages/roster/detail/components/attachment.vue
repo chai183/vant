@@ -134,7 +134,6 @@ function packDownload() {
 <style scoped lang="less">
 .roster-attach {
   min-height: 120px;
-  padding: 8px 0 16px;
 }
 
 .roster-attach-loading {
@@ -154,6 +153,6 @@ function packDownload() {
 }
 
 .roster-attach-pack {
-  padding: 16px 12px 8px;
+  padding: 16px 0 0;
 }
 </style>

@@ -6,12 +6,19 @@ export function useOpenOrg() {
   const route = useRoute();
   const router = useRouter();
 
-  // 当前部门。首页和搜索页没有这个参数
   const orgId = computed(() => String(route.params.orgId || ''));
 
-  function openOrg(id?: string) {
-    if (id && id === orgId.value) return;
-    router.push(id ? `/roster/org/${id}` : '/roster/org');
+  /** replace：组织内切换部门，避免返回键一层层回退 */
+  function openOrg(id?: string, replace?: boolean) {
+    const nextId = String(id || '');
+    const path = nextId ? `/roster/org/${nextId}` : '/roster';
+    if (nextId && nextId === orgId.value) return;
+    if (!nextId && route.name === 'EmployeeRoster') return;
+    if (replace) {
+      router.replace(path);
+      return;
+    }
+    router.push(path);
   }
 
   function goSearch() {

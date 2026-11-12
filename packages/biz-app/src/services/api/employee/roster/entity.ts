@@ -15,6 +15,8 @@ import type {
   RosterDetailTabItem,
   RosterStaff,
   RosterStaffPage,
+  RosterTeamAuthConfig,
+  RosterTeamAuthNode,
 } from '@/types/employee/roster';
 
 export const EMPTY_ROSTER_CONTEXT: RosterContext = {
@@ -27,6 +29,12 @@ export const EMPTY_ROSTER_CONTEXT: RosterContext = {
 export const EMPTY_ROSTER_STAFF_PAGE: RosterStaffPage = {
   records: [],
   total: 0,
+};
+
+export const EMPTY_ROSTER_TEAM_AUTH: RosterTeamAuthConfig = {
+  isAllowDepartmentManagerView: false,
+  allList: [],
+  selectedList: [],
 };
 
 function adaptStaff(row: unknown): RosterStaff {
@@ -368,11 +376,17 @@ function adaptCostRows(
 }
 
 export const EMPTY_ROSTER_COST: RosterDetailCostData = {
+  displayType: 0,
   ratioTotal: '',
   amountTotal: '',
   ratioRows: [],
   amountRows: [],
 };
+
+/** 展示形式：0 比例，1 金额。其它值按比例兜底。 */
+function readCostDisplayType(value: unknown) {
+  return Number(value) === 1 ? 1 : 0;
+}
 
 /** 成本中心详情。失败兜底空对象。 */
 export function adaptRosterDetailCost(body: unknown): RosterDetailCostData {
@@ -381,6 +395,7 @@ export function adaptRosterDetailCost(body: unknown): RosterDetailCostData {
   }
   const row = body as Record<string, unknown>;
   return {
+    displayType: readCostDisplayType(row.displayType),
     ratioTotal: readString(row, 'ratioTotal'),
     amountTotal: readString(row, 'amountTotal'),
     ratioRows: adaptCostRows(row.ratioRows),
@@ -458,4 +473,126 @@ export function adaptRosterDetailAttachments(
   return subTabs
     .map((item) => adaptAttachTab(item))
     .filter(Boolean) as RosterDetailAttachTab[];
+}
+
+function toBoolFlag(value: unknown) {
+  if (value === true || value === 1 || value === '1' || value === 'true') {
+    return true;
+  }
+  if (value === false || value === 0 || value === '0' || value === 'false') {
+    return false;
+  }
+  return undefined;
+}
+
+function readSort(value: unknown) {
+  const num = Number(value);
+  return Number.isFinite(num) ? num : 0;
+}
+
+function sortTeamNodes(list: RosterTeamAuthNode[]) {
+  return [...list].sort((prev, next) => (prev.sort || 0) - (next.sort || 0));
+}
+
+function readBuiltin(raw: unknown) {
+  if (!raw || typeof raw !== 'object' || Array.isArray(raw)) return false;
+  return toBoolFlag((raw as Record<string, unknown>).builtin) === true;
+}
+
+function adaptTeamFieldNode(raw: unknown, allowBuiltin = false) {
+  if (!raw || typeof raw !== 'object') return null;
+  const row = raw as Record<string, unknown>;
+  const id = readString(row, 'id') || readString(row, 'fieldCode');
+  if (!id) return null;
+  const node: RosterTeamAuthNode = {
+    id,
+    name: readString(row, 'fieldName') || id,
+    nodeType: 'field',
+    code: readString(row, 'fieldCode') || undefined,
+    sort: readSort(row.sort),
+  };
+  if (allowBuiltin && readBuiltin(row.systemConfig)) node.builtin = true;
+  return node;
+}
+
+function adaptTeamGroupNode(raw: unknown) {
+  if (!raw || typeof raw !== 'object') return null;
+  const row = raw as Record<string, unknown>;
+  const id = readString(row, 'id') || readString(row, 'groupCode');
+  if (!id) return null;
+  const fields = Array.isArray(row.fieldList) ? row.fieldList : [];
+  const children = sortTeamNodes(
+    fields
+      .map((item) => adaptTeamFieldNode(item, true))
+      .filter(Boolean) as RosterTeamAuthNode[],
+  );
+  const node: RosterTeamAuthNode = {
+    id,
+    name: readString(row, 'groupName') || id,
+    nodeType: 'group',
+    code: readString(row, 'groupCode') || undefined,
+    sort: readSort(row.sort),
+  };
+  if (children.length) node.children = children;
+  return node;
+}
+
+function adaptTeamSetNode(raw: unknown) {
+  if (!raw || typeof raw !== 'object') return null;
+  const row = raw as Record<string, unknown>;
+  const id = readString(row, 'id') || readString(row, 'setCode');
+  if (!id) return null;
+  const groups = Array.isArray(row.groupList) ? row.groupList : [];
+  const setFields = Array.isArray(row.fieldList) ? row.fieldList : [];
+  const children = [
+    ...sortTeamNodes(
+      groups
+        .map((item) => adaptTeamGroupNode(item))
+        .filter(Boolean) as RosterTeamAuthNode[],
+    ),
+    ...sortTeamNodes(
+      setFields
+        .map((item) => adaptTeamFieldNode(item, false))
+        .filter(Boolean) as RosterTeamAuthNode[],
+    ),
+  ];
+  const node: RosterTeamAuthNode = {
+    id,
+    name: readString(row, 'setName') || id,
+    nodeType: 'module',
+    code: readString(row, 'setCode') || undefined,
+    sort: readSort(row.sort),
+  };
+  if (children.length) node.children = children;
+  return node;
+}
+
+function readTeamSetList(body: unknown) {
+  if (Array.isArray(body)) return body;
+  if (body && typeof body === 'object') {
+    const list = (body as Record<string, unknown>).setList;
+    if (Array.isArray(list)) return list;
+  }
+  return [];
+}
+
+/** 团队授权全部可选 / 已选字段树。失败兜底 []。 */
+export function adaptRosterTeamAuthTree(body: unknown): RosterTeamAuthNode[] {
+  return sortTeamNodes(
+    readTeamSetList(body)
+      .map((item) => adaptTeamSetNode(item))
+      .filter(Boolean) as RosterTeamAuthNode[],
+  );
+}
+
+/** 是否允许部门负责人查看。失败兜底 false。 */
+export function adaptRosterTeamAuthBasic(body: unknown) {
+  if (!body || typeof body !== 'object' || Array.isArray(body)) {
+    return { isAllowDepartmentManagerView: false };
+  }
+  const row = body as Record<string, unknown>;
+  return {
+    isAllowDepartmentManagerView:
+      toBoolFlag(row.isAllowDepartmentManagerView) ?? false,
+  };
 }

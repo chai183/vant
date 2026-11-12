@@ -70,3 +70,14 @@ export const ROSTER_DETAIL_GROWTH_SUB_POSITION = 'position';
 /** 附件二级，对齐占位数据编码 */
 export const ROSTER_DETAIL_ATTACH_ROSTER = 'ROSTER_ATTACH';
 export const ROSTER_DETAIL_ATTACH_ONBOARD = 'ONBOARDING_ATTACH';
+
+/** 团队授权基础设置。是否允许部门负责人查看，给 App 入口用，花名册页不二次拦截。 */
+export const ROSTER_TEAM_AUTH_BASIC_URL = `${API_PREFIX}/corp/config/query-team-auth`;
+
+/** 团队授权字段树。GET，查询参数 type。 */
+export const ROSTER_TEAM_AUTH_LIST_URL = '/dthr-base/v4/system-config/list';
+
+export const ROSTER_TEAM_AUTH_TYPE = {
+  all: 'appTeamAuth',
+  selected: 'appTeamAuthSelected',
+} as const;

@@ -4,6 +4,44 @@
 
 ---
 
+## 团队信息授权
+
+管理员在「员工设置 → 手机花名册设置 → 团队信息授权」配好。花名册展示按已选字段裁剪；后续花名册设置页用全部可选 + 已选做个性化，再写回用户配置。
+
+`isAllowDepartmentManagerView` 给 App 入口判断部门负责人是否能看到花名册，进页后不再拦一次。
+
+### 基础设置
+
+- **URL**: `/dthr-employee/v4/corp/config/query-team-auth`
+- **Method**: `GET`
+- **入参**：无
+- **返回 body**
+
+| 字段                         | 类型    | 必填 | 说明                      |
+| ---------------------------- | ------- | ---- | ------------------------- |
+| isAllowDepartmentManagerView | Boolean | 是   | `true` 允许部门负责人查看 |
+
+### 全部可选 / 已选字段
+
+- **URL**: `/dthr-base/v4/system-config/list`
+- **Method**: `GET`
+- **入参**
+
+| 字段 | 类型   | 必填 | 说明                                               |
+| ---- | ------ | ---- | -------------------------------------------------- |
+| type | String | 是   | `appTeamAuth` 全部可选；`appTeamAuthSelected` 已选 |
+
+- **返回 body**：信息子集数组，`setCode → groupList → fieldList`
+
+| 字段                  | 类型    | 说明                               |
+| --------------------- | ------- | ---------------------------------- |
+| setCode / setName     | String  | 信息集                             |
+| groupCode / groupName | String  | 分组                               |
+| fieldCode / fieldName | String  | 字段                               |
+| systemConfig.builtin  | Boolean | 已选里的内置字段，不可从设置里拿掉 |
+
+---
+
 ## 详情页签集合
 
 - **作用**：进入员工详情后查询全部信息集，作为 Tab
@@ -133,19 +171,20 @@
 
 ## 【假接口】员工成本中心
 
-正式接口未出，PC 端暂无，先走占位 Mock。
+正式接口未出，先走占位 Mock。
 
-- **作用**：员工成本中心按比例 / 按金额展示
+- **作用**：员工成本中心详情。`displayType` 决定移动端展示形式：`0` 按比例，`1` 按金额。
 - **URL**: `POST /dthr-employee/v4/staff-cost-center/detail`
 - **入参**：`staffId` 必填
 - **返回 body**
 
-| 字段        | 类型   | 必填 | 说明       |
-| ----------- | ------ | ---- | ---------- |
-| ratioTotal  | String | 否   | 总比例文案 |
-| amountTotal | String | 否   | 总金额文案 |
-| ratioRows   | Array  | 否   | 按比例分摊 |
-| amountRows  | Array  | 否   | 按金额分摊 |
+| 字段        | 类型   | 必填 | 说明                         |
+| ----------- | ------ | ---- | ---------------------------- |
+| displayType | Number | 是   | 展示形式：`0` 比例，`1` 金额 |
+| ratioTotal  | String | 否   | 总比例文案                   |
+| amountTotal | String | 否   | 总金额文案                   |
+| ratioRows   | Array  | 否   | 按比例分摊                   |
+| amountRows  | Array  | 否   | 按金额分摊                   |
 
 ratioRows[] / amountRows[]
 

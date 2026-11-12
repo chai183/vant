@@ -3,14 +3,14 @@ import type { RouteRecordRaw } from 'vue-router';
 const rosterRoutes: RouteRecordRaw[] = [
   {
     path: '/roster',
-    component: () => import('@/pages/roster/home/index.vue'),
+    component: () => import('@/pages/roster/org/index.vue'),
     name: 'EmployeeRoster',
     meta: {
       title: '员工花名册',
     },
   },
   {
-    path: '/roster/org/:orgId?',
+    path: '/roster/org/:orgId',
     component: () => import('@/pages/roster/org/index.vue'),
     name: 'EmployeeRosterOrg',
     meta: {

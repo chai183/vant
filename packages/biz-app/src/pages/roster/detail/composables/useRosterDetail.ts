@@ -34,13 +34,6 @@ import {
 } from '@/services/api/employee/roster/tab';
 import { useRosterStore } from '@/pinia/stores/roster';
 
-/** 银行卡是否默认。只读详情末尾手动补，展示是 / 否。 */
-const BANK_CARD_DEFAULT_FLAG = 'defaultFlag';
-
-function isBankCardGroup(groupCode = '') {
-  return String(groupCode || '').includes('.bank_card');
-}
-
 /** 基础信息、单条、直属领导、多行这些 Tab 才拉字段配置。 */
 function needsFormColumns(kind: string) {
   return (
@@ -49,30 +42,6 @@ function needsFormColumns(kind: string) {
     kind === 'leader' ||
     kind === 'multiRecord'
   );
-}
-
-function appendBankCardDefaultField(groups: RosterDetailGroup[]) {
-  return groups.map((group) => {
-    if (!isBankCardGroup(group.groupCode)) return group;
-    const fields = (group.fields || []).filter(
-      (item) => item.fieldCode !== BANK_CARD_DEFAULT_FLAG,
-    );
-    return {
-      ...group,
-      fields: [
-        ...fields,
-        {
-          fieldCode: BANK_CARD_DEFAULT_FLAG,
-          fieldName: '是否默认',
-          fieldType: 'BOOLEAN',
-          options: [
-            { label: '是', value: 1 },
-            { label: '否', value: 0 },
-          ],
-        },
-      ],
-    };
-  });
 }
 
 const EMPTY_COST = {
@@ -95,6 +64,8 @@ type TabCache = {
   attachTabs?: RosterDetailAttachTab[];
 };
 
+type TabLoadResult = { data?: TabCache; message?: string };
+
 /** 员工详情：进页拉页签，切 Tab 时按 setCode 拉这一页字段和详情 */
 export function useRosterDetail() {
   const route = useRoute();
@@ -108,6 +79,9 @@ export function useRosterDetail() {
 
   /** 路由员工 id */
   const staffId = computed(() => String(route.params.staffId || ''));
+
+  /** 同一员工、同一页签的并发加载共用请求；切换员工时整体重建。 */
+  let pendingTabs = new Map<string, Promise<TabLoadResult>>();
 
   /* ----页签面板start---- */
   const tabPanel = reactive({
@@ -138,8 +112,9 @@ export function useRosterDetail() {
     applyCache(code: string) {
       const cached = tabPanel.cache[code];
       const setCode = code.split(':')[0];
-      tabPanel.groups = appendBankCardDefaultField(
-        rosterStore.filterGroups(setCode, cached?.groups || []),
+      tabPanel.groups = rosterStore.resolveGroups(
+        setCode,
+        cached?.groups || [],
       );
       tabPanel.kind = cached?.kind || 'empty';
       tabPanel.mode = cached?.mode || 'single';
@@ -150,150 +125,36 @@ export function useRosterDetail() {
       tabPanel.costData = cached?.costData || { ...EMPTY_COST };
       tabPanel.attachTabs = cached?.attachTabs || [];
     },
-    applyResult(code: string, payload: TabCache) {
-      tabPanel.cache[code] = payload;
-      tabPanel.applyCache(code);
-    },
     async loadValues() {
-      const option = tabPanel.currentOption();
-      const setCode = option?.setCode || '';
-      if (!setCode) return;
-      const child = tabPanel.currentChild();
-      const subCode = child?.subCode || '';
-      const builtin = tabPanel.list.find(
-        (item) => item.code === setCode,
-      )?.builtin;
-      const kind = getRosterDetailTabKind(setCode, builtin);
-      const key =
-        kind === 'attachment' ? setCode : tabPanel.cacheKey(setCode, subCode);
-      if (tabPanel.cache[key]) {
-        tabPanel.applyCache(key);
-        return;
-      }
+      const tab = readActiveTab();
+      const { setCode, kind, key } = tab;
+      // 先应用当前缓存；无页签或无缓存时清空上一页的数据。
+      const {cache} = tabPanel;
+      tabPanel.applyCache(key);
+      tabPanel.loading = false;
+      if (!setCode || cache[key]) return;
       tabPanel.kind = kind;
       tabPanel.loading = true;
-      const groupsPromise = needsFormColumns(kind)
-        ? loadFormGroups(setCode)
-        : Promise.resolve([] as RosterDetailGroup[]);
-      if (kind === 'basic') {
-        const [groups, response] = await Promise.all([
-          groupsPromise,
-          getRosterDetailBasicApi({
-            staffId: staffId.value,
-          }),
-        ]);
-        tabPanel.applyResult(key, {
-          kind,
-          mode: 'single',
-          groups,
-          formData: response.body || {},
-          records: [],
-        });
-      } else if (kind === 'singleForm') {
-        const [groups, response] = await Promise.all([
-          groupsPromise,
-          getRosterDetailSingleFormApi({
-            staffId: staffId.value,
-            tabCode: setCode,
-          }),
-        ]);
-        tabPanel.applyResult(key, {
-          kind,
-          mode: 'single',
-          groups,
-          formData: response.body || {},
-          records: [],
-        });
-      } else if (kind === 'leader') {
-        const [groups, response] = await Promise.all([
-          groupsPromise,
-          getRosterDetailLeaderApi({
-            staffId: staffId.value,
-          }),
-        ]);
-        tabPanel.applyResult(key, {
-          kind,
-          mode: 'single',
-          groups,
-          formData: response.body || {},
-          records: [],
-        });
-      } else if (kind === 'multiRecord') {
-        const [groups, response] = await Promise.all([
-          groupsPromise,
-          getRosterDetailMultiRecordApi({
-            staffId: staffId.value,
-            tabCode: setCode,
-            builtin,
-          }),
-        ]);
-        tabPanel.applyResult(key, {
-          kind,
-          mode: 'multi',
-          groups,
-          formData: {},
-          records: response.body || [],
-        });
-      } else if (kind === 'growth') {
-        if (subCode === ROSTER_DETAIL_GROWTH_SUB_CHANGE || !subCode) {
-          const response = await getRosterDetailGrowthChangeApi({
-            staffId: staffId.value,
-          });
-          tabPanel.applyResult(key, {
-            kind,
-            mode: 'single',
-            groups: [],
-            formData: {},
-            records: [],
-            growthChanges: response.body || [],
-          });
-        } else {
-          const response = await getRosterDetailGrowthPositionApi({
-            staffId: staffId.value,
-          });
-          tabPanel.applyResult(key, {
-            kind,
-            mode: 'single',
-            groups: [],
-            formData: {},
-            records: [],
-            growthPositions: response.body || [],
-          });
-        }
-      } else if (kind === 'cost') {
-        const response = await getRosterDetailCostApi({
-          staffId: staffId.value,
-        });
-        tabPanel.applyResult(key, {
-          kind,
-          mode: 'single',
-          groups: [],
-          formData: {},
-          records: [],
-          costData: response.body || { ...EMPTY_COST },
-        });
-      } else if (kind === 'attachment') {
-        const response = await getRosterDetailAttachmentApi({
-          staffId: staffId.value,
-        });
-        tabPanel.applyResult(key, {
-          kind,
-          mode: 'single',
-          groups: [],
-          formData: {},
-          records: [],
-          attachTabs: response.body || [],
-        });
-      } else {
-        tabPanel.applyResult(key, {
-          kind,
-          mode: 'single',
-          groups: [],
-          formData: {},
-          records: [],
-        });
+      const requests = pendingTabs;
+      let request = requests.get(key);
+      if (!request) {
+        request = loadTabValues(tab, staffId.value);
+        requests.set(key, request);
       }
-      tabPanel.loading = false;
+      try {
+        const response = await request;
+        // 员工缓存已更换时，旧响应不再写入；切走的页签仅缓存成功结果。
+        if (tabPanel.cache !== cache) return;
+        if (response.data) cache[key] = response.data;
+        if (readActiveTab().key !== key) return;
+        tabPanel.applyCache(key);
+        if (response.message) showToast(response.message);
+      } finally {
+        if (requests.get(key) === request) requests.delete(key);
+        if (tabPanel.cache === cache && readActiveTab().key === key) {
+          tabPanel.loading = false;
+        }
+      }
     },
     async change(payload?: { active?: number[] }) {
       if (payload?.active) {
@@ -303,6 +164,87 @@ export function useRosterDetail() {
     },
   });
   /* ----页签面板end---- */
+
+  /** 字段与详情并行请求，只将完整成功的结果交给缓存。 */
+  async function loadTabValues(
+    { setCode, subCode, builtin, kind }: ReturnType<typeof readActiveTab>,
+    employeeId: string,
+  ): Promise<TabLoadResult> {
+    const result: TabCache = {
+      kind,
+      mode: 'single',
+      groups: [],
+      formData: {},
+      records: [],
+    };
+    const params = { staffId: employeeId };
+    async function loadData() {
+      if (kind === 'basic' || kind === 'singleForm' || kind === 'leader') {
+        const response = await (kind === 'basic'
+          ? getRosterDetailBasicApi(params)
+          : kind === 'singleForm'
+            ? getRosterDetailSingleFormApi({ ...params, tabCode: setCode })
+            : getRosterDetailLeaderApi(params));
+        result.formData = response.body || {};
+        return response;
+      }
+      if (kind === 'multiRecord') {
+        const response = await getRosterDetailMultiRecordApi({
+          ...params,
+          tabCode: setCode,
+          builtin,
+        });
+        result.mode = 'multi';
+        result.records = response.body || [];
+        return response;
+      }
+      if (kind === 'growth') {
+        if (subCode === ROSTER_DETAIL_GROWTH_SUB_CHANGE || !subCode) {
+          const response = await getRosterDetailGrowthChangeApi(params);
+          result.growthChanges = response.body || [];
+          return response;
+        }
+        const response = await getRosterDetailGrowthPositionApi(params);
+        result.growthPositions = response.body || [];
+        return response;
+      }
+      if (kind === 'cost') {
+        const response = await getRosterDetailCostApi(params);
+        result.costData = response.body || { ...EMPTY_COST };
+        return response;
+      }
+      if (kind === 'attachment') {
+        const response = await getRosterDetailAttachmentApi(params);
+        result.attachTabs = response.body || [];
+        return response;
+      }
+      return { success: true, message: '' };
+    }
+    const [columns, response] = await Promise.all([
+      needsFormColumns(kind)
+        ? getRosterDetailFormColumnsApi({ setCode })
+        : Promise.resolve({ success: true, body: { groups: [] }, message: '' }),
+      loadData(),
+    ]);
+    if (!columns.success) return { message: columns.message || '加载字段失败' };
+    if (!response.success)
+      return { message: response.message || '加载详情失败' };
+    result.groups = columns.body?.groups || [];
+    return { data: result };
+  }
+
+  /** 加载详情和授权刷新共用当前页签解析，附件仍共用一级页签缓存。 */
+  function readActiveTab() {
+    const setCode = tabPanel.currentOption()?.setCode || '';
+    const subCode = tabPanel.currentChild()?.subCode || '';
+    const builtin = tabPanel.list.find(
+      (item) => item.code === setCode,
+    )?.builtin;
+    const kind = getRosterDetailTabKind(setCode);
+    const key =
+      kind === 'attachment' ? setCode : tabPanel.cacheKey(setCode, subCode);
+    return { setCode, subCode, builtin, kind, key };
+  }
 
   /** 当前信息集名称，多行记录标题用 */
   const activeTabName = computed(() => tabPanel.currentOption()?.title || '');
@@ -315,14 +257,19 @@ export function useRosterDetail() {
   }
 
   function applyTabList() {
+    // 必须在重建选项前记住编码，不能用过滤后的旧下标定位页签。
+    const current = readActiveTab();
     tabPanel.list = rosterStore.filterTabs(rawTabList.value);
     tabPanel.options = buildRosterCascadeOptions(tabPanel.list);
-    const currentCode = tabPanel.options[tabPanel.active[0]]?.setCode;
     const nextIndex = tabPanel.options.findIndex(
-      (item) => item.setCode === currentCode,
+      (item) => item.setCode === current.setCode,
     );
     if (nextIndex >= 0) {
-      tabPanel.active = [nextIndex, tabPanel.active[1] || 0];
+      const childIndex =
+        tabPanel.options[nextIndex].children?.findIndex(
+          (item) => item.subCode === current.subCode,
+        ) ?? -1;
+      tabPanel.active = [nextIndex, childIndex >= 0 ? childIndex : 0];
       return;
     }
     const basicIndex = tabPanel.options.findIndex(
@@ -334,56 +281,36 @@ export function useRosterDetail() {
   async function load() {
     loading.value = true;
     tabPanel.cache = {};
-    tabPanel.groups = [];
-    tabPanel.formData = {};
-    tabPanel.records = [];
-    tabPanel.growthChanges = [];
-    tabPanel.growthPositions = [];
-    tabPanel.attachTabs = [];
-    tabPanel.costData = { ...EMPTY_COST };
-    const [tabsRes] = await Promise.all([
-      getRosterDetailTabsApi(),
-      rosterStore.loadTeamAuth(),
-    ]);
-    rawTabList.value = tabsRes.body || [];
-    applyTabList();
-    if (!tabsRes.success) {
-      showToast(tabsRes.message || '加载信息集失败');
+    pendingTabs = new Map();
+    const {cache} = tabPanel;
+    rawTabList.value = [];
+    tabPanel.applyCache('');
+    tabPanel.loading = false;
+    try {
+      const [tabsRes] = await Promise.all([
+        getRosterDetailTabsApi(),
+        rosterStore.loadTeamAuth(),
+      ]);
+      if (tabPanel.cache !== cache) return;
+      rawTabList.value = tabsRes.body || [];
+      applyTabList();
+      if (!tabsRes.success) showToast(tabsRes.message || '加载信息集失败');
+      await tabPanel.loadValues();
+    } finally {
+      if (tabPanel.cache === cache) loading.value = false;
     }
-    await tabPanel.loadValues();
-    loading.value = false;
   }
 
   watch(staffId, load, { immediate: true });
 
   watch(
     () => rosterStore.version,
-    () => {
-      if (loading.value) return;
+    async () => {
       applyTabList();
-      const option = tabPanel.currentOption();
-      const setCode = option?.setCode || '';
-      if (!setCode) return;
-      const kind = getRosterDetailTabKind(
-        setCode,
-        tabPanel.list.find((item) => item.code === setCode)?.builtin,
-      );
-      const key =
-        kind === 'attachment'
-          ? setCode
-          : tabPanel.cacheKey(setCode, tabPanel.currentChild()?.subCode || '');
-      if (tabPanel.cache[key]) tabPanel.applyCache(key);
+      // 同页签只重裁缓存；切换到未加载页签时请求，无授权时清空。
+      await tabPanel.loadValues();
     },
   );
-
-  /** 当前 Tab 的分组字段。和详情一起拉，查询参数带 setCode。 */
-  async function loadFormGroups(setCode: string) {
-    const response = await getRosterDetailFormColumnsApi({ setCode });
-    if (!response.success) {
-      showToast(response.message || '加载字段失败');
-    }
-    return response.body?.groups || [];
-  }
 
   return {
     loading,

@@ -57,60 +57,21 @@
 </template>
 
 <script lang="ts" setup>
-import { computed, onMounted, ref } from 'vue';
-import { showToast } from 'vant';
-import type { RosterOrgNode, RosterStaff } from '@/types/employee/roster';
-import { getRosterStaffApi } from '@/services/api/employee/roster';
-import { useRosterStore } from '@/pinia/stores/roster';
-import { getOrgTreeApi } from '@/services/api/organization/org';
-import { flattenOrgs, matchKeyword, orgTone } from '../utils/org';
+import { orgTone } from '../utils/org';
 import { useOpenOrg } from '../composables/useOpenOrg';
+import { useRosterSearch } from './composables/useRosterSearch';
 import RosterNav from '../components/RosterNav.vue';
 import OrgRow from '../components/OrgRow.vue';
 import StaffRow from '../components/StaffRow.vue';
 
 defineOptions({ name: 'EmployeeRosterSearch' });
 
+/*----搜索面板start----*/
+/** 组织跳转和返回沿用花名册导航。 */
 const { openOrg, back } = useOpenOrg();
-const rosterStore = useRosterStore();
-const loading = ref(true);
-const keyword = ref('');
-const allOrgs = ref<RosterOrgNode[]>([]);
-const allStaff = ref<RosterStaff[]>([]);
-
-const orgs = computed(() =>
-  allOrgs.value.filter((item) => matchKeyword(item.name, keyword.value)),
-);
-
-const staff = computed(() =>
-  allStaff.value.filter((item) => {
-    const texts = [item.name];
-    if (rosterStore.isListFieldAllowed('workNo')) texts.push(item.workNo);
-    if (rosterStore.isListFieldAllowed('phone')) texts.push(item.phone);
-    if (rosterStore.isListFieldAllowed('deptName')) texts.push(item.deptName);
-    return texts.some((text) => matchKeyword(text, keyword.value));
-  }),
-);
-
-async function load() {
-  loading.value = true;
-  try {
-    const [treeRes, staffRes] = await Promise.all([
-      getOrgTreeApi(),
-      getRosterStaffApi(),
-      rosterStore.loadTeamAuth(),
-    ]);
-    if (!treeRes.success && !staffRes.success) {
-      showToast('加载失败');
-    }
-    allOrgs.value = flattenOrgs(treeRes.body || []);
-    allStaff.value = staffRes.body?.records || [];
-  } finally {
-    loading.value = false;
-  }
-}
-
-onMounted(load);
+/** 页面只消费搜索状态，加载和授权匹配收拢到搜索逻辑中。 */
+const { loading, keyword, orgs, staff } = useRosterSearch();
+/*----搜索面板end----*/
 </script>
 
 <style scoped lang="less">

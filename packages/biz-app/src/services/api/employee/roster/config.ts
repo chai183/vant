@@ -1,5 +1,13 @@
 import { API_PREFIX } from '@/services/api/employee/config';
 
+/** 列表搜索沿用 roster.txt 的字段；部门展示值明确来自 fieldMapping。 */
+export const ROSTER_LIST_SEARCH_FIELDS = [
+  { fieldCode: 'name' },
+  { fieldCode: 'staffNo' },
+  { fieldCode: 'phone' },
+  { fieldCode: 'orgId', fieldMapping: 'orgName' },
+] as const;
+
 /**
  * 花名册上下文。
  * 组织树没有「我的部门」和「当前用户是不是组织负责人」，由这个接口给出。

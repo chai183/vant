@@ -8,7 +8,7 @@ import {
   getDeptStaffApi,
   getOrgTreeApi,
 } from '@/services/api/organization/org';
-import { buildOrgCrumb, findOrg } from '../../utils/org';
+import { buildOrgCrumb } from '../../utils/org';
 import { useOpenOrg } from '../../composables/useOpenOrg';
 
 /** 部门页：路径、下级部门、本部门员工 */
@@ -46,44 +46,37 @@ export function useRosterOrg() {
     openOrg(nextId || undefined, true);
   }
 
-  async function load() {
+  async function load(isCurrent: () => boolean) {
     loading.value = true;
     try {
       const fromRoute = orgId.value;
       const contextPromise = getRosterContextApi();
       const treePromise = getOrgTreeApi();
       const teamPromise = rosterStore.loadTeamAuth();
-      let contextRes;
-      let treeRes;
-      let staffRes;
-      if (fromRoute) {
-        [contextRes, treeRes, staffRes] = await Promise.all([
-          contextPromise,
-          treePromise,
-          getDeptStaffApi(fromRoute),
-          teamPromise,
-        ]);
-      } else {
-        [contextRes, treeRes] = await Promise.all([
-          contextPromise,
-          treePromise,
-          teamPromise,
-        ]);
+      // 明确部门时并行加载人员；入口仍先确定当前用户的部门。
+      const [contextRes, treeRes, routeStaffRes] = await Promise.all([
+        contextPromise,
+        treePromise,
+        fromRoute ? getDeptStaffApi(fromRoute) : undefined,
+        teamPromise,
+      ]);
+      if (!isCurrent()) return;
+      const context = contextRes.body;
+      // 入口页：部门负责人进我的部门，其他人进组织架构根
+      let currentId = fromRoute;
+      if (!currentId && context?.isOrgLeader) {
+        currentId = context.myDeptId;
+        if (!currentId) showToast('未找到我的部门');
       }
+      const staffRes = fromRoute
+        ? routeStaffRes
+        : await getDeptStaffApi(currentId || ROSTER_UNGROUPED_ORG_ID);
+      if (!isCurrent()) return;
       if (!treeRes.success) {
         showToast(treeRes.message || '加载部门失败');
       }
-      isOrgLeader.value = Boolean(contextRes.body?.isOrgLeader);
-      myDeptId.value = contextRes.body?.myDeptId || '';
-      // 入口页：部门负责人进我的部门，其他人进组织架构根
-      let currentId = fromRoute;
-      if (!currentId && isOrgLeader.value) {
-        currentId = myDeptId.value;
-        if (!currentId) showToast('未找到我的部门');
-      }
-      if (!fromRoute) {
-        staffRes = await getDeptStaffApi(currentId || ROSTER_UNGROUPED_ORG_ID);
-      }
+      isOrgLeader.value = context?.isOrgLeader ?? false;
+      myDeptId.value = context?.myDeptId || '';
       viewOrgId.value = currentId;
       const tree = treeRes.body || [];
       if (!currentId) {
@@ -91,29 +84,42 @@ export function useRosterOrg() {
         orgs.value = tree;
         currentName.value = '';
       } else {
-        const node = findOrg(tree, currentId);
+        // 面包屑最后一项就是当前部门，一次遍历同时取得路径与部门。
+        const currentPath = buildOrgCrumb(
+          tree,
+          currentId,
+          isOrgLeader.value ? myDeptId.value : '',
+        );
+        const node = currentPath[currentPath.length - 1];
         if (!node) {
           showToast('部门不存在');
           path.value = [];
           orgs.value = [];
           currentName.value = '';
         } else {
-          path.value = buildOrgCrumb(
-            tree,
-            currentId,
-            isOrgLeader.value ? myDeptId.value : '',
-          );
+          path.value = currentPath;
           orgs.value = node.children;
           currentName.value = node.name;
         }
       }
       staff.value = staffRes?.body?.records || [];
     } finally {
-      loading.value = false;
+      if (isCurrent()) loading.value = false;
     }
   }
 
-  watch(orgId, load, { immediate: true });
+  watch(
+    orgId,
+    (_current, _previous, onCleanup) => {
+      // 路由变化或组件卸载后，上一轮加载不再修改当前页面。
+      let active = true;
+      onCleanup(() => {
+        active = false;
+      });
+      return load(() => active);
+    },
+    { immediate: true },
+  );
 
   return {
     loading,

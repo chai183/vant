@@ -2,42 +2,18 @@ import type {
   RosterDetailField,
   RosterDetailGroup,
   RosterDetailTabItem,
+  RosterListFieldCode,
   RosterTeamAuthNode,
 } from '@/types/employee/roster';
-import { ROSTER_DETAIL_BASIC_TAB } from './config';
+import { ROSTER_DETAIL_BASIC_TAB } from '@/services/api/employee/roster/config';
 
-/** 团队授权编码 → 花名册 setCode，兼容设置页旧编码 */
-const SET_CODE_ALIAS: Record<string, string> = {
-  basic: ROSTER_DETAIL_BASIC_TAB,
-  'employee-info': ROSTER_DETAIL_BASIC_TAB,
-  'contract-info': ROSTER_DETAIL_BASIC_TAB,
-  education: 'tab_staff_education',
-  'work-experience': 'tab_staff_job_history',
-  'family-member': 'tab_staff_family_member',
-  'employee-certificate': 'tab_staff_certificate',
-  'performance-archive': 'tab_staff_performance',
-};
-
-/** 设置页字段编码 ↔ 花名册 fieldCode */
-const FIELD_CODE_ALIAS: Record<string, string[]> = {
-  name: ['name'],
-  avatar: ['avatar', 'idPhotoFront'],
-  department: ['department', 'orgId', 'orgName', 'deptName'],
-  orgId: ['department', 'orgId', 'orgName', 'deptName'],
-  orgName: ['department', 'orgId', 'orgName', 'deptName'],
-  position: ['position', 'positionId', 'positionName'],
-  positionId: ['position', 'positionId', 'positionName'],
-  jobTitle: ['jobTitle', 'positionTitleId', 'positionTitleName'],
-  positionTitleId: ['jobTitle', 'positionTitleId', 'positionTitleName'],
-  employeeNo: ['employeeNo', 'staffNo', 'workNo'],
-  staffNo: ['employeeNo', 'staffNo', 'workNo'],
-  phone: ['phone'],
-};
-
-type SetRule = {
+type FieldRule = {
   all: boolean;
-  groups: Record<string, boolean>;
   fields: Record<string, boolean>;
+};
+
+type SetRule = FieldRule & {
+  groups: Record<string, FieldRule>;
 };
 
 export type RosterTeamAuthIndex = {
@@ -54,31 +30,17 @@ function nodeCode(node: RosterTeamAuthNode) {
   return String(node.code || node.id || '').trim();
 }
 
-function normalizeSetCode(code = '') {
-  const raw = String(code || '').trim();
-  if (!raw) return '';
-  return SET_CODE_ALIAS[raw] || raw;
-}
-
-function expandFieldCodes(code = '') {
-  const raw = String(code || '').trim();
-  if (!raw) return [];
-  const mapped = FIELD_CODE_ALIAS[raw];
-  if (mapped?.length) return mapped;
-  return [raw];
-}
-
-function markFields(rule: SetRule, code = '') {
-  expandFieldCodes(code).forEach((item) => {
-    rule.fields[item] = true;
-  });
+/** 设置字段用 columnName 对应花名册字段，不从节点编码推测。 */
+function markFields(rule: FieldRule, node: RosterTeamAuthNode) {
+  const columnName = String(node.columnName || '').trim();
+  if (columnName) rule.fields[columnName] = true;
 }
 
 function ensureSetRule(
   sets: Record<string, SetRule>,
   setCode: string,
 ): SetRule {
-  const code = normalizeSetCode(setCode);
+  const code = String(setCode || '').trim();
   if (!sets[code]) {
     sets[code] = { all: false, groups: {}, fields: {} };
   }
@@ -89,17 +51,22 @@ function walkSetChildren(rule: SetRule, nodes: RosterTeamAuthNode[] = []) {
   nodes.forEach((node) => {
     if (node.nodeType === 'group') {
       const groupCode = nodeCode(node);
+      if (!groupCode) return;
+      // 同名字段只在所属分组生效，不能让银行卡一的授权扩散到银行卡二。
+      const group = (rule.groups[groupCode] ||= { all: false, fields: {} });
       if (!node.children?.length) {
-        if (groupCode) rule.groups[groupCode] = true;
+        group.all = true;
         return;
       }
       node.children.forEach((field) => {
-        if (field.nodeType === 'field') markFields(rule, nodeCode(field));
+        if (field.nodeType === 'field') {
+          markFields(group, field);
+        }
       });
       return;
     }
     if (node.nodeType === 'field') {
-      markFields(rule, nodeCode(node));
+      markFields(rule, node);
     }
   });
 }
@@ -112,7 +79,8 @@ export function buildRosterTeamAuthIndex(
   const sets: Record<string, SetRule> = {};
   selectedList.forEach((node) => {
     if (node.nodeType !== 'module') return;
-    const rule = ensureSetRule(sets, nodeCode(node));
+    const setCode = nodeCode(node);
+    const rule = ensureSetRule(sets, setCode);
     if (!node.children?.length) {
       rule.all = true;
       return;
@@ -123,7 +91,7 @@ export function buildRosterTeamAuthIndex(
 }
 
 function findSetRule(index: RosterTeamAuthIndex, setCode = '') {
-  const code = normalizeSetCode(setCode);
+  const code = String(setCode || '').trim();
   if (!code) return undefined;
   return index.sets[code];
 }
@@ -144,26 +112,29 @@ export function isRosterFieldAllowed(
   const rule = findSetRule(index, setCode);
   if (!rule) return false;
   if (rule.all) return true;
-  if (groupCode && rule.groups[groupCode]) return true;
-  return expandFieldCodes(fieldCode).some((item) => rule.fields[item]);
+  const code = String(fieldCode || '').trim();
+  if (rule.fields[code]) return true;
+  if (groupCode) {
+    const group = rule.groups[groupCode];
+    return Boolean(group?.all || group?.fields[code]);
+  }
+  // 未指定分组的查询只用于判断字段是否在任一分组中已选。
+  return Object.values(rule.groups).some((group) => group.fields[code]);
 }
 
 /** 列表身份：姓名始终展示；其余看基础信息是否授权。 */
 export function isRosterListFieldAllowed(
   index: RosterTeamAuthIndex,
-  key: 'name' | 'deptName' | 'workNo' | 'phone',
+  fieldCode: RosterListFieldCode,
 ) {
-  if (key === 'name') return true;
-  if (!index.ready) return true;
-  const rule = findSetRule(index, ROSTER_DETAIL_BASIC_TAB);
-  if (!rule) return false;
-  if (rule.all) return true;
-  const fieldMap = {
-    deptName: 'orgId',
-    workNo: 'staffNo',
-    phone: 'phone',
-  } as const;
-  return expandFieldCodes(fieldMap[key]).some((item) => rule.fields[item]);
+  if (fieldCode === 'name') return true;
+  // 权限只查询真实字段编码，fieldMapping 仅用于展示取值。
+  return isRosterFieldAllowed(
+    index,
+    ROSTER_DETAIL_BASIC_TAB,
+    fieldCode,
+    `${ROSTER_DETAIL_BASIC_TAB}.default`,
+  );
 }
 
 export function filterRosterTabs(
@@ -188,7 +159,7 @@ export function filterRosterGroups(
   if (rule.all) return groups;
   return groups
     .map((group) => {
-      if (rule.groups[group.groupCode]) return group;
+      if (rule.groups[group.groupCode]?.all) return group;
       const fields = (group.fields || []).filter((field: RosterDetailField) => {
         if (
           field.fieldCode === 'defaultFlag' &&
@@ -218,6 +189,10 @@ export function filterRosterGroups(
 }
 
 function sameNode(left: RosterTeamAuthNode, right: RosterTeamAuthNode) {
+  if (left.nodeType !== right.nodeType) return false;
+  if (left.nodeType === 'field') {
+    return Boolean(left.columnName && left.columnName === right.columnName);
+  }
   const leftCode = nodeCode(left);
   const rightCode = nodeCode(right);
   return Boolean(
@@ -234,7 +209,8 @@ function findCeiling(
 }
 
 /**
- * 用户个性化必须落在团队已选范围内。
+ * 后续员工档案的个人范围工具，当前花名册不调用。
+ * 个人配置必须落在团队已选范围内。
  * 上限节点没有 children 时，表示这一支全部可配。
  */
 export function clipRosterTeamAuthTree(
@@ -246,11 +222,14 @@ export function clipRosterTeamAuthTree(
       const limit = findCeiling(ceiling, node);
       if (!limit) return null;
       if (!limit.children?.length) return node;
+      // 个人选择整支时，交集就是团队允许的子节点，而不是空交集。
+      if (!node.children?.length) return { ...node, children: limit.children };
       const children = clipRosterTeamAuthTree(
         node.children || [],
         limit.children,
       );
-      return { ...node, children: children.length ? children : undefined };
+      // 没有匹配字段就移除这一支，不能把空交集解释成整组授权。
+      return children.length ? { ...node, children } : null;
     })
     .filter(Boolean) as RosterTeamAuthNode[];
 }

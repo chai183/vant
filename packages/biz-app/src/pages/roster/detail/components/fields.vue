@@ -1,5 +1,10 @@
 <template>
+  <van-empty
+    v-if="!loading && mode === 'multi' && (!records.length || !groups.length)"
+    description="暂无数据"
+  />
   <SchemaCard
+    v-else
     :loading="loading"
     :groups="groups"
     :model-value="formData"

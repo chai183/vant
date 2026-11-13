@@ -89,11 +89,10 @@ const props = withDefaults(
 );
 
 /** 当前二级附件页 */
-const currentTab = computed(
-  () =>
-    (props.tabs || []).find((item) => item.code === props.subCode) ||
-    (props.tabs || [])[0] ||
-    null,
+const currentTab = computed(() =>
+  props.subCode
+    ? props.tabs.find((item) => item.code === props.subCode) || null
+    : props.tabs[0] || null,
 );
 
 /** 展开的分组 */
@@ -112,10 +111,14 @@ function isExpanded(name: string) {
 }
 
 function previewGroup(group: RosterDetailAttachGroup, start: number) {
-  const urls = (group.files || [])
-    .map((item) => item.thumbUrl || item.url)
-    .filter(Boolean);
-  previewRosterImages(urls, start);
+  const urls = group.files.map((item) => item.url || item.thumbUrl || '');
+  if (!urls[start]) {
+    showToast('暂无可用预览地址');
+    return;
+  }
+  // 过滤空地址后同步修正点击位置，预览优先使用原图。
+  const current = urls.slice(0, start).filter(Boolean).length;
+  previewRosterImages(urls.filter(Boolean), current);
 }
 
 function download(file: RosterDetailAttachFile) {
@@ -123,11 +126,11 @@ function download(file: RosterDetailAttachFile) {
     window.open(file.url);
     return;
   }
-  showToast('下载');
+  showToast('暂无可用下载地址');
 }
 
 function packDownload() {
-  showToast('打包下载');
+  showToast('打包下载暂未接入');
 }
 </script>
 

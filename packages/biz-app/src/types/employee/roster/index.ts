@@ -13,14 +13,27 @@ export type RosterOrgNode = {
 /** 部门下的人 / 常用联系人 */
 export type RosterStaff = {
   id: string;
+  /** 员工姓名，与接口字段一致。 */
   name: string;
-  workNo: string;
+  /** 工号，与接口字段一致。 */
+  staffNo: string;
+  /** 头像原始值，对应手机设置 columnName=avatar。 */
+  avatar?: string;
   phone: string;
-  deptId: string;
-  deptName: string;
+  /** 部门字段及其 fieldMapping，按 roster.txt 原样保留。 */
+  orgId: string;
+  orgName: string;
   /** 在当前部门是否兼任 */
   concurrent: boolean;
 };
+
+/** 列表授权使用花名册真实 fieldCode，不使用展示映射名。 */
+export type RosterListFieldCode =
+  | 'name'
+  | 'staffNo'
+  | 'phone'
+  | 'orgId'
+  | 'avatar';
 
 /** 花名册首页上下文：我的部门、是否组织负责人、常用联系人 */
 export type RosterContext = {
@@ -153,7 +166,10 @@ export type RosterTeamAuthNode = {
   id: string;
   name: string;
   nodeType: 'module' | 'group' | 'field';
+  /** 信息集或分组编码；字段节点不使用设置接口的 fieldCode。 */
   code?: string;
+  /** 字段节点唯一匹配键，对应花名册元数据的 fieldCode。 */
+  columnName?: string;
   sort?: number;
   builtin?: boolean;
   fixed?: boolean;

@@ -20,10 +20,10 @@
             >兼</span
           >
           <span
-            v-if="staff.deptName && rosterStore.isListFieldAllowed('deptName')"
+            v-if="staff.orgName && rosterStore.isListFieldAllowed('orgId')"
             class="roster-staff-dept"
           >
-            <KeywordText :text="staff.deptName" :keyword="keyword" />
+            <KeywordText :text="staff.orgName" :keyword="keyword" />
           </span>
         </span>
         <div v-if="subText" class="roster-staff-meta">
@@ -78,12 +78,11 @@ const rosterStore = useRosterStore();
 
 const subText = computed(() => {
   if (props.variant === 'contact') {
-    return rosterStore.isListFieldAllowed('deptName')
-      ? props.staff.deptName
-      : '';
+    return rosterStore.isListFieldAllowed('orgId') ? props.staff.orgName : '';
   }
   const parts = [];
-  if (rosterStore.isListFieldAllowed('workNo')) parts.push(props.staff.workNo);
+  if (rosterStore.isListFieldAllowed('staffNo'))
+    parts.push(props.staff.staffNo);
   if (rosterStore.isListFieldAllowed('phone')) parts.push(props.staff.phone);
   return parts.filter(Boolean).join(' | ');
 });

@@ -136,10 +136,15 @@ const rosterMocks: MockMethod[] = [
     url: `/api${ROSTER_TEAM_AUTH_LIST_URL}`,
     method: 'get',
     response: ({ query }: { query?: { type?: string } }) => {
-      if (query?.type === ROSTER_TEAM_AUTH_TYPE.selected) {
-        return unifiedSuccess(rosterTeamAuthSelected);
-      }
-      return unifiedSuccess(rosterTeamAuthAll);
+      const data =
+        query?.type === ROSTER_TEAM_AUTH_TYPE.selected
+          ? rosterTeamAuthSelected
+          : rosterTeamAuthAll;
+      return unifiedSuccess({
+        code: '200',
+        msg: '操作成功',
+        data,
+      });
     },
   },
   {

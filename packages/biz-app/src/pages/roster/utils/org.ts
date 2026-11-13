@@ -104,7 +104,7 @@ export function splitKeyword(text?: string, keyword?: string) {
 }
 
 export function staffMeta(staff: RosterStaff) {
-  const parts = [staff.workNo, staff.phone].filter(Boolean);
+  const parts = [staff.staffNo, staff.phone].filter(Boolean);
   return parts.join(' | ');
 }
 

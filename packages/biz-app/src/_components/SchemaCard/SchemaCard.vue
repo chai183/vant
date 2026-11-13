@@ -58,7 +58,7 @@
                   height="48"
                   fit="cover"
                   radius="4"
-                  @click="utils.preview(item.images, imageIndex)"
+                  @click="utils.preview(item.images, Number(imageIndex))"
                 />
               </div>
               <span
@@ -173,19 +173,15 @@ function buildItems(
       ? getSchemaCardImages(raw)
       : [];
     const files = isSchemaCardFileField(field) ? getSchemaCardFiles(raw) : [];
-    const item: Record<string, unknown> = {
+    return {
       label: getSchemaCardFieldLabel(field),
       value: formatSchemaCardValue(field, record),
-      valueRows: 'auto',
+      valueRows: 'auto' as const,
       labelAlign: field.labelAlign || props.labelAlign || 'top',
       tip: isSchemaCardTipField(field),
+      images,
+      files: images.length ? [] : files,
     };
-    if (images.length) {
-      item.images = images;
-    } else if (files.length) {
-      item.files = files;
-    }
-    return item;
   });
 }
 

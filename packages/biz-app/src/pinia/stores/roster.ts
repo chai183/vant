@@ -1,63 +1,38 @@
 /**
- * 花名册团队授权。
- * - selectedList：管理员配置的可查看上限，详情/列表都按它裁
- * - allList：后续花名册设置页的选项源
- * - personalDisplayList：用户个性化，必须是 selectedList 子集；未配置时等于上限
- * - isAllowDepartmentManagerView：只存着给入口用，页面不二次拦截
+ * 花名册展示状态：只加载 appTeamAuthSelected，并缓存可复用的字段转换器。
+ * 全量选项属于后续设置页；个人设置属于后续员工档案，不参与当前展示。
  */
-import type { RosterTeamAuthNode } from '@/types/employee/roster';
-import {
-  EMPTY_ROSTER_TEAM_AUTH,
-  getRosterTeamAuthApi,
-} from '@/services/api/employee/roster';
-import {
-  buildRosterTeamAuthIndex,
-  clipRosterTeamAuthTree,
-  filterRosterGroups,
-  filterRosterTabs,
-  isRosterListFieldAllowed,
-} from '@/services/api/employee/roster/teamAuth';
+import { computed, ref } from 'vue';
+import { defineStore } from 'pinia';
+import type {
+  RosterDetailGroup,
+  RosterDetailTabItem,
+  RosterListFieldCode,
+  RosterTeamAuthNode,
+} from '@/types/employee/roster';
+import { getRosterTeamAuthSelectedApi } from '@/services/api/employee/roster';
+import { createRosterFieldSchema } from '@/pages/roster/utils/fieldSchema';
 
 export const useRosterStore = defineStore('roster', () => {
   /** 已成功拿到已选字段，才按授权裁剪 */
   const ready = ref(false);
+  /** 已选字段请求状态。 */
   const loading = ref(false);
+  /** 已选字段刷新后通知详情页重新整理缓存。 */
   const version = ref(0);
-  const isAllowDepartmentManagerView = ref(false);
-  const allList = ref<RosterTeamAuthNode[]>([]);
+  /** 团队已选字段，当前花名册唯一的字段授权来源。 */
   const selectedList = ref<RosterTeamAuthNode[]>([]);
-  /** 未配置时为 null，展示走团队已选 */
-  const personalDisplayList = ref<RosterTeamAuthNode[] | null>(null);
 
+  /** 并发进入多个页面时复用同一个请求。 */
   let pending: Promise<void> | null = null;
 
-  const effectiveList = computed(() => {
-    if (personalDisplayList.value) {
-      return clipRosterTeamAuthTree(
-        personalDisplayList.value,
-        selectedList.value,
-      );
-    }
-    return selectedList.value;
-  });
-
-  const authIndex = computed(() =>
-    buildRosterTeamAuthIndex(effectiveList.value, ready.value),
+  /** 转换规则只随团队已选设置变化，不随员工或页签变化重复构建。 */
+  const fieldSchema = computed(() =>
+    createRosterFieldSchema(selectedList.value, ready.value),
   );
 
-  function applyConfig(
-    payload: {
-      isAllowDepartmentManagerView?: boolean;
-      allList?: RosterTeamAuthNode[];
-      selectedList?: RosterTeamAuthNode[];
-    },
-    selectedOk: boolean,
-  ) {
-    isAllowDepartmentManagerView.value = Boolean(
-      payload.isAllowDepartmentManagerView,
-    );
-    allList.value = payload.allList || [];
-    selectedList.value = payload.selectedList || [];
+  function applySelected(list: RosterTeamAuthNode[], selectedOk: boolean) {
+    selectedList.value = list;
     ready.value = selectedOk;
     version.value += 1;
   }
@@ -69,15 +44,12 @@ export const useRosterStore = defineStore('roster', () => {
       return;
     }
     loading.value = true;
-    pending = getRosterTeamAuthApi()
+    pending = getRosterTeamAuthSelectedApi()
       .then((response) => {
-        applyConfig(
-          response.body || EMPTY_ROSTER_TEAM_AUTH,
-          Boolean(response.selectedOk),
-        );
+        applySelected(response.body || [], Boolean(response.success));
       })
       .catch(() => {
-        applyConfig(EMPTY_ROSTER_TEAM_AUTH, false);
+        applySelected([], false);
       })
       .finally(() => {
         loading.value = false;
@@ -86,34 +58,20 @@ export const useRosterStore = defineStore('roster', () => {
     await pending;
   }
 
-  /** 后续花名册设置保存时写入。会裁到团队已选范围内。 */
-  function setPersonalDisplay(list: RosterTeamAuthNode[] | null) {
-    personalDisplayList.value = list
-      ? clipRosterTeamAuthTree(list, selectedList.value)
-      : null;
-    version.value += 1;
-  }
-
   return {
     ready,
     loading,
     version,
-    isAllowDepartmentManagerView,
-    allList,
     selectedList,
-    personalDisplayList,
-    effectiveList,
-    authIndex,
     loadTeamAuth,
-    setPersonalDisplay,
-    filterTabs(tabs = []) {
-      return filterRosterTabs(authIndex.value, tabs);
+    filterTabs(tabs: RosterDetailTabItem[] = []) {
+      return fieldSchema.value.filterTabs(tabs);
     },
-    filterGroups(setCode = '', groups = []) {
-      return filterRosterGroups(authIndex.value, setCode, groups);
+    resolveGroups(setCode = '', groups: RosterDetailGroup[] = []) {
+      return fieldSchema.value.resolveGroups(setCode, groups);
     },
-    isListFieldAllowed(key: 'name' | 'deptName' | 'workNo' | 'phone') {
-      return isRosterListFieldAllowed(authIndex.value, key);
+    isListFieldAllowed(key: RosterListFieldCode) {
+      return fieldSchema.value.isListFieldAllowed(key);
     },
   };
 });

@@ -2,10 +2,16 @@ import { showImagePreview } from 'vant';
 import type { RosterDetailField } from '@/types/employee/roster';
 
 function isEmptyValue(value: unknown) {
-  if (value == null) return true;
-  if (value === '') return true;
-  if (Array.isArray(value) && !value.length) return true;
-  return false;
+  return (
+    value == null || value === '' || (Array.isArray(value) && !value.length)
+  );
+}
+
+/** 字段类型统一去除首尾空格并转为大写。 */
+function readFieldType(field: RosterDetailField) {
+  return String(field.fieldType || '')
+    .trim()
+    .toUpperCase();
 }
 
 function readMappedValue(
@@ -34,19 +40,13 @@ function unwrapObjectValue(value: unknown) {
 
 /** 是否图片字段 */
 export function isRosterImageField(field: RosterDetailField) {
-  const type = String(field.fieldType || '')
-    .trim()
-    .toUpperCase();
+  const type = readFieldType(field);
   return type === 'IMAGE' || type === 'IMG';
 }
 
 /** 是否文件字段 */
 export function isRosterFileField(field: RosterDetailField) {
-  return (
-    String(field.fieldType || '')
-      .trim()
-      .toUpperCase() === 'FILE'
-  );
+  return readFieldType(field) === 'FILE';
 }
 
 /** 原始字段值 */
@@ -59,25 +59,9 @@ export function readRosterFieldRaw(
 
 /** 图片地址列表 */
 export function readRosterImageUrls(value: unknown) {
-  if (Array.isArray(value)) {
-    return value.map((item) => String(item || '').trim()).filter(Boolean);
-  }
-  const text = String(value || '').trim();
-  if (!text) return [];
-  if (text.includes(',')) {
-    return text
-      .split(',')
-      .map((item) => item.trim())
-      .filter(Boolean);
-  }
-  if (
-    /^https?:\/\//.test(text) ||
-    text.startsWith('data:') ||
-    text.startsWith('/')
-  ) {
-    return [text];
-  }
-  return [text];
+  // 字符串沿用逗号分隔；数组中的每一项仍按完整地址处理。
+  const list = Array.isArray(value) ? value : String(value || '').split(',');
+  return list.map((item) => String(item || '').trim()).filter(Boolean);
 }
 
 /** 能直接预览的图片地址 */
@@ -113,9 +97,7 @@ export function formatRosterFieldValue(
   record: Record<string, unknown> = {},
 ) {
   if (field.fieldLabel) return field.fieldLabel;
-  const type = String(field.fieldType || '')
-    .trim()
-    .toUpperCase();
+  const type = readFieldType(field);
   const value = unwrapObjectValue(readMappedValue(field, record));
   if (type === 'IMAGE' || type === 'IMG' || type === 'FILE') {
     return isEmptyValue(value) ? '' : '已上传';

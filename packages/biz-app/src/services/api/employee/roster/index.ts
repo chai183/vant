@@ -10,6 +10,7 @@ import type {
   RosterDetailTabItem,
   RosterStaffPage,
   RosterTeamAuthConfig,
+  RosterTeamAuthNode,
 } from '@/types/employee/roster';
 import apiClient from '@/services/api';
 import {
@@ -76,10 +77,20 @@ export async function getRosterContextApi() {
   } as ApiResponse<RosterContext>;
 }
 
-/**
- * 团队信息授权。
- * 基础设置 + 全部可选字段 + 已选字段一次拉齐，给花名册展示和后续设置页共用。
- */
+/** 花名册展示只读取团队已选字段，不依赖全量字段或个人设置。 */
+export async function getRosterTeamAuthSelectedApi() {
+  const response = await apiClient<ApiResponse<unknown>>({
+    url: ROSTER_TEAM_AUTH_LIST_URL,
+    method: 'get',
+    params: { type: ROSTER_TEAM_AUTH_TYPE.selected },
+  });
+  return {
+    ...response,
+    body: response.success ? adaptRosterTeamAuthTree(response.body) : [],
+  } as ApiResponse<RosterTeamAuthNode[]>;
+}
+
+/** 后续花名册设置页使用：基础开关、全量选项和团队已选一次拉齐。 */
 export async function getRosterTeamAuthApi() {
   const [basicRes, allRes, selectedRes] = await Promise.all([
     apiClient<ApiResponse<unknown>>({
@@ -91,11 +102,7 @@ export async function getRosterTeamAuthApi() {
       method: 'get',
       params: { type: ROSTER_TEAM_AUTH_TYPE.all },
     }),
-    apiClient<ApiResponse<unknown>>({
-      url: ROSTER_TEAM_AUTH_LIST_URL,
-      method: 'get',
-      params: { type: ROSTER_TEAM_AUTH_TYPE.selected },
-    }),
+    getRosterTeamAuthSelectedApi(),
   ]);
   const success = Boolean(
     basicRes.success || allRes.success || selectedRes.success,
@@ -106,7 +113,7 @@ export async function getRosterTeamAuthApi() {
       ? adaptRosterTeamAuthBasic(basicRes.body).isAllowDepartmentManagerView
       : EMPTY_ROSTER_TEAM_AUTH.isAllowDepartmentManagerView,
     allList: allRes.success ? adaptRosterTeamAuthTree(allRes.body) : [],
-    selectedList: selectedOk ? adaptRosterTeamAuthTree(selectedRes.body) : [],
+    selectedList: selectedRes.body || [],
   };
   return {
     ...selectedRes,
@@ -155,7 +162,7 @@ export async function getRosterDetailFormColumnsApi(params: {
     ...response,
     body: response.success
       ? adaptRosterDetailFormColumns(response.body, params.setCode)
-      : { setCode: params.setCode || '', groups: [] },
+      : { setCode: params.setCode || '', setName: '', groups: [] },
   } as ApiResponse<RosterDetailSet>;
 }
 
@@ -172,7 +179,7 @@ export async function getRosterDetailBasicApi(params: { staffId: string }) {
   } as ApiResponse<RosterDetailFormData>;
 }
 
-/** 单条多分组信息集详情。只传 staffId。 */
+/** 单条多分组详情。固定接口只传 staffId，通用接口另传 setCode。 */
 export async function getRosterDetailSingleFormApi(params: {
   staffId: string;
   tabCode: string;
@@ -182,7 +189,10 @@ export async function getRosterDetailSingleFormApi(params: {
   const response = await apiClient<ApiResponse<unknown>>({
     url,
     method: 'post',
-    data: { staffId: params.staffId },
+    data:
+      url === ROSTER_DETAIL_CUSTOM_URL
+        ? { setCode: params.tabCode, staffId: params.staffId }
+        : { staffId: params.staffId },
   });
   return {
     ...response,
@@ -201,9 +211,11 @@ export async function getRosterDetailMultiRecordApi(params: {
     ? ROSTER_DETAIL_CUSTOM_URL
     : ROSTER_DETAIL_MULTI_RECORD_PATH[params.tabCode] ||
       ROSTER_DETAIL_CUSTOM_URL;
-  const data = custom
-    ? { setCode: params.tabCode, staffId: params.staffId }
-    : { staffId: params.staffId };
+  // 是否传 setCode 取决于实际请求的接口，而不是 builtin 标记。
+  const data =
+    url === ROSTER_DETAIL_CUSTOM_URL
+      ? { setCode: params.tabCode, staffId: params.staffId }
+      : { staffId: params.staffId };
   const response = await apiClient<ApiResponse<unknown>>({
     url,
     method: 'post',

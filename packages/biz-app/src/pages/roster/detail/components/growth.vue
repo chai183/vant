@@ -142,13 +142,9 @@ const changeGroups = computed(() =>
 );
 
 /** 异动值按卡片 id 挂上，给 SchemaCard 按组取值 */
-const changeFormData = computed(() => {
-  const data = {};
-  (props.changes || []).forEach((item) => {
-    data[item.id] = item;
-  });
-  return data;
-});
+const changeFormData = computed(() =>
+  Object.fromEntries(props.changes.map((item) => [item.id, item])),
+);
 
 /** 一条任职一张卡，标题是兼岗 / 主岗 */
 const positionGroups = computed(() =>
@@ -161,16 +157,14 @@ const positionGroups = computed(() =>
 );
 
 /** 任职值按卡片 id 挂上；结束日期空时展示至今 */
-const positionFormData = computed(() => {
-  const data = {};
-  (props.positions || []).forEach((item) => {
-    data[item.id] = {
-      ...item,
-      endDate: item.endDate || '至今',
-    };
-  });
-  return data;
-});
+const positionFormData = computed(() =>
+  Object.fromEntries(
+    props.positions.map((item) => [
+      item.id,
+      { ...item, endDate: item.endDate || '至今' },
+    ]),
+  ),
+);
 
 function toggleView() {
   viewMode.value = viewMode.value === 'list' ? 'timeline' : 'list';

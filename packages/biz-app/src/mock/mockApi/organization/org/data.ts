@@ -219,13 +219,22 @@ export const rosterOrgTree = [
 function staff(
   id: string,
   name: string,
-  workNo: string,
+  staffNo: string,
   phone: string,
-  deptId: string,
-  deptName: string,
+  orgId: string,
+  orgName: string,
   concurrent = false,
 ) {
-  return { id, name, workNo, phone, deptId, deptName, concurrent };
+  return {
+    id,
+    name,
+    staffNo,
+    avatar: '',
+    phone,
+    orgId,
+    orgName,
+    concurrent,
+  };
 }
 
 const STAFF_NAMES = [
@@ -254,7 +263,7 @@ const STAFF_NAMES = [
 /** 按部门造一批人，方便列表滚动 */
 function padStaff(
   orgId: string,
-  deptName: string,
+  orgName: string,
   count: number,
   idPrefix: string,
   workStart: number,
@@ -271,7 +280,7 @@ function padStaff(
       `AB${String(workStart + i).padStart(4, '0')}`,
       `138${String(10000000 + workStart + i).slice(-8)}`,
       orgId,
-      deptName,
+      orgName,
       concurrentIndex.includes(i),
     );
   });

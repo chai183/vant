@@ -41,29 +41,24 @@ function adaptStaff(row: unknown): RosterStaff {
   const source = (row || {}) as Record<string, unknown>;
   return {
     id: String(source.id ?? ''),
-    name: String(source.name ?? source.staffName ?? ''),
-    workNo: String(source.workNo ?? source.workNumber ?? ''),
-    phone: String(source.phone ?? source.mobileNo ?? ''),
-    deptId: String(source.deptId ?? source.departmentId ?? ''),
-    deptName: String(source.deptName ?? source.departmentName ?? ''),
-    concurrent: Boolean(source.concurrent),
+    // 员工字段沿用接口命名，仅规范化值，不再转换别名。
+    name: String(source.name ?? ''),
+    staffNo: String(source.staffNo ?? ''),
+    avatar: String(source.avatar ?? ''),
+    phone: String(source.phone ?? ''),
+    orgId: String(source.orgId ?? ''),
+    orgName: String(source.orgName ?? ''),
+    concurrent: toBoolFlag(source.concurrent) ?? false,
   };
 }
 
 export function adaptRosterStaffPage(body: unknown): RosterStaffPage {
   const source = (body || {}) as {
-    records?: unknown;
-    list?: unknown;
     total?: unknown;
   };
-  const raw = Array.isArray(body)
-    ? body
-    : Array.isArray(source.records)
-      ? source.records
-      : Array.isArray(source.list)
-        ? source.list
-        : [];
-  const records = raw.map(adaptStaff).filter((item) => item.id);
+  const records = readRecordList(body)
+    .map(adaptStaff)
+    .filter((item) => item.id);
   const total = Number(source.total);
   return {
     records,
@@ -78,21 +73,17 @@ export function adaptRosterContext(body: unknown): RosterContext {
   return {
     myDeptId: String(source.myDeptId ?? ''),
     myDeptName: String(source.myDeptName ?? ''),
-    isOrgLeader: Boolean(source.isOrgLeader),
+    isOrgLeader: toBoolFlag(source.isOrgLeader) ?? false,
     contacts,
   };
 }
 
 function readString(row: Record<string, unknown>, key: string) {
-  const value = row[key];
-  if (value == null || value === '') return '';
-  return String(value);
+  return String(row[key] ?? '');
 }
 
 function readFlag01(value: unknown) {
   if (value == null || value === '') return undefined;
-  if (value === true || value === 1 || value === '1') return 1;
-  if (value === false || value === 0 || value === '0') return 0;
   const number = Number(value);
   if (number === 1) return 1;
   if (number === 0) return 0;
@@ -196,7 +187,7 @@ export function adaptRosterDetailFormColumns(
   body: unknown,
   setCode = '',
 ): RosterDetailSet {
-  const empty: RosterDetailSet = { setCode: setCode || '', groups: [] };
+  const empty: RosterDetailSet = { setCode, setName: '', groups: [] };
   if (!Array.isArray(body)) return empty;
   const tabs = body.filter((item) => {
     if (!item || typeof item !== 'object') return false;
@@ -205,10 +196,13 @@ export function adaptRosterDetailFormColumns(
     return type === 'tab' || Boolean(readString(row, 'setCode'));
   }) as Record<string, unknown>[];
   if (!tabs.length) {
-    return { setCode, groups: extractGroups(body) };
+    return { ...empty, groups: extractGroups(body) };
   }
-  const matched =
-    tabs.find((item) => readString(item, 'setCode') === setCode) || tabs[0];
+  // 已指定信息集时必须精确匹配，不能拿其他页签的字段继续展示。
+  const matched = setCode
+    ? tabs.find((item) => readString(item, 'setCode') === setCode)
+    : tabs[0];
+  if (!matched) return empty;
   const code = readString(matched, 'setCode') || setCode;
   const set: RosterDetailSet = {
     setCode: code,
@@ -246,8 +240,7 @@ export function adaptRosterDetailGroupedForm(
 ): RosterDetailFormData {
   if (!body || typeof body !== 'object' || Array.isArray(body)) return {};
   const formData: RosterDetailFormData = {};
-  Object.keys(body as Record<string, unknown>).forEach((groupCode) => {
-    const groupValue = (body as Record<string, unknown>)[groupCode];
+  Object.entries(body).forEach(([groupCode, groupValue]) => {
     if (
       !groupValue ||
       typeof groupValue !== 'object' ||
@@ -255,11 +248,10 @@ export function adaptRosterDetailGroupedForm(
     ) {
       return;
     }
-    const fieldMap = flattenCustomFields({
-      ...(groupValue as Record<string, unknown>),
-    });
+    // flattenCustomFields 已返回新对象，保留分组时不再重复复制。
+    const fieldMap = flattenCustomFields(groupValue);
     if (nestedGroup?.(groupCode) || isBasicBankCardGroup(groupCode)) {
-      formData[groupCode] = [{ ...fieldMap }];
+      formData[groupCode] = [fieldMap];
       return;
     }
     Object.assign(formData, fieldMap);
@@ -269,7 +261,7 @@ export function adaptRosterDetailGroupedForm(
 
 /** 基础信息详情。失败兜底 {}。 */
 export function adaptRosterDetailBasic(body: unknown): RosterDetailFormData {
-  return adaptRosterDetailGroupedForm(body, isBasicBankCardGroup);
+  return adaptRosterDetailGroupedForm(body);
 }
 
 /** 多行 / 自定义信息集记录。失败兜底 []。 */
@@ -490,6 +482,14 @@ function readSort(value: unknown) {
   return Number.isFinite(num) ? num : 0;
 }
 
+function readNodeSort(row: Record<string, unknown>) {
+  const fromRow = readSort(row.sort);
+  if (fromRow) return fromRow;
+  const config = row.systemConfig;
+  if (!config || typeof config !== 'object' || Array.isArray(config)) return 0;
+  return readSort((config as Record<string, unknown>).sort);
+}
+
 function sortTeamNodes(list: RosterTeamAuthNode[]) {
   return [...list].sort((prev, next) => (prev.sort || 0) - (next.sort || 0));
 }
@@ -502,14 +502,15 @@ function readBuiltin(raw: unknown) {
 function adaptTeamFieldNode(raw: unknown, allowBuiltin = false) {
   if (!raw || typeof raw !== 'object') return null;
   const row = raw as Record<string, unknown>;
-  const id = readString(row, 'id') || readString(row, 'fieldCode');
-  if (!id) return null;
+  const columnName = readString(row, 'columnName').trim();
+  const id = readString(row, 'id') || columnName;
+  // 缺少列名的字段仍保留节点，不能因删空子节点而误判为整组授权。
   const node: RosterTeamAuthNode = {
     id,
     name: readString(row, 'fieldName') || id,
     nodeType: 'field',
-    code: readString(row, 'fieldCode') || undefined,
-    sort: readSort(row.sort),
+    columnName: columnName || undefined,
+    sort: readNodeSort(row),
   };
   if (allowBuiltin && readBuiltin(row.systemConfig)) node.builtin = true;
   return node;
@@ -531,7 +532,7 @@ function adaptTeamGroupNode(raw: unknown) {
     name: readString(row, 'groupName') || id,
     nodeType: 'group',
     code: readString(row, 'groupCode') || undefined,
-    sort: readSort(row.sort),
+    sort: readNodeSort(row),
   };
   if (children.length) node.children = children;
   return node;
@@ -561,18 +562,19 @@ function adaptTeamSetNode(raw: unknown) {
     name: readString(row, 'setName') || id,
     nodeType: 'module',
     code: readString(row, 'setCode') || undefined,
-    sort: readSort(row.sort),
+    sort: readNodeSort(row),
   };
+  if (readBuiltin(row.systemConfig)) node.builtin = true;
   if (children.length) node.children = children;
   return node;
 }
 
 function readTeamSetList(body: unknown) {
   if (Array.isArray(body)) return body;
-  if (body && typeof body === 'object') {
-    const list = (body as Record<string, unknown>).setList;
-    if (Array.isArray(list)) return list;
-  }
+  if (!body || typeof body !== 'object') return [];
+  const row = body as Record<string, unknown>;
+  if (Array.isArray(row.data)) return row.data;
+  if (Array.isArray(row.setList)) return row.setList;
   return [];
 }
 

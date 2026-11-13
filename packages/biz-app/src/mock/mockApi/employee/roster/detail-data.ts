@@ -941,7 +941,10 @@ export const rosterDetailCostData = {
   ],
 };
 
-const ATTACH_FILE_NAMES = Array.from({ length: 16 }, () => '附件名称.xls');
+const ATTACH_FILE_NAMES = [
+  '附件名称很长很长很长很长很长很长很长很长的示例.xls',
+  ...Array.from({ length: 15 }, () => '附件名称.xls'),
+];
 
 /** 附件。Mock 不按 staffId 过滤 */
 export const rosterDetailAttachments = {

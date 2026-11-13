@@ -8,6 +8,7 @@
       <!-- /*----标题栏start----*/ -->
       <div class="roster-cost-head">
         <span class="roster-cost-title">成本详情</span>
+        <span class="roster-cost-mode">{{ modeText }}</span>
         <span class="roster-cost-total">{{ totalText }}</span>
       </div>
       <!-- /*----标题栏end----*/ -->
@@ -62,6 +63,11 @@ const mode = computed(() =>
   Number(props.data.displayType) === 1 ? 'amount' : 'ratio',
 );
 
+/** 标题旁的模式文案 */
+const modeText = computed(() =>
+  mode.value === 'amount' ? '按金额' : '按比例',
+);
+
 /** 当前列表 */
 const rows = computed(() =>
   mode.value === 'ratio'
@@ -113,18 +119,26 @@ const cardList = computed(() =>
   flex: none;
   margin-right: 8px;
   padding-left: 8px;
-  border-left: 3px solid var(--van-primary-color);
-  color: var(--van-text-color);
+  border-left: 3px solid #ff8125;
+  color: #666666;
+  font-size: 16px;
   font-weight: 500;
+  line-height: 16px;
+}
+
+.roster-cost-mode {
+  flex: none;
+  color: #999999;
   font-size: 14px;
-  line-height: 20px;
+  font-weight: 400;
+  line-height: 14px;
 }
 
 .roster-cost-total {
   margin-left: auto;
-  color: #666;
+  color: #666666;
+  font-size: 14px;
   font-weight: 400;
-  font-size: 12px;
   line-height: 14px;
 }
 

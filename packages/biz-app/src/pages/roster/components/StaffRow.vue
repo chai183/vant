@@ -65,7 +65,7 @@ const props = withDefaults(
     staff: RosterStaff;
     variant: 'contact' | 'member' | 'search';
     keyword?: string;
-    /** 右侧箭头。部门员工和未分组员工需要，常用联系人、搜索结果不展示 */
+    /** 右侧箭头。部门员工和未分组员工需要，搜索结果不展示 */
     arrow?: boolean;
   }>(),
   {

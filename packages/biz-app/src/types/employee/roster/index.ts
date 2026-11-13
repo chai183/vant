@@ -10,7 +10,7 @@ export type RosterOrgNode = {
   children: RosterOrgNode[];
 };
 
-/** 部门下的人 / 常用联系人 */
+/** 部门下的人 */
 export type RosterStaff = {
   id: string;
   /** 员工姓名，与接口字段一致。 */
@@ -35,13 +35,12 @@ export type RosterListFieldCode =
   | 'orgId'
   | 'avatar';
 
-/** 花名册首页上下文：我的部门、是否组织负责人、常用联系人 */
+/** 当前登录人（me）：所属部门、是否部门联系人 */
 export type RosterContext = {
-  myDeptId: string;
-  myDeptName: string;
-  /** 当前用户是否组织/部门负责人，决定右上角花名册设置 */
-  isOrgLeader: boolean;
-  contacts: RosterStaff[];
+  orgId: string;
+  orgName: string;
+  /** 当前用户是否部门联系人，决定入口进自己的部门、右上角花名册设置 */
+  isDeptContact: boolean;
 };
 
 export type RosterStaffPage = {

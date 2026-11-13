@@ -31,19 +31,14 @@ export async function getOrgTreeApi() {
 }
 
 /**
- * 部门直属人员。
+ * 按部门 id 查该部门的人。
  * orgId 为 UNGROUPED 时表示未分组员工，需后端按该约定返回。
  */
 export async function getDeptStaffApi(orgId: string) {
   const response = await apiClient<ApiResponse<unknown>>({
     url: ORG_DEPT_STAFF_URL,
     method: 'post',
-    data: {
-      orgId,
-      queryType: 'DIRECT',
-      pageNum: 1,
-      pageSize: 500,
-    },
+    data: { orgId },
   });
   return {
     ...response,

@@ -9,8 +9,8 @@ export const ROSTER_LIST_SEARCH_FIELDS = [
 ] as const;
 
 /**
- * 花名册上下文。
- * 组织树没有「我的部门」和「当前用户是不是组织负责人」，由这个接口给出。
+ * 当前登录人（me）。
+ * 返回所属部门 orgId / orgName，以及是否部门联系人。
  */
 export const ROSTER_CONTEXT_URL = `${API_PREFIX}/mobile-roster/context`;
 

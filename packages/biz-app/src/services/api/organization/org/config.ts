@@ -4,8 +4,8 @@ import { ORGANIZATION_API_PREFIX } from '@/services/api/organization/config';
 export const ORG_TREE_URL = `${ORGANIZATION_API_PREFIX}/org-organization/tree`;
 
 /**
- * 查询部门直属人员。
- * 对齐 PC POST /org-organization/page-query-staff，queryType=DIRECT。
+ * 按部门 id 查询该部门的人。
+ * POST /dthr-organization/v4/org-organization/page-query-staff，只传 orgId。
  */
 export const ORG_DEPT_STAFF_URL = `${ORGANIZATION_API_PREFIX}/org-organization/page-query-staff`;
 

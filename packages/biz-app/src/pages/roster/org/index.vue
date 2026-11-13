@@ -1,13 +1,13 @@
 <template>
   <div class="roster-org">
-    <RosterNav :is-org-leader="isOrgLeader" @back="back" />
+    <RosterNav :is-dept-contact="isDeptContact" @back="back" />
 
     <!-- /*----搜索路径start----*/ -->
     <div class="roster-org-head">
       <div class="roster-org-search" @click="goSearch">
         <van-search readonly placeholder="搜索姓名和手机号" />
       </div>
-      <Curmb :items="path" @select="openOrg" />
+      <Curmb :items="path" router />
     </div>
     <!-- /*----搜索路径end----*/ -->
 
@@ -63,11 +63,11 @@ import StaffRow from '../components/StaffRow.vue';
 
 defineOptions({ name: 'EmployeeRoster' });
 
-/** 花名册入口就是组织架构。部门负责人进我的部门，其他人进组织架构根 */
+/** 花名册入口就是组织架构。部门联系人进自己的部门，其他人进组织架构根 */
 
 const {
   loading,
-  isOrgLeader,
+  isDeptContact,
   orgs,
   path,
   staff,

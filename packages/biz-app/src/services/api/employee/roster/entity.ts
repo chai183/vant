@@ -20,10 +20,9 @@ import type {
 } from '@/types/employee/roster';
 
 export const EMPTY_ROSTER_CONTEXT: RosterContext = {
-  myDeptId: '',
-  myDeptName: '',
-  isOrgLeader: false,
-  contacts: [],
+  orgId: '',
+  orgName: '',
+  isDeptContact: false,
 };
 
 export const EMPTY_ROSTER_STAFF_PAGE: RosterStaffPage = {
@@ -41,7 +40,6 @@ function adaptStaff(row: unknown): RosterStaff {
   const source = (row || {}) as Record<string, unknown>;
   return {
     id: String(source.id ?? ''),
-    // 员工字段沿用接口命名，仅规范化值，不再转换别名。
     name: String(source.name ?? ''),
     staffNo: String(source.staffNo ?? ''),
     avatar: String(source.avatar ?? ''),
@@ -69,12 +67,11 @@ export function adaptRosterStaffPage(body: unknown): RosterStaffPage {
 export function adaptRosterContext(body: unknown): RosterContext {
   if (!body || typeof body !== 'object') return { ...EMPTY_ROSTER_CONTEXT };
   const source = body as Record<string, unknown>;
-  const contacts = adaptRosterStaffPage(source.contacts).records;
   return {
-    myDeptId: String(source.myDeptId ?? ''),
-    myDeptName: String(source.myDeptName ?? ''),
-    isOrgLeader: toBoolFlag(source.isOrgLeader) ?? false,
-    contacts,
+    orgId: String(source.orgId ?? source.myDeptId ?? ''),
+    orgName: String(source.orgName ?? source.myDeptName ?? ''),
+    isDeptContact:
+      toBoolFlag(source.isDeptContact ?? source.isOrgLeader) ?? false,
   };
 }
 

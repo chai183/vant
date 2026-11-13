@@ -8,16 +8,12 @@ export function useOpenOrg() {
 
   const orgId = computed(() => String(route.params.orgId || ''));
 
-  /** replace：组织内切换部门，避免返回键一层层回退 */
-  function openOrg(id?: string, replace?: boolean) {
+  /** 下钻部门用 push，返回才能回到上一级 */
+  function openOrg(id?: string) {
     const nextId = String(id || '');
     const path = nextId ? `/roster/org/${nextId}` : '/roster';
     if (nextId && nextId === orgId.value) return;
     if (!nextId && route.name === 'EmployeeRoster') return;
-    if (replace) {
-      router.replace(path);
-      return;
-    }
     router.push(path);
   }
 

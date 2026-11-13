@@ -17,15 +17,15 @@ export function useRosterOrg() {
   const rosterStore = useRosterStore();
 
   const loading = ref(true);
-  /** 组织负责人显示右上角花名册设置 */
-  const isOrgLeader = ref(false);
-  /** 我的部门。部门负责人面包屑从这里起算 */
-  const myDeptId = ref('');
+  /** 部门联系人显示右上角花名册设置 */
+  const isDeptContact = ref(false);
+  /** 当前登录人所属部门。部门联系人面包屑从这里起算 */
+  const myOrgId = ref('');
   const orgs = ref<RosterOrgNode[]>([]);
   const path = ref<RosterOrgNode[]>([]);
   const staff = ref<RosterStaff[]>([]);
   const currentName = ref('');
-  /** 实际在看的部门。入口页部门负责人用我的部门，其他人用组织架构根 */
+  /** 实际在看的部门。入口页部门联系人用自己的部门，其他人用组织架构根 */
   const viewOrgId = ref('');
 
   /** 员工块标题：根节点是未分组，进入部门后带部门名 */
@@ -38,12 +38,7 @@ export function useRosterOrg() {
   function goOrg(id?: string) {
     const nextId = String(id || '');
     if (nextId && nextId === viewOrgId.value) return;
-    // 部门负责人点回自己的部门，回到入口
-    if (isOrgLeader.value && nextId && nextId === myDeptId.value) {
-      openOrg(undefined, true);
-      return;
-    }
-    openOrg(nextId || undefined, true);
+    openOrg(nextId || undefined);
   }
 
   async function load(isCurrent: () => boolean) {
@@ -62,10 +57,10 @@ export function useRosterOrg() {
       ]);
       if (!isCurrent()) return;
       const context = contextRes.body;
-      // 入口页：部门负责人进我的部门，其他人进组织架构根
+      // 入口页：部门联系人进自己的部门，其他人进组织架构根
       let currentId = fromRoute;
-      if (!currentId && context?.isOrgLeader) {
-        currentId = context.myDeptId;
+      if (!currentId && context?.isDeptContact) {
+        currentId = context.orgId;
         if (!currentId) showToast('未找到我的部门');
       }
       const staffRes = fromRoute
@@ -75,8 +70,8 @@ export function useRosterOrg() {
       if (!treeRes.success) {
         showToast(treeRes.message || '加载部门失败');
       }
-      isOrgLeader.value = context?.isOrgLeader ?? false;
-      myDeptId.value = context?.myDeptId || '';
+      isDeptContact.value = context?.isDeptContact ?? false;
+      myOrgId.value = context?.orgId || '';
       viewOrgId.value = currentId;
       const tree = treeRes.body || [];
       if (!currentId) {
@@ -88,18 +83,18 @@ export function useRosterOrg() {
         const currentPath = buildOrgCrumb(
           tree,
           currentId,
-          isOrgLeader.value ? myDeptId.value : '',
+          isDeptContact.value ? myOrgId.value : '',
         );
         const node = currentPath[currentPath.length - 1];
         if (!node) {
           showToast('部门不存在');
           path.value = [];
           orgs.value = [];
-          currentName.value = '';
+          currentName.value = context?.orgName || '';
         } else {
           path.value = currentPath;
           orgs.value = node.children;
-          currentName.value = node.name;
+          currentName.value = node.name || context?.orgName || '';
         }
       }
       staff.value = staffRes?.body?.records || [];
@@ -123,7 +118,7 @@ export function useRosterOrg() {
 
   return {
     loading,
-    isOrgLeader,
+    isDeptContact,
     orgs,
     path,
     staff,

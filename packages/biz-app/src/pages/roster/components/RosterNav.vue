@@ -7,7 +7,7 @@
     safe-area-inset-top
     @click-left="emit('back')"
   >
-    <template v-if="isOrgLeader" #right>
+    <template v-if="isDeptContact" #right>
       <button type="button" class="roster-nav-setting" @click="onSetting">
         花名册设置
       </button>
@@ -20,13 +20,13 @@ import { showToast } from 'vant';
 
 withDefaults(
   defineProps<{
-    /** 组织负责人才显示右上角花名册设置；搜索页不传 */
-    isOrgLeader?: boolean;
+    /** 部门联系人才显示右上角花名册设置；搜索页不传 */
+    isDeptContact?: boolean;
     /** 导航标题，详情页传员工详情 */
     title?: string;
   }>(),
   {
-    isOrgLeader: false,
+    isDeptContact: false,
     title: '员工花名册',
   },
 );

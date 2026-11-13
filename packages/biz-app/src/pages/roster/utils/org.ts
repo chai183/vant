@@ -41,7 +41,7 @@ export function buildOrgPath(nodes: RosterOrgNode[], id: string) {
 
 /**
  * 面包屑。
- * 部门负责人从自己的部门起算，例如入口只显示「财务一部」，下钻是「财务一部 > 会计核算室」。
+ * 部门联系人从自己的部门起算，例如入口只显示「财务一部」，下钻是「财务一部 > 会计核算室」。
  * 其他人仍不带组织架构第一屏那一层。
  */
 export function buildOrgCrumb(

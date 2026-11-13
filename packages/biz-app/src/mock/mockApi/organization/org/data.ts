@@ -351,71 +351,9 @@ export const rosterStaffByOrg: Record<string, ReturnType<typeof staff>[]> = {
 
 export const rosterAllStaff = Object.values(rosterStaffByOrg).flat();
 
+/** 当前登录人（me）。部门联系人，所属财务一部 */
 export const rosterContext = {
-  myDeptId: 'org-fin-1',
-  myDeptName: '财务一部',
-  isOrgLeader: true,
-  contacts: [
-    staff('staff-a1', '张三', 'AB1232', '15858888888', 'org-fin-1', '外部员工'),
-    staff('staff-a2', '李四', 'AB1232', '15858888888', 'org-fin-1', '采购部'),
-    staff(
-      'staff-a3',
-      '王五',
-      'AB1232',
-      '15858888888',
-      'org-fin-1',
-      '公司金融部大客户业务管理中心',
-    ),
-    staff('staff-g1', '赵六', 'AB1001', '13800001001', 'org-group', '办公室'),
-    staff(
-      'staff-s1',
-      '赵六',
-      'AB3001',
-      '13800003001',
-      'org-small',
-      '人力资源部',
-    ),
-    staff(
-      'staff-r1',
-      '赵六',
-      'AB7001',
-      '13800007001',
-      'org-risk',
-      '风险管理部',
-    ),
-    staff('staff-it1', '赵六', 'AB7101', '13800007101', 'org-it', '信息技术部'),
-    staff(
-      'staff-co1',
-      '赵六',
-      'AB7201',
-      '13800007201',
-      'org-corp',
-      '公司金融部',
-    ),
-    staff(
-      'staff-op1',
-      '赵六',
-      'AB7301',
-      '13800007301',
-      'org-ops',
-      '运营管理部',
-    ),
-    staff(
-      'staff-le1',
-      '赵六',
-      'AB7401',
-      '13800007401',
-      'org-legal',
-      '法律合规部',
-    ),
-    staff('staff-au1', '赵六', 'AB7501', '13800007501', 'org-audit', '审计部'),
-    staff(
-      'staff-pa1',
-      '赵六',
-      'AB7601',
-      '13800007601',
-      'org-party',
-      '党委办公室',
-    ),
-  ],
+  orgId: 'org-fin-1',
+  orgName: '财务一部',
+  isDeptContact: true,
 };

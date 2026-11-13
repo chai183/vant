@@ -10,7 +10,7 @@
         type="button"
         class="curmb-item"
         :style="itemColor(index)"
-        @click="emit('select', item.id)"
+        @click="onSelect(item.id, index)"
       >
         {{ item.name }}
       </button>
@@ -27,6 +27,7 @@
 
 <script lang="ts" setup>
 import { computed, nextTick, ref, watch } from 'vue';
+import { useRouter } from 'vue-router';
 
 defineOptions({ name: 'Curmb' });
 
@@ -36,17 +37,25 @@ const props = withDefaults(
     separator?: string;
     activeColor?: string;
     inactiveColor?: string;
+    /**
+     * 路由模式。点某一级按历史回退到那一层，后面的子路径会被丢掉。
+     * 适合每一级都是 push 进来、面包屑和路由历史一一对应的页面。
+     */
+    router?: boolean;
   }>(),
   {
     separator: '',
     activeColor: '',
     inactiveColor: '',
+    router: false,
   },
 );
 
 const emit = defineEmits<{
   select: [id: string];
 }>();
+
+const vueRouter = useRouter();
 
 const rootRef = ref<HTMLElement>();
 
@@ -80,6 +89,15 @@ watch(
 
 function isActive(index: number) {
   return index === activeIndex.value;
+}
+
+function onSelect(id: string, index: number) {
+  if (props.router) {
+    const steps = props.items.length - 1 - index;
+    if (steps > 0) vueRouter.go(-steps);
+    return;
+  }
+  emit('select', id);
 }
 
 function itemColor(index: number) {

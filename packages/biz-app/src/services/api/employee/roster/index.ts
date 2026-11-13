@@ -63,7 +63,7 @@ interface ApiResponse<T> {
   errorMsg?: string;
 }
 
-/** 我的部门、是否组织负责人、常用联系人 */
+/** 当前登录人（me）：所属部门、是否部门联系人。无入参。 */
 export async function getRosterContextApi() {
   const response = await apiClient<ApiResponse<unknown>>({
     url: ROSTER_CONTEXT_URL,
@@ -73,7 +73,7 @@ export async function getRosterContextApi() {
     ...response,
     body: response.success
       ? adaptRosterContext(response.body)
-      : { ...EMPTY_ROSTER_CONTEXT, contacts: [] },
+      : { ...EMPTY_ROSTER_CONTEXT },
   } as ApiResponse<RosterContext>;
 }
 

@@ -19,4 +19,5 @@ vite.config.*.timestamp*
 package-lock.json
 yarn.lock
 
-tests/
+tests/*
+!tests/roster-settings.test.ts

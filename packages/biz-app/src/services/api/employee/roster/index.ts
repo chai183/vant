@@ -10,7 +10,6 @@ import type {
   RosterDetailTabItem,
   RosterStaffPage,
   RosterTeamAuthConfig,
-  RosterTeamAuthNode,
 } from '@/types/employee/roster';
 import apiClient from '@/services/api';
 import {
@@ -53,6 +52,7 @@ import {
   adaptRosterTeamAuthTree,
 } from './entity';
 import { isRosterDetailCustomTab } from './tab';
+import { adaptRosterSettingsTree } from '@/services/api/roster/settings/entity';
 
 export { EMPTY_ROSTER_TEAM_AUTH };
 
@@ -87,10 +87,13 @@ export async function getRosterTeamAuthSelectedApi() {
   return {
     ...response,
     body: response.success ? adaptRosterTeamAuthTree(response.body) : [],
-  } as ApiResponse<RosterTeamAuthNode[]>;
+    ...(response.success
+      ? { settingsList: adaptRosterSettingsTree(response.body, true) }
+      : {}),
+  };
 }
 
-/** 后续花名册设置页使用：基础开关、全量选项和团队已选一次拉齐。 */
+/** 旧聚合查询保留兼容；当前设置页单独查询全量选项并复用已选缓存。 */
 export async function getRosterTeamAuthApi() {
   const [basicRes, allRes, selectedRes] = await Promise.all([
     apiClient<ApiResponse<unknown>>({

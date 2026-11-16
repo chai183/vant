@@ -47,8 +47,8 @@
 
 管理员在「员工设置 → 手机花名册设置 → 团队信息授权」配好。当前花名册展示只按 `appTeamAuthSelected` 的团队已选字段裁剪，不叠加个人设置。
 
-- `appTeamAuth`：团队设置的全量字段选项，供后续花名册设置页使用，不参与当前展示转换。
-- `appTeamAuthSelected`：团队已选字段，当前列表、搜索和详情的唯一字段授权来源；后续设置页也用它回显已选项。
+- 移动端设置页全量选项使用 `GET /dthr-base/v4/system-config/list?type=appTeamAuth`，后端将此类型调整为返回完整可选配置。
+- `appTeamAuthSelected`：团队已选字段，当前列表、搜索和详情的唯一字段授权来源；设置页复用同一请求缓存回显已选项。
 - 个人设置属于后续员工档案模块，当前花名册 Store 不保存、不求交，也不用于裁剪详情。
 
 `isAllowDepartmentManagerView` 给 App 入口判断部门负责人是否能看到花名册，进页后不再拦一次。
@@ -82,15 +82,15 @@
 | groupCode / groupName | String | 分组 |
 | fieldCode / fieldName | String | 设置接口原有编码及名称；字段编码不参与花名册匹配或个人／团队范围交集，展示名称仍读取 fieldName |
 | columnName | String | 字段级过滤必需，值精确等于对应信息集的花名册 `fieldCode`，不加信息集前缀 |
-| systemConfig.builtin | Boolean | 信息集或已选内置字段，不可从设置里拿掉 |
+| systemConfig.builtin | Boolean | 设置页仅将已选最深层字段严格为 true 的节点视为固定项，父节点标记不限制取消 |
 | systemConfig.sort | Number | 排序 |
 
-`getRosterTeamAuthSelectedApi()` 只请求 `type=appTeamAuthSelected`，返回已适配的团队已选树，供当前展示使用。
+`getRosterTeamAuthSelectedApi()` 只请求 `type=appTeamAuthSelected`，同一响应分别生成展示树 `body` 和配置树 `settingsList`。Store 缓存两者，设置页不复用展示字段映射逻辑。
 
-`getRosterTeamAuthApi()` 保留基础设置、全部可选字段、已选字段三个请求，仅供后续设置页使用，当前花名册页面不调用它。基础设置只有开关，不添加无意义的 `columnName`；两份字段树的字段节点均返回 `columnName`。
+`getRosterTeamAuthApi()` 是旧聚合方法，当前展示与设置页均不调用它。设置页的查询、保存协议和 PC 核实来源详见 [设置页接口文档](../../roster/settings/API.md)。
 
 - 过滤关系：`设置.fieldList[].columnName === 花名册.children[].children[].fieldCode`。例如设置 `fieldCode` 为 `tab_staff_info.staffName`，其 `columnName` 为 `name`，最终匹配详情 `fieldCode: name`。
-- 设置接口的 `fieldCode` 完全不参与字段匹配；字段适配也不读取它。信息集和分组仍分别按 `setCode`、`groupCode` 对齐。
+- 设置接口的 `fieldCode` 不参与展示字段匹配；展示适配不读取它，设置适配则原样保留用于回显与提交。信息集和分组仍分别按 `setCode`、`groupCode` 对齐。
 - 不截取前缀、按名称猜测或回退到旧编码。字段节点缺少有效 `columnName` 时不授予字段权限。
 - 模块、分组整体授权，以及姓名列表展示和部门负责人入口规则保持原样。
 - `fieldMapping` 仍只负责展示取值（如 `orgId → orgName`），不能代替 `columnName` 作为授权键。

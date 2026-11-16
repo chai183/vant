@@ -30,11 +30,7 @@ import {
   rosterDetailSingleFormByTab,
   rosterDetailTabs,
 } from './detail-data';
-import {
-  rosterTeamAuthAll,
-  rosterTeamAuthBasic,
-  rosterTeamAuthSelected,
-} from './team-auth-data';
+import { rosterSettingsMockState } from '../../roster/settings/data';
 
 function unifiedSuccess<T>(body: T) {
   return {
@@ -130,7 +126,7 @@ const rosterMocks: MockMethod[] = [
   {
     url: `/api${ROSTER_TEAM_AUTH_BASIC_URL}`,
     method: 'get',
-    response: () => unifiedSuccess(rosterTeamAuthBasic),
+    response: () => unifiedSuccess(rosterSettingsMockState.basic),
   },
   {
     url: `/api${ROSTER_TEAM_AUTH_LIST_URL}`,
@@ -138,8 +134,8 @@ const rosterMocks: MockMethod[] = [
     response: ({ query }: { query?: { type?: string } }) => {
       const data =
         query?.type === ROSTER_TEAM_AUTH_TYPE.selected
-          ? rosterTeamAuthSelected
-          : rosterTeamAuthAll;
+          ? rosterSettingsMockState.selected
+          : rosterSettingsMockState.options;
       return unifiedSuccess({
         code: '200',
         msg: '操作成功',

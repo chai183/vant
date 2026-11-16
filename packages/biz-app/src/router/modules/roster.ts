@@ -2,6 +2,12 @@ import type { RouteRecordRaw } from 'vue-router';
 
 const rosterRoutes: RouteRecordRaw[] = [
   {
+    path: '/roster/settings',
+    component: () => import('@/pages/roster/settings/index.vue'),
+    name: 'EmployeeRosterSettings',
+    meta: { title: '花名册设置' },
+  },
+  {
     path: '/roster',
     component: () => import('@/pages/roster/org/index.vue'),
     name: 'EmployeeRoster',

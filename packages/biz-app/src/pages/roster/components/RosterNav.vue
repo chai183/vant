@@ -16,7 +16,10 @@
 </template>
 
 <script lang="ts" setup>
-import { showToast } from 'vant';
+import { useRouter } from 'vue-router';
+
+/** 部门联系人进入花名册设置。 */
+const router = useRouter();
 
 withDefaults(
   defineProps<{
@@ -36,7 +39,7 @@ const emit = defineEmits<{
 }>();
 
 function onSetting() {
-  showToast('花名册设置开发中');
+  void router.push({ name: 'EmployeeRosterSettings' });
 }
 </script>
 
@@ -45,7 +48,7 @@ function onSetting() {
   border: 0;
   padding: 0;
   background: transparent;
-  color: #ff8125;
+  color: var(--van-primary-color);
   font-size: 14px;
 }
 </style>

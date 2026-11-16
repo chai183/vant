@@ -1,6 +1,6 @@
 /**
  * 花名册展示状态：只加载 appTeamAuthSelected，并缓存可复用的字段转换器。
- * 全量选项属于后续设置页；个人设置属于后续员工档案，不参与当前展示。
+ * 同一次请求分别缓存展示树和设置树；全量选项由设置页单独查询。
  */
 import { computed, ref } from 'vue';
 import { defineStore } from 'pinia';
@@ -12,6 +12,7 @@ import type {
 } from '@/types/employee/roster';
 import { getRosterTeamAuthSelectedApi } from '@/services/api/employee/roster';
 import { createRosterFieldSchema } from '@/pages/roster/utils/fieldSchema';
+import type { RosterSettingNode } from '@/types/roster/settings';
 
 export const useRosterStore = defineStore('roster', () => {
   /** 已成功拿到已选字段，才按授权裁剪 */
@@ -22,6 +23,8 @@ export const useRosterStore = defineStore('roster', () => {
   const version = ref(0);
   /** 团队已选字段，当前花名册唯一的字段授权来源。 */
   const selectedList = ref<RosterTeamAuthNode[]>([]);
+  /** 保留设置编码的已选树，与展示字段映射分开。 */
+  const settingsSelectedList = ref<RosterSettingNode[]>([]);
 
   /** 并发进入多个页面时复用同一个请求。 */
   let pending: Promise<void> | null = null;
@@ -41,14 +44,17 @@ export const useRosterStore = defineStore('roster', () => {
     if (ready.value && !force) return;
     if (pending) {
       await pending;
-      return;
+      // 保存后的强制刷新必须晚于在途请求，不能复用保存前的结果。
+      if (!force) return;
     }
     loading.value = true;
     pending = getRosterTeamAuthSelectedApi()
       .then((response) => {
+        settingsSelectedList.value = response.settingsList || [];
         applySelected(response.body || [], Boolean(response.success));
       })
       .catch(() => {
+        settingsSelectedList.value = [];
         applySelected([], false);
       })
       .finally(() => {
@@ -63,6 +69,7 @@ export const useRosterStore = defineStore('roster', () => {
     loading,
     version,
     selectedList,
+    settingsSelectedList,
     loadTeamAuth,
     filterTabs(tabs: RosterDetailTabItem[] = []) {
       return fieldSchema.value.filterTabs(tabs);

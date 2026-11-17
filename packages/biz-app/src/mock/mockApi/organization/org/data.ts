@@ -1,0 +1,359 @@
+import { ROSTER_UNGROUPED_ORG_ID } from '@/services/api/organization/org/config';
+
+/** 组织完整树样例。人数字段对齐 PC：onDutyCount 直属，onDutyTotalCount 含下级 */
+export const rosterOrgTree = [
+  {
+    id: 'org-group',
+    orgName: '办公室',
+    parentOrgId: '',
+    status: '1',
+    onDutyCount: 20,
+    onDutyTotalCount: 20,
+    childrenOrgs: [],
+  },
+  {
+    id: 'org-empty',
+    orgName: '战略规划部',
+    parentOrgId: '',
+    status: '1',
+    onDutyCount: 0,
+    onDutyTotalCount: 0,
+    childrenOrgs: [],
+  },
+  {
+    id: 'org-mid',
+    orgName: '计划财务中心',
+    parentOrgId: '',
+    status: '1',
+    onDutyCount: 0,
+    onDutyTotalCount: 56,
+    childrenOrgs: [
+      {
+        id: 'org-fin',
+        orgName: '财务部',
+        parentOrgId: 'org-mid',
+        status: '1',
+        onDutyCount: 3,
+        onDutyTotalCount: 20,
+        childrenOrgs: [
+          {
+            id: 'org-fin-1',
+            orgName: '财务一部',
+            parentOrgId: 'org-fin',
+            status: '1',
+            onDutyCount: 3,
+            onDutyTotalCount: 12,
+            childrenOrgs: [
+              {
+                id: 'org-fin-1-a',
+                orgName: '会计核算室',
+                parentOrgId: 'org-fin-1',
+                status: '1',
+                onDutyCount: 0,
+                onDutyTotalCount: 3,
+                childrenOrgs: [
+                  {
+                    id: 'org-leaf',
+                    orgName: '核算一组',
+                    parentOrgId: 'org-fin-1-a',
+                    status: '1',
+                    onDutyCount: 3,
+                    onDutyTotalCount: 3,
+                    childrenOrgs: [],
+                  },
+                ],
+              },
+              {
+                id: 'org-fin-1-b',
+                orgName: '资金管理室',
+                parentOrgId: 'org-fin-1',
+                status: '1',
+                onDutyCount: 2,
+                onDutyTotalCount: 56,
+                childrenOrgs: [],
+              },
+              {
+                id: 'org-fin-1-c',
+                orgName: '税务管理室',
+                parentOrgId: 'org-fin-1',
+                status: '1',
+                onDutyCount: 2,
+                onDutyTotalCount: 2,
+                childrenOrgs: [],
+              },
+            ],
+          },
+          {
+            id: 'org-fin-2',
+            orgName: '财务二部',
+            parentOrgId: 'org-fin',
+            status: '1',
+            onDutyCount: 0,
+            onDutyTotalCount: 6,
+            childrenOrgs: [
+              {
+                id: 'org-fin-2-a',
+                orgName: '结算室',
+                parentOrgId: 'org-fin-2',
+                status: '1',
+                onDutyCount: 1,
+                onDutyTotalCount: 3,
+                childrenOrgs: [],
+              },
+              {
+                id: 'org-fin-2-b',
+                orgName: '费用管理室',
+                parentOrgId: 'org-fin-2',
+                status: '1',
+                onDutyCount: 1,
+                onDutyTotalCount: 56,
+                childrenOrgs: [],
+              },
+              {
+                id: 'org-fin-2-c',
+                orgName: '报表管理室',
+                parentOrgId: 'org-fin-2',
+                status: '1',
+                onDutyCount: 1,
+                onDutyTotalCount: 2,
+                childrenOrgs: [],
+              },
+            ],
+          },
+        ],
+      },
+    ],
+  },
+  {
+    id: 'org-small',
+    orgName: '人力资源部',
+    parentOrgId: '',
+    status: '1',
+    onDutyCount: 12,
+    onDutyTotalCount: 12,
+    childrenOrgs: [],
+  },
+  {
+    id: 'org-risk',
+    orgName: '风险管理部',
+    parentOrgId: '',
+    status: '1',
+    onDutyCount: 12,
+    onDutyTotalCount: 12,
+    childrenOrgs: [],
+  },
+  {
+    id: 'org-it',
+    orgName: '信息技术部',
+    parentOrgId: '',
+    status: '1',
+    onDutyCount: 12,
+    onDutyTotalCount: 12,
+    childrenOrgs: [],
+  },
+  {
+    id: 'org-corp',
+    orgName: '公司金融部',
+    parentOrgId: '',
+    status: '1',
+    onDutyCount: 12,
+    onDutyTotalCount: 12,
+    childrenOrgs: [],
+  },
+  {
+    id: 'org-ops',
+    orgName: '运营管理部',
+    parentOrgId: '',
+    status: '1',
+    onDutyCount: 12,
+    onDutyTotalCount: 12,
+    childrenOrgs: [],
+  },
+  {
+    id: 'org-legal',
+    orgName: '法律合规部',
+    parentOrgId: '',
+    status: '1',
+    onDutyCount: 12,
+    onDutyTotalCount: 12,
+    childrenOrgs: [],
+  },
+  {
+    id: 'org-audit',
+    orgName: '审计部',
+    parentOrgId: '',
+    status: '1',
+    onDutyCount: 12,
+    onDutyTotalCount: 12,
+    childrenOrgs: [],
+  },
+  {
+    id: 'org-party',
+    orgName: '党委办公室',
+    parentOrgId: '',
+    status: '1',
+    onDutyCount: 12,
+    onDutyTotalCount: 12,
+    childrenOrgs: [],
+  },
+  {
+    id: 'org-union',
+    orgName: '工会办公室',
+    parentOrgId: '',
+    status: '1',
+    onDutyCount: 12,
+    onDutyTotalCount: 12,
+    childrenOrgs: [],
+  },
+  {
+    id: 'org-logistics',
+    orgName: '后勤保障部',
+    parentOrgId: '',
+    status: '1',
+    onDutyCount: 12,
+    onDutyTotalCount: 12,
+    childrenOrgs: [],
+  },
+];
+
+function staff(
+  id: string,
+  name: string,
+  staffNo: string,
+  phone: string,
+  orgId: string,
+  orgName: string,
+  concurrent = false,
+) {
+  return {
+    id,
+    name,
+    staffNo,
+    avatar: '',
+    phone,
+    orgId,
+    orgName,
+    concurrent,
+  };
+}
+
+const STAFF_NAMES = [
+  '赵六',
+  '钱七',
+  '孙八',
+  '李九',
+  '周十',
+  '吴一',
+  '郑二',
+  '王三',
+  '冯四',
+  '陈五',
+  '褚六',
+  '卫七',
+  '蒋八',
+  '沈九',
+  '韩十',
+  '杨一',
+  '朱二',
+  '秦三',
+  '尤四',
+  '许五',
+];
+
+/** 按部门造一批人，方便列表滚动 */
+function padStaff(
+  orgId: string,
+  orgName: string,
+  count: number,
+  idPrefix: string,
+  workStart: number,
+  concurrentIndex: number[] = [],
+) {
+  return Array.from({ length: count }, (_, i) => {
+    const n = i + 1;
+    const round = Math.floor(i / STAFF_NAMES.length);
+    const name =
+      STAFF_NAMES[i % STAFF_NAMES.length] + (round ? String(round + 1) : '');
+    return staff(
+      `${idPrefix}${n}`,
+      name,
+      `AB${String(workStart + i).padStart(4, '0')}`,
+      `138${String(10000000 + workStart + i).slice(-8)}`,
+      orgId,
+      orgName,
+      concurrentIndex.includes(i),
+    );
+  });
+}
+
+/** 按部门备好的直属人员。Mock 按 orgId 取对应一份，不在这里做关键字筛选 */
+export const rosterStaffByOrg: Record<string, ReturnType<typeof staff>[]> = {
+  [ROSTER_UNGROUPED_ORG_ID]: [
+    staff(
+      'staff-1',
+      '小明',
+      'AB1232',
+      '15858888888',
+      'org-group',
+      '办公室',
+      true,
+    ),
+    staff(
+      'staff-2',
+      '小红',
+      'AB1232',
+      '15858888888',
+      'org-fin',
+      '财务部',
+      true,
+    ),
+    staff(
+      'staff-3',
+      '小白',
+      'AB1232',
+      '15858888888',
+      'org-small',
+      '公司金融部大客户业务管理中心华东分部',
+      false,
+    ),
+    ...padStaff(ROSTER_UNGROUPED_ORG_ID, '未分组', 12, 'staff-u', 5001, [3, 7]),
+  ],
+  'org-group': padStaff('org-group', '办公室', 20, 'staff-g', 1001, [1, 4, 9]),
+  'org-empty': [],
+  'org-fin': padStaff('org-fin', '财务部', 15, 'staff-f', 2001, [1]),
+  'org-fin-1': [
+    staff('staff-a1', '张三', 'AB1232', '15858888888', 'org-fin-1', '财务一部'),
+    staff('staff-a2', '李四', 'AB1232', '15858888888', 'org-fin-1', '财务一部'),
+    staff('staff-a3', '王五', 'AB1232', '15858888888', 'org-fin-1', '财务一部'),
+    ...padStaff('org-fin-1', '财务一部', 12, 'staff-ax', 1233),
+  ],
+  'org-fin-2': [],
+  'org-leaf': padStaff('org-leaf', '核算一组', 15, 'staff-l', 6001),
+  'org-small': padStaff('org-small', '人力资源部', 12, 'staff-s', 3001),
+  'org-fin-1-b': padStaff('org-fin-1-b', '资金管理室', 12, 'staff-b', 4001),
+  'org-fin-1-c': padStaff('org-fin-1-c', '税务管理室', 12, 'staff-c', 4101),
+  'org-risk': padStaff('org-risk', '风险管理部', 12, 'staff-r', 7001),
+  'org-it': padStaff('org-it', '信息技术部', 12, 'staff-it', 7101),
+  'org-corp': padStaff('org-corp', '公司金融部', 12, 'staff-co', 7201),
+  'org-ops': padStaff('org-ops', '运营管理部', 12, 'staff-op', 7301),
+  'org-legal': padStaff('org-legal', '法律合规部', 12, 'staff-le', 7401),
+  'org-audit': padStaff('org-audit', '审计部', 12, 'staff-au', 7501),
+  'org-party': padStaff('org-party', '党委办公室', 12, 'staff-pa', 7601),
+  'org-union': padStaff('org-union', '工会办公室', 12, 'staff-un', 7701),
+  'org-logistics': padStaff(
+    'org-logistics',
+    '后勤保障部',
+    12,
+    'staff-lo',
+    7801,
+  ),
+};
+
+export const rosterAllStaff = Object.values(rosterStaffByOrg).flat();
+
+/** 当前登录人（me）。部门联系人，所属财务一部 */
+export const rosterContext = {
+  orgId: 'org-fin-1',
+  orgName: '财务一部',
+  isDeptContact: true,
+};

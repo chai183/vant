@@ -32,6 +32,7 @@
           :loading="loading"
           :auto-load="false"
           :show-submit="false"
+          show-section-tabs
           @failed="onFailed"
         />
       </van-tab>

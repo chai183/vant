@@ -129,7 +129,7 @@ export function useRosterDetail() {
       const tab = readActiveTab();
       const { setCode, kind, key } = tab;
       // 先应用当前缓存；无页签或无缓存时清空上一页的数据。
-      const {cache} = tabPanel;
+      const { cache } = tabPanel;
       tabPanel.applyCache(key);
       tabPanel.loading = false;
       if (!setCode || cache[key]) return;
@@ -282,7 +282,7 @@ export function useRosterDetail() {
     loading.value = true;
     tabPanel.cache = {};
     pendingTabs = new Map();
-    const {cache} = tabPanel;
+    const { cache } = tabPanel;
     rawTabList.value = [];
     tabPanel.applyCache('');
     tabPanel.loading = false;

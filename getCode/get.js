@@ -172,7 +172,7 @@ function rewritePagesDirInRel(rel) {
   return String(rel)
     .split(/[/\\]/)
     .map((seg) => (seg === 'pages' ? 'views' : seg))
-    .join(path.sep);
+    .join('/');
 }
 
 /** 平铺 label 中的 pages 段 → views（如 pages_xxx → views_xxx） */

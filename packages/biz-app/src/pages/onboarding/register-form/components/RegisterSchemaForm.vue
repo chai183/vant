@@ -12,6 +12,7 @@
       :show-group-name="detailMode"
       :map-group-name-as-set-name="!detailMode"
       :resolve-schema-field="detailMode ? resolveDetailField : undefined"
+      :show-section-tabs="showSectionTabs"
       @submit="onSubmit"
       @failed="onFailed"
     />
@@ -66,6 +67,8 @@ const props = withDefaults(
     submitText?: string;
     /** 挂载后是否自动拉取 field/search */
     autoLoad?: boolean;
+    /** 第一层区块标题吸顶 Tab，编辑/详情开启 */
+    showSectionTabs?: boolean;
   }>(),
   {
     modelValue: undefined,
@@ -74,6 +77,7 @@ const props = withDefaults(
     showSubmit: true,
     submitText: '提交',
     autoLoad: true,
+    showSectionTabs: false,
   },
 );
 

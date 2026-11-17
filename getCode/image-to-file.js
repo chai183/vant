@@ -187,6 +187,21 @@ function insertChunkBeforeIend(pngBuf, chunkBuf) {
   ]);
 }
 
+/** 元数据里的相对路径统一用 /，避免 Windows 的 \ 在 macOS/Linux 上变成文件名 */
+function toPortableRel(rel) {
+  return String(rel ?? '').replace(/\\/g, '/');
+}
+
+/**
+ * 还原时把 / 与 \ 都当成目录分隔符。
+ * @returns {string | null} 当前系统的相对路径；非法路径返回 null
+ */
+function toLocalRelativePath(rel) {
+  const safeRel = toPortableRel(rel).replace(/^\/+/, '');
+  if (!safeRel || safeRel.includes('..')) return null;
+  return safeRel.split('/').join(path.sep);
+}
+
 /**
  * 将源文件信息嵌入 PNG（供 get.js 调用）
  * @param {Buffer} pngBuf
@@ -196,7 +211,7 @@ function embedSourceInPng(pngBuf, meta) {
   const base = stripSourcePayloadFromPng(pngBuf);
   const payload = JSON.stringify({
     v: 1,
-    rel: meta.rel,
+    rel: toPortableRel(meta.rel),
     label: meta.label,
     text: meta.text,
     pageIndex: meta.pageIndex ?? 1,
@@ -216,7 +231,7 @@ function embedAllSourcesInPng(pngBuf, files) {
   const payload = JSON.stringify({
     v: 2,
     files: files.map(({ rel, label, text }) => ({
-      rel,
+      rel: toPortableRel(rel),
       label,
       text,
     })),
@@ -410,8 +425,8 @@ async function writeRestoredFiles(restoreMap, outputDir) {
   const written = [];
 
   for (const { rel, text } of restoreMap.values()) {
-    const safeRel = rel.replace(/^[/\\]+/, '');
-    if (!safeRel || safeRel.includes('..')) {
+    const safeRel = toLocalRelativePath(rel);
+    if (!safeRel) {
       console.warn(`跳过非法相对路径: ${rel}`);
       continue;
     }

@@ -603,6 +603,16 @@ export default {
 };
 ```
 
+### 标签尾部标记
+
+通过 `label-suffix` 插槽展示标签尾部内容，顺序固定为“标签、必填星号、尾部内容”，同时支持顶部和左右对齐。
+
+```html
+<van-field required label="姓名">
+  <template #label-suffix><span style="margin-left: 6px">审</span></template>
+</van-field>
+```
+
 ## API
 
 ### Props
@@ -744,6 +754,7 @@ fieldRef.value?.focus();
 | 名称 | 说明 | 参数 |
 | --- | --- | --- |
 | label | 自定义输入框左侧文本 | - |
+| label-suffix `new` | 标签和必填星号之后的内容 | - |
 | label-tooltip `new` | 自定义标签旁 Popover 说明内容，优先级高于 `label-tooltip` 属性 | - |
 | label-comment `new` | 自定义标签下方备注，优先级高于 `label-comment` 属性 | - |
 | label-action `new` | 自定义标签行右侧操作内容，优先级高于 `label-action-text` 属性 | - |

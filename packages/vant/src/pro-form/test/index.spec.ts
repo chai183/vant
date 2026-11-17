@@ -6,6 +6,47 @@ import { Field } from '../../field';
 import { mount } from '@vue/test-utils';
 import { nextTick } from 'vue';
 
+test('forwards label-suffix after the required mark', () => {
+  const wrapper = mount(ProForm, {
+    props: {
+      columns: [
+        {
+          name: 'name',
+          label: 'Name',
+          component: 'field',
+          fieldProps: { required: true },
+          fieldSlots: { 'label-suffix': 'Review' },
+        },
+      ],
+    },
+  });
+  expect(wrapper.find('.van-field__label-wrap').text()).toBe('Name*Review');
+});
+
+test.each(['radioPicker', 'checkboxPicker'])(
+  'lazy %s displays selected labels before loading',
+  (component) => {
+    const loadOptions = vi.fn();
+    const wrapper = mount(ProForm, {
+      props: {
+        modelValue: { value: component === 'checkboxPicker' ? [0] : 0 },
+        showSubmit: false,
+        columns: [
+          {
+            name: 'value',
+            label: 'Level',
+            component,
+            options: [{ label: 'Level zero', value: 0 }],
+            componentProps: { isList: true, loadOptions },
+          },
+        ],
+      },
+    });
+    expect(wrapper.text()).toContain('Level zero');
+    expect(loadOptions).not.toHaveBeenCalled();
+  },
+);
+
 const TestDeliveryField = defineComponent({
   props: {
     modelValue: {
@@ -324,9 +365,9 @@ test('should render fieldChildren with column row', async () => {
   await nextTick();
 
   expect(onSubmit).toHaveBeenCalled();
-  expect((onSubmit.mock.calls[0][0] as Record<string, unknown>).options).toEqual(
-    ['a', 'b', ''],
-  );
+  expect(
+    (onSubmit.mock.calls[0][0] as Record<string, unknown>).options,
+  ).toEqual(['a', 'b', '']);
 });
 
 test('should render fieldChildren', async () => {
@@ -342,7 +383,11 @@ test('should render fieldChildren', async () => {
           componentProps: {
             addText: 'Add',
             row: () =>
-              h(Field, { label: 'Option', placeholder: 'Enter', border: false }),
+              h(Field, {
+                label: 'Option',
+                placeholder: 'Enter',
+                border: false,
+              }),
           },
         },
       ],
@@ -364,9 +409,9 @@ test('should render fieldChildren', async () => {
   await nextTick();
 
   expect(onSubmit).toHaveBeenCalled();
-  expect((onSubmit.mock.calls[0][0] as Record<string, unknown>).options).toEqual(
-    ['a', 'b', ''],
-  );
+  expect(
+    (onSubmit.mock.calls[0][0] as Record<string, unknown>).options,
+  ).toEqual(['a', 'b', '']);
 });
 
 test('should render fieldMoney', async () => {
@@ -721,7 +766,7 @@ test('should support custom component render', async () => {
 
   await nextTick();
   expect(wrapper.find('.custom-input').exists()).toBe(true);
-  expect((wrapper.find('.custom-input').element as HTMLInputElement).value).toBe(
-    'hello',
-  );
+  expect(
+    (wrapper.find('.custom-input').element as HTMLInputElement).value,
+  ).toBe('hello');
 });

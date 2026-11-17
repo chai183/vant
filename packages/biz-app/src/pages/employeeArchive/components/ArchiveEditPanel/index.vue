@@ -65,7 +65,7 @@
 
 <script setup lang="ts">
 import { h } from 'vue';
-import type { ProFormColumn } from 'vant';
+import type { ProFormColumn, FieldValidateError, FormInstance } from 'vant';
 import SchemaProForm from '@/_components/SchemaProForm';
 import type { SchemaFieldItem } from '@/_components/SchemaProForm/types';
 import { buildSchemaFieldColumn } from '@/_components/SchemaProForm/transform-schema';
@@ -87,25 +87,35 @@ const props = defineProps<{
 }>();
 const emit = defineEmits<{ add: []; remove: [key: string] }>();
 /** 当前已挂载表单；折叠隐藏字段仍参与表单校验。 */
-const forms = new Map<string, { validate: () => Promise<void> }>();
+const forms = new Map<
+  string,
+  {
+    validate: () => Promise<void>;
+    proFormRef?: Pick<FormInstance, 'scrollToField'>;
+  }
+>();
 
 const utils = {
   setForm(key: string, groupCode: string, instance: unknown) {
     const name = JSON.stringify([key, groupCode]);
     if (instance)
-      forms.set(name, instance as { validate: () => Promise<void> });
+      forms.set(name, instance as NonNullable<ReturnType<typeof forms.get>>);
     else forms.delete(name);
   },
   async validate() {
-    const valid = await Promise.all(
+    const results = await Promise.all(
       [...forms.values()].map((form) =>
         form.validate().then(
-          () => true,
-          () => false,
+          () => null,
+          (errors: FieldValidateError[]) => ({ form, errors }),
         ),
       ),
     );
-    return valid.every(Boolean);
+    const first = results.find((result) => result);
+    const name = first?.errors?.[0]?.name;
+    if (name != null)
+      first?.form.proFormRef?.scrollToField(String(name), { block: 'center' });
+    return !first;
   },
 };
 
@@ -120,6 +130,7 @@ function resolveField(
     ?.fieldList.find((item) => item.columnName === field.columnName);
   const locked =
     props.disabled ||
+    field.disabled ||
     metadata?.permission !== 'editable' ||
     archiveFieldLocked(
       props.pending,
@@ -158,42 +169,33 @@ function resolveField(
     fieldSlots: {
       ...column.fieldSlots,
       ...original.fieldSlots,
-      label: () =>
-        h(
-          'span',
-          {
-            class: 'archive-editor-label',
-            style: { display: 'inline-flex', alignItems: 'center' },
-          },
-          [
-            field.fieldName,
-            metadata?.permission === 'editable' &&
-            metadata.needsApproval === true
-              ? h(
-                  'div',
-                  {
-                    class: 'archive-editor-approval',
-                    title: '修改后需要 HR 审批',
-                    style: {
-                      display: 'inline-flex',
-                      alignItems: 'center',
-                      justifyContent: 'center',
-                      flexShrink: 0,
-                      width: '16px',
-                      height: '16px',
-                      marginLeft: '6px',
-                      borderRadius: '2px',
-                      background: '#FFF2E9',
-                      color: 'var(--van-primary-color)',
-                      fontSize: '12px',
-                      lineHeight: '16px',
-                    },
+      ...(metadata?.permission === 'editable' && metadata.needsApproval === true
+        ? {
+            'label-suffix': () =>
+              h(
+                'div',
+                {
+                  class: 'archive-editor-approval',
+                  title: '修改后需要 HR 审批',
+                  style: {
+                    display: 'inline-flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    flexShrink: 0,
+                    width: '16px',
+                    height: '16px',
+                    marginLeft: '6px',
+                    borderRadius: '2px',
+                    background: '#FFF2E9',
+                    color: 'var(--van-primary-color)',
+                    fontSize: '12px',
+                    lineHeight: '16px',
                   },
-                  '审',
-                )
-              : null,
-          ],
-        ),
+                },
+                '审',
+              ),
+          }
+        : {}),
     },
   };
 }

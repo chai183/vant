@@ -10,7 +10,7 @@ import type {
 import { cloneDeep } from 'lodash-es';
 import { unwrapLabelValue } from '@/_components/SchemaProForm/transform-schema';
 import { API_PREFIX } from '@/services/api/employee/config';
-import { ARCHIVE_EDIT_APIS } from './config';
+import { ARCHIVE_EDIT_APIS, ARCHIVE_FIELD_DATA_SOURCES } from './config';
 import {
   getRosterDetailTabKind,
   isRosterDetailCustomTab,
@@ -50,12 +50,59 @@ export function adaptArchiveSchema(
           // 展示映射位于字段顶层时仍交给通用表单处理，不以映射键保存原值。
           const typeConfig =
             typeof config === 'string' ? JSON.parse(config) : config || {};
+          // PC 详情字段把字典、数值和上传限制放在顶层；收拢为 SchemaProForm 配置。
+          // 已有 typeConfigJson 优先，避免替换其他页面原本使用的配置结构。
+          const topConfig = Object.fromEntries(
+            [
+              'dictCode',
+              'dictId',
+              'level',
+              'parentColumnName',
+              'defaultValue',
+              'minimumValue',
+              'maximumValue',
+              'decimalPlaces',
+              'dateFormat',
+              'uploadCount',
+              'imageSizeLimit',
+              'fileSizeLimit',
+              'uploadUnit',
+              'allowedFormats',
+              'formats',
+              'maxSize',
+              'sizeUnit',
+            ]
+              .filter((key) => field[key] != null && field[key] !== '')
+              .map((key) => [key, field[key]]),
+          );
           return [
             {
               ...field,
               columnName: String(field.fieldCode),
-              fieldType: String(field.fieldType || ''),
+              fieldType: String(field.fieldType || '').toUpperCase(),
+              dataSource:
+                field.dataSource ||
+                (typeConfig.dictCode ||
+                typeConfig.dictId ||
+                field.dictCode ||
+                field.dictId
+                  ? undefined
+                  : String(field.fieldType).toUpperCase() === 'DEPARTMENT'
+                    ? 'department'
+                    : String(field.fieldType).toUpperCase() === 'JOBCATEGORY'
+                      ? 'jobCategory'
+                      : String(field.fieldType).toUpperCase() === 'PERSON'
+                        ? 'orgUser'
+                        : ARCHIVE_FIELD_DATA_SOURCES[field.fieldCode]),
+              required: readPermissionFlag(field.required) === true,
+              ...(field.disabled != null
+                ? { disabled: readPermissionFlag(field.disabled) === true }
+                : {}),
               typeConfigJson: {
+                ...topConfig,
+                ...(Number(field.length ?? field.maxLength) > 0
+                  ? { valueLength: Number(field.length ?? field.maxLength) }
+                  : {}),
                 ...typeConfig,
                 ...(field.fieldMapping
                   ? { fieldMapping: field.fieldMapping }
@@ -332,6 +379,8 @@ export function buildArchiveEditRequest(
     });
   });
   const data: ArchiveEditRequest['data'] = { staffId };
+  // 本人申请原因与 staffId 同级，不进入各信息集对象或自定义字段。
+  if (submission.reason?.trim()) data.reason = submission.reason.trim();
   if (api?.mode === 'basic') {
     const record = records[0] || { id: '', groups: {} };
     const ordinary = schema.groupList.filter(

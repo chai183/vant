@@ -5,8 +5,14 @@ import {
   useRoute,
   useRouter,
 } from 'vue-router';
-import { cloneDeep, isEqual } from 'lodash-es';
-import { showConfirmDialog, showFailToast, showSuccessToast } from 'vant';
+import { cloneDeep } from 'lodash-es';
+import {
+  showDialog,
+  showConfirmDialog,
+  showFailToast,
+  showSuccessToast,
+  showToast,
+} from 'vant';
 import { useRosterStore } from '@/pinia/stores/roster';
 import {
   getRosterDetailTabsApi,
@@ -34,6 +40,7 @@ import type {
   ArchivePermission,
   ArchiveRecord,
   ArchiveSchema,
+  ArchiveSubmission,
 } from '@/types/employeeArchive';
 import type {
   RosterDetailTabItem,
@@ -47,6 +54,7 @@ import {
   archiveTeamSchema,
   archiveEditSchema,
   buildArchiveSubmission,
+  archiveSubmissionSummary,
 } from '../utils/permissions';
 
 type ArchivePanel = {
@@ -87,6 +95,8 @@ export function useEmployeeArchive() {
   const activeCode = ref('');
   const panel = ref<ArchivePanel>(emptyPanel());
   const cache = new Map<string, ArchivePanel>();
+  /** 快速切回尚未返回的信息集时复用请求，切换员工后不复用。 */
+  let pendingPanels = new Map<string, Promise<ArchivePanel>>();
   /** 加载和提交状态。 */
   const loading = ref(false);
   const error = ref('');
@@ -97,6 +107,9 @@ export function useEmployeeArchive() {
   let initialDrafts: ArchiveDraft[] = [];
   /** 记录是否已保存但回读失败，失败时可以只重试回读。 */
   const savedNeedsRefresh = ref(false);
+  /** 确认弹窗与已校验的本次提交快照，取消弹窗不清除表单草稿。 */
+  const confirming = ref(false);
+  const preparedSubmission = ref<ArchiveSubmission | null>(null);
 
   /** 页签仅按团队配置裁剪，不受个人授权隐藏影响。 */
   const tabs = computed(() =>
@@ -108,7 +121,28 @@ export function useEmployeeArchive() {
   );
   /** 编辑权限叠加在团队范围之内。 */
   const editSchema = computed(() =>
-    archiveEditSchema(readSchema.value, permissions.value),
+    archiveEditSchema(readSchema.value, permissions.value, panel.value.pending),
+  );
+  /** 提示条跟随可编辑的审批字段，不因存在一个只读审批字段就展示。 */
+  const approvalNotice = computed(() => {
+    const hasApproval = editSchema.value.groupList.some((group) =>
+      group.fieldList.some(
+        (field) =>
+          field.permission === 'editable' &&
+          !field.disabled &&
+          field.needsApproval === true,
+      ),
+    );
+    if (!hasApproval) return '';
+    return activeCode.value === ROSTER_DETAIL_BASIC_TAB
+      ? '带“审”标记的内容修改后需 HR 审核通过才生效。'
+      : '页面信息修改后需 HR 审核通过后才能生效。';
+  });
+  /** 二次确认展示实际修改的字段，不包含未修改、隐藏或只读字段。 */
+  const submitSummary = computed(() =>
+    preparedSubmission.value
+      ? archiveSubmissionSummary(editSchema.value, preparedSubmission.value)
+      : { approval: [], immediate: [] },
   );
   /** 只有字段明确可编辑才提供编辑入口。 */
   const canEdit = computed(
@@ -120,11 +154,25 @@ export function useEmployeeArchive() {
   );
   /** 教育经历、工作经历支持新增；新增记录提交后不再显示本地删除操作。 */
   const canAdd = computed(
-    () => ARCHIVE_ADDABLE_SETS.includes(activeCode.value) && canEdit.value,
+    () =>
+      ARCHIVE_ADDABLE_SETS.includes(activeCode.value) &&
+      canEdit.value &&
+      !panel.value.pending.length,
   );
-  /** 每次只比较当前草稿，未改动时离开不弹确认。 */
+  /** 保存与离开页面共用实际字段变更，不把控件回显转换算作修改。 */
+  const submission = computed(() =>
+    buildArchiveSubmission(
+      staffId.value,
+      editSchema.value,
+      drafts.value,
+      initialDrafts,
+      panel.value.pending,
+      panel.value.multi,
+    ),
+  );
+  /** 未修改或修改后还原时，离开不弹确认。 */
   const dirty = computed(
-    () => editing.value && !isEqual(drafts.value, initialDrafts),
+    () => editing.value && submission.value.records.length > 0,
   );
   /** 复用普通 Tab 的切换拦截。 */
   const title = computed(
@@ -135,14 +183,17 @@ export function useEmployeeArchive() {
     error.value = cause instanceof Error ? cause.message : '加载档案失败';
   }
 
-  async function readPanel(tab: RosterDetailTabItem): Promise<ArchivePanel> {
+  async function readPanel(
+    tab: RosterDetailTabItem,
+    employeeId: string,
+  ): Promise<ArchivePanel> {
     const kind = getRosterDetailTabKind(tab.code);
     const result = emptyPanel();
     result.kind = kind;
     if (kind === 'growth') {
       const [changes, positions] = await Promise.all([
-        getRosterDetailGrowthChangeApi({ staffId: staffId.value }),
-        getRosterDetailGrowthPositionApi({ staffId: staffId.value }),
+        getRosterDetailGrowthChangeApi({ staffId: employeeId }),
+        getRosterDetailGrowthPositionApi({ staffId: employeeId }),
       ]);
       if (!changes.success || !positions.success)
         throw new Error('加载成长记录失败');
@@ -153,14 +204,14 @@ export function useEmployeeArchive() {
       };
     }
     if (kind === 'cost') {
-      const response = await getRosterDetailCostApi({ staffId: staffId.value });
+      const response = await getRosterDetailCostApi({ staffId: employeeId });
       if (!response.success)
         throw new Error(response.message || '加载成本信息失败');
       return { ...result, cost: response.body };
     }
     if (kind === 'attachment') {
       const response = await getRosterDetailAttachmentApi({
-        staffId: staffId.value,
+        staffId: employeeId,
       });
       if (!response.success)
         throw new Error(response.message || '加载附件失败');
@@ -169,7 +220,7 @@ export function useEmployeeArchive() {
     if (kind === 'empty') return result;
     const [metadata, workflow] = await Promise.all([
       getArchiveSchemaApi(tab.code),
-      getArchiveWorkflowApi(staffId.value, tab.code),
+      getArchiveWorkflowApi(employeeId, tab.code),
     ]);
     if (!metadata.success || !workflow.success)
       throw new Error(
@@ -184,7 +235,7 @@ export function useEmployeeArchive() {
     // Mock 状态显式返回已生效记录时使用该记录，否则查询花名册原详情。
     if (workflow.body.records !== null)
       return { ...result, records: workflow.body.records };
-    const response = await getArchiveRecordsApi(staffId.value, metadata.body);
+    const response = await getArchiveRecordsApi(employeeId, metadata.body);
     if (!response.success)
       throw new Error(response.message || '加载档案内容失败');
     result.records = response.body;
@@ -202,14 +253,30 @@ export function useEmployeeArchive() {
     loading.value = true;
     error.value = '';
     if (!force) panel.value = emptyPanel();
+    const requests = pendingPanels;
+    let request: Promise<ArchivePanel> | undefined;
     try {
-      const next =
-        !force && cache.has(code) ? cache.get(code)! : await readPanel(tab);
-      if (id !== staffId.value || code !== activeCode.value) return;
+      let next = !force ? cache.get(code) : undefined;
+      if (!next) {
+        request = !force ? requests.get(code) : undefined;
+        if (!request) {
+          request = readPanel(tab, id);
+          requests.set(code, request);
+        }
+        next = await request;
+      }
+      if (id !== staffId.value || requests !== pendingPanels) return;
+      // 切走的信息集也缓存成功结果，但不覆盖当前面板。
       cache.set(code, next);
+      if (code !== activeCode.value) return;
       panel.value = next;
     } finally {
-      if (id === staffId.value && code === activeCode.value)
+      if (request && requests.get(code) === request) requests.delete(code);
+      if (
+        requests === pendingPanels &&
+        id === staffId.value &&
+        code === activeCode.value
+      )
         loading.value = false;
     }
   }
@@ -217,8 +284,11 @@ export function useEmployeeArchive() {
   async function initialize() {
     const id = staffId.value;
     editing.value = false;
+    confirming.value = false;
+    preparedSubmission.value = null;
     savedNeedsRefresh.value = false;
     cache.clear();
+    pendingPanels = new Map();
     panel.value = emptyPanel();
     rawTabs.value = [];
     permissionsReady.value = false;
@@ -253,11 +323,35 @@ export function useEmployeeArchive() {
     }
   }
 
-  function startEdit() {
+  async function startEdit() {
     if (!canEdit.value || loading.value || saving.value) return;
+    const employeeId = staffId.value;
+    const code = activeCode.value;
+    if (panel.value.pending.length) {
+      const basic = activeCode.value === ROSTER_DETAIL_BASIC_TAB;
+      const accepted = await showDialog({
+        title: '提示',
+        message: basic
+          ? '该信息类型下已存在待审批的申请，将无法变更需审批的信息项。'
+          : '该信息类型下已存在待审批的申请，无法编辑。',
+        confirmButtonText: '确定',
+      }).then(
+        () => true,
+        () => false,
+      );
+      if (
+        !accepted ||
+        !basic ||
+        employeeId !== staffId.value ||
+        code !== activeCode.value
+      )
+        return;
+    }
     drafts.value = archiveDrafts(editSchema.value, panel.value.records);
     initialDrafts = cloneDeep(drafts.value);
     editing.value = true;
+    confirming.value = false;
+    preparedSubmission.value = null;
   }
 
   function addRecord() {
@@ -285,39 +379,32 @@ export function useEmployeeArchive() {
     );
   }
 
-  async function cancelEdit() {
-    if (await confirmDiscard()) {
-      drafts.value = [];
-      editing.value = false;
-    }
+  function cancelEdit() {
+    if (saving.value || savedNeedsRefresh.value) return;
+    drafts.value = [];
+    initialDrafts = [];
+    confirming.value = false;
+    preparedSubmission.value = null;
+    editing.value = false;
   }
 
   async function beforeTabChange(code: string | number) {
     if (String(code) === activeCode.value) return true;
     if (!(await confirmDiscard())) return false;
     editing.value = false;
+    confirming.value = false;
+    preparedSubmission.value = null;
     drafts.value = [];
     savedNeedsRefresh.value = false;
     return true;
   }
 
-  async function save() {
+  async function performSave(submission?: ArchiveSubmission) {
     if (saving.value) return;
     saving.value = true;
     try {
       if (!savedNeedsRefresh.value) {
-        const submission = buildArchiveSubmission(
-          staffId.value,
-          editSchema.value,
-          drafts.value,
-          initialDrafts,
-          panel.value.pending,
-          panel.value.multi,
-        );
-        if (!submission.records.length) {
-          showFailToast('没有可提交的修改');
-          return;
-        }
+        if (!submission) throw new Error('请先确认本次修改');
         const response = await submitArchiveApi(
           submission,
           panel.value.schema,
@@ -332,23 +419,71 @@ export function useEmployeeArchive() {
       }
       await loadTab(true);
       editing.value = false;
+      confirming.value = false;
+      preparedSubmission.value = null;
       drafts.value = [];
       initialDrafts = [];
       savedNeedsRefresh.value = false;
-      showSuccessToast(
-        panel.value.pending.length
-          ? '提交成功，需审批内容待审核后生效'
-          : '保存成功',
-      );
+      showSuccessToast('修改成功');
     } finally {
       saving.value = false;
     }
   }
 
+  /** 首次提交只准备确认内容，重试回读不再确认或重复发保存请求。 */
+  async function save(validate?: () => Promise<boolean>) {
+    if (saving.value || !editing.value) return;
+    if (savedNeedsRefresh.value) return performSave();
+    if (!dirty.value) {
+      showToast('无信息变更，无需提交');
+      return;
+    }
+    if (validate && !(await validate())) {
+      showFailToast('请完善必填信息或修正字段错误');
+      return;
+    }
+    // 未配置审批方式时显式报错，不把未知状态当成无需审批。
+    archiveSubmissionSummary(editSchema.value, submission.value);
+    preparedSubmission.value = cloneDeep(submission.value);
+    confirming.value = true;
+  }
+
+  async function confirmSave(reason = '') {
+    if (
+      saving.value ||
+      !editing.value ||
+      !confirming.value ||
+      !preparedSubmission.value
+    )
+      return;
+    const needsReason = submitSummary.value.approval.length > 0;
+    if (needsReason && !reason.trim()) {
+      showFailToast('请填写申请原因');
+      return;
+    }
+    const submission = cloneDeep(preparedSubmission.value);
+    if (needsReason) submission.reason = reason.trim();
+    confirming.value = false;
+    await performSave(submission);
+  }
+
+  function submitError(cause: unknown) {
+    showFailToast(
+      savedNeedsRefresh.value
+        ? '已提交，回读失败，请重试刷新'
+        : cause instanceof Error
+          ? cause.message
+          : '提交失败',
+    );
+  }
+
   function back() {
     // WebView 有上级路由时交由路由守卫确认；无上级时只触发宿主已有的浏览历史。
     if (window.history.length > 1) router.back();
-    else void cancelEdit();
+    else
+      void confirmDiscard().then((accepted) => {
+        if (accepted) cancelEdit();
+      });
   }
 
   onBeforeRouteLeave(confirmDiscard);
@@ -388,6 +523,9 @@ export function useEmployeeArchive() {
     panel,
     readSchema,
     editSchema,
+    approvalNotice,
+    confirming,
+    submitSummary,
     canEdit,
     canAdd,
     permissionsReady,
@@ -404,15 +542,8 @@ export function useEmployeeArchive() {
     back,
     changeTab: () => loadTab().catch(showError),
     retry: () => initialize().catch(showError),
-    save: () =>
-      save().catch((cause) => {
-        showFailToast(
-          savedNeedsRefresh.value
-            ? '已提交，回读失败，请重试刷新'
-            : cause instanceof Error
-              ? cause.message
-              : '提交失败',
-        );
-      }),
+    save: (validate?: () => Promise<boolean>) =>
+      save(validate).catch(submitError),
+    confirmSave: (reason?: string) => confirmSave(reason).catch(submitError),
   };
 }

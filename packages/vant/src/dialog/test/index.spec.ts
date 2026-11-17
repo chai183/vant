@@ -1,4 +1,5 @@
 import Dialog from '../Dialog';
+import { h } from 'vue';
 import { later, mount } from '../../../test';
 
 test('should allow to intercept closing action with before-close prop', async () => {
@@ -403,6 +404,9 @@ test('should validate input before confirm when using input config', async () =>
   expect(wrapper.find('.van-field__error-message').text()).toEqual(
     'Please input your name',
   );
+  expect(
+    wrapper.find('.van-field__body .van-field__error-message').exists(),
+  ).toBe(false);
 
   await wrapper.find('input').setValue('Vant');
   await later();
@@ -412,6 +416,25 @@ test('should validate input before confirm when using input config', async () =>
   expect(wrapper.emitted('confirm')?.[0]).toEqual(['Vant']);
   expect(wrapper.emitted('update:show')?.[0]).toEqual([false]);
 });
+
+test.each(['before', 'after'] as const)(
+  'should place built-in input %s custom content',
+  (position) => {
+    const wrapper = mount(Dialog, {
+      props: {
+        show: true,
+        title: 'Title',
+        inputConfig: { position, type: 'textarea' },
+      },
+      slots: { default: () => h('p', 'Content') },
+    });
+    const content = wrapper.find('.van-dialog__content').element;
+    expect(content.textContent).toContain('Content');
+    expect(
+      content.firstElementChild?.classList.contains('van-dialog__input'),
+    ).toBe(position === 'before');
+  },
+);
 
 test('should support textarea input config with word limit', async () => {
   const wrapper = mount(Dialog, {

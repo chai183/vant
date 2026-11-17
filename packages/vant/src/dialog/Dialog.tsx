@@ -725,6 +725,7 @@ export default defineComponent({
       return (
         <div
           class={bem('input', {
+            before: inputConfig.position === 'before',
             'has-title': hasTitle && !hasMessage,
             isolated: !hasTitle && !hasMessage,
           })}
@@ -765,6 +766,7 @@ export default defineComponent({
       const hasTitle = !!(title || slots.title);
       const hasMessage = !hasCustomContent && !!message;
       const hasInput = !!inputConfig;
+      const inputBefore = hasInput && inputConfig.position === 'before';
       if (!hasCustomContent && !hasMessage && !hasInput) return;
       return (
         <div
@@ -777,12 +779,13 @@ export default defineComponent({
             内容区有 3 种来源：
             1. default slot：业务完全自定义内容，此时不再渲染默认的 message
             2. message：Dialog 默认文本内容
-            3. inputConfig：在 message 下方追加内置输入框
+            3. inputConfig：默认在内容下方，position=before 时放在内容上方
           */}
+          {inputBefore && renderInput(hasTitle, false)}
           {hasCustomContent
             ? slots.default?.()
             : hasMessage && renderMessage(hasTitle, hasInput)}
-          {hasInput && renderInput(hasTitle, hasMessage)}
+          {hasInput && !inputBefore && renderInput(hasTitle, hasMessage)}
         </div>
       );
     };

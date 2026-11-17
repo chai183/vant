@@ -18,12 +18,15 @@ const t = useTranslate({
     uploaderFileDesc2: '所上传文件大小控制在 20M 以内，支持批量上传',
     uploaderFileUpload: '添加附件',
     remark: '备注',
+    approval: '审',
     remarkInputComment: '请输入与业务相关的补充说明',
     contact: '联系人',
     contactPlaceholder: '请输入联系人',
     contactDefault: '张三',
     quickFill: '填入',
     placeholder: '请输入用户名',
+    lazyLabel: '懒加载已选文案',
+    lazyOption: '已选示例',
     rangeInputPlaceholder: '请输入',
   },
   'en-US': {
@@ -36,12 +39,15 @@ const t = useTranslate({
     uploaderFileDesc2: 'Max file size 20MB. Batch upload supported.',
     uploaderFileUpload: 'Add Attachment',
     remark: 'Remark',
+    approval: 'Review',
     remarkInputComment: 'Enter supplementary notes for your business',
     contact: 'Contact',
     contactPlaceholder: 'Enter contact',
     contactDefault: 'Alex',
     quickFill: 'Fill',
     placeholder: 'Enter username',
+    lazyLabel: 'Lazy selected label',
+    lazyOption: 'Selected option',
     rangeInputPlaceholder: 'Please enter',
   },
 });
@@ -56,9 +62,20 @@ const demoUploaderFileUpload: UploaderFileUpload = (item) =>
 const fieldSlotModel = ref({
   uploader: [] as { url: string }[],
   remark: '',
+  lazy: 'selected',
 });
 
 const fieldSlotColumns = computed<ProFormColumn[]>(() => [
+  {
+    name: 'lazy',
+    label: t('lazyLabel'),
+    component: 'radioPicker',
+    options: [{ label: t('lazyOption'), value: 'selected' }],
+    componentProps: {
+      isList: true,
+      loadOptions: () => [{ label: t('lazyOption'), value: 'selected' }],
+    },
+  },
   {
     name: 'uploader',
     label: t('uploader'),
@@ -117,9 +134,13 @@ const fieldSlotColumns = computed<ProFormColumn[]>(() => [
     component: 'field',
     fieldProps: {
       placeholder: t('placeholder'),
+      required: true,
     },
     fieldSlots: {
       'input-comment': t('remarkInputComment'),
+      'label-suffix': () => (
+        <span style={{ marginLeft: '6px' }}>{t('approval')}</span>
+      ),
     },
   },
 ]);

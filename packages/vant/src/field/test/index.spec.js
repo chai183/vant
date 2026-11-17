@@ -1,6 +1,23 @@
 import { Field } from '..';
 import { mount, later } from '../../../test';
 
+test.each(['left', 'top'])(
+  'label-suffix follows the required mark (%s)',
+  (labelAlign) => {
+    const wrapper = mount(Field, {
+      props: { label: 'Name', required: true, labelAlign },
+      slots: { 'label-suffix': 'Review' },
+    });
+    expect(wrapper.find('.van-field__label-wrap').text()).toBe('Name*Review');
+    expect(wrapper.findAll('.van-field__required-mark')).toHaveLength(1);
+    expect(
+      wrapper
+        .find('.van-field__label--suffix.van-field__label--required')
+        .exists(),
+    ).toBe(true);
+  },
+);
+
 const showToast = vi.hoisted(() => vi.fn());
 
 vi.mock('../../toast', () => ({
@@ -767,7 +784,9 @@ test('should render label comment in field label-comment', () => {
     },
   });
 
-  expect(wrapper.find('.van-field__label-comment').text()).toEqual('Label note');
+  expect(wrapper.find('.van-field__label-comment').text()).toEqual(
+    'Label note',
+  );
 });
 
 test('should render label comment below label when labelAlign is top', () => {
@@ -897,9 +916,9 @@ test('should add filled class to money currency when value is not empty', () => 
     },
   });
 
-  expect(
-    wrapper.find('.van-field__money-currency--filled').exists(),
-  ).toBe(true);
+  expect(wrapper.find('.van-field__money-currency--filled').exists()).toBe(
+    true,
+  );
 });
 
 test('should not render money unit label by default when type is money', () => {

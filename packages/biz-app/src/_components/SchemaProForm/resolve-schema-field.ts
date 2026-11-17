@@ -42,6 +42,8 @@ export const defaultResolveSchemaField: ResolveSchemaField = (
   field: SchemaFieldItem,
   column: ProFormColumn,
 ) => {
+  // 已声明远程数据源/字典时不再注入早期示例选项。
+  if (field.dataSource || (column as { dictCode?: string }).dictCode) return;
   if (field?.columnName === 'gender' || field?.columnName === 'sex') {
     if (!column.options?.length) {
       return {

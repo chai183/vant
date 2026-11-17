@@ -553,14 +553,20 @@ export function buildSchemaFieldColumn(
     dictCode != null && String(dictCode).trim() !== ''
       ? dictOptions[String(dictCode)]
       : undefined;
-  const optionsList = (field.options ||
-    fieldOptions[name] ||
-    dictOptionList) as SchemaOption[] | undefined;
+  // 后端的空 options 数组不阻断已经加载的字典。
+  const optionsList = (
+    field.options?.length
+      ? field.options
+      : fieldOptions[name]?.length
+        ? fieldOptions[name]
+        : dictOptionList
+  ) as SchemaOption[] | undefined;
   const resolvedOptions =
     optionsList || (isBooleanField ? BOOLEAN_FIELD_OPTIONS : undefined);
 
   const isInputLike =
     component === 'field' &&
+    !field.dataSource &&
     fieldType !== 'DATE' &&
     fieldType !== 'TIME' &&
     fieldType !== 'DATETIME' &&

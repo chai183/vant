@@ -118,8 +118,7 @@ export default defineComponent({
         'pageSize',
       ]);
       const locked = isDisabled() || isReadonly();
-      const labelOptions =
-        remoteOptions.value.length > 0 ? remoteOptions.value : options;
+      const labelOptions = [...remoteOptions.value, ...staticOptions];
       const displayValue = resolveOptionLabels(labelOptions, modelValue);
       const popupBottom = props.popupSlots?.['popup-bottom'];
       const showSearch = Boolean(checkboxProps.showSearch);

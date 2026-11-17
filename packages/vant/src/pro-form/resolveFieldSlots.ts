@@ -3,6 +3,7 @@ import type { ProFormColumn, ProFormRenderContext } from './types';
 
 export const PRO_FORM_FIELD_SLOT_NAMES = [
   'label',
+  'label-suffix',
   'label-comment',
   'label-tooltip',
   'label-action',

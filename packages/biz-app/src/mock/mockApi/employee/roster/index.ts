@@ -86,7 +86,9 @@ const rosterMocks: MockMethod[] = [
   {
     url: `/api${ROSTER_DETAIL_CUSTOM_URL}`,
     method: 'post',
-    response: () => unifiedSuccess(rosterDetailMultiRecordByTab.LICENSE),
+    // 各自定义信息集已有独立样本，不把地区信息错误返回成证照记录。
+    response: ({ body }: { body?: { setCode?: string } }) =>
+      unifiedSuccess(rosterDetailMultiRecordByTab[body?.setCode || ''] || []),
   },
   ...Object.entries(ROSTER_DETAIL_MULTI_RECORD_PATH).map(([tabCode, path]) => ({
     url: `/api${path}`,

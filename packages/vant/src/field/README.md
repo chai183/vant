@@ -612,6 +612,18 @@ export default {
 };
 ```
 
+### Label suffix
+
+Use the `label-suffix` slot to append content after the label and required asterisk. Works with top and horizontal labels.
+
+```html
+<van-field required label="Name">
+  <template #label-suffix
+    ><span style="margin-left: 6px">Review</span></template
+  >
+</van-field>
+```
+
 ## API
 
 ### Props
@@ -736,6 +748,7 @@ fieldRef.value?.focus();
 | Name | Description | SlotProps |
 | --- | --- | --- |
 | label | Custom label | - |
+| label-suffix `new` | Content after the label and required asterisk | - |
 | label-comment `new` | Custom note below the label, passed through to Cell's `label`; takes precedence over the `label-comment` prop | - |
 | input | Custom input | - |
 | left-icon | Custom left icon | - |

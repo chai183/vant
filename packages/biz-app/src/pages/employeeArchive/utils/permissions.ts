@@ -6,6 +6,7 @@ import type {
   ArchiveSchema,
   ArchivePending,
   ArchiveSubmission,
+  ArchiveField,
 } from '@/types/employeeArchive';
 import type { RosterTeamAuthNode } from '@/types/employee/roster';
 import { archiveFieldPermission } from '@/services/api/employeeArchive/entity';
@@ -17,6 +18,37 @@ import {
   createModelFromSchema,
   unwrapLabelValue,
 } from '@/_components/SchemaProForm/transform-schema';
+import { ROSTER_DETAIL_BASIC_TAB } from '@/services/api/employee/roster/config';
+import { normalizeSchemaUploadFiles } from '@/_components/SchemaProForm/transform-schema-utils';
+
+/** 比较业务值：控件的数字转文本、标签和文件回显不算修改，不改写草稿。 */
+function comparableValue(field: ArchiveField, raw: unknown) {
+  const value = unwrapLabelValue(raw);
+  if (['IMAGE', 'IMG', 'FILE'].includes(field.fieldType))
+    return normalizeSchemaUploadFiles(value).map((file) =>
+      file.fileId != null ? String(file.fileId) : file,
+    );
+  if (value == null || value === '') return '';
+  if (field.fieldType === 'BOOLEAN') {
+    if (value === true || value === 1 || value === '1' || value === 'true')
+      return 1;
+    if (value === false || value === 0 || value === '0' || value === 'false')
+      return 0;
+  }
+  if (
+    ['INTEGER', 'DOUBLE'].includes(field.fieldType) &&
+    (typeof value === 'number' ||
+      (typeof value === 'string' && value.trim() !== '')) &&
+    Number.isFinite(Number(value))
+  )
+    return Number(value);
+  if (
+    ['TEXT', 'LONG_TEXT', 'OPTION'].includes(field.fieldType) &&
+    (typeof value === 'string' || typeof value === 'number')
+  )
+    return String(value);
+  return value;
+}
 
 /** 仅做团队授权裁剪，保留每个字段的完整元数据。 */
 export function archiveTeamSchema(
@@ -46,6 +78,7 @@ export function archiveTeamSchema(
 export function archiveEditSchema(
   schema: ArchiveSchema,
   rules: ArchivePermission[],
+  pending: ArchivePending[] = [],
 ): ArchiveSchema {
   return {
     ...schema,
@@ -68,14 +101,26 @@ export function archiveEditSchema(
             field.fieldType === 'ADVANCED'
               ? 'readonly'
               : rule?.permission || 'readonly';
-          return [{ ...field, permission, needsApproval: rule?.needsApproval }];
+          // 基础信息有待审申请时，所有需审批字段禁改；其余信息集整体禁改。
+          const pendingLocked =
+            pending.length > 0 &&
+            (schema.setCode !== ROSTER_DETAIL_BASIC_TAB ||
+              rule?.needsApproval === true);
+          return [
+            {
+              ...field,
+              permission,
+              needsApproval: rule?.needsApproval,
+              disabled: Boolean(field.disabled || pendingLocked),
+            },
+          ];
         }),
       }))
       .filter((group) => group.fieldList.length),
   };
 }
 
-/** 待审记录锁定，单条信息集仅锁定待审字段。 */
+/** 记录级锁定；信息集级的待审限制另由编辑 schema 统一禁用。 */
 export function archiveFieldLocked(
   pending: ArchivePending[],
   recordId: string,
@@ -134,6 +179,7 @@ export function buildArchiveSubmission(
         group.fieldList.flatMap((field) => {
           if (
             field.permission !== 'editable' ||
+            field.disabled ||
             archiveFieldLocked(
               pending,
               record.id,
@@ -149,7 +195,14 @@ export function buildArchiveSubmission(
           const previous = unwrapLabelValue(
             original?.groups[group.groupCode]?.[field.columnName],
           );
-          if (isEqual(value, previous)) return [];
+          if (
+            original &&
+            isEqual(
+              comparableValue(field, value),
+              comparableValue(field, previous),
+            )
+          )
+            return [];
           const submittedValue =
             ['IMAGE', 'IMG', 'FILE'].includes(field.fieldType) &&
             Array.isArray(value)
@@ -173,4 +226,30 @@ export function buildArchiveSubmission(
       return changes.length ? [{ id: record.id, changes }] : [];
     }),
   };
+}
+
+/** 确认内容只列出实际改动的字段，分别说明审批后生效与直接生效。 */
+export function archiveSubmissionSummary(
+  schema: ArchiveSchema,
+  submission: ArchiveSubmission,
+) {
+  const approval = new Set<string>();
+  const immediate = new Set<string>();
+  submission.records.forEach((record) =>
+    record.changes.forEach((change) => {
+      const group = schema.groupList.find(
+        (item) => item.groupCode === change.groupCode,
+      );
+      const field = group?.fieldList.find(
+        (item) => item.columnName === change.columnName,
+      );
+      if (!field || field.needsApproval == null)
+        throw new Error('修改字段尚未配置审批方式，请联系管理员');
+      const label = group?.groupName
+        ? `${group.groupName}：${field.fieldName}`
+        : field.fieldName;
+      (field.needsApproval ? approval : immediate).add(label);
+    }),
+  );
+  return { approval: [...approval], immediate: [...immediate] };
 }

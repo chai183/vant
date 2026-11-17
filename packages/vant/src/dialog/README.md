@@ -172,6 +172,28 @@ showConfirmDialog({
 });
 ```
 
+### Input Position
+
+The input appears after the message or default slot by default. Set `inputConfig.position` to `before` to place it first. Validation errors appear below the input, and confirmation only closes the dialog after validation passes.
+
+```js
+showConfirmDialog({
+  title: 'Notice',
+  message: 'Changes will be submitted for HR approval.',
+  inputConfig: {
+    type: 'textarea',
+    position: 'before',
+    rows: 3,
+    placeholder: 'Enter a reason',
+    rules: [{ required: true, message: 'Enter a reason' }],
+  },
+});
+```
+
+| inputConfig property | Description | Type | Default |
+| --- | --- | --- | --- |
+| position `new` | Input position relative to the message or default slot | _'before' \| 'after'_ | `after` |
+
 ### Input Field
 
 Use `inputConfig` to append a built-in input area below `message` while keeping both `title` and `message`. The input area is based on the `Field` component and supports short text, textarea, validation, and word count.
@@ -400,6 +422,7 @@ type DialogInputValidateTrigger = 'onBlur' | 'onChange' | 'onConfirm';
 
 type DialogInputConfig = {
   type?: DialogInputType;
+  position?: 'before' | 'after';
   defaultValue?: string;
   placeholder?: string;
   maxlength?: number | string;

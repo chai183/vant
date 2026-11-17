@@ -406,6 +406,10 @@ function applyOptionTypeConfig(
   // dataSource + isList：弹层打开时 loadOptions 拉接口（对齐 PC dataSource）
   const dataSource = String(field?.dataSource || '').trim();
   if (dataSource && isKnownDataSource(dataSource)) {
+    column.fieldProps = {
+      ...column.fieldProps,
+      placeholder: field.placeholder || `请选择${field.fieldName}`,
+    };
     const defaults = getDataSourceFieldDefaults(dataSource);
     const isCheckbox =
       column.component === 'checkboxPicker' || defaults.multiple === true;
@@ -420,15 +424,23 @@ function applyOptionTypeConfig(
       ...defaults,
       ...column.componentProps,
       isList: true,
-      loadOptions: createDataSourceLoadOptions(dataSource),
+      loadOptions: createDataSourceLoadOptions(
+        dataSource,
+        field.dataSourceParams,
+      ),
     };
     delete column.componentProps.multiple;
-    // 回显：缓存命中带 options；否则用 fieldMapping 文案兜底
-    const cached = getDataSourceOptions(dataSource);
+    // 已选文案来自原详情的 fieldMapping，仅用于回显，不加入远程可选列表。
+    const sourceParams =
+      typeof field.dataSourceParams === 'function'
+        ? field.dataSourceParams()
+        : field.dataSourceParams;
+    const cached = getDataSourceOptions(dataSource, sourceParams);
     if (cached.length) {
       column.options = cached;
       column.componentProps.options = cached;
-    } else if (
+    }
+    if (
       column.propReadOnly &&
       options.model &&
       options.model[column.name || ''] != null &&
@@ -436,8 +448,13 @@ function applyOptionTypeConfig(
     ) {
       const value = options.model[column.name || ''];
       const labelText = options.model[column.propReadOnly];
-      if (labelText != null && labelText !== '') {
+      if (
+        labelText != null &&
+        labelText !== '' &&
+        !column.options?.some((item) => String(item.value) === String(value))
+      ) {
         column.options = [
+          ...(column.options || []),
           { label: String(labelText), value: value as string | number },
         ];
         column.componentProps.options = column.options;
@@ -471,12 +488,11 @@ export function applyTypeConfigToColumn(
       column.fieldProps = {
         ...column.fieldProps,
         maxlength: Number(typeConfig.valueLength),
-        showWordLimit: true,
       };
     }
   }
 
-  if (fieldType === 'OPTION') {
+  if (fieldType === 'OPTION' || field.dataSource) {
     applyOptionTypeConfig(column, field, typeConfig, extras);
   }
 

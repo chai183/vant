@@ -50,6 +50,8 @@ export type DialogMessageHighlightConfig = Partial<
 // 输入框配置
 export type DialogInputConfig = {
   type?: DialogInputType;
+  /** 输入区相对消息或默认插槽的位置，默认 after。 */
+  position?: 'before' | 'after';
   defaultValue?: string;
   placeholder?: string;
   maxlength?: Numeric;

@@ -47,12 +47,15 @@ export type ArchiveChange = {
 export type ArchiveSubmission = {
   staffId: string;
   setCode: string;
+  /** 本次有需审批的修改时填写，提交到请求最外层。 */
+  reason?: string;
   records: Array<{ id: string; changes: ArchiveChange[] }>;
 };
 
 export type ArchivePending = {
   recordId: string;
   changes: ArchiveChange[];
+  reason?: string;
 };
 
 /** 开发联调的已生效记录与待审状态，正式状态查询协议待后端提供。 */
@@ -72,6 +75,7 @@ export type ArchiveEditRequest = {
   url: string;
   data: {
     staffId: string;
+    reason?: string;
     setCode?: string;
     forceSave?: boolean;
     regularFlag?: number;

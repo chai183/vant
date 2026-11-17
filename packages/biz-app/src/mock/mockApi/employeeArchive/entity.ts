@@ -63,6 +63,7 @@ export function submitArchiveMock(data: ArchiveSubmission) {
       adaptRosterTeamAuthTree(rosterSettingsMockState.selected),
     ),
     permissions,
+    state.pending,
   );
   const multi = getRosterDetailTabKind(data.setCode) === 'multiRecord';
   let hasPending = false;
@@ -75,13 +76,18 @@ export function submitArchiveMock(data: ArchiveSubmission) {
       record = { id: `archive-${crypto.randomUUID()}`, groups: {} };
       state.records.push(record);
     }
-    const pending = { recordId: record.id, changes: [] as typeof item.changes };
+    const pending = {
+      recordId: record.id,
+      changes: [] as typeof item.changes,
+      ...(data.reason?.trim() ? { reason: data.reason.trim() } : {}),
+    };
     for (const change of item.changes) {
       const field = schema.groupList
         .find((group) => group.groupCode === change.groupCode)
         ?.fieldList.find((field) => field.columnName === change.columnName);
       if (
         field?.permission !== 'editable' ||
+        field.disabled ||
         archiveFieldLocked(
           state.pending,
           record.id,
@@ -162,6 +168,7 @@ export function submitArchiveEditMock(
   const submission: ArchiveSubmission = {
     staffId: data.staffId,
     setCode,
+    reason: data.reason,
     records: rows.flatMap((row) => {
       const multi = !api || api.mode === 'list';
       const original = multi

@@ -26,6 +26,14 @@
 设置页接口见 [settings/API.md](./settings/API.md)。  
 组织树 / 部门人员见 [organization/org/API.md](../../organization/org/API.md)。
 
+## 字段 Mock 同步范围
+
+`src/mock/mockApi/employee/roster/detail-data.ts` 的页签、字段、分组及基础/固定单条/多条/自定义详情样本按 PC 花名册详情 Mock 同步（2026-11-17）。员工档案复用这一份数据，不再维护独立字段样本。团队和个人授权仍使用移动端联调样本，未替换成 PC 管理配置。
+
+PC 缺少的证件照正反面、两组银行卡图片、教育证书照1/2在移动端补充，共6个图片字段；样本同时带明确的 Mock 文件 ID 和已有展示地址。补充字段的 1 张、8MB、png/jpg/jpeg 仅为开发样本，不是产品固定限制。PC 已有图片/附件的大小、数量、格式保持原值。LICENSE 有独立证照数据但 PC 缺少配套列，保留证照三字段，不借用家庭成员占位列。
+
+档案 Schema 将 PC 字段顶层的 required、length、dictCode、level、parentColumnName、数值及上传限制转换为通用表单配置，已有 typeConfigJson 优先。地区信息等自定义详情按对应 setCode 返回，不混用 LICENSE 数据。成长记录、附件专用面板和成本的移动端展示样本不在本次字段同步范围。
+
 ## 假接口
 
 | 接口 | Method | URL | 来源 |

@@ -973,6 +973,25 @@ export default defineComponent({
       const collapsible = isLabelCollapsible();
       const topRequiredMark = renderTopRequiredMark();
 
+      // 尾部标记始终排在必填星号之后，不把业务标记混入 label 文案。
+      if (slots['label-suffix'] && (slots.label || props.label)) {
+        return (
+          <span class={bem('label-wrap')}>
+            <span id={`${id}-label`}>
+              {slots.label ? slots.label() : props.label}
+              {colon}
+            </span>
+            {showRequiredMark.value && (
+              <span class={bem('required-mark')} aria-hidden="true">
+                *
+              </span>
+            )}
+            {slots['label-suffix']()}
+            {tooltip}
+          </span>
+        );
+      }
+
       if (slots.label) {
         if (!tooltip && !topRequiredMark) {
           return [slots.label(), colon];
@@ -1353,7 +1372,13 @@ export default defineComponent({
           titleStyle={labelStyle.value}
           valueClass={bem('value')}
           titleClass={[
-            bem('label', [labelAlign, { required: showRequiredMark.value }]),
+            bem('label', [
+              labelAlign,
+              {
+                required: showRequiredMark.value,
+                suffix: !!slots['label-suffix'],
+              },
+            ]),
             props.labelClass,
           ]}
           arrowDirection={props.arrowDirection}

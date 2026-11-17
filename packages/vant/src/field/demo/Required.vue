@@ -12,6 +12,8 @@ const t = useTranslate({
     required: '必填星号',
     autoRequired: '自动展示星号',
     requiredTop: '顶部对齐必填星号',
+    suffix: '标签尾部标记',
+    approval: '审',
   },
   'en-US': {
     phone: 'Phone',
@@ -19,6 +21,8 @@ const t = useTranslate({
     required: 'Required',
     autoRequired: 'Auto Required',
     requiredTop: 'Required with Top Label',
+    suffix: 'Label suffix',
+    approval: 'Review',
   },
 });
 
@@ -47,6 +51,14 @@ const comment = ref('');
         :placeholder="t('comment')"
       />
     </van-cell-group>
+  </demo-block>
+
+  <demo-block :title="t('suffix')">
+    <van-field v-model="username" required :label="t('username')">
+      <template #label-suffix
+        ><span style="margin-left: 6px">{{ t('approval') }}</span></template
+      >
+    </van-field>
   </demo-block>
 
   <demo-block :title="t('autoRequired')">

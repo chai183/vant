@@ -650,6 +650,22 @@ const columns = computed(() => [
 ]);
 ```
 
+懒加载单选/多选列表打开前，使用 `options` 中已有的已选文案回显；弹层仍只展示 `loadOptions` 的真实返回项，数字 `0` 也能正常回显。
+
+### 标签尾部标记
+
+`fieldSlots['label-suffix']` 可在标签和必填星号之后渲染审核等业务标记。
+
+```js
+{
+  name: 'name',
+  label: '姓名',
+  component: 'field',
+  fieldProps: { required: true },
+  fieldSlots: { 'label-suffix': '审' },
+}
+```
+
 ## API
 
 ### ProForm Props

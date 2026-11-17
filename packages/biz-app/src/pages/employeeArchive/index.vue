@@ -44,16 +44,13 @@
     </div>
     <!-- /*----档案信息集页签end----*/ -->
     <van-notice-bar
-      v-if="panel.pending.length"
+      v-if="editing && approvalNotice && !savedNeedsRefresh"
+      :key="activeCode"
+      mode="closeable"
       wrapable
+      :scrollable="false"
       left-icon="info-o"
-      text="您有信息正在审批中，待审批内容暂不能再次修改。"
-    />
-    <van-notice-bar
-      v-if="editing && !savedNeedsRefresh"
-      wrapable
-      left-icon="info-o"
-      text="带“审”字标记的字段修改后需要 HR 审批，审核通过后生效。"
+      :text="approvalNotice"
     />
     <!-- /*----档案内容start----*/ -->
     <main class="employee-archive-main">
@@ -140,7 +137,7 @@
           type="primary"
           :loading="saving"
           @click="saveCurrent"
-          >{{ savedNeedsRefresh ? '重试刷新' : '保存' }}</van-button
+          >{{ savedNeedsRefresh ? '重试刷新' : '提交' }}</van-button
         >
       </template>
       <van-button v-else round plain type="primary" block @click="startEdit"
@@ -148,6 +145,14 @@
       >
     </footer>
     <!-- /*----档案编辑操作end----*/ -->
+    <!-- /*----提交二次确认start----*/ -->
+    <ArchiveSubmitDialog
+      v-model:show="confirming"
+      :basic="activeCode === ROSTER_DETAIL_BASIC_TAB"
+      :summary="submitSummary"
+      @submit="confirmSave"
+    />
+    <!-- /*----提交二次确认end----*/ -->
   </div>
 </template>
 
@@ -160,6 +165,8 @@ import RosterGrowth from '@/pages/roster/detail/components/growth.vue';
 import RosterCost from '@/pages/roster/detail/components/cost.vue';
 import RosterAttachment from '@/pages/roster/detail/components/attachment.vue';
 import ArchiveEditPanel from './components/ArchiveEditPanel/index.vue';
+import ArchiveSubmitDialog from './components/ArchiveSubmitDialog/index.vue';
+import { ROSTER_DETAIL_BASIC_TAB } from '@/services/api/employee/roster/config';
 import { useEmployeeArchive } from './composables/useEmployeeArchive';
 
 defineOptions({ name: 'EmployeeArchive' });
@@ -175,6 +182,9 @@ const {
   panel,
   readSchema,
   editSchema,
+  approvalNotice,
+  confirming,
+  submitSummary,
   canEdit,
   canAdd,
   editing,
@@ -190,12 +200,13 @@ const {
   back,
   retry,
   save,
+  confirmSave,
 } = useEmployeeArchive();
 /** 原有专用信息集仍复用详情组件。 */
 const secondaryTab = ref('change');
 /** 附件页内切换，不改变档案一级页签。 */
 const attachmentTab = ref('ROSTER_ATTACH');
-/** 保存先校验实际动态表单。 */
+/** 有实际变更后，再校验动态表单并定位错误。 */
 const editorRef = ref<InstanceType<typeof ArchiveEditPanel> | null>(null);
 /** 页签展开菜单也必须通过未保存确认。 */
 const menuRef = ref<DropdownItemInstance | null>(null);
@@ -207,8 +218,7 @@ async function selectMenuTab(code: string) {
   menuRef.value?.toggle(false);
 }
 async function saveCurrent() {
-  if (savedNeedsRefresh.value || (await editorRef.value?.validate()))
-    await save();
+  await save(async () => Boolean(await editorRef.value?.validate()));
 }
 /*----档案数据与编辑end----*/
 </script>

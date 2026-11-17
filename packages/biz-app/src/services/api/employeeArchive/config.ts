@@ -8,6 +8,24 @@ export const ARCHIVE_ADDABLE_SETS = [
 export const ARCHIVE_DISCARD_MESSAGE =
   '离开当前页面未保存的数据将会丢失，确定离开吗？';
 
+/** 对齐 PC roster/list/config 的固定数据源映射，字典和显式 dataSource 优先。 */
+export const ARCHIVE_FIELD_DATA_SOURCES: Record<string, string> = {
+  orgId: 'department',
+  concurrentOrg: 'department',
+  positionId: 'position-enable',
+  concurrentPosition: 'position-enable',
+  positionCategoryId: 'jobCategory',
+  positionTitleId: 'job',
+  jobLevelId: 'grade',
+  workLocation: 'workLocation',
+  contractCompanyId: 'corporation',
+  taxWithholdingObligor: 'legalEntity',
+  socialSecurityPlanName: 'socialSecurityPlan',
+  providentFundPlanName: 'providentFundPlan',
+  socialSecurityOrg: 'socialSecurityOrg',
+  providentFundOrg: 'providentFundOrg',
+};
+
 /** 与 PC 花名册详情 tabApi.ts 一一对应，不按接口名称推导路径。 */
 export const ARCHIVE_EDIT_APIS: Record<
   string,

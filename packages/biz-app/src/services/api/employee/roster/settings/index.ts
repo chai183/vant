@@ -1,5 +1,5 @@
 import apiClient from '@/services/api';
-import type { RosterSettingNode } from '@/types/roster/settings';
+import type { RosterSettingNode } from '@/types/employee/roster/settings';
 import { ROSTER_TEAM_AUTH_BASIC_URL } from '@/services/api/employee/roster/config';
 import { adaptRosterTeamAuthBasic } from '@/services/api/employee/roster/entity';
 import { adaptRosterSettingsTree, toRosterSettingsSaveBody } from './entity';

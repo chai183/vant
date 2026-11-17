@@ -1,5 +1,5 @@
 import type { MockMethod } from 'vite-plugin-mock';
-import type { RosterSettingsSaveBody } from '@/types/roster/settings';
+import type { RosterSettingsSaveBody } from '@/types/employee/roster/settings';
 import { saveRosterSettingsMock } from './entity';
 
 export default [

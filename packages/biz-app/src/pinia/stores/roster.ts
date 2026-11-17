@@ -12,7 +12,7 @@ import type {
 } from '@/types/employee/roster';
 import { getRosterTeamAuthSelectedApi } from '@/services/api/employee/roster';
 import { createRosterFieldSchema } from '@/pages/roster/utils/fieldSchema';
-import type { RosterSettingNode } from '@/types/roster/settings';
+import type { RosterSettingNode } from '@/types/employee/roster/settings';
 
 export const useRosterStore = defineStore('roster', () => {
   /** 已成功拿到已选字段，才按授权裁剪 */

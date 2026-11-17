@@ -1,3 +1,5 @@
+import { adaptDeptStaffPage } from '../src/services/api/organization/org/entity';
+import { adaptRosterStaffPage } from '../src/services/api/employee/roster/entity';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import { createPinia, setActivePinia } from 'pinia';
 import { createMemoryHistory, createRouter } from 'vue-router';
@@ -9,11 +11,11 @@ import { useRosterStore } from '../src/pinia/stores/roster';
 import {
   adaptRosterSettingsTree,
   toRosterSettingsSaveBody,
-} from '../src/services/api/roster/settings/entity';
+} from '../src/services/api/employee/roster/settings/entity';
 import {
   getRosterSettingsOptionsApi,
   saveRosterSettingsApi,
-} from '../src/services/api/roster/settings';
+} from '../src/services/api/employee/roster/settings';
 import {
   ROSTER_TEAM_AUTH_BASIC_URL,
   ROSTER_TEAM_AUTH_LIST_URL,
@@ -24,8 +26,8 @@ import {
   selectSettings,
   settingLeaves,
 } from '../src/pages/roster/settings/utils/selection';
-import { rosterSettingsMockState } from '../src/mock/mockApi/roster/settings/data';
-import { saveRosterSettingsMock } from '../src/mock/mockApi/roster/settings/entity';
+import { rosterSettingsMockState } from '../src/mock/mockApi/employee/roster/settings/data';
+import { saveRosterSettingsMock } from '../src/mock/mockApi/employee/roster/settings/entity';
 
 // 仅隔离网络边界，设置页、Vant、路由、Store 与全部转换逻辑使用真实实现。
 const request = vi.hoisted(() => vi.fn());
@@ -549,5 +551,99 @@ describe('缓存与 Mock 保存回读', () => {
       rosterSettingsMockState.selected = previous;
       rosterSettingsMockState.basic = basic;
     }
+  });
+});
+
+describe('组织人员与花名册搜索使用各自明确的字段契约', () => {
+  it('部门接口只转换 PC 字段，不能被搜索字段或未知别名覆盖', () => {
+    const body = {
+      total: 3,
+      records: [
+        {
+          id: 'staff',
+          staffName: 'PC姓名',
+          workNumber: '001',
+          staffImageId: 'pc-avatar',
+          mobileNo: '123',
+          departmentId: 'org',
+          departmentName: 'PC部门',
+          name: '搜索姓名',
+          avatar: 'search-avatar',
+          phone: '999',
+          orgId: 'other',
+          orgName: '搜索部门',
+          assignDeptIds: ['part-time'],
+        },
+      ],
+    };
+    expect(adaptDeptStaffPage(body, 'org')).toEqual({
+      total: 3,
+      records: [
+        {
+          id: 'staff',
+          name: 'PC姓名',
+          staffNo: '001',
+          avatar: 'pc-avatar',
+          phone: '123',
+          orgId: 'org',
+          orgName: 'PC部门',
+          concurrent: true,
+        },
+      ],
+    });
+    expect(adaptRosterStaffPage(body).records[0]).toMatchObject({
+      name: '搜索姓名',
+      avatar: 'search-avatar',
+      phone: '999',
+      orgId: 'other',
+      orgName: '搜索部门',
+    });
+  });
+
+  it('PC 字段缺失时给空值，不从搜索字段猜测回填；异常响应给空页', () => {
+    expect(
+      adaptDeptStaffPage(
+        {
+          records: [
+            {
+              id: 'staff',
+              name: '搜索姓名',
+              avatar: 'search-avatar',
+              phone: '999',
+              orgId: 'other',
+              orgName: '搜索部门',
+            },
+          ],
+        },
+        'org',
+      ).records[0],
+    ).toMatchObject({
+      name: '',
+      staffNo: '',
+      avatar: '',
+      phone: '',
+      orgId: '',
+      orgName: '',
+      concurrent: false,
+    });
+    expect(adaptDeptStaffPage(null, 'org')).toEqual({ records: [], total: 0 });
+  });
+
+  it('兼任依据 PC assignDeptIds 和当前部门计算，不读取搜索接口的 concurrent 标志', () => {
+    const body = {
+      records: [
+        {
+          id: 'staff',
+          departmentId: 'main',
+          assignDeptIds: ['part-time'],
+          concurrent: false,
+        },
+      ],
+    };
+    expect(adaptDeptStaffPage(body, 'main').records[0].concurrent).toBe(true);
+    expect(adaptDeptStaffPage(body, 'part-time').records[0].concurrent).toBe(
+      true,
+    );
+    expect(adaptDeptStaffPage(body, 'other').records[0].concurrent).toBe(false);
   });
 });

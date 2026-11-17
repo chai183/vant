@@ -7,6 +7,7 @@ import { parseTypeConfigJson } from '@/_components/SchemaProForm/transform-schem
 import type {
   SchemaFieldItem,
   SchemaFieldSet,
+  SchemaFieldTypeConfig,
 } from '@/_components/SchemaProForm/types';
 
 /** 模板字段类型 → schema fieldType（兼容历史中文值） */
@@ -61,7 +62,7 @@ const WAIT_ENTRY_COLUMN_BY_NAME: Record<string, string> = {
 };
 
 /** 待入职字段 typeConfigJson（仅补字典） */
-const WAIT_ENTRY_TYPE_CONFIG: Record<string, Record<string, unknown>> = {
+const WAIT_ENTRY_TYPE_CONFIG: Record<string, SchemaFieldTypeConfig> = {
   idCardType: {
     dictId: 'GROUP.Enum.IdCardType',
     level: 1,
@@ -81,7 +82,7 @@ const WAIT_ENTRY_TYPE_CONFIG: Record<string, Record<string, unknown>> = {
 };
 
 /** 其它选项字段：无 columnName 覆盖时仍按字段名补字典 */
-const OPTION_DICT_BY_NAME: Record<string, Record<string, unknown>> = {
+const OPTION_DICT_BY_NAME: Record<string, SchemaFieldTypeConfig> = {
   证件类型: WAIT_ENTRY_TYPE_CONFIG.idCardType,
   员工类型: WAIT_ENTRY_TYPE_CONFIG.staffType,
   合同类型: WAIT_ENTRY_TYPE_CONFIG.contractType,
@@ -152,9 +153,15 @@ function resolveTypeConfigJson(
   field: Record<string, unknown>,
   columnName: string,
   fieldName: string,
-) {
-  const parsed = parseTypeConfigJson(field as SchemaFieldItem) || {};
-  const dictCode = field.dictCode || field.dictId;
+): SchemaFieldTypeConfig {
+  // 解析器只读取类型配置，不把尚未转换的原始字段断言成完整 SchemaFieldItem。
+  const parsed = parseTypeConfigJson({
+    columnName,
+    fieldName,
+    fieldType: String(field.fieldType || ''),
+    typeConfigJson: field.typeConfigJson as SchemaFieldItem['typeConfigJson'],
+  });
+  const dictCode = String(field.dictCode || field.dictId || '');
   const fromDict = dictCode ? { dictCode } : {};
   return {
     ...(OPTION_DICT_BY_NAME[fieldName] || {}),

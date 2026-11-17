@@ -66,7 +66,7 @@
 </template>
 
 <script setup lang="ts">
-import type { RosterSettingNode } from '@/types/roster/settings';
+import type { RosterSettingNode } from '@/types/employee/roster/settings';
 import RosterNav from '../components/RosterNav.vue';
 import FieldsPanel from './components/fieldsPanel.vue';
 import ActionsPanel from './components/actionsPanel.vue';

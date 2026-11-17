@@ -51,6 +51,7 @@ import type { SchemaFieldSet } from './types';
 import { createMergedResolveSchemaField } from './resolve-schema-field';
 import SchemaTimePickerField from './SchemaTimePickerField.vue';
 import SchemaDateTimePickerField from './SchemaDateTimePickerField.vue';
+import SchemaUploadField from './SchemaUploadField.vue';
 import type { SchemaOption } from './apply-type-config';
 import {
   collectSchemaFieldRuntimeMetas,
@@ -185,6 +186,7 @@ const mergedResolveSchemaField = computed(() =>
 const mergedComponents = computed(() => ({
   schemaTimePicker: SchemaTimePickerField,
   schemaDateTimePicker: SchemaDateTimePickerField,
+  schemaUpload: SchemaUploadField,
   ...(props.components || {}),
 }));
 
@@ -350,16 +352,5 @@ defineExpose({
 <style scoped lang="less">
 .schema-pro-form-skeleton {
   margin: 16px;
-}
-
-/* 上传限制说明（对齐 PC UploadField *tip） */
-:deep(.schema-pro-form-upload-tips) {
-  font-size: 12px;
-  line-height: 18px;
-  color: var(--van-gray-6, #969799);
-
-  .schema-pro-form-upload-tip + .schema-pro-form-upload-tip {
-    margin-top: 2px;
-  }
 }
 </style>

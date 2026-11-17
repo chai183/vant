@@ -36,6 +36,7 @@ export const EMPTY_ROSTER_TEAM_AUTH: RosterTeamAuthConfig = {
   selectedList: [],
 };
 
+/** 花名册搜索接口按自身约定取值；组织人员的 PC 字段由组织模块先转换。 */
 function adaptStaff(row: unknown): RosterStaff {
   const source = (row || {}) as Record<string, unknown>;
   return {

@@ -3,6 +3,68 @@
  */
 import type { SchemaFieldItem, SchemaFieldTypeConfig } from './types';
 
+/** 图片/附件回显统一为控件列表；保留文件 ID，不编造预览地址或上传结果。 */
+export function normalizeSchemaUploadFiles(
+  value: unknown,
+): Record<string, unknown>[] {
+  const files = Array.isArray(value)
+    ? value
+    : value == null || value === ''
+      ? []
+      : [value];
+  return files.flatMap<Record<string, unknown>>((item) => {
+    if (item && typeof item === 'object') {
+      const row = item as Record<string, unknown>;
+      const response = row.response as
+        | {
+            body?: Record<string, unknown>;
+            fileId?: string;
+            id?: string;
+            fileName?: string;
+            originalName?: string;
+          }
+        | undefined;
+      const source = response?.body || response;
+      const name =
+        row.name ||
+        row.fileName ||
+        row.originalName ||
+        source?.originalName ||
+        source?.fileName;
+      const url = row.url || row.fileUrl || row.previewUrl || row.downloadUrl;
+      const fileId = row.fileId || row.id || source?.fileId || source?.id;
+      return [
+        {
+          ...row,
+          ...(name ? { name } : {}),
+          ...(url ? { url } : {}),
+          ...(fileId ? { fileId } : {}),
+          ...(row.status === 'success' ? { status: 'done' } : {}),
+        },
+      ];
+    }
+    const text = String(item);
+    if (/^(https?:|data:|blob:|\/)/.test(text)) return [{ url: text }];
+    return text
+      .split(',')
+      .map((fileId) => fileId.trim())
+      .filter(Boolean)
+      .map((fileId) => ({ fileId, name: fileId }));
+  });
+}
+
+/** 与 PC ProForm 一致：控件列表裁剪为附件 ID 与原名，不夹带本地文件或展示地址。 */
+export function normalizeSchemaUploadSubmit(value: unknown) {
+  return normalizeSchemaUploadFiles(value).map((file) => {
+    const fileId = String(file.fileId || file.id || '').trim();
+    if (!fileId) throw new Error('附件缺少文件 ID，请完成上传后保存');
+    return {
+      fileId,
+      fileName: String(file.fileName || file.originalName || file.name || ''),
+    };
+  });
+}
+
 /** schema 字段 key：取 columnName */
 export function getSchemaFieldKey(field?: SchemaFieldItem | null) {
   return field?.columnName || '';

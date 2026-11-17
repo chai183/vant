@@ -497,19 +497,17 @@ const mocks: MockMethod[] = [
     response: fillResponse,
   },
   {
-    url: new RegExp(`${MOCK_PREFIX}/entry/entry-template/detail/field/[^/]+$`),
+    url: `${MOCK_PREFIX}/entry/entry-template/detail/field/:id`,
     method: 'post',
     response: templateFieldResponse,
   },
   {
-    url: new RegExp(`${MOCK_PREFIX}/entry/entry-template/detail/[^/]+$`),
+    url: `${MOCK_PREFIX}/entry/entry-template/detail/:id`,
     method: 'post',
     response: templateDetailResponse,
   },
   {
-    url: new RegExp(
-      `${MOCK_PREFIX}/entry/entry-template/attachment-setting/getById/[^/]+$`,
-    ),
+    url: `${MOCK_PREFIX}/entry/entry-template/attachment-setting/getById/:id`,
     method: 'get',
     response: materialResponse,
   },

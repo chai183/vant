@@ -1,7 +1,7 @@
 import type {
   RosterSettingNode,
   RosterSettingsSaveBody,
-} from '@/types/roster/settings';
+} from '@/types/employee/roster/settings';
 
 function readNode(
   raw: unknown,

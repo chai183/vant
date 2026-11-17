@@ -636,7 +636,9 @@ export const rosterDetailBasicFormData = {
     positionTitleName: '设计助理',
     historicalYears: 5,
     staffNo: '33455345556334565356',
-    idPhotoFront: MOCK_IMG,
+    idPhotoFront: [
+      { fileId: 'mock-id-photo-front', url: MOCK_IMG, name: '证件照.jpg' },
+    ],
     phone: '13800138000',
     gender: 'female',
     genderName: '女',

@@ -6,9 +6,9 @@ import {
   getRosterSettingsBasicApi,
   getRosterSettingsOptionsApi,
   saveRosterSettingsApi,
-} from '@/services/api/roster/settings';
+} from '@/services/api/employee/roster/settings';
 import { ROSTER_DETAIL_BASIC_TAB } from '@/services/api/employee/roster/config';
-import type { RosterSettingNode } from '@/types/roster/settings';
+import type { RosterSettingNode } from '@/types/employee/roster/settings';
 import {
   cloneSettings,
   expandSettingsSelection,

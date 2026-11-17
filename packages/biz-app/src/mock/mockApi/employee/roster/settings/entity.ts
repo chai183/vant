@@ -1,7 +1,7 @@
 import type {
   RosterSettingField,
   RosterSettingsSaveBody,
-} from '@/types/roster/settings';
+} from '@/types/employee/roster/settings';
 import { rosterSettingsMockState as state } from './data';
 import type { MockSettingSet } from './data';
 

@@ -30,7 +30,8 @@ import {
   rosterDetailSingleFormByTab,
   rosterDetailTabs,
 } from './detail-data';
-import { rosterSettingsMockState } from '../../roster/settings/data';
+import { rosterSettingsMockState } from './settings/data';
+import { archivePersonalAuth } from '../../employeeArchive/data';
 
 function unifiedSuccess<T>(body: T) {
   return {
@@ -132,6 +133,8 @@ const rosterMocks: MockMethod[] = [
     url: `/api${ROSTER_TEAM_AUTH_LIST_URL}`,
     method: 'get',
     response: ({ query }: { query?: { type?: string } }) => {
+      if (query?.type === 'appPersonalAuth')
+        return unifiedSuccess(archivePersonalAuth);
       const data =
         query?.type === ROSTER_TEAM_AUTH_TYPE.selected
           ? rosterSettingsMockState.selected

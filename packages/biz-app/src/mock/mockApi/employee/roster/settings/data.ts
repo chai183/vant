@@ -2,12 +2,12 @@ import type {
   RosterSettingField,
   RosterSettingGroup,
   RosterSettingSet,
-} from '@/types/roster/settings';
+} from '@/types/employee/roster/settings';
 import {
   rosterTeamAuthAll,
   rosterTeamAuthBasic,
   rosterTeamAuthSelected,
-} from '../../employee/roster/team-auth-data';
+} from '../team-auth-data';
 
 /** Mock 保留服务端元数据，使保存后的已选回读仍可驱动花名册展示。 */
 type MockField = RosterSettingField & {

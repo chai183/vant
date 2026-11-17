@@ -33,6 +33,7 @@
           :auto-load="false"
           readonly
           :show-submit="false"
+          show-section-tabs
         />
       </van-tab>
 

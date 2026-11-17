@@ -15,6 +15,7 @@ declare module 'vue' {
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
     VanActionSheet: typeof import('vant')['ActionSheet']
+    VanAnchor: typeof import('vant')['Anchor']
     VanBadge: typeof import('vant')['Badge']
     VanBottomActionBar: typeof import('vant')['BottomActionBar']
     VanButton: typeof import('vant')['Button']
@@ -62,6 +63,7 @@ declare global {
   const RouterLink: (typeof import('vue-router'))['RouterLink'];
   const RouterView: (typeof import('vue-router'))['RouterView'];
   const VanActionSheet: (typeof import('vant'))['ActionSheet'];
+  const VanAnchor: (typeof import('vant'))['Anchor'];
   const VanBadge: (typeof import('vant'))['Badge'];
   const VanBottomActionBar: (typeof import('vant'))['BottomActionBar'];
   const VanButton: (typeof import('vant'))['Button'];

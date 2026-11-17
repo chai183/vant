@@ -112,12 +112,7 @@ export default {
   placeholder="请选择地区"
   @click="show = true"
 />
-<van-popup
-  v-model:show="show"
-  round
-  teleport="body"
-  position="bottom"
->
+<van-popup v-model:show="show" round teleport="body" position="bottom">
   <van-area-step-cascader
     v-model="value"
     @close="show = false"
@@ -158,25 +153,22 @@ export default {
 
 ### Events
 
-| 事件名 | 说明 | 回调参数 |
-| --- | --- | --- |
-| close | 点击关闭图标时触发 | - |
-| finish | 全部选项选择完成后触发 | _{ value, selectedOptions }_ |
-| update:model-value | 选中项变化时触发 | _value: number \| string_ |
+| 事件名             | 说明                   | 回调参数                     |
+| ------------------ | ---------------------- | ---------------------------- |
+| close              | 点击关闭图标时触发     | -                            |
+| finish             | 全部选项选择完成后触发 | _{ value, selectedOptions }_ |
+| update:model-value | 选中项变化时触发       | _value: number \| string_    |
 
 ### Slots
 
-| 名称 | 说明 |
-| --- | --- |
+| 名称        | 说明                 |
+| ----------- | -------------------- |
 | title-extra | 自定义标题下方的内容 |
 
 ### 类型定义
 
 ```ts
-import type {
-  AreaStepCascaderProps,
-  CascaderOption,
-} from 'vant';
+import type { AreaStepCascaderProps, CascaderOption } from 'vant';
 ```
 
 ## 主题定制

@@ -53,11 +53,7 @@ export default defineComponent({
       const modelValue = getModelValuePair(props.modelValue);
 
       return (
-        <Field
-          {...restFieldProps}
-          labelAlign={labelAlign}
-          class={bem('field')}
-        >
+        <Field {...restFieldProps} labelAlign={labelAlign} class={bem('field')}>
           {{
             input: () => (
               <RangeInput

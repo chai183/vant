@@ -165,11 +165,11 @@ import { getTagCurrencyPreset, TAG_CURRENCY_PRESET_LIST } from 'vant';
 | plain | 浅色样式，配合 `type` 使用。有 `stamp-type` 时不挂 `type` 浅色 class，可与 `color` / `text-color` 内联配合 | _boolean_ | `false` |
 | round | 是否为圆角样式 | _boolean_ | `false` |
 | mark | 角标样式；有 `stamp-type` 时无效 | _boolean_ | `false` |
-| icon | 左侧图标，等同 Icon [name](#/zh-CN/icon#props)；有 `stamp-type` 时不展示 | _string_ | - |
-| currency | 币种标签；为 true 时忽略 `type`；有 `stamp-type` 时无效 | _boolean_ | `false` |
-| currency-code | 币种预制（见 `currency-presets.json`），需 `currency`；无默认插槽时用中文名；有 `stamp-type` 时无效 | _string_ | - |
-| preset | 预制样式，见上文表格；忽略 `type`；有 `stamp-type` 时无效 | _string_ | - |
-| stamp-type | 印章类型：`success` `fail` `wait` `void`。优先于 `type` / `preset` / `currency`；默认插槽为章内文案（可用 `stamp` 插槽自定义） | _string_ | - |
+| icon `new` | 左侧图标，等同 Icon [name](#/zh-CN/icon#props)；有 `stamp-type` 时不展示 | _string_ | - |
+| currency `new` | 币种标签；为 true 时忽略 `type`；有 `stamp-type` 时无效 | _boolean_ | `false` |
+| currency-code `new` | 币种预制（见 `currency-presets.json`），需 `currency`；无默认插槽时用中文名；有 `stamp-type` 时无效 | _string_ | - |
+| preset `new` | 预制样式，见上文表格；忽略 `type`；有 `stamp-type` 时无效 | _string_ | - |
+| stamp-type `new` | 印章类型：`success` `fail` `wait` `void`。优先于 `type` / `preset` / `currency`；默认插槽为章内文案（可用 `stamp` 插槽自定义） | _string_ | - |
 | text-color | 文本颜色，优先级高于 `color` | _string_ | - |
 | closeable | 是否为可关闭标签 | _boolean_ | `false` |
 
@@ -178,8 +178,8 @@ import { getTagCurrencyPreset, TAG_CURRENCY_PRESET_LIST } from 'vant';
 | 名称 | 说明 |
 | --- | --- |
 | default | 标签正文；印章时为章内文案；`currency` + `currency-code` 且无内容时用预制中文名 |
-| icon | 自定义左侧图标 |
-| stamp | 自定义印章图片内容 |
+| icon `new` | 自定义左侧图标 |
+| stamp `new` | 自定义印章图片内容 |
 
 ### Events
 

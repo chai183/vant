@@ -70,14 +70,12 @@ export default {
 设置 `scene="filter-bar"`。
 
 ```html
-<form action="/">
-  <van-search
-    v-model="valueFilterBar"
-    scene="filter-bar"
-    placeholder="请输入搜索关键词"
-    @search="onSearch"
-  />
-</form>
+<van-search
+  v-model="valueFilterBar"
+  scene="filter-bar"
+  placeholder="请输入搜索关键词"
+  @search="onSearch"
+/>
 ```
 
 ```js

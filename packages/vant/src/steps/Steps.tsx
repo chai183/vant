@@ -74,17 +74,15 @@ export default defineComponent({
       isStepError,
     });
 
-    // 横向步骤是否包含辅助文字（替代 :has 选择器以兼容旧浏览器）
     const hasDescription = computed(() =>
       children.some((child) => {
         const step = child as {
           description?: string;
-          $slots?: { description?: unknown };
+          $slot?: { description?: unknown };
         };
-        return !!(step.description || step.$slots?.description);
+        return !!(step.description || step.$slot?.description);
       }),
     );
-
     // 横向 3~5 步时应用对应宽度样式
     const countClass = computed(() => {
       const count = stepCount.value;

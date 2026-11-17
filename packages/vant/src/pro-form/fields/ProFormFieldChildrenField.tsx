@@ -65,11 +65,7 @@ export default defineComponent({
         : [''];
 
       return (
-        <Field
-          {...restFieldProps}
-          labelAlign={labelAlign}
-          class={bem()}
-        >
+        <Field {...restFieldProps} labelAlign={labelAlign} class={bem()}>
           {{
             'label-action':
               showAdd &&
@@ -77,9 +73,7 @@ export default defineComponent({
                 <button
                   type="button"
                   class={['van-field__label-action', bem('add')]}
-                  disabled={
-                    isLocked() || !fieldChildrenRef.value?.canAdd()
-                  }
+                  disabled={isLocked() || !fieldChildrenRef.value?.canAdd()}
                   onClick={() => fieldChildrenRef.value?.add()}
                 >
                   {addText}

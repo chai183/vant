@@ -4,10 +4,7 @@ import { renderBuiltinInput } from './renderBuiltinInput';
 import { renderBuiltinField } from './renderBuiltinField';
 import { mergeRenderBindProps } from './mergeRenderBindProps';
 import { resolveColumnFieldSlots } from './resolveFieldSlots';
-import {
-  resolveFormDisabled,
-  resolveFormReadonly,
-} from './resolveFormState';
+import { resolveFormDisabled, resolveFormReadonly } from './resolveFormState';
 import type { FieldProps } from '../field/Field';
 import type {
   ProFormColumn,

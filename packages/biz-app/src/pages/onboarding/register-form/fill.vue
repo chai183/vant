@@ -9,96 +9,111 @@
       @click-left="onBack"
     />
 
-    <van-loading
-      v-if="entering && !steps.length"
-      class="register-fill__loading"
-      vertical
-    >
-      加载中
-    </van-loading>
-    <van-empty v-else-if="loadFailed" description="无法打开该入职登记模板" />
-
-    <div v-else :key="wizardKey" class="register-fill__body">
-      <FillGuide
-        v-if="hasStep(FILL_STEP.GUIDE)"
-        v-show="currentStepKey === FILL_STEP.GUIDE"
-        :title="templateDetail?.guideTitle"
-        :content="templateDetail?.guideContent"
+    <!-- /*----提交结果start----*/ -->
+    <div v-if="resultShown" class="register-fill-result">
+      <van-icon
+        name="checked"
+        size="64"
+        color="var(--van-success-color)"
+        class="register-fill-result-icon"
       />
-
-      <RegisterSchemaForm
-        v-if="hasStep(FILL_STEP.FORM)"
-        v-show="currentStepKey === FILL_STEP.FORM"
-        ref="formRef"
-        v-model="form"
-        :loading="schemaLoading"
-        :auto-load="false"
-        :show-submit="false"
-      />
-
-      <ViewAttachment
-        v-if="hasStep(FILL_STEP.MATERIAL)"
-        v-show="currentStepKey === FILL_STEP.MATERIAL"
-        ref="attachmentRef"
-        :template-id="templateDetail?.id"
-        :read-only="false"
-      />
-
-      <FillCommitment
-        v-if="hasStep(FILL_STEP.COMMITMENT)"
-        v-show="currentStepKey === FILL_STEP.COMMITMENT"
-        ref="commitmentRef"
-        :promise-content="templateDetail?.promiseContent"
-        :signature-enabled="Boolean(templateDetail?.signature)"
-        :active="currentStepKey === FILL_STEP.COMMITMENT"
-      />
+      <div class="register-fill-result-title">提交成功</div>
+      <p class="register-fill-result-desc">信息已提交，请耐心等待评估结果。</p>
     </div>
+    <!-- /*----提交结果end----*/ -->
 
-    <!-- actions 第一个在最右，存草稿写在最后以落在左侧 -->
-    <van-bottom-action-bar v-if="steps.length" placeholder>
-      <template #actions>
-        <van-button
-          v-if="!isLastStep"
-          type="primary"
-          round
-          :disabled="draftSaving"
-          @click="onNext"
-        >
-          下一步
-        </van-button>
-        <van-button
-          v-else
-          type="primary"
-          round
-          :loading="saving"
-          :disabled="draftSaving"
-          @click="onSubmit"
-        >
-          提交
-        </van-button>
-        <van-button
-          v-if="canGoPrev"
-          round
-          plain
-          hairline
-          :disabled="saving || draftSaving"
-          @click="onPrev"
-        >
-          上一步
-        </van-button>
-        <van-button
-          v-if="showSaveDraft"
-          round
-          plain
-          hairline
-          :loading="draftSaving"
-          :disabled="saving"
-          @click="onSaveDraft"
-        >
-          存草稿
-        </van-button>
-      </template>
-    </van-bottom-action-bar>
+    <template v-else>
+      <van-loading
+        v-if="entering && !steps.length"
+        class="register-fill__loading"
+        vertical
+      >
+        加载中
+      </van-loading>
+      <van-empty v-else-if="loadFailed" description="无法打开该入职登记模板" />
+
+      <div v-else :key="wizardKey" class="register-fill__body">
+        <FillGuide
+          v-if="hasStep(FILL_STEP.GUIDE)"
+          v-show="currentStepKey === FILL_STEP.GUIDE"
+          :title="templateDetail?.guideTitle"
+          :content="templateDetail?.guideContent"
+        />
+
+        <RegisterSchemaForm
+          v-if="hasStep(FILL_STEP.FORM)"
+          v-show="currentStepKey === FILL_STEP.FORM"
+          ref="formRef"
+          v-model="form"
+          :loading="schemaLoading"
+          :auto-load="false"
+          :show-submit="false"
+        />
+
+        <ViewAttachment
+          v-if="hasStep(FILL_STEP.MATERIAL)"
+          v-show="currentStepKey === FILL_STEP.MATERIAL"
+          ref="attachmentRef"
+          :template-id="templateDetail?.id"
+          :read-only="false"
+        />
+
+        <FillCommitment
+          v-if="hasStep(FILL_STEP.COMMITMENT)"
+          v-show="currentStepKey === FILL_STEP.COMMITMENT"
+          ref="commitmentRef"
+          :promise-content="templateDetail?.promiseContent"
+          :signature-enabled="Boolean(templateDetail?.signature)"
+          :active="currentStepKey === FILL_STEP.COMMITMENT"
+        />
+      </div>
+
+      <!-- actions 第一个在最右，存草稿写在最后以落在左侧 -->
+      <van-bottom-action-bar v-if="steps.length" placeholder>
+        <template #actions>
+          <van-button
+            v-if="!isLastStep"
+            type="primary"
+            round
+            :disabled="draftSaving"
+            @click="onNext"
+          >
+            下一步
+          </van-button>
+          <van-button
+            v-else
+            type="primary"
+            round
+            :loading="saving"
+            :disabled="draftSaving"
+            @click="onSubmit"
+          >
+            提交
+          </van-button>
+          <van-button
+            v-if="canGoPrev"
+            round
+            plain
+            hairline
+            :disabled="saving || draftSaving"
+            @click="onPrev"
+          >
+            上一步
+          </van-button>
+          <van-button
+            v-if="showSaveDraft"
+            round
+            plain
+            hairline
+            :loading="draftSaving"
+            :disabled="saving"
+            @click="onSaveDraft"
+          >
+            存草稿
+          </van-button>
+        </template>
+      </van-bottom-action-bar>
+    </template>
   </div>
 </template>
 
@@ -193,6 +208,8 @@ const saving = ref(false);
 const draftSaving = ref(false);
 const schemaLoading = ref(false);
 const loadFailed = ref(false);
+/** from !== app 提交成功后停留在结果页 */
+const resultShown = ref(false);
 const wizardKey = ref(0);
 const stepIndex = ref(0);
 const steps = ref(buildFillSteps(null));
@@ -208,8 +225,9 @@ const commitmentRef = ref<CommitmentExpose | null>(null);
 const currentStepKey = computed(() => steps.value[stepIndex.value]?.key || '');
 const isGuideStep = computed(() => currentStepKey.value === FILL_STEP.GUIDE);
 const isFromApp = computed(() => readFromApp());
-/** 引导步：引导页；app：填写入职登记表；其它：入职登记表 */
+/** 结果页：提交结果；引导步：引导页；app：填写入职登记表；其它：入职登记表 */
 const navBarTitle = computed(() => {
+  if (resultShown.value) return '提交结果';
   if (isGuideStep.value) return '引导页';
   return isFromApp.value ? '填写入职登记表' : '入职登记表';
 });
@@ -236,6 +254,10 @@ function goSelectTemplate() {
 }
 
 function onBack() {
+  if (resultShown.value) {
+    router.back();
+    return;
+  }
   if (canGoPrev.value) {
     onPrev();
     return;
@@ -279,11 +301,13 @@ async function enterWizard(templateId: string) {
   ) {
     stepIndex.value = 0;
     loadFailed.value = false;
+    resultShown.value = false;
     return;
   }
 
   entering.value = true;
   loadFailed.value = false;
+  resultShown.value = false;
   try {
     const res = await getOnboardingRegisterFormTemplateDetailApi({
       id: templateId,
@@ -409,6 +433,14 @@ async function persistFill(
       showToast((res as { message?: string }).message || options.failText);
       return false;
     }
+    // 候选人入口与 PC 一致：正式提交停在结果页，存草稿回到列表
+    if (
+      !isFromApp.value &&
+      formUpdateStatus === REGISTER_FORM_UPDATE_STATUS.NORMAL
+    ) {
+      resultShown.value = true;
+      return true;
+    }
     showSuccessToast(options.successText);
     router.replace({ name: 'OnboardingRegisterForm' });
     return true;
@@ -487,5 +519,31 @@ onMounted(syncRouteTemplate);
 
 .register-fill__body {
   padding-bottom: 12px;
+}
+
+.register-fill-result {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 80px 24px 24px;
+  text-align: center;
+}
+
+.register-fill-result-icon {
+  margin-bottom: 16px;
+}
+
+.register-fill-result-title {
+  font-size: 18px;
+  font-weight: 500;
+  line-height: 28px;
+  color: var(--van-text-color);
+}
+
+.register-fill-result-desc {
+  margin: 8px 0 0;
+  font-size: 14px;
+  line-height: 22px;
+  color: var(--van-text-color-2);
 }
 </style>

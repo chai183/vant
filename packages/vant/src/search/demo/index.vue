@@ -13,9 +13,9 @@ const t = useTranslate({
     placeholder: '请输入搜索关键词',
     customButton: '自定义按钮',
     listenToEvents: '事件监听',
-    sceneSearchPage: '搜索页模态',
-    sceneFilterBar: '筛选栏（搜索）',
-    sceneFilterInner: '筛选内（极简）',
+    scenSearchPage: '搜索页模态',
+    scenFilterbar: '筛选栏',
+    scenFilterInner: '筛选内',
     cancel: '取消',
   },
   'en-US': {
@@ -26,10 +26,11 @@ const t = useTranslate({
     placeholder: 'Placeholder',
     customButton: 'Custom Action Button',
     listenToEvents: 'Listen to Events',
-    sceneSearchPage: 'Search page',
-    sceneFilterBar: 'Filter bar (Search)',
-    sceneFilterInner: 'Filter inner (Minimal)',
-    cancel: 'Cancel',
+    scenSearchPage: '搜索页模态',
+    scenFilterbar: '筛选栏',
+    scenFilterInner: '筛选内',
+    cancel: '取消',
+    search: '搜索',
   },
 });
 
@@ -53,7 +54,7 @@ const onClickButton = () => showToast(value6.value);
     <van-search v-model="value1" :placeholder="t('placeholder')" />
   </demo-block>
 
-  <demo-block :title="t('sceneSearchPage')">
+  <demo-block :title="t('scenSearchPage')">
     <van-search
       v-model="value7"
       scene="search-page"
@@ -63,18 +64,16 @@ const onClickButton = () => showToast(value6.value);
     />
   </demo-block>
 
-  <demo-block :title="t('sceneFilterBar')">
-    <!-- <form action="/"> -->
+  <demo-block :title="t('scenFilterbar')">
     <van-search
       v-model="value8"
       scene="filter-bar"
       :placeholder="t('placeholder')"
       @search="onSearch"
     />
-    <!-- </form> -->
   </demo-block>
 
-  <demo-block class="demo-search__filter-inner" :title="t('sceneFilterInner')">
+  <demo-block class="demo-search__filter-inner" :title="t('scenFilterInner')">
     <van-search
       v-model="value9"
       scene="filter-inner"

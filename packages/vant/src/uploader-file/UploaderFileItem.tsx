@@ -232,11 +232,7 @@ export default defineComponent({
     /** 列表项左侧展示文件类型 SVG 图标，图片文件统一使用 picture-wrong */
     const renderFileIcon = (item: UploaderFileListItem) => (
       <div class={bem('file-icon')}>
-        <img
-          class={bem('file-icon-img')}
-          src={getFileTypeIcon(item)}
-          alt=""
-        />
+        <img class={bem('file-icon-img')} src={getFileTypeIcon(item)} alt="" />
       </div>
     );
 

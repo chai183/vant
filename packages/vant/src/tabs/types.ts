@@ -58,6 +58,7 @@ export type TabsThemeVars = {
   tabsUnderlineInactiveTextColor?: string;
   tabsDividerNavPaddingVertical?: string;
   tabsDividerTabPaddingHorizontal?: string;
+  tabsShrinkTabPaddingHorizontal?: string;
   tabsDividerNavBackground?: string;
   tabsDividerInactiveTextColor?: string;
   tabsDividerLineWidth?: string;

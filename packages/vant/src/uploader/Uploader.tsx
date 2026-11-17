@@ -40,7 +40,6 @@ import { useExpose } from '../composables/use-expose';
 // Components
 import { showImagePreview, type ImagePreviewOptions } from '../image-preview';
 import UploaderPreviewItem from './UploaderPreviewItem';
-import uploadIconSrc from '../uploader-file/assets/upload.svg';
 
 // Types
 import type { ImageFit } from '../image';
@@ -52,6 +51,8 @@ import type {
   UploaderResultType,
   UploaderFileListItem,
 } from './types';
+
+import uploadIconSrc from '../uploader-file/assets/upload.svg';
 
 const isImageIcon = (name: string) => name.includes('/');
 

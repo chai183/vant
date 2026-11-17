@@ -23,15 +23,18 @@ app.use(Badge);
 设置 `content` 属性后，Badge 会在子元素的右上角显示对应的徽标，也可以通过 `dot` 来显示小红点。
 
 ```html
+<!-- 数字徽标  -->
 <van-badge :content="5">
   <div class="child" />
 </van-badge>
-<van-badge :content="10">
+<van-badge :content="99">
   <div class="child" />
 </van-badge>
 <van-badge content="Hot">
   <div class="child" />
 </van-badge>
+
+<!-- 红点徽标 -->
 <van-badge dot>
   <div class="child" />
 </van-badge>
@@ -48,7 +51,7 @@ app.use(Badge);
 
 ### 最大值
 
-设置 `max` 属性后，当 `content` 的数值超过最大值时，会自动显示为 `{max}+`。
+设置 `max` 属性后，当 `content` 的数值超过最大值时，会自动显示为 `{max}+`;设置 `maxContent` 后会展示对应内容。
 
 ```html
 <van-badge :content="20" max="9">
@@ -62,6 +65,7 @@ app.use(Badge);
 </van-badge>
 ```
 
+<!--
 ### 自定义颜色
 
 通过 `color` 属性来设置徽标的颜色。
@@ -74,6 +78,22 @@ app.use(Badge);
   <div class="child" />
 </van-badge>
 <van-badge dot color="#1989fa">
+  <div class="child" />
+</van-badge>
+``` -->
+
+### 弱徽标
+
+通过 `weak` 属性将徽标设置为弱徽标样式，背景色为 `#DDDDDD`
+
+```html
+<van-badge weak content="20" max="9">
+  <div class="child" />
+</van-badge>
+<van-badge weak content="50" max="20">
+  <div class="child" />
+</van-badge>
+<van-badge weak content="200" max="99">
   <div class="child" />
 </van-badge>
 ```
@@ -146,7 +166,9 @@ app.use(Badge);
 | content | 徽标内容（`dot` 为 `fasle` 时生效） | _number \| string_ | - |
 | color | 徽标背景颜色 | _string_ | `#ee0a24` |
 | dot | 是否展示为小红点 | _boolean_ | `false` |
+| weak | 是否展示为弱徽标 | _boolean_ | `false` |
 | max | 最大值，超过最大值会显示 `{max}+`，仅当 content 为数字时有效 | _number \| string_ | - |
+| max-content | 超过最大值展示的内容，未设置时显示 `{max}+` | _string_ | - |
 | offset | 设置徽标的偏移量，数组的两项分别对应水平向右和垂直向下方向的偏移量，默认单位为 `px` | _[number \| string, number \| string]_ | - |
 | show-zero | 当 content 为数字 0 或字符串 '0' 时，是否展示徽标 | _boolean_ | `true` |
 | position | 徽标位置，可选值为 `top-left` `bottom-left` `bottom-right` | _string_ | `top-right` |
@@ -181,6 +203,7 @@ import type { BadgeProps, BadgePosition } from 'vant';
 | --van-badge-font-weight | _var(--van-font-bold)_ | - |
 | --van-badge-border-width | _var(--van-border-width)_ | - |
 | --van-badge-background | _var(--van-danger-color)_ | - |
+| --van-badge-weak-background | _#DDDDDD_ | - |
 | --van-badge-dot-color | _var(--van-danger-color)_ | - |
 | --van-badge-dot-size | _8px_ | - |
 | --van-badge-font | _-apple-system-font, Helvetica Neue, Arial, sans-serif_ | - |

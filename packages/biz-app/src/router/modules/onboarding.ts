@@ -27,11 +27,20 @@ const onboardingRoutes: RouteRecordRaw[] = [
   },
   {
     path: '/onboarding/register-form/fill/:templateId?',
-    component: () => import('@/pages/onboarding/register-form/fill.vue'),
-    name: 'OnboardingRegisterFormFill',
+    component: () => import('@/pages/onboarding/register-form/fillLayout.vue'),
     meta: {
       title: '填写入职登记表',
     },
+    children: [
+      {
+        path: '',
+        component: () => import('@/pages/onboarding/register-form/fill.vue'),
+        name: 'OnboardingRegisterFormFill',
+        meta: {
+          title: '填写入职登记表',
+        },
+      },
+    ],
   },
   {
     path: '/onboarding/register-form/qr',

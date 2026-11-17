@@ -3,7 +3,7 @@ import VanTabs from '../../tabs';
 import VanTab from '../../tab';
 import VanPullRefresh, { type PullRefreshRefreshParams } from '..';
 import { computed, onMounted, ref } from 'vue';
-import { cdnURL, useTranslate } from '../../../docs/site';
+import { useTranslate } from '../../../docs/site';
 import { showToast } from '../../toast';
 
 const t = useTranslate({
@@ -67,13 +67,15 @@ const getPullingStyle = (distance: number) => ({
   transform: `scale(${Math.min(distance / maxPullDistance, 1)})`,
 });
 
+import url1 from '../../ad-dialog/assets/ad-d1.png';
+
 const preloadImage = () => {
   // 提前加载自定义图片，避免首次下拉时图片闪烁。
   const doge = new Image();
   const dogeFire = new Image();
 
-  doge.src = cdnURL('doge.png');
-  dogeFire.src = cdnURL('doge-fire.jpeg');
+  doge.src = url1;
+  dogeFire.src = url1;
 };
 
 onMounted(preloadImage);
@@ -81,12 +83,13 @@ onMounted(preloadImage);
 
 <template>
   <van-tabs>
+    <!-- 基础使用 -->
     <van-tab :title="t('basicUsage')">
       <van-pull-refresh v-model="loading" @refresh="onRefresh(true)">
         <p>{{ tips }}</p>
       </van-pull-refresh>
     </van-tab>
-
+    <!--  成功示例 -->
     <van-tab :title="t('successTip')">
       <van-pull-refresh
         v-model="loading"
@@ -96,17 +99,18 @@ onMounted(preloadImage);
         <p>{{ tips }}</p>
       </van-pull-refresh>
     </van-tab>
-
+    <!-- 错误提示 -->
     <van-tab :title="t('errorTip')">
       <van-pull-refresh
         v-model="loading"
+        :error-text="t('networkError')"
         @refresh="onRefreshError"
         @error="onError"
       >
         <p>{{ tips }}</p>
       </van-pull-refresh>
     </van-tab>
-
+    <!-- 自定义 -->
     <van-tab :title="t('customTips')">
       <van-pull-refresh
         v-model="loading"
@@ -116,23 +120,19 @@ onMounted(preloadImage);
       >
         <template #pulling="{ distance }">
           <!-- 下拉过程中，图片跟随 distance 从中心逐步放大到 100%。 -->
-          <img
-            class="doge"
-            :src="cdnURL('doge.png')"
-            :style="getPullingStyle(distance)"
-          />
+          <img class="doge" :src="url1" :style="getPullingStyle(distance)" />
         </template>
         <template #loosing>
           <!-- 达到最大拖拽距离后，释放态保持 100% 大小。 -->
-          <img :src="cdnURL('doge.png')" class="doge" />
+          <img :src="url1" class="doge" />
         </template>
         <template #loading>
           <!-- 松手进入刷新态后，图片/GIF 保持 100% 大小不变。 -->
-          <img :src="cdnURL('doge-fire.jpeg')" class="doge" />
+          <img :src="url1" class="doge" />
         </template>
         <template #success>
           <!-- 刷新成功后，图片从 100% 缩放到 0%，随后组件回到初始位置。 -->
-          <img :src="cdnURL('doge.png')" class="doge doge-success" />
+          <img :src="url1" class="doge doge-success" />
         </template>
         <p>{{ tips }}</p>
       </van-pull-refresh>
@@ -146,6 +146,9 @@ onMounted(preloadImage);
 
   .van-pull-refresh {
     height: calc(100vh - 50px);
+    .van-pull-refresh__track {
+      text-align: center;
+    }
   }
 
   .doge {

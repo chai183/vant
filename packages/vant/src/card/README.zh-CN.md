@@ -845,13 +845,11 @@ const fullSelected = ref(false);
 | --van-card-avatar-radius | _var(--van-radius-max)_ | 头像圆角 |
 | --van-card-avatar-small-offset | _calc((var(--van-card-title-line-height) - var(--van-card-avatar-small-size)) / 2)_ | 小头像顶部偏移 |
 | --van-card-collapse-icon-font-size | _var(--van-font-size-xs)_ | 折叠箭头字号 |
-| --van-card-button-divider-color | _var(--van-gray-9)_ | 底部文字按钮分割线颜色 |
 | --van-card-footer-overflow-width | _48px_ | text 溢出触发区宽度 |
 | --van-card-footer-overflow-dot-size | _3px_ | text 溢出大黑点尺寸 |
 | --van-card-footer-overflow-dot-gap | _4px_ | text 溢出大黑点间距 |
 | --van-card-footer-overflow-dot-color | _var(--van-text-color)_ | text 溢出大黑点颜色 |
 | --van-card-outline-button-background | _var(--van-background-2)_ | 底部描边按钮背景色 |
-| --van-card-outline-button-border-color | _var(--van-gray-9)_ | 底部描边按钮边框色 |
 | --van-card-outline-button-radius | _var(--van-radius-max)_ | 底部描边按钮圆角 |
 | --van-card-outline-button-height | _30px_ | 底部描边按钮高度 |
 | --van-card-footer-outline-height | _42px_ | outline 底部按钮区高度 |
@@ -859,3 +857,6 @@ const fullSelected = ref(false);
 | --van-card-footer-more-color | _var(--van-card-title-color)_ | outline 溢出「更多」文字色 |
 | --van-card-footer-more-width | _28px_ | outline「更多/收起」占位宽度 |
 | --van-card-footer-outline-gap | _16px_ | outline 底部按钮间距 |
+| --van-card-footer-popover-action-height | _48px_ | 底部溢出 Popover 选项高度 |
+| --van-card-footer-popover-divider-padding-x | _var(--van-padding-md)_ | 底部溢出 Popover 选项左右内边距（文本与分割线对齐） |
+| --van-card-footer-popover-width | _88px_ | 底部溢出 Popover 宽度 |

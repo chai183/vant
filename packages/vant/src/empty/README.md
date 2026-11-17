@@ -21,21 +21,7 @@ app.use(Empty);
 ### Basic Usage
 
 ```html
-<!-- Illustration + text -->
 <van-empty description="Description" />
-<!-- Text only (no illustration) -->
-<van-empty description="Description" :show-image="false" />
-<!-- Illustration + text + button -->
-<van-empty description="Description">
-  <van-button round type="primary" class="bottom-button">Button</van-button>
-</van-empty>
-<!-- Illustration + text + secondary description + button -->
-<van-empty
-  description="Description"
-  secondary-description="Secondary description"
->
-  <van-button round type="primary" class="bottom-button">Button</van-button>
-</van-empty>
 ```
 
 ### Image Type
@@ -101,18 +87,15 @@ You can set the width and height separately.
 | --- | --- | --- | --- |
 | image | Image type, can be set to `error` `network` `search` or image URL | _string_ | `default` |
 | image-size | Image size | _number \| string \| Array_ | - |
-| description | Main description (below the image) | _string_ | - |
-| secondary-description | Secondary text (after main description, before bottom content) | _string_ | - |
-| show-image | Whether to show the image area | _boolean_ | `true` |
+| description | Description | _string_ | - |
 
 ### Slots
 
-| Name        | Description             |
-| ----------- | ----------------------- |
-| default     | Custom bottom content   |
-| image       | Custom image            |
-| description | Custom main description |
-| secondary   | Custom secondary text   |
+| Name        | Description           |
+| ----------- | --------------------- |
+| default     | Custom bottom content |
+| image       | Custom image          |
+| description | Custom description    |
 
 ### Types
 
@@ -135,9 +118,6 @@ The component provides the following CSS variables, which can be used to customi
 | --van-empty-description-margin-top | _var(--van-padding-md)_ | - |
 | --van-empty-description-padding | _0 60px_ | - |
 | --van-empty-description-color | _var(--van-text-color-2)_ | - |
-| --van-empty-description-font-size | _14px_ | - |
-| --van-empty-description-line-height | _22px_ | - |
-| --van-empty-secondary-font-size | _14px_ | - |
-| --van-empty-secondary-line-height | _22px_ | - |
-| --van-empty-secondary-max-width | _14em_ | ~14 Chinese chars per line, with 2-line clamp |
+| --van-empty-description-font-size | _var(--van-font-size-md)_ | - |
+| --van-empty-description-line-height | _var(--van-line-height-md)_ | - |
 | --van-empty-bottom-margin-top | _24px_ | - |

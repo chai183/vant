@@ -143,7 +143,7 @@ export default defineComponent({
 
     const getActionText = () => {
       if (props.scene === 'filter-bar') {
-        return props.actionText || t('filterSearch');
+        return props.actionText || t('search');
       }
       return props.actionText || t('cancel');
     };
@@ -153,6 +153,8 @@ export default defineComponent({
         return;
       }
       const text = getActionText();
+      console.log(props.scene, 'text', text);
+
       return (
         <div
           class={bem('action', {
@@ -225,6 +227,11 @@ export default defineComponent({
     };
 
     useExpose({ focus, blur });
+    console.log(
+      props.scene === 'filter-bar',
+      'effectiveShowAction',
+      effectiveShowAction.value,
+    );
 
     return () => (
       <div

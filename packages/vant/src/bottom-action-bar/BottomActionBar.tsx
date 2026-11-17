@@ -21,7 +21,11 @@ import VanPopover from '../popover';
 import { Icon } from '../icon';
 import { usePlaceholder } from '../composables/use-placeholder';
 import { useSyncPropRef } from '../composables/use-sync-prop-ref';
-import type { PopoverAction, PopoverPlacement, PopoverTheme } from '../popover/types';
+import type {
+  PopoverAction,
+  PopoverPlacement,
+  PopoverTheme,
+} from '../popover/types';
 import type { BottomActionBarMoreIconPosition } from './types';
 
 const [name, bem] = createNamespace('bottom-action-bar');
@@ -114,7 +118,9 @@ function getActionButtonText(node: VNode): string {
     'default' in children &&
     typeof (children as { default?: unknown }).default === 'function'
   ) {
-    return getSlotText((children as { default: () => unknown }).default()).trim();
+    return getSlotText(
+      (children as { default: () => unknown }).default(),
+    ).trim();
   }
 
   return getSlotText(children).trim();

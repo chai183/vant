@@ -61,6 +61,7 @@ import type {
   UploaderFileUpload,
   UploaderFileUploadResult,
 } from './types';
+
 import uploadIcon from './assets/upload.svg';
 
 // 生成组件名与 BEM 前缀：van-uploader-file
@@ -540,10 +541,10 @@ export default defineComponent({
           radius="var(--van-uploader-file-upload-radius)"
           fontSize="var(--van-uploader-file-upload-font-size)"
           textColor="var(--van-uploader-file-upload-color)"
-          iconGap={4}
           borderColor="#ccc"
           paddingLeft={12}
           paddingRight={12}
+          iconGap={4}
           v-slots={{
             icon: () => (
               <span

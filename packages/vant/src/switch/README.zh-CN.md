@@ -47,10 +47,23 @@ export default {
 
 ### 加载状态
 
-通过 `loading` 属性设置开关为加载状态，加载状态下开关不可点击。
+通过 `loading` 属性设置开关为加载状态，加载状态下开关不可点击。可同时设置 `disabled` 属性展示加载且禁用的状态。
 
 ```html
 <van-switch v-model="checked" loading />
+<van-switch v-model="checked2" loading disabled />
+```
+
+```js
+import { ref } from 'vue';
+
+export default {
+  setup() {
+    const checked = ref(true);
+    const checked2 = ref(false);
+    return { checked, checked2 };
+  },
+};
 ```
 
 ### 自定义大小
@@ -200,6 +213,8 @@ import type { SwitchProps } from 'vant';
 | --van-switch-on-background | _var(--van-primary-color)_ | - |
 | --van-switch-disabled-on-background | _#f8d2b7_ | - |
 | --van-switch-disabled-off-background | _#ebebeb_ | - |
+| --van-switch-loading-off-background | _var(--van-gray-9)_ | 加载中关闭状态的背景色 |
+| --van-switch-loading-on-background | _var(--van-switch-on-background)_ | 加载中开启状态的背景色 |
 | --van-switch-loading-size | _10px_ | - |
 | --van-switch-loading-color | _var(--van-white)_ | - |
 | --van-switch-duration | _var(--van-duration-base)_ | - |

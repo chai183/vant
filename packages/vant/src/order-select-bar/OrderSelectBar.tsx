@@ -14,7 +14,7 @@ export const orderSelectBarProps = {
   secondaryButtonText: makeStringProp('次要操作'),
   tertiaryButtonText: makeStringProp(''),
   primaryButtonText: makeStringProp('结算'),
-  secondaryButtonType: makeStringProp<ButtonType>('default'),
+  secondaryButtonType: makeStringProp<ButtonType>('primary'),
   tertiaryButtonType: makeStringProp<ButtonType>('default'),
   primaryButtonType: makeStringProp<ButtonType>('primary'),
   showSecondaryButton: truthProp,
@@ -40,6 +40,7 @@ export const orderSelectBarProps = {
   showShare: truthProp,
   placeholder: Boolean,
   safeAreaInsetBottom: truthProp,
+  isAllCheck: truthProp,
 };
 
 export type OrderSelectBarProps = ExtractPropTypes<typeof orderSelectBarProps>;
@@ -51,7 +52,6 @@ export default defineComponent({
 
   emits: [
     'update:modelValue',
-    'change',
     'click-collect',
     'click-share',
     'click-secondary',
@@ -59,23 +59,18 @@ export default defineComponent({
     'click-primary',
   ],
 
-  // 组件 setup 入口
   setup(props, { emit, slots }) {
     const root = ref<HTMLElement>();
     const renderPlaceholder = usePlaceholder(root, bem);
 
-    // 根据收藏状态计算图标名称
     const collectIconName = computed(() =>
       props.collectActive ? props.collectIconActive : props.collectIcon,
     );
 
-    // 全选复选框状态变更
     const onCheckboxChange = (value: boolean) => {
       emit('update:modelValue', value);
-      emit('change', value);
     };
 
-    // 切换全选状态
     const toggleSelectAll = () => {
       if (props.checkboxDisabled) {
         return;
@@ -83,15 +78,13 @@ export default defineComponent({
       onCheckboxChange(!props.modelValue);
     };
 
-    // 获取左侧插槽透传参数
     const getLeftSlotProps = () => ({
       checked: props.modelValue,
       indeterminate: props.indeterminate,
       disabled: props.checkboxDisabled,
       updateChecked: onCheckboxChange,
     });
-
-    // 渲染默认全选区域（复选框 + 文案）
+    // 默认的全选
     const renderDefaultSelectAll = () => (
       <>
         <Checkbox
@@ -99,6 +92,7 @@ export default defineComponent({
           disabled={props.checkboxDisabled}
           indeterminate={props.indeterminate}
           onUpdate:modelValue={onCheckboxChange}
+          shape="square"
         />
         <span
           role="button"
@@ -116,19 +110,17 @@ export default defineComponent({
         </span>
       </>
     );
-
-    // 渲染左侧区域
+    // 左侧渲染
     const renderLeft = () => {
       if (slots.left) {
         return slots.left(getLeftSlotProps());
       }
-      if (slots['select-all']) {
-        return slots['select-all']();
-      }
-      return renderDefaultSelectAll();
-    };
 
-    // 渲染收藏按钮
+      if (props.isAllCheck) {
+        return renderDefaultSelectAll();
+      }
+    };
+    // 收藏渲染
     const renderCollect = () => {
       if (slots.collect) {
         return slots.collect();
@@ -152,8 +144,7 @@ export default defineComponent({
         </VanButton>
       );
     };
-
-    // 渲染分享按钮
+    // 分享渲染
     const renderShare = () => {
       if (slots.share) {
         return slots.share();
@@ -178,8 +169,7 @@ export default defineComponent({
       );
     };
 
-    // 渲染收藏/分享图标条
-    const renderIconsStrip = () => {
+    const renderIconStrip = () => {
       const collect = renderCollect();
       const share = renderShare();
       if (!collect && !share) {
@@ -193,7 +183,6 @@ export default defineComponent({
       );
     };
 
-    // 渲染次要按钮
     const renderSecondary = () => {
       if (slots['secondary-button']) {
         return slots['secondary-button']();
@@ -203,7 +192,8 @@ export default defineComponent({
       }
       return (
         <VanButton
-          size="small"
+          size="large"
+          width="112px"
           plain
           type={props.secondaryButtonType}
           text={props.secondaryButtonText}
@@ -215,7 +205,6 @@ export default defineComponent({
       );
     };
 
-    // 渲染第三按钮
     const renderTertiary = () => {
       if (slots['tertiary-button']) {
         return slots['tertiary-button']();
@@ -225,7 +214,8 @@ export default defineComponent({
       }
       return (
         <VanButton
-          size="small"
+          size="large"
+          width="112px"
           plain
           type={props.tertiaryButtonType}
           text={props.tertiaryButtonText}
@@ -237,14 +227,14 @@ export default defineComponent({
       );
     };
 
-    // 渲染主按钮（结算）
     const renderPrimary = () => {
       if (slots['primary-button']) {
         return slots['primary-button']();
       }
       return (
         <VanButton
-          size="small"
+          size="large"
+          width="112px"
           type={props.primaryButtonType}
           text={props.primaryButtonText}
           disabled={props.primaryDisabled}
@@ -255,22 +245,6 @@ export default defineComponent({
       );
     };
 
-    // 渲染右侧操作区
-    const renderRight = () => {
-      if (slots.right) {
-        return slots.right();
-      }
-
-      return (
-        <>
-          {renderSecondary()}
-          {renderTertiary()}
-          {renderPrimary()}
-        </>
-      );
-    };
-
-    // 渲染订单选择栏主体
     const renderBar = () => (
       <div
         ref={root}
@@ -280,14 +254,17 @@ export default defineComponent({
         <div class={bem('bar')}>
           <div class={bem('start')}>
             <div class={bem('left')}>{renderLeft()}</div>
-            {renderIconsStrip()}
+            {renderIconStrip()}
           </div>
-          <div class={bem('actions')}>{renderRight()}</div>
+          <div class={bem('actions')}>
+            {renderSecondary()}
+            {renderTertiary()}
+            {renderPrimary()}
+          </div>
         </div>
       </div>
     );
 
-    // 渲染组件根节点（支持占位高度）
     return () => {
       if (props.placeholder) {
         return renderPlaceholder(renderBar);

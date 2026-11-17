@@ -3,7 +3,11 @@ import { Field } from '../../field';
 import { Popup } from '../../popup';
 import DatePicker from '../../date-picker';
 import type { PickerConfirmEventParams } from '../../picker';
-import { builtinFieldProps, defaultPopupProps, useFormFieldDisabled } from './shared';
+import {
+  builtinFieldProps,
+  defaultPopupProps,
+  useFormFieldDisabled,
+} from './shared';
 
 export default defineComponent({
   name: 'ProFormDatePickerField',
@@ -37,10 +41,10 @@ export default defineComponent({
       return (
         <>
           <Field
-            {...props.fieldProps}
             modelValue={props.modelValue}
             readonly
             is-link
+            {...props.fieldProps}
             onClickInput={open}
           >
             {{ ...props.fieldSlots }}

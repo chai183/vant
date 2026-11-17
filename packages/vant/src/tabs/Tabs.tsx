@@ -193,11 +193,16 @@ export default defineComponent({
         return isNavOverflow.value;
       }
 
-      return (
-        children.length > +props.swipeThreshold ||
-        !props.ellipsis ||
-        isNavOverflow.value
-      );
+      const exceedsThreshold = children.length > +props.swipeThreshold;
+      const scrollOnOverflow =
+        props.type === 'rounded' || props.type === 'divider';
+
+      if (scrollOnOverflow || !props.ellipsis) {
+        return exceedsThreshold || isNavOverflow.value;
+      }
+
+      // <= swipe-threshold: equal width with ellipsis; > threshold: scroll
+      return exceedsThreshold;
     });
 
     // 是否展示右侧菜单图标（nav-overflow="menu" 时生效）
@@ -246,22 +251,40 @@ export default defineComponent({
 
     // scroll active tab into view
     const scrollIntoView = (immediate?: boolean) => {
-      const nav = navRef.value;
-      const titles = titleRefs.value;
+      updateNavOverflow();
 
-      if (!scrollable.value || !nav || !titles || !titles[state.currentIndex]) {
-        return;
-      }
+      nextTick(() => {
+        requestAnimationFrame(() => {
+          const nav = navRef.value;
+          const titles = titleRefs.value;
+          const titleVm = titles?.[state.currentIndex];
 
-      const title = titles[state.currentIndex].$el;
-      const to = title.offsetLeft - (nav.offsetWidth - title.offsetWidth) / 2;
+          if (!nav || !titleVm) {
+            return;
+          }
 
-      if (cancelScrollLeftToRaf) cancelScrollLeftToRaf();
-      cancelScrollLeftToRaf = scrollLeftTo(
-        nav,
-        to,
-        immediate ? 0 : +props.duration,
-      );
+          const canScroll = nav.scrollWidth > nav.clientWidth + 1;
+          if (!scrollable.value && !canScroll) {
+            return;
+          }
+
+          const title = titleVm.$el as HTMLElement | undefined;
+          if (!title) {
+            return;
+          }
+
+          const to =
+            title.offsetLeft - (nav.offsetWidth - title.offsetWidth) / 2;
+
+          if (cancelScrollLeftToRaf) cancelScrollLeftToRaf();
+          cancelScrollLeftToRaf = scrollLeftTo(
+            nav,
+            to,
+            immediate ? 0 : +props.duration,
+          );
+          updateNavScrollState();
+        });
+      });
     };
 
     // update nav bar style
@@ -549,10 +572,6 @@ export default defineComponent({
               {
                 shrink: props.shrink,
                 complete: scrollable.value,
-                fill:
-                  type === 'rounded' &&
-                  children.length === +props.swipeThreshold &&
-                  !scrollable.value,
               },
             ])}
             style={navStyle.value}
@@ -621,6 +640,9 @@ export default defineComponent({
       nextTick(() => {
         updateNavOverflow();
         updateNavScrollState();
+        if (scrollable.value && state.inited) {
+          scrollIntoView(true);
+        }
       });
     });
 

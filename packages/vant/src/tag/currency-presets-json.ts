@@ -1,4 +1,3 @@
-// This module mirrors currency-presets.json so the package build can bundle the preset data.
 export const currencyRaw = {
   defaultIcon: 'gold-coin-o',
   description:

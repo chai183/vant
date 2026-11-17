@@ -24,11 +24,7 @@ The parent only keeps one array; the slot contains **one** `Field` template **wi
 
 ```html
 <van-cell-group inset>
-  <van-field-children
-    v-model="list"
-    title="Options"
-    add-text="Add"
-  >
+  <van-field-children v-model="list" title="Options" add-text="Add">
     <van-field label="Name" placeholder="Please enter" />
   </van-field-children>
 </van-cell-group>

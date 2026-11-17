@@ -6,10 +6,12 @@
   --van-switch-node-size: 18px;
   --van-switch-node-background: var(--van-white);
   --van-switch-node-shadow: 0 3px 1px 0 rgba(0, 0, 0, 0.05);
-  --van-switch-background: var(--van-gray-9);
+  --van-switch-background: var(--van-gray-13);
   --van-switch-on-background: var(--van-primary-color);
-  --van-switch-disabled-on-background: #f8d2b7;
-  --van-switch-disabled-off-background: #ebebeb;
+  --van-switch-disabled-on-background: #ffcda8;
+  --van-switch-disabled-off-background: #eeeeee;
+  --van-switch-loading-off-background: var(--van-gray-13);
+  --van-switch-loading-on-background: var(--van-switch-on-background);
   --van-switch-loading-size: 10px;
   --van-switch-loading-color: var(--van-white);
   --van-switch-duration: var(--van-duration-base);
@@ -94,5 +96,13 @@
 
   &--loading {
     cursor: default;
+
+    &:not(&--on) {
+      background: var(--van-switch-loading-off-background);
+    }
+
+    &.van-switch--on {
+      background: var(--van-switch-loading-on-background);
+    }
   }
 }

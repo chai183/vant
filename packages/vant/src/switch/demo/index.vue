@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import VanSwitch from '..';
 import VanCell from '../../cell';
-import VanIcon from '../../icon';
 import { ref } from 'vue';
 import { useTranslate } from '../../../docs/site';
 import { showConfirmDialog } from '../../dialog';
@@ -57,6 +56,7 @@ const onUpdateValue = (checked: boolean) => {
 
   <demo-block :title="t('loadingStatus')">
     <van-switch v-model="checked" loading />
+    <van-switch v-model="checked2" loading />
   </demo-block>
 
   <demo-block :title="t('customSize')">
@@ -72,7 +72,7 @@ const onUpdateValue = (checked: boolean) => {
     />
   </demo-block>
 
-  <demo-block :title="t('customNode')">
+  <!-- <demo-block :title="t('customNode')">
     <van-switch v-model="checked3">
       <template #node>
         <div class="icon-wrapper">
@@ -80,7 +80,7 @@ const onUpdateValue = (checked: boolean) => {
         </div>
       </template>
     </van-switch>
-  </demo-block>
+  </demo-block> -->
 
   <demo-block :title="t('asyncControl')">
     <van-switch :model-value="checked4" @update:model-value="onUpdateValue" />

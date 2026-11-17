@@ -1,6 +1,5 @@
 import stampFrame1 from './assets/stamp-frame1.svg';
 import stampFrame2 from './assets/stamp-frame2.svg';
-
 /** 单行印章外框（字数 ≤ 5），见 `assets/stamp-frame1.svg` */
 export const STAMP_FRAME_URL_SINGLE_LINE = stampFrame1;
 

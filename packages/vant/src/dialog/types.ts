@@ -30,14 +30,14 @@ export type DialogButton = {
   [key: PropertyKey]: any;
 };
 
-// Dialog 消息高亮配置：复用 Highlight 的匹配能力，并补充便捷样式设置。
+//高亮配置，筛选配置改可选
 export type DialogMessageHighlightConfig = Partial<
   Pick<
     HighlightProps,
     | 'autoEscape'
     | 'caseSensitive'
-    | 'highlightClass'
     | 'highlightTag'
+    | 'highlightClass'
     | 'unhighlightClass'
     | 'unhighlightTag'
   >
@@ -50,6 +50,7 @@ export type DialogMessageHighlightConfig = Partial<
 // 输入框配置
 export type DialogInputConfig = {
   type?: DialogInputType;
+  position?: 'before' | 'after';
   defaultValue?: string;
   placeholder?: string;
   maxlength?: Numeric;

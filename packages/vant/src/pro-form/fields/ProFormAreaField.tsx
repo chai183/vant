@@ -4,7 +4,11 @@ import { Popup } from '../../popup';
 import Area from '../../area';
 import type { AreaList } from '../../area/types';
 import type { PickerConfirmEventParams } from '../../picker';
-import { builtinFieldProps, defaultPopupProps, useFormFieldDisabled } from './shared';
+import {
+  builtinFieldProps,
+  defaultPopupProps,
+  useFormFieldDisabled,
+} from './shared';
 
 export default defineComponent({
   name: 'ProFormAreaField',

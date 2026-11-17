@@ -1,9 +1,6 @@
 import { padZero } from '../utils';
 import type { Translate } from '../utils/create';
-import type {
-  RangeInputDateShortcutType,
-  RangeInputShortcut,
-} from './types';
+import type { RangeInputDateShortcutType, RangeInputShortcut } from './types';
 
 export const DATE_SHORTCUT_TYPES: RangeInputDateShortcutType[] = [
   'lastWeek',

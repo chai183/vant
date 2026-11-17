@@ -27,11 +27,13 @@ export type BadgePosition =
 export const badgeProps = {
   dot: Boolean,
   max: numericProp,
+  maxContent: String,
   tag: makeStringProp<keyof HTMLElementTagNameMap>('div'),
   color: String,
   offset: Array as unknown as PropType<[Numeric, Numeric]>,
   content: numericProp,
   showZero: truthProp,
+  weak: Boolean,
   position: makeStringProp<BadgePosition>('top-right'),
 };
 
@@ -56,7 +58,7 @@ export default defineComponent({
     };
 
     const renderContent = () => {
-      const { dot, max, content } = props;
+      const { dot, max, content, maxContent } = props;
 
       if (!dot && hasContent()) {
         if (slots.content) {
@@ -64,7 +66,7 @@ export default defineComponent({
         }
 
         if (isDef(max) && isNumeric(content!) && +content > +max) {
-          return `${max}+`;
+          return isDef(maxContent) ? maxContent : `${max}+`;
         }
 
         return content;
@@ -116,7 +118,7 @@ export default defineComponent({
           <div
             class={bem([
               props.position,
-              { dot: props.dot, fixed: !!slots.default },
+              { dot: props.dot, fixed: !!slots.default, weak: props.weak },
             ])}
             style={style.value}
           >

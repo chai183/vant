@@ -53,7 +53,7 @@ export const navBarProps = {
   border: truthProp,
   leftText: String,
   rightText: String,
-  // 按钮数组配置
+  //按钮数组配置
   leftButtons: makeArrayProp<NavBarButton>(),
   rightButtons: makeArrayProp<NavBarButton>(),
   leftDisabled: Boolean,
@@ -95,10 +95,10 @@ export default defineComponent({
     const rightRef = ref<HTMLElement>();
     const titleRef = ref<HTMLElement>();
 
-    const titleFontSize = ref<number>(); // 标题字体大小
-    const searchLeft = ref<string>(); // search模式下左侧宽度
-    const searchRight = ref<string>(); // search模式右侧宽度
-    const activeRightMenu = ref<number>(); // 按钮菜单索引
+    const titleFontSize = ref<number>(); //标题字体大小
+    const searchLeft = ref<string>(); //search模式下左侧宽度
+    const searchRight = ref<string>(); //search模式右侧宽度
+    const activeRightMenu = ref<number>(); //按钮菜单索引
     const renderPlaceholder = usePlaceholder(navBarRef, bem);
 
     let rafId = 0;
@@ -106,7 +106,7 @@ export default defineComponent({
 
     /* ----交互事件处理start---- */
 
-    // 基础按钮 -点击事件
+    // 基础按钮--点击事件
     const onClickLeft = (event: MouseEvent) => {
       if (!props.leftDisabled) {
         emit('clickLeft', event);
@@ -218,13 +218,13 @@ export default defineComponent({
     };
     /* ----按钮输出处理end---- */
 
-    /* ----动态计算布局大小----start */
+    /* 动态计算布局大小----start */
 
     // 搜索框只在没有标题和 title 插槽时接管中间区域。
     const shouldRenderSearch = () =>
       props.search && !props.title && !slots.title;
 
-    // 动态计算左右/标题宽度
+    //动态计算左右/标题宽度
     // 根据左右两侧的宽度，来获取左右宽度
     const updateTitleLayout = () => {
       const navBar = navBarRef.value;
@@ -247,7 +247,7 @@ export default defineComponent({
         );
       const horizontalPadding = edgeGap || 8;
 
-      // 左右的具体宽度；实际宽度->插槽默认数量2->实际数量
+      // 左右的具体宽度：实际宽度->插槽默认数量2->实际数量
       const leftWidth = leftRef.value?.getBoundingClientRect().width || 0;
       const rightWidth = rightRef.value?.getBoundingClientRect().width || 0;
 
@@ -265,7 +265,7 @@ export default defineComponent({
       }
     };
 
-    // 动态计算标题文字大小
+    // 动态计算标题文字大小/
     const updateTitleFontSize = () => {
       if (!inBrowser) {
         return;
@@ -298,7 +298,7 @@ export default defineComponent({
           ) || 14;
         const maxFontSize = parseFloat(fontSize);
 
-        // 标题先滚动宽度和元素宽度 按比例缩小，仍超出时交给省略样式截断。
+        // 标题先 滚动宽度和元素宽度 按比例缩小，仍超出时交给省略样式截断。
         const nextFontSize =
           title.scrollWidth > title.clientWidth && title.clientWidth > 0
             ? Math.max(
@@ -316,7 +316,8 @@ export default defineComponent({
         }
       });
     };
-    /* ----动态计算布局大小----end */
+
+    /* 动态计算布局大小----end */
 
     /* ----按钮和菜单渲染start---- */
 
@@ -555,7 +556,7 @@ export default defineComponent({
       const subtitle = slots.subtitle ? slots.subtitle() : props.subtitle;
       if (subtitle) {
         return (
-          <div class={bem('title-content')}>
+          <div class={bem('title__content')}>
             <div class={[bem('titlemain'), 'van-ellipsis']}>{title}</div>
             <div class={[bem('subtitle'), 'van-ellipsis']}>{subtitle}</div>
           </div>
@@ -670,7 +671,7 @@ export default defineComponent({
 
     /* ----生命周期和布局监听start---- */
     onMounted(() => {
-      // 初始化计算font-size
+      // 初始化去计算font-size
       updateTitleFontSize();
 
       if (inBrowser) {

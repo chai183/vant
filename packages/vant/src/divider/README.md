@@ -81,7 +81,7 @@ Text
 | --- | --- | --- | --- |
 | dashed | Whether to use dashed border | _boolean_ | `false` |
 | borderless `new` | Whether to hide the divider line and only show slot content | _boolean_ | `false` |
-| hairline | Whether to use hairline | _boolean_ | `true` |
+| hairline | Whether to use hairline | _boolean_ | `false` |
 | content-position | Content position, can be set to `left` `right` | _string_ | `center` |
 | vertical `v4.4.0` | Whether to use vertical | _boolean_ | `false` |
 

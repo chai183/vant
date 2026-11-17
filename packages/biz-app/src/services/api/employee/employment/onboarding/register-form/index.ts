@@ -12,6 +12,7 @@ import type {
 import apiClient from '@/services/api';
 import {
   ONBOARDING_REGISTER_FORM_APPROVE_URL,
+  ONBOARDING_REGISTER_FORM_CHECK_PHONE_URL,
   ONBOARDING_REGISTER_FORM_DELETE_URL,
   ONBOARDING_REGISTER_FORM_EDIT_URL,
   ONBOARDING_REGISTER_FORM_PAGE_URL,
@@ -206,6 +207,21 @@ export function approveOnboardingRegisterFormApi(
     data: buildRegisterFormApprovalRequest(
       data as unknown as Record<string, unknown>,
     ),
+  });
+}
+
+/** 填写页登录 - 校验手机号。失败时 message / errorMsg 为输入框下方文案 */
+export function checkOnboardingRegisterFormPhoneApi(data: {
+  phone?: string;
+  templateId?: string;
+}) {
+  return apiClient<ApiResponse<boolean>>({
+    url: ONBOARDING_REGISTER_FORM_CHECK_PHONE_URL,
+    method: 'post',
+    data: {
+      phone: String(data?.phone ?? '').replace(/\D/g, ''),
+      templateId: String(data?.templateId ?? '').trim(),
+    },
   });
 }
 

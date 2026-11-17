@@ -131,9 +131,8 @@ export default defineComponent({
     }>({});
 
     onMounted(async () => {
-      rootStyle.value[
-        '--move-distance'
-      ] = `-${barrageWrapper.value?.offsetWidth}px`;
+      rootStyle.value['--move-distance'] =
+        `-${barrageWrapper.value?.offsetWidth}px`;
       await nextTick();
       updateBarrages(props.modelValue, []);
     });

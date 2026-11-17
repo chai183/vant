@@ -1,8 +1,28 @@
 import { computed, defineComponent, type CSSProperties } from 'vue';
-import { isDef, truthProp, numericProp, createNamespace } from '../utils';
+import {
+  isDef,
+  isNumeric,
+  truthProp,
+  numericProp,
+  createNamespace,
+} from '../utils';
 import { Badge } from '../badge';
 
 const [name, bem] = createNamespace('tab');
+const TAB_BADGE_MAX = 999;
+
+const formatBadgeContent = (content: string | number | undefined) => {
+  if (
+    isDef(content) &&
+    content !== '' &&
+    isNumeric(content) &&
+    +content > TAB_BADGE_MAX
+  ) {
+    return TAB_BADGE_MAX;
+  }
+
+  return content;
+};
 
 export const TabTitle = defineComponent({
   name,
@@ -102,7 +122,7 @@ export const TabTitle = defineComponent({
             {renderText()}
             <Badge
               dot={props.dot}
-              content={props.badge}
+              content={formatBadgeContent(props.badge)}
               showZero={props.showZeroBadge}
             />
           </div>

@@ -38,7 +38,7 @@ app.use(SkeletonParagraph);
 
 ### 宫格骨架屏
 
-通过 `template-type="grid"` 快速配置宫格布局，一行最多展示四个等比例单元，每个单元包含 48px 圆形头像占位和 32px 宽的短条占位。可通过 `grid-count` 调整列数。
+通过 `template-type="grid"` 快速配置宫格布局，只负责一行的宫格渲染，默认一行展示四个等比例单元，每个单元包含 48px 圆形头像占位和 32px 宽的短条占位。可通过 `grid-count` 调整列数。
 
 ```html
 <van-skeleton template-type="grid" />

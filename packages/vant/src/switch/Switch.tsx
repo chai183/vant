@@ -70,9 +70,13 @@ export default defineComponent({
     return () => {
       const { size, loading, disabled, activeColor, inactiveColor } = props;
       const checked = isChecked();
-      const style: CSSProperties = {
-        backgroundColor: checked ? activeColor : inactiveColor,
-      };
+      const style: CSSProperties = {};
+
+      if (checked && activeColor) {
+        style.backgroundColor = activeColor;
+      } else if (!checked && inactiveColor) {
+        style.backgroundColor = inactiveColor;
+      }
 
       if (isDef(size)) {
         const nodeSizePx = unitToPx(size);

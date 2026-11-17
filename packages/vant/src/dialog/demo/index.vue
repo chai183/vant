@@ -35,6 +35,7 @@ const t = useTranslate({
     inputTitle: '对话框标题',
     shortText: '短文本',
     longText: '长文本',
+    inputBefore: '输入框在说明上方',
     inputMessage: '这是一段对话框信息',
     inputPlaceholder: '请输入内容',
     inputRulesMessage: '这是必填项',
@@ -79,6 +80,7 @@ const t = useTranslate({
     inputTitle: 'input title',
     shortText: 'short text',
     longText: 'long text',
+    inputBefore: 'Input before message',
     inputMessage: 'this is input message',
     inputPlaceholder: 'please input content',
     inputRulesMessage: 'this is be required',
@@ -122,8 +124,7 @@ const onClickAlert2 = () => {
 //     message: t('content2'),
 //   });
 // };
-
-/* -------- 确认弹窗start----- */
+/*------- 确认弹窗start---- */
 const onClickConfirm = () => {
   showConfirmDialog({
     title: t('title'),
@@ -137,7 +138,7 @@ const onClickConfirm2 = () => {
     confirmButtonText: t('confirmText2'),
   });
 };
-/* --------确认弹窗end------ */
+/* -------确认弹窗end------ */
 
 /* --------上下布局start------- */
 
@@ -157,7 +158,7 @@ const onClickMultiAction = () => {
     message: t('content3'),
     confirmButtonText: t('primaryAction'),
     actionButtons: [
-      { action: 'detail', text: t('detailAction'), color: '#F00' },
+      { action: 'detail', text: t('detailAction'), color: '#f00' },
       {
         action: 'retry',
         text: t('retryAction'),
@@ -169,9 +170,9 @@ const onClickMultiAction = () => {
     },
   });
 };
-/* --------上下布局end-------- */
+/* --------上下布局end------- */
 
-/*-------- 自定义颜色弹窗start-------- */
+/*-------- 自定义颜色弹窗start------- */
 const onClickConfirm3 = () => {
   showConfirmDialog({
     message: t('content3'),
@@ -190,9 +191,9 @@ const onClickConfirm4 = () => {
   });
 };
 
-/*-------- 自定义颜色弹窗end--------- */
+/*-------- 自定义颜色弹窗end------- */
 
-/*-------- 高亮start---------*/
+/*--------高亮start---------*/
 const showHighlight = ref(false);
 
 const messageHighlightConfig = ref({
@@ -214,7 +215,7 @@ const onClickHighlight = () => {
 
 /*--------高亮end---------*/
 
-/*-------- 输入框start---------*/
+/*--------输入框start---------*/
 
 const textInputConfig = ref({
   type: 'text',
@@ -230,7 +231,7 @@ const textareaInputConfig = ref({
   placeholder: t('inputPlaceholder'),
   maxlength: 100,
   showWordLimit: true,
-  autosize: true,
+  autoSize: true,
   validateTrigger: ['onBlur'],
   rules: [{ required: true, message: t('inputRulesMessage') }],
 });
@@ -256,6 +257,19 @@ const onClickTextareaDialog = () => {
 };
 
 const showComponentInput = ref(false);
+const onClickInputBefore = () => {
+  showConfirmDialog({
+    title: t('inputTitle'),
+    message: t('inputMessage'),
+    inputConfig: {
+      type: 'textarea',
+      position: 'before',
+      rows: 3,
+      placeholder: t('inputPlaceholder'),
+      rules: [{ required: true, message: t('inputRulesMessage') }],
+    },
+  });
+};
 const showComponentValidation = ref(false);
 const componentInputValue = ref('');
 const componentValidationValue = ref('');
@@ -329,6 +343,7 @@ const validationInputConfig = ref({
   <demo-block card :title="t('inputAction')">
     <van-cell is-link :title="t('shortText')" @click="onClickInputDialog" />
     <van-cell is-link :title="t('longText')" @click="onClickTextareaDialog" />
+    <van-cell is-link :title="t('inputBefore')" @click="onClickInputBefore" />
     <van-cell
       is-link
       :title="t('shortTextComponent')"

@@ -28,7 +28,7 @@ app.use(NavBar);
 
 ### 副标题
 
-通过 `subtitle` 属性设置导航栏副标题。
+通过 `subtitle`属性设置导航副标题
 
 ```html
 <van-nav-bar title="标题" subtitle="辅助说明文字内容" />
@@ -63,7 +63,7 @@ app.use(NavBar);
 
 **注意：**
 
-> 左右两侧按钮各有位置展示，当配置 `left-arrow`、`left-text`，也视为占据了一个空位，此时`left-buttons`只有一个有效的空位空间。<br /> 同理右侧配置`right-text`也是占据一个空位，只有一个有效的`right-buttons`空位空间
+> 左右两侧按钮各有空位两个，当配置`left-arrow` `left-text`,也视为占据了一个空位，此时left-buttons只有一个有效的空位空间。<br/> 同理右侧配置`right-text`也是占据一个空位，只有一个有效的`right-buttons`空位空间
 
 **涉及事件**
 
@@ -132,9 +132,9 @@ function onClickRightButton(button, index, event) {}
 
 右侧菜单按钮可以通过按钮配置中进行配置下拉
 
-`button` 配置项中新增menu数组[配置项](#/zh-CN/nav-bar#navbarmenuitem-shu-ju-jie-gou)
+`button`配置项中新增menu数组[配置项](#/zh-CN/nav-bar#navbarmenuitem-shu-ju-jie-gou)
 
-支持事件 `selectRightMenu`
+支持事件`selectRightMenu`
 
 ```html
 <van-nav-bar
@@ -158,7 +158,7 @@ const menuButtons = [
 function onSelectRightMenu(item, itemIndex, button, buttonIndex, event) {
   // item 菜单配置
   // itemIndex 菜单索引
-  // button 外层按钮数据
+  // button外层按钮撇脂
   // buttonIndex 按钮索引
 }
 ```
@@ -178,16 +178,16 @@ function onSelectRightMenu(item, itemIndex, button, buttonIndex, event) {
 
 **前置条件**
 
-1. 不能传`title`标题属性和插槽`title`
-2. 传递`search`属性
+1. 不能传title标题属性和插槽title
+2. 传递search属性
 
 **涉及props及事件**
 
 1. `search` 开启搜索框模式
-2. `search-placeholder` 占位提示
+2. `search-placeholder`占位提示
 3. `search-value` 搜索框内容
-4. `search-props` search组件[配置](#/zh-CN/search#api)
-5. `search` 事件,点击左侧搜索图标触发事件
+4. `search-props` search组件[配置](/#/zh-CN/search#api)
+5. `search`事件,点击左侧搜索图标触发事件
 
 ```html
 <van-nav-bar search search-placeholder="搜索关键词" @search="onSearch" />
@@ -228,8 +228,8 @@ const rightButtons = [
 | background | 导航栏背景色 | _string_ | - |
 | left-text | 左侧文案 | _string_ | `''` |
 | right-text | 右侧文案，最多展示四个字 | _string_ | `''` |
-| left-buttons `new` | 左侧按钮配置，左侧整体最多展示两个位置；未配置图标时，第一个默认返回，第二个默认关闭 | _NavBarButton[]_ | `[]` |
-| right-buttons `new` | 右侧按钮配置，右侧整体最多展示两个位置，可通过 `menu` 配置下拉菜单 | _NavBarButton[]_ | `[]` |
+| left-buttons`new` | 左侧按钮配置，左侧整体最多展示两个位置；未配置图标时，第一个默认返回，第二个默认关闭 | _NavBarButton[]_ | `[]` |
+| right-buttons`new` | 右侧按钮配置，右侧整体最多展示两个位置，可通过 `menu` 配置下拉菜单 | _NavBarButton[]_ | `[]` |
 | left-disabled `v4.6.8` | 是否禁用左侧按钮，禁用时透明度降低，且无法点击 | _boolean_ | `false` |
 | right-disabled `v4.6.8` | 是否禁用右侧按钮，禁用时透明度降低，且无法点击 | _boolean_ | `false` |
 | left-arrow | 是否显示左侧箭头 | _boolean_ | `false` |
@@ -239,10 +239,10 @@ const rightButtons = [
 | z-index | 导航栏 z-index | _number \| string_ | `1` |
 | safe-area-inset-top | 是否开启[顶部安全区适配](#/zh-CN/advanced-usage#di-bu-an-quan-qu-gua-pei) | _boolean_ | `false` |
 | clickable | 是否开启两侧按钮的点击反馈 | _boolean_ | `true` |
-| search `new` | 无标题时，是否将标题区域渲染为搜索框 | _boolean_ | `false` |
+| search`new` | 无标题时，是否将标题区域渲染为搜索框 | _boolean_ | `false` |
 | search-value `new` | 搜索框内容 | _string_ | `''` |
 | search-placeholder `new` | 搜索框占位提示 | _string_ | `''` |
-| search-props `new` | 搜索配置 | _Partial\<SearchProps\>_ | - |
+| search-props `new` | 搜索配置 | _Partial<SearchProps>_ | - |
 
 ### Slots
 
@@ -285,7 +285,7 @@ import type { NavBarProps, NavBarButton, NavBarMenuItem } from 'vant';
 | ---------- | --------------------------------------- | ------------------ |
 | icon       | 图标名称                                | _string_           |
 | iconPrefix | 图标类名前缀                            | _string_           |
-| size       | 图标大小，同时作为按钮宽高，默认 `28px` | _number \| string_ |
+| size       | 图标大小，同时作为按钮宽高；默认 `28px` | _number \| string_ |
 | text       | 按钮文本                                | _string_           |
 | color      | 按钮颜色                                | _string_           |
 | disabled   | 是否禁用按钮                            | _boolean_          |

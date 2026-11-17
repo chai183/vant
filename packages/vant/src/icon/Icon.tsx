@@ -61,7 +61,6 @@ export default defineComponent({
               : isImageIcon
                 ? ''
                 : `${classPrefix.value}-${name}`,
-            // isImageIcon ? '' : `${classPrefix.value}-${name}`,
           ]}
           style={{
             color,

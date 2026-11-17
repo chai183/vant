@@ -4,7 +4,7 @@ import VanCell from '../../cell';
 import { showToast } from '../../toast';
 import { cdnURL, useTranslate } from '../../../docs/site';
 import { showAdDialog, AdDialog as VanAdDialog } from '..';
-
+import ADImage from '../assets/ad-d1.png';
 const t = useTranslate({
   'zh-CN': {
     basicUsage: '基础使用',
@@ -12,13 +12,12 @@ const t = useTranslate({
     closeMode: '内外模式',
     callbackUsage: '回调函数',
     slotUsage: '插槽使用',
-    componentUsage: '组件使用',
     customContentUsage: '自定义内容',
     basicDialog: '基础广告弹窗',
     carouselDialog: '轮播广告弹窗',
     topRightPosition: '顶部右侧',
     bottomLeftPosition: '底部左侧',
-    customPosition: '自定义坐标',
+    customPosition: '自定义位置',
     outsideMode: '外部模式',
     insideMode: '内部模式',
     callbackDemo: '回调函数演示',
@@ -39,13 +38,12 @@ const t = useTranslate({
     closeMode: 'Inside / Outside Mode',
     callbackUsage: 'Callbacks',
     slotUsage: 'Slots',
-    componentUsage: 'Component Usage',
     customContentUsage: 'Custom Content',
     basicDialog: 'Basic Ad Dialog',
     carouselDialog: 'Carousel Ad Dialog',
     topRightPosition: 'Top Right',
     bottomLeftPosition: 'Bottom Left',
-    customPosition: 'Custom Position',
+    customPosition: 'custom',
     outsideMode: 'Outside Mode',
     insideMode: 'Inside Mode',
     callbackDemo: 'Click Callback Demo',
@@ -62,13 +60,9 @@ const t = useTranslate({
   },
 });
 
-const image = cdnURL('apple-3.jpeg');
-const secondaryImage = cdnURL('apple-1.jpeg');
-const carouselImages = [
-  cdnURL('apple-1.jpeg'),
-  cdnURL('apple-2.jpeg'),
-  cdnURL('apple-3.jpeg'),
-];
+const image = ADImage;
+const secondaryImage = ADImage;
+const carouselImages = [ADImage, ADImage, ADImage];
 const closeIconImage = cdnURL('custom-icon-light.png');
 
 const showBasicComponent = ref(false);
@@ -79,21 +73,24 @@ const basicComponentChecked = ref(false);
 const closeIconSlotChecked = ref(false);
 const customContentChecked = ref(true);
 
+// 基础广告
 const openBasicAdDialog = () => {
   showAdDialog({
     image,
     checkboxText: t('checkboxText'),
   });
 };
-
+// 轮播广告
 const openCarouselDialog = () => {
   showAdDialog({
     image: carouselImages,
-    width: 320,
+    width: 311,
+    height: 326,
     checkboxText: t('checkboxText'),
   });
 };
 
+// 右上定位
 const openTopRightPositionDialog = () => {
   showAdDialog({
     image,
@@ -101,7 +98,7 @@ const openTopRightPositionDialog = () => {
     closeIconPosition: 'top-right',
   });
 };
-
+// 左下定位
 const openBottomLeftPositionDialog = () => {
   showAdDialog({
     image,
@@ -109,36 +106,39 @@ const openBottomLeftPositionDialog = () => {
     closeIconPosition: 'bottom-left',
   });
 };
-
+// 自定义定位
 const openCustomPositionDialog = () => {
   showAdDialog({
     image,
     checkboxText: t('checkboxText'),
     closeIconPosition: {
-      top: 8,
-      right: 8,
+      top: 0,
+      right: 10,
     },
   });
 };
 
-const openOutsideModeDialog = () => {
-  showAdDialog({
-    image,
-    checkboxText: t('checkboxText'),
-    closeIconMode: 'outside',
-    closeIconPosition: 'top-right',
-  });
-};
+// 外部模式
+// const openOutsideModeDialog = () => {
+//   showAdDialog({
+//     image,
+//     checkboxText: t("checkboxText"),
+//     closeIconMode: "outside",
+//     closeIconPosition: "top-right",
+//   });
+// };
 
-const openInsideModeDialog = () => {
-  showAdDialog({
-    image,
-    checkboxText: t('checkboxText'),
-    closeIconMode: 'inside',
-    closeIconPosition: 'top-right',
-  });
-};
+// 内部模式
+// const openInsideModeDialog = () => {
+//   showAdDialog({
+//     image,
+//     checkboxText: t("checkboxText"),
+//     closeIconMode: "inside",
+//     closeIconPosition: "top-right",
+//   });
+// };
 
+// 回调函数
 const openCallbackDialog = () => {
   showAdDialog({
     image,
@@ -152,13 +152,14 @@ const openCallbackDialog = () => {
     },
   });
 };
-
+// 自定义关闭插槽
 const onClickCustomContent = () => {
   showToast(t('slotClicked'));
 };
 </script>
 
 <template>
+  <!-- 基础/轮播 -->
   <demo-block card :title="t('basicUsage')">
     <van-cell is-link :title="t('basicDialog')" @click="openBasicAdDialog" />
     <van-cell
@@ -175,11 +176,11 @@ const onClickCustomContent = () => {
     <van-ad-dialog
       v-model:show="showBasicComponent"
       v-model:checked="basicComponentChecked"
-      :image="carouselImages"
+      :image="image"
       :checkbox-text="t('checkboxText')"
     />
   </demo-block>
-
+  <!-- 定位 -->
   <demo-block card :title="t('closePosition')">
     <van-cell
       is-link
@@ -197,20 +198,20 @@ const onClickCustomContent = () => {
       @click="openCustomPositionDialog"
     />
   </demo-block>
-
-  <demo-block card :title="t('closeMode')">
+  <!-- 内外部模式 -->
+  <!-- <demo-block card :title="t('closeMode')">
     <van-cell
       is-link
       :title="t('outsideMode')"
       @click="openOutsideModeDialog"
     />
     <van-cell is-link :title="t('insideMode')" @click="openInsideModeDialog" />
-  </demo-block>
-
+  </demo-block> -->
+  <!-- 回调演示 -->
   <demo-block card :title="t('callbackUsage')">
     <van-cell is-link :title="t('callbackDemo')" @click="openCallbackDialog" />
   </demo-block>
-
+  <!-- 关闭按钮插槽 -->
   <demo-block card :title="t('slotUsage')">
     <van-cell
       is-link
@@ -231,7 +232,7 @@ const onClickCustomContent = () => {
       </template>
     </van-ad-dialog>
   </demo-block>
-
+  <!-- 自定义 -->
   <demo-block card :title="t('customContentUsage')">
     <van-cell
       is-link

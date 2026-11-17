@@ -4,15 +4,15 @@
   --van-tab-active-text-color: var(--van-text-color);
   --van-tab-disabled-text-color: var(--van-text-color-3);
   --van-tab-font-size: var(--van-font-size-lg);
-  --van-tab-line-height: var(--van-line-height-md);
+  --van-tab-line-height: 16px;
   --van-tabs-default-color: var(--van-primary-color);
   --van-tabs-line-height: 44px;
   --van-tabs-card-height: 30px;
-  --van-tabs-rounded-inactive-background: var(--van-gray-block-background);
+  --van-tabs-rounded-inactive-background: var(--van-gray-9);
   --van-tabs-rounded-font-size: 14px;
   --van-tabs-rounded-line-height: 14px;
   --van-tabs-rounded-disabled-text-color: var(--van-text-color-disabled);
-  --van-tabs-rounded-padding-vertical: 6px;
+  --van-tabs-rounded-padding-vertical: 7px;
   --van-tabs-rounded-padding-horizontal: 12px;
   --van-tabs-rounded-gap: 12px;
   --van-tabs-rounded-nav-background: var(--van-white);
@@ -29,6 +29,7 @@
   --van-tabs-underline-inactive-text-color: var(--van-text-color);
   --van-tabs-divider-nav-padding-vertical: 16px;
   --van-tabs-divider-tab-padding-horizontal: 12px;
+  --van-tabs-shrink-tab-padding-horizontal: 12px;
   --van-tabs-divider-nav-background: var(--van-white);
   --van-tabs-divider-inactive-text-color: var(--van-text-color-secondary);
   --van-tabs-divider-line-width: 0.5px;
@@ -78,7 +79,7 @@
 
   &--shrink {
     flex: none;
-    padding: 0 var(--van-padding-xs);
+    padding: 0 var(--van-tabs-shrink-tab-padding-horizontal);
   }
 
   &--card {
@@ -193,6 +194,13 @@
     }
   }
 
+  &--underline:not(&--grow):not(&--shrink) > &__title-wrap,
+  &--line:not(&--grow):not(&--shrink) > &__title-wrap {
+    width: 100%;
+    overflow: hidden;
+    justify-content: center;
+  }
+
   &__title-wrap {
     display: inline-flex;
     align-items: center;
@@ -285,12 +293,6 @@
       padding-bottom: 15px; /* 15px padding to hide scrollbar in mobile safari */
     }
 
-    &--line&--shrink,
-    &--line&--complete {
-      padding-right: var(--van-padding-xs);
-      padding-left: var(--van-padding-xs);
-    }
-
     &--card {
       box-sizing: border-box;
       height: var(--van-tabs-card-height);
@@ -315,15 +317,7 @@
         var(--van-tabs-rounded-nav-padding-horizontal);
       border-radius: 0;
       background: var(--van-tabs-rounded-nav-background);
-    }
 
-    &--rounded&--fill {
-      .van-tab--rounded {
-        flex: 1;
-      }
-    }
-
-    &--rounded:not(&--fill) {
       > .van-tab--rounded {
         flex: none;
         width: auto;
@@ -348,12 +342,6 @@
     &--underline {
       box-sizing: content-box;
       height: 100%;
-    }
-
-    &--underline&--shrink,
-    &--underline&--complete {
-      padding-right: var(--van-padding-xs);
-      padding-left: var(--van-padding-xs);
     }
 
     &--divider {
@@ -437,6 +425,7 @@
       pointer-events: auto;
       background: var(--van-tabs-nav-menu-background);
       -webkit-tap-highlight-color: transparent;
+      box-shadow: -2px 0 5px rgba(0, 0, 0, 0.1);
 
       &:active {
         opacity: 1;
@@ -496,12 +485,12 @@
 
     &--right {
       right: 0;
-      box-shadow: -4px 0 8px var(--van-tabs-scroll-shadow-color);
+      box-shadow: -2px 0 5px rgba(0, 0, 0, 0.1);
     }
 
     &--left {
       left: 0;
-      box-shadow: 4px 0 8px var(--van-tabs-scroll-shadow-color);
+      box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
     }
   }
 

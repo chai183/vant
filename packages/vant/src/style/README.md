@@ -124,7 +124,7 @@ The component provides the following CSS variables, which can be used to customi
 
 | Name | Default Value | Description |
 | --- | --- | --- |
-| --van-gray-block-background | _#f5f5f5_ | Background color |
+| --van-gray-9 | _#f5f5f5_ | Background color |
 | --van-gray-block-padding | _var(--van-padding-sm) var(--van-padding-md-plus)_ | Padding |
 | --van-gray-block-radius | _var(--van-radius-md)_ | Border radius |
 | --van-gray-block-color | _var(--van-text-color-auxiliary)_ | Text color |

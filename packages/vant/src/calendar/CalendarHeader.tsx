@@ -74,14 +74,11 @@ export default defineComponent({
       const text = props.title || t('title');
       const title = slots.title ? slots.title() : text;
 
-      return (
-        <div class={[bem('toolbar-title'), 'van-ellipsis']}>{title}</div>
-      );
+      return <div class={[bem('toolbar-title'), 'van-ellipsis']}>{title}</div>;
     };
 
     const renderToolbar = () => {
-      const hasToolbar =
-        slots.cancel || slots.confirm || props.showTitle;
+      const hasToolbar = slots.cancel || slots.confirm || props.showTitle;
 
       if (!hasToolbar) {
         return;

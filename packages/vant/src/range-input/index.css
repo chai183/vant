@@ -1,0 +1,130 @@
+:root {
+  --van-range-input-gap: var(--van-padding-sm);
+  --van-range-input-title-color: var(--van-cell-text-color, var(--van-text-color));
+  --van-range-input-title-font-size: var(--van-cell-font-size, var(--van-font-size-md));
+  --van-range-input-title-line-height: var(--van-cell-line-height, 24px);
+  --van-range-input-title-margin-bottom: var(--van-padding-xs);
+  --van-range-input-separator-color: var(--van-text-color-2);
+  --van-range-input-separator-font-size: var(--van-font-size-md);
+  --van-range-input-horizontal-line-width: 12px;
+  --van-range-input-horizontal-line-color: var(--van-border-color);
+  --van-range-input-vertical-line-width: 1px;
+  --van-range-input-vertical-line-color: var(--van-border-color);
+  --van-range-input-vertical-line-min-height: 24px;
+  --van-range-input-shortcut-color: var(--van-text-color);
+  --van-range-input-shortcut-background: #f5f5f5;
+  --van-range-input-shortcut-font-size: var(--van-font-size-sm);
+  --van-range-input-shortcut-gap: 8px;
+  --van-range-input-shortcut-padding-y: 8px;
+  --van-range-input-shortcut-padding-x: 4px;
+  --van-range-input-shortcut-margin-bottom: var(--van-padding-xs);
+}
+.van-range-input {
+  width: 100%;
+  min-width: 0;
+}
+.van-range-input__title {
+  margin-bottom: var(--van-range-input-title-margin-bottom);
+  color: var(--van-range-input-title-color);
+  font-size: var(--van-range-input-title-font-size);
+  line-height: var(--van-range-input-title-line-height);
+}
+.van-range-input__body {
+  width: 100%;
+}
+.van-range-input__body--vertical {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  grid-template-rows: auto auto;
+  column-gap: var(--van-padding-xs);
+  row-gap: var(--van-range-input-gap);
+  align-items: stretch;
+}
+.van-range-input__body--vertical > .van-range-input__v-sep {
+  grid-column: 1;
+  grid-row: 0.33333333;
+  justify-self: center;
+}
+.van-range-input__body--vertical > .van-range-input__v-sep--default {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  align-self: stretch;
+  min-height: var(--van-range-input-vertical-line-min-height);
+  gap: var(--van-padding-xs);
+}
+.van-range-input__body--vertical .van-range-input__v-sep--segment {
+  flex: 1 1 0;
+  min-height: 4px;
+  width: var(--van-range-input-vertical-line-width);
+  background: var(--van-range-input-vertical-line-color);
+  border-radius: var(--van-radius-sm);
+}
+.van-range-input__body--vertical .van-range-input__v-sep--label {
+  flex-shrink: 0;
+  color: var(--van-range-input-separator-color);
+  font-size: var(--van-range-input-separator-font-size);
+  line-height: 1;
+}
+.van-range-input__body--vertical > .van-range-input__v-sep--custom {
+  align-self: center;
+  color: var(--van-range-input-separator-color);
+  font-size: var(--van-range-input-separator-font-size);
+  line-height: 1;
+}
+.van-range-input__body--vertical > .van-range-input__cell:nth-child(2) {
+  grid-column: 2;
+  grid-row: 1;
+  min-width: 0;
+}
+.van-range-input__body--vertical > .van-range-input__cell:nth-child(3) {
+  grid-column: 2;
+  grid-row: 2;
+  min-width: 0;
+}
+.van-range-input__body--horizontal {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: var(--van-padding-xs);
+  width: 100%;
+}
+.van-range-input__body--horizontal .van-range-input__cell {
+  flex: 1;
+  min-width: 0;
+}
+.van-range-input__h-sep {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.van-range-input__h-sep--line {
+  width: var(--van-range-input-horizontal-line-width);
+  height: 0;
+  border-top: 1px solid var(--van-range-input-horizontal-line-color);
+}
+.van-range-input__h-sep--custom {
+  color: var(--van-range-input-separator-color);
+  font-size: var(--van-range-input-separator-font-size);
+  line-height: 1;
+}
+.van-range-input__shortcuts {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  gap: var(--van-range-input-shortcut-gap);
+  margin-bottom: var(--van-range-input-shortcut-margin-bottom);
+}
+.van-range-input__shortcut {
+  flex: 1 1 0;
+  min-width: 0;
+  height: auto;
+  padding: var(--van-range-input-shortcut-padding-y) var(--van-range-input-shortcut-padding-x);
+  color: var(--van-range-input-shortcut-color);
+  font-size: var(--van-range-input-shortcut-font-size);
+  line-height: 1.4;
+  background: var(--van-range-input-shortcut-background);
+  border: none;
+  border-radius: var(--van-radius-sm);
+}

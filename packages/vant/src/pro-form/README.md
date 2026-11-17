@@ -639,6 +639,22 @@ const columns = computed(() => [
 ]);
 ```
 
+Before a lazy radio/checkbox list opens, selected labels can be resolved from `options`, including numeric `0`. Popup items still come exclusively from `loadOptions`.
+
+### Label suffix
+
+Use `fieldSlots['label-suffix']` to render extra content after the label and required asterisk.
+
+```js
+{
+  name: 'name',
+  label: 'Name',
+  component: 'field',
+  fieldProps: { required: true },
+  fieldSlots: { 'label-suffix': 'Review' },
+}
+```
+
 ## API
 
 Inherits [Form](/#/en-US/form) props, events, and methods.

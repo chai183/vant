@@ -156,7 +156,8 @@ export default defineComponent({
     const panelLocked = () => props.disabled || props.readonly;
 
     const resolvePeriodLabel = (period: string) =>
-      props.periodOptions.find((item) => item.value === period)?.label ?? period;
+      props.periodOptions.find((item) => item.value === period)?.label ??
+      period;
 
     const formatSummary = (value: DeliverySlotValue) => {
       const periodLabel = resolvePeriodLabel(value.period);
@@ -251,9 +252,7 @@ export default defineComponent({
                   block
                   type="primary"
                   disabled={
-                    panelLocked() ||
-                    !draft.value.date ||
-                    !draft.value.period
+                    panelLocked() || !draft.value.date || !draft.value.period
                   }
                   onClick={onConfirm}
                 >

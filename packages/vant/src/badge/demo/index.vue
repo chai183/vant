@@ -10,6 +10,7 @@ const t = useTranslate({
     customColor: '自定义颜色',
     customContent: '自定义徽标内容',
     customPosition: '自定义徽标位置',
+    weakBadge: '弱徽标',
   },
   'en-US': {
     max: 'Max',
@@ -17,6 +18,7 @@ const t = useTranslate({
     customColor: 'Custom Color',
     customContent: 'Custom Content',
     customPosition: 'Custom Position',
+    weakBadge: 'weak',
   },
 });
 </script>
@@ -26,9 +28,11 @@ const t = useTranslate({
     <van-badge content="5">
       <div class="child" />
     </van-badge>
-    <van-badge content="10">
+    <!-- 数字徽标 -->
+    <van-badge content="99">
       <div class="child" />
     </van-badge>
+    <!-- 红点徽标 -->
     <van-badge content="Hot">
       <div class="child" />
     </van-badge>
@@ -41,7 +45,7 @@ const t = useTranslate({
     <van-badge content="20" max="9">
       <div class="child" />
     </van-badge>
-    <van-badge content="50" max="20">
+    <van-badge content="50" max="20" max-content="...">
       <div class="child" />
     </van-badge>
     <van-badge content="200" max="99">
@@ -49,7 +53,7 @@ const t = useTranslate({
     </van-badge>
   </demo-block>
 
-  <demo-block :title="t('customColor')">
+  <!-- <demo-block :title="t('customColor')">
     <van-badge content="5" color="#1989fa">
       <div class="child" />
     </van-badge>
@@ -59,7 +63,7 @@ const t = useTranslate({
     <van-badge dot color="#1989fa">
       <div class="child" />
     </van-badge>
-  </demo-block>
+  </demo-block> -->
 
   <demo-block :title="t('customContent')">
     <van-badge>
@@ -79,6 +83,19 @@ const t = useTranslate({
       <template #content>
         <van-icon name="down" class="badge-icon" />
       </template>
+    </van-badge>
+  </demo-block>
+
+  <!-- 弱徽标 -->
+  <demo-block :title="t('weakBadge')">
+    <van-badge weak content="20" max="9">
+      <div class="child" />
+    </van-badge>
+    <van-badge weak content="50" max="20">
+      <div class="child" />
+    </van-badge>
+    <van-badge weak content="200" max="99">
+      <div class="child" />
     </van-badge>
   </demo-block>
 

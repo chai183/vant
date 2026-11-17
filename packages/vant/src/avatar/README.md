@@ -2,7 +2,7 @@
 
 ### Intro
 
-Displays a user avatar. Supports preset placeholders, text avatars, and custom images. The shape is circular by default.
+Occupation reminder when empty.
 
 ### Install
 
@@ -21,70 +21,62 @@ app.use(Avatar);
 ### Basic Usage
 
 ```html
-<!-- Default -->
-<van-avatar type="default" />
-<!-- Text -->
-<van-avatar type="text" text="A" />
-<!-- Group -->
-<van-avatar type="group" />
-<!-- Male -->
-<van-avatar type="male" />
-<!-- Female -->
-<van-avatar type="female" />
+<van-empty description="Description" />
 ```
 
-### Avatar Size
+### Image Type
 
-Four sizes: `large`, `medium`, `small`, `mini` — approximately **60px, 44px, 32px, 20px**.
+Use the image prop to display different placeholder images.
 
 ```html
-<van-avatar type="default" size="large" />
-<van-avatar type="default" size="medium" />
-<van-avatar type="default" size="small" />
-<van-avatar type="default" size="mini" />
+<!-- Error -->
+<van-empty image="error" description="Description" />
+<!-- Network -->
+<van-empty image="network" description="Description" />
+<!-- Search -->
+<van-empty image="search" description="Description" />
 ```
 
 ### Custom Size
 
-Besides preset sizes, `size` also accepts a numeric value such as `48` or `36px`. The default unit is `px`.
+Using `image-size` prop to custom the size of image.
 
 ```html
-<van-avatar type="default" :size="48" />
-<van-avatar type="default" size="36px" />
+<!-- The default unit is px -->
+<van-empty image-size="100" description="Description" />
+<!-- Support other units, such as rem, vh, vw -->
+<van-empty image-size="10rem" description="Description" />
 ```
 
-### Text Avatar
-
-Text avatars show at most 3 characters. When the text exceeds 3 characters, the first 2 characters are kept and the third position shows `...`. Use `font-size` to customize the font size.
+You can set the width and height separately.
 
 ```html
-<van-avatar type="text" text="ABC" />
-<van-avatar type="text" text="ABCDE" />
-<van-avatar type="text" text="V" :font-size="12" />
+<van-empty :image-size="[60, 40]" description="Description" />
 ```
 
 ### Custom Image
 
-Use the `src` prop for an image or SVG URL. It can be combined with `size`.
-
 ```html
-<van-avatar
-  src="https://fastly.jsdelivr.net/npm/@vant/assets/logo.png"
-  size="large"
+<van-empty
+  image="https://fastly.jsdelivr.net/npm/@vant/assets/leaf.jpeg"
+  image-size="80"
+  description="Description"
 />
 ```
 
-### With Badge
-
-Use with the [Badge](#/en-US/badge) component. When `van-badge` wraps `van-avatar`, the badge sits slightly closer to the center of the circle than the default.
+### Bottom Content
 
 ```html
-<van-badge content="5">
-  <van-avatar type="text" text="V" />
-</van-badge>
-<van-badge dot>
-  <van-avatar type="default" />
-</van-badge>
+<van-empty description="Description">
+  <van-button round type="primary" class="bottom-button">Button</van-button>
+</van-empty>
+
+<style>
+  .bottom-button {
+    width: 160px;
+    height: 40px;
+  }
+</style>
 ```
 
 ## API
@@ -93,18 +85,17 @@ Use with the [Badge](#/en-US/badge) component. When `van-badge` wraps `van-avata
 
 | Attribute | Description | Type | Default |
 | --- | --- | --- | --- |
-| type | Avatar type, can be set to `default` `text` `group` `male` `female` | _string_ | `default` |
-| size | Size, can be set to `large` `medium` `small` `mini`, or a numeric value such as `48` or `36px`. The default unit is `px` | _number \| string_ | `large` |
-| src | Custom image or SVG URL; takes precedence over built-in `type` artwork | _string_ | - |
-| alt | Image `alt` text | _string_ | - |
-| text | Text avatar content, up to 3 characters; when longer, keeps the first 2 characters and ends with `...` | _string_ | - |
-| font-size `new` | Text avatar font size. The default unit is `px` | _number \| string_ | - |
+| image | Image type, can be set to `error` `network` `search` or image URL | _string_ | `default` |
+| image-size | Image size | _number \| string \| Array_ | - |
+| description | Description | _string_ | - |
 
 ### Slots
 
-| Name    | Description        |
-| ------- | ------------------ |
-| default | Fully custom inner |
+| Name        | Description           |
+| ----------- | --------------------- |
+| default     | Custom bottom content |
+| image       | Custom image          |
+| description | Custom description    |
 
 ### Types
 
@@ -122,12 +113,11 @@ The component provides the following CSS variables, which can be used to customi
 
 | Name | Default Value | Description |
 | --- | --- | --- |
-| --van-avatar-large-size | _60px_ | - |
-| --van-avatar-medium-size | _44px_ | - |
-| --van-avatar-small-size | _32px_ | - |
-| --van-avatar-mini-size | _20px_ | - |
-| --van-avatar-background | _var(--van-gray-3)_ | Background for non-text avatars |
-| --van-avatar-text-color | _var(--van-white)_ | Text avatar color |
-| --van-avatar-text-font-size | _18px_ | Text avatar font size |
-| --van-avatar-text-font-weight | _var(--van-font-bold)_ | Text avatar font weight |
-| --van-avatar-text-background | _#ff8125_ | Text avatar background |
+| --van-empty-padding | _var(--van-padding-xl) 0_ | - |
+| --van-empty-image-size | _160px_ | - |
+| --van-empty-description-margin-top | _var(--van-padding-md)_ | - |
+| --van-empty-description-padding | _0 60px_ | - |
+| --van-empty-description-color | _var(--van-text-color-2)_ | - |
+| --van-empty-description-font-size | _var(--van-font-size-md)_ | - |
+| --van-empty-description-line-height | _var(--van-line-height-md)_ | - |
+| --van-empty-bottom-margin-top | _24px_ | - |

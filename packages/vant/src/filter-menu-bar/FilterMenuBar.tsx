@@ -56,9 +56,10 @@ import {
   hasValue,
   toNumber,
 } from './utils';
-import funnelSvg from './assets/funnel.svg';
 
 const [name, bem] = createNamespace('filter-menu-bar');
+
+import funnelSvg from './assets/funnel.svg';
 
 // 内部漏斗入口 key，用于区分真实筛选项 key，事件对外会统一转换成 'funnel'。
 const FUNNEL_KEY = '__filter_menu_bar_funnel__';
@@ -1267,13 +1268,13 @@ export default defineComponent({
             })}
           >
             <Icon
-              name="arrow-up"
+              name="icon-shixinjiantou"
               class={bem('sort-icon-up')}
               size={6}
               style={{ color: upColor }}
             />
             <Icon
-              name="arrow-down"
+              name="icon-shixinjiantou"
               class={bem('sort-icon-down')}
               size={6}
               style={{ color: downColor }}
@@ -1284,8 +1285,9 @@ export default defineComponent({
 
       return (
         <Icon
-          name="arrow-down"
+          name="icon-shixinjiantou"
           class={bem('title-icon', { up: scope.showPopup })}
+          size={12}
           style={{ color }}
         />
       );

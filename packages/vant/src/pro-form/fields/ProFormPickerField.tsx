@@ -8,7 +8,11 @@ import type {
   PickerOption,
 } from '../../picker';
 import type { Numeric } from '../../utils';
-import { builtinFieldProps, defaultPopupProps, useFormFieldDisabled } from './shared';
+import {
+  builtinFieldProps,
+  defaultPopupProps,
+  useFormFieldDisabled,
+} from './shared';
 
 export default defineComponent({
   name: 'ProFormPickerField',
@@ -64,9 +68,7 @@ export default defineComponent({
           >
             <Picker
               {...pickerProps}
-              columns={
-                columns as (PickerColumn | PickerOption)[] | undefined
-              }
+              columns={columns as (PickerColumn | PickerOption)[] | undefined}
               modelValue={pickerValue.value}
               onConfirm={onConfirm}
               onCancel={onCancel}

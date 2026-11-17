@@ -38,10 +38,7 @@ const BUILTIN_INPUT_READONLY_COMPONENTS = new Set<ProFormBuiltinComponent>([
   'uploader',
 ]);
 
-const BUILTIN_FIELD_READONLY_COMPONENTS = new Set([
-  'uploaderFile',
-  'calendar',
-]);
+const BUILTIN_FIELD_READONLY_COMPONENTS = new Set(['uploaderFile', 'calendar']);
 
 /** 内置 #input 控件：有 readonly API 则透传，否则用 disabled 模拟不可编辑 */
 export function mergeBuiltinInputProps(
@@ -56,7 +53,11 @@ export function mergeBuiltinInputProps(
   }
 
   if (state.readonly) {
-    if (BUILTIN_INPUT_READONLY_COMPONENTS.has(component as ProFormBuiltinComponent)) {
+    if (
+      BUILTIN_INPUT_READONLY_COMPONENTS.has(
+        component as ProFormBuiltinComponent,
+      )
+    ) {
       props.readonly = true;
     } else if (!props.disabled) {
       props.disabled = true;
@@ -78,10 +79,7 @@ export function mergeBuiltinFieldComponentProps(
     props.disabled = state.disabled;
   }
 
-  if (
-    state.readonly &&
-    BUILTIN_FIELD_READONLY_COMPONENTS.has(component)
-  ) {
+  if (state.readonly && BUILTIN_FIELD_READONLY_COMPONENTS.has(component)) {
     props.readonly = true;
   }
 

@@ -125,10 +125,10 @@ import type {
 | 名称 | 默认值 | 描述 |
 | --- | --- | --- |
 | --van-anchor-right | _0_ | - |
-| --van-anchor-bottom | _40px_ | - |
+| --van-anchor-bottom | _116px_ | - |
 | --van-anchor-z-index | _100_ | - |
 | --van-anchor-ball-size | _48px_ | 回到顶部/目录展开圆球尺寸 |
-| --van-anchor-ball-right | _30px_ | 悬浮球距右侧距离 |
+| --van-anchor-ball-right | _12px_ | 悬浮球距右侧距离 |
 | --van-anchor-surface-background | _var(--van-background-2)_ | 收起条 / 展开圆球共用背景 |
 | --van-anchor-surface-border | _var(--van-border-color)_ | 收起条 / 展开圆球共用边框 |
 | --van-anchor-surface-icon-color | _var(--van-primary-color)_ | 收起箭头 / 圆球图标与文案颜色 |

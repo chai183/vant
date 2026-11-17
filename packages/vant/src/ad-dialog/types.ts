@@ -1,3 +1,5 @@
+// src_types.ts
+
 import type { CSSProperties } from 'vue';
 import type { SwipeProps } from '../swipe';
 import type { Numeric } from '../utils';
@@ -9,13 +11,14 @@ export type AdDialogCloseIconPresetPosition =
   | 'bottom-right'
   | 'bottom-left';
 
-export type AdDialogCloseIconCustomPosition = Partial<
+// 四角方位
+export type AdDialogCloseIconnCustomPosition = Partial<
   Record<'top' | 'right' | 'bottom' | 'left', Numeric>
 >;
 
 export type AdDialogCloseIconPosition =
   | AdDialogCloseIconPresetPosition
-  | AdDialogCloseIconCustomPosition;
+  | AdDialogCloseIconnCustomPosition;
 
 export type AdDialogCloseIconMode = 'outside' | 'inside';
 

@@ -91,7 +91,7 @@ app.use(Divider);
 | ----------------- | --------------------------------- | --------- | -------- |
 | dashed            | 是否使用虚线                      | _boolean_ | `false`  |
 | borderless `new`  | 是否不展示分割线，仅展示插槽内容  | _boolean_ | `false`  |
-| hairline          | 是否使用 0.5px 线                 | _boolean_ | `true`   |
+| hairline          | 是否使用 0.5px 线                 | _boolean_ | `false`  |
 | content-position  | 内容位置，可选值为 `left` `right` | _string_  | `center` |
 | vertical `v4.4.0` | 是否使用垂直                      | _boolean_ | `false`  |
 

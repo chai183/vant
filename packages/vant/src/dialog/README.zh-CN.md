@@ -206,6 +206,28 @@ const messageHighlightConfig = {
 };
 ```
 
+### 输入框位置
+
+`inputConfig.position` 默认为 `after`。设置为 `before` 可将内置输入框放在消息或默认插槽之前；校验错误显示在输入框下方，确认时校验通过才关闭。
+
+```js
+showConfirmDialog({
+  title: '提示',
+  message: '变更信息将提交给 HR 审批。',
+  inputConfig: {
+    type: 'textarea',
+    position: 'before',
+    rows: 3,
+    placeholder: '请填写申请原因',
+    rules: [{ required: true, message: '请填写申请原因' }],
+  },
+});
+```
+
+| inputConfig 参数 | 说明 | 类型 | 默认值 |
+| --- | --- | --- | --- |
+| position `new` | 输入区相对消息或默认插槽的位置 | _'before' \| 'after'_ | `after` |
+
 ### 内置输入框
 
 在保留 `title` `message` 的基础上，内容区追加一个内置输入框
@@ -569,6 +591,7 @@ type DialogInputValidateTrigger = 'onBlur' | 'onChange' | 'onConfirm';
 // inputConfig配置
 type DialogInputConfig = {
   type?: DialogInputType;
+  position?: 'before' | 'after';
   defaultValue?: string;
   placeholder?: string;
   maxlength?: Numeric;

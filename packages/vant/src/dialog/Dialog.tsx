@@ -41,7 +41,7 @@ import { Highlight } from '../highlight';
 import { Field } from '../field';
 
 // Types
-import type { FieldInstance, FieldRule, FieldValidateTrigger } from '../field';
+import { FieldInstance, FieldRule, FieldValidateTrigger } from '../field';
 import type {
   DialogTheme,
   DialogAction,
@@ -54,26 +54,26 @@ import type {
 } from './types';
 
 const [name, bem] = createNamespace('dialog');
-/*-------默认文本配置start---------*/
+/* ---------默认文本配置start--------*/
 
-// 定义提示弹窗默认文本
+//定义提示弹窗默认文本
 const DEFAULT_ALERT_CONFIRM_BUTTON_TEXT = '确定';
 // 定义确认弹窗默认文本
 const DEFAULT_CONFIRM_BUTTON_TEXT = '确定';
 const DEFAULT_CANCEL_BUTTON_TEXT = '取消';
 
-/*-------默认文本配置end---------*/
+/* ---------默认文本配置end--------*/
 
-/*-------上下布局逻辑start---------*/
-// 默认情况下，确认文案长度超过 6 个字符时切换为上下布局，可通过 props / options 覆盖。
+/* ---------上下布局逻辑start--------*/
+
+// 默认情况下确认文案超过5时，自动切换上下布局,可通过props/option覆盖
 const DEFAULT_CONFIRM_BUTTON_VERTICAL_THRESHOLD = 6;
-
-// 上下布局下按钮文案按单行展示，默认最多显示 15 个字符，可通过 props / options 覆盖。
+// 上下部按钮显示文案按单行显示，最多显示15个字符，可通过props/options覆盖
 const DEFAULT_VERTICAL_BUTTON_MAX_TEXT_LENGTH = 15;
 
 // 获取文字长度
 const getTextLength = (value: string) => Array.from(value).length;
-// 获取有效的关于按钮限制大小：目的是大于0
+// 获取有效的关于按钮限值得大小：目的是大于0
 const getValidNumericValue = (
   value: string | number,
   defaultValue: number,
@@ -89,10 +89,10 @@ const getValidNumericValue = (
 const truncateVerticalButtonText = (value: string, maxTextLength: number) => {
   const chars = Array.from(value);
   if (chars.length <= maxTextLength) return value;
-  return `${chars.slice(0, maxTextLength - 1).join('')}…`;
+  return `${chars.slice(0, maxTextLength - 1)}.join('')...`;
 };
 
-/*-------上下布局逻辑end---------*/
+/* ---------上下布局逻辑end--------*/
 
 export const dialogProps = extend({}, popupSharedProps, {
   title: String,
@@ -124,7 +124,7 @@ export const dialogProps = extend({}, popupSharedProps, {
   confirmButtonVerticalThreshold: makeNumericProp(
     DEFAULT_CONFIRM_BUTTON_VERTICAL_THRESHOLD,
   ),
-  // 一行按钮最多显示文字长度字段
+  // 一行按钮最多显示的文字长度字段
   verticalButtonMaxTextLength: makeNumericProp(
     DEFAULT_VERTICAL_BUTTON_MAX_TEXT_LENGTH,
   ),
@@ -136,7 +136,7 @@ export const dialogProps = extend({}, popupSharedProps, {
 
 export type DialogProps = ExtractPropTypes<typeof dialogProps>;
 
-// footer中按钮的配置
+// footer中按钮的配置项
 type FooterButton = {
   action: DialogAction;
   key: string;
@@ -154,10 +154,10 @@ const popupInheritKeys = [
   'destroyOnClose',
 ] as const;
 
-/*-------高亮逻辑start--------*/
+/* ---------高亮逻辑start--------*/
 
 /*判断高亮--关键词是否有效
-两种传参:1.字符串 2.字符串数组
+两种传参：1.字符串 2.字符串数组
 找到一个非空关键词，开启高亮渲染逻辑
 */
 const hasHighlightKeywords = (keywords: string | string[]) =>
@@ -167,12 +167,12 @@ const hasHighlightKeywords = (keywords: string | string[]) =>
 const getMessageHighlightStyle = (config?: DialogMessageHighlightConfig) => {
   if (!config) return;
   const { color, style } = config;
-  // 没传color和style,只想使用组件能力，无额外扩展样式
+  // 没传color和style,只想使用组件能力，无额外扩充样式
   if (!color && !style) return;
   return { ...style, ...(color ? { color } : {}) };
 };
 
-// 设置样式到具体的dom节点--下方给tag高亮点处理
+// 设置样式到具体的dom节点 --下方给tag高亮点处理
 const setElementStyle = (
   element: HTMLElement,
   style: NonNullable<ReturnType<typeof getMessageHighlightStyle>>,
@@ -180,27 +180,26 @@ const setElementStyle = (
   element.removeAttribute('style');
   Object.entries(style).forEach(([key, value]) => {
     if (value == null) return;
-    // 处理传递数组的可能
+    // 处理传递数组的值的可能
     const normalizedValue = Array.isArray(value)
-      ? value.join(' ')
+      ? value.join(',')
       : String(value);
-    // 处理字符的可能
+    // 处理连字符的可能
     if (key.includes('-')) {
       element.style.setProperty(key, normalizedValue);
     } else {
-      // 保证字符串key，字符串value
+      // 保证字符串Key,字符串value
       (element.style as unknown as Record<string, string>)[key] =
         normalizedValue;
     }
   });
 };
-/*-------高亮逻辑end--------*/
+/* ---------高亮逻辑end--------*/
 
-/*------输入文本逻辑start-------*/
+/* ---------输入文本逻辑start--------*/
 
 // 默认校验触发事件类型
 const DEFAULT_INPUT_VALIDATE_TRIGGER: DialogInputValidateTrigger = 'onConfirm';
-
 // 获取输入框-初始值
 const getDialogInputValue = (
   inputConfig?: DialogInputConfig,
@@ -210,7 +209,9 @@ const getDialogInputValue = (
 // 弹窗定义了onConfirm触发时机，field是onSubmit，做一下映射
 const normalizeInputValidateTrigger = (
   trigger: DialogInputValidateTrigger,
-): FieldValidateTrigger => (trigger === 'onConfirm' ? 'onSubmit' : trigger);
+): FieldValidateTrigger => {
+  return trigger === 'onConfirm' ? 'onSubmit' : trigger;
+};
 
 // 根据触发时机，获取对应的规则
 const getDialogInputRules = (
@@ -221,12 +222,11 @@ const getDialogInputRules = (
   if (!rules?.length) {
     return [] as FieldRule[];
   }
-
   // 最终动作，触发所有规则
   if (trigger === 'onConfirm') {
     return rules;
   }
-  // 获取默认的触发规则
+  // 获取默认的触发方式
   const defaultTriggers = toArray(
     inputConfig?.validateTrigger ?? DEFAULT_INPUT_VALIDATE_TRIGGER,
   );
@@ -240,7 +240,7 @@ const getDialogInputRules = (
   });
 };
 
-/*------输入文本逻辑end--------*/
+/* ---------输入文本逻辑end--------*/
 
 export default defineComponent({
   name,
@@ -249,8 +249,8 @@ export default defineComponent({
 
   emits: [
     'confirm',
-    'cancel',
     'clickButton',
+    'cancel',
     'keydown',
     'update:show',
     'update:inputValue',
@@ -258,9 +258,9 @@ export default defineComponent({
 
   setup(props, { emit, slots }) {
     const root = ref<ComponentInstance>();
-    // Field组件的实例
+    // 获取Field的组件实例
     const inputRef = ref<FieldInstance>();
-    // input初始值
+    // 获取input初始值
     const currentInputValue = ref(
       getDialogInputValue(props.inputConfig, props.inputValue),
     );
@@ -269,20 +269,18 @@ export default defineComponent({
       cancel: false,
     });
 
-    // 弹窗中-高亮样式额外处理
+    // 弹窗中-高亮处理额外样式
     const syncMessageHighlightStyle = () => {
       // 获取弹窗根节点
       const popupRef = root.value?.popupRef?.value as HTMLElement | undefined;
       if (!popupRef) return;
-
-      // 只处理消息区域内的高亮标签
+      // 只处理消息区域中的高亮标签
       const highlightTags = popupRef.querySelectorAll<HTMLElement>(
         '.van-dialog__message .van-highlight__tag',
       );
       const highlightStyle = getMessageHighlightStyle(
         props.messageHighlightConfig,
       );
-
       highlightTags.forEach((tag) => {
         if (highlightStyle) setElementStyle(tag, highlightStyle);
         else tag.removeAttribute('style');
@@ -292,13 +290,14 @@ export default defineComponent({
     onMounted(syncMessageHighlightStyle);
     onUpdated(syncMessageHighlightStyle);
 
-    // 验证对应trigger的rule
+    // 验证对应的trigger的rule
     const validateInput = async (trigger: DialogInputValidateTrigger) => {
       const rules = getDialogInputRules(props.inputConfig, trigger);
       inputRef.value?.$el.classList.remove('van-field__error');
       if (!rules.length) return true;
       const result = await inputRef.value?.validate(rules);
-      // 错误时 result是错误信息，正确是undefined,null,''等
+      // 错误时 result是错误信息，正确是是undfined,null,''等
+      // 增加错误时高亮边框显示
       if (result) {
         inputRef.value?.$el.classList.add('van-field__error');
       }
@@ -325,10 +324,9 @@ export default defineComponent({
         }
       },
     );
-
     // 兼容打开弹窗监听初始化
-    // 1. 优先使用外部传入的 inputValue,否则回退 inputConfig.defaultValue
-    // 2. 清除上一次的验证
+    // 1.优先使用外部传入的inputValue,否则回退inputConfig.defaultValue
+    // 2.清除上一次的验证
     watch(
       () => props.show,
       (show, prevShow) => {
@@ -370,6 +368,7 @@ export default defineComponent({
       }
     };
     const updateShow = (value: boolean) => emit('update:show', value);
+
     const close = (action: DialogAction) => {
       updateShow(false);
       // 兼容--输入值-返回输入框的值
@@ -401,12 +400,11 @@ export default defineComponent({
         if (props.beforeClose) {
           loading[action] = true;
           callInterceptor(props.beforeClose, {
-            // 新增输入的值进入到beforeClose
+            // 新增输入的值进入beforeClose
             args: props.inputConfig
               ? [action, currentInputValue.value]
               : [action],
             done() {
-              // 拦截器放行后，才真正关闭弹窗。
               close(action);
               loading[action] = false;
             },
@@ -435,7 +433,7 @@ export default defineComponent({
       (props.showCancelButton
         ? DEFAULT_CONFIRM_BUTTON_TEXT
         : DEFAULT_ALERT_CONFIRM_BUTTON_TEXT);
-    // 按钮操作集合
+    // 操作按钮集合
     const hasActionButtons = () => !!props.actionButtons?.length;
     // 获取确认按钮限制值
     const getConfirmButtonVerticalThreshold = () =>
@@ -450,13 +448,12 @@ export default defineComponent({
         DEFAULT_VERTICAL_BUTTON_MAX_TEXT_LENGTH,
         1,
       );
-
     /*
-      满足以下任意条件，切换时上下布局：
-      1. 存在操作列表actionButtons
-      2. 同时展示取消按钮和确认按钮，且确认文案长度超过阈值(默认6)。
+      满足以下任意条件，切换上下布局
+      1.存在操作列表actionButtons
+      2.同时展示取消按钮，且确认文案唱过可配置阈值（默认6）
     */
-    //  判断是否上下布局
+    //判断是否上下布局
     const shouldUseVerticalButtonLayout = () =>
       hasActionButtons() ||
       (props.showCancelButton &&
@@ -464,7 +461,7 @@ export default defineComponent({
         getTextLength(getConfirmButtonText()) >
           getConfirmButtonVerticalThreshold());
 
-    // 获取渲染按钮文本
+    //  获取渲染按钮文本
     const getRenderedButtonText = (value: string) =>
       shouldUseVerticalButtonLayout()
         ? truncateVerticalButtonText(value, getVerticalButtonMaxTextLength())
@@ -472,16 +469,15 @@ export default defineComponent({
 
     const getButtonStyle = (color?: string) => (color ? { color } : undefined);
     const getButtonClass = (vertical: boolean) => bem('button', { vertical });
-    //获取action按钮的类名
+    // 获取action按钮的类名
     const getActionClass = (action: DialogAction) => {
       if (isBuiltinAction(action)) {
         return bem(action);
       }
-
       return bem('action');
     };
-    // 内置按钮展示时优先级最高，同名 actionButtons 会被过滤；
-    // 若对应内置按钮未展示，则允许 actionButtons 使用 confirm / cancel。
+    // 内置按钮优先级最高，同名actionButtons会被过滤
+    // 对应内置按钮未显示，actionButtons支持传递confirm/cancel
     const isReservedActionButtonAction = (action: DialogAction) =>
       (action === 'confirm' && props.showConfirmButton) ||
       (action === 'cancel' && props.showCancelButton);
@@ -548,15 +544,12 @@ export default defineComponent({
         usedActions.add(fallbackAction);
         buttons.unshift(createFooterButton(button, index, fallbackAction));
       }
-
       return buttons;
     };
-
     const getDefaultFooterButtons = (vertical: boolean) => {
       const buttons: FooterButton[] = [];
-
       if (vertical) {
-        // 上下布局固定顺序：主操作按钮 -> 自定义操作按钮 -> 取消。
+        // 上下布局固定顺序，主操作按钮 ->自定义操作按钮 ->取消
         if (props.showConfirmButton) {
           buttons.push({
             action: 'confirm',
@@ -569,7 +562,6 @@ export default defineComponent({
           });
         }
         buttons.push(...getCustomFooterButtons());
-
         if (props.showCancelButton) {
           buttons.push({
             action: 'cancel',
@@ -583,7 +575,6 @@ export default defineComponent({
         }
         return buttons;
       }
-
       if (props.showCancelButton) {
         buttons.push({
           action: 'cancel',
@@ -595,7 +586,6 @@ export default defineComponent({
           onClick: onCancel,
         });
       }
-
       if (props.showConfirmButton) {
         buttons.push({
           action: 'confirm',
@@ -607,7 +597,6 @@ export default defineComponent({
           onClick: onConfirm,
         });
       }
-
       return buttons;
     };
     const onKeydown = withKeys(
@@ -655,9 +644,9 @@ export default defineComponent({
         'has-input': hasInput,
         [messageAlign as string]: messageAlign,
       });
-      // message 支持字符串和函数两种形式
+      // message支持字符串和函数两种形式
       const content = isFunction(message) ? message() : message;
-      // 外部要求使用html时会直接走innerHTML，此时设置了高亮也没用
+      //外部要求使用Html时会直接走innerHTML,此时设置了高亮也没用
       if (allowHtml && typeof content === 'string') {
         return <div class={classNames} innerHTML={content} />;
       }
@@ -677,7 +666,7 @@ export default defineComponent({
           unhighlightTag, //未命中tag
         } = messageHighlightConfig;
         return (
-          //保留原本的message容器结构
+          // 保留原本的message容器结构
           <Highlight
             tag="div"
             class={classNames}
@@ -721,10 +710,10 @@ export default defineComponent({
         showWordLimit,
         errorMessage,
       } = inputConfig;
-
       return (
         <div
           class={bem('input', {
+            before: inputConfig.position === 'before',
             'has-title': hasTitle && !hasMessage,
             isolated: !hasTitle && !hasMessage,
           })}
@@ -765,6 +754,7 @@ export default defineComponent({
       const hasTitle = !!(title || slots.title);
       const hasMessage = !hasCustomContent && !!message;
       const hasInput = !!inputConfig;
+      const inputBefore = hasInput && inputConfig.position === 'before';
       if (!hasCustomContent && !hasMessage && !hasInput) return;
       return (
         <div
@@ -777,19 +767,19 @@ export default defineComponent({
             内容区有 3 种来源：
             1. default slot：业务完全自定义内容，此时不再渲染默认的 message
             2. message：Dialog 默认文本内容
-            3. inputConfig：在 message 下方追加内置输入框
+            3. inputConfig：默认在内容下方，position=before 时放在内容上方
           */}
+          {inputBefore && renderInput(hasTitle, false)}
           {hasCustomContent
             ? slots.default?.()
             : hasMessage && renderMessage(hasTitle, hasInput)}
-          {hasInput && renderInput(hasTitle, hasMessage)}
+          {hasInput && !inputBefore && renderInput(hasTitle, hasMessage)}
         </div>
       );
     };
 
     const renderButtons = (vertical = false) => {
       const buttons = getDefaultFooterButtons(vertical);
-
       return (
         <div class={[BORDER_TOP, bem('footer', { vertical })]}>
           {buttons.map((button, index) => (
@@ -848,7 +838,7 @@ export default defineComponent({
       if (slots.footer) {
         return slots.footer();
       }
-      // 如果上下布局，进项判断渲染
+      // 如果支持上下布局，进行判断渲染
       if (shouldUseVerticalButtonLayout()) return renderButtons(true);
       return props.theme === 'round-button'
         ? renderRoundButtons()

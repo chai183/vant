@@ -109,6 +109,7 @@ const close = () => {
           <van-tag currency currency-code="EUR" />
           <van-tag currency currency-code="HKD" />
           <van-tag currency currency-code="JPY" />
+          <van-tag currency currency-code="GBP" />
         </div>
       </template>
     </van-cell>

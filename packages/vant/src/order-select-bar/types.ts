@@ -3,7 +3,7 @@ export type OrderSelectBarThemeVars = {
   orderSelectBarBackground?: string;
   orderSelectBarTipPadding?: string;
   orderSelectBarTipFontSize?: string;
-  orderSelectBarTipLineHeight?: number | string;
+  orderSelectBarTipLineHeight?: string;
   orderSelectBarTipColor?: string;
   orderSelectBarTipBackground?: string;
   orderSelectBarBarPadding?: string;

@@ -1,0 +1,78 @@
+:root,
+:host {
+  --van-tabbar-item-no-shadow-font-size: var(--van-font-size-xs);
+  --van-tabbar-item-font-size: var(--van-font-size-sm);
+  --van-tabbar-item-text-color: var(--van-gray-14);
+  --van-tabbar-item-active-color: var(--van-primary-color);
+  --van-tabbar-item-active-background: var(--van-background-2);
+  --van-tabbar-item-line-height: 12px;
+  --van-tabbar-item-icon-size: 22px;
+  --van-tabbar-item-icon-margin-bottom: var(--van-padding-base);
+  --van-tabbar-item-padding: 3px;
+  --van-tabbar-item-active-background-min-width: 72px;
+  --van-tabbar-item-active-background-max-width: 94px;
+  --van-tabbar-item-active-background: linear-gradient(180deg, #fff2e9 0%, #ffffff 100%);
+}
+.van-tabbar-item {
+  position: relative;
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: var(--van-tabbar-item-text-color);
+  font-size: var(--van-tabbar-item-no-shadow-font-size);
+  line-height: 10px;
+  cursor: pointer;
+  font-family: var(--van-base-font);
+}
+.van-tabbar-item__icon {
+  position: relative;
+  z-index: 1;
+  margin-bottom: var(--van-tabbar-item-icon-margin-bottom);
+  font-size: var(--van-tabbar-item-icon-size);
+  padding: var(--van-tabbar-item-padding);
+}
+.van-tabbar-item__icon .van-icon {
+  display: block;
+}
+.van-tabbar-item__icon .van-badge {
+  margin-top: var(--van-padding-base);
+  font-weight: normal;
+  font-family: var(--van-base-font);
+}
+.van-tabbar-item__icon img {
+  display: block;
+  height: 20px;
+}
+.van-tabbar-item__text {
+  position: relative;
+  z-index: 1;
+  max-width: 5em;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+.van-tabbar-item--shaow {
+  font-size: var(--van-tabbar-item-font-size);
+  line-height: var(--van-tabbar-item-line-height);
+}
+.van-tabbar-item--shaow::before {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  width: clamp(var(--van-tabbar-item-active-background-min-width), 100%, var(--van-tabbar-item-active-background-max-width));
+  height: 100%;
+  background: var(--van-tabbar-item-active-background);
+  transform: translateX(-50%);
+  opacity: 0;
+  content: '';
+  pointer-events: none;
+}
+.van-tabbar-item--active {
+  color: var(--van-tabbar-item-active-color);
+  font-weight: var(--van-font-bold-Medium);
+}
+.van-tabbar-item--active.van-tabbar-item--shaow::before {
+  opacity: 1;
+}

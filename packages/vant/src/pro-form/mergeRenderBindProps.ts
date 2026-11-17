@@ -1,10 +1,4 @@
-import {
-  Fragment,
-  cloneVNode,
-  isVNode,
-  mergeProps,
-  type VNode,
-} from 'vue';
+import { Fragment, cloneVNode, isVNode, mergeProps, type VNode } from 'vue';
 import type { ProFormRenderContext } from './types';
 
 function isComponentVNode(vnode: VNode) {

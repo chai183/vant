@@ -49,6 +49,9 @@ export const REGISTER_FORM_SOURCE_MAP: Record<string, string> = {
 /** 分页接口地址 */
 export const ONBOARDING_REGISTER_FORM_PAGE_URL = `${API_PREFIX}/entry-registration-form/page`;
 
+/** 填写页登录 - 校验手机号 */
+export const ONBOARDING_REGISTER_FORM_CHECK_PHONE_URL = `${API_PREFIX}/entry-registration-form/check-phone`;
+
 /** 批量删除接口地址 */
 export const ONBOARDING_REGISTER_FORM_DELETE_URL = `${API_PREFIX}/entry-registration-form/delete-batch`;
 

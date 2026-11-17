@@ -1,4 +1,4 @@
-﻿# CascadeTreeSelect
+# CascadeTreeSelect
 
 ### Intro
 
@@ -91,24 +91,6 @@ const cascadeItems = [
 ];
 ```
 
-### Parent Selectable
-
-By default, `select-leaf-only` is `true`, so clicking a parent option only expands the next column and does not update `v-model`. Set it to `false` to make parent options selectable and write the parent value into `v-model`.
-
-```html
-<van-cascade-tree-select
-  v-model="parentSelectableValue"
-  v-model:expand-path="parentSelectableExpandPath"
-  :items="cascadeItems"
-  :select-leaf-only="false"
-/>
-```
-
-```js
-const parentSelectableValue = ref('food');
-const parentSelectableExpandPath = ref(['food']);
-```
-
 ### Multiple Column
 
 Set `multiple` to enable multiple selection. This example reuses the single-column data.
@@ -128,8 +110,6 @@ const multipleValue = ref(['pending', 'finished']);
 ### Multiple Double Column
 
 The themed dot and weak badge are shown only when the current page already has selected items. A themed dot is shown when `dot` is configured, or when a parent option has selected child options in multiple cascade mode. Weak badges are shown only in multiple mode, and their content only comes from the configured `badge` field and is not generated from selected counts automatically. The weak badge and themed dot are mutually exclusive, and the weak badge has higher priority when both are configured.
-
-`select-leaf-only` is enabled by default, so clicking a first-level parent option only expands the second column and does not update `v-model`; only second-level leaf options are written into the multiple value. The highlight and left indicator on a first-level parent option represent the expanded state, namely `active`, not the selected state, namely `selected`.
 
 ```html
 <van-cascade-tree-select
@@ -177,53 +157,6 @@ const formatOptions = (options) =>
   options.map((option) => option.text).join(', ') || 'None';
 ```
 
-### Custom Option Text
-
-Use the `nav-text` slot to customize the text area of left options. The slot prop is the current option `item`. This slot only replaces text content and does not affect themed dots, weak badges, disabled state, or click behavior.
-
-```html
-<van-cascade-tree-select v-model="navTextValue" :items="singleItems">
-  <template #nav-text="item">
-    <span class="demo-cascade-tree-select-nav-text">
-      {{ item.text }}
-      <span class="demo-cascade-tree-select-tag">Custom</span>
-    </span>
-  </template>
-</van-cascade-tree-select>
-```
-
-```js
-const navTextValue = ref('pending');
-```
-
-### Events
-
-You can listen to `click-nav`, `click-item`, and `change` events. Clicking an outer column emits `click-nav`, clicking an inner column emits `click-item`, and changing the selected value emits `change`.
-
-```html
-<van-cascade-tree-select
-  v-model="eventValue"
-  v-model:expand-path="eventExpandPath"
-  :items="cascadeItems"
-  @change="onEvent('change', $event)"
-  @click-nav="onEvent('click-nav', $event)"
-  @click-item="onEvent('click-item', $event)"
-/>
-```
-
-```js
-import { showToast } from 'vant';
-
-const eventValue = ref('apple');
-const eventExpandPath = ref(['food']);
-
-const onEvent = (eventName, params) => {
-  const currentText = params.currentItem.text || String(params.selectedValue);
-
-  showToast(`${eventName}: ${currentText}`);
-};
-```
-
 ### Disabled
 
 Options support `disabled`. In cascade mode, both parent and child options can be disabled.
@@ -269,7 +202,6 @@ const disabledItems = [
 | height | Component height | _number \| string_ | `300` |
 | multiple | Whether to enable multiple selection | _boolean_ | `false` |
 | show-badge | Whether to show dot and weak badge | _boolean_ | `true` |
-| select-leaf-only | Whether only leaf options can be selected | _boolean_ | `true` |
 | active-color | Active color | _string_ | - |
 | field-names | Custom fields of `items` | _CascadeTreeSelectFieldNames_ | See below |
 
@@ -307,6 +239,7 @@ const disabledItems = [
 | Event | Description | Arguments |
 | --- | --- | --- |
 | change | Emitted when selected value changes | _CascadeTreeSelectEventParams_ |
+| finish | Emitted when a leaf option is clicked | _CascadeTreeSelectEventParams_ |
 | click-item | Emitted when an enabled option in the innermost column is clicked | _CascadeTreeSelectEventParams_ |
 | click-nav | Emitted when an enabled option in the outer column is clicked. In single-column mode, option clicks also emit this event | _CascadeTreeSelectEventParams_ |
 

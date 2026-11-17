@@ -83,13 +83,10 @@ const onSearch = (value?: string) => showToast(value || t('searchPlaceholder'));
     <van-nav-bar :title="t('title')" />
   </demo-block>
   <!-- ----基础使用end---- -->
-
-  <!-- ----副标题start---- -->
+  <!-- 副标题 -->
   <demo-block class="demo-nav-bar" :title="t('subText')">
     <van-nav-bar :title="t('title')" :subtitle="t('subtitle')" />
   </demo-block>
-  <!-- ----副标题end---- -->
-
   <!-- ----自定义背景start---- -->
   <demo-block class="demo-nav-bar" :title="t('background')">
     <van-nav-bar
@@ -152,19 +149,19 @@ const onSearch = (value?: string) => showToast(value || t('searchPlaceholder'));
     <van-nav-bar
       v-model:search-value="searchValueWithText"
       search
+      background="#FF8125"
       :left-buttons="leftButtons2"
-      :right-text="t('button')"
+      :right-buttons="rightButtons"
       :search-placeholder="t('searchPlaceholder')"
       @click-left-button="onClickLeftButton"
-      @click-right="onClickRight"
+      @click-right-button="onClickRightButton"
       @search="onSearch"
     />
 
     <van-nav-bar
       v-model:search-value="searchValueWithButtons"
-      search
-      :left-buttons="leftButtons"
       :right-buttons="rightButtons"
+      search
       :search-placeholder="t('searchPlaceholder')"
       @click-left-button="onClickLeftButton"
       @click-right-button="onClickRightButton"

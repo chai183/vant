@@ -46,6 +46,15 @@ function unifiedSuccess<T>(body: T) {
   };
 }
 
+/**
+ * 填写页手机号校验失败样例（去空格后的 11 位）
+ * 文案模拟接口 errorMsg，页面只展示接口返回值
+ */
+const REGISTER_FORM_PHONE_CHECK_ERROR_MAP: Record<string, string> = {
+  '13527004886': '该手机号暂未收到入职邀请，请确认后重试',
+  '13527004880': '该手机号对应员工已入职，请勿重复提交',
+};
+
 function unifiedFail(errorMsg: string) {
   return {
     body: null,
@@ -455,6 +464,14 @@ function fillResponse({ body }: { body: Record<string, unknown> }) {
   return unifiedSuccess(row);
 }
 
+/** 填写页手机号校验：失败文案放在 errorMsg */
+function checkPhoneResponse({ body }: { body?: Record<string, unknown> }) {
+  const phone = String(body?.phone ?? '').replace(/\D/g, '');
+  const errorMsg = REGISTER_FORM_PHONE_CHECK_ERROR_MAP[phone];
+  if (errorMsg) return unifiedFail(errorMsg);
+  return unifiedSuccess(true);
+}
+
 const mocks: MockMethod[] = [
   {
     url: `${MOCK_PREFIX}/entry-registration-form/page`,
@@ -495,6 +512,11 @@ const mocks: MockMethod[] = [
     url: `${MOCK_PREFIX}/entry-registration-form/fill`,
     method: 'post',
     response: fillResponse,
+  },
+  {
+    url: `${MOCK_PREFIX}/entry-registration-form/check-phone`,
+    method: 'post',
+    response: checkPhoneResponse,
   },
   {
     url: new RegExp(`${MOCK_PREFIX}/entry/entry-template/detail/field/[^/]+$`),

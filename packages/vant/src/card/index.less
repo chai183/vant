@@ -32,7 +32,7 @@
   --van-card-image-right-thumb-radius: var(--van-radius-md);
   --van-card-title-extra-width: 80px;
   --van-card-title-badge-offset: 20px;
-  --van-card-title-line-height: var(--van-line-height-lg);
+  --van-card-title-line-height: var(--van-line-height-xl);
   --van-card-title-link-font-size: var(--van-font-size-md);
   --van-card-title-link-width: 16px;
   --van-card-title-link-hit-width: 20px;
@@ -54,13 +54,12 @@
   );
   --van-card-text-list-row-padding-y: 6px;
   --van-card-collapse-icon-font-size: var(--van-font-size-xs);
-  --van-card-button-divider-color: var(--van-gray-9);
   --van-card-footer-overflow-width: 48px;
   --van-card-footer-overflow-dot-size: 3px;
   --van-card-footer-overflow-dot-gap: 4px;
   --van-card-footer-overflow-dot-color: var(--van-text-color);
   --van-card-outline-button-background: var(--van-background-2);
-  --van-card-outline-button-border-color: var(--van-gray-9);
+  --van-card-outline-button-border-color: #ddd;
   --van-card-outline-button-radius: var(--van-radius-max);
   --van-card-outline-button-height: 30px;
   --van-card-footer-outline-height: 42px;
@@ -68,6 +67,9 @@
   --van-card-footer-more-font-size: var(--van-card-footer-button-font-size);
   --van-card-footer-more-color: var(--van-card-title-color);
   --van-card-footer-more-width: 28px;
+  --van-card-footer-popover-action-height: 48px;
+  --van-card-footer-popover-divider-padding-x: var(--van-padding-md);
+  --van-card-footer-popover-width: 88px;
 }
 
 .van-card {
@@ -571,14 +573,13 @@
         &.van-hairline--left::after {
           top: 50%;
           right: auto;
-          bottom: auto;
+          bottom: auot;
           left: 0;
           width: 1px;
           height: 12px;
           background: #ddd;
           border: none;
           transform: translateY(-50%) scaleX(0.5);
-          transform-origin: left center;
         }
       }
 
@@ -854,6 +855,51 @@
 
       .van-card__image-right-header {
         padding-bottom: 0;
+      }
+    }
+  }
+}
+
+// 底部溢出 Popover（teleport 到 body，样式不可嵌套在 .van-card 内）
+.van-popover.van-card__footer-popover {
+  .van-popover__content {
+    width: var(--van-card-footer-popover-width);
+    min-width: var(--van-card-footer-popover-width);
+  }
+
+  .van-popover__action {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    height: var(--van-card-footer-popover-action-height);
+    padding: 0 var(--van-card-footer-popover-divider-padding-x);
+    box-sizing: border-box;
+
+    &--disabled {
+      color: var(--van-card-footer-button-disabled-color);
+      cursor: not-allowed;
+    }
+
+    &-text {
+      display: flex;
+      flex: 1;
+      align-items: center;
+      justify-content: flex-start;
+      min-width: 0;
+      height: 100%;
+      overflow: hidden;
+      text-align: left;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+
+      &::after {
+        top: auto;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        border: none;
+        border-bottom: 1px solid var(--van-card-divider-color);
+        transform: scaleY(0.5);
       }
     }
   }

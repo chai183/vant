@@ -4,13 +4,21 @@ import VanTabs from '../../tabs';
 import VanTab from '../../tab';
 import VanButton from '../../button';
 import { ref } from 'vue';
-import { cdnURL, useTranslate } from '../../../docs/site';
-
+import { useTranslate } from '../../../docs/site';
+import customImage from '../assets/default.svg';
 const t = useTranslate({
   'zh-CN': {
     error: '通用错误',
     search: '搜索提示',
     network: '网络错误',
+    illustrationText: '插图 + 文字型',
+    textOnly: '文字型(无插图)',
+    illustrationTextButton: '插图 + 文字型 + 按钮型',
+    illustrationTextTipsButton: '插图 + 文字型 + 辅助说明 + 按钮型',
+    descLabel: '描述',
+    noteLabel: '注意点',
+    illustrationTextDesc: '由插图和文字构成，插图通常代表文字的含义',
+    illustrationTextNote: '用在全局无数据内容的场景',
     imageType: '图片类型',
     customSize: '自定义大小',
     description: '描述文字',
@@ -22,10 +30,14 @@ const t = useTranslate({
     error: 'Error',
     search: 'Search',
     network: 'Network',
+    illustrationText: 'illustration + text',
+    textOnly: 'Text only (no illustration)',
+    illustrationTextButton: 'Illustration + text + button',
+    illustrationTextTipsButton: '插图 + 文字型 + 辅助说明 + 按钮型',
     imageType: 'Image Type',
     customSize: 'Custom Size',
     description: 'Description',
-    secondaryDescription: 'Secondary description',
+    secondaryDescription: 'Secondary Description',
     customImage: 'Custom Image',
     bottomContent: 'Bottom Content',
   },
@@ -36,10 +48,10 @@ const active = ref('error');
 
 <template>
   <demo-block :title="t('basicUsage')">
-    <!-- 插图 + 文字型 -->
-    <van-empty :description="t('description')" />
+    <!-- 插图 + 文字型-->
+    <van-empty :description="t('description')" :show-image="true" />
 
-    <!-- 文字型（无插图） -->
+    <!-- 文字型 (无插图) -->
     <van-empty :description="t('description')" :show-image="false" />
 
     <!-- 插图 + 文字型 + 按钮型 -->
@@ -80,7 +92,7 @@ const active = ref('error');
 
   <demo-block :title="t('customImage')">
     <van-empty
-      :image="cdnURL('custom-empty-image.png')"
+      :image="customImage"
       :image-size="80"
       :description="t('description')"
     />
@@ -98,6 +110,11 @@ const active = ref('error');
 <style lang="less">
 .demo-empty {
   background: var(--van-background-2);
+
+  .van-doc-demo-block__title {
+    font-size: 18px;
+    line-height: 24px;
+  }
 
   .bottom-button {
     width: 160px;

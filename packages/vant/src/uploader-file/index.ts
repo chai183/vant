@@ -5,7 +5,10 @@ export const UploaderFile = withInstall(_UploaderFile);
 export default UploaderFile;
 export { uploaderFileProps } from './UploaderFile';
 export type { UploaderFileProps } from './UploaderFile';
-export type { UploaderFileListItem, UploaderBeforeRead } from '../uploader/types';
+export type {
+  UploaderFileListItem,
+  UploaderBeforeRead,
+} from '../uploader/types';
 export type { UploaderFileEntry } from './utils';
 export type {
   UploaderFileInstance,

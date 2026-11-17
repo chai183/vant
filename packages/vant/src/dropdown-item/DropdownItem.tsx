@@ -110,7 +110,7 @@ export default defineComponent({
 
     const renderTitle = () => {
       if (slots.title) {
-        return slots.title();
+        return slots.title(state);
       }
 
       if (props.title) {
@@ -148,7 +148,7 @@ export default defineComponent({
             <Icon
               class={bem('icon')}
               color={disabled ? undefined : activeColor}
-              name="success"
+              name="icon-yiwancheng"
             />
           );
         }

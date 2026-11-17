@@ -9,7 +9,6 @@ import {
 import { getNotifyAutoCloseDuration } from './duration';
 import {
   pick,
-  omit,
   extend,
   numericProp,
   unknownProp,
@@ -34,10 +33,10 @@ const formatButtonText = (text: string) =>
   text.slice(0, NOTIFY_BUTTON_TEXT_MAX_LENGTH);
 
 const TYPE_ICON_MAP: Record<NotifyType, string> = {
-  primary: 'info-o',
-  success: 'passed',
-  danger: 'cross',
-  warning: 'info-o',
+  primary: 'icon-xiaoxitongzhi2',
+  success: 'icon-xiaoxitongzhi4',
+  danger: 'icon-xiaoxitongzhi3',
+  warning: 'icon-xiaoxitongzhi2',
 };
 
 const popupInheritProps = [
@@ -48,9 +47,7 @@ const popupInheritProps = [
   'zIndex',
 ] as const;
 
-const notifyPopupProps = omit(popupSharedProps, ['duration']);
-
-export const notifyProps = extend({}, notifyPopupProps, {
+export const notifyProps = extend({}, popupSharedProps, {
   type: makeStringProp<NotifyType>('warning'),
   color: String,
   message: numericProp,
@@ -169,7 +166,7 @@ export default defineComponent({
         return;
       }
       if (props.actionText || props.buttonText) {
-        return 'volume-o';
+        return 'icon-xiaoxitongzhi1';
       }
       return TYPE_ICON_MAP[props.type];
     };
@@ -226,7 +223,7 @@ export default defineComponent({
         return (
           <VanButton
             class={bem('button')}
-            type="primary"
+            type={props.type === 'primary' ? 'primary' : props.type}
             size="small"
             round
             onClick={onButtonClick}

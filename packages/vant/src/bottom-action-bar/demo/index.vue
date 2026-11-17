@@ -271,7 +271,11 @@ const onDateSubmit = (values: Record<string, unknown>) => {
     <div class="demo-bottom-action-bar">
       <van-bottom-action-bar>
         <template #actions>
-          <van-button block type="primary" @click="showToast(t('toastConfirm'))">
+          <van-button
+            block
+            type="primary"
+            @click="showToast(t('toastConfirm'))"
+          >
             {{ t('confirm') }}
           </van-button>
         </template>
@@ -298,7 +302,11 @@ const onDateSubmit = (values: Record<string, unknown>) => {
     <div class="demo-bottom-action-bar">
       <van-bottom-action-bar>
         <template #actions>
-          <van-button plain type="primary" @click="showToast(t('toastConfirm'))">
+          <van-button
+            plain
+            type="primary"
+            @click="showToast(t('toastConfirm'))"
+          >
             {{ t('confirm') }}
           </van-button>
           <van-button plain type="primary" @click="showToast(t('tertiary'))">
@@ -310,13 +318,25 @@ const onDateSubmit = (values: Record<string, unknown>) => {
     <div class="demo-bottom-action-bar">
       <van-bottom-action-bar>
         <template #actions>
-          <van-button plain type="primary" @click="showToast(t('toastConfirm'))">
+          <van-button
+            plain
+            type="primary"
+            @click="showToast(t('toastConfirm'))"
+          >
             {{ t('confirm') }}
           </van-button>
-          <van-button plain type="primary" @click="showToast(t('extraAction1'))">
+          <van-button
+            plain
+            type="primary"
+            @click="showToast(t('extraAction1'))"
+          >
             {{ t('extraAction1') }}
           </van-button>
-          <van-button plain type="primary" @click="showToast(t('extraAction2'))">
+          <van-button
+            plain
+            type="primary"
+            @click="showToast(t('extraAction2'))"
+          >
             {{ t('extraAction2') }}
           </van-button>
         </template>
@@ -326,7 +346,11 @@ const onDateSubmit = (values: Record<string, unknown>) => {
 
   <demo-block :title="t('moreButtons')">
     <div class="demo-bottom-action-bar">
-      <van-bottom-action-bar :max-visible-actions="2" more-popover-placement="top-start" :more-text="t('more')">
+      <van-bottom-action-bar
+        :max-visible-actions="2"
+        more-popover-placement="top-start"
+        :more-text="t('more')"
+      >
         <template #actions>
           <van-button type="primary" @click="showToast(t('toastConfirm'))">
             {{ t('confirm') }}
@@ -334,17 +358,29 @@ const onDateSubmit = (values: Record<string, unknown>) => {
           <van-button plain type="primary" @click="showToast(t('secondary'))">
             {{ t('secondary') }}
           </van-button>
-          <van-button plain type="primary" @click="showToast(t('extraAction1'))">
+          <van-button
+            plain
+            type="primary"
+            @click="showToast(t('extraAction1'))"
+          >
             {{ t('extraAction1') }}
           </van-button>
-          <van-button plain type="primary" @click="showToast(t('extraAction2'))">
+          <van-button
+            plain
+            type="primary"
+            @click="showToast(t('extraAction2'))"
+          >
             {{ t('extraAction2') }}
           </van-button>
         </template>
       </van-bottom-action-bar>
     </div>
     <div class="demo-bottom-action-bar">
-      <van-bottom-action-bar :max-visible-actions="2" more-icon-position="left" :more-text="t('moreIconLeft')">
+      <van-bottom-action-bar
+        :max-visible-actions="2"
+        more-icon-position="left"
+        :more-text="t('moreIconLeft')"
+      >
         <template #actions>
           <van-button type="primary" @click="showToast(t('approve'))">
             {{ t('approve') }}
@@ -365,7 +401,11 @@ const onDateSubmit = (values: Record<string, unknown>) => {
 
   <demo-block :title="t('moreReferenceSlot')">
     <div class="demo-bottom-action-bar">
-      <van-bottom-action-bar :max-visible-actions="3" :start-gap="16" more-popover-placement="top-start">
+      <van-bottom-action-bar
+        :max-visible-actions="3"
+        :start-gap="16"
+        more-popover-placement="top-start"
+      >
         <template #more-reference>
           <span>{{ t('customMore') }}</span>
         </template>
@@ -408,15 +448,21 @@ const onDateSubmit = (values: Record<string, unknown>) => {
     <div class="demo-bottom-action-bar">
       <van-bottom-action-bar :start-gap="73">
         <template #top>
-          <div class="demo-bottom-action-bar__selected-count van-hairline--bottom">
+          <div
+            class="demo-bottom-action-bar__selected-count van-hairline--bottom"
+          >
             {{ t('selectedCountPrefix')
             }}<span class="demo-bottom-action-bar__selected-count-strong">{{
               formattedSelectedCount
-              }}</span>{{ t('selectedCountUnit')
-              }}<span class="demo-bottom-action-bar__selected-amount">{{ t('selectedAmountPrefix')
-            }}<span class="demo-bottom-action-bar__selected-count-strong">{{
+            }}</span
+            >{{ t('selectedCountUnit')
+            }}<span class="demo-bottom-action-bar__selected-amount"
+              >{{ t('selectedAmountPrefix')
+              }}<span class="demo-bottom-action-bar__selected-count-strong">{{
                 formattedSelectedAmount
-                }}</span>{{ t('selectedAmountUnit') }}</span>
+              }}</span
+              >{{ t('selectedAmountUnit') }}</span
+            >
           </div>
         </template>
         <template #more>
@@ -481,14 +527,23 @@ const onDateSubmit = (values: Record<string, unknown>) => {
       <van-bottom-action-bar :start-gap="47">
         <template #more>
           <div class="demo-bottom-action-bar__icons">
-            <button type="button" class="demo-bottom-action-bar__icon-item" :class="{
-              'demo-bottom-action-bar__icon-item--active': collected,
-            }" @click="onToggleCollect">
+            <button
+              type="button"
+              class="demo-bottom-action-bar__icon-item"
+              :class="{
+                'demo-bottom-action-bar__icon-item--active': collected,
+              }"
+              @click="onToggleCollect"
+            >
               <van-icon :name="collected ? 'like' : 'like-o'" />
               <span>{{ t('collect') }}</span>
             </button>
-            <button type="button" class="demo-bottom-action-bar__icon-item" @click="onShare">
-              <van-icon name="share" image color="#666"/>
+            <button
+              type="button"
+              class="demo-bottom-action-bar__icon-item"
+              @click="onShare"
+            >
+              <van-icon name="share" image color="#666" />
               <span>{{ t('share') }}</span>
             </button>
           </div>
@@ -509,18 +564,33 @@ const onDateSubmit = (values: Record<string, unknown>) => {
     <div class="demo-bottom-action-bar">
       <van-bottom-action-bar>
         <template #top>
-          <van-checkbox-group v-model="agreedItems" shape="square"
-            class="demo-bottom-action-bar__agreement-group van-hairline--bottom">
+          <van-checkbox-group
+            v-model="agreedItems"
+            shape="square"
+            class="demo-bottom-action-bar__agreement-group van-hairline--bottom"
+          >
             <van-checkbox name="clause1">
-              <van-highlight tag="span" :source-string="t('agreement1')" :keywords="t('agreement1Keywords')" />
+              <van-highlight
+                tag="span"
+                :source-string="t('agreement1')"
+                :keywords="t('agreement1Keywords')"
+              />
             </van-checkbox>
             <van-checkbox name="clause2">
-              <van-highlight tag="span" :source-string="t('agreement2')" :keywords="t('agreement2Keywords')" />
+              <van-highlight
+                tag="span"
+                :source-string="t('agreement2')"
+                :keywords="t('agreement2Keywords')"
+              />
             </van-checkbox>
           </van-checkbox-group>
         </template>
         <template #actions>
-          <van-button block type="primary" @click="showToast(t('toastOperate'))">
+          <van-button
+            block
+            type="primary"
+            @click="showToast(t('toastOperate'))"
+          >
             {{ t('operate') }}
           </van-button>
         </template>
@@ -533,12 +603,19 @@ const onDateSubmit = (values: Record<string, unknown>) => {
       <section class="demo-bottom-action-bar__filter-block">
         <van-bottom-action-bar bar-padding="12px 12px">
           <template #top>
-            <van-pro-form v-model="tagModel" ref="tagFormRef" class="demo-bottom-action-bar__filter-form"
-              :columns="tagColumns" :show-submit="false" :style="{
+            <van-pro-form
+              v-model="tagModel"
+              ref="tagFormRef"
+              class="demo-bottom-action-bar__filter-form"
+              :columns="tagColumns"
+              :show-submit="false"
+              :style="{
                 '--van-field-label-top-margin-bottom': '17px',
                 '--van-field-cell-vertical-padding': '16px',
                 '--van-field-cell-horizontal-padding': '12px',
-              }" @submit="onTagSubmit" />
+              }"
+              @submit="onTagSubmit"
+            />
           </template>
           <template #actions>
             <van-button type="primary" @click="tagFormRef?.submit()">
@@ -554,12 +631,19 @@ const onDateSubmit = (values: Record<string, unknown>) => {
       <section class="demo-bottom-action-bar__filter-block">
         <van-bottom-action-bar bar-padding="12px 12px">
           <template #top>
-            <van-pro-form v-model="dateModel" ref="dateFormRef" class="demo-bottom-action-bar__filter-form"
-              :columns="dateColumns" :show-submit="false" :style="{
+            <van-pro-form
+              v-model="dateModel"
+              ref="dateFormRef"
+              class="demo-bottom-action-bar__filter-form"
+              :columns="dateColumns"
+              :show-submit="false"
+              :style="{
                 '--van-field-label-top-margin-bottom': '17px',
                 '--van-field-cell-vertical-padding': '16px',
                 '--van-field-cell-horizontal-padding': '12px',
-              }" @submit="onDateSubmit" />
+              }"
+              @submit="onDateSubmit"
+            />
           </template>
           <template #actions>
             <van-button block type="primary" @click="dateFormRef?.submit()">
@@ -577,13 +661,13 @@ const onDateSubmit = (values: Record<string, unknown>) => {
       :key="demoIndex"
       class="demo-bottom-action-bar"
     >
-      <van-bottom-action-bar 
+      <van-bottom-action-bar
         :bar-padding="'13px 0'"
-        :max-visible-actions="demo.maxVisibleActions" 
+        :max-visible-actions="demo.maxVisibleActions"
         :start-gap="0"
       >
         <template #more-reference>
-          <van-icon name="ellipsis" style="margin: 0px 16px;"/>
+          <van-icon name="ellipsis" style="margin: 0px 16px" />
         </template>
         <template #actions>
           <template
@@ -598,10 +682,7 @@ const onDateSubmit = (values: Record<string, unknown>) => {
                 {{ t('confirm') }}
               </van-button>
             </div>
-            <van-button
-              v-else
-              v-bind="getTextButtonProps(button.plain)"
-            >
+            <van-button v-else v-bind="getTextButtonProps(button.plain)">
               {{ t('confirm') }}
             </van-button>
           </template>

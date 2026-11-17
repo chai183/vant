@@ -1,4 +1,4 @@
-﻿# CascadeTreeSelect 级联分类选择
+# CascadeTreeSelect 级联分类选择
 
 ### 介绍
 
@@ -18,8 +18,6 @@ app.use(CascadeTreeSelect);
 
 ### 基础使用
 
-基础用法为单列单选，示例中 `待处理` 配置了橙点，标签长度保持常规。
-
 ```html
 <van-cascade-tree-select v-model="basicValue" :items="basicItems" />
 ```
@@ -37,8 +35,6 @@ const basicItems = [
 
 ### 单列单选
 
-用于展示单列单选场景，示例保留较长标签，用于验证标签极限长度下的展示效果。
-
 ```html
 <van-cascade-tree-select v-model="singleValue" :items="singleItems" />
 ```
@@ -47,34 +43,32 @@ const basicItems = [
 const singleValue = ref('pending');
 const singleItems = [
   { text: '全部订单选择项目', value: 'all' },
-  { text: '待处理订单选择项', value: 'pending', dot: true, badge: 3 },
+  { text: '待处理订单选择项', value: 'pending' },
   { text: '已完成订单选择项', value: 'finished' },
 ];
 ```
 
 ### 单选双列
 
-通过 `expand-path` 控制双列外层展开路径。示例最多展示两列。
-
-`expand-path` 只记录可展开的外层项，例如 `['food']`；点击第二列叶子项时，只会更新 `v-model`，不会把叶子项 value 写入 `expand-path`。
+通过 `expand-path` 控制双列外层展开路径
 
 ```html
 <van-cascade-tree-select
-  v-model="cascadeValue"
-  v-model:expand-path="cascadeExpandPath"
-  :items="cascadeItems"
+  v-model="signleValue"
+  v-model:expand-path="singleExpandPath"
+  :items="singleItems2"
 />
 ```
 
 ```js
-const cascadeValue = ref('apple');
-const cascadeExpandPath = ref(['food']);
-const cascadeItems = [
+const signleValue = ref('apple');
+const singleExpandPath = ref(['food']);
+const singleItems2 = [
   {
     text: '食品分类项目',
     value: 'food',
     children: [
-      { text: '苹果选择项目', value: 'apple', dot: true, badge: 4 },
+      { text: '苹果选择项目', value: 'apple' },
       { text: '香蕉选择项目', value: 'banana' },
       { text: '咖啡选择项目', value: 'coffee' },
       { text: '茶饮选择项目', value: 'tea', disabled: true },
@@ -91,24 +85,6 @@ const cascadeItems = [
 ];
 ```
 
-### 父级可选
-
-默认情况下 `select-leaf-only` 为 `true`，点击父级只会展开下一列，不会写入 `v-model`。设置为 `false` 后，点击父级会同时展开并把父级 value 写入 `v-model`。
-
-```html
-<van-cascade-tree-select
-  v-model="parentSelectableValue"
-  v-model:expand-path="parentSelectableExpandPath"
-  :items="cascadeItems"
-  :select-leaf-only="false"
-/>
-```
-
-```js
-const parentSelectableValue = ref('food');
-const parentSelectableExpandPath = ref(['food']);
-```
-
 ### 多选单列
 
 设置 `multiple` 后开启多选，示例复用单选单列数据。
@@ -123,13 +99,14 @@ const parentSelectableExpandPath = ref(['food']);
 
 ```js
 const multipleValue = ref(['pending', 'finished']);
+const singleItems = [
+  { text: '全部订单选择项目', value: 'all' },
+  { text: '待处理订单选择项', value: 'pending' },
+  { text: '已完成订单选择项', value: 'finished' },
+];
 ```
 
 ### 多选双列
-
-橙点和弱徽标仅在当前页面已经存在选中项时展示。配置 `dot` 时会展示橙点，多选级联模式下父项存在已选子项时也会展示橙点。弱徽标仅在多选模式下展示，内容只读取配置项中的 `badge`，不会根据已选数量自动生成。弱徽标和橙点不会同时显示，同时配置时弱徽标优先。
-
-默认开启 `select-leaf-only`，因此点击一级父项只会展开二级列表，不会写入 `v-model`；二级叶子项才会进入多选值。一级父项的高亮和左侧指示条表示当前展开态，即 `active`，不代表该父项已经选中，即 `selected`。
 
 ```html
 <van-cascade-tree-select
@@ -143,6 +120,120 @@ const multipleValue = ref(['pending', 'finished']);
 ```js
 const multipleCascadeValue = ref(['apple', 'banana', 'phone']);
 const multipleCascadeExpandPath = ref(['food']);
+const cascadeItems = [
+  {
+    text: '食品分类项目',
+    value: 'food',
+    children: [
+      { text: '苹果', value: 'apple', badge: 2 },
+      { text: '香蕉选择项目', value: 'banana', badge: 100 },
+      { text: '咖啡选择项目', value: 'coffee' },
+      { text: '茶饮选择项目', value: 'tea', disabled: true },
+    ],
+  },
+  {
+    text: '数码分类项目',
+    value: 'digital',
+    children: [
+      { text: '手机选择项目', value: 'phone' },
+      { text: '电脑选择项目', value: 'computer' },
+    ],
+  },
+];
+```
+
+<!-- ### 父级可选
+
+通过配置`select-leaf-only`是否只能点击叶子节点,可实现父级可选
+
+此值默认为`true`,父级节点只做展开,需要父级点击时,设置为`false`
+
+```html
+<van-cascade-tree-select
+  v-model="parentSelectableValue"
+  v-model:expand-path="parentSelectExpandPath"
+  :items="cascadeItems"
+  :select-leaf-only="false"
+/>
+```
+
+```js
+const parentSelectableValue = ref("food");
+const parentSelectExpandPath = ref(["food"]);
+const cascadeItems = [
+  {
+    text: "食品分类项目",
+    value: "food",
+    children: [
+      { text: "苹果选择项目", value: "apple" },
+      { text: "香蕉选择项目", value: "banana" },
+      { text: "咖啡选择项目", value: "coffee" },
+      { text: "茶饮选择项目", value: "tea", disabled: true },
+    ],
+  },
+  {
+    text: "数码分类项目",
+    value: "digital",
+    children: [
+      { text: "手机选择项目", value: "phone" },
+      { text: "电脑选择项目", value: "computer" },
+    ],
+  },
+];
+``` -->
+
+### 事件监听
+
+`click-nav`外侧选项点击,[参数](#/zh-CN/cascade-tree-select#cascadetreeselecteventparams-shu-ju-jie-gou)
+
+`click-item` 内测选项点击
+
+`change` 选择值切换
+
+```html
+<van-cascade-tree-select
+  v-model="eventValue"
+  v-model:expand-path="eventExpandPath"
+  :items="cascadeItems"
+  @change="onEvent('change',$event)"
+  @click-nav="onEvent('click-nav',$event)"
+  @click-item="onEvent('click-item',$event)"
+/>
+```
+
+```js
+import {showToast} from '../../toast'
+const eventValue = ref('apple')
+const eventExpandPath = ref(['food'])
+const cascadeItems = [
+  {
+    text: "食品分类项目",
+    value: "food",
+    children: [
+      { text: "苹果选择项目", value: "apple", dot: true, badge: 2 },
+      { text: "香蕉选择项目", value: "banana" },
+      { text: "咖啡选择项目", value: "coffee" },
+      { text: "茶饮选择项目", value: "tea", disabled: true },
+    ],
+  },
+  {
+    text: "数码分类项目",
+    value: "digital",
+    children: [
+      { text: "手机选择项目", value: "phone" },
+      { text: "电脑选择项目", value: "computer" },
+    ],
+  },
+];
+const logEvent = (eventName: string, params: CascadeTreeSelectEventParams) => {
+  console.log(`[CascadeTreeSelect ${eventName}]`, params);
+};
+const onEvent = (eventName:string,params:CascadeTreeSelectEventParams) => {
+  const currentText = params.currentItem.text || String(params.currentItem.value)
+  const message = `${eventName}: ${currentText}`
+  showToast(message)
+  logEvent(eventName,params)
+}
 ```
 
 ### 右侧自定义内容
@@ -172,56 +263,28 @@ const multipleCascadeExpandPath = ref(['food']);
 ```js
 const customValue = ref('apple');
 const customExpandPath = ref(['food']);
-
+const cascadeItems = [
+  {
+    text: '食品分类项目',
+    value: 'food',
+    children: [
+      { text: '苹果选择项目', value: 'apple', badge: 2 },
+      { text: '香蕉选择项目', value: 'banana' },
+      { text: '咖啡选择项目', value: 'coffee' },
+      { text: '茶饮选择项目', value: 'tea', disabled: true },
+    ],
+  },
+  {
+    text: '数码分类项目',
+    value: 'digital',
+    children: [
+      { text: '手机选择项目', value: 'phone' },
+      { text: '电脑选择项目', value: 'computer' },
+    ],
+  },
+];
 const formatOptions = (options) =>
   options.map((option) => option.text).join(', ') || '暂无';
-```
-
-### 自定义选项文本
-
-通过 `nav-text` 插槽可以自定义左侧选项的文本区域，插槽参数为当前选项 `item`。该插槽只替换文字内容，不会影响橙点、弱徽标、禁用和点击逻辑。
-
-```html
-<van-cascade-tree-select v-model="navTextValue" :items="singleItems">
-  <template #nav-text="item">
-    <span class="demo-cascade-tree-select-nav-text">
-      {{ item.text }}
-      <span class="demo-cascade-tree-select-tag">自定义</span>
-    </span>
-  </template>
-</van-cascade-tree-select>
-```
-
-```js
-const navTextValue = ref('pending');
-```
-
-### 事件监听
-
-组件支持监听 `click-nav`、`click-item` 和 `change` 事件。外层列点击触发 `click-nav`，内层列点击触发 `click-item`，选中值变化时触发 `change`。
-
-```html
-<van-cascade-tree-select
-  v-model="eventValue"
-  v-model:expand-path="eventExpandPath"
-  :items="cascadeItems"
-  @change="onEvent('change', $event)"
-  @click-nav="onEvent('click-nav', $event)"
-  @click-item="onEvent('click-item', $event)"
-/>
-```
-
-```js
-import { showToast } from 'vant';
-
-const eventValue = ref('apple');
-const eventExpandPath = ref(['food']);
-
-const onEvent = (eventName, params) => {
-  const currentText = params.currentItem.text || String(params.selectedValue);
-
-  showToast(`${eventName}: ${currentText}`);
-};
 ```
 
 ### 禁用状态
@@ -269,9 +332,10 @@ const disabledItems = [
 | height | 组件高度 | _number \| string_ | `300` |
 | multiple | 是否开启多选 | _boolean_ | `false` |
 | show-badge | 是否展示圆点和弱徽标 | _boolean_ | `true` |
-| select-leaf-only | 是否仅叶子节点可选中 | _boolean_ | `true` |
 | active-color | 选中状态颜色 | _string_ | - |
 | field-names | 自定义 `items` 结构中的字段 | _CascadeTreeSelectFieldNames_ | 见下方表格 |
+
+<!-- | select-leaf-only    | 是否仅叶子节点可选中                               | _boolean_                     | `true`     | -->
 
 ### CascadeTreeSelectOption 选项结构
 

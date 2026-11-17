@@ -1,4 +1,6 @@
-﻿import { extend, inBrowser, type ComponentInstance } from '../utils';
+// src_function-call.tsx
+
+import { extend, inBrowser, type ComponentInstance } from '../utils';
 import { mountComponent, usePopupState } from '../utils/mount-component';
 import AdDialog from './AdDialog';
 import type { AdDialogOptions } from './types';
@@ -18,7 +20,7 @@ const DEFAULT_OPTIONS: AdDialogOptions = {
   showCheckbox: true,
   checkboxText: '今日不再提醒',
   checkboxDisabled: false,
-  closeIcon: 'cross',
+  closeIcon: '',
   closeIconPosition: 'bottom-center',
   closeIconMode: 'outside',
   closeOnClickOverlay: false,

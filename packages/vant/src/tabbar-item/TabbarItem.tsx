@@ -78,6 +78,7 @@ export default defineComponent({
       emit('click', event);
     };
 
+    // 渲染icon
     const renderIcon = () => {
       if (slots.icon) {
         return slots.icon({ active: active.value });
@@ -88,12 +89,11 @@ export default defineComponent({
     };
 
     return () => {
-      // 红点，徽标值
+      // 红点,徽标值
       const { dot, badge } = props;
       // 选中/未选中 颜色
       const { activeColor, inactiveColor, showShadow } = parent.props;
       const color = active.value ? activeColor : inactiveColor;
-
       return (
         <div
           role="tab"
@@ -106,6 +106,7 @@ export default defineComponent({
           <Badge
             v-slots={{ default: renderIcon }}
             dot={dot}
+            max={99}
             class={bem('icon')}
             content={badge}
             {...props.badgeProps}

@@ -50,7 +50,7 @@ export const toastProps = {
   type: makeStringProp<ToastType>('text'),
   overlay: Boolean,
   message: numericProp,
-  iconSize: numericProp,
+  iconSize: makeNumberProp(40),
   duration: makeNumberProp(2000),
   position: makeStringProp<ToastPosition>('middle'),
   teleport: [String, Object] as PropType<TeleportProps['to']>,
@@ -104,9 +104,18 @@ export default defineComponent({
       const hasIcon = icon || type === 'success' || type === 'fail';
 
       if (hasIcon) {
+        let iconFinish = '';
+        if (type == 'success') {
+          iconFinish = 'icon-xiaoxitongzhi4';
+        } else if (type == 'fail') {
+          iconFinish = 'icon-xiaoxitongzhi2';
+        }
+        if (icon) {
+          iconFinish = icon;
+        }
         return (
           <Icon
-            name={icon || type}
+            name={iconFinish}
             size={iconSize}
             class={bem('icon')}
             classPrefix={iconPrefix}

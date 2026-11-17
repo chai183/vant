@@ -11,7 +11,6 @@ import {
   addUnit,
   extend,
   isDef,
-  isNumeric,
   isSameValue,
   makeArrayProp,
   makeNumericProp,
@@ -158,7 +157,6 @@ export default defineComponent({
     /* ----获取选项的数据 end---- */
 
     /*-----徽标计算 start-----
-      format: 弱徽标内容格式化
       getOptionWeak: 读取配置项弱徽标内容
       weak: 最终弱徽标内容
       hasSelectedChild: 是否存在已选子项
@@ -166,9 +164,6 @@ export default defineComponent({
       hasWeak: 是否配置态弱徽标
     */
     const badgeHandler = {
-      format: (badge: Numeric) => {
-        return isNumeric(badge) && +badge > 99 ? '99+' : badge;
-      },
       getOptionWeak: (option: CascadeTreeSelectOption) => {
         if (!props.showBadge || !isMultiple.value) {
           return;
@@ -188,7 +183,6 @@ export default defineComponent({
           .some((child) =>
             selectedValues.value.includes(optionHandler.value(child)),
           ),
-      // - 只允许外层列展示；
       // - 显式配置 dot 或多选双列父项下存在已选子项时展示；
       // - 当前页面存在任意选中项时才展示；
       shouldShowDot: (
@@ -196,10 +190,12 @@ export default defineComponent({
         columnIndex: number,
         weakBadge: Numeric | undefined,
       ) => {
-        if (!props.showBadge || !columnHandler.isOuter(columnIndex)) {
+        if (!props.showBadge) {
           return false;
         }
-
+        // if (!props.showBadge|| !columnHandler.isOuter(columnIndex)) {
+        //   return false;
+        // }
         // 弱徽标值存在时，不展示圆点。
         if (isDef(weakBadge)) {
           return false;
@@ -210,9 +206,12 @@ export default defineComponent({
         }
 
         return (
-          optionHandler.hasDot(option) ||
-          (isMultiple.value && badgeHandler.hasSelectedChild(option))
+          optionHandler.hasDot(option) || badgeHandler.hasSelectedChild(option)
         );
+        // return (
+        //   optionHandler.hasDot(option) ||
+        //   (isMultiple.value && badgeHandler.hasSelectedChild(option))
+        // );
       },
       // 判断一组数据里是否存在配置态弱徽标
       hasWeak: (options: CascadeTreeSelectOption[]) =>

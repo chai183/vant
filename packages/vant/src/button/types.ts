@@ -5,7 +5,8 @@ export type ButtonType =
   | 'primary'
   | 'success'
   | 'warning'
-  | 'danger';
+  | 'danger'
+  | 'text';
 
 export type ButtonSize = 'large' | 'normal' | 'small' | 'mini';
 

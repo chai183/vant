@@ -22,14 +22,18 @@ app.use(CascadeTabs);
 
 ### 基础用法
 
-通过 `v-model:active` 绑定当前激活标签对应的索引值，默认情况下启用第一个标签。默认样式为下划线风格（`type="underline"`）。
+通过 `v-model:active` 绑定当前激活标签对应的索引值，默认情况下启用第一个标签。默认样式为下划线风格（`type="underline"`）。标签数量小于等于 5 个时均分宽度，标题过长显示省略号；超过 5 个时横向滚动。徽标为数字且大于 999 时显示为 `999`。
 
 ```html
-<van-tabs v-model:active="active">
-  <van-tab title="标签 1">内容 1</van-tab>
-  <van-tab title="标签 2">内容 2</van-tab>
-  <van-tab title="标签 3">内容 3</van-tab>
-  <van-tab title="标签 4">内容 4</van-tab>
+<van-tabs v-model:active="active" nav-overflow="shadow">
+  <van-tab
+    v-for="index in 5"
+    :key="index"
+    :title="'标签 ' + index + '标题内容'"
+    :badge="99999"
+  >
+    内容 {{ index }}
+  </van-tab>
 </van-tabs>
 ```
 
@@ -63,27 +67,25 @@ export default {
 
 ### 圆角背景风格
 
-通过 `type="rounded"` 启用圆角背景风格，未选中标签为 `#f5f5f5` 背景（内边距上下 6px、左右 12px），标签间距 12px，选中后为背景主题色、文字为白色；整条白色标签栏内边距为上下 10px、左右 12px。标签数少于 `swipe-threshold`（默认 5）时按内容宽度左对齐排列；等于 5 个时均分占满宽度；大于 5 个时横向滚动。
+通过 `type="rounded"` 启用圆角背景风格，未选中标签为 `#f5f5f5` 背景（内边距上下 6px、左右 12px），标签间距 12px，选中后为背景主题色、文字为白色；整条白色标签栏内边距为上下 10px、左右 12px。标签按内容宽度左对齐排列；标签总宽度超出容器或数量大于 `swipe-threshold`（默认 5）个时横向滚动，默认在右侧展示菜单图标。
 
 ```html
 <van-tabs v-model:active="active" type="rounded">
-  <van-tab title="标签 1">内容 1</van-tab>
-  <van-tab title="标签 2">内容 2</van-tab>
-  <van-tab title="标签 3">内容 3</van-tab>
-  <van-tab title="标签 4">内容 4</van-tab>
+  <van-tab v-for="index in 8" :title="'标签 ' + index" :disabled="index === 2">
+    内容 {{ index }}
+  </van-tab>
 </van-tabs>
 ```
 
 ### 分隔线风格
 
-通过 `type="divider"` 启用分隔线风格，白色标签栏上下内边距为 16px，每个标签左右内边距为 12px（按内容宽度排列）；未选中文字颜色为 `#666666`，选中为主题色（不加粗）；每个标签右侧展示竖向分隔线（最后一项除外）。
+通过 `type="divider"` 启用分隔线风格，白色标签栏上下内边距为 16px，每个标签左右内边距为 12px（按内容宽度排列）；未选中文字颜色为 `#666666`，选中为主题色（不加粗）；每个标签右侧展示竖向分隔线（最后一项除外）。标签总宽度超出容器或数量大于 `swipe-threshold`（默认 5）个时横向滚动，默认在右侧展示菜单图标。
 
 ```html
 <van-tabs v-model:active="active" type="divider">
-  <van-tab title="标签 1">内容 1</van-tab>
-  <van-tab title="标签 2">内容 2</van-tab>
-  <van-tab title="标签 3">内容 3</van-tab>
-  <van-tab title="标签 4">内容 4</van-tab>
+  <van-tab v-for="index in 8" :title="'标签 ' + index">
+    内容 {{ index }}
+  </van-tab>
 </van-tabs>
 ```
 
@@ -202,7 +204,7 @@ export default {
 
 ### 标签栏滚动
 
-标签数量超过当前宽度时可横向滚动，支持两种溢出展示方式，通过 `nav-overflow` 属性切换：
+标签数量小于等于 `swipe-threshold`（默认 5）时，标签均分宽度，标题过长以省略号显示；超过阈值时改为横向滚动，不再均分。滚动时支持两种溢出展示方式，通过 `nav-overflow` 属性切换：
 
 #### 菜单图标（默认）
 
@@ -305,7 +307,7 @@ export default {
 
 ### 收缩布局
 
-通过 `shrink` 属性可以开启收缩布局，开启后，所有的标签会向左侧收缩对齐。未溢出时不展示右侧图标；标签总宽度超出容器后，默认展示右侧菜单图标（`nav-overflow="menu"`），也可通过 `nav-overflow="shadow"` 切换为滚动阴影提示。
+通过 `shrink` 属性可以开启收缩布局，开启后，所有的标签会向左侧收缩对齐，每个标签左右内边距为 12px。未溢出时不展示右侧图标；标签总宽度超出容器后，默认展示右侧菜单图标（`nav-overflow="menu"`），也可通过 `nav-overflow="shadow"` 切换为滚动阴影提示。
 
 ```html
 <van-tabs v-model:active="active" shrink>
@@ -454,7 +456,7 @@ export default {
 | show-nav-menu | 标签栏滚动时，是否在右侧展示菜单图标，`nav-overflow` 为 `menu` 时生效 | _boolean_ | `true` |
 | nav-overflow | 标签栏溢出时的展示方式，可选值为 `menu` `shadow` | _string_ | `menu` |
 | offset-top | 粘性布局下吸顶时与顶部的距离，支持 `px` `vw` `vh` `rem` 单位，默认 `px` | _number \| string_ | `0` |
-| swipe-threshold | 滚动阈值，标签数量超过阈值且总宽度超过标签栏宽度时开始横向滚动（仅在 `shrink` 为 `false` 且 `ellipsis` 为 `true` 时生效） | _number \| string_ | `5` |
+| swipe-threshold | 滚动阈值，标签数量超过阈值时开始横向滚动；小于等于阈值时均分宽度（仅在 `shrink` 为 `false` 且 `ellipsis` 为 `true` 时生效） | _number \| string_ | `5` |
 | title-active-color | 标题选中态颜色 | _string_ | - |
 | title-inactive-color | 标题默认态颜色 | _string_ | - |
 | before-change | 切换标签前的回调函数，返回 `false` 可阻止切换，支持返回 Promise | _(name: number \| string) => boolean \| Promise\<boolean\>_ | - |
@@ -466,7 +468,7 @@ export default {
 | title | 标题 | _string_ | - |
 | disabled | 是否禁用标签 | _boolean_ | `false` |
 | dot | 是否在标题右上角显示小红点 | _boolean_ | `false` |
-| badge | 图标右上角徽标的内容（`dot` 为 `fasle` 时生效） | _number \| string_ | - |
+| badge | 图标右上角徽标的内容（`dot` 为 `fasle` 时生效），数字大于 999 时显示为 `999` | _number \| string_ | - |
 | name | 标签名称，作为匹配的标识符 | _number \| string_ | 标签的索引值 |
 | url | 点击后跳转的链接地址 | _string_ | - |
 | to | 点击后跳转的目标路由对象，等同于 Vue Router 的 [to 属性](https://router.vuejs.org/zh/api/interfaces/RouterLinkProps.html#Properties-to) | _string \| object_ | - |
@@ -601,6 +603,7 @@ import type {
 | --van-tabs-nav-background | _var(--van-background-2)_ | - |
 | --van-tabs-divider-nav-padding-vertical | _16px_ | - |
 | --van-tabs-divider-tab-padding-horizontal | _12px_ | - |
+| --van-tabs-shrink-tab-padding-horizontal | _12px_ | 收缩布局标签左右内边距 |
 | --van-tabs-divider-nav-background | _var(--van-white)_ | - |
 | --van-tabs-divider-inactive-text-color | _#666666_ | - |
 | --van-tabs-divider-line-width | _0.5px_ | - |

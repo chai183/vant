@@ -80,14 +80,9 @@ export function calcMiddleEllipsis(
     leftPart: [number, number],
     rightPart: [number, number],
   ): string => {
-    if (
-      leftPart[1] - leftPart[0] <= 1 &&
-      rightPart[1] - rightPart[0] <= 1
-    ) {
+    if (leftPart[1] - leftPart[0] <= 1 && rightPart[1] - rightPart[0] <= 1) {
       return (
-        content.slice(0, leftPart[0]) +
-        dots +
-        content.slice(rightPart[1], end)
+        content.slice(0, leftPart[0]) + dots + content.slice(rightPart[1], end)
       );
     }
 
@@ -97,16 +92,10 @@ export function calcMiddleEllipsis(
       content.slice(0, leftMiddle) + dots + content.slice(rightMiddle, end);
 
     if (measureWidth(result) > maxWidth) {
-      return middleTail(
-        [leftPart[0], leftMiddle],
-        [rightMiddle, rightPart[1]],
-      );
+      return middleTail([leftPart[0], leftMiddle], [rightMiddle, rightPart[1]]);
     }
 
-    return middleTail(
-      [leftMiddle, leftPart[1]],
-      [rightPart[0], rightMiddle],
-    );
+    return middleTail([leftMiddle, leftPart[1]], [rightPart[0], rightMiddle]);
   };
 
   return middleTail([0, middle], [middle, end]);
@@ -195,9 +184,7 @@ export function formatFileSize(size: number): string {
   }
 
   const formatted =
-    unitIndex === 0
-      ? value
-      : Number(value.toFixed(1).replace(/\.0$/, ''));
+    unitIndex === 0 ? value : Number(value.toFixed(1).replace(/\.0$/, ''));
 
   return `${formatted}${FILE_SIZE_UNITS[unitIndex]}`;
 }

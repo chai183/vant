@@ -22,11 +22,16 @@ app.use(CascadeTabs);
 
 ### Basic Usage
 
-The first tab is active by default, you can set `v-model:active` to active specified tab. The default style is underline (`type="underline"`).
+The first tab is active by default, you can set `v-model:active` to active specified tab. The default style is underline (`type="underline"`). When there are 5 tabs or fewer, tabs are equal width and long titles are ellipsized; when there are more than 5 tabs, the nav scrolls horizontally. Badge numbers greater than 999 are displayed as `999`.
 
 ```html
-<van-tabs v-model:active="active">
-  <van-tab v-for="index in 4" :title="'Tab ' + index">
+<van-tabs v-model:active="active" nav-overflow="shadow">
+  <van-tab
+    v-for="index in 5"
+    :key="index"
+    :title="'Tab ' + index + ' Title'"
+    :badge="99999"
+  >
     content of tab {{ index }}
   </van-tab>
 </van-tabs>
@@ -61,11 +66,11 @@ Use `type="line"` for the sliding bottom bar style.
 
 ### Rounded Background Style
 
-Use `type="rounded"` to show a `#f5f5f5` background on inactive tabs (padding: 6px 12px, gap: 12px) and theme color background on the active tab, with a white nav bar (padding: 10px 12px). When the number of tabs is less than `swipe-threshold` (5 by default), tabs are left-aligned; when equal to 5, tabs fill the width; when greater than 5, the nav scrolls horizontally.
+Use `type="rounded"` to show a `#f5f5f5` background on inactive tabs (padding: 6px 12px, gap: 12px) and theme color background on the active tab, with a white nav bar (padding: 10px 12px). Tabs are left-aligned by content width. When the total tab width exceeds the container or the number of tabs is greater than `swipe-threshold` (5 by default), the nav scrolls horizontally and shows a menu icon on the right by default.
 
 ```html
 <van-tabs v-model:active="active" type="rounded">
-  <van-tab v-for="index in 4" :title="'Tab ' + index">
+  <van-tab v-for="index in 8" :title="'Tab ' + index" :disabled="index === 2">
     content of tab {{ index }}
   </van-tab>
 </van-tabs>
@@ -73,11 +78,11 @@ Use `type="rounded"` to show a `#f5f5f5` background on inactive tabs (padding: 6
 
 ### Divider Style
 
-Use `type="divider"` to show tabs on a white nav bar with 16px vertical padding. Each tab has 12px horizontal padding and sizes to its content. Inactive text color is `#666666`, active text uses the theme color without bold. A vertical divider is shown on the right of each tab (except the last one).
+Use `type="divider"` to show tabs on a white nav bar with 16px vertical padding. Each tab has 12px horizontal padding and sizes to its content. Inactive text color is `#666666`, active text uses the theme color without bold. A vertical divider is shown on the right of each tab (except the last one). When the total tab width exceeds the container or the number of tabs is greater than `swipe-threshold` (5 by default), the nav scrolls horizontally and shows a menu icon on the right by default.
 
 ```html
 <van-tabs v-model:active="active" type="divider">
-  <van-tab v-for="index in 4" :title="'Tab ' + index">
+  <van-tab v-for="index in 8" :title="'Tab ' + index">
     content of tab {{ index }}
   </van-tab>
 </van-tabs>
@@ -196,7 +201,7 @@ export default {
 
 ### Swipe Tabs
 
-By default more than 5 tabs, you can scroll through the tabs. You can set `swipe-threshold` attribute to customize threshold number. When the nav overflows, use `nav-overflow` to choose the display mode.
+By default, when there are more than 5 tabs, the nav scrolls horizontally. When the number of tabs is less than or equal to `swipe-threshold` (5 by default), tabs are equal width and long titles are ellipsized. You can set `swipe-threshold` to customize the threshold. When the nav overflows, use `nav-overflow` to choose the display mode.
 
 #### Menu Icon (default)
 
@@ -293,7 +298,7 @@ In sticky mode, the tab nav will be fixed to top when scroll to top.
 
 ### Shrink
 
-In shrink mode, tabs align to the left. When content does not overflow, no right-side icon is shown. After overflow, the menu icon appears by default (`nav-overflow="menu"`), or use `nav-overflow="shadow"` for the scroll shadow indicator.
+In shrink mode, tabs align to the left with 12px horizontal padding on each tab. When content does not overflow, no right-side icon is shown. After overflow, the menu icon appears by default (`nav-overflow="menu"`), or use `nav-overflow="shadow"` for the scroll shadow indicator.
 
 ```html
 <van-tabs v-model:active="active" shrink>
@@ -437,7 +442,7 @@ By setting the `showHeader` prop to `false`, the title bar of the Tabs component
 | show-nav-menu | Whether to show the menu icon on the right when the nav is scrollable, only works when `nav-overflow` is `menu` | _boolean_ | `true` |
 | nav-overflow | Overflow display mode, can be set to `menu` `shadow` | _string_ | `menu` |
 | offset-top | Sticky offset top , supports `px` `vw` `vh` `rem` unit, default `px` | _number \| string_ | `0` |
-| swipe-threshold | Set swipe tabs threshold (Takes effect only when `shrink` is `false` and `ellipsis` is `true`) | _number \| string_ | `5` |
+| swipe-threshold | Set swipe tabs threshold; tabs scroll when count exceeds threshold, equal width when within threshold (Takes effect only when `shrink` is `false` and `ellipsis` is `true`) | _number \| string_ | `5` |
 | title-active-color | Title active color | _string_ | - |
 | title-inactive-color | Title inactive color | _string_ | - |
 | before-change | Callback function before changing tabs, return `false` to prevent change, support return Promise | _(name: number \| string) => boolean \| Promise\<boolean\>_ | - |
@@ -449,7 +454,7 @@ By setting the `showHeader` prop to `false`, the title bar of the Tabs component
 | title | Title | _string_ | - |
 | disabled | Whether to disable tab | _boolean_ | `false` |
 | dot | Whether to show red dot on the title | _boolean_ | `false` |
-| badge | Content of the badge on the title (Effective when `dot` is `false`) | _number \| string_ | - |
+| badge | Content of the badge on the title (Effective when `dot` is `false`); numbers greater than 999 are displayed as `999` | _number \| string_ | - |
 | name | Identifier | _number \| string_ | Index of tab |
 | url | Link | _string_ | - |
 | to | The target route should navigate to when clicked on, same as the [to prop](https://router.vuejs.org/api/interfaces/RouterLinkProps.html#Properties-to) of Vue Router | _string \| object_ | - |
@@ -582,6 +587,7 @@ The component provides the following CSS variables, which can be used to customi
 | --van-tabs-nav-background | _var(--van-background-2)_ | - |
 | --van-tabs-divider-nav-padding-vertical | _16px_ | - |
 | --van-tabs-divider-tab-padding-horizontal | _12px_ | - |
+| --van-tabs-shrink-tab-padding-horizontal | _12px_ | Shrink layout tab horizontal padding |
 | --van-tabs-divider-nav-background | _var(--van-white)_ | - |
 | --van-tabs-divider-inactive-text-color | _#666666_ | - |
 | --van-tabs-divider-line-width | _0.5px_ | - |

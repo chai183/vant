@@ -138,15 +138,15 @@ export default {
 | 参数 | 说明 | 类型 | 默认值 |
 | --- | --- | --- | --- |
 | active | 当前步骤对应的索引值 | _number \| string_ | `0` |
-| direction | 步骤条方向，可选值为 `vertical` | _string_ | `horizontal` |
+| direction `new` | 步骤条方向，可选值为 `vertical` | _string_ | `horizontal` |
 | active-icon | 当前步骤对应的底部图标，可选值见 [Icon 组件](#/zh-CN/icon) | _string_ | - |
 | inactive-icon | 非当前步骤对应的底部图标，可选值见 [Icon 组件](#/zh-CN/icon) | _string_ | - |
 | finish-icon | 已完成步骤对应的底部图标，优先级高于 `inactive-icon`，可选值见 [Icon 组件](#/zh-CN/icon) | _string_ | - |
-| active-color | 当前步骤和已完成步骤的颜色 | _string_ | - |
-| inactive-color | 未激活步骤的颜色 | _string_ | - |
-| icon-prefix | 图标类名前缀，等同于 Icon 组件的 [class-prefix 属性](#/zh-CN/icon#props) | _string_ | `van-icon` |
-| collapsible | 竖向模式下是否可折叠，收起时仅展示当前步骤 | _boolean_ | `false` |
-| reverse | 竖向模式下是否倒序展示（从下到上） | _boolean_ | `false` |
+| active-color `new` | 当前步骤和已完成步骤的颜色 | _string_ | - |
+| inactive-color `new` | 未激活步骤的颜色 | _string_ | - |
+| icon-prefix `new` | 图标类名前缀，等同于 Icon 组件的 [class-prefix 属性](#/zh-CN/icon#props) | _string_ | `van-icon` |
+| collapsible `new` | 竖向模式下是否可折叠，收起时仅展示当前步骤 | _boolean_ | `false` |
+| reverse `new` | 竖向模式下是否倒序展示（从下到上） | _boolean_ | `false` |
 
 ### Step Props
 
@@ -157,14 +157,14 @@ export default {
 
 ### Step Slots
 
-| 名称          | 说明                                                       |
-| ------------- | ---------------------------------------------------------- |
-| default       | 步骤内容                                                   |
-| description   | 自定义辅助文字                                             |
-| extra         | 竖向模式下右侧事件/辅助信息                                |
-| active-icon   | 自定义激活状态图标                                         |
-| inactive-icon | 自定义未激活状态图标                                       |
-| finish-icon   | 自定义已完成步骤对应的底部图标，优先级高于 `inactive-icon` |
+| 名称 | 说明 |
+| --- | --- |
+| default | 步骤内容 |
+| description `new` | 自定义辅助文字 |
+| extra `new` | 竖向模式下右侧事件/辅助信息 |
+| active-icon | 自定义激活状态图标 |
+| inactive-icon | 自定义未激活状态图标 |
+| finish-icon | 自定义已完成步骤对应的底部图标，优先级高于 `inactive-icon` |
 
 ### Steps Events
 

@@ -46,7 +46,7 @@ function initInstance() {
   const Wrapper = {
     setup() {
       const { state, toggle } = usePopupState();
-      const onUpdateInputValue = (value: string) => {
+      const onUpdateInputValue = (value?: string) => {
         const nextValue = value ?? '';
         state.inputValue = nextValue;
         state['onUpdate:inputValue']?.(value);
@@ -79,9 +79,7 @@ export function showDialog(
     if (!instance) {
       initInstance();
     }
-
     const userCallback = options.callback;
-
     instance.open(
       extend({}, currentOptions, options, {
         callback: (action?: DialogAction, inputValue?: string) => {

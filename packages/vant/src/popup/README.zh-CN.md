@@ -77,23 +77,10 @@ export default {
 />
 ```
 
-### 标题
+#### 标题
 
-通过 `title` 属性或 `title` 插槽设置弹出层标题。标题显示在弹出层顶部居中，默认样式为字号 `16px`、颜色 `#333333`。
-
-标题栏布局为：**取消**（左侧）· **标题**（居中）· **确定**（右侧）。可通过 `cancel-button-text`、`confirm-button-text` 配置操作按钮：
-
-- 取消按钮默认颜色为 `#999999`，字号 `16px`
-- 确定按钮使用主题色，字号 `16px`，位于关闭图标的位置
-- 传入 `confirm-button-text` 后不显示关闭图标
-- 同时设置 `closeable` 与 `confirm-button-text` 时，优先展示确定按钮
-- 传入 `confirm-button-text` 时，若未设置 `cancel-button-text`，将自动展示默认文案「取消」
-
-配合 `position="right"` 或 `position="left"`，并设置 `width` 与 `height: 100%`，可实现贴边抽屉式弹出（弹层紧贴屏幕边缘）。
-
-#### 基础标题
-
-```html
+````html
+<!-- 基础标题 -->
 <van-popup
   v-model:show="show"
   title="标题"
@@ -102,11 +89,7 @@ export default {
 >
   内容
 </van-popup>
-```
-
-#### 自定义标题
-
-```html
+<!-- 自定义标题 -->
 <van-popup
   v-model:show="show"
   closeable
@@ -118,11 +101,7 @@ export default {
   </template>
   内容
 </van-popup>
-```
-
-#### 底部弹出（带标题）
-
-```html
+<!-- 底部弹出（带标题） -->
 <van-popup
   v-model:show="show"
   title="标题"
@@ -132,11 +111,7 @@ export default {
 >
   内容
 </van-popup>
-```
-
-#### 右侧抽屉（带标题）
-
-```html
+<!-- 右侧抽屉（带标题） -->
 <van-popup
   v-model:show="show"
   title="标题"
@@ -146,11 +121,7 @@ export default {
 >
   内容
 </van-popup>
-```
-
-#### 左侧抽屉（带标题）
-
-```html
+<!-- 取消与确定 -->
 <van-popup
   v-model:show="show"
   title="标题"
@@ -160,55 +131,12 @@ export default {
 >
   内容
 </van-popup>
-```
 
-#### 取消与确定
-
-```html
-<van-popup
-  v-model:show="show"
-  title="标题"
-  position="bottom"
-  :style="{ height: '40%' }"
-  cancel-button-text="取消"
-  confirm-button-text="确定"
-  @cancel="onCancel"
-  @confirm="onConfirm"
->
-  内容
-</van-popup>
-```
-
-#### 抽屉（取消与确定）
-
-```html
-<van-popup
-  v-model:show="show"
-  title="标题"
-  position="right"
-  :style="{ width: '80%', height: '100%' }"
-  cancel-button-text="取消"
-  confirm-button-text="确定"
-  @cancel="onCancel"
-  @confirm="onConfirm"
->
-  内容
-</van-popup>
-```
-
-```js
-import { ref } from 'vue';
-import { showToast } from 'vant';
-
-export default {
-  setup() {
-    const show = ref(false);
-    const onCancel = () => showToast('取消');
-    const onConfirm = () => showToast('确定');
-    return { show, onCancel, onConfirm };
-  },
-};
-```
+```js import { ref } from 'vue'; import { showToast } from 'vant'; export
+default { setup() { const show = ref(false); const onCancel = () =>
+showToast('取消'); const onConfirm = () => showToast('确定'); return { show,
+onCancel, onConfirm }; }, };
+````
 
 #### 确定优先于关闭
 
@@ -382,11 +310,11 @@ export default {
 | duration | 动画时长，单位秒，设置为 0 可以禁用动画 | _number \| string_ | `0.3` |
 | z-index | 将弹窗的 z-index 层级设置为一个固定值 | _number \| string_ | `2000+` |
 | round | 是否显示圆角 | _boolean_ | `false` |
-| title | 标题，显示在弹出层顶部居中 | _string_ | - |
-| cancel-button-text | 取消按钮文字，显示在标题左侧 | _string_ | - |
-| cancel-button-color | 取消按钮文字颜色 | _string_ | - |
-| confirm-button-text | 确定按钮文字，显示在标题右侧（关闭图标位置），传入后不展示关闭图标 | _string_ | - |
-| confirm-button-color | 确定按钮文字颜色 | _string_ | - |
+| title `new` | 标题，显示在弹出层顶部居中 | _string_ | - |
+| cancel-button-text `new` | 取消按钮文字，显示在标题左侧 | _string_ | - |
+| cancel-button-color `new` | 取消按钮文字颜色 | _string_ | - |
+| confirm-button-text `new` | 确定按钮文字，显示在标题右侧（关闭图标位置），传入后不展示关闭图标 | _string_ | - |
+| confirm-button-color `new` | 确定按钮文字颜色 | _string_ | - |
 | destroy-on-close `v4.9.10` | 是否在关闭时销毁内容 | _boolean_ | `false` |
 | lock-scroll | 是否锁定背景滚动 | _boolean_ | `true` |
 | lazy-render | 是否在显示弹层时才渲染节点 | _boolean_ | `true` |
@@ -410,8 +338,8 @@ export default {
 | click            | 点击弹出层时触发           | _event: MouseEvent_ |
 | click-overlay    | 点击遮罩层时触发           | _event: MouseEvent_ |
 | click-close-icon | 点击关闭图标时触发         | _event: MouseEvent_ |
-| cancel           | 点击取消按钮时触发         | _event: MouseEvent_ |
-| confirm          | 点击确定按钮时触发         | _event: MouseEvent_ |
+| cancel `new`     | 点击取消按钮时触发         | _event: MouseEvent_ |
+| confirm `new`    | 点击确定按钮时触发         | _event: MouseEvent_ |
 | open             | 打开弹出层时立即触发       | -                   |
 | close            | 关闭弹出层时立即触发       | -                   |
 | opened           | 打开弹出层且动画结束后触发 | -                   |
@@ -422,7 +350,7 @@ export default {
 | 名称            | 说明         |
 | --------------- | ------------ |
 | default         | 弹窗内容     |
-| title           | 自定义标题   |
+| title `new`     | 自定义标题   |
 | overlay-content | 遮罩层的内容 |
 
 ### 类型定义
@@ -444,20 +372,19 @@ import type {
 
 组件提供了下列 CSS 变量，可用于自定义样式，使用方法请参考 [ConfigProvider 组件](#/zh-CN/config-provider)。
 
-| 名称 | 默认值 | 描述 |
-| --- | --- | --- |
-| --van-popup-background | _var(--van-background-2)_ | - |
-| --van-popup-transition | _transform var(--van-duration-base)_ | - |
-| --van-popup-round-radius | _16px_ | - |
-| --van-popup-close-icon-size | _22px_ | - |
-| --van-popup-close-icon-color | _var(--van-gray-5)_ | - |
-| --van-popup-close-icon-margin | _16px_ | - |
-| --van-popup-close-icon-z-index | _1_ | - |
-| --van-popup-title-font-size | _16px_ | - |
-| --van-popup-title-color | _#333333_ | - |
-| --van-popup-title-line-height | _16px_ | - |
-| --van-popup-header-padding-vertical | _16px_ | 标题栏上下内边距 |
-| --van-popup-header-padding-horizontal | _12px_ | 标题栏左右内边距 |
-| --van-popup-action-font-size | _16px_ | - |
-| --van-popup-cancel-color | _#999999_ | - |
-| --van-popup-confirm-color | _var(--van-primary-color)_ | - |
+| 名称                           | 默认值                               | 描述 |
+| ------------------------------ | ------------------------------------ | ---- |
+| --van-popup-background         | _var(--van-background-2)_            | -    |
+| --van-popup-transition         | _transform var(--van-duration-base)_ | -    |
+| --van-popup-round-radius       | _16px_                               | -    |
+| --van-popup-close-icon-size    | _22px_                               | -    |
+| --van-popup-close-icon-color   | _var(--van-gray-5)_                  | -    |
+| --van-popup-close-icon-margin  | _16px_                               | -    |
+| --van-popup-close-icon-z-index | _1_                                  | -    |
+| --van-popup-title-font-size    | _16px_                               | -    |
+| --van-popup-title-color        | _#333333_                            | -    |
+| --van-popup-title-line-height  | _22px_                               | -    |
+| --van-popup-title-padding-top  | _var(--van-popup-close-icon-margin)_ | -    |
+| --van-popup-action-font-size   | _16px_                               | -    |
+| --van-popup-cancel-color       | _#999999_                            | -    |
+| --van-popup-confirm-color      | _var(--van-primary-color)_           | -    |

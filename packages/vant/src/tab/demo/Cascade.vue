@@ -22,12 +22,12 @@ const t = useTranslate({
 });
 
 const createThirdLevel = (prefix: string) =>
-  Array.from({ length: 4 }, (_, index) => ({
+  Array.from({ length: 8 }, (_, index) => ({
     title: `${prefix} ${index + 1}`,
   }));
 
 const createSecondLevel = (prefix: string) =>
-  Array.from({ length: 5 }, (_, index) => ({
+  Array.from({ length: 8 }, (_, index) => ({
     title: `${prefix} ${index + 1}`,
     children: createThirdLevel(`${prefix} ${index + 1}`),
   }));

@@ -6,8 +6,5 @@ export type EmptyThemeVars = {
   emptyDescriptionColor?: string;
   emptyDescriptionFontSize?: string;
   emptyDescriptionLineHeight?: number | string;
-  emptySecondaryFontSize?: string;
-  emptySecondaryLineHeight?: number | string;
-  emptySecondaryMaxWidth?: string;
   emptyBottomMarginTop?: string;
 };

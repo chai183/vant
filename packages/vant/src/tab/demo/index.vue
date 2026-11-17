@@ -13,6 +13,7 @@ const t = useTranslate({
     tab: '标签 ',
     content: '内容',
     basicUsage: '基础用法',
+    longTitleSuffix: '标题内容',
     title2: '标签栏滚动',
     title2Shadow: '滚动阴影',
     title3: '禁用标签',
@@ -32,6 +33,7 @@ const t = useTranslate({
     tab: 'Tab ',
     content: 'content of tab',
     basicUsage: 'Basic Usage',
+    longTitleSuffix: ' Title',
     title2: 'Swipe Tabs',
     title2Shadow: 'Scroll Shadow',
     title3: 'Disabled Tab',
@@ -84,7 +86,7 @@ const beforeChange = (name: number) => {
 <template>
   <demo-block :title="t('basicUsage')">
     <van-tabs v-model:active="active1" nav-overflow="shadow">
-      <van-tab :title="t('tab') + index" v-for="index in tabs" :key="index">
+      <van-tab v-for="index in tabs" :key="index" :title="t('tab') + index">
         {{ t('content') }} {{ index }}
       </van-tab>
     </van-tabs>
@@ -92,7 +94,12 @@ const beforeChange = (name: number) => {
 
   <demo-block :title="t('roundedStyle')">
     <van-tabs v-model:active="activeRounded" type="rounded">
-      <van-tab :title="t('tab') + index" v-for="index in tabs" :key="index">
+      <van-tab
+        :title="t('tab') + index"
+        v-for="index in 8"
+        :key="index"
+        :disabled="index === 2"
+      >
         {{ t('content') }} {{ index }}
       </van-tab>
     </van-tabs>
@@ -100,7 +107,7 @@ const beforeChange = (name: number) => {
 
   <demo-block :title="t('dividerStyle')">
     <van-tabs v-model:active="activeDivider" type="divider">
-      <van-tab :title="t('tab') + index" v-for="index in tabs" :key="index">
+      <van-tab :title="t('tab') + index" v-for="index in 8" :key="index">
         {{ t('content') }} {{ index }}
       </van-tab>
     </van-tabs>
@@ -126,7 +133,12 @@ const beforeChange = (name: number) => {
 
   <demo-block :title="t('title2Shadow')">
     <van-tabs v-model:active="active2Shadow" nav-overflow="shadow">
-      <van-tab v-for="index in 5" :title="t('tab') + index" :key="index">
+      <van-tab
+        :badge="index === 1 ? 99999 : undefined"
+        v-for="index in 6"
+        :title="t('tab') + index"
+        :key="index"
+      >
         {{ t('content') }} {{ index }}
       </van-tab>
     </van-tabs>

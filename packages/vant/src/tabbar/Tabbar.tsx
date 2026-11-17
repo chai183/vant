@@ -90,7 +90,7 @@ export default defineComponent({
     const setActive = (active: Numeric, afterChange: () => void) => {
       // 此函数内部执行顺序：点击tabbar-item --> 调用beforeChange --> done()执行
       callInterceptor(props.beforeChange, {
-        args: [active], //args里面传递的参数是给beforeChange使用的
+        args: [active], //args里传递的参数是给beforeChange使用的
         done() {
           emit('update:modelValue', active);
           emit('change', active);

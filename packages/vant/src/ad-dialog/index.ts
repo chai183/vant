@@ -1,9 +1,10 @@
-﻿import { withInstall } from '../utils';
+// src_index.ts
+
+import { withInstall } from '../utils';
 import _AdDialog from './AdDialog';
 
 export const AdDialog = withInstall(_AdDialog);
 export default AdDialog;
-export { adDialogProps } from './AdDialog';
 export {
   showAdDialog,
   closeAdDialog,
@@ -19,7 +20,7 @@ export type {
   AdDialogCloseIconMode,
   AdDialogCloseIconPosition,
   AdDialogCloseIconPresetPosition,
-  AdDialogCloseIconCustomPosition,
+  AdDialogCloseIconnCustomPosition,
 } from './types';
 
 declare module 'vue' {

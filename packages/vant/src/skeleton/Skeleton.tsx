@@ -35,7 +35,7 @@ export const skeletonProps = {
   avatarShape: makeStringProp<SkeletonAvatarShape>('round'),
   loading: truthProp,
   animate: truthProp,
-  templateType: makeStringProp<SkeletonTemplateType>(''),
+  templateType: makeStringProp<SkeletonTemplateType>(''), //预制类型
   gridCount: makeNumericProp(4),
   mediaCount: makeNumericProp(2),
   rowWidth: {
@@ -88,7 +88,6 @@ export default defineComponent({
 
       return rowWidth;
     };
-
     const renderRows = () =>
       Array(+props.row)
         .fill('')
@@ -99,7 +98,7 @@ export default defineComponent({
             rowWidth={addUnit(getRowWidth(i))}
           />
         ));
-
+    // 宫格类渲染
     const renderGrid = () => (
       <div class={bem('grid')}>
         {Array.from({ length: +props.gridCount }).map((_, index) => (
@@ -113,7 +112,7 @@ export default defineComponent({
         ))}
       </div>
     );
-
+    // 单元格类渲染
     const renderCellRow = (avatarShape: SkeletonAvatarShape) => (
       <div class={bem('cell-row')}>
         <SkeletonAvatar avatarShape={avatarShape} />
@@ -153,7 +152,7 @@ export default defineComponent({
         ))}
       </div>
     );
-
+    // 预制的几种
     const renderPreset = () => {
       switch (props.templateType) {
         case 'grid':

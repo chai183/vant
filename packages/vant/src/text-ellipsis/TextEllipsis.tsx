@@ -86,7 +86,7 @@ export default defineComponent({
       const end = content.length;
       const middle = (0 + end) >> 1;
       const actionHTML = slots.action
-        ? actionRef.value?.outerHTML ?? ''
+        ? (actionRef.value?.outerHTML ?? '')
         : props.expandText;
 
       const calcEllipse = () => {

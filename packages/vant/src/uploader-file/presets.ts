@@ -5,7 +5,6 @@ import txtIcon from './assets/txt.svg';
 import unknownIcon from './assets/unknown.svg';
 import wordIcon from './assets/word.svg';
 import zipIcon from './assets/zip.svg';
-
 export type FileTypeIcon =
   | 'word'
   | 'excel'

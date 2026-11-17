@@ -2,8 +2,9 @@
 import VanAvatar from '..';
 import VanBadge from '../../badge';
 import VanSpace from '../../space';
-import { cdnURL, useTranslate } from '../../../docs/site';
 
+import { useTranslate } from '../../../docs/site';
+import { PRESET_AVATAR } from '../presets';
 const t = useTranslate({
   'zh-CN': {
     basicUsage: '基础用法',
@@ -23,7 +24,7 @@ const t = useTranslate({
   },
 });
 
-const customSrc = cdnURL('logo.png');
+const customSrc = PRESET_AVATAR.default;
 </script>
 
 <template>

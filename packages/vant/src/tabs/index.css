@@ -1,15 +1,18 @@
 :root,
 :host {
-  --van-tab-text-color: var(--van-gray-7);
+  --van-tab-text-color: var(--van-gray-10);
   --van-tab-active-text-color: var(--van-text-color);
   --van-tab-disabled-text-color: var(--van-text-color-3);
-  --van-tab-font-size: var(--van-font-size-md);
-  --van-tab-line-height: var(--van-line-height-md);
+  --van-tab-font-size: var(--van-font-size-lg);
+  --van-tab-line-height: 16px;
   --van-tabs-default-color: var(--van-primary-color);
   --van-tabs-line-height: 44px;
   --van-tabs-card-height: 30px;
-  --van-tabs-rounded-inactive-background: var(--van-gray-block-background);
-  --van-tabs-rounded-padding-vertical: 6px;
+  --van-tabs-rounded-inactive-background: var(--van-gray-9);
+  --van-tabs-rounded-font-size: 14px;
+  --van-tabs-rounded-line-height: 14px;
+  --van-tabs-rounded-disabled-text-color: var(--van-text-color-disabled);
+  --van-tabs-rounded-padding-vertical: 7px;
   --van-tabs-rounded-padding-horizontal: 12px;
   --van-tabs-rounded-gap: 12px;
   --van-tabs-rounded-nav-background: var(--van-white);
@@ -26,6 +29,7 @@
   --van-tabs-underline-inactive-text-color: var(--van-text-color);
   --van-tabs-divider-nav-padding-vertical: 16px;
   --van-tabs-divider-tab-padding-horizontal: 12px;
+  --van-tabs-shrink-tab-padding-horizontal: 12px;
   --van-tabs-divider-nav-background: var(--van-white);
   --van-tabs-divider-inactive-text-color: var(--van-text-color-secondary);
   --van-tabs-divider-line-width: 0.5px;
@@ -39,6 +43,10 @@
   --van-tabs-nav-menu-z-index: 100;
   --van-tabs-scroll-shadow-width: 12px;
   --van-tabs-scroll-shadow-color: rgba(0, 0, 0, 0.08);
+  --van-tab-badge-gap: 4px;
+  --van-tab-badge-background: #ff3333;
+  --van-tab-badge-font-size: 10px;
+  --van-tab-badge-dot-color: #ff3333;
 }
 .van-tab {
   position: relative;
@@ -67,7 +75,7 @@
 }
 .van-tab--shrink {
   flex: none;
-  padding: 0 var(--van-padding-xs);
+  padding: 0 var(--van-tabs-shrink-tab-padding-horizontal);
 }
 .van-tab--card {
   color: var(--van-tabs-default-color);
@@ -85,17 +93,17 @@
 }
 .van-tab--rounded {
   flex: none;
-  padding: var(--van-tabs-rounded-padding-vertical)
-    var(--van-tabs-rounded-padding-horizontal);
+  padding: var(--van-tabs-rounded-padding-vertical) var(--van-tabs-rounded-padding-horizontal);
   border-radius: var(--van-radius-max);
   background-color: var(--van-tabs-rounded-inactive-background);
   color: var(--van-tab-text-color);
-  line-height: var(--van-line-height-sm);
+  font-size: var(--van-tabs-rounded-font-size);
+  line-height: var(--van-tabs-rounded-line-height);
 }
 .van-tab--rounded.van-tab--shrink,
 .van-tab--rounded.van-tab--grow {
-  padding: var(--van-tabs-rounded-padding-vertical)
-    var(--van-tabs-rounded-padding-horizontal);
+  flex: none;
+  padding: var(--van-tabs-rounded-padding-vertical) var(--van-tabs-rounded-padding-horizontal);
 }
 .van-tab--rounded.van-tab--active {
   color: var(--van-white);
@@ -103,7 +111,7 @@
   font-weight: var(--van-font-bold);
 }
 .van-tab--rounded.van-tab--disabled {
-  color: var(--van-tab-disabled-text-color);
+  color: var(--van-tabs-rounded-disabled-text-color);
 }
 .van-tab--underline {
   color: var(--van-tabs-underline-inactive-text-color);
@@ -133,6 +141,7 @@
 }
 .van-tab--divider.van-tab--shrink,
 .van-tab--divider.van-tab--grow {
+  flex: none;
   padding: 0 var(--van-tabs-divider-tab-padding-horizontal);
 }
 .van-tab--divider.van-tab--active {
@@ -157,6 +166,40 @@
   overflow: hidden;
   -webkit-line-clamp: 1;
   -webkit-box-orient: vertical;
+}
+.van-tab--underline:not(.van-tab--grow):not(.van-tab--shrink) > .van-tab__title-wrap,
+.van-tab--line:not(.van-tab--grow):not(.van-tab--shrink) > .van-tab__title-wrap {
+  width: 100%;
+  overflow: hidden;
+  justify-content: center;
+}
+.van-tab__title-wrap {
+  display: inline-flex;
+  align-items: center;
+  max-width: 100%;
+  gap: var(--van-tab-badge-gap);
+}
+.van-tab__title-wrap .van-tab__text {
+  min-width: 0;
+}
+.van-tab__title-wrap > .van-badge {
+  position: static;
+  transform: none;
+  flex-shrink: 0;
+  min-width: auto;
+  padding: 0 4px;
+  font-size: var(--van-tab-badge-font-size);
+  font-weight: normal;
+  line-height: 14px;
+  background: var(--van-tab-badge-background);
+  border: none;
+}
+.van-tab__title-wrap > .van-badge.van-badge--dot {
+  width: var(--van-badge-dot-size);
+  min-width: 0;
+  height: var(--van-badge-dot-size);
+  padding: 0;
+  background: var(--van-tab-badge-dot-color);
 }
 .van-tabs {
   position: relative;
@@ -190,6 +233,7 @@
 .van-tabs__nav {
   position: relative;
   display: flex;
+  flex-wrap: nowrap;
   background: var(--van-tabs-nav-background);
   user-select: none;
 }
@@ -207,11 +251,6 @@
   padding-bottom: 15px;
   /* 15px padding to hide scrollbar in mobile safari */
 }
-.van-tabs__nav--line.van-tabs__nav--shrink,
-.van-tabs__nav--line.van-tabs__nav--complete {
-  padding-right: var(--van-padding-xs);
-  padding-left: var(--van-padding-xs);
-}
 .van-tabs__nav--card {
   box-sizing: border-box;
   height: var(--van-tabs-card-height);
@@ -228,15 +267,15 @@
   gap: var(--van-tabs-rounded-gap);
   align-items: center;
   justify-content: flex-start;
-  height: auto;
+  height: 48px;
   margin: 0;
-  padding: var(--van-tabs-rounded-nav-padding-vertical)
-    var(--van-tabs-rounded-nav-padding-horizontal);
+  padding: var(--van-tabs-rounded-nav-padding-vertical) var(--van-tabs-rounded-nav-padding-horizontal);
   border-radius: 0;
   background: var(--van-tabs-rounded-nav-background);
 }
-.van-tabs__nav--rounded.van-tabs__nav--fill .van-tab--rounded {
-  flex: 1;
+.van-tabs__nav--rounded > .van-tab--rounded {
+  flex: none;
+  width: auto;
 }
 .van-tabs__nav--rounded.van-tabs__nav--complete .van-tab--rounded {
   flex: none;
@@ -252,18 +291,16 @@
   box-sizing: content-box;
   height: 100%;
 }
-.van-tabs__nav--underline.van-tabs__nav--shrink,
-.van-tabs__nav--underline.van-tabs__nav--complete {
-  padding-right: var(--van-padding-xs);
-  padding-left: var(--van-padding-xs);
-}
 .van-tabs__nav--divider {
   box-sizing: border-box;
   width: 100%;
   justify-content: flex-start;
-  height: auto;
-  padding: var(--van-tabs-divider-nav-padding-vertical) 0;
+  height: 48px;
   background: var(--van-tabs-divider-nav-background);
+}
+.van-tabs__nav--divider > .van-tab--divider {
+  flex: none;
+  width: auto;
 }
 .van-tabs__nav--divider.van-tabs__nav--shrink,
 .van-tabs__nav--divider.van-tabs__nav--complete {
@@ -324,6 +361,7 @@
   pointer-events: auto;
   background: var(--van-tabs-nav-menu-background);
   -webkit-tap-highlight-color: transparent;
+  box-shadow: -2px 0 5px rgba(0, 0, 0, 0.1);
 }
 .van-tabs__nav-menu .van-dropdown-menu__item:active {
   opacity: 1;
@@ -351,7 +389,6 @@
   z-index: var(--van-tabs-nav-menu-z-index);
 }
 .van-tabs__nav-menu .van-dropdown-item__content {
-  padding: 0 var(--van-tabs-nav-menu-panel-padding-horizontal);
   overflow: hidden;
   --van-cell-active-color: var(--van-active-color);
 }
@@ -372,11 +409,11 @@
 }
 .van-tabs__scroll-shadow--right {
   right: 0;
-  box-shadow: -4px 0 8px var(--van-tabs-scroll-shadow-color);
+  box-shadow: -2px 0 5px rgba(0, 0, 0, 0.1);
 }
 .van-tabs__scroll-shadow--left {
   left: 0;
-  box-shadow: 4px 0 8px var(--van-tabs-scroll-shadow-color);
+  box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
 }
 .van-tabs--line .van-tabs__wrap {
   height: var(--van-tabs-line-height);
@@ -400,4 +437,34 @@
 }
 .van-tabs--divider .van-tabs__scroll-shadow {
   background: var(--van-tabs-divider-nav-background);
+}
+:root,
+:host {
+  --van-cascade-tabs-level-divider-height: 0.5px;
+  --van-cascade-tabs-level-divider-color: #eeeeee;
+}
+.van-cascade-tabs {
+  background: var(--van-white);
+}
+.van-cascade-tabs__content {
+  background: var(--van-background-2);
+}
+.van-cascade-tabs > .van-tabs > .van-tabs__content {
+  display: none;
+}
+.van-cascade-tabs__level {
+  border-bottom: var(--van-cascade-tabs-level-divider-height) solid var(--van-cascade-tabs-level-divider-color);
+}
+.van-cascade-tabs__level .van-tabs__nav--complete {
+  flex-wrap: nowrap;
+  overflow-x: auto;
+  overflow-y: hidden;
+  -webkit-overflow-scrolling: touch;
+}
+.van-cascade-tabs__level .van-tabs__nav--complete::-webkit-scrollbar {
+  display: none;
+}
+.van-cascade-tabs__level .van-tabs__nav--complete .van-tab {
+  flex-shrink: 0;
+  white-space: nowrap;
 }

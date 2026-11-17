@@ -5,12 +5,10 @@ import {
   makeStringProp,
   createNamespace,
 } from '../utils';
-import { EMPTY_IMAGES } from './presets';
-
+import { PRESET_IMAGES } from './presets';
 const [name, bem] = createNamespace('empty');
-
+//  不文档
 export const emptyProps = {
-  /** 图片类型：内置 default / error / search / network，或自定义图片 URL */
   image: makeStringProp('default'),
   imageSize: [Number, String, Array] as PropType<Numeric | [Numeric, Numeric]>,
   description: String,
@@ -59,13 +57,11 @@ export default defineComponent({
       if (slots.image) {
         return slots.image();
       }
-
-      const preset = EMPTY_IMAGES[props.image];
+      const preset = PRESET_IMAGES[props.image];
       if (preset) {
         return <img src={preset} alt="" />;
       }
-
-      return <img src={props.image} alt="" />;
+      return <img src={props.image} />;
     };
 
     return () => (

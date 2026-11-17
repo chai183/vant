@@ -125,7 +125,12 @@ const tagOptions = [
 ];
 
 const avatarOptions = [
-  { label: '用户 A', value: 'a', icon: stampFrameIcon },
+  {
+    label: '用户 A',
+    value: 'a',
+    icon: stampFrameIcon,
+    cellProps: { center: true, avatar: { src: stampFrameIcon, size: 'mini' } },
+  },
   {
     label: '用户 B',
     value: 'b',

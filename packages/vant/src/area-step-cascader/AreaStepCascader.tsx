@@ -40,11 +40,13 @@ export default defineComponent({
   emits: ['close', 'finish', 'update:modelValue'],
 
   setup(props, { slots, emit }) {
-    const levelKeys = ['selectProvince', 'selectCity', 'selectDistrict'] as const;
+    const levelKeys = [
+      'selectProvince',
+      'selectCity',
+      'selectDistrict',
+    ] as const;
 
-    const levelTexts = computed(() =>
-      levelKeys.map((key) => t(key)),
-    );
+    const levelTexts = computed(() => levelKeys.map((key) => t(key)));
 
     const getAreaLevelText = (tabIndex: number) =>
       levelTexts.value[tabIndex] ??

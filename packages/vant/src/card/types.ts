@@ -59,4 +59,7 @@ export type CardThemeVars = {
   cardFooterMoreColor?: string;
   cardFooterMoreWidth?: string;
   cardFooterOutlineGap?: string;
+  cardFooterPopoverActionHeight?: string;
+  cardFooterPopoverDividerPaddingX?: string;
+  cardFooterPopoverWidth?: string;
 };

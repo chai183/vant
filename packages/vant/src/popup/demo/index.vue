@@ -82,8 +82,6 @@ const showTitleBottom = ref(false);
 const showTitleDrawerRight = ref(false);
 const showTitleDrawerLeft = ref(false);
 const showTitleWithActions = ref(false);
-const showTitleActionsDrawer = ref(false);
-const showTitleActionsPriority = ref(false);
 const showCloseIcon = ref(false);
 const showRoundCornerBottom = ref(false);
 const showRoundCornerCenter = ref(false);
@@ -95,13 +93,14 @@ const showDisplayEvents = ref(false);
 </script>
 
 <template>
+  <!-- 基础用法 -->
   <demo-block card :title="t('basicUsage')">
     <van-cell :title="t('buttonBasic')" is-link @click="showBasic = true" />
     <van-popup v-model:show="showBasic" :style="{ padding: '64px' }">
       {{ t('content') }}
     </van-popup>
   </demo-block>
-
+  <!-- 弹出位置 -->
   <demo-block card :title="t('position')">
     <van-grid clickable>
       <van-grid-item
@@ -147,7 +146,7 @@ const showDisplayEvents = ref(false);
       :style="{ width: '30%', height: '100%' }"
     />
   </demo-block>
-
+  <!-- 标题 -->
   <demo-block card :title="t('title')">
     <van-cell :title="t('titleBasic')" is-link @click="showTitleBasic = true" />
     <van-cell :title="t('titleSlot')" is-link @click="showTitleSlot = true" />
@@ -171,17 +170,6 @@ const showDisplayEvents = ref(false);
       is-link
       @click="showTitleWithActions = true"
     />
-    <van-cell
-      :title="t('titleActionsDrawer')"
-      is-link
-      @click="showTitleActionsDrawer = true"
-    />
-    <van-cell
-      :title="t('titleActionsPriority')"
-      is-link
-      @click="showTitleActionsPriority = true"
-    />
-
     <van-popup
       v-model:show="showTitleBasic"
       :title="t('popupTitle')"
@@ -241,31 +229,6 @@ const showDisplayEvents = ref(false);
       :confirm-button-text="t('confirm')"
       :style="bottomTitlePopupStyle"
       @cancel="showToast(t('cancel'))"
-      @confirm="showToast(t('confirm'))"
-    >
-      <div class="demo-popup-body">{{ t('content') }}</div>
-    </van-popup>
-
-    <van-popup
-      v-model:show="showTitleActionsDrawer"
-      :title="t('popupTitle')"
-      position="right"
-      :cancel-button-text="t('cancel')"
-      :confirm-button-text="t('confirm')"
-      :style="drawerPopupStyle"
-      @cancel="showToast(t('cancel'))"
-      @confirm="showToast(t('confirm'))"
-    >
-      <div class="demo-popup-body">{{ t('content') }}</div>
-    </van-popup>
-
-    <van-popup
-      v-model:show="showTitleActionsPriority"
-      :title="t('popupTitle')"
-      closeable
-      position="right"
-      :confirm-button-text="t('confirm')"
-      :style="drawerPopupStyle"
       @confirm="showToast(t('confirm'))"
     >
       <div class="demo-popup-body">{{ t('content') }}</div>

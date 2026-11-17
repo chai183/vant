@@ -4,7 +4,11 @@ import { Popup } from '../../popup';
 import AreaStepCascader from '../../area-step-cascader/AreaStepCascader';
 import type { CascaderOption } from '../../cascader';
 import type { Numeric } from '../../utils';
-import { builtinFieldProps, defaultPopupProps, useFormFieldDisabled } from './shared';
+import {
+  builtinFieldProps,
+  defaultPopupProps,
+  useFormFieldDisabled,
+} from './shared';
 
 export default defineComponent({
   name: 'ProFormAreaStepCascaderField',

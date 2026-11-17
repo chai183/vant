@@ -30,9 +30,7 @@ const normalizeTelModel: NonNullable<
 > = (value, ctx: FieldGroupedDisplayNormalizeContext) => {
   const digits = value.replace(/\D/g, '');
   const beforeCap = digits;
-  const telCap = isDef(ctx.maxlength)
-    ? Math.min(11, ctx.maxlength)
-    : 11;
+  const telCap = isDef(ctx.maxlength) ? Math.min(11, ctx.maxlength) : 11;
   const next =
     beforeCap.length > telCap ? beforeCap.slice(0, telCap) : beforeCap;
   return {
@@ -80,44 +78,45 @@ const normalizeUkeyModel: NonNullable<
   return { value: v, capDiffLen: beforeCap.length - v.length };
 };
 
-const BUILTIN_GROUPED_DISPLAY: Partial<Record<FieldType, FieldGroupedDisplayConfig>> =
-  {
-    money: {
-      stripDisplayRegex: /,/g,
-      formatDisplay: formatMoneyThousands,
-      rawOffsetToDisplayIndex: moneyRawOffsetToDisplayIndex,
-      skipLimitValueLength: false,
-      normalizeModelValue: normalizeMoneyModel,
-    },
-    tel: {
-      stripDisplayRegex: /\D/g,
-      formatDisplay: formatTelDisplay,
-      rawOffsetToDisplayIndex: telRawOffsetToDisplayIndex,
-      skipLimitValueLength: true,
-      normalizeModelValue: normalizeTelModel,
-    },
-    account: {
-      stripDisplayRegex: /\D/g,
-      formatDisplay: formatAccountDisplay,
-      rawOffsetToDisplayIndex: accountRawOffsetToDisplayIndex,
-      skipLimitValueLength: true,
-      normalizeModelValue: normalizeAccountModel,
-    },
-    idcard: {
-      stripDisplayRegex: /[^0-9Xx]/g,
-      formatDisplay: formatIdCardDisplay,
-      rawOffsetToDisplayIndex: idcardRawOffsetToDisplayIndex,
-      skipLimitValueLength: true,
-      normalizeModelValue: normalizeIdcardModel,
-    },
-    ukey: {
-      stripDisplayRegex: /[^0-9A-Za-z]/g,
-      formatDisplay: formatUkeyDisplay,
-      rawOffsetToDisplayIndex: ukeyRawOffsetToDisplayIndex,
-      skipLimitValueLength: true,
-      normalizeModelValue: normalizeUkeyModel,
-    },
-  };
+const BUILTIN_GROUPED_DISPLAY: Partial<
+  Record<FieldType, FieldGroupedDisplayConfig>
+> = {
+  money: {
+    stripDisplayRegex: /,/g,
+    formatDisplay: formatMoneyThousands,
+    rawOffsetToDisplayIndex: moneyRawOffsetToDisplayIndex,
+    skipLimitValueLength: false,
+    normalizeModelValue: normalizeMoneyModel,
+  },
+  tel: {
+    stripDisplayRegex: /\D/g,
+    formatDisplay: formatTelDisplay,
+    rawOffsetToDisplayIndex: telRawOffsetToDisplayIndex,
+    skipLimitValueLength: true,
+    normalizeModelValue: normalizeTelModel,
+  },
+  account: {
+    stripDisplayRegex: /\D/g,
+    formatDisplay: formatAccountDisplay,
+    rawOffsetToDisplayIndex: accountRawOffsetToDisplayIndex,
+    skipLimitValueLength: true,
+    normalizeModelValue: normalizeAccountModel,
+  },
+  idcard: {
+    stripDisplayRegex: /[^0-9Xx]/g,
+    formatDisplay: formatIdCardDisplay,
+    rawOffsetToDisplayIndex: idcardRawOffsetToDisplayIndex,
+    skipLimitValueLength: true,
+    normalizeModelValue: normalizeIdcardModel,
+  },
+  ukey: {
+    stripDisplayRegex: /[^0-9A-Za-z]/g,
+    formatDisplay: formatUkeyDisplay,
+    rawOffsetToDisplayIndex: ukeyRawOffsetToDisplayIndex,
+    skipLimitValueLength: true,
+    normalizeModelValue: normalizeUkeyModel,
+  },
+};
 
 export function getBuiltinGroupedDisplayConfig(
   type: FieldType,

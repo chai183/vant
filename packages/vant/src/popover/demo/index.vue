@@ -149,7 +149,7 @@ const onSelect = (action: { text: string }) => showToast(action.text);
       @select="onSelect"
     >
       <template #reference>
-        <van-button type="primary">
+        <van-button type="primary" size="small">
           {{ t('lightTheme') }}
         </van-button>
       </template>
@@ -162,7 +162,7 @@ const onSelect = (action: { text: string }) => showToast(action.text);
       @select="onSelect"
     >
       <template #reference>
-        <van-button type="primary">
+        <van-button type="primary" size="small">
           {{ t('darkTheme') }}
         </van-button>
       </template>
@@ -214,7 +214,7 @@ const onSelect = (action: { text: string }) => showToast(action.text);
       @select="onSelect"
     >
       <template #reference>
-        <van-button type="primary">
+        <van-button type="primary" size="small">
           {{ t('horizontal') }}
         </van-button>
       </template>
@@ -226,7 +226,7 @@ const onSelect = (action: { text: string }) => showToast(action.text);
       @select="onSelect"
     >
       <template #reference>
-        <van-button type="primary">
+        <van-button type="primary" size="small">
           {{ t('vertical') }}
         </van-button>
       </template>
@@ -241,7 +241,7 @@ const onSelect = (action: { text: string }) => showToast(action.text);
       @select="onSelect"
     >
       <template #reference>
-        <van-button type="primary">
+        <van-button type="primary" size="small">
           {{ t('showIcon') }}
         </van-button>
       </template>
@@ -253,7 +253,7 @@ const onSelect = (action: { text: string }) => showToast(action.text);
       @select="onSelect"
     >
       <template #reference>
-        <van-button type="primary">
+        <van-button type="primary" size="small">
           {{ t('disableAction') }}
         </van-button>
       </template>
@@ -263,14 +263,13 @@ const onSelect = (action: { text: string }) => showToast(action.text);
   <demo-block :title="t('textMode')">
     <van-popover
       v-model:show="show.textMode"
-      background="rgba(0, 0, 0, 0.8)"
       :message="t('textMessage')"
       placement="top"
       text-mode
       theme="dark"
     >
       <template #reference>
-        <van-button type="primary">{{ t('textMode') }}</van-button>
+        <van-button type="primary" size="small">{{ t('textMode') }}</van-button>
       </template>
     </van-popover>
 
@@ -282,7 +281,9 @@ const onSelect = (action: { text: string }) => showToast(action.text);
       placement="top"
     >
       <template #reference>
-        <van-button type="primary">{{ t('customSize') }}</van-button>
+        <van-button type="primary" size="small">{{
+          t('customSize')
+        }}</van-button>
       </template>
     </van-popover>
 
@@ -298,7 +299,9 @@ const onSelect = (action: { text: string }) => showToast(action.text);
         <div style="font-weight: 600">{{ message }}</div>
       </template>
       <template #reference>
-        <van-button type="primary">{{ t('customStyle') }}</van-button>
+        <van-button type="primary" size="small">{{
+          t('customStyle')
+        }}</van-button>
       </template>
     </van-popover>
   </demo-block>
@@ -319,7 +322,7 @@ const onSelect = (action: { text: string }) => showToast(action.text);
       @select="onSelect"
     >
       <template #reference="{ text }">
-        <van-button type="primary">{{ text }}</van-button>
+        <van-button type="primary" size="small">{{ text }}</van-button>
       </template>
     </van-popover>
   </demo-block>
@@ -346,7 +349,7 @@ const onSelect = (action: { text: string }) => showToast(action.text);
         />
       </van-grid>
       <template #reference>
-        <van-button type="primary">
+        <van-button type="primary" size="small">
           {{ t('customContent') }}
         </van-button>
       </template>
@@ -360,7 +363,7 @@ const onSelect = (action: { text: string }) => showToast(action.text);
       @select="onSelect"
     >
       <template #reference>
-        <van-button type="primary">
+        <van-button type="primary" size="small">
           {{ t('uncontrolled') }}
         </van-button>
       </template>

@@ -32,7 +32,8 @@ import { Icon } from '../icon';
 import { Popup } from '../popup';
 import { Cell } from '../cell';
 import type { AnchorType, AnchorMode, AnchorItem } from './types';
-
+import backTopIcon from './assets/back-top.svg';
+import catalogIcon from './assets/catalog.svg';
 const [name, bem] = createNamespace('anchor');
 
 export const anchorProps = {
@@ -528,7 +529,7 @@ export default defineComponent({
 
     // back-top / catalog：胶囊 ↔ 圆球 morph（CSS 过渡，见 index.less）
     const renderControl = () => {
-      const ballIcon = props.type === 'catalog' ? 'wap-nav' : 'back-top';
+      const ballIcon = props.type === 'catalog' ? catalogIcon : backTopIcon;
       const isBall = expanded.value;
 
       return (
@@ -540,7 +541,7 @@ export default defineComponent({
             }
           >
             <Icon
-              name="arrow-down"
+              name="icon-shixinjiantou"
               class={bem('morph-icon', { collapsed: true })}
             />
             <div class={bem('morph-ball')}>

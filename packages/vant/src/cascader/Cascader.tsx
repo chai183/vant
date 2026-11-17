@@ -257,7 +257,7 @@ export default defineComponent({
       return steps;
     });
 
-    const getTabTitle = (tab: CascaderTab, tabIndex: number) => {
+    const getTabTitle = (tab: CascaderTab) => {
       const placeholder = props.placeholder || t('select');
       return tab.selected ? tab.selected[textKey] : placeholder;
     };
@@ -439,7 +439,7 @@ export default defineComponent({
 
     const renderTab = (tab: CascaderTab, tabIndex: number) => {
       const { options, selected } = tab;
-      const title = getTabTitle(tab, tabIndex);
+      const title = getTabTitle(tab);
 
       return (
         <Tab

@@ -23,12 +23,12 @@ app.use(TabbarItem);
 
 `v-model` 默认绑定选中标签的索引值，通过修改 `v-model` 即可切换选中的标签。
 
+`show-shadow`开启有背景区域的模式，此时字号为12px,默认不开启，字号10px
+
 ```html
-<van-tabbar v-model="active">
+<van-tabbar v-model="active" show-shadow>
   <van-tabbar-item icon="home-o">标签</van-tabbar-item>
   <van-tabbar-item icon="search">标签</van-tabbar-item>
-  <van-tabbar-item icon="friends-o">标签</van-tabbar-item>
-  <van-tabbar-item icon="setting-o">标签</van-tabbar-item>
 </van-tabbar>
 ```
 
@@ -89,7 +89,7 @@ export default {
   <van-tabbar-item badge="3">
     <span>自定义</span>
     <template #icon="props">
-      <img :src="props.active ? icon.active : icon.inactive" />
+      <Icon name="icon-xiangce" :color="props.active ? '#ff8125' : '#999'" />
     </template>
   </van-tabbar-item>
   <van-tabbar-item icon="search">标签</van-tabbar-item>
@@ -103,13 +103,7 @@ import { ref } from 'vue';
 export default {
   setup() {
     const active = ref(0);
-    const icon = {
-      active: 'https://fastly.jsdelivr.net/npm/@vant/assets/user-active.png',
-      inactive:
-        'https://fastly.jsdelivr.net/npm/@vant/assets/user-inactive.png',
-    };
     return {
-      icon,
       active,
     };
   },
@@ -178,6 +172,7 @@ export default {
 | 参数 | 说明 | 类型 | 默认值 |
 | --- | --- | --- | --- |
 | v-model | 当前选中标签的名称或索引值 | _number \| string_ | `0` |
+| show-shadow `new` | 开启有背景shadow模式 | _boolean_ | `false` |
 | fixed | 是否固定在底部 | _boolean_ | `true` |
 | border | 是否显示外边框 | _boolean_ | `true` |
 | z-index | 元素 z-index | _number \| string_ | `1` |

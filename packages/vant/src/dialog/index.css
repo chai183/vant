@@ -1,0 +1,222 @@
+:root,
+:host {
+  --van-dialog-width: 311px;
+  --van-dialog-small-screen-width: 90%;
+  --van-dialog-font-size: var(--van-font-size-lg);
+  --van-dialog-transition: var(--van-duration-base);
+  --van-dialog-radius: 8px;
+  --van-dialog-background: var(--van-background-2);
+  --van-dialog-header-font-weight: var(--van-font-bold-Medium);
+  --van-dialog-header-line-height: 16px;
+  --van-dialog-header-padding-top: 24px;
+  --van-dialog-header-isolated-padding: var(--van-padding-lg) 0;
+  --van-dialog-message-padding: var(--van-padding-lg);
+  --van-dialog-message-font-size: var(--van-font-size-lg);
+  --van-dialog-message-line-height: var(--van-line-height-xl);
+  --van-dialog-message-max-height: 488px;
+  --van-dialog-has-title-message-text-color: var(--van-gray-10);
+  --van-dialog-has-title-message-padding-top: var(--van-padding-md);
+  --van-dialog-has-form-message-padding-bottom: var(--van-padding-md);
+  --van-dialog-button-height: 48px;
+  --van-dialog-round-button-height: 36px;
+  --van-dialog-confirm-button-text-color: var(--van-primary-color);
+}
+.van-dialog {
+  top: 45%;
+  width: var(--van-dialog-width);
+  overflow: hidden;
+  font-size: var(--van-dialog-font-size);
+  background: var(--van-dialog-background);
+  border-radius: var(--van-dialog-radius);
+  backface-visibility: hidden;
+  transition: var(--van-dialog-transition);
+  transition-property: transform, opacity;
+}
+@media (max-width: 312px) {
+  .van-dialog {
+    width: var(--van-dialog-small-screen-width);
+  }
+}
+.van-dialog__header {
+  color: var(--van-text-color);
+  padding-top: var(--van-dialog-header-padding-top);
+  font-weight: var(--van-dialog-header-font-weight);
+  line-height: var(--van-dialog-header-line-height);
+  text-align: center;
+}
+.van-dialog__header--isolated {
+  padding: var(--van-dialog-header-isolated-padding);
+}
+.van-dialog__content {
+  max-height: var(--van-dialog-message-max-height);
+  overflow-y: auto;
+}
+.van-dialog__content--isolated {
+  display: flex;
+  align-items: center;
+}
+.van-dialog__message {
+  color: var(--van-text-color);
+  flex: 1;
+  padding: 24px var(--van-dialog-message-padding);
+  font-size: var(--van-dialog-message-font-size);
+  line-height: var(--van-dialog-message-line-height);
+  white-space: pre-wrap;
+  text-align: center;
+  word-wrap: break-word;
+  -webkit-overflow-scrolling: touch;
+}
+.van-dialog__message--has-title {
+  padding-top: var(--van-dialog-has-title-message-padding-top);
+  color: var(--van-dialog-has-title-message-text-color);
+}
+.van-dialog__message--has-input {
+  padding-bottom: var(--van-dialog-has-form-message-padding-bottom);
+}
+.van-dialog__message--left {
+  text-align: left;
+}
+.van-dialog__message--right {
+  text-align: right;
+}
+.van-dialog__message--justify {
+  text-align: justify;
+}
+.van-dialog__input {
+  padding: 0 var(--van-dialog-message-padding) var(--van-padding-lg);
+}
+.van-dialog__input--before {
+  padding-bottom: 0;
+}
+.van-dialog__input--has-title {
+  padding-top: var(--van-dialog-has-title-message-padding-top);
+  color: var(--van-dialog-has-title-message-text-color);
+}
+.van-dialog__input--isolated {
+  padding: var(--van-dialog-header-isolated-padding);
+}
+.van-dialog__input .van-cell {
+  padding: 0;
+  background: transparent;
+}
+.van-dialog__input .van-cell .van-field__word-limit {
+  position: absolute;
+  right: 12px;
+  bottom: 12px;
+  color: var(--van-gray-11);
+}
+.van-dialog__input .van-field__error .van-field__body {
+  border-color: var(--van-danger-color);
+}
+.van-dialog__input .van-field__error .van-field__word-limit {
+  bottom: 36px;
+}
+.van-dialog__input .van-field__body {
+  box-sizing: border-box;
+  padding: var(--van-padding-xs) var(--van-padding-sm);
+  border: var(--van-border-width) solid var(--van-border-color);
+  border-radius: var(--van-radius-md);
+  transition: border-color var(--van-duration-fast);
+}
+.van-dialog__input .van-field__body:focus-within {
+  border-color: var(--van-primary-color);
+}
+.van-dialog__input .van-field__body .van-field__control {
+  font-size: var(--van-font-size-lg);
+  line-height: 16px;
+  color: var(--van-text-color);
+}
+.van-dialog__input .van-field__body .van-field__control::placeholder {
+  font-size: var(--van-font-size-lg);
+  line-height: 16px;
+  color: var(--van-gray-11);
+}
+.van-dialog__footer {
+  display: flex;
+  overflow: hidden;
+  user-select: none;
+}
+.van-dialog__footer--vertical {
+  flex-direction: column;
+}
+.van-dialog__footer .van-button__text {
+  font-size: 18px;
+  line-height: 18px;
+}
+.van-dialog__confirm,
+.van-dialog__cancel,
+.van-dialog__action {
+  flex: 1;
+  height: var(--van-dialog-button-height);
+  margin: 0;
+  border-radius: 0;
+}
+.van-dialog__button::after {
+  box-sizing: border-box;
+  content: ' ';
+  pointer-events: none;
+  border: 0 solid var(--van-border-color);
+  position: absolute;
+  top: -50%;
+  bottom: -50%;
+  left: -50%;
+  right: -50%;
+  transform: scale(0.5);
+  display: inline-block;
+}
+.van-dialog__button:not(:last-child)::after {
+  border-right-width: var(--van-border-width);
+}
+.van-dialog__button--vertical.van-dialog__button {
+  flex: none;
+  width: 100%;
+}
+.van-dialog__button--vertical.van-dialog__button:not(:first-child)::after {
+  border-right: 0;
+  border-top-width: var(--van-border-width);
+  border-top-color: var(--van-border-color) !important;
+}
+.van-dialog__button--vertical.van-dialog__button .van-button__text {
+  display: block;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.van-dialog__confirm,
+.van-dialog__action,
+.van-dialog__confirm:active,
+.van-dialog__action:active {
+  color: var(--van-dialog-confirm-button-text-color);
+}
+.van-dialog--round-button .van-dialog__footer {
+  position: relative;
+  height: auto;
+  padding: var(--van-padding-xs) var(--van-padding-lg) var(--van-padding-md);
+}
+.van-dialog--round-button .van-dialog__message {
+  padding-bottom: var(--van-padding-md);
+  color: var(--van-text-color);
+}
+.van-dialog--round-button .van-dialog__confirm,
+.van-dialog--round-button .van-dialog__cancel {
+  height: var(--van-dialog-round-button-height);
+}
+.van-dialog--round-button .van-dialog__confirm {
+  color: var(--van-primary-color);
+}
+.van-dialog--round-button .van-action-bar-button--first {
+  border-top-left-radius: var(--van-radius-max);
+  border-bottom-left-radius: var(--van-radius-max);
+}
+.van-dialog--round-button .van-action-bar-button--last {
+  border-top-right-radius: var(--van-radius-max);
+  border-bottom-right-radius: var(--van-radius-max);
+}
+.van-dialog-bounce-enter-from {
+  transform: translate3d(0, -50%, 0) scale(0.7);
+  opacity: 0;
+}
+.van-dialog-bounce-leave-active {
+  transform: translate3d(0, -50%, 0) scale(0.9);
+  opacity: 0;
+}

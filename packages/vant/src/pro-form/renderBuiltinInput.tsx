@@ -48,11 +48,7 @@ export function renderBuiltinInput(
   switch (column.component) {
     case 'switch':
       return (
-        <Switch
-          {...props}
-          modelValue={value}
-          onUpdate:modelValue={setValue}
-        />
+        <Switch {...props} modelValue={value} onUpdate:modelValue={setValue} />
       );
     case 'checkbox':
       return (

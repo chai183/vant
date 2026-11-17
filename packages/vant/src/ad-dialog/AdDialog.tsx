@@ -55,7 +55,7 @@ type PopupInheritedAttrs = Partial<
   Pick<PopupProps, (typeof popupInheritAttrKeys)[number]>
 >;
 
-/* ----自定义四角position---- */
+/* ----自定义四角position--- */
 const closeIconPositionKeys = ['top', 'right', 'bottom', 'left'] as const;
 const isCustomCloseIconPosition = (position: AdDialogCloseIconPosition) => {
   return typeof position === 'object' && position !== null;
@@ -66,7 +66,7 @@ const isTopPosition = (position: AdDialogCloseIconPosition) =>
   position === 'top-right';
 
 // 是否图片路径
-const isImageUrl = (value?: string) => !!value && value.includes('/');
+const isImageUrl = (value?: string) => !value && value?.includes('/');
 
 // 统一转成图片数组，方便后面用同一套逻辑区分单图和轮播图。
 const normalizeImageList = (value?: string | string[]) => {
@@ -115,7 +115,6 @@ export default defineComponent({
     'clickImage',
     'clickCloseIcon',
   ],
-
   setup(props, { emit, slots, attrs }) {
     // 内部维护一份 checked，既兼容组件受控，也兼容函数式调用场景。
     const currentChecked = ref(props.checked);
@@ -123,6 +122,7 @@ export default defineComponent({
     const hasMultipleImages = computed(() => imageList.value.length > 1);
     const showInsideClose = computed(() => props.closeIconMode === 'inside');
     const showTopClose = computed(() => isTopPosition(props.closeIconPosition));
+    // 处理-按钮图标的定位类名
     const closeIconPositionName = computed<string>(() => {
       return isCustomCloseIconPosition(props.closeIconPosition)
         ? 'custom'
@@ -146,25 +146,20 @@ export default defineComponent({
     //关闭图标的样式处理
     const closeIconPositionStyle = computed<CSSProperties | undefined>(() => {
       const position = props.closeIconPosition;
-
       if (!isCustomCloseIconPosition(position)) {
         return;
       }
-
       const style: CSSProperties = {};
-
-      closeIconPositionKeys.forEach((key) => {
-        const value = position[key];
-
-        if (value != null) {
-          style[key] = addUnit(value);
+      closeIconPositionKeys.forEach((k) => {
+        const v = position[k];
+        if (v != null) {
+          style[k] = addUnit(v);
         }
       });
-
       return style;
     });
 
-    /*-----popup样式/类名/属性处理start-----*/
+    /*----popup样式/类名/属性处理start-----*/
 
     // Popup 本身保持透明，只负责弹层定位，真正的宽度主要交给内容区域控制。
     const popupStyle = computed<CSSProperties>(() => {
@@ -187,9 +182,9 @@ export default defineComponent({
     const getPopupInheritedAttrs = () =>
       pick(attrs as PopupInheritedAttrs, popupInheritAttrKeys, true);
 
-    /*-----popup样式/类名处理end-----*/
+    /*----popup样式/类名处理end-----*/
 
-    /*-----监听处理start-----*/
+    /*---- 监听处理start----- */
 
     watch(
       () => props.checked,
@@ -209,9 +204,10 @@ export default defineComponent({
         }
       },
     );
-    /*-----监听处理end-----*/
 
-    /*-----emit事件集合start-----*/
+    /*---- 监听处理end----- */
+
+    /*------emit事件集合start------*/
     // 勾选框变化时，同时同步内部状态和外部的 v-model:checked。
     const updateChecked = (value: boolean) => {
       currentChecked.value = value;
@@ -221,23 +217,24 @@ export default defineComponent({
     const onPopupOpen = () => emit('open');
     const onPopupClose = () => emit('close', currentChecked.value);
     const onClickImage = (event: MouseEvent) => emit('clickImage', event);
+
     // 关闭按钮点击
     const onClickCloseIcon = (event: MouseEvent) => {
       event.stopPropagation();
       emit('clickCloseIcon', currentChecked.value, event);
       updateShow(false);
     };
-    /*-----emit事件集合end-----*/
 
-    /* ----广告内容渲染start---- */
+    /*------emit事件集合end------*/
+
+    /* -----广告内容渲染start----- */
     // 图片处理渲染
-    const renderBuiltInImages = () => {
+    const renderBuiltinImages = () => {
       const images = imageList.value;
 
-      if (!images.length) {
+      if (!images?.length) {
         return;
       }
-
       if (!hasMultipleImages.value) {
         return (
           <Image
@@ -281,36 +278,37 @@ export default defineComponent({
         </Swipe>
       );
     };
+
     const renderAdContent = () => {
       // default 插槽会整体替换图片展示区域，适合完全自定义广告内容。
       if (slots.default) {
         return slots.default();
       }
 
-      return renderBuiltInImages();
+      return renderBuiltinImages();
     };
-    /* ----广告内容渲染end---- */
+    /* -----广告内容渲染end----- */
 
-    /* ----关闭按钮渲染start---- */
+    /* -----关闭按钮渲染start----- */
     //优先级：插槽 > 图片路径 > 内置图标
     const renderCloseIconContent = () => {
       if (slots['close-icon']) {
         return slots['close-icon']({ checked: currentChecked.value });
       }
-
       if (!props.closeIcon) {
         return (
           <Image
             src={CloseIcon}
             width="32px"
             height="32px"
-            class={[bem('close-default-icon')]}
+            class={[bem('close-defalut-icon')]}
             style={props.imageStyle}
           ></Image>
         );
       }
       return <Icon name={props.closeIcon} class={[bem('close-icon')]} />;
     };
+
     const renderCloseButton = () => (
       <button
         type="button"
@@ -326,16 +324,16 @@ export default defineComponent({
         {renderCloseIconContent()}
       </button>
     );
-    /* ----关闭按钮渲染end---- */
+    /* -----关闭按钮渲染end----- */
 
-    /* ----勾选框渲染start---- */
+    /* -----勾选框渲染start----- */
     const renderCheckbox = () => {
       if (!props.showCheckbox) {
         return;
       }
 
       return (
-        <div class={bem('checkbox')}>
+        <div class={[bem('checkbox')]}>
           <Checkbox
             shape="square"
             modelValue={currentChecked.value}
@@ -347,9 +345,9 @@ export default defineComponent({
         </div>
       );
     };
-    /* ----勾选框渲染end---- */
+    /* -----勾选框渲染end----- */
 
-    /* ----关闭按钮内外部模式start---- */
+    /* -----关闭按钮内外部模式start----- */
     const renderOutsideClose = () => {
       if (showInsideClose.value) {
         return;
@@ -388,7 +386,7 @@ export default defineComponent({
         </div>
       );
     };
-    /* ----关闭按钮内外部模式end---- */
+    /* -----关闭按钮内外部模式end----- */
 
     return () => (
       <Popup
@@ -422,7 +420,6 @@ export default defineComponent({
           </div>
 
           {renderCheckbox()}
-
           {/* 渲染-关闭图标：外部-底部 */}
           {!showInsideClose.value &&
             !showTopClose.value &&

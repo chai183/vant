@@ -220,6 +220,7 @@ const showComponentCall = () => {
 </script>
 
 <template>
+  <!-- 展示方式 -->
   <demo-block card :title="t('displayMode')">
     <van-cell
       is-link
@@ -232,11 +233,11 @@ const showComponentCall = () => {
       @click="showPersistentModeNotify"
     />
   </demo-block>
-
+  <!-- 滚动通知 -->
   <demo-block card :title="t('scrollNotify')">
     <van-cell is-link :title="t('scrollNotify')" @click="showScrollNotify" />
   </demo-block>
-
+  <!-- 带文字按钮 -->
   <demo-block card :title="t('textButton')">
     <van-cell
       is-link
@@ -249,11 +250,11 @@ const showComponentCall = () => {
       @click="showTextButtonNotify(true)"
     />
   </demo-block>
-
+  <!-- 带 icon 通知 -->
   <demo-block card :title="t('iconNotify')">
     <van-cell is-link :title="t('iconNotify')" @click="showIconNotify" />
   </demo-block>
-
+  <!-- 带强按钮 -->
   <demo-block card :title="t('strongButton')">
     <van-cell
       is-link
@@ -271,7 +272,7 @@ const showComponentCall = () => {
       @click="showButtonOverflowNotify"
     />
   </demo-block>
-
+  <!-- 状态通知 -->
   <demo-block card :title="t('statusNotify')">
     <van-cell
       is-link
@@ -294,11 +295,11 @@ const showComponentCall = () => {
       @click="showStatusNotify('primary')"
     />
   </demo-block>
-
+  <!-- 纯文字提示 -->
   <demo-block card :title="t('plainText')">
     <van-cell is-link :title="t('plainText')" @click="showPlainNotify" />
   </demo-block>
-
+  <!-- 带关闭按钮 -->
   <demo-block card :title="t('closeable')">
     <van-cell is-link :title="t('closeable')" @click="showCloseableNotify()" />
     <van-cell
@@ -307,7 +308,7 @@ const showComponentCall = () => {
       @click="showCloseableNotify(true)"
     />
   </demo-block>
-
+  <!-- 自定义配置 -->
   <demo-block card :title="t('customConfig')">
     <van-cell is-link :title="t('customConfig')" @click="showCustomNotify" />
     <van-cell
@@ -321,10 +322,9 @@ const showComponentCall = () => {
       @click="showCustomDuration"
     />
   </demo-block>
-
+  <!-- 使用 Notify 组件 -->
   <demo-block card :title="t('useComponent')">
     <van-cell is-link :title="t('useComponent')" @click="showComponentCall" />
-
     <van-notify v-model:show="show" type="success">
       <template #left-icon>
         <van-icon name="passed" />

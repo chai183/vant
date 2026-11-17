@@ -20,11 +20,11 @@ export type {
   DialogMessage,
   DialogOptions,
   DialogThemeVars,
+  DialogMessageAlign,
+  DialogMessageHighlightConfig,
   DialogInputType,
   DialogInputConfig,
-  DialogMessageAlign,
   DialogInputValidateTrigger,
-  DialogMessageHighlightConfig,
 } from './types';
 
 declare module 'vue' {

@@ -27,7 +27,7 @@ import { showToast } from '../toast';
 
 const [name, bem, t] = createNamespace('pull-refresh');
 
-/* ----------默认配置----------- */
+/* --------默认配置---------- */
 const DEFAULT_HEAD_HEIGHT = 88; //拖拽高度
 const DEFAULT_LOADING_ICON = 'replay'; //加载图标
 const DEFAULT_LOOSING_ICON = 'down'; //下拉和松开图标
@@ -195,7 +195,7 @@ export default defineComponent({
         <span class={bem('success-text')}>{getStatusText()}</span>
       </div>
     );
-    // 针对状态进行渲染
+    //针对状态进行渲染
     const renderStatus = () => {
       const { status, distance } = state;
 
@@ -229,7 +229,7 @@ export default defineComponent({
       emit('update:modelValue', false);
     };
 
-    /*------ 拖动逻辑start------ */
+    /*----- 拖动逻辑start----- */
     // 是否拖动支持
     const isTouchable = () =>
       state.status !== 'loading' &&
@@ -260,7 +260,6 @@ export default defineComponent({
 
         const { deltaY } = touch;
         touch.move(event);
-
         // 根据移动距离-设置对应的状态
         if (reachTop && deltaY.value >= 0 && touch.isVertical()) {
           preventDefault(event);
@@ -306,14 +305,14 @@ export default defineComponent({
         state.duration = +props.animationDuration;
 
         if (value) {
-          // 监听 true时,保持固定设置的高度,进行加载状态
+          // 监听:true时,保持固定设置的高度,进行加载状态
           refreshFailed = false;
           setStatus(+props.headHeight, true);
         } else if (refreshFailed) {
           refreshFailed = false;
           setStatus(0, false);
         } else if (slots.success || props.successText) {
-          // 当refresh执行完毕,设置false,配置了 successText ,会进入保持高度的同时,进行对应提示
+          // 当refresh执行完毕,设置false,配置了successText ,会进入保持高度的同时,进行对应提示
           showSuccessTip();
         } else {
           setStatus(0, false);

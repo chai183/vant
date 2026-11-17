@@ -45,6 +45,19 @@ export default {
 
 ```html
 <van-switch v-model="checked" loading />
+<van-switch v-model="checked2" loading disabled />
+```
+
+```js
+import { ref } from 'vue';
+
+export default {
+  setup() {
+    const checked = ref(true);
+    const checked2 = ref(false);
+    return { checked, checked2 };
+  },
+};
 ```
 
 ### Custom Size
@@ -188,6 +201,8 @@ The component provides the following CSS variables, which can be used to customi
 | --van-switch-on-background | _var(--van-primary-color)_ | - |
 | --van-switch-disabled-on-background | _#f8d2b7_ | - |
 | --van-switch-disabled-off-background | _#ebebeb_ | - |
+| --van-switch-loading-off-background | _var(--van-gray-9)_ | Background when loading and off |
+| --van-switch-loading-on-background | _var(--van-switch-on-background)_ | Background when loading and on |
 | --van-switch-loading-size | _10px_ | - |
 | --van-switch-loading-color | _var(--van-white)_ | - |
 | --van-switch-duration | _var(--van-duration-base)_ | - |

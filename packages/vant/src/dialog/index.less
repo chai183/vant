@@ -76,7 +76,9 @@
       padding-top: var(--van-dialog-has-title-message-padding-top);
       color: var(--van-dialog-has-title-message-text-color);
     }
-
+    &--has-input {
+      padding-bottom: var(--van-dialog-has-form-message-padding-bottom);
+    }
     &--left {
       text-align: left;
     }
@@ -92,16 +94,16 @@
 
   &__input {
     padding: 0 var(--van-dialog-message-padding) var(--van-padding-lg);
-
+    &--before {
+      padding-bottom: 0;
+    }
     &--has-title {
       padding-top: var(--van-dialog-has-title-message-padding-top);
       color: var(--van-dialog-has-title-message-text-color);
     }
-
     &--isolated {
       padding: var(--van-dialog-header-isolated-padding);
     }
-
     .van-cell {
       padding: 0;
       background: transparent;
@@ -146,9 +148,12 @@
     display: flex;
     overflow: hidden;
     user-select: none;
-
     &--vertical {
       flex-direction: column;
+    }
+    .van-button__text {
+      font-size: 18px;
+      line-height: 18px;
     }
   }
 
@@ -160,7 +165,6 @@
     margin: 0;
     border-radius: 0;
   }
-
   &__button {
     &::after {
       box-sizing: border-box;
@@ -225,7 +229,7 @@
     }
 
     .van-dialog__confirm {
-      color: var(--van-white);
+      color: var(--van-primary-color);
     }
 
     .van-action-bar-button {

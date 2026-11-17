@@ -1,5 +1,6 @@
 import type { Numeric } from '../utils';
 
+// navbar的菜单按钮--配置
 export type NavBarMenuItem = {
   name?: Numeric;
   icon?: string;
@@ -10,7 +11,7 @@ export type NavBarMenuItem = {
   className?: string;
   [key: PropertyKey]: any;
 };
-
+// navbar 外层按钮--配置
 export type NavBarButton = {
   name?: Numeric;
   icon?: string;
@@ -37,7 +38,6 @@ export type NavBarThemeVars = {
   navBarSubtitleFontSize?: string;
   navBarSubtitleTextColor?: string;
   navBarZIndex?: number | string;
-  navBarDisabledOpacity?: string;
   navBarButtonGap?: string;
   navBarHorizontalPadding?: string;
   navBarButtonWidth?: string;
@@ -45,16 +45,9 @@ export type NavBarThemeVars = {
   navBarButtonIconSize?: string;
   navBarMenuZIndex?: number | string;
   navBarMenuWidth?: string;
-  navBarMenuEdgeGap?: string;
-  navBarMenuArrowGap?: string;
-  navBarMenuArrowWidth?: string;
-  navBarMenuArrowHeight?: string;
-  navBarMenuArrowColor?: string;
   navBarMenuItemHeight?: string;
   navBarMenuBackground?: string;
-  navBarMenuRadius?: string;
   navBarSearchHeight?: string;
   navBarSearchBackground?: string;
   navBarSearchRadius?: string;
-  titleMaxWidth?: string;
 };

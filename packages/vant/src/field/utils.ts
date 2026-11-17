@@ -301,7 +301,10 @@ export function formatUkeyDisplay(raw: string) {
 export const ukeyRawOffsetToDisplayIndex = telRawOffsetToDisplayIndex;
 
 // Map raw-string offset (no commas) to caret index in money display string.
-export function moneyRawOffsetToDisplayIndex(display: string, rawOffset: number) {
+export function moneyRawOffsetToDisplayIndex(
+  display: string,
+  rawOffset: number,
+) {
   if (rawOffset <= 0) {
     return 0;
   }

@@ -131,7 +131,9 @@ app.use(BottomActionBar);
   <template #top>
     <div class="selected-count">
       已选<strong>9,999</strong>笔
-      <span class="selected-amount">总金额<strong>10,000,000,000</strong>元</span>
+      <span class="selected-amount"
+        >总金额<strong>10,000,000,000</strong>元</span
+      >
     </div>
   </template>
   <template #more>
@@ -237,7 +239,9 @@ app.use(BottomActionBar);
     />
   </template>
   <template #actions>
-    <van-button block type="primary" @click="formRef?.submit()">确定</van-button>
+    <van-button block type="primary" @click="formRef?.submit()"
+      >确定</van-button
+    >
   </template>
 </van-bottom-action-bar>
 ```
@@ -264,7 +268,13 @@ app.use(BottomActionBar);
       </van-button>
     </div>
     <div class="text-action van-hairline--left">
-      <van-button size="small" text-button plain type="primary" @click="onSecondary">
+      <van-button
+        size="small"
+        text-button
+        plain
+        type="primary"
+        @click="onSecondary"
+      >
         确定
       </van-button>
     </div>
@@ -296,10 +306,10 @@ app.use(BottomActionBar);
 
 ### Events
 
-| 事件名 | 说明 | 回调参数 |
-| --- | --- | --- |
-| click-more | 溢出 Popover 首次展开时触发 | - |
-| update:more-expanded | 溢出 Popover 显隐变化 | _expanded: boolean_ |
+| 事件名               | 说明                        | 回调参数            |
+| -------------------- | --------------------------- | ------------------- |
+| click-more           | 溢出 Popover 首次展开时触发 | -                   |
+| update:more-expanded | 溢出 Popover 显隐变化       | _expanded: boolean_ |
 
 ### Slots
 

@@ -89,11 +89,12 @@ export default defineComponent({
         'pageSize',
       ]);
       const locked = isDisabled() || isReadonly();
-      const displaySource =
-        remoteOptions.value.length > 0 ? remoteOptions.value : options;
-      const displayValue = props.modelValue
-        ? resolveOptionLabel(displaySource, props.modelValue)
-        : '';
+      // 懒加载列表打开前，也要使用传入的已选文案回显；不将回显项冒充远程列表。
+      const displaySource = [...remoteOptions.value, ...staticOptions];
+      const displayValue =
+        props.modelValue != null && props.modelValue !== ''
+          ? resolveOptionLabel(displaySource, props.modelValue)
+          : '';
       const popupBottom = props.popupSlots?.['popup-bottom'];
       const showSearch = Boolean(radioProps.showSearch);
 

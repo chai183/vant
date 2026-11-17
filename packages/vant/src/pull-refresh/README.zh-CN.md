@@ -63,7 +63,7 @@ export default {
 
 `success-icon` 刷新成功时的图标
 
-注意：想要开启胶囊形式的成功提示,必须传递 `success-text` 或插槽 `success`
+注意 : 想要开启胶囊形式的成功提示,必须传递`success-text`或插槽`success`
 
 ```html
 <van-pull-refresh
@@ -163,7 +163,7 @@ const onRefresh = async ({ error }) => {
 
 ### 自定义提示
 
-通过插槽可以自定义下拉刷新过程中的提示内容。下面的示例将最大拖拽高度设置为 `100px`，图片会在下拉过程中跟随 `distance` 从中心逐步放大、进入加载态后保持 `100%` 大小，刷新成功后从 `100%` 缩放到 `0%`。
+通过插槽可以自定义下拉刷新过程中的提示内容。下面的示例将最大拖拽高度设置为 `100px`，图片会在下拉过程中跟随 `distance` 从中心逐步放大，进入加载态后保持 `100%` 大小，刷新成功后再从 `100%` 缩放到 `0%`。
 
 ```js
 const maxPullDistance = 100;
@@ -252,8 +252,8 @@ const getPullingStyle = (distance) => ({
 | loosing-text | 释放过程提示文案 | _string_ | `松开刷新` |
 | loading-text | 加载过程提示文案 | _string_ | `刷新中` |
 | success-text | 刷新成功提示文案 | _string_ | - |
-| error-text `new` | 刷新失败默认 Toast 提示文案 | _string_ | `请求错误` |
-| pulling-icon `new` | 下拉过程提示图标，支持图标名称或图片链接 | _string_ | `down` |
+| error-text`new` | 刷新失败默认 Toast 提示文案 | _string_ | `请求错误` |
+| pulling-icon`new` | 下拉过程提示图标，支持图标名称或图片链接 | _string_ | `down` |
 | loosing-icon `new` | 释放过程提示图标，支持图标名称或图片链接 | _string_ | `down` |
 | loading-icon `new` | 加载过程提示图标，支持图标名称或图片链接 | _string_ | `replay` |
 | success-icon `new` | 刷新成功提示图标，支持图标名称或图片链接 | _string_ | `passed` |
@@ -268,7 +268,7 @@ const getPullingStyle = (distance) => ({
 | 事件名 | 说明 | 回调参数 |
 | --- | --- | --- |
 | refresh | 下拉刷新时触发 | _{ error: (error?: unknown) => void }_ |
-| error `new` | 调用 `refresh` 参数中的 `error` 方法时触发 | _unknown_ |
+| error`new` | 调用 `refresh` 参数中的 `error` 方法时触发 | _unknown_ |
 | change | 拖动时或状态改变时触发 | _{ status: string, distance: number }_ |
 
 ### Slots

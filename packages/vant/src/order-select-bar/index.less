@@ -1,13 +1,13 @@
 :root,
 :host {
-  --van-order-select-bar-z-index: 100;
+  // --van-order-select-bar-z-index: 100;
   --van-order-select-bar-background: var(--van-background-2);
   --van-order-select-bar-tip-padding: var(--van-padding-xs)
     var(--van-padding-sm);
   --van-order-select-bar-tip-font-size: var(--van-font-size-sm);
   --van-order-select-bar-tip-line-height: 1.5;
   --van-order-select-bar-tip-color: var(--van-orange-dark);
-  --van-order-select-bar-tip-background: var(--van-orange-light);
+  --van-order-select-bar-tip-background: var(--van-white);
   --van-order-select-bar-bar-padding: 14px 12px;
   --van-order-select-bar-bar-min-height: 50px;
   --van-order-select-bar-action-gap: var(--van-padding-xs);
@@ -22,17 +22,17 @@
   right: 0;
   bottom: 0;
   left: 0;
-  z-index: var(--van-order-select-bar-z-index);
+  // z-index: var(--van-order-select-bar-z-index);
   width: 100%;
   background: var(--van-order-select-bar-background);
   user-select: none;
 
   &__tip {
-    padding: var(--van-order-select-bar-tip-padding);
-    color: var(--van-order-select-bar-tip-color);
+    padding: var(--van-padding-sm);
     font-size: var(--van-order-select-bar-tip-font-size);
     line-height: var(--van-order-select-bar-tip-line-height);
     background: var(--van-order-select-bar-tip-background);
+    border-bottom: 1px solid #eeeeee;
   }
 
   &__bar {
@@ -40,7 +40,7 @@
     align-items: center;
     justify-content: space-between;
     min-height: var(--van-order-select-bar-bar-min-height);
-    padding: var(--van-order-select-bar-bar-padding);
+    padding: 8px 12px;
     box-sizing: border-box;
   }
 
@@ -86,6 +86,7 @@
       padding: 0 var(--van-padding-xs);
       border: none;
       background: transparent;
+      width: 0px;
 
       &::after {
         display: none;

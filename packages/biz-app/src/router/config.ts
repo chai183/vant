@@ -9,9 +9,6 @@ interface RouterConfig {
 
 const { VITE_ROUTER_HISTORY, VITE_PUBLIC_PATH } = import.meta.env;
 
-export const DASHBOARD_PATH = '/dashboard';
-export const REDIRECT_PATH = '/redirect';
-
 export const routerConfig: RouterConfig = {
   history:
     VITE_ROUTER_HISTORY === 'hash'

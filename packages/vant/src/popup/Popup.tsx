@@ -170,24 +170,24 @@ export default defineComponent({
       emit('clickCloseIcon', event);
       close();
     };
-
+    // 判断是否存在确认按钮
     const hasConfirmButton = () => isDef(props.confirmButtonText);
-
+    // 判断是否显示取消按钮
     const hasCancelButton = () =>
       isDef(props.cancelButtonText) || hasConfirmButton();
-
+    // 判断是否显示右上角的“X”关闭图标
     const showCloseIcon = () => props.closeable && !hasConfirmButton();
-
+    // 关闭
     const onCancel = (event: MouseEvent) => {
       emit('cancel', event);
       close();
     };
-
+    // 确认
     const onConfirm = (event: MouseEvent) => {
       emit('confirm', event);
       close();
     };
-
+    // 头部
     const renderHeader = () => {
       const title = slots.title ? slots.title() : props.title;
       const showCancel = hasCancelButton();

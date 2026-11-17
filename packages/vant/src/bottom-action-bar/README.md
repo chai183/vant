@@ -48,7 +48,9 @@ Multiple `plain` secondary buttons. Put the primary action first in `#actions`; 
 <van-bottom-action-bar>
   <template #actions>
     <van-button plain type="primary" @click="onConfirm">Confirm</van-button>
-    <van-button plain type="primary" @click="onTertiary">Secondary 2</van-button>
+    <van-button plain type="primary" @click="onTertiary"
+      >Secondary 2</van-button
+    >
   </template>
 </van-bottom-action-bar>
 
@@ -235,7 +237,9 @@ For a single full-width submit button:
     />
   </template>
   <template #actions>
-    <van-button block type="primary" @click="formRef?.submit()">Confirm</van-button>
+    <van-button block type="primary" @click="formRef?.submit()"
+      >Confirm</van-button
+    >
   </template>
 </van-bottom-action-bar>
 ```
@@ -262,7 +266,13 @@ Combine with `max-visible-actions` and customize the overflow trigger via `#more
       </van-button>
     </div>
     <div class="text-action van-hairline--left">
-      <van-button size="small" text-button plain type="primary" @click="onSecondary">
+      <van-button
+        size="small"
+        text-button
+        plain
+        type="primary"
+        @click="onSecondary"
+      >
         Confirm
       </van-button>
     </div>

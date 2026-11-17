@@ -216,6 +216,7 @@ export const rosterOrgTree = [
   },
 ];
 
+/** Mock 记录对齐 PC OrgStaffDetailVO。 */
 function staff(
   id: string,
   name: string,
@@ -227,13 +228,28 @@ function staff(
 ) {
   return {
     id,
-    name,
-    staffNo,
-    avatar: '',
-    phone,
-    orgId,
-    orgName,
-    concurrent,
+    staffName: name,
+    workNumber: staffNo,
+    staffImageId: '',
+    mobileNo: phone,
+    departmentId: orgId,
+    departmentName: orgName,
+    assignDeptIds: concurrent ? [`${orgId}-assign`] : [],
+    chargeDeptIds: [],
+    companySiteName: '',
+    corporationId: '',
+    endDate: '',
+    enrollDate: '',
+    enrollWorkYears: 0,
+    idCardNo: '',
+    idCardType: '',
+    jobTitleName: '',
+    positionLevelName: '',
+    positionName: '',
+    sex: '',
+    staffStatus: 'IN_SERVIC',
+    staffType: '',
+    startDate: '',
   };
 }
 

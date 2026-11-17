@@ -1,9 +1,10 @@
 /**
  * 字典 Mock（对齐 PC GET /api/dthr-base/dict/simple/{dictCode}/items）
- * 数据复用 onboarding SCHEMA_DICT_OPTIONS，转成后端 DictItemVO
+ * 档案/花名册编码使用 PC 同源样本；其余编码保留入职演示样本。
  */
 import type { MockMethod } from 'vite-plugin-mock';
 import { SCHEMA_DICT_OPTIONS } from '@/services/api/employee/employment/onboarding/schema-dict';
+import { schemaDictMockData } from './data';
 
 function unifiedSuccess<T>(body: T) {
   return {
@@ -46,26 +47,13 @@ const mocks: MockMethod[] = [
     // vite-plugin-mock 类型只声明 string，运行时支持 RegExp
     url: /\/api\/dthr-base\/dict\/simple\/([^/]+)\/items/ as unknown as string,
     method: 'get',
-    response: ({
-      url,
-      query,
-    }: {
-      url?: string;
-      query?: { parentValue?: string; status?: string | number };
-    }) => {
+    response: ({ url }: { url?: string }) => {
       const matched = String(url || '').match(
         /\/api\/dthr-base\/dict\/simple\/([^/?]+)\/items/,
       );
       const dictCode = matched?.[1] ? decodeURIComponent(matched[1]) : '';
       const raw = SCHEMA_DICT_OPTIONS[dictCode] || [];
-      let list = toDictItemVO(dictCode, raw);
-
-      // 一层为主；若带 parentValue 则按上级过滤（便于联调）
-      const parentValue = query?.parentValue;
-      if (parentValue != null && String(parentValue).trim() !== '') {
-        const parentText = String(parentValue);
-        list = list.filter((item) => String(item.parentValue) === parentText);
-      }
+      const list = schemaDictMockData[dictCode] || toDictItemVO(dictCode, raw);
 
       return unifiedSuccess(list);
     },

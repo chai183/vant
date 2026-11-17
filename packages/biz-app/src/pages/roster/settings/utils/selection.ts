@@ -1,4 +1,4 @@
-import type { RosterSettingNode } from '@/types/roster/settings';
+import type { RosterSettingNode } from '@/types/employee/roster/settings';
 
 /** 节点编码按信息集、分组路径定位，同编码字段不会跨分组串选。 */
 export function settingKey(path: string[], node: RosterSettingNode) {

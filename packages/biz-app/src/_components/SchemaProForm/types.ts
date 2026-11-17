@@ -52,6 +52,7 @@ export interface SchemaFieldItem {
   approveDisplay?: boolean;
   approveRequired?: boolean;
   dataSource?: string;
+  dataSourceParams?: Record<string, unknown> | (() => Record<string, unknown>);
   defaultValue?: unknown;
   placeholder?: string;
   disabled?: boolean;

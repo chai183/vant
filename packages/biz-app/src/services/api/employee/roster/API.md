@@ -1,62 +1,95 @@
 # 花名册（移动端）- 接口文档
 
-服务前缀：`/dthr-employee/v4`
+服务前缀：`/dthr-employee/v4`（团队授权字段列表在 `/dthr-base/v4`）
+
+## 真接口
+
+| 接口 | Method | URL | 来源 |
+| --- | --- | --- | --- |
+| 基础开关 | GET | `/dthr-employee/v4/corp/config/query-team-auth` | 同步pc |
+| 全部可选 / 已选字段 | GET | `/dthr-base/v4/system-config/list` | 同步pc |
+| 详情页签集合 | GET | `/dthr-employee/v4/staff-info-field/roster-detail-set/get` | 同步pc |
+| 当前 Tab 字段 | GET | `/dthr-employee/v4/staff-info-field/roster-display-form/get` | 同步pc |
+| 基础信息详情 | POST | `/dthr-employee/v4/staff-basic/detail` | 同步pc |
+| 福利详情 | POST | `/dthr-employee/v4/staff-benefit-info/detail` | 同步pc |
+| 薪资详情 | POST | `/dthr-employee/v4/staff-salary-tax-info/detail` | 同步pc |
+| 个税申报详情 | POST | `/dthr-employee/v4/staff-tax-info/detail` | 同步pc |
+| 教育经历详情 | POST | `/dthr-employee/v4/staff-education/detail` | 同步pc |
+| 工作经历详情 | POST | `/dthr-employee/v4/staff-work-experience/detail` | 同步pc |
+| 家庭成员详情 | POST | `/dthr-employee/v4/staff-family/detail` | 同步pc |
+| 员工证书详情 | POST | `/dthr-employee/v4/staff-certificate/detail` | 同步pc |
+| 绩效档案详情 | POST | `/dthr-employee/v4/staff-performance/detail` | 同步pc |
+| 公司内兼任详情 | POST | `/dthr-employee/v4/staff-concurrent-position/detail` | 同步pc |
+| 自定义信息集详情 | POST | `/dthr-employee/v4/archive/info/detail` | 同步pc |
+| 直属领导详情 | POST | `/dthr-employee/v4/staff-report/detail` | 同步pc |
+
+设置页接口见 [settings/API.md](./settings/API.md)。  
+组织树 / 部门人员见 [organization/org/API.md](../../organization/org/API.md)。
+
+## 字段 Mock 同步范围
+
+`src/mock/mockApi/employee/roster/detail-data.ts` 的页签、字段、分组及基础/固定单条/多条/自定义详情样本按 PC 花名册详情 Mock 同步（2026-11-17）。员工档案复用这一份数据，不再维护独立字段样本。团队和个人授权仍使用移动端联调样本，未替换成 PC 管理配置。
+
+PC 缺少的证件照正反面、两组银行卡图片、教育证书照1/2在移动端补充，共6个图片字段；样本同时带明确的 Mock 文件 ID 和已有展示地址。补充字段的 1 张、8MB、png/jpg/jpeg 仅为开发样本，不是产品固定限制。PC 已有图片/附件的大小、数量、格式保持原值。LICENSE 有独立证照数据但 PC 缺少配套列，保留证照三字段，不借用家庭成员占位列。
+
+档案 Schema 将 PC 字段顶层的 required、length、dictCode、level、parentColumnName、数值及上传限制转换为通用表单配置，已有 typeConfigJson 优先。地区信息等自定义详情按对应 setCode 返回，不混用 LICENSE 数据。成长记录、附件专用面板和成本的移动端展示样本不在本次字段同步范围。
+
+## 假接口
+
+| 接口 | Method | URL | 来源 |
+| --- | --- | --- | --- |
+| 当前登录人 | POST | `/dthr-employee/v4/mobile-roster/context` | mock假数据 |
+| 人员全量（搜索） | POST | `/dthr-employee/v4/mobile-roster/staff` | mock假数据 |
+| 成长-异动记录 | POST | `/dthr-employee/v4/staff-growth/change-list` | 同步pc |
+| 成长-企业内任职 | POST | `/dthr-employee/v4/staff-growth/position-list` | 同步pc |
+| 员工成本中心 | POST | `/dthr-employee/v4/staff-cost-center/detail` | 同步pc |
+| 附件 | POST | `/dthr-employee/v4/staff-roster/detail` | 同步pc |
+
+统一响应：`{ body, errorCode, errorMsg }`，成功 `errorCode` 为 `null` 或 `000000`。
 
 ---
 
-## 当前登录人（me）
+## 【假接口】当前登录人（me）
 
-- **作用**：花名册入口取当前登录人所属部门、是否部门联系人。无入参，按登录态返回。
+- **作用**：入口取所属部门、是否部门联系人。PC 无此接口，移动端占位
 - **URL**: `POST /dthr-employee/v4/mobile-roster/context`
 - **入参**：无
 - **返回 body**
 
-| 字段 | 类型 | 必填 | 说明 |
-| --- | --- | --- | --- |
-| orgId | String | 是 | 当前登录人所属部门 id |
-| orgName | String | 是 | 当前登录人所属部门名称 |
-| isDeptContact | Boolean | 是 | 是否部门联系人。`true` 时入口进入自己的部门，并显示右上角花名册设置 |
-
-部门联系人为 `false` 时，入口停留在组织架构根。部门人员列表不走本接口，按 `orgId` 调组织人员接口。
+| 字段          | 类型    | 必填 | 说明                            |
+| ------------- | ------- | ---- | ------------------------------- |
+| orgId         | String  | 是   | 所属部门 id                     |
+| orgName       | String  | 是   | 所属部门名称                    |
+| isDeptContact | Boolean | 是   | `true` 进入本部门并显示设置入口 |
 
 ---
 
-## 员工身份字段
+## 【假接口】人员全量（搜索）
 
-花名册真实字段以提供的 `roster.txt` 为准；手机设置的旧 `fieldCode` 不能作为人员字段名来源：
+- **作用**：搜索页先拉全量再前端匹配；正式搜索接口接上后替换。PC 无此接口
+- **URL**: `POST /dthr-employee/v4/mobile-roster/staff`
+- **入参**：无
+- **返回 body**：`{ records, total }`
 
-| 接口字段 | 说明 | 移动端处理 |
-| --- | --- | --- |
-| avatar | 头像原始值 | 设置接口的 `fieldCode: tab_staff_info.staffImageId` 对应 `columnName: avatar`；人员数据只读取 `avatar` |
-| name | 员工姓名 | 列表、搜索和详情使用真实列名 `name`；设置节点只通过 `columnName: "name"` 对应它 |
-| staffNo | 工号 | 列表、详情均使用 `staffNo`，字段授权通过 `columnName` 对应 |
-| orgId | 部门字段 | 按 `orgId` 做字段授权，不转换为其他部门别名 |
-| orgName | 部门展示值 | 来自 `orgId` 的 `fieldMapping: orgName`，列表展示和部门关键字搜索读取此值 |
+records[]
 
-- 详情字段以 2026-11-13 提供的 `roster.txt` 为准：11 个信息集、19 个分组、187 个字段；Mock 同步其编码、名称、字段类型及展示映射。样本未覆盖的既有专用页签保持原样。
-- 人员列表的必填性尚未提供，缺失值在适配层保留为空字符串。
-- `idPhotoFront` 是证件照正面，与头像 `avatar` 分开处理。
-- 头像配置按用户补充加入手机设置 Mock：`fieldCode: tab_staff_info.staffImageId`、`columnName: avatar`。原 `roster.txt` 未包含头像字段，因此不修改其 187 个详情字段，也不把设置编码当作人员字段。
-- 姓名设置节点保留 `fieldCode: "tab_staff_info.staffName"`，新增 `columnName: "name"`；备注节点保留原设置编码，`columnName` 为 `remarks`。这些设置编码不是详情数据取值键。
-- 人员适配只读取确认的真实字段，不再对部门、手机号、头像添加未确认的别名兼容。`fieldMapping` 只决定展示取值，不参与授权匹配。
-- 当前列表仍使用姓名文字头像；`avatar` 的值格式和图片访问规则尚未提供，本次不拼接或推断图片地址。
+| 字段       | 类型    | 说明         |
+| ---------- | ------- | ------------ |
+| id         | String  | 员工 id      |
+| name       | String  | 姓名         |
+| staffNo    | String  | 工号         |
+| phone      | String  | 手机号       |
+| orgId      | String  | 所属部门 id  |
+| orgName    | String  | 所属部门名称 |
+| avatar     | String  | 头像         |
+| concurrent | Boolean | 是否兼任     |
 
 ---
 
-## 团队信息授权
+## 基础设置
 
-管理员在「员工设置 → 手机花名册设置 → 团队信息授权」配好。当前花名册展示只按 `appTeamAuthSelected` 的团队已选字段裁剪，不叠加个人设置。
-
-- 移动端设置页全量选项使用 `GET /dthr-base/v4/system-config/list?type=appTeamAuth`，后端将此类型调整为返回完整可选配置。
-- `appTeamAuthSelected`：团队已选字段，当前列表、搜索和详情的唯一字段授权来源；设置页复用同一请求缓存回显已选项。
-- 个人设置属于后续员工档案模块，当前花名册 Store 不保存、不求交，也不用于裁剪详情。
-
-`isAllowDepartmentManagerView` 给 App 入口判断部门负责人是否能看到花名册，进页后不再拦一次。
-
-### 基础设置
-
-- **URL**: `/dthr-employee/v4/corp/config/query-team-auth`
-- **Method**: `GET`
+- **作用**：是否允许部门负责人查看
+- **URL**: `GET /dthr-employee/v4/corp/config/query-team-auth`
 - **入参**：无
 - **返回 body**
 
@@ -64,80 +97,54 @@
 | ---------------------------- | ------- | ---- | ------------------------- |
 | isAllowDepartmentManagerView | Boolean | 是   | `true` 允许部门负责人查看 |
 
-### 全部可选 / 已选字段
+---
 
-- **URL**: `/dthr-base/v4/system-config/list`
-- **Method**: `GET`
+## 全部可选 / 已选字段
+
+- **作用**：团队授权字段树；展示只按 `appTeamAuthSelected` 裁剪
+- **URL**: `GET /dthr-base/v4/system-config/list`
 - **入参**
 
 | 字段 | 类型   | 必填 | 说明                                               |
 | ---- | ------ | ---- | -------------------------------------------------- |
 | type | String | 是   | `appTeamAuth` 全部可选；`appTeamAuthSelected` 已选 |
 
-- **返回 body**：`{ code, msg, data }`，信息集在 `data` 数组，`setCode → groupList → fieldList`
+- **返回 body**：`{ code, msg, data }`，信息集在 `data`，`setCode → groupList → fieldList`
 
 | 字段 | 类型 | 说明 |
 | --- | --- | --- |
-| setCode / setName | String | 信息集，与花名册 setCode 一致 |
+| setCode / setName | String | 信息集 |
 | groupCode / groupName | String | 分组 |
-| fieldCode / fieldName | String | 设置接口原有编码及名称；字段编码不参与花名册匹配或个人／团队范围交集，展示名称仍读取 fieldName |
-| columnName | String | 字段级过滤必需，值精确等于对应信息集的花名册 `fieldCode`，不加信息集前缀 |
-| systemConfig.builtin | Boolean | 设置页仅将已选最深层字段严格为 true 的节点视为固定项，父节点标记不限制取消 |
+| fieldCode / fieldName | String | 设置编码及名称；匹配展示字段看 `columnName` |
+| columnName | String | 等于花名册 `fieldCode`，不加信息集前缀 |
+| systemConfig.builtin | Boolean | 已选最深层字段为 `true` 时固定不可取消 |
 | systemConfig.sort | Number | 排序 |
 
-`getRosterTeamAuthSelectedApi()` 只请求 `type=appTeamAuthSelected`，同一响应分别生成展示树 `body` 和配置树 `settingsList`。Store 缓存两者，设置页不复用展示字段映射逻辑。
-
-`getRosterTeamAuthApi()` 是旧聚合方法，当前展示与设置页均不调用它。设置页的查询、保存协议和 PC 核实来源详见 [设置页接口文档](../../roster/settings/API.md)。
-
-- 过滤关系：`设置.fieldList[].columnName === 花名册.children[].children[].fieldCode`。例如设置 `fieldCode` 为 `tab_staff_info.staffName`，其 `columnName` 为 `name`，最终匹配详情 `fieldCode: name`。
-- 设置接口的 `fieldCode` 不参与展示字段匹配；展示适配不读取它，设置适配则原样保留用于回显与提交。信息集和分组仍分别按 `setCode`、`groupCode` 对齐。
-- 不截取前缀、按名称猜测或回退到旧编码。字段节点缺少有效 `columnName` 时不授予字段权限。
-- 模块、分组整体授权，以及姓名列表展示和部门负责人入口规则保持原样。
-- `fieldMapping` 仍只负责展示取值（如 `orgId → orgName`），不能代替 `columnName` 作为授权键。
-- 分组字段按 `setCode + groupCode + columnName` 匹配，同名银行卡字段不会跨分组放行；列表字段查询基础信息的默认分组，整组授权同样有效。
-- 已选查询成功但结果为空时按空授权处理；查询失败时仍沿用原有“不裁剪”策略，不把失败当作成功的空设置。
-
-### 字段转换入口
-
-- 业务工具位于 `src/pages/roster/utils/`：`fieldSchema.ts` 统一整理页面字段，`teamAuth.ts` 负责字段匹配与授权规则。它们是模块内的纯函数，不依赖 Vue 页面组件或 Pinia；接口请求和响应结构适配仍留在 `services` 的 `index.ts`、`entity.ts` 中。
-- `createRosterFieldSchema(selectedList, ready)` 接收已适配的团队已选树与请求状态，不请求接口。
-- `filterTabs(tabs)` 返回可用页签；`resolveGroups(setCode, groups)` 返回可直接展示的分组字段，统一完成授权过滤和既有银行卡「是否默认」字段整理。
-- `isListFieldAllowed(fieldCode)` 复用同一个索引，供列表和搜索查询。元数据的顺序、`fieldMapping`、字段类型和选项保留，转换不修改输入。
-- Store 在已选设置变化时重建转换器；详情切换页签时传入对应元数据，不为字段转换请求全量设置或全部页签字段。
-- 既有个人范围求交函数仅作为后续员工档案的独立工具保留，不接入当前花名册转换入口。
-
-### 详情加载与缓存
-
-- 字段和详情并行请求，仅在两者都成功时写入缓存；失败明确提示，下次进入允许重试，不把失败结果缓存成空数据。
-- 缓存按员工隔离，同一页签的并发请求复用；切换员工或部门后，旧响应不覆盖新页面。附件二级页继续共用一次请求。
-- 权限刷新按编码保留当前页签和二级页；当前页失去权限时切换到可见页，无可见页时清空内容。
-- 字段接口返回了其他信息集、或指定附件分类不存在时，不回退显示第一个不相关分类。
+过滤关系：`设置.fieldList[].columnName === 花名册.children[].children[].fieldCode`。
 
 ---
 
 ## 详情页签集合
 
-- **作用**：进入员工详情后查询全部信息集，作为 Tab
-- **URL**: `/dthr-employee/v4/staff-info-field/roster-detail-set/get`
-- **Method**: `GET`
+- **作用**：员工详情全部信息集 Tab
+- **URL**: `GET /dthr-employee/v4/staff-info-field/roster-detail-set/get`
 - **入参**：无
 - **返回 body**：信息集数组
 
-| 字段    | 类型   | 必填 | 说明                  |
-| ------- | ------ | ---- | --------------------- |
-| setCode | String | 是   | 信息集编码，页签 name |
-| setName | String | 否   | 信息集名称            |
-| builtin | Number | 否   | 1 系统 / 0 自定义     |
+| 字段    | 类型   | 必填 | 说明              |
+| ------- | ------ | ---- | ----------------- |
+| setCode | String | 是   | 信息集编码        |
+| setName | String | 否   | 信息集名称        |
+| builtin | Number | 否   | 1 系统 / 0 自定义 |
 
 ---
 
 ## 当前 Tab 字段
 
-- **作用**：切到某个信息集时，按 `setCode` 取这一页的分组和字段
-- **URL**: `/dthr-employee/v4/staff-info-field/roster-display-form/get`
-- **Method**: `GET`
-- **入参**：`setCode` 必填，当前 Tab 的信息集编码
-- **返回 body**：当前信息集，`tab > group > field`
+- **作用**：按信息集取分组和字段
+- **URL**: `GET /dthr-employee/v4/staff-info-field/roster-display-form/get`
+- **入参**：`setCode` 必填
+- **返回 body**：`tab > group > field`
 
 | 字段 | 类型 | 说明 |
 | --- | --- | --- |
@@ -185,7 +192,6 @@
 
 - **固定信息集入参**：`staffId`
 - **自定义入参**：`setCode`、`staffId`
-- 没有固定详情接口的页签使用通用接口，即使 `builtin=1` 也必须携带 `setCode`；已有固定接口的入参保持不变。
 - **返回 body**：记录数组
 
 ---
@@ -200,9 +206,7 @@
 
 ## 【假接口】成长记录-异动记录
 
-正式接口未出，先走占位 Mock。
-
-- **作用**：成长记录「异动记录」列表
+- **作用**：成长记录「异动记录」列表。正式协议未出；占位路径与 PC 假接口一致
 - **URL**: `POST /dthr-employee/v4/staff-growth/change-list`
 - **入参**：`staffId` 必填
 - **返回 body**：`{ records, total }`
@@ -219,9 +223,7 @@
 
 ## 【假接口】成长记录-企业内任职记录
 
-正式接口未出，先走占位 Mock。
-
-- **作用**：成长记录「企业内任职记录」列表
+- **作用**：成长记录「企业内任职记录」列表。正式协议未出；占位路径与 PC 假接口一致
 - **URL**: `POST /dthr-employee/v4/staff-growth/position-list`
 - **入参**：`staffId` 必填
 - **返回 body**：`{ records, total }`
@@ -231,12 +233,12 @@
 | id            | String | 否   | 记录 id                  |
 | startDate     | String | 否   | 任职开始日期             |
 | endDate       | String | 否   | 任职结束日期，空表示至今 |
-| positionType  | String | 否   | 任职类型，如兼岗 / 主岗  |
+| positionType  | String | 否   | 任职类型                 |
 | department    | String | 否   | 任职部门                 |
 | position      | String | 否   | 任职职位                 |
 | duty          | String | 否   | 任职职务                 |
 | rank          | String | 否   | 任职职级                 |
-| changeReason  | String | 否   | 任职变动原因说明         |
+| changeReason  | String | 否   | 任职变动原因             |
 | source        | String | 否   | 数据来源                 |
 | operator      | String | 否   | 操作人                   |
 | operationTime | String | 否   | 操作时间                 |
@@ -245,20 +247,18 @@
 
 ## 【假接口】员工成本中心
 
-正式接口未出，先走占位 Mock。
-
-- **作用**：员工成本中心详情。`displayType` 决定移动端展示形式：`0` 按比例，`1` 按金额。
+- **作用**：成本中心详情；`displayType`：`0` 比例 / `1` 金额。正式协议未出；占位路径与 PC 假接口一致
 - **URL**: `POST /dthr-employee/v4/staff-cost-center/detail`
 - **入参**：`staffId` 必填
 - **返回 body**
 
-| 字段        | 类型   | 必填 | 说明                         |
-| ----------- | ------ | ---- | ---------------------------- |
-| displayType | Number | 是   | 展示形式：`0` 比例，`1` 金额 |
-| ratioTotal  | String | 否   | 总比例文案                   |
-| amountTotal | String | 否   | 总金额文案                   |
-| ratioRows   | Array  | 否   | 按比例分摊                   |
-| amountRows  | Array  | 否   | 按金额分摊                   |
+| 字段        | 类型   | 必填 | 说明               |
+| ----------- | ------ | ---- | ------------------ |
+| displayType | Number | 是   | `0` 比例，`1` 金额 |
+| ratioTotal  | String | 否   | 总比例文案         |
+| amountTotal | String | 否   | 总金额文案         |
+| ratioRows   | Array  | 否   | 按比例分摊         |
+| amountRows  | Array  | 否   | 按金额分摊         |
 
 ratioRows[] / amountRows[]
 
@@ -266,15 +266,13 @@ ratioRows[] / amountRows[]
 | --------------- | ------ | ------------------ |
 | costCenterName  | String | 成本中心           |
 | costProjectName | String | 成本项目（按金额） |
-| value           | String | 分摊比例或分摊金额 |
+| value           | String | 分摊比例或金额     |
 
 ---
 
 ## 【假接口】附件
 
-正式接口未出，先走占位 Mock。
-
-- **作用**：附件 Tab，含花名册附件 / 入职附件
+- **作用**：附件 Tab（花名册附件 / 入职附件）。正式协议未出；占位路径与 PC 假接口一致
 - **URL**: `POST /dthr-employee/v4/staff-roster/detail`
 - **入参**：`staffId` 必填；`code` 固定 `ATTACHMENT`
 - **返回 body**：`attachments.subTabs`
@@ -289,12 +287,12 @@ subTabs[]
 
 groups[]
 
-| 字段        | 类型   | 说明                       |
-| ----------- | ------ | -------------------------- |
-| groupCode   | String | 分组编码                   |
-| groupName   | String | 分组名称                   |
-| displayType | String | `image` 宫格 / `file` 列表 |
-| files       | Array  | 文件列表                   |
+| 字段        | 类型   | 说明             |
+| ----------- | ------ | ---------------- |
+| groupCode   | String | 分组编码         |
+| groupName   | String | 分组名称         |
+| displayType | String | `image` / `file` |
+| files       | Array  | 文件列表         |
 
 files[]
 

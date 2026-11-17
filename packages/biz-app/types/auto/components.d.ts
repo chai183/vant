@@ -16,6 +16,7 @@ declare module 'vue' {
     RouterView: typeof import('vue-router')['RouterView']
     VanActionSheet: typeof import('vant')['ActionSheet']
     VanAnchor: typeof import('vant')['Anchor']
+    VanAvatar: typeof import('vant')['Avatar']
     VanBadge: typeof import('vant')['Badge']
     VanBottomActionBar: typeof import('vant')['BottomActionBar']
     VanButton: typeof import('vant')['Button']
@@ -31,6 +32,8 @@ declare module 'vue' {
     VanConfigProvider: typeof import('vant')['ConfigProvider']
     VanDatePicker: typeof import('vant')['DatePicker']
     VanDialog: typeof import('vant')['Dialog']
+    VanDropdownItem: typeof import('vant')['DropdownItem']
+    VanDropdownMenu: typeof import('vant')['DropdownMenu']
     VanEmpty: typeof import('vant')['Empty']
     VanField: typeof import('vant')['Field']
     VanFilterMenuBar: typeof import('vant')['FilterMenuBar']
@@ -74,6 +77,7 @@ declare global {
   const RouterView: (typeof import('vue-router'))['RouterView'];
   const VanActionSheet: (typeof import('vant'))['ActionSheet'];
   const VanAnchor: (typeof import('vant'))['Anchor'];
+  const VanAvatar: (typeof import('vant'))['Avatar'];
   const VanBadge: (typeof import('vant'))['Badge'];
   const VanBottomActionBar: (typeof import('vant'))['BottomActionBar'];
   const VanButton: (typeof import('vant'))['Button'];
@@ -89,6 +93,8 @@ declare global {
   const VanConfigProvider: (typeof import('vant'))['ConfigProvider'];
   const VanDatePicker: (typeof import('vant'))['DatePicker'];
   const VanDialog: (typeof import('vant'))['Dialog'];
+  const VanDropdownItem: (typeof import('vant'))['DropdownItem'];
+  const VanDropdownMenu: (typeof import('vant'))['DropdownMenu'];
   const VanEmpty: (typeof import('vant'))['Empty'];
   const VanField: (typeof import('vant'))['Field'];
   const VanFilterMenuBar: (typeof import('vant'))['FilterMenuBar'];

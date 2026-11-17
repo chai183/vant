@@ -24,10 +24,17 @@ const orgMocks: MockMethod[] = [
   {
     url: `/api${ORG_DEPT_STAFF_URL}`,
     method: 'post',
-    response: ({ body }) => {
+    // Mock 只按 orgId 回对应样本，不做 queryType / 分页筛选。
+    response: ({ body }: { body?: { orgId?: string } }) => {
       const orgId = String(body?.orgId || '');
       const records = rosterStaffByOrg[orgId] || [];
-      return unifiedSuccess({ records, total: records.length });
+      return unifiedSuccess({
+        current: 1,
+        pages: 1,
+        size: records.length,
+        records,
+        total: records.length,
+      });
     },
   },
 ];

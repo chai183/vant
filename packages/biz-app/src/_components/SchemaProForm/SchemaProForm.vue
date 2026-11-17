@@ -92,6 +92,7 @@ import type { SchemaFieldSet } from './types';
 import { createMergedResolveSchemaField } from './resolve-schema-field';
 import SchemaTimePickerField from './SchemaTimePickerField.vue';
 import SchemaDateTimePickerField from './SchemaDateTimePickerField.vue';
+import SchemaUploadField from './SchemaUploadField.vue';
 import type { SchemaOption } from './apply-type-config';
 import {
   collectSchemaFieldRuntimeMetas,
@@ -238,6 +239,7 @@ const mergedResolveSchemaField = computed(() =>
 const mergedComponents = computed(() => ({
   schemaTimePicker: SchemaTimePickerField,
   schemaDateTimePicker: SchemaDateTimePickerField,
+  schemaUpload: SchemaUploadField,
   ...(props.components || {}),
 }));
 
@@ -402,7 +404,7 @@ const rootStyle = computed<CSSProperties | undefined>(() => {
 });
 
 function getScrollTop(scroller: HTMLElement | Window) {
-  if (scroller === window) {
+  if (!(scroller instanceof HTMLElement)) {
     return (
       window.pageYOffset ||
       document.documentElement.scrollTop ||
@@ -414,7 +416,7 @@ function getScrollTop(scroller: HTMLElement | Window) {
 }
 
 function setScrollTop(scroller: HTMLElement | Window, value: number) {
-  if (scroller === window) {
+  if (!(scroller instanceof HTMLElement)) {
     window.scrollTo(window.scrollX, value);
     document.documentElement.scrollTop = value;
     document.body.scrollTop = value;
@@ -441,7 +443,7 @@ function getScrollParent(el: HTMLElement): HTMLElement | Window {
 }
 
 function getOffsetTop(el: HTMLElement, scroller: HTMLElement | Window) {
-  if (scroller === window) {
+  if (!(scroller instanceof HTMLElement)) {
     return el.getBoundingClientRect().top + getScrollTop(window);
   }
   return (
@@ -454,7 +456,7 @@ function getOffsetTop(el: HTMLElement, scroller: HTMLElement | Window) {
 /** 当前 van-tabs 自己的标题栏（不含嵌套 tabs、不含表单内锚点条） */
 function findTabsHeader(tabsEl: HTMLElement, root: HTMLElement) {
   const wraps = tabsEl.querySelectorAll('.van-tabs__wrap');
-  for (const wrap of wraps) {
+  for (const wrap of Array.from(wraps)) {
     if (!(wrap instanceof HTMLElement)) continue;
     if (root.contains(wrap)) continue;
     if (wrap.closest('.van-tabs') !== tabsEl) continue;
@@ -556,11 +558,14 @@ function syncAnchorScrollPadding() {
     return;
   }
   const scroller = getScrollParent(root);
-  const view = scroller === window ? window.innerHeight : scroller.clientHeight;
+  const view =
+    scroller instanceof HTMLElement
+      ? scroller.clientHeight
+      : window.innerHeight;
   const scrollHeight =
-    scroller === window
-      ? document.documentElement.scrollHeight
-      : scroller.scrollHeight;
+    scroller instanceof HTMLElement
+      ? scroller.scrollHeight
+      : document.documentElement.scrollHeight;
   const currentPad =
     Number.parseFloat(getComputedStyle(root).paddingBottom) || 0;
   const required = Math.ceil(
@@ -855,16 +860,5 @@ defineExpose({
 
 .schema-pro-form-skeleton {
   margin: 16px;
-}
-
-/* 上传限制说明（对齐 PC UploadField *tip） */
-:deep(.schema-pro-form-upload-tips) {
-  font-size: 12px;
-  line-height: 18px;
-  color: var(--van-gray-6, #969799);
-
-  .schema-pro-form-upload-tip + .schema-pro-form-upload-tip {
-    margin-top: 2px;
-  }
 }
 </style>

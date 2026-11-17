@@ -30,7 +30,8 @@ import {
   rosterDetailSingleFormByTab,
   rosterDetailTabs,
 } from './detail-data';
-import { rosterSettingsMockState } from '../../roster/settings/data';
+import { rosterSettingsMockState } from './settings/data';
+import { archivePersonalAuth } from '../../employeeArchive/data';
 
 function unifiedSuccess<T>(body: T) {
   return {
@@ -85,7 +86,9 @@ const rosterMocks: MockMethod[] = [
   {
     url: `/api${ROSTER_DETAIL_CUSTOM_URL}`,
     method: 'post',
-    response: () => unifiedSuccess(rosterDetailMultiRecordByTab.LICENSE),
+    // 各自定义信息集已有独立样本，不把地区信息错误返回成证照记录。
+    response: ({ body }: { body?: { setCode?: string } }) =>
+      unifiedSuccess(rosterDetailMultiRecordByTab[body?.setCode || ''] || []),
   },
   ...Object.entries(ROSTER_DETAIL_MULTI_RECORD_PATH).map(([tabCode, path]) => ({
     url: `/api${path}`,
@@ -132,6 +135,8 @@ const rosterMocks: MockMethod[] = [
     url: `/api${ROSTER_TEAM_AUTH_LIST_URL}`,
     method: 'get',
     response: ({ query }: { query?: { type?: string } }) => {
+      if (query?.type === 'appPersonalAuth')
+        return unifiedSuccess(archivePersonalAuth);
       const data =
         query?.type === ROSTER_TEAM_AUTH_TYPE.selected
           ? rosterSettingsMockState.selected

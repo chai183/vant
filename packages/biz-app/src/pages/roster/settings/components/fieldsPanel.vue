@@ -35,7 +35,7 @@
 
 <script setup lang="ts">
 import { computed } from 'vue';
-import type { RosterSettingNode } from '@/types/roster/settings';
+import type { RosterSettingNode } from '@/types/employee/roster/settings';
 import { settingLeaves } from '../utils/selection';
 
 /** 当前信息集及选择状态。 */

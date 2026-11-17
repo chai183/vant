@@ -1,8 +1,7 @@
 import type { RosterOrgNode, RosterStaffPage } from '@/types/employee/roster';
 import apiClient from '@/services/api';
 import { ORG_DEPT_STAFF_URL, ORG_TREE_URL } from './config';
-import { adaptOrgTree } from './entity';
-import { adaptRosterStaffPage } from '@/services/api/employee/roster/entity';
+import { adaptOrgTree, adaptDeptStaffPage } from './entity';
 
 interface ApiResponse<T> {
   success?: boolean;
@@ -31,19 +30,25 @@ export async function getOrgTreeApi() {
 }
 
 /**
- * 按部门 id 查该部门的人。
+ * 按部门 id 查该部门直属在职人员。
+ * 入参对齐 PC StaffDetailListParam；花名册一次拉全量，pageSize 取大页。
  * orgId 为 UNGROUPED 时表示未分组员工，需后端按该约定返回。
  */
 export async function getDeptStaffApi(orgId: string) {
   const response = await apiClient<ApiResponse<unknown>>({
     url: ORG_DEPT_STAFF_URL,
     method: 'post',
-    data: { orgId },
+    data: {
+      orgId,
+      queryType: 'DIRECT',
+      pageNum: 1,
+      pageSize: 9999,
+    },
   });
   return {
     ...response,
     body: response.success
-      ? adaptRosterStaffPage(response.body)
+      ? adaptDeptStaffPage(response.body, orgId)
       : { ...EMPTY_STAFF_PAGE },
   } as ApiResponse<RosterStaffPage>;
 }

@@ -22,6 +22,8 @@ import {
   getSchemaFieldMapping,
   parseTypeConfigJson,
   unwrapLabelValue,
+  normalizeSchemaUploadFiles,
+  normalizeSchemaUploadSubmit,
 } from './transform-schema-utils';
 
 export {
@@ -60,8 +62,9 @@ export const DEFAULT_SCHEMA_FIELD_TYPE_MAP: Record<
   OPTION: 'radioPicker',
   TEXT: 'field',
   LONG_TEXT: 'field',
-  IMAGE: 'uploader',
-  FILE: 'uploaderFile',
+  IMAGE: 'schemaUpload',
+  IMG: 'schemaUpload',
+  FILE: 'schemaUpload',
 };
 
 export const BOOLEAN_FIELD_OPTIONS: ProFormOption[] = [
@@ -149,7 +152,7 @@ function getFieldDefaultValue(field: SchemaFieldItem) {
   }
   if (config.defaultValue != null) return config.defaultValue;
   if (field?.defaultValue != null) return field.defaultValue;
-  if (field?.fieldType === 'IMAGE' || field?.fieldType === 'FILE') return [];
+  if (['IMAGE', 'IMG', 'FILE'].includes(field?.fieldType)) return [];
   return '';
 }
 
@@ -237,6 +240,42 @@ export function createModelFromSchema(
       });
     });
   });
+  // 统一单条/多条信息集的文件回显，业务页面不再各自转换上传列表。
+  const normalizeRow = (
+    groups: SchemaFieldGroup[],
+    row: Record<string, unknown>,
+  ) => {
+    const next = { ...row };
+    groups.forEach((group) =>
+      group.fieldList.forEach((field) => {
+        const key = getSchemaFieldKey(field);
+        if (
+          field.isEntryConfig !== false &&
+          ['IMAGE', 'IMG', 'FILE'].includes(field.fieldType) &&
+          Object.hasOwn(next, key)
+        )
+          next[key] = normalizeSchemaUploadFiles(next[key]);
+      }),
+    );
+    return next;
+  };
+  (schema || []).forEach((set) => {
+    if (isFlatMultiRowSet(set)) {
+      set.groupList.forEach((group) => {
+        const rows = model[group.groupCode];
+        if (Array.isArray(rows))
+          model[group.groupCode] = rows.map((row) =>
+            normalizeRow([group], row),
+          );
+      });
+    } else if (isMultiRowSet(set)) {
+      const rows = model[set.setCode];
+      if (Array.isArray(rows))
+        model[set.setCode] = rows.map((row) =>
+          normalizeRow(set.groupList, row),
+        );
+    } else Object.assign(model, normalizeRow(set.groupList, model));
+  });
   return model;
 }
 
@@ -303,6 +342,7 @@ function flattenCustomFieldsOnRow(row: Record<string, unknown> = {}) {
 function pickGroupDataFromRow(
   group: SchemaFieldGroup,
   row: Record<string, unknown> = {},
+  mode: 'model' | 'submit' = 'submit',
 ) {
   const next: Record<string, unknown> = {};
   if (!row || typeof row !== 'object') return next;
@@ -310,7 +350,11 @@ function pickGroupDataFromRow(
     const fieldKey = getSchemaFieldKey(field);
     if (!fieldKey) return;
     if (Object.prototype.hasOwnProperty.call(row, fieldKey)) {
-      next[fieldKey] = unwrapLabelValue(row[fieldKey]);
+      next[fieldKey] = ['IMAGE', 'IMG', 'FILE'].includes(field.fieldType)
+        ? mode === 'submit'
+          ? normalizeSchemaUploadSubmit(row[fieldKey])
+          : normalizeSchemaUploadFiles(row[fieldKey])
+        : unwrapLabelValue(row[fieldKey]);
     }
     const mapping = getSchemaFieldMapping(field);
     if (mapping && Object.prototype.hasOwnProperty.call(row, mapping)) {
@@ -408,6 +452,7 @@ export function flattenSubmitPayload(
                 unknown
               >,
             ),
+            'model',
           ),
         );
       });
@@ -424,7 +469,7 @@ export function flattenSubmitPayload(
         );
         const next: Record<string, unknown> = {};
         (setItem.groupList || []).forEach((group) => {
-          Object.assign(next, pickGroupDataFromRow(group, flat));
+          Object.assign(next, pickGroupDataFromRow(group, flat, 'model'));
         });
         return next;
       });
@@ -435,7 +480,7 @@ export function flattenSubmitPayload(
     if (first && typeof first === 'object' && !Array.isArray(first)) {
       const flat = flattenCustomFieldsOnRow(first as Record<string, unknown>);
       (setItem.groupList || []).forEach((group) => {
-        Object.assign(defaults, pickGroupDataFromRow(group, flat));
+        Object.assign(defaults, pickGroupDataFromRow(group, flat, 'model'));
       });
     }
   });
@@ -491,7 +536,7 @@ export function buildSchemaFieldColumn(
   } = options;
 
   const typeConfig = parseTypeConfigJson(field);
-  const {fieldType} = field;
+  const { fieldType } = field;
   const name = getSchemaFieldKey(field);
   const label = field.fieldName || name;
   const required = Boolean(field.required);
@@ -508,14 +553,20 @@ export function buildSchemaFieldColumn(
     dictCode != null && String(dictCode).trim() !== ''
       ? dictOptions[String(dictCode)]
       : undefined;
-  const optionsList = (field.options ||
-    fieldOptions[name] ||
-    dictOptionList) as SchemaOption[] | undefined;
+  // 后端的空 options 数组不阻断已经加载的字典。
+  const optionsList = (
+    field.options?.length
+      ? field.options
+      : fieldOptions[name]?.length
+        ? fieldOptions[name]
+        : dictOptionList
+  ) as SchemaOption[] | undefined;
   const resolvedOptions =
     optionsList || (isBooleanField ? BOOLEAN_FIELD_OPTIONS : undefined);
 
   const isInputLike =
     component === 'field' &&
+    !field.dataSource &&
     fieldType !== 'DATE' &&
     fieldType !== 'TIME' &&
     fieldType !== 'DATETIME' &&

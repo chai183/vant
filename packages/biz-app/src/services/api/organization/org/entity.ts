@@ -1,4 +1,39 @@
 import type { RosterOrgNode } from '@/types/employee/roster';
+import { adaptRosterStaffPage } from '@/services/api/employee/roster/entity';
+
+/** PC OrgStaffDetailVO → 页面人员字段；只在部门接口使用，不猜搜索接口别名。 */
+export function adaptDeptStaffPage(body: unknown, viewOrgId: string) {
+  const page =
+    body && typeof body === 'object'
+      ? (body as { records?: unknown; total?: unknown })
+      : {};
+  const records = Array.isArray(page.records) ? page.records : [];
+  return adaptRosterStaffPage({
+    total: page.total,
+    records: records.map((row) => {
+      const source = (row || {}) as Record<string, unknown>;
+      const orgId = String(source.departmentId ?? '');
+      const assignDeptIds = Array.isArray(source.assignDeptIds)
+        ? source.assignDeptIds.map(String)
+        : [];
+      return {
+        id: source.id,
+        name: source.staffName,
+        staffNo: source.workNumber,
+        avatar: source.staffImageId,
+        phone: source.mobileNo,
+        orgId,
+        orgName: source.departmentName,
+        // 当前部门在兼职列表，或本部门人员另有兼职部门时展示兼任。
+        concurrent:
+          assignDeptIds.includes(viewOrgId) ||
+          (Boolean(viewOrgId) &&
+            orgId === viewOrgId &&
+            assignDeptIds.length > 0),
+      };
+    }),
+  });
+}
 
 function readCount(value: unknown) {
   const count = Number(value);

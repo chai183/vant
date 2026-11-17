@@ -37,7 +37,7 @@ export function isKnownDataSource(name?: string | null) {
 
 export function getDataSourceConfigLazy(name?: string | null) {
   if (!name || !registry[name]) return undefined;
-  const {lazy} = registry[name];
+  const { lazy } = registry[name];
   if (lazy === true || lazy === false) return lazy;
   return undefined;
 }
@@ -213,7 +213,7 @@ export async function loadDataSourcePage(
     pageNum <= 1 ? normalized.list : mergeOptions(prev, normalized.list);
   optionsCache[key] = merged;
 
-  let {finished} = normalized;
+  let { finished } = normalized;
   if (finished == null && normalized.total != null) {
     finished = merged.length >= normalized.total;
   }
@@ -261,6 +261,20 @@ export function createDataSourceLoadOptions(
   }) => {
     const resolved =
       typeof params === 'function' ? params() || undefined : params;
+    if (registry[name]?.paginated === false) {
+      if (!(await loadDataSourceOptions(name, resolved)))
+        throw new Error('选项加载失败，请点击重试');
+      const text = String(query?.keyword || '')
+        .trim()
+        .toLowerCase();
+      const options = getDataSourceOptions(name, resolved);
+      return {
+        list: text
+          ? options.filter((item) => item.label.toLowerCase().includes(text))
+          : options,
+        finished: true,
+      };
+    }
     const pageNum = Math.max(1, Number(query?.page) || 1);
     const pageSize = Math.max(1, Number(query?.pageSize) || 20);
     const keyword = query?.keyword;

@@ -52,7 +52,7 @@ import {
   adaptRosterTeamAuthTree,
 } from './entity';
 import { isRosterDetailCustomTab } from './tab';
-import { adaptRosterSettingsTree } from '@/services/api/roster/settings/entity';
+import { adaptRosterSettingsTree } from '@/services/api/employee/roster/settings/entity';
 
 export { EMPTY_ROSTER_TEAM_AUTH };
 
